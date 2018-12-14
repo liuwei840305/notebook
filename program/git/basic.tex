@@ -1,7 +1,7 @@
 \documentclass[12pt,a4paper]{article}
 %\usepackage{fontspec, xunicode, xltxtra}  
 %\setmainfont{Hiragino Sans GB}  
-%\usepackage{xeCJK}
+\usepackage{xeCJK}
 %\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
 %\setCJKsansfont[BoldFont=STHeiti]{STXihei}
 %\setCJKmonofont{STFangsong}
@@ -95,6 +95,100 @@
 \begin{document}
 
 \maketitle
+
+\section{Preparation}
+
+\subsection{初始设置}
+对本地计算机里安装的Git进行设置
+
+设置使用 Git 时的姓名和邮箱地址
+
+$\$$ git config $--$global user.name ``Firstname Lastname" \\
+$\$$ git config $--$global user.email ``$\rm your\_email@example.com$"
+
+这个命令，会在``$\rm \sim/.gitconfig$”中以如下形式输出设置文件
+
+[user] \\
+name = Firstname Lastname \\
+email = $\rm your\_email@example.com$
+
+想更改这些信息时，可以直接编辑这个设置文件。这里设置的姓名和邮箱地址会用在 Git 的提交日志中。由于在 GitHub 上公开仓库时，这里的姓名和邮箱地址也会随着提交日志一同被公开，所以请不要使用不便公开的隐私信息。
+
+将 color.ui 设置为 auto 可以让命令的输出拥有更高的可读性
+
+$\$$ git config $--$global color.ui auto \\
+``$\rm \sim/.gitconfig$”中会增加下面一行。
+
+[color] \\
+ui = auto
+
+\subsection{设置 SSH Key}
+GitHub 上连接已有仓库时的认证，是通过使用了 SSH 的公开密钥认证方式进行的。创建公开密钥认证所需的 SSH Key，并将其添加至 GitHub。运行下面的命令创建 SSH Key
+
+$\$$ ssh-keygen -t rsa -C ``$\rm your\_email@example.com$" \\
+Generating public/private rsa key pair. \\
+Enter file in which to save the key \\
+$\rm (/Users/your\_user\_directory/.ssh/id\_rsa)$: 按回车键 \\
+Enter passphrase (empty for no passphrase): 输入密码 \\
+Enter same passphrase again: 再次输入密码
+
+``$\rm your\_email@example.com$”的部分请改成您在创建账户时用的邮箱地址。密码需要在认证时输入，请选择复杂度高并且容易记忆的组合。输入密码后会出现以下结果。
+
+Your identification has been saved in $\rm /Users/your\_user\_directory/.ssh/id\_rsa$. \\
+Your public key has been saved in $\rm /Users/your\_user\_directory/.ssh/id\_rsa.pub$. \\
+The key fingerprint is: \\
+fingerprint值 $\rm your\_email@example.com$ \\
+The key's randomart image is:
+
+$\rm id\_rsa$ 文件是私有密钥，$\rm id\_rsa.pub$ 是公开密钥。
+
+在 GitHub 中添加公开密钥，今后就可以用私有密钥进行认证了。点击右上角的账户设定按钮（ Account Settings），选择 SSH Keys 菜单。点击 Add SSH Key 之后，会出现输入框。在 Title 中输入适当的密钥名称。 Key 部分请粘贴 $\rm id\_rsa.pub$ 文件里的内容。 $\rm id\_rsa.pub$的内容可以用如下方法查看。
+
+$\$$ cat $\rm \sim/.ssh/id\_rsa.pub$ \\
+ssh-rsa 公开密钥的内容 $\rm your\_email@example.com$
+
+添加成功之后，创建账户时所用的邮箱会接到一封提示“公共密钥添加完成”的邮件。完成以上设置后，就可以用手中的私人密钥与 GitHub 进行认证和通信了。
+
+$\$$ ssh -T git@github.com \\
+The authenticity of host 'github.com (207.97.227.239)' can't be established. \\
+RSA key fingerprint is fingerprint值 . \\
+Are you sure you want to continue connecting (yes/no)? 输入yes \\
+
+出现如下结果即为成功。\\
+Hi hirocastest! You've successfully authenticated, but GitHub does not provide shell access.
+
+创建一个公开的仓库。点击右上角工具栏里的 New repository 图标，创建新的仓库。
+
+在 Initialize this repository with a README 选项上打钩，随后 GitHub 会自动初始化仓库并设置 README 文件，让用户可以立刻clone 这个仓库。如果想向 GitHub 添加手中已有的 Git 仓库，建议不要勾选，直接手动 push。
+
+下方左侧的下拉菜单非常方便，通过它可以在\textcolor{yellow}{初始化时自动生成 .gitignore 文件\footnote{该文件用来描述 Git 仓库中不需管理的文件与目录。}}。这个设定会帮我们把\textcolor{yellow}{不需要在 Git 仓库中进行版本管理的文件记录在 .gitignore 文件中}，省去了每次根据框架进行设置的麻烦。下拉菜单中包含了主要的语言及框架，选择今后将要使用的即可。
+
+右侧的下拉菜单可以选择要添加的许可协议文件。如果这个仓库中包含的代码已经确定了许可协议，那么请在这里进行选择。随后将自动生成包含许可协议内容的 LICENSE 文件，用来表明该仓库内容的许可协议。
+
+输入选择都完成后，点击 Create repository 按钮，完成仓库的创建。
+
+下面这个 URL 便是刚刚创建的仓库的页面。\\
+https://github.com/用户名/Hello-Word
+
+README.md 在初始化时已经生成好了。README.md 文件的内容会自动显示在仓库的首页当中。因此，人们一般会在这个文件中标明本仓库所包含的软件的概要、使用流程、许可协议等信息。如果使用Markdown 语法进行描述，还可以添加标记，提高可读性。
+
+在 GitHub 上进行交流时用到的 Issue、评论、 Wiki，都可以用Markdown 语法表述，从而进行标记。准确地说应该是 GitHub Flavored Markdown（ GFM）语法。该语法虽然是 GitHub 在 Markdown 语法基础上扩充而来的，但一般情况下只要按照原本的 Markdown 语法进行描述就可以。使用 GitHub 后，很多文档都需要用 Markdown 来书写。
+
+将已有仓库 clone 到身边的开发环境中。
+
+$\$$ git clone git@github.com:hirocastest/Hello-World.git \\
+Cloning into 'Hello-World'... \\
+remote: Counting objects: 3, done. \\
+remote: Total 3 (delta 0), reused 0 (delta 0) \\
+Receiving objects: $100\% (3/3)$, done.
+
+这里会要求输入 GitHub 上设置的公开密钥的密码。认证成功后，仓库便会被 clone 至仓库名后的目录中。将想要公开的代码提交至这个仓库再 push 到 GitHub 的仓库中，代码便会被公开。
+
+
+
+
+
+
 
 Git commands :
 
