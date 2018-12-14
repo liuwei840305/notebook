@@ -1,0 +1,135 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{基本概念}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+引力质量和惯性质量
+
+\section{等效原理}
+在一个相当小的时空范围内，不可能 通过实验来区分引力和惯性力，它们是等效的；
+
+把非惯性参考系和惯性参考系放在平等的地位，不必给惯性参考系一个优先的位置
+
+非惯性系等效于存在引力场的参考系；
+
+\textcolor{red}{广义相对性原理}
+
+在所有参考系中，自然定律的表述都应该相同；
+
+\textcolor{red}{弱等效原理}
+
+引力和惯性力的等效性只限于力学现象；
+
+\textcolor{red}{强等效原理}
+
+不限于力学实验，要求任何物理实验（例如电磁和光学实验），都不能区分引力和惯性力
+
+\section{局部惯性系}
+局部惯性参考系；
+
+在局部空间范围内消去引力场的参考系；
+
+
+\section{爱因斯坦引力场方程}
+\begin{equation}
+R_{\mu \nu} -\frac{1}{2} g_{\mu \nu} R = -\frac{8\pi G}{c^4} T_{\mu \nu}
+\end{equation}
+方程左边称为爱因斯坦张量，\\
+$g_{\mu \nu}$：时空度规；引力场张量；决定了引力场中时空的弯曲以及引力场中粒子的运动；\\
+$R_{\mu \nu}$：曲率张量；描述时空弯曲程度；依赖于时空度规$g_{\mu \nu}$及其微商；\\
+$R$：$R_{\mu \nu}$与$g_{\mu \nu}$的线性组合；\\
+$T_{\mu \nu}$：物质的能量—动量密度张量；
+
+
+
+
+
+\end{document}

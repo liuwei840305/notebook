@@ -1,0 +1,342 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+%从右倾的积分号变为竖直的积分号
+%define a new command for \rm font of int
+\DeclareSymbolFont{rmlargesymbols}{OMX}{mdbch}{m}{n}
+% or \DeclareSymbolFont{rmlargesymbols}{U}{euex}{m}{n}
+\DeclareMathSymbol{\rmintop}{\mathop}{rmlargesymbols}{82}
+\newcommand{\rmint}{\rmintop\nolimits}
+\DeclareMathSymbol{\rmointop}{\mathop}{rmlargesymbols}{72}
+\newcommand{\rmoint}{\rmointop\nolimits}
+
+%从右倾的积分号变为竖直的积分号 2
+\DeclareSymbolFont{EulerExtension}{U}{euex}{m}{n}
+\DeclareMathSymbol{\euintop}{\mathop} {EulerExtension}{"52}
+\DeclareMathSymbol{\euointop}{\mathop} {EulerExtension}{"48}
+\let\intop\euintop
+\let\ointop\euointop
+
+
+
+\title{$z$变换}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+$z$变换在离散系统中的地位与作用，类似于连续系统中的拉普拉斯变换。
+
+$z$变换的定义可以借助抽样信号的拉氏变换引出，也可直接对离散时间信号给予$z$变换的定义。
+
+抽样信号的拉氏变换：
+
+若连续因果信号$x(t)$经均匀冲激抽样，则抽样信号$x_S(t)$的表示式
+\begin{eqnarray*}
+x_S(t) &=& x(t) \cdot \delta_T(t) \\ 
+&=& \sum_{n=0}^{\infty} x(nT) \delta(t-nT)
+\end{eqnarray*}
+$T$为抽样间隔。对上式进行拉氏变换，
+\begin{eqnarray}
+\nonumber X_S(s) &=& \rmint_0^{\infty} x_S(t) {\rm e}^{-st} \dif t = \rmint_0^{\infty} \left[ \sum_{n=0}^{\infty} x(nT) \delta(t-nT) \right]  {\rm e}^{-st} \dif t \\
+&=& \sum_{n=0}^{\infty} x(nT) {\rm e}^{-snT}
+\label{discre_lap}
+\end{eqnarray}
+引入复变量$z$，令
+\begin{equation*}
+z = {\rm e}^{sT}
+\end{equation*}
+或者
+\begin{equation*}
+s = \frac{1}{T} \ln z 
+\end{equation*}
+则式(\ref{discre_lap})变成复变量$z$的函数式$X(z)$
+\begin{equation}
+X(z) = \sum_{n=0}^{\infty} x(nT) z^{-n}
+\end{equation}
+令$T = 1$，则
+\begin{eqnarray*}
+X(z) &=& \sum_{n=0}^{\infty} x(n) z^{-n} \\
+z &=& {\rm e}^{s}
+\end{eqnarray*}
+
+\section{$z$变换定义}
+与拉氏变换定义类似，$z$变换也有单边和双边之分。序列$x(n)$的\textcolor{red}{单边$z$变换}定义为
+\begin{eqnarray}
+\nonumber X(z) &=& \mathscr{Z}[x(n)] \\
+\nonumber &=& x(0) + \frac{x(1)}{z} + \frac{x(2)}{z^2}  + \cdots \\
+&=& \sum_{n=0}^{\infty} x(n) z^{-n}
+\end{eqnarray}
+$\mathscr{Z}$表示取$z$变换，$z$是复变量。对一切$n$值都有定义的双边序列$x(n)$，定义\textcolor{red}{双边$z$变换}为
+\begin{eqnarray}
+\nonumber X(z) &=& \mathscr{Z}[x(n)] \\
+&=& \sum_{n=-\infty}^{\infty} x(n) z^{-n}
+\end{eqnarray}
+若$x(n)$是因果序列，则双边$z$变换和单边$z$变换是等同的。
+
+\section{典型序列的$z$变换}
+\subsection{单位样值函数}
+$\delta(n)$定义为
+\begin{equation}
+\delta(n) = \left\{ 
+\begin{aligned}
+1 ~~(n = 0) \\
+0 ~~(n \neq 0)
+\end{aligned}
+\right.
+\end{equation}
+其$z$变换为
+\begin{equation*}
+\mathscr{Z}[\delta(n)] = \sum_{n=0}^{\infty} \delta(n) z^{-n} = 1
+\end{equation*}
+单位样值函数$\delta(n)$的$z$变换等于$1$。
+
+
+\subsection{单位阶跃序列}
+$u(n)$定义
+\begin{equation}
+\delta(n) = \left\{ 
+\begin{aligned}
+&1 ~~&(n \geqslant 0) \\
+&0 ~~&(n < 0)
+\end{aligned}
+\right.
+\end{equation}
+其$z$变换为
+\begin{equation*}
+\mathscr{Z}[u(n)] = \sum_{n=0}^{\infty} u(n) z^{-n} = \sum_{n=0}^{\infty} z^{-n}
+\end{equation*}
+若$|z| > 1$，该几何级数收敛，等于
+\begin{equation}
+\mathscr{Z}[u(n)] = \frac{z}{z-1} = \frac{1}{1-z^{-1}}
+\end{equation}
+
+\subsection{斜变序列}
+\begin{equation}
+x(n) = n u(x)
+\end{equation}
+其$z$变换为
+\begin{equation}
+\mathscr{Z}[x(n)] = \sum_{n=0}^{\infty} n z^{-n}
+\end{equation}
+\begin{equation*}
+\sum_{n=0}^{\infty} z^{-n} = \frac{1}{1-z^{-1}}  ~~(|z| > 1)
+\end{equation*}
+的两边分别对$z^{-1}$求导，
+\begin{equation*}
+\sum_{n=0}^{\infty} n (z^{-1})^{n-1} = \frac{1}{(1-z^{-1})^2} .
+\end{equation*}
+两边各乘$z^{-1}$，得到
+\begin{equation}
+\mathscr{Z}[n x(n)] = \sum_{n=0}^{\infty} n z^{-n} = \frac{z}{(z-1)^2}  ~~(|z| > 1)
+\end{equation}
+
+\begin{eqnarray*}
+\mathscr{Z}[n^2 x(n)] &=& \frac{z(z+1)}{(z-1)^3} \\
+\mathscr{Z}[n^3 x(n)] &=& \frac{z(z^2+4z+1)}{(z-1)^4}
+\end{eqnarray*}
+
+\subsection{指数序列}
+单边指数序列
+\begin{equation}
+x(n) = a^n u(n)
+\end{equation}
+其$z$变换为
+\begin{eqnarray*}
+\mathscr{Z}[a^n u(n)] &=& \sum_{n=0}^{\infty} a^n z^{-n} \\
+&=& \sum_{n=0}^{\infty} (a z^{-1})^n
+\end{eqnarray*}
+若满足$|z| > |a|$，则可收敛为
+\begin{equation}
+\mathscr{Z}[a^n u(n)] = \frac{1}{1-(az^{-1})} = \frac{z}{z-a}  ~~(|z| > |a|)
+\end{equation}
+若令$a = {\rm e}^b$，当$|z| > |{\rm e}^b|$，则
+\begin{equation*}
+\mathscr{Z}[{\rm e}^{bn} u(n)] = \frac{z}{z-{\rm e}^b}
+\end{equation*}
+
+
+\subsection{正弦与余弦序列}
+因
+\begin{equation*}
+\mathscr{Z}[{\rm e}^{bn} u(n)] = \frac{z}{z-{\rm e}^b}  ~~(|z| > |{\rm e}^b|)
+\end{equation*}
+令$b = i\omega_0$，则当$|z| > |{\rm e}^{i\omega}| = 1$时，得到
+\begin{equation*}
+\mathscr{Z}[{\rm e}^{i\omega_0 n} u(n)] = \frac{z}{z -{\rm e}^{i\omega_0}}
+\end{equation*}
+令$b = -i\omega_0$，则得到
+\begin{equation*}
+\mathscr{Z}[{\rm e}^{-i\omega_0 n} u(n)] = \frac{z}{z -{\rm e}^{-i\omega_0}}
+\end{equation*}
+
+\begin{eqnarray*}
+\mathscr{Z}[\cos(\omega_0 n) u(n)] &=& \frac{1}{2} \left(\frac{z}{z -{\rm e}^{i\omega_0}} + \frac{z}{z -{\rm e}^{-i\omega_0}}  \right) \\
+&=& \frac{z(z-\cos \omega_0)}{z^2 -2z\cos \omega_0 +1}
+\end{eqnarray*}
+
+
+\begin{eqnarray*}
+\mathscr{Z}[\sin(\omega_0 n) u(n)] &=& \frac{1}{2} \left(\frac{z}{z -{\rm e}^{i\omega_0}} -\frac{z}{z -{\rm e}^{-i\omega_0}}  \right) \\
+&=& \frac{z\sin \omega_0}{z^2 -2z\cos \omega_0 +1}
+\end{eqnarray*}
+
+\section{逆$z$变换}
+若序列$x(n)$的$z$变换为
+\begin{equation*}
+X(z) = \mathscr{Z}[x(n)]
+\end{equation*}
+则$X(z)$的逆变换记作$\mathscr{Z}^{-1}[X(z)]$，并由围道积分给出
+\begin{eqnarray*}
+x(n) &=& \mathscr{Z}^{-1}[X(z)] \\
+&=& \frac{1}{2\pi i} \rmoint_C X(z) z^{n-1} \dif z
+\end{eqnarray*}
+$C$是包围$X(z) z^{n-1}$所有极点之逆时针闭合积分路线，通常选择$z$平面收敛域内以原点为中心的圆。
+
+
+\subsection{计算逆$z$变换的方法}
+
+\subsubsection{围道积分法}
+
+
+
+
+
+
+\subsubsection{幂级数展开法(长除法)}
+
+
+
+
+
+
+
+
+
+
+\subsubsection{部分分式展开法}
+
+
+
+
+
+
+
+
+一般情况下，$X(z)$表达式为
+\begin{equation}
+X(z) = \frac{N(z)}{D(z)} = \frac{b_0 +b_1 z +\cdots +b_{r-1} z^{r-1}  +b_r z^r}{a_0 +a_1 z +\cdots +a_{k-1} z^{k-1}  +b_k z^k}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

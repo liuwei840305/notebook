@@ -1,0 +1,1146 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec,xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+
+\title{近独立子系组成的系统}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{分布与系统的微观态 ~最可几分布}
+\subsection{近独立子系}
+\textcolor{red}{子系}是\textcolor{blue}{组成系统的基本单元}，它可以是气体中的分子，金属中的传导电子，热辐射场中的光子等；也可以代表粒子的某一个自由 度；此外，在某些理论处理中，还可以把系统分成许多宏观大小的部分，把每一部分看成一个子系，等等。如果\textcolor{red}{组成系统的粒子之间的相互作用很弱，可以忽略不计，以致系统的总能量$E$等于各个粒子能量$\varepsilon_i$之和}：
+\begin{equation}
+E = \sum\limits_{i=1}^N  \varepsilon_i ~,
+\end{equation}
+称这种系统为\textcolor{red}{近独立子系(almost independent sub-system)组成的系统}。假如粒子之间完全没有相互作用，粒子之间就不可能交换能量，系统就
+不可能达到平衡并保持平衡。
+
+
+\subsection{粒子按能级的分布$\{a_\lambda\}$}
+令粒子的\textcolor{red}{能级}为$\varepsilon_1,  \varepsilon_2, \cdots,  \varepsilon_\lambda, \cdots$，它们按从低到高的顺序排起来，相应各个\textcolor{red}{能级的简并度}为$g_1,  g_2, \cdots,  g_\lambda, \cdots$，令$a_1,  a_2, \cdots,  a_\lambda, \cdots$，代表这些\textcolor{red}{能级上占据的粒子数}，称为\textcolor{red}{粒子按能级的微观分布}，简记为$\{a_\lambda \}$。一组特定的数$\{a_\lambda \}$，代表粒子按能级的一种特定的微观分布，不同的$\{a_\lambda \}$代表不同的微观分布。
+
+在一定的宏观状态下，允许出现的微观分布有许许多多。考虑处于平衡态的孤立系，这时系统的总能量$E$，体积$V$，总粒子数$N$都是固定的。在此宏观状态下，允许出现的微观分布必须满足下列两个条件:
+\begin{align}
+& \sum_\lambda a_\lambda = N ~, \\
+& \sum_\lambda \varepsilon_\lambda a_\lambda = E ~.
+\end{align}
+第一个条件代表粒子总数等于$N$，第二个条件代表系统的总能量等于$E$。这两个条件是宏观状态对微观分布所加的约束条件。
+
+\subsection{分布$\{a_\lambda \}$对应的系统微观状态数$W(\{a_\lambda \})$}
+分布$\{a_\lambda \}$与系统微观状态是不同的概念。一个特定的微观分布$\{a_\lambda \}$对应于许许多多系统的量子 态。一般而言，不同的微观分布对应的系统量子态数是不同的。对于处于平衡态的孤立系，根据等几率原理，某一微观分布对应的系统微观态数越多，它出现的几率就越大。令$P(\{a_\lambda \})$代表\textcolor{red}{微观分布$\{a_\lambda \}$出现的几率}，则$P(\{a_\lambda \})$应与该分布对应的\textcolor{red}{系统微观状态数}$W(\{a_\lambda \})$成正比，即
+\begin{equation}
+P(\{a_\lambda \}) \propto W(\{a_\lambda \}) ~.
+\end{equation}
+分布的几率正比于$W(\{a_\lambda\})$是以等几率原理为基础的。$W(\{a_\lambda\})$代表未归一化的相对几率，称为\textcolor{red}{热力学几率}。$W(\{a_\lambda\})$是分布$\{a_\lambda \}$的函数。
+
+\subsection{最可几分布法}
+近独立粒子按能量的分布也是一种宏观可观测量，它应该等于在一定宏观状态下各种微观上可能出现的分布的统计平均。
+\begin{equation}
+\bar{a}_\lambda = \sum_{\{a_\lambda \}} a_\lambda P(\{a_\lambda \}) ~,
+\end{equation}
+其中$P(\{a_\lambda \})$代表微观分布$\{a_\lambda \}$的几率，求和号代表对满足固定的总粒子数$N$与总能量$E$这两个约束条件下的一切可能的微观分布求和。最可几分布法不同于直接求平均的方法，它是从一定宏观状 态下所有可能出现的微观分布中，找出出现几率最大的那个分布。倘若最可几分布出现的几率，比起其他分布的几率占有压倒优势，那么，最可几分布应该就等于平均分布。可以证明，最可几分布与平均分布相同，关键是组成系统的粒子数目必须很大。
+
+对处于平衡态下的孤立系，先求出任意分布$\{a_\lambda \}$的相对几率$W(\{a_\lambda \})$，再从宏观状态所允许的所有分布中找出使$W(\{a_\lambda \})$取极大的分布。数学上相当于在 一定的约束条件下求多变量函数$W(\{a_\lambda \})$(它是变量$a_1,  a_2, \cdots,  a_\lambda, \cdots$的函数)的条件极值。为了数学处理方便，用$\ln W$代替$W$，即
+\begin{align}
+& \delta \ln W (\{a_\lambda \}) = 0 ~, \\
+& \delta N = 0 ~, \\
+& \delta E = 0 ~,
+\end{align}
+
+为了具体计算$W(\{a_\lambda \})$，必须区别粒子可分辨或是粒子不可分辨的情况。对粒子不可分辨的情况，还需要区分是玻色子还是费米子。这三种情况相应的$W(\{a_\lambda \})$是不同的，得到的最可几分布也不同。\textcolor{red}{粒子可分辨(定域子系)}的情形下，得到麦克斯韦-玻尔兹曼(Maxwel-Boltzmann)分布，\textcolor{red}{粒子不可分辨}的情形下，对\textcolor{red}{非定域玻色子系统}与\textcolor{red}{非定域费米子系统}，分别得到玻色-爱因斯坦(Bose-Einstein)分布与费米-狄拉克(Fermi-Dirac)分布。
+
+\section{定域子系 ~麦克斯韦-玻尔兹曼分布}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{二能级系统}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{定域子系热力学量的统计表达式 ~熵的统计解释}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{热辐射的普朗克理论}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{固体热容的统计理论}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{定域子系的经典极限条件}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{负绝对温度}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{非定域子系 ~费米-狄拉克分布 ~玻色-爱因斯坦分布}
+\subsection{非定域子系与定域子系的不同}
+非定域的全同粒子系统遵从粒子全同性原理， 即就是全同粒子是不可分辨的。对于费米子与玻色子，前者遵从泡利原理，即不允许两个全同的费米子处于同一个 粒子量子态，而后者不受泡利原理限制。
+
+与定域子系的麦克斯韦-玻尔兹曼分布相比，不同在于分布$\{a_\lambda \}$对应的系统微观状态数$W(\{a_\lambda \})$的表达形式。导致$W$不同的根源并不是由于统计基础或方法，而是微观运动所遵从的量子力学规律对非定域费米子系与玻色子系以及定域子系的不同表现。
+
+考虑处于平衡态的孤立系，其总粒子数$N$与总能量$E$的取值是固定的。微观上允许出现的任何一个分布$\{a_\lambda \}$都必须满足下面两个条件：
+\begin{align}
+\label{N_conser}
+& \sum_\lambda a_\lambda = N ~, \\
+\label{E_conser}
+& \sum_\lambda \varepsilon_\lambda a_\lambda = E ~, \\
+\end{align}
+令$W(\{a_\lambda \})$代表分布$\{a_\lambda \}$所对应的系统微观状态数，它也代表分布的相对几率(热力学几率)。最可几分布法就是求在满足约束条件Eq. (\ref{N_conser})与Eq. (\ref{E_conser})下使$\ln W$取极大的分布。
+
+\subsection{非定域全同费米子和全同玻色子}
+对非定域的全同费米子系统，分布$\{a_\lambda \}$对应的系统微观状态数为
+\begin{equation}
+W_{\rm FD}(\{a_\lambda \}) = \prod_\lambda \dfrac{g_\lambda !}{a_\lambda ! (g_\lambda -a_\lambda) !} ~.
+\end{equation}
+考察$ \varepsilon_\lambda$能级，$a_\lambda$个全同粒子在$g_\lambda$个不同的量子态上有多少种不同的占据方式(也就是$a_\lambda$个粒子的不同的量子态数)。由于费米子遵从泡利原理，每个粒子量子态最多只能占据$1$个粒子(也可以不被占据)。粒子数不能大于量子态数，即$a_\lambda \leqslant g_\lambda$。因此把$a_\lambda$个粒子放到$g_\lambda$个量子态上(每个量子态最多只能放一个粒子)的不同放法，等价于在$g_\lambda$个量子态中挑选出$a_\lambda$个态来让粒子占据的不同的挑选方式，这样的挑选方式共有
+\begin{equation*}
+\dfrac{g_\lambda !}{a_\lambda ! (g_\lambda -a_\lambda) !} ~.
+\end{equation*}
+把所有的能级各自相应的上述因子相乘，得到分布$\{ a_\lambda \}$所对应的系统量子态数。
+
+全同玻色子是不可分辨的，所以它们不受泡利原理的限制，分布$\{a_\lambda \}$对应的系统微观状态数为
+\begin{equation}
+W_{\rm BE}(\{a_\lambda \}) = \prod_\lambda \dfrac{(g_\lambda +a_\lambda -1) !}{a_\lambda ! (g_\lambda -1) !} ~.
+\end{equation}
+考察$ \varepsilon_\lambda$能级，$a_\lambda$个全同玻色子在$g_\lambda$个不同的量子态上有多少种不同的占据方式。每一粒子量子态上占据的粒子数不受泡利原理的限制，因此$a_\lambda > g_\lambda$也是允许的。
+
+把$g_\lambda$个不同的粒子量子态比拟作$g_\lambda$个不同的盒子，把$a_\lambda$个全同粒子比拟作$a_\lambda$个相同的球。
+
+
+
+
+
+在能级$ \varepsilon_\lambda$上不同放法的数目
+\begin{equation*}
+\dfrac{g_\lambda !}{a_\lambda ! (g_\lambda -a_\lambda) !} ~.
+\end{equation*}
+再把所有能级相应的因子相乘，得到分布$\{ a_\lambda \}$所对应的系统量子态数$W(\{ a_\lambda \})$。
+
+
+
+\subsection{求最可几分布}
+\subsubsection{费米子情形}
+假设$a_\lambda \gg 1$，$g_\lambda \gg 1$，由斯特林公式，
+\begin{equation}
+\ln W_{\rm FD} \approx \sum_\lambda \left\{g_\lambda \ln g_\lambda - a_\lambda \ln a_\lambda -(g_\lambda -a_\lambda) \ln (g_\lambda -a_\lambda) \right\} ~.
+\end{equation}
+当$\{ a_\lambda \}$改变$\{\delta a_\lambda \}$时，
+\begin{align}
+& \delta \ln W_{\rm FD} \approx \sum_\lambda \left\{ \ln \dfrac{g_\lambda - a_\lambda}{a_\lambda} \right\} \delta a_\lambda  = 0 ~, \\
+& \delta N  = \sum_\lambda \delta a_\lambda = 0 ~, \\
+& \delta E  = \sum_\lambda \varepsilon_\lambda \delta a_\lambda = 0 ~.
+\end{align}
+
+\begin{align}
+& \sum_\lambda \left\{ \ln \dfrac{g_\lambda - a_\lambda}{a_\lambda} -\alpha -\beta \varepsilon_\lambda \right\} \delta a_\lambda = 0 ~, \\
+&  \dfrac{g_\lambda - a_\lambda}{a_\lambda} = {\rm e}^{\alpha +\beta \varepsilon_\lambda} ~, \\
+& \tilde{a}_\lambda = \bar{a}_\lambda = \dfrac{g_\lambda}{{\rm e}^{\alpha +\beta \varepsilon_\lambda} +1} ~.
+\end{align}
+$\tilde{a}_\lambda$代表最可几分布，$\bar{a}_\lambda$代表平均分布，它们是相等的。\textcolor{red}{费米-狄拉克分布}，也常称费米分布。
+
+
+\subsubsection{玻色子情形}
+假设$a_\lambda \gg 1$，$g_\lambda \gg 1$，由斯特林公式，
+\begin{align}
+& \ln W_{\rm BE} \approx \sum_\lambda \left\{(g_\lambda +a_\lambda) \ln (g_\lambda +a_\lambda)  -a_\lambda \ln a_\lambda -g_\lambda \ln g_\lambda \right\} ~, \\
+& \delta \ln W_{\rm BE} \approx \sum_\lambda \left\{ \ln \dfrac{g_\lambda + a_\lambda}{a_\lambda} \right\} \delta a_\lambda  = 0 ~, \\
+& \sum_\lambda \left\{ \ln \dfrac{g_\lambda + a_\lambda}{a_\lambda} -\alpha -\beta \varepsilon_\lambda \right\} \delta a_\lambda = 0, \\
+& \dfrac{g_\lambda + a_\lambda}{a_\lambda} = {\rm e}^{\alpha +\beta \varepsilon_\lambda} ~, \\
+& \tilde{a}_\lambda = \bar{a}_\lambda = \dfrac{g_\lambda}{{\rm e}^{\alpha +\beta \varepsilon_\lambda} -1} ~.
+\end{align}
+\textcolor{red}{玻色-爱因斯坦分布}，也常称玻色分布。
+
+
+
+
+
+
+
+
+
+
+
+\section{理想玻色气体和理想费米气体热力学量的统计表达式}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{非简并条件 ~经典极限条件}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{麦克斯韦速度分布律}
+麦克斯韦分布是气体分子质心运动的速度分布，它是满足非简并条件(${\rm e}^\alpha \gg 1$)的理想气体所遵从的麦克斯韦-玻尔兹曼分布的一种特殊情形。
+
+气体分子的运动包括质心运动(通常称为平动)和内部运动， 后者又包括双原子和多原子分子的转动和振动、原子内束缚电子的运动，以及核内部自由度的运动。由于质心平动与内部运动彼此独立，故质心运动的速度分布与内部运动无关。
+
+分子的能量$\varepsilon_\lambda$可以表达为平动能量$\varepsilon^t$与内部运动能量$\varepsilon^i$之和，相应的$g_\lambda$等于平动与内部运动的简并度之积，
+\begin{align}
+& \varepsilon_\lambda = \varepsilon^t + \varepsilon^i ~, \\
+& g_\lambda = g^t \cdot g^i ~.
+\end{align}
+麦克斯韦-玻尔兹曼分布可表为
+\begin{equation}
+\bar{a}_\lambda = g_\lambda {\rm e}^{-\alpha -\beta \varepsilon_\lambda} = {\rm e}^{-\alpha} (g^i {\rm e}^{-\beta \varepsilon^i}) (g^t {\rm e}^{-\beta \varepsilon^t}) ~.
+\end{equation}
+对于宏观大小的体积内的气体分子，其平动能级间隔$\Delta \varepsilon^t \ll kT$，因而平动自由度满足经典极限条件，可以将平动量子态用平动子相体元来表达。分子质心运动处于子相体元$\dif \omega^t$内的平均分子数为
+\begin{equation}
+{\rm e}^{-\alpha} \left(\sum_i g^i {\rm e}^{-\beta \varepsilon^i} \right) \dfrac{\dif \omega^t}{h^3} {\rm e}^{-\beta \varepsilon^t} = {\rm e}^{-\alpha} Z^i  \dfrac{\dif \omega^t}{h^3} {\rm e}^{-\beta \varepsilon^t} ~,
+\end{equation}
+其中
+\begin{align}
+& \dif \omega^t = \dif x \dif y \dif z \dif p_x \dif p_y \dif p_z ~, \\
+& \varepsilon^t = \dfrac{1}{2m} (p^2_x +p^2_y +p^2_z) +\varphi(x, y, z) ~, \\
+& Z^i = \sum g^i {\rm e}^{-\beta \varepsilon^i} ~.
+\end{align}
+$\varphi(x, y, z)$代表分子在外场中的势能，$Z^i$为分子内部运动相应的配分函数。设$\varphi=0$，则质心运动处于$\dif \omega^t $内的平均分子数可表为
+\begin{align}
+\nonumber & \dfrac{1}{h^3} {\rm e}^{-\alpha} Z^i {\rm e}^{-(p^2_x +p^2_y +p^2_z)/2mkT} \dif x \dif y \dif z \dif p_x \dif p_y \dif p_z \\
+& = \Lambda {\rm e}^{-(p^2_x +p^2_y +p^2_z)/2mkT} \dif x \dif y \dif z \dif p_x \dif p_y \dif p_z ~.
+\end{align}
+$\Lambda = \dfrac{1}{h^3} e^{-\alpha} Z^i$为一与坐标、动量无关的常数，由总粒子数条件确定：
+\begin{align}
+\nonumber N &= \Lambda \iiint\limits_V \dif x \dif y \dif z \iiint\limits_{-\infty}^\infty {\rm e}^{-(p^2_x +p^2_y +p^2_z)/2mkT}  \dif p_x \dif p_y \dif p_z \\
+& = \Lambda V (2\pi mkT)^{3/2}  ~, \\
+& \Lambda = n \left(\dfrac{1}{2\pi mkT} \right)^{3/2} ~,
+\end{align}
+其中$n=N/V$为分子数密度。
+\begin{equation}
+n \left(\dfrac{1}{2\pi mkT} \right)^{3/2} {\rm e}^{-(p^2_x +p^2_y +p^2_z)/2mkT} \dif p_x \dif p_y \dif p_z ~,
+\end{equation}
+单位体积内，质心运动处于$\dif v_x \dif v_y \dif v_z $内的平均分子数为
+\begin{equation}
+f(v_x, v_y, v_z) \dif v_x \dif v_y \dif v_z = n \left(\dfrac{m}{2\pi kT} \right)^{3/2} {\rm e}^{-m(v^2_x +v^2_y +v^2_z)/2kT} \dif v_x \dif v_y \dif v_z ~.
+\end{equation}
+该式是麦克斯韦速度分布律的常见表达形式。$f(v_x, v_y, v_z)$称为麦克斯韦速度分布函数。取速度空间的球坐标$v, \theta, \varphi$，得到在单位体积内，速率间隔为$\dif v$和速度方向间隔为$\dif \theta \dif \varphi$的平均分子数
+\begin{equation}
+n \left(\dfrac{m}{2\pi kT} \right)^{3/2} {\rm e}^{-mv^2/2kT} v^2 \dif v \sin \theta \dif \theta \dif \varphi ~.
+\end{equation}
+单位体积内，速率间隔处于$v$与$v +\dif v$内的平均分子数为
+\begin{equation}
+4\pi n \left(\dfrac{m}{2\pi kT} \right)^{3/2} {\rm e}^{-mv^2/2kT} v^2 \dif v ~.
+\end{equation}
+该速率分布函数有一极大值，对应的速率称为最可几速率$v_m$：
+\begin{align}
+& \dfrac{\dif }{\dif v} \left( {\rm e}^{-mv^2/2kT} v^2 \right) = 0 ~, \\
+& v_m = \sqrt{\dfrac{2kT}{m} } ~.
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{能量均分定理}
+系统微观能量表达式中的每一正平方项的平均值等于$\dfrac{1}{2} k T$。能量均分定理只有在满足经典极限的条件下才成立。能量均分定理并不限于近独立子系组成的系统，它可以应用 于有相互作用的系统。
+
+将子系的微观能量表为动能$ \varepsilon_k$与势能$ \varepsilon_p$之和，即$\varepsilon =  \varepsilon_k + \varepsilon_p$。动能总可以表为广义动量的平方项之和，
+\begin{equation}
+ \varepsilon_k = \dfrac{1}{2} \sum\limits_{i=1}^r a_i p^2_i ~,
+\end{equation}
+其中$r$为子系自由度，系数$a_i$都是正数，但有可能是$q_1, \cdots, q_r$的函数。在满足经典极限的条件下，麦克斯韦-玻尔兹曼分布可以表为如下的形式：
+\begin{equation*}
+{\rm e}^{-\alpha -\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} ~,
+\end{equation*}
+其中$\dif \omega^r = \dif q_1 \cdots \dif q_r \dif p_1 \cdots \dif p_r$为子相体元。表示子系的运 动状态处于$\dif \omega^r$内的平均数，并满足
+\begin{equation}
+N = \int {\rm e}^{-\alpha -\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} = {\rm e}^{-\alpha} \int {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} = {\rm e}^{-\alpha} Z ~.
+\end{equation}
+式中$N$为子系总数，$Z$为子系配分函数，其经典极限下的形式为
+\begin{equation}
+Z = \int {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} ~.
+\end{equation}
+子系的运动状态处于$\dif \omega^r$内的几率为
+\begin{equation}
+\dfrac{1}{N} {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} = \dfrac{1}{Z} {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} ~.
+\end{equation}
+计算动能
+\begin{align}
+\nonumber \overline{\dfrac{1}{2} a_1 p^2_1} &= \dfrac{1}{Z} \int \dfrac{1}{2} a_1 p^2_1 {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r}  \\
+\nonumber &= \dfrac{1}{Z h^r} \int \cdots \int {\rm e}^{-\beta  \varepsilon_p} \dif q_1 \cdots \dif q_r \int \cdots \int {\rm e}^{-\beta \sum\limits_{i=2}^r a_i p^2_i/2} \dif p_1 \cdots \dif p_r \\
+\nonumber &\cdot \int_{-\infty}^\infty \dfrac{1}{2} a_1 p^2_1 {\rm e}^{-\beta a_1 p^2_1/2} \dif p_1 \\
+&= \dfrac{1}{2\beta} \dfrac{1}{Z}  \int {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} = \dfrac{1}{2\beta} = \dfrac{1}{2} kT ~.
+\end{align}
+计算势能，设$ \varepsilon_p$可以写成下列形式
+\begin{equation}
+\varepsilon_p = \dfrac{1}{2} \sum\limits_{i=1}^n b_i q^2_i + \tilde{\varepsilon}_p(q_{n+1}, \cdots, q_r) ~,
+\end{equation}
+其中$b_i$都是正数，但可以是$q_{n+1}, \cdots, q_r$函数($n<r$)。且假设$\varepsilon_k$系数$a_i$也只是$q_{n+1}, \cdots, q_r$的函数，与$q_{1}, \cdots, q_n$无关。
+\begin{equation}
+\nonumber \overline{\dfrac{1}{2} b_1 q^2_1} = \dfrac{1}{Z} \int \dfrac{1}{2} b_1 q^2_1 {\rm e}^{-\beta  \varepsilon} \dfrac{\dif \omega^r}{h^r} = \dfrac{1}{2\beta} = \dfrac{1}{2} kT ~.
+\end{equation}
+能量$\varepsilon$中任意一个正平方项的平均值等于$\dfrac{1}{2} kT$。
+
+非简并理想气体分子质心平动动能
+
+
+
+
+
+
+
+
+
+
+非简并理想气体分子转动动能
+
+
+
+
+
+
+
+
+理想固体模型中原子的振动
+
+
+
+
+
+
+
+
+
+
+
+\section{非简并理想气体的热力学函数与热容}
+满足非简并条件($e^{\alpha} \gg 1$)的理想分子气体，
+\begin{align}
+& \bar{E} = - N \dfrac{\partial}{\partial \beta} \ln Z ~, ~~ \left(\bar{\varepsilon} = \dfrac{\bar{E}}{N} = -\dfrac{\partial}{\partial \beta} \ln Z  \right) ~, \\
+& p = \dfrac{N}{\beta} \dfrac{\partial}{\partial V} \ln Z ~, \\
+& S = Nk \left(\ln Z -\beta \dfrac{\partial}{\partial \beta} \ln Z \right) - k \ln N! ~, \\
+& \mu = -k T \ln \dfrac{Z}{N} ~.
+\end{align}
+分子的能量可以近似表为四部分之和
+\begin{equation}
+\varepsilon = \varepsilon^t + \varepsilon^r +\varepsilon^v +\varepsilon^{\rm e} ~,
+\end{equation}
+其中各项分别代表分子的平动、转动、振动和束缚电子运动的能量，相应的分子的配分函数也可以表为这四部分相应的配分函数相乘，即
+\begin{align}
+\nonumber Z &= \sum_\lambda g_\lambda {\rm e}^{-\beta  \varepsilon_\lambda} \\
+\nonumber &= \left(\sum g^t {\rm e}^{-\beta  \varepsilon^t} \right) \left(\sum g^r {\rm e}^{-\beta  \varepsilon^r} \right) \left(\sum g^v {\rm e}^{-\beta  \varepsilon^v} \right) \left(\sum g^{\rm e} {\rm e}^{-\beta  \varepsilon^{\rm e}} \right) \\
+\nonumber &= Z^t Z^r Z^v Z^{\rm e} \\
+\ln Z &= \ln Z^t +\ln Z^r +\ln Z^v +\ln Z^{\rm e}
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{弱简并理想气体的物态方程与内能 ~统计关联}
+在非简并条件($e^{\alpha} \gg 1$)下，理想玻色气体与理想费米气体的差别消失，它们的物态方程和内能具有下列形式：
+\begin{align*}
+& pV = Nk T ~, \\
+& \bar{E} = \bar{E}(T) ~.
+\end{align*}
+内能只是温度的函数，与体积无关。因此常常把\textcolor{red}{非简并理想气体}称为\textcolor{red}{经典理想气体}。弱简并理想气体，它们不满足$e^{\alpha} \gg 1$，但仍有$e^{\alpha} > 1$。
+
+\subsection{弱简并理想玻色气体}
+
+
+
+
+
+
+
+
+
+\subsection{弱简并理想费米气体}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{统计关联}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{理想玻色气体的玻色-爱因斯坦凝聚}
+理想玻色气 体的强简并区：$z$接近$1$但仍小于$1$或 ${\rm e}^\alpha$接近$1$但仍大于$1$($z \lesssim 1$或 ${\rm e}^\alpha \gtrsim 1$)。对于理想玻色气体，$z \geqslant 1$或${\rm e}^\alpha \leqslant 1$是不允许的。因为任何一个能级上的粒子数不可能是负值，由$\bar{a}_\lambda =g_\lambda/({\rm e}^{\alpha +\beta \varepsilon_\lambda}-1)$，必须有${\rm e}^{\alpha+\beta \varepsilon_\lambda}>1$(对一切$\lambda$)。粒子平均动能的最低能级$\varepsilon_0$可取为零，故必须有${\rm e}^{\alpha} > 1$或$z=e^{-\alpha}<1$。粒子平动动能的最低能级的量级为
+\begin{equation*}
+\varepsilon_0 \sim \dfrac{2\pi^2 \hbar^2}{mL^2} ~,
+\end{equation*}
+若取$m \sim 10^{-24}$ g，$L \sim 1$ cm，得
+\begin{equation*}
+\varepsilon_0 \sim 10^{-30} ~\text{erg} \sim 10^{-42} ~\text{eV} ~.
+\end{equation*}
+这是一个极小的数值，完全可以当成是零。因此常简单地称它是\textcolor{blue}{零能量态}或\textcolor{blue}{零动量态}。理想玻色气体在强简并条件下将发生一种新的相变，称为\textcolor{red}{玻色-爱因斯坦凝聚}(Bose-Einstein condensation，或 BEC)。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{光子气体}
+处理空窖中的平衡热辐射有两种观点。一种是\textcolor{red}{波的观点}，它\textcolor{orange}{把空窖中的辐射场分解成一系列的简正模，不同的简正模彼此独立，每一个简正模相当于一个简谐振子，因而空窖中的辐射场相当于无穷多个简谐振子组成的系统}。频率为$\nu$的振子，其能量取量子化值$nh\nu(n=0, 1, 2, \cdots)$。另一种观点是\textcolor{red}{粒子的观点}，它\textcolor{orange}{把空窖中的辐射场当成由不可分辨的全同粒子—光子—组成的光子气体。光子之间没有相 互作用，因而构成的是理想气体。光子的自旋为$\hbar$，即光子是玻色 子，所以空窖中的平衡热辐射是由光子组成的理想玻色气体，遵从玻色-爱因斯坦分布。热辐射作为光子气体，光子数不守恒，因为构成空窖壁物质的原子可以发射和吸收光子}。在粒子总数不固定的情况下，用最可几分布法推导玻色-爱因斯坦分布时，应该去掉$N$是常数的约束条件，这相当于\textcolor{yellow}{$\alpha=0$}或\textcolor{yellow}{化学势$\mu=0$}。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{强简并理想费米气体}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{元激发(或准粒子)理想气体}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,992 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{涨落理论}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2007热力学与统计物理学} 系统处于平衡态时的总能量涨落和总粒子数涨落的讨论证明，对于宏观大的系统，这类热力学量的涨落是非常小的，可以忽略不计。因而统计平均值相当精确地给出了热力学量的值。因为相对涨落小，不同的平衡态统计系综(在热力学极限下)对于计算物理量的平均值而言是彼此等价的。
+
+在某些情况下，涨落具有可观测的物理效应。
+
+实验与理论研究发现，涨落与系统的空间维数有极为密切的关系。空间维数越高，涨落越不重要；反之，空间维数越低，涨落就越强烈。这在连续相变中表现得十分突出。
+
+上述的涨落统称为\textcolor{red}{围绕平均值的涨落}，包括热力学量，也包括非热力学量；平衡态存在，非平衡态也存在。
+
+另一类涨落称为\textcolor{red}{布朗运动}。数学上它代表一类特殊的随机过程-马尔科夫过程。
+
+处理热力学量涨落的\textcolor{red}{准热力学理论}。虽然系综理论原则上提供了计算热力学量涨落的基础，但对强度量的计算是不方便的。准热力学理论可以直接且简便地计算一切热力学量的涨落，包括广延量和强度量。
+
+\section{准热力学理论、热力学量的涨落}
+\cite{2007热力学与统计物理学} 用正则系综与巨正则系综计算系统总能量与总粒子数的涨落，这类计算是以系统微观状态的几率为基础的。对于有直接对应微观量而且是广延量的热力学量(总能量，总粒子数，总磁矩等)，计算是直截了当的。但要计算那些没有直接对应微观量的热力学量，如熵与温度的涨落，或者是强度量(如压强、化学势等)的涨落，就比较麻烦了。
+
+一切热力学量(无论广延量还是强度量)都有涨落。对于属于宏观系统整体的热力学量，由于系统所包含的粒子数极为巨大($N \sim 10^{22}$)，相对涨落微不足道，可以忽略。如果物理现象涉及系统内部一个宏观小、微观大的部分(即仍然包含足够多的粒子)的热力学量(如局部的密度、温度、压强等)的涨落，会表现出可观测的效应。
+
+
+准热力学理论不是以系统微观状态的几率为基础，而是直接找出表达热力学量涨落的几率，由此计算它们的涨落。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{涨落的空间关联}
+\cite{2007热力学与统计物理学} 在\textcolor{blue}{气-液相变的临界点，涨落变得非常强烈，仅考虑局部密度涨落是不够的}。在临界点附近\textcolor{blue}{空间不同地点的密度涨落之间发生很强的关联}，是导致反常大的涨落的主要原因。它将引起\textcolor{blue}{对可见光的强烈散射，使原本无色的流体变成乳白色}，称为\textcolor{red}{临界乳光}。对铁磁体也存在类似的现象，在顺磁-铁磁相变的临界点，空间不同地点的自旋密度的涨落之间也发生很强的关联，导致反常大的自旋密度涨落，可以用中子散射方法探测。
+
+均匀流体在临界点附近密度涨落的空间关联。定义\textcolor{red}{密度-密度关联函数}
+\begin{equation}
+C(\vec{r}, \vec{r}^\prime) \equiv \overline{(n(\vec{r}) -\overline{n(\vec{r})} )(n(\vec{r}^\prime) -\overline{n(\vec{r}^\prime)} )}
+\end{equation}
+其中$n(\vec{r})$为$\vec{r}$处粒子数密度，$n(\vec{r}) -\overline{n(\vec{r})}$代表$\vec{r}$处的数密度对其平均值的偏差。
+\begin{equation}
+\overline{n(\vec{r}) -\overline{n(\vec{r})} } = \overline{n(\vec{r})} -\overline{n(\vec{r})}  = 0 ~.
+\end{equation}
+若$\vec{r} = \vec{r}^\prime$，则
+\begin{equation}
+C(\vec{r}, \vec{r}) \equiv \overline{(n(\vec{r}) -\overline{n(\vec{r})} )^2} 
+\end{equation}
+代表$\vec{r} $处的\textcolor{red}{局域密度涨落}。若不同地点的密度涨落彼此独立，则
+\begin{align}
+\nonumber C(\vec{r}, \vec{r}^\prime) &= \overline{(n(\vec{r}) -\overline{n(\vec{r})} )(n(\vec{r}^\prime) -\overline{n(\vec{r}^\prime)} )} ~, \\
+\nonumber &= \overline{(n(\vec{r}) -\overline{n(\vec{r})} )} \cdot  \overline{(n(\vec{r}^\prime) -\overline{n(\vec{r}^\prime)} )} ~, \\
+&= 0 ~.
+\end{align}
+若对$\vec{r} \neq \vec{r}^\prime, C(\vec{r}, \vec{r}^\prime) \neq 0$，则表示不同地点的密度涨落之间存在关联。
+
+对均匀流体，由于平移不变性，$\overline{n(\vec{r})} = \bar{n}$与$\vec{r}$无关，且关联函数$C(\vec{r}, \vec{r}^\prime)$只是$\vec{r}$与$\vec{r}^\prime$之差的函数，即$C(\vec{r}, \vec{r}^\prime) = C(\vec{r} - \vec{r}^\prime)$。若流体不仅是均匀的，且是各项同性的，则$C(\vec{r} - \vec{r}^\prime) = C(|\vec{r} - \vec{r}^\prime|)$，即只依赖于$\vec{r}$与$\vec{r}^\prime$两点之间的距离。令$\vec{r}^\prime = 0$，关联函数表示为
+\begin{equation}
+C(\vec{r}) = \overline{(n(\vec{r}) -\overline{n} )(n(0) -\overline{n} )}  ~,
+\end{equation}
+其中$\overline{n(\vec{r})} = \overline{n(0)} = \overline{n}$。将$n(\vec{r}) - \overline{n}$作傅里叶展开，
+\begin{equation}
+n(\vec{r}) -\overline{n}  = \frac{1}{V} \sum_q \tilde{n}_q e^{i \vec{q}\cdot \vec{r}} ~,
+\end{equation}
+其中$V$为总体积，$\tilde{n}_q$是波矢为$\vec{q}$的傅里叶分量，也称波矢为$\vec{q}$的模，
+\begin{equation}
+\tilde{n}_q = \int (n(\vec{r}) -\overline{n} ) e^{i \vec{q}\cdot \vec{r}} \dif^3 \vec{r} ~.
+\end{equation}
+由于$n(\vec{r}) -\overline{n}$是实数，
+\begin{equation}
+\tilde{n}^\ast_{\vec{q}} = \tilde{n}_{-\vec{q}} ~,
+\end{equation}
+\begin{equation}
+|\tilde{n}_{\vec{q}}|^2 = \iint \dif^3 \vec{r} \dif^3 \vec{r}^\prime (n(\vec{r}) -\overline{n} ) (n(\vec{r}^\prime) -\overline{n} ) e^{-i\vec{q}\cdot (\vec{r} - \vec{r}^\prime)} ~.
+\end{equation}
+对上式取平均，
+\begin{align}
+\overline{|\tilde{n}_{\vec{q}}|^2} &= \iint \dif^3 \vec{r} \dif^3 \vec{r}^\prime C(\vec{r}, \vec{r}^\prime) e^{-i\vec{q}\cdot (\vec{r} - \vec{r}^\prime)} ~, 
+&= \dif^3 \vec{r}^\prime \int \dif^3 \vec{R} C( \vec{R}) e^{-i\vec{q}\cdot \vec{R}}  = V \tilde{C}(\vec{q}) ~,
+\end{align}
+其中$\vec{R} = \vec{r} - \vec{r}^\prime$，$\tilde{C}(\vec{q})$为关联函数$C(\vec{R})$的傅里叶分量，
+\begin{align}
+& \tilde{C}(\vec{q}) = \int \dif^3 \vec{r} C(\vec{r}) e^{-i\vec{q}\cdot \vec{r}} ~, \\
+& C( \vec{r}) = \dfrac{1}{V} \sum_{\vec{q}} \tilde{C}(\vec{q}) e^{i\vec{q}\cdot \vec{r}} ~.
+\end{align}
+\begin{equation}
+C( \vec{r}) =  \dfrac{1}{V^2} \sum_{\vec{q}} \overline{|\tilde{n}_{\vec{q}}|^2} e^{i\vec{q}\cdot \vec{r}} ~.
+\end{equation}
+朗道的密度涨落理论，是应用涨落的准热力学理论来求$\overline{|\tilde{n}_{\vec{q}}|^2} $。密度和温度的涨落是统计独立的，选择$T, n$为独立变数。假定温度是常数，设系统总体积$V$固定不变，
+\begin{equation}
+W = W_{\rm max} e^{-\Delta F/kt} ~,
+\end{equation}
+$\Delta F = F - \overline{F}$代表涨落引起的系统的总自由能对其平衡态值$\overline{F}$偏差。$\overline{F}$应为极小值，故$\Delta F > 0$，这保证了涨落的几率必定小于极小值$\overline{F}$所对应的几率。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{布朗运动}
+
+\subsection{郎之万方程~~ 粒子位移的平均平方偏差}
+\cite{2007热力学与统计物理学} 布朗粒子从宏观上看是非常小的，它的直径约为$10^{-5} \sim 10^{-4}$ cm。由于粒子很小，它所受周围分子碰撞的不平衡而产生的力足以使它发生运动。一个布朗粒子所受的力有两种，一种是外力；另一种是周围分子的作用力，通过周围分子的碰撞而施于其上。令$\vec{F}$代表周围分子对布朗粒子的作用力，
+\begin{equation}
+\vec{F} \equiv \overline{\vec{F}} +(\vec{F} - \overline{\vec{F}}) ~.
+\end{equation}
+一部分是平均力$\overline{\vec{F}}$，包括浮力(方向向上)与阻力$-\alpha \vec{v}$，后者与速度成正比，但方向相反。第二部分是对平均力的偏离部分，即$\vec{F} - \overline{\vec{F}}$，称为\textcolor{red}{涨落力}。由于粒子受周围分子的碰撞极为频繁，故涨落力是一种方向与大小都变化很快的力。以液体中的布朗粒子为例，取直径$10^{-4}$ cm，液体的分子数密度$n\sim 10^{22}$ cm$^{-3}$，则粒子每秒受到周围分子的碰撞次数为$10^{19}$；即使对气体$n \sim 10^{19}$ cm$^{-3}$，也达到$10^{15}$次。涨落力的特征时间约为$10^{-19}$ s(液体)或$10^{-15}$ s(气体)。涨落力是快变化的随机变量。
+
+考查一个布朗粒子的运动在水平方向$x$上的投影，运动方程化为
+\begin{equation}
+m \dfrac{\dif u}{\dif t} = - \alpha u +X(t) ~.
+\end{equation}
+其中$u$为粒子速度的$x$分量，\textcolor{red}{$X(t)$为涨落力的$x$分量}。方程称之为\textcolor{red}{郎之万方程}。与通常的运动方程不同，$x(t)$是随机性质的，数学上属于\textcolor{red}{随机微分方程}。若用粒子的坐标$x(t)$表示，郎之万方程表为
+\begin{equation}
+m \dfrac{\dif^2 x}{\dif t^2} =  - \alpha \dfrac{\dif x}{\dif t}  +X(t) ~.
+\end{equation}
+求粒子位移的平方平均值，即$\overline{x^2(t)}$。由
+\begin{align}
+\nonumber & x \dfrac{\dif x}{\dif t}  = \dfrac{1}{2} \dfrac{\dif x^2}{\dif t} ~, \\
+\nonumber & x \dfrac{\dif^2 x}{\dif t^2} = \dfrac{\dif }{\dif t} \left(x\dfrac{\dif x}{\dif t} \right) - \left(\dfrac{\dif x}{\dif t} \right)^2 = \dfrac{1}{2} \dfrac{\dif^2 }{\dif t^2} x^2 - \left(\dfrac{\dif x}{\dif t} \right)^2 ~,
+\end{align}
+方程化为
+\begin{equation}
+\dfrac{m}{2} \dfrac{\dif^2 }{\dif t^2} x^2 - m \left(\dfrac{\dif x}{\dif t} \right)^2 = -\dfrac{\alpha}{2} \dfrac{\dif }{\dif t} x^2 +xX(t) ~.
+\end{equation}
+设有\textcolor{red}{大量相同的布朗粒子，处于相同的液体媒质中，它们构成了一个布朗粒子的系综}(每一个粒子是这个系综中的一个系)；把上述方程对这个粒子系综求平均，亦即把大量粒子的方程相加再除以粒子总数，得
+\begin{equation}
+\dfrac{m}{2} \dfrac{\dif^2 }{\dif t^2} \overline{x^2} - \overline{mu^2} = -\dfrac{\alpha}{2} \dfrac{\dif }{\dif t}  \overline{x^2} + \overline{xX } ~,
+\end{equation}
+其中$\overline{x^2} , \overline{mu^2}, \overline{xX }$代表这些量的系综平均。由于涨落力$X(t)$与粒子的位置无关，
+\begin{equation}
+ \overline{xX } =  \overline{x}\cdot  \overline{X } = 0 ~.
+\end{equation}
+\textcolor{red}{设粒子与周围的液体媒质已达到了热平衡}，把布朗粒子看成是巨分子，应用\textcolor{red}{能量均分定理}，
+\begin{equation}
+\overline{mu^2} = kT ~,
+\end{equation}
+方程化为
+\begin{equation}
+\dfrac{\dif^2 }{\dif t^2} \overline{x^2} +\dfrac{1}{\tau} \dfrac{\dif }{\dif t} \overline{x^2} - \dfrac{2kT}{m} = 0 ~,
+\end{equation}
+令$\tau = \left(\dfrac{\alpha}{m} \right)^{-1}$($\tau$是某种弛豫时间)。
+\begin{equation}
+\overline{x^2} =  \dfrac{2kT\tau}{m} t +C_1 {\rm e}^{-t/\tau} +C_2 ~,
+\end{equation}
+其中$C_1, C_2$为积分常数。选取初始条件为$t=0, \overline{x^2}$与$\dfrac{\dif }{\dif t} \overline{x^2}$均为$0$，则得
+\begin{equation}
+\overline{x^2} = \dfrac{2k T\tau^2}{m} \left\{\dfrac{t}{\tau} -(1 - {\rm e}^{-t/\tau}) \right\} ~.
+\end{equation}
+若$t \ll \tau$，
+\begin{equation}
+\overline{x^2} \approx \dfrac{kT}{m} t^2 = \overline{u^2} t^2 ~.
+\end{equation}
+与力学运动$x=ut$相符。当时间\textcolor{red}{$t$远比弛豫时间$\tau$短时}，布朗粒子表现出的是\textcolor{red}{力学运动}(实际上观察不到)。若\textcolor{red}{$t \gg \tau$}
+\begin{equation}
+\color{red} \overline{x^2} = \dfrac{2kT \tau}{m} t = \dfrac{2kT}{\alpha} t  = 2Dt ~,
+\end{equation}
+这是\textcolor{red}{布朗粒子位移平方的平均值}，其中
+\begin{equation}
+\color{red} D = \dfrac{kT}{\alpha} ~.
+\end{equation}
+注意到$\overline{x^2} \propto t$，而不是$t$。
+
+估计$\tau = \left(\dfrac{\alpha}{m} \right)^{-1}$的大小。设布朗粒子是半径为$a$的球，密度为$\rho$，粒子的质量为$m = \dfrac{4\pi}{3} a^3 \rho$。若粒子被浸在黏性系数为$\eta$的液体中，由\textcolor{yellow}{斯托克斯定律}，\textcolor{yellow}{$\alpha = 6 \pi a \eta$}，得到
+\begin{equation}
+\dfrac{\alpha}{m} = \dfrac{9\eta}{2a^2 \rho} ~.
+\end{equation}
+
+皮兰实验中并不是同时观测大量布朗粒子，而是观测一个布朗粒子。每隔$t$时间，记录下粒子的位置，在时间$0, t, 2t, \cdots, Nt$分别记录下粒子的坐标为$x_1, x_2, \cdots, x_N$，则各次粒子的位移分别为$\Delta x_1 = x_1 -0, \Delta x_2 = x_2 -x_1, \cdots, \Delta x_N = x_N -x_{N-1}$。由于所取的时间$t$足够长，相继的各次位移在统计上是完全独立的。对一个布朗粒子的多次$N, N \gg 1$观测得到的位移平方平均值对大群($N$个)相同的布朗粒子位移平方平均值相等\footnote{这是实验上``制备"系综的常用方法：对一个客体改变它的状态后，只要统计上完全独立于原来的状态，就相当于另一个客体，则多次独立观察某一个特定客体的平均也就是系综平均。}。
+
+
+
+\subsection{布朗粒子的扩散}
+\cite{2007热力学与统计物理学} 单个布朗粒子离开原处的现象是一个扩散过程。设有大群布朗粒子悬浮在液体中，令\textcolor{red}{$n(x, t)\dif x$代表$t$时刻位于$x$和$x+\dif x$之间(在单位截面之内)的粒子数}，即$n(x, t)$为粒子的数密度。引入\textcolor{red}{转移几率}$f(x, t)\dif x$，定义为：已知$t=0$时粒子处于$x=0$，到$t$时刻粒子转移到$x$和$x+\dif x$之间的几率。
+\begin{equation}
+\color{red} n(x, t+\tau) = \int_{-\infty}^\infty f(x-x^\prime, \tau) n(x^\prime, t)\dif x^\prime ~,
+\end{equation}
+令$\xi= x-x^\prime$，
+\begin{equation}
+n(x, t+\tau) = \int_{-\infty}^\infty f(\xi, \tau) n(x-\xi, t)\dif \xi ~.
+\end{equation}
+转移几率$f$
+\begin{align}
+& \int_{-\infty}^\infty f(\xi, \tau) \dif \xi = 1 ~, \\
+& f(\xi, \tau) = f(-\xi, \tau) ~.
+\end{align}
+后一条反映了布朗粒子沿正$x$方向和负$x$方向的位移是等几率的(由于$x$方向没有外力作用)。当$\tau$很小时，粒子不可能转移到远处，故$f(\xi, \tau)$在$\xi$取大值时是很小的。
+
+设$\tau$很小，
+\begin{equation}
+n(x, t+\tau) = n(x,t) + \tau\dfrac{\partial n}{\partial t} +\dfrac{1}{2} \tau^2 \dfrac{\partial^2 n}{\partial t^2} + \cdots ~.
+\end{equation}
+对积分有显著贡献的是小$\xi$值的情形，对$n(x-\xi, t)$按$\xi$的幂次展开，
+\begin{equation}
+n(x-\xi, t) = n(x,t) - \xi\dfrac{\partial n}{\partial x} +\dfrac{1}{2} \xi^2 \dfrac{\partial^2 n}{\partial x^2} + \cdots ~.
+\end{equation}
+\begin{equation}
+n(x,t) +\dfrac{1}{2} \overline{\xi^2} \dfrac{\partial^2 n}{\partial x^2}  ~,
+\end{equation}
+其中
+\begin{equation}
+\overline{\xi^2} = \int_{-\infty}^\infty \xi^2 f(\xi, \tau) \dif \xi ~.
+\end{equation}
+
+\begin{equation}
+\tau \dfrac{\partial n}{\partial t} = \dfrac{1}{2} \overline{\xi^2} \dfrac{\partial^2 n}{\partial x^2}  ~,
+\end{equation}
+也即扩散方程
+\begin{equation}
+\dfrac{\partial n}{\partial t} - D\dfrac{\partial^2 n}{\partial x^2} = 0 ~,
+\end{equation}
+其中\textcolor{red}{$D = \dfrac{\overline{\xi^2}}{2\tau}$}为扩散系数。这就证明了布朗粒子的运动是一个扩散方程。
+
+转移几率本身也满足与粒子密度$n(x,t)$同样的扩散方程。
+\begin{equation}
+\dfrac{\partial }{\partial \tau} n(x, t+\tau) - D\dfrac{\partial^2 }{\partial x^2} n(x, t+\tau) = 0 ~,
+\end{equation}
+得
+\begin{equation}
+\int_{-\infty}^\infty \left[\dfrac{\partial }{\partial \tau} f(x-x^\prime, \tau) - D \dfrac{\partial^2 }{\partial x^2} f(x-x^\prime, \tau) \right] n(x^\prime, t) \dif x^\prime = 0 ~.
+\end{equation}
+由于方程对任何粒子密度$n$都成立，故被积函数必须为$0$，得到
+\begin{equation}
+\dfrac{\partial }{\partial \tau} f(\xi, \tau) - D \dfrac{\partial^2 }{\partial \xi^2} f(\xi, \tau) = 0 ~.
+\end{equation}
+$f$与$n$满足同样的方程。
+
+扩散方程的普遍解为
+\begin{equation}
+ f(\xi, \tau) = \dfrac{1}{2\sqrt{\pi D \tau}} \int_{-\infty}^\infty f(\xi^\prime, 0) {\rm e}^{-(\xi -\xi^\prime)^2/4D \tau} \dif \xi^\prime ~.
+\end{equation}
+对于$t=0, \xi \neq 0$，有$f(\xi, 0) =0$以及$\underset{\xi \rightarrow 0}\lim f(\xi, 0) = \infty$。也即$f(\xi, 0) = \delta(\xi)$。
+\begin{equation}
+ f(\xi, \tau) = \dfrac{1}{2\sqrt{\pi D \tau}} {\rm e}^{-\xi^2/4D \tau} ~,
+\end{equation}
+表明转移几率$f$为高斯分布。
+\begin{equation}
+\overline{\xi^2} = 2D\tau ~.
+\end{equation}
+$f(\xi, \tau)$是指$t=0$时，$x(0) = 0$，故上式中$\overline{\xi^2}$就是位移平方平均值。
+
+
+
+
+
+
+
+\subsection{无规行走}
+\cite{2007热力学与统计物理学} 把布朗运动看成无规行走问题。考虑一维情形。令$x(t)$代表布朗粒子在$t$时刻的位置，并设$t=0$时粒子位于$x=0$。假设\textcolor{blue}{布朗粒子在周围分子的碰撞下，每经过$\tau$时间移动到一个小的距离$\lambda$，把$\lambda$当作``行走”一步的步长，并设$\lambda$为常数}。粒子的行走是无规的，每一步行走既可以朝着正$x$方向，也可以朝负$x$方向；在没有外力的情况下，朝正方向和负方向行走的几率相等，均为$\dfrac{1}{2}$。假设\textcolor{blue}{相继的行走彼此之间是没有关联的}。\textcolor{blue}{每行走一步的时间为$\tau$，故$t$时间内共行走$N=t/\tau$步，令其中$N_1$步朝正$x$方向，$N_2$步朝负$x$方向，$N_1+N_2=N$}。令$m=N_1-N_2$，于是$N_1 = \dfrac{1}{2}(N+m), N_2 = \dfrac{1}{2}(N-m)$。经过\textcolor{blue}{$N$步后，离开出发点的距离}为
+\begin{equation}
+x = (N_1 -N_2) \lambda = m \lambda ~.
+\end{equation}
+当$N_1$和$N_2$给定时，不同的走法有
+\begin{equation}
+\dfrac{N!}{N_1!N_2!} = \dfrac{N!}{N_1!(N-N_1)!} 
+\end{equation}
+种。当$N$给定时，不同的走法总共有
+\begin{equation}
+\sum_{N_1=0}^N \dfrac{N!}{N_1!(N-N_1)!} = (1+1)^N = 2^N 
+\end{equation}
+种。经过$N$步后，离开出发点距离为$x=(N_1-N_2) \lambda = m \lambda$的几率为
+\begin{equation}
+P_N(N_1) = \dfrac{N!}{N_1!(N-N_1)!} \left(\dfrac{1}{2} \right)^N ~,
+\end{equation}
+或者
+\begin{equation}
+P_N(m) = \dfrac{N!}{\left[\dfrac{1}{2}(N+m) \right]!\left[\dfrac{1}{2}(N-m) \right]!} \left(\dfrac{1}{2} \right)^N ~.
+\end{equation}
+当$N \gg |m| \gg 1$时，(即$t \gg \tau$时)，应用斯特令公式
+\begin{align}
+\nonumber & \ln N! = N(\ln N -1) +\dfrac{1}{2} \ln (2\pi N) ~, \\
+\nonumber & \ln \left[ \dfrac{1}{2} (N\pm m) \right] = \ln \dfrac{N}{2} +\ln \left(1 \pm \dfrac{m}{N} \right)  \approx \ln \dfrac{N}{2}  \pm \dfrac{m}{N} - \dfrac{m^2}{2N^2} ~,
+\end{align}
+可得
+\begin{equation}
+P_N(m) = \sqrt{\dfrac{2}{\pi N}} {\rm e}^{-m^2/2N} ~.
+\end{equation}
+由于$m=N_1-N_2$，故相邻的两$m$值之差$\Delta m = 2$(而不是$1$)。处于$x$和$x+\dif x$之间可取的$m$值有$\dfrac{\dif x}{2\lambda}$个，粒子处于$x$和$x+\dif x$之间的几率为
+\begin{equation}
+P(x) \dif x= P_N(m) \dfrac{\dif x}{2\lambda} = \dfrac{\dif x}{\sqrt{2\pi N \lambda^2}} \exp \left(-\dfrac{x^2}{2N\lambda^2} \right) ~,
+\end{equation}
+其中\textcolor{red}{$D = \dfrac{\lambda^2}{2\tau}$}。粒子位移的平方平均值为
+\begin{equation}
+\color{red} \overline{x^2(t)} = \int_{-\infty}^\infty x^2 P(x,t) \dif x = 2 Dt ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{涨落的时间关联}
+\cite{2007热力学与统计物理学} 涨落在不同时刻的取值之间的关联
+
+令$B(t)$表示任何一个涨落量在$t$时刻的瞬时值。$B(t)$的值随时间的变化是随机性质的，亦即$B(t)$是随机变量。$B(t)$在不同时刻的取值之间存在关联是指：$B(t)$在$t_1$时刻的值影响它在另一时刻$t_2$的取值。定义$B$的时间关联函数$K_{BB}$：
+\begin{equation}
+K_{BB}(t_1, t_2) \equiv \overline{B(t_1)B(t_2)} ~,
+\end{equation}
+$K_{BB}$称为\textcolor{red}{自关联函数}。
+
+
+
+\section{电路中的热噪声、谱密度}
+\cite{2007热力学与统计物理学} \textcolor{red}{热噪声(thermal noise)}，也称\textcolor{red}{江孙噪声(Johnson noise)}，对\textcolor{red}{处在平衡态、温度为$T$的电路系统}，\textcolor{red}{电阻$R$两端的涨落电压的平方平均值$\overline{V^2}$}满足：
+\begin{equation}
+\color{red} \overline{V^2} = 4 k T R \Delta \nu ~,
+\end{equation}
+其中\textcolor{blue}{$\Delta \nu$}代表\textcolor{blue}{测量电压的频带宽度}，称为\textcolor{red}{Nyquist定理}。
+
+若定义\textcolor{red}{电压均方涨落的谱密度$S(\nu)$}为
+\begin{equation}
+\overline{V^2} \equiv \int_0^\infty S(\nu) \dif \nu ~,
+\end{equation}
+则\textcolor{red}{热噪声的谱密度}为
+\begin{equation}
+\color{red} S(\nu) = 4 k T R ~.
+\end{equation}
+热噪声的谱密度：(1) $S(\nu)$正比于温度$T$，只要$T \neq 0$，热噪声就存在。(2) $S(\nu)$正比于$R$，电阻越小，热噪声越弱。若金属处于超导态，$R=0$，原则上没有热噪声。(3) 热噪声是平衡态下电流涨落的结果，\textcolor{red}{没有宏观电流}(即$\overline{I} = 0$)，\textcolor{red}{热噪声仍然存在}(与$\overline{I^2}$有联系，$\overline{I} = 0, \overline{I^2} \neq 0$)。(4) $S(\nu)$与$\nu$无关，故热噪声也称为\textcolor{orange}{白噪声(white noise)}。
+
+\subsection{涨落电流的郎之万方程}
+考虑一个由电阻$R$和电感$L$串联成的电路，设整个电路系统处于平衡态，温度为$T$。电路中没有外加电动势。即使在平衡态下也存在涨落，电路中会发生瞬时的涨落电流$I(t)$，其大小与方向都是无规的，即$I(t)$是随机变量，且$\overline{I(t)} = 0$。涨落电流满足
+\begin{equation}
+L \dfrac{\dif I(t)}{\dif t} = - RI(t) + V(t) ~,
+\end{equation}
+$V(t)$代表随机电动势，$\overline{V(t)} = 0$。电阻$R$与涨落电动势$V(t)$都来源于传导电子受其周围的声子的散射：$R$代表平均的效果，而$V(t)$是扣除了平均以后剩余的涨落部分。
+
+涨落电动势$V(t)$的时间关联函数定义为
+\begin{equation}
+K_{VV}(s) \equiv \overline{V(t)V(t+s)} = \overline{V(0)V(s)} ~.
+\end{equation}
+由于电路系统处于平衡态，$K_{VV}(s)$只依赖于时间差，而与初始时刻$t$无关。
+
+$K_{VV}(s)$的关联时间$\tau_V$非常短，大体相当于传导电子与周围声子相继二次散射之间的时间，对于金属，$\tau_V \sim 10^{-14}$ s。$\tau_V$比起电流的时间关联函数$K_{II}(s) \equiv \overline{I(t)I(t+s)}$的关联时间$\tau = (R/L)^{-1} \sim 10^0 $ s，要短得多。对$K_{VV}(s)$采用$\delta$函数近似，即
+\begin{equation}
+K_{VV}(s) = C\delta(s) ~,
+\end{equation}
+其中
+\begin{equation}
+C \equiv K_{VV}(0) = \overline{V^2} = 2k T R~.
+\end{equation}
+
+电感中存储的能量为$\dfrac{1}{2}KI^2(t)$，它也随热涨落而涨落。应用能量均分定理，
+\begin{equation}
+\overline{\dfrac{1}{2}LI^2} = \dfrac{1}{2} kT ~,
+\end{equation}
+也即
+\begin{equation}
+\overline{I^2} = \dfrac{kT}{L} ~.
+\end{equation}
+电流的平方平均值为
+\begin{equation}
+\overline{I^2(t)} = I^2(0) \exp \left[-\dfrac{2t}{\tau} \right] +\dfrac{kT}{L} \left(1 -\exp\left[-\dfrac{2t}{\tau} \right] \right) ~,
+\end{equation}
+其中\textcolor{blue}{$\tau \equiv (R/L)^{-1}$}代表\textcolor{blue}{电流趋于平衡态的弛豫时间}。若初始电流$I(0) = 0$，则有
+\begin{equation}
+\overline{I^2(t)} = \dfrac{kT}{L}\left(1 -\exp\left[-\dfrac{2t}{\tau} \right] \right) ~,
+\end{equation}
+其极限为
+\begin{equation}
+\overline{I^2(t)} \xrightarrow[]{t \rightarrow \infty} \dfrac{kT}{L} ~.
+\end{equation}
+只须$t \gg \tau$，$\overline{I^2(t)}$即趋于其热平衡值$\dfrac{kT}{L}$。
+
+涨落电流$I(t)$的时间关联函数为
+\begin{equation}
+K_{II}(s) \equiv \overline{I(t)I(t+s)} = \overline{I(0)I(s)} = \dfrac{kT}{L} \exp\left[-\dfrac{|s|}{\tau} \right]~,
+\end{equation}
+上式表明$\tau = (R/L)^{-1}$代表了\textcolor{blue}{电流时间关联函数的关联时间}。
+
+电路的涨落-耗散定理为
+\begin{equation}
+R = \dfrac{1}{2kT} \int_{-\infty}^\infty \overline{V(0)V(s)} \dif s ~.
+\end{equation}
+
+\subsection{时间关联函数的谱分解~~ 谱密度}
+设$B(t)$是随机变量。一般，$B(t)$是时间$t$的函数，直接处理比较麻烦。可以对$B(t)$作傅里叶分解，即分解成各种不同频率分量叠加的形式，把原来需要对$B(t)$作的讨论转化为对其傅里叶频率分量的讨论。将$B(t)$表达为傅里叶积分：
+\begin{equation}
+B(t) = \int_{-\infty}^\infty \tilde{B}(\omega) {\rm e}^{i\omega t} \dif \omega ~,
+\end{equation}
+$\tilde{B}(\omega)$为$B(t)$对应的频率为$\omega$的傅里叶分量，
+\begin{equation}
+\tilde{B}(\omega) = \dfrac{1}{2\pi} \int_{-\infty}^\infty B(t) {\rm e}^{-i\omega t} \dif t ~,
+\end{equation}
+当$|t|\rightarrow \infty$，$B(t)$并不趋于$0$，故积分是发散的。然而真正需要计算的是时间关联函数$K_{BB}(s)$的傅里叶分量$\tilde{K}_{BB}(\omega)$；由于$|s|\rightarrow \infty$时，$K_{BB}(s) \rightarrow 0$，保证了积分的收敛性。
+
+由于$B(t) $是实量，
+\begin{equation}
+\tilde{B}^\ast(\omega) = \dfrac{1}{2\pi} \int_{-\infty}^\infty B(t) {\rm e}^{i\omega t} \dif t = \tilde{B}(-\omega) ~.
+\end{equation}
+傅里叶积分定理
+\begin{equation}
+\dfrac{1}{2\pi} \int_{-\infty}^\infty B^2(t) \dif t = \int_{-\infty}^\infty |\tilde{B}(\omega)|^2 \dif \omega ~.
+\end{equation}
+
+$B(t)$的时间关联函数定义为
+\begin{equation}
+K_{BB}(s) \equiv \overline{B(t) B(t+\tau)} ~,
+\end{equation}
+由于感兴趣的是平衡态下的统计平均，故$K_{BB}(s)$只依赖于时间差$s$，而与初始时刻$t$无关。$K_{BB}(s)$必为$s$的偶函数，即
+\begin{equation}
+K_{BB}(s) = K_{BB}(-s) ~,
+\end{equation}
+且$K_{BB}(s)$是实量，
+\begin{equation}
+K_{BB}^\ast(s) = K_{BB}(s) ~.
+\end{equation}
+$K_{BB}(s)$与其傅里叶分量之间的关系为
+\begin{align}
+& K_{BB}(s) = \int_{-\infty}^\infty \tilde{K}_{BB}(\omega) {\rm e}^{i\omega s} \dif \omega ~, \\
+& \tilde{K}_{BB}(\omega) = \dfrac{1}{2\pi} \int_{-\infty}^\infty  K_{BB}(s)  {\rm e}^{-i\omega s} \dif s ~.
+\end{align}
+\begin{equation}
+\tilde{K}_{BB}(\omega) = \tilde{K}_{BB}(-\omega) = \tilde{K}_{BB}^\ast(\omega) ~.
+\end{equation}
+尽管$B$的傅里叶分量$\tilde{B}(\omega)$一般是复量，但$B$的时间关联函数的傅里叶分量$\tilde{K}_{BB}(\omega)$是实量，且是$\omega$的偶函数。
+
+可以证明，关联函数的傅里叶分量$\tilde{K}_{BB}(\omega)$可以用相应随机变量的傅里叶分量$\tilde{B}(\omega)$表示：
+\begin{equation}
+\tilde{K}_{BB}(\omega) = \overline{|\tilde{B}(\omega)|^2} ~.
+\end{equation}
+
+\subsection{电路中热噪声的谱密度}
+将涨落电压$V(t)$展开成傅里叶积分：
+\begin{align}
+& V(t) = \int_{-\infty}^\infty \tilde{V}(\omega) {\rm e}^{i\omega t} \dif \omega ~, \\
+& \tilde{V}(\omega) = \dfrac{1}{2\pi} \int_{-\infty}^\infty  V(t)  {\rm e}^{-i\omega t} \dif t ~.
+\end{align}
+电压$V(t)$的时间关联函数为
+\begin{equation}
+K_{VV}(s)\equiv \overline{V(t) V(t+s)} = 2 k T R \delta(s) ~.
+\end{equation}
+$K_{VV}(s)$及其傅里叶分量$\tilde{K}_{BB}(\omega)$满足
+\begin{align}
+& K_{VV}(s) = \int_{-\infty}^\infty \tilde{K}_{VV}(\omega) {\rm e}^{i\omega s} \dif \omega ~, \\
+& \tilde{K}_{VV}(\omega) = \dfrac{1}{2\pi} \int_{-\infty}^\infty K_{VV}(s) {\rm e}^{-i\omega s} \dif s ~.
+\end{align}
+\begin{equation}
+\tilde{K}_{VV}(\omega) = \dfrac{kTR}{\pi} ~.
+\end{equation}
+电压平方的平均值为
+\begin{align}
+\nonumber \overline{V^2} &= \overline{V^2{t}} = K_{VV}(0) = \int_{-\infty}^\infty \tilde{K}_{VV}(\omega) \dif \omega \\
+&= \int_0^\infty 2  \tilde{K}_{VV}(\omega) \dif \omega = \int_0^\infty 4 \pi  \tilde{K}_{VV}(\nu) \dif \nu
+\end{align}
+
+\begin{equation}
+S(\nu) = 4\pi \tilde{K}_{VV}(\nu)  = 4 k T R ~.
+\end{equation}
+涨落电压的谱密度$S(\nu)$与频率无关(即Nyquist定理)是有限制的，它必须限于一定的频率范围(或频带宽度)，因为用到电压时间关联函数的近似，也即要求所考查的时间$s$应当远比$\tau_V$长得多：$\tau_V \ll s$，相当于$$\dfrac{1}{s} \ll \dfrac{1}{\tau_V} ~,$$亦即频率远低于$\dfrac{1}{\tau_V}$：$$\nu \ll \dfrac{1}{\tau_V} ~.$$
+
+对电阻是金属导体的情形，$\tau_V \sim 10^{-14}$ s，$\dfrac{1}{\tau_V} \sim 10^{14}$ s$^{-1}$，这个频率属于红外区。只有当$\nu \ll \dfrac{1}{\tau_V} $时，热噪声才与频率无关。
+
+
+涨落电流的谱分解。把涨落电流$I(t)$表为傅里叶积分，即
+\begin{align}
+& I(t) = \int_{-\infty}^\infty \tilde{I}(\omega) {\rm e}^{i\omega t} \dif \omega ~, \\
+& \tilde{I}(\omega) = \dfrac{1}{2\pi} \int_{-\infty}^\infty I(t) {\rm e}^{-i\omega t} \dif t ~.
+\end{align}
+电流$I(t)$的时间关联函数为
+\begin{equation}
+K_{II}(s) \equiv \overline{I(t)I(t+s)} = \overline{I(0)I(s)} ~,
+\end{equation}
+\begin{equation}
+\tilde{K}_{II}(\omega) = \overline{|\tilde{I}(\omega)|^2} ~.
+\end{equation}
+
+
+\begin{equation}
+\tilde{I}(\omega) = \dfrac{\tilde{V}(\omega)}{Z(\omega)} =  \dfrac{\tilde{V}(\omega)}{R+i \omega L} ~,
+\end{equation}
+其中$Z(\omega) = R +i\omega L$为$RL$电路的复阻抗。
+\begin{equation}
+\tilde{K}_{II}(\omega) = \overline{|\tilde{I}(\omega)|^2} = \dfrac{1}{R^2 +\omega^2 L^2}  \overline{|\tilde{V}(\omega)|^2} ~.
+\end{equation}
+
+\begin{equation}
+\tilde{K}_{VV}(\omega) = \overline{|\tilde{V}(\omega)|^2} = \dfrac{kTR}{\pi} ~,
+\end{equation}
+
+\begin{equation}
+\tilde{K}_{II}(\omega) = \dfrac{kTR}{\pi(R^2 +\omega^2 L^2)}~.
+\end{equation}
+对上式作逆傅里叶变换，求得时间关联函数
+\begin{align}
+K_{II}(s) = \int_{-\infty}^\infty \tilde{K}_{II}(\omega) {\rm e}^{i\omega s} \dif \omega = \dfrac{kTR}{\pi} \int_{-\infty}^\infty \dfrac{{\rm e}^{i\omega s}}{R^2 +\omega^2 L^2}  \dif \omega = \dfrac{kT}{L} {\rm e}^{-|s|/\tau} ~,
+\end{align}
+其中$\tau = (R/L)^{-1}$。
+
+对于$\omega L \ll R$的低频区，
+\begin{equation}
+\nu \ll \dfrac{1}{\tau} = \dfrac{R}{L} ~,
+\end{equation}
+
+\begin{equation}
+\tilde{K}_{II}(\omega) =\overline{|\tilde{I}(\omega)|^2} = \dfrac{kT}{\pi R} ~.
+\end{equation}
+在低频区，涨落电流的谱密度与频率无关。由于$\tau_V \ll \tau$，要求涨落电流的谱与频率无关，即``白”噪声电流，比``白”噪声电压的频率低得多。
+
+Nyquist定理表明，\textcolor{red}{涨落电压的谱密度$S(\nu)$只与电阻$R$有关}，而与电路中的电感无关；若电路中还有电容，可以证明$S(\nu)$也与电容无关。
+
+电路中还存在一种涨落现象，称为\textcolor{red}{散粒噪声(shot noise)}，它是电荷的粒子性(间断性)的必然后果，且必须在\textcolor{red}{有宏观电流($\overline{I} \neq 0$)}时才存在(\textcolor{blue}{热噪声}是\textcolor{red}{平衡态下也存在的涨落}，而\textcolor{blue}{散粒噪声}是一种\textcolor{red}{非平衡态下的噪声})。
+
+\textcolor{red}{量子涨落}是由于量子不确定关系引起的，即是在$T = 0$时也存在。
+
+
+\subsection{仪器的灵敏度和振荡电路中电涨落}
+\cite{wangzhuxi1965} Ising证明，由于天平的布朗运动，测质量的精确度不能超过$10^{-9}$克。电流计及其他仪器中包括有悬挂细丝，带有反射镜的，都由于周围气体分子的碰撞而产生无规则的扭摆运动，因而使仪器的精密度受到限制。应用能量均分定理，扭摆式的布朗运动为
+\begin{equation}
+\dfrac{1}{2} A \bar{\varphi^2} = \dfrac{1}{2} kT ~,
+\end{equation}
+其中$\varphi$是转动的角度，$A$是弹性常数。
+
+电路中的涨落现象由于放大作用，引起所谓噪声。噪声的主要来源有二：一是\textcolor{red}{散粒效应}，它是真空管的阴极发射电子的无规则性所引起的。另一种是\textcolor{red}{Johnson效应}，又名\textcolor{red}{热噪声}，是由于电子在导体内的热运动引起的。
+
+\cite{2015arel.book.....H} Noise can be characterized by its frequency spectrum, its amplitude distribution, and the physical mechanism responsible for its generation. 
+
+\textcolor{red}{Johnson noise} : Random-noise voltage created by thermal fluctuations in a resistor.
+
+\textcolor{red}{Shot noise} : Random statistical fluctuations in a flowing current caused by the discrete nature of electrical charge.
+
+\textcolor{red}{Flicker noise} : Additional random noise, rising typically as $1/f$ in power at low frequencies, with a multitude of causes.
+
+\textcolor{red}{Burst noise} : low-frequency noise typically seen as random jumps between a pair of levels, caused by material device defects.
+
+\subsection{Johnson (Nyquist) noise}
+Any old resistor just sitting on the table generates a noise voltage across its terminals known as Johnson noise (or Nyquist noise). It has a flat frequency spectrum, meaning that there is the same noise power in each hertz of frequency (up to some limit, of course). Noise with a flat spectrum is also called ``white noise." The actual open-circuit noise voltage generated by a resistance $R$ at temperature $T$ is given by
+\begin{equation}
+v_{\rm noise} ({\rm rms}) = v_n = (4 k T R B)^{1/2} ~ V({\rm rms}) ~,
+\end{equation}
+where $k$ is Boltzmann's constant, $T$ is the absolute temperature in Kelvins ($K=  {}^{\circ}C + 273.16$), and $B$ is the bandwidth in hertz. Thus $v_{\rm noise}({\rm rms})$ is what you would measure at the output if you drove a perfect noiseless bandpass filter (of bandwidth $B$) with the voltage generated by a resistor at temperature $T$. 
+
+The source resistance of this noise voltage is just $R$. If you connect the terminals of the resistor together, you get a (short-circuit) current of
+\begin{equation}
+i_{\rm noise} ({\rm rms}) = v_{\rm noise} ({\rm rms}) / R = v_{\rm nR} / R = (4k T B/R)^{1/2} ~.
+\end{equation}
+It's convenient to express noise voltage (or current) as a density $e_{\rm n}$ (rms voltage per square root bandwidth). Johnson noise, with its flat (white) spectrum, has constant noise voltage-density
+\begin{equation}
+e_{\rm n} = \sqrt{4 \pi T R} ~ {\rm V/Hz^{1/2} } ~,
+\end{equation}
+from which the rms noise voltage in some limited bandwidth $B$ is then simply $v_{\rm n} = e_{\rm n} \sqrt{B}$. The short-circuit noise-current density is
+\begin{equation}
+i_{\rm n} = \sqrt{4 \pi T /R} ~ {\rm A/Hz^{1/2} } ~.
+\end{equation}
+
+
+
+The amplitude of the Johnson-noise voltage at any instant is, in general, unpredictable, but it obeys a Gaussian amplitude distribution, where $p(V)dV$ is the probability that the instantaneous voltage lies between $V$ and $V+\dif V$, and $v_n({\rm rms})$ is the rms noise voltage.
+
+The significance of Johnson noise is that it sets a lower limit on the noise voltage in any detector, signal source, or amplifier having resistance. The resistive part of a source impedance generates Johnson noise, as do the bias and load resistors of an amplifier.
+
+the physical analog of resistance (any mechanism of energy loss in a physical system, e.g., viscous friction acting on small particles in a liquid) has associated with it fluctuations in the associated physical quantity (in this case, the particles' velocity, manifest as the chaotic Brownian motion). Johnson noise is just a special case of this fluctuation-dissipation phenomenon.
+
+Johnson noise should not be confused with the additional noise voltage created by the effect of resistance fluctuations when an externally applied current flows through a resistor. This ``excess noise" has a $1/f$ spectrum (approximately) and is heavily dependent on the actual construction of the resistor.
+
+
+\cite{wangzhuxi1965} 由于导体中电子的热运动，产生了电流涨落。设相应于电流涨落的电势为$V(t)$，其随$t$急剧变化而涨落不定的函数。$V(t)$由傅里叶积分表示为
+\begin{equation}
+V(t) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty W(\omega) e^{i\omega t} \dif \omega ~.
+\end{equation}
+\begin{equation}
+\int_{-\infty}^\infty |V(t)|^2 \dif t = \int_{-\infty}^\infty |W(\omega)|^2 \dif \omega = 2 \int_0^\infty |W(\omega)|^2 \dif \omega
+\end{equation}
+考虑在一个相当长的时间$\tau$内电势平方的平均值：
+\begin{align}
+\bar{V^2} &= \dfrac{1}{\tau} \int_0^\tau |V(t)|^2 \dif t ~, \\
+&= \dfrac{2}{\tau} \int_0^\infty |W(\omega)|^2 \dif \omega ~.
+\end{align}
+希望通过放大器测在某一频率间隔$\Delta f$内的电势平方的平均值$E^2 \Delta f$($\Delta f$约为$10^3$)，
+\begin{equation}
+\bar{V^2} = \int_0^\infty E^2 \dif f ~.
+\end{equation}
+由于$\omega = 2\pi f$，
+\begin{equation}
+E^2 \Delta f = \dfrac{4\pi}{\tau} |W(\omega)|^2 \Delta f ~.
+\end{equation}
+等式的右方，可以根据振荡电路的性质，应用能均分定理，表达为与温度及线路常数有关的式子。
+
+设线路中有一电阻$R$，电感$L$和电容$C$。令$I$为热噪声电流，$q$为热噪声所产生于电容器上的电荷，则
+\begin{align}
+L \dfrac{\dif I}{\dif t} +RI +\dfrac{q}{C} = V(t) ~, 
+I = \dfrac{\dif q}{\dif t} ~.
+\end{align}
+不考虑电容，$C = \infty$。应用能均分定理，
+\begin{equation}
+\dfrac{1}{2} L \overline{I^2} = \dfrac{\overline{q^2}}{2C} = \dfrac{kT}{2} ~.
+\end{equation}
+把$I$用傅里叶积分表示，
+\begin{equation}
+I  = \dfrac{1}{\sqrt{2\pi} } \int_{-\infty}^\infty J(\omega) e^{i\omega t} \dif \omega ~.
+\end{equation}
+\begin{equation}
+J(\omega) = \frac{W(\omega)}{R+i \omega L} ~.
+\end{equation}
+应用傅里叶积分定理，
+\begin{equation}
+ \int_{-\infty}^\infty I^2 \dif t =  \int_{-\infty}^\infty |J(\omega)|^2 \dif \omega = \int_{-\infty}^\infty \frac{|W(\omega)|^2 }{R^2+ \omega^2 L^2} \dif \omega ~.
+\end{equation}
+当$\omega$不太大时，$|W(\omega)|^2$被认为是常数，因为热噪声的频率应当各种都有(这与实验观测$E^2$不依赖于频率相合)。假设$|W(\omega)|^2$是常数，
+\begin{equation}
+ \int_{-\infty}^\infty I^2 \dif t \simeq |W(\omega)|^2 \int_{-\infty}^\infty \frac{1}{R^2+ \omega^2 L^2} \dif \omega = |W(\omega)|^2 \dfrac{\pi}{RL} ~.
+\end{equation}
+由此得到
+\begin{equation}
+\overline{I^2} = \dfrac{1}{\tau}  \int_{0}^\tau I^2 \dif t  \simeq \dfrac{ |W(\omega)|^2}{\tau} \cdot \dfrac{\pi}{RL} = \dfrac{E^2}{4RL} ~.
+\end{equation}
+\begin{equation}
+E^2 \Delta f = 4RkT \Delta f ~.
+\end{equation}
+
+
+
+
+
+
+
+
+\subsection{Shot noise}
+\cite{2015arel.book.....H} An electric current is the flow of discrete electric charges, not a smooth fluidlike flow. The finiteness of the charge quantum results in statistical fluctuations of the current. If the charges act independently of each other, the fluctuating current's noise density is given by
+\begin{equation}
+i_n = \sqrt{2 q I_{\rm dc} } ~{\rm A/Hz^{1/2} } ~,
+\end{equation}
+where $q$ is the electron charge ($1.60 \times 10^{-19}$ coulomb). This noise, like resistor Johnson noise, is white and Gaussian. So its amplitude, taken over a measurement bandwidth $B$, is just
+\begin{equation}
+i_{\rm noise} ({\rm rms}) = i_{\rm n R} ({\rm rms}) = i_n \sqrt{B} = (2 q I_{\rm dc} B)^{1/2} ~{\rm A( rms)} ~.
+\end{equation}
+
+The shot-noise formula assumes that the charge carriers making up the current act independently. That is indeed the case for charges crossing a barrier, for example the current in a junction diode, where the charges move by diffusion; but it is not true for the important case of metallic conductors, where there are long-range correlations between charge carriers. Thus the current in a simple resistive circuit has far less noise than is predicted by the shot-noise formula. Another important exception to the shot-noise formula is provided by our standard transistor current-source circuit.
+
+\cite{wangzhuxi1965} 电子由阴极发射出来的时刻是无规则的，每发射出一个电子的渡越时间很短，相当于一瞬时电流$G(t)$，$G(t)$只在$t_r$到$t_r +\tau$的时间内不等于$0$，$t_r$为电子的发射时刻，$\tau$为电子由阴极发射到达极板的时间。令电子的电荷为$\epsilon$，
+\begin{equation}
+\int_{-\infty}^\infty G(t) \dif t = \epsilon ~.
+\end{equation}
+应用傅里叶积分
+\begin{align}
+& G(t) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty S(\omega) e^{i\omega t} \dif \omega ~, \\
+& S(\omega) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty G(t) e^{-i\omega t} \dif t ~.
+\end{align}
+由傅里叶积分定理
+\begin{equation}
+\int_{-\infty}^\infty |G(t)|^2 \dif t = \int_{-\infty}^\infty |S(\omega)|^2 \dif \omega = 2 \int_0^\infty |S(\omega)|^2 \dif \omega
+\end{equation}
+Campbell定理：若
+\begin{equation*}
+\theta(t) = \sum_r G(t-t_r) ~,
+\end{equation*}
+又若$G(t-t_r)$出现的时刻$t_r$是无规则的，但平均每秒出现$N$次，则
+\begin{align}
+& \overline{\theta} = N \int_{-\infty}^\infty G(t) \dif t ~, \\
+& \overline{(\theta -\overline{\theta})^2} = N \int_{-\infty}^\infty |G(t)|^2 \dif t ~.
+\end{align}
+证明：设$N_r$为在时间$\Delta t_r$(在时刻$\Delta t_r$的左右)出现的次数，则(下面的$\sum_r$指对$\Delta t_r$求和)
+\begin{align}
+& \overline{\theta} = \sum_r \overline{N_r} G(t-t_r) ~, \\
+& \overline{(\theta -\overline{\theta})^2} = \overline{\left[\sum_r (N_r -\overline{N_r}) G(t-t_r)\right]^2} \\
+\nonumber &= \sum_r \overline{(N_r -\overline{N_r})^2} G^2(t-t_r) +\sum_{r \neq s}  \overline{(N_r -\overline{N_r})(N_s -\overline{N_s})} G(t-t_r)G(t-t_s) ~. 
+\end{align}
+由于$N_r$都是独立的，
+\begin{align}
+& \overline{(N_r -\overline{N_r})^2} = \overline{N_r} ~, \\
+&  \overline{(N_r -\overline{N_r})(N_s -\overline{N_s})} = 0 ~, ~(r \neq s ) 
+\end{align}
+得到
+\begin{equation*}
+\overline{(\theta -\overline{\theta})^2} = \sum_r \overline{N_r} [G(t-t_r)]^2 ~.
+\end{equation*}
+但$N$是每秒出现的平均次数，故$\overline{N_r} = N \delta t_r$，
+\begin{align*}
+\overline{\theta} &= N \sum_r \Delta t_r G(t-t_r) = N \int_{-\infty}^\infty G(t - t^\prime) \dif t^\prime = N \int_{-\infty}^\infty G(t) \dif t ~, \\
+\overline{(\theta -\overline{\theta})^2} &= \overline{(\Delta \theta)^2} = N \sum_r \Delta t_r [G(t-t_r)]^2 \\
+&= N \int_{-\infty}^\infty |G(t - t^\prime)|^2 \dif  t^\prime = N \int_{-\infty}^\infty |G(t)|^2 \dif  t ~.
+\end{align*}
+
+若利用选择频率的放大器，只要频率中一个频率带$\Delta f = \Delta \left(\dfrac{\omega}{2\pi} \right)$的电流，并假设在每秒内平均有$N$个电子发射，则平均电流为$I = N \epsilon$，而在$\Delta f$频率带内的电流涨落为
+\begin{equation}
+\overline{(\Delta I)^2} = \left(N \int_{-\infty}^\infty |G(t)|^2 \dif t \right)_{\Delta f} = 2 N |S(\omega)|^2 \Delta \omega ~.
+\end{equation}
+
+当频率很低时，$\omega \tau \ll 1$，则$\omega t$在电子发射的短时间内很小，
+\begin{equation*}
+S(\omega) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty G(t) \dif t = \dfrac{\epsilon}{\sqrt{2\pi}} ~.
+\end{equation*}
+\begin{align}
+\overline{(\Delta I)^2} &= \dfrac{N\epsilon^2}{\pi} \Delta \omega = 2 N\epsilon^2 \Delta f ~, \\
+&= 2 \epsilon I \Delta f ~. 
+\end{align}
+其中$N \epsilon = I$。这是在原电路中的电流涨落，在放大器中的涨落等于上式乘以放大倍数的平方。
+
+
+\cite{kittel1958elementary} Shot noise results from the superposition of a large number of disturbances which occur at random times. Suppose each disturbance produces a signal $F(t)$ about the arrival time $t=0$, then the total effect of $N$ disturbances arriving at times $t_i$ will be
+\begin{equation}
+x(t) = \sum_{i=1}^N F(t-t_i) ~.
+\end{equation}
+We assume that the arrival time $t_i$ is a stochastic variable distributed uniformly between $t=0$ and $T$. 
+\begin{align}
+& a_n = \dfrac{2}{T} \int_0^T x(t) \cos 2\pi f_n t \dif t ~, \\
+& b_n = \dfrac{2}{T} \int_0^T x(t) \sin 2\pi f_n t \dif t
+\end{align}
+where $f_n = n /T$. 
+\begin{equation*}
+a_n -i b_n = R_n e^{-i\varphi_n} \sum_{i=1}^N e^{-in\theta_i} ~,
+\end{equation*}
+where $\theta_i = 2\pi t_i/T$.
+\begin{equation}
+R_n e^{-i\varphi_n} = \dfrac{2}{T} \int_0^T F(t) e^{-2\pi i f_n t} \dif t ~.
+\end{equation}
+\begin{align}
+& a_n = R_n \sum_{i=1}^N \cos (n\theta_i +\varphi_n) ~, \\
+& b_n = R_n \sum_{i=1}^N \sin (n\theta_i +\varphi_n) ~.
+\end{align}
+The $\theta_i$ are independent stochastic variables, and thus the cosines and sines are independent  stochastic variables. The central limit theorem tells that as $N \rightarrow \infty$ at fixed $T$ the sums will be distributed normally. In the limit of large $N$ the coefficients $a_n$, $b_n$ for shot noise are normal variates. We must require that the number of events contributing to the value at $x$ at a given instant be large.
+
+
+\section{福克-普朗克方程}
+\cite{wangzhuxi1965} 
+
+
+
+\cite{kittel1958elementary} The Fokker-Planck equation describes the time development of a Markoff process. Start from Smoluchowski equation 
+\begin{equation}
+P(x|y, t +\Delta t) = \int \dif z P(x|z, t) P(z|y, \Delta t) ~,
+\end{equation}
+where $P(x|z, t)$ is the conditional probability that a particle at $x$ at $t=0$ will be at $z$ at time $t$. Consider the integral 
+\begin{align}
+& \int \dif y R(y) \dfrac{\partial P(x|y, t) }{\partial t}  \\
+\nonumber &= \lim \dfrac{1}{\Delta t} \int \dif y R(y) [P(x|y, t +\Delta t) - P(x|y, t)] \\
+\nonumber &= \lim \dfrac{1}{\Delta t} \left[ \int \dif y R(y) \int \dif z P(x|z, t)  P(z|y, \Delta t) - \int \dif z R(z) P(x|z, t) \right]  ~.
+\end{align}
+where $R(y)$ is an arbitrary function going to zero at $y = \pm \infty$ sufficiently rapidly. 
+\begin{equation}
+\int \dif y R(y) \int \dif z P(x|z, t)  P(z|y, \Delta t) = \int \dif z P(x|z, t)  \int \dif y R(y) P(z|y, \Delta t) ~.
+\end{equation}
+Expand $R(y)$ in a power series about $R(z)$:
+\begin{equation}
+R(y) = R(z) + (y-z) R^\prime (z) +\dfrac{1}{2} (y-z)^2 R^{\prime \prime} (z) + \cdots 
+\end{equation}
+\begin{align}
+\nonumber & \int \dif y R(y) P(z|y, \Delta t) \simeq R(z) \int \dif y P(z|y, \Delta t) + R^\prime(z) \int \dif y (y-z) P(z|y, \Delta t) \\
+&+\dfrac{1}{2} R^{\prime \prime} (z) \int \dif y (y-z)^2  P(z|y, \Delta t) ~.
+\end{align}
+Let
+\begin{align}
+& a_1(z, \Delta t) = \int \dif y (y-z) P(z|y, \Delta t) ~, \\
+& a_2(z, \Delta t) = \int \dif y (y-z)^2 P(z|y, \Delta t) ~.
+\end{align}
+In the limit $\Delta t \rightarrow 0$, $a_1$ and $a_2$ are proportional to $\Delta t$, 
+\begin{align}
+& A(z) = \lim \dfrac{1}{\Delta t} a_1(z, \Delta t) ~, \\
+& B(z) = \lim \dfrac{1}{\Delta t} a_2(z, \Delta t) ~.
+\end{align}
+\begin{align}
+&\int \dif y R(y) \dfrac{\partial P}{\partial t} = \int \dif z P(x|z, t) [R^\prime(z) A(z) +\dfrac{1}{2} R^{\prime \prime}(z) B(z)] \\
+& \int \dif y R(y) \left[\dfrac{\partial P}{\partial t} + \dfrac{\partial (AP)}{\partial y} - \dfrac{1}{2} \dfrac{\partial^2 (BP)}{\partial y^2} \right] = 0 
+\end{align}
+This must hold for all functions $R(y)$, thus
+\begin{equation}
+\dfrac{\partial P}{\partial t} + \dfrac{\partial (AP)}{\partial y} - \dfrac{1}{2} \dfrac{\partial^2 (BP)}{\partial y^2}  = 0 ~.
+\end{equation}
+This is the Fokker-Planck equation. If the conditional probability $P(z|y, \Delta t)$ is a symmetric function of $y-z$, corresponding to equal probabilities of movement of the right or to the left, the first moment is zero, that is, $A(y) = 0$. If further, $B(y)$ is independent of position, the Fokker-Planck equation reduces to 
+\begin{equation}
+\dfrac{\partial P}{\partial t} = \dfrac{B}{2} \dfrac{\partial^2 P}{\partial y^2}  ~.
+\end{equation}
+The Fokker-Planck equation can be applied to a simple probability distribution 
+\begin{equation}
+p_1(y, t) = \int P(z|y, t) \dif z ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

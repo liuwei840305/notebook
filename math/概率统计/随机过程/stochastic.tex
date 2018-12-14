@@ -1,0 +1,569 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{随机过程}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+设$T$是一无限实数集，称为\textcolor{red}{参数集}；依赖于参数$t\in T$的一族(无限多个)随机变量，称为\textcolor{red}{随机过程}，记为$\{X(t), t\in T\}$；$X(t)$是一随机变量；
+
+常把$t$看作时间，称$X(t)$为时刻$t$时过程的\textcolor{red}{状态}；
+
+随机过程的\textcolor{red}{状态空间}：对于一切$t\in T$，$X(t)$所有可能取的一切值的全体；
+
+随机过程的一个\textcolor{red}{样本函数}或\textcolor{red}{样本曲线}：对随机过程$\{X(t), t\in T\}$，进行一次试验(即在$T$上进行一次全程观测)，结果是$t$的函数，记为$X(t), t\in T$；
+
+所有不同的试验结果构成一族样本函数；
+
+伯努利过程、伯努利随机序列 \\
+
+随机过程在任一时刻的状态是随机变量；
+
+随机过程的\textcolor{red}{分布函数族}
+
+给定随机过程$\{X(t), t\in T\}$；对于每一个固定的$t\in T$，随机变量$X(t)$的分布函数一般与$t$有关，记为
+\begin{equation}
+F_X (x,t) = P\{X(t)\leq x\}, x\in R
+\end{equation}
+称为随机过程$\{X(t), t\in T\}$的\textcolor{red}{一维分布函数}；$\{F_X (x,t),t\in T\}$称为\textcolor{red}{一维分布函数族}；
+
+一维分布函数族刻画了随机过程在各个个别时刻的统计特征；
+
+为了描述随机过程在不同时刻状态之间的统计联系，对任意$n(n = 2, 3, \cdots)$个不同的时刻$t_1, t_2, \cdots, t_n\in T$，引入$n$维随机变量$(X(t_1), X(t_2), \cdots, X(t_n)~)$，它的分布函数
+\begin{equation}
+F_X (x_1, x_2, \cdots, x_n; t_1, t_2, \cdots, t_n )=P\{X(t_1 )\leq x_1, X(t_2 )\leq x_2, \cdots, X(t_n )\leq x_n \},
+\end{equation}
+\begin{equation}
+x_i\in R, i = 1, 2, \cdots, n
+\end{equation}
+对固定的$n$，$\{F_X (x_1, x_2, \cdots, x_n; t_1, t_2, \cdots, t_n ), t_i\in T\}$为随机过程$\{X(t), t\in T\}$的\textcolor{red}{$n$维分布函数族}；
+
+\textcolor{red}{科尔莫戈罗夫定理}：
+
+有限维分布函数族，即$\{F_x (x_1,x_2, \cdots, x_n; t_1, t_2, \cdots, t_n), n = 1, 2, \cdots, t_i\in T\}$，完全确定了随机过程的统计特性。
+
+\section{数字特征}
+
+\textcolor{red}{均值函数}
+
+给定随机过程$\{X(t), t\in T\}$，固定$t\in T$，$X(t)$是一随机变量，它的均值与$t$有关，
+\begin{equation}
+\mu_X (t)=E[X(t)]
+\end{equation}
+
+$\mu_X (t)$是随机过程的所有样本函数在$t$时刻函数值的平均值；
+
+集平均或统计平均；
+
+\textcolor{red}{均方值函数}
+
+二阶原点矩
+\begin{equation}
+\Psi_X^2 (t)=E[X^2 (t)]
+\end{equation}
+
+\textcolor{red}{方差函数}
+
+二阶中心矩
+\begin{equation}
+\sigma_X^2 (t)=D_X (t) = \text{Var}[X(t)] = E\{[X(t)-\mu_X (t)]^2 \}
+\end{equation}
+
+\textcolor{red}{标准差函数}$\sigma_X (t)$：方差函数的算术平方根；
+
+表示随机过程$X(t)$在时刻$t$对于均值$\mu_X (t)$的平均偏离程度；
+
+\textcolor{red}{自相关函数}(\textcolor{red}{相关函数})
+
+设任意$t_1, t_2\in T$，随机变量$X(t_1), X(t_2)$的二阶原点混合矩
+\begin{equation}
+R_{XX} (t_1, t_2 )=E[X(t_1) X(t_2)]
+\end{equation}
+
+
+\textcolor{red}{自协方差函数}(\textcolor{red}{协方差函数})
+
+$X(t_1), X(t_2)$的二阶混合中心矩
+\begin{eqnarray}
+\nonumber C_{XX} (t_1,t_2 ) &=& \text{Cov}[X(t_1), X(t_2)] \\
+&=& E\{[X(t_1) - \mu_X (t_1)][X(t_2) - \mu_X (t_2)]\}
+\end{eqnarray}
+
+刻画随机过程自身在两个不同时刻的状态之间统计依赖关系
+\begin{equation}
+\Psi_X^2 (t)=R_{XX}(t, t)
+\end{equation}
+
+\begin{equation}
+C_{XX} (t_1, t_2 ) = R_{XX}(t_1, t_2 ) - \mu_X(t_1) \mu_X (t_2)
+\end{equation}
+
+当$t_1 = t_2 = t$时，
+\begin{equation}
+\sigma_X^2 (t) = C_{XX} (t,t) = R_{XX} (t,t) -\mu^2 (t)
+\end{equation}
+
+\textcolor{red}{二维随机过程}
+
+设$X(t), Y(t)$是依赖于同一参数$t\in T$的随机过程，对于不同的$t\in T$，$(X(t), Y(t)~)$是不同的二维随机变量，称$\{(X(t), Y(t)~), t\in T\}$为二维随机过程；
+
+给定二维随机过程$\{(X(t), Y(t)~), t\in T\}$，$t_1, t_2, \cdots, t_n; t'_1, t'_2, \cdots, t'_m$是$T$中任意两组实数，称$n+m$维随机变量
+\begin{equation}
+(X(t_1), X(t_2), \cdots, X(t_n); Y(t'_1), Y(t'_2), \cdots, Y(t'_n)~)
+\end{equation}
+的分布函数
+\begin{eqnarray}
+\nonumber && F_X (x_1, x_2, \cdots, x_n; t_1, t_2, \cdots, t_n : y_1, y_2, \cdots, y_m; t'_1, t'_2, \cdots, t'_m), \\
+&& x_i, y_j \in \mathbf{R}, ~ i = 1, 2, \cdots, n, ~ j = 1, 2, \cdots, m
+\end{eqnarray}
+为这个二维随机过程的$n+m$维分布函数或随机过程$X(t)$与$Y(t)$的$n+m$维联合分布函数；
+
+二维随机过程的$n+m$维分布函数族
+
+有限维分布函数族
+
+\textcolor{red}{相互独立}
+
+对任意的正整数$n$、$m$，任意的数组$t_1, t_2, \cdots, t_n \in T$，$t'_1, t'_2, \cdots, t'_m \in T$，$n$维随机变量$(X(t_1), X(t_2), \cdots, X(t_n)~)$与$m$维随机变量$(Y(t'_1), Y(t'_2), \cdots, Y(t'_n)~)$相互独立；
+
+\textcolor{red}{互相关函数}
+
+$X(t)$和$Y(t)$的二阶混合原点矩
+\begin{equation}
+R_{XY}(t_1, t_2) = E[X(t_1)Y(t_2)], ~ t_1, t_2\in T
+\end{equation}
+
+\textcolor{red}{互协方差函数}
+\begin{eqnarray}
+\nonumber C_{XY}(t_1, t_2) &=& E\{[X(t_1) -\mu_X(t_1)][Y(t_2) -\mu_Y(t_2)] \} \\
+&=& R_{XY}(t_1, t_2) -\mu_X(t_1)\mu_Y(t_2), ~ t_1, t_2 \in T
+\end{eqnarray}
+
+\textcolor{red}{不相关}
+
+若二维随机过程$(X(t), Y(t)~)$对任意的$t_1, t_2\in T$恒有
+\begin{equation}
+C_{XY}(t_1, t_2) = 0,
+\end{equation}
+随机过程$(X(t), Y(t)~)$是不相关的；
+
+两个随机过程若是相互独立的，且二阶矩存在，则它们必然不相关；但从不相关不能推断它们是相互独立的；
+
+考虑三个随机过程之和：
+\begin{equation}
+W(t) = X(t) +Y(t) +Z(t), 
+\end{equation}
+均值函数为
+\begin{equation}
+\mu_W(t) = \mu_X(t) +\mu_Y(t) +\mu_Z(t), 
+\end{equation}
+$W(t)$的自相关函数
+\begin{eqnarray}
+\nonumber R_{WW}(t_1, t_2) &=& E[W(t_1)W(t_2)] \\
+\nonumber &=& R_{XX}(t_1, t_2) +R_{XY}(t_1, t_2) +R_{XZ}(t_1, t_2) \\
+\nonumber && +R_{YX}(t_1, t_2) +R_{YY}(t_1, t_2) +R_{YZ}(t_1, t_2) \\
+&& +R_{ZX}(t_1, t_2) +R_{ZY}(t_1, t_2) +R_{ZZ}(t_1, t_2)
+\end{eqnarray}
+几个随机过程之和的自相关函数$=$各个随机过程的自相关函数$+$各对随机过程的互相关函数；
+
+若随机过程两两不相关，且各自的均值函数都为$0$，则诸互相关函数均为$0$，$\rightarrow W(t)$的自相关函数$=$各个过程的自相关函数之和，即
+\begin{equation}
+R_{WW}(t_1, t_2) = R_{XX}(t_1, t_2) +R_{YY}(t_1, t_2) +R_{ZZ}(t_1, t_2),
+\end{equation}
+令$t_1 = t_2 = t$，则
+\begin{equation}
+\sigma^2_{W}(t) = \Psi^2_W(t) = \Psi^2_{X}(t) +\Psi^2_{Y}(t) +\Psi^2_{Z}(t),
+\end{equation}
+
+\section{独立增量过程}
+\textcolor{red}{二阶矩过程}
+
+设随机过程$\{X(t), t\in T\}$，若对每一个$t\in T$，二阶矩$E[X^2 (t)]$都存在；
+
+二阶矩过程的相关函数总存在；
+
+\textcolor{red}{正态过程}
+
+设随机过程$\{X(t), t\in T\}$，它的每一个有限维分布都是正态分布，亦即对任意整数$n\geq 1$以及任意$t_1, t_2, \cdots, t_n\in T$，$(X(t_1), X(t_2), \cdots, X(t_n)~)$服从$n$维正态分布；
+
+正态过程的全部统计特性完全由均值函数和自协方差函数(自相关函数)确定；
+
+\textcolor{red}{独立增量过程}
+
+给定二阶矩过程$\{X(t), t\geq 0\}$，称随机变量$X(t)-X(s)$，$0\leq s < t$为随机过程在区间$(s,t]$上的增量；对任意选定的正整数$n$和任意选定的$0\leq t_0 < t_1 < t_2 < \cdots < t_n$，$n$个增量
+\begin{equation}
+X(t_1)-X(t_0), X(t_2)-X(t_1), \cdots, X(t_n)-X(t_{n-1}),
+\end{equation}
+相互独立，称$\{X(t), t\geq 0 \}$为独立增量过程；
+
+在互不重叠的区间上，状态的增量是相互独立的；
+
+可以证明：对独立增量过程，$X(0) = 0$时，它的有限维分布函数族可以由增量$X(t)-X(s)(0\leq s < t)$的分布所确定；
+
+\textcolor{red}{增量具有平稳性}
+
+对任意的实数$h$和$0\leq s+h < t+h$，$X(t+h) -X(s+h)$与$X(t) -X(s)$具有相同的分布；
+
+增量$X(t) -X(s)$的分布函数只依赖于时间差$t-s(0\leq s < t)$，不依赖于$t$和$s$本身；
+
+当增量具有平稳性时，相应的独立增量过程是\textcolor{red}{齐次}的或\textcolor{red}{时齐}的；
+
+\subsection{泊松过程}
+\textcolor{red}{计数过程}：
+
+以$N(t), t \geq 0$表示在时间间隔$(0,t]$内出现的质点数；$\{N(t), t \geq 0\}$是一状态取非负整数、时间连续的随机过程；
+
+\textcolor{red}{强度为$\lambda$的泊松过程}：
+
+将增量$N(t)-N(t_0)$记成$N(t_0, t), 0 \leq t_0 < t$，表示时间间隔$(t_0, t]$内出现的质点数；
+
+“在$(t_0, t]$内出现$k$个质点”，即$\{N(t_0, t) = k\}$，是一事件，其概率记为
+\begin{equation}
+P_k(t_0, t) = P\{N(t_0, t) = k \}, k = 0, 1, 2, \cdots
+\end{equation}
+
+假设$N(t)$满足如下条件：
+
+1. 在不相重叠的区间上的增量具有独立性；
+
+2. 对于充分小的$\Delta t$
+\begin{equation}
+P_1(t, t+\Delta t) = P\{N(t, t+\Delta t) = 1 \} = \lambda \Delta t +\mathit{o}(\Delta t),
+\end{equation}
+$\lambda > 0$：过程$N(t)$的强度，
+
+$\mathit{o}(\Delta t)$：当$\Delta t \rightarrow 0$时是关于$\Delta t$的高阶无穷小；
+
+3. 对于充分小的$\Delta t$
+\begin{equation}
+\sum_{j=2}^{\infty} P_j(t, t+\Delta t) = \sum_{j=2}^{\infty} P\{ N(t, t+\Delta t) = j\} = \mathit{o}(\Delta t)
+\end{equation}
+即对于充分小的$\Delta t$，在$(t, t+\Delta t]$内出现2个或2个以上质点的概率与出现一个质点的概率相比可以忽略不计；
+
+4. $N(0) = 0$
+
+
+\textcolor{red}{强度为$\lambda$的泊松流}：
+
+相应的质点流或即质点出现的随机时刻$t_1, t_2, \cdots$；
+
+\textcolor{red}{散粒噪声}
+
+\subsection{维纳(Wiener)过程}
+
+\textcolor{red}{Brown运动}
+
+
+
+
+
+
+\section{Random Processes}
+\cite{kittel1958elementary} A stochastic or random variable is a variable quantity with a definite range of values, each one of which, depending on chance, can be attained with a definite probability. A stochastic variable is defined (a) if the set of possible values is given, and (b) if the probability of attaining each particular value is also given. 
+
+The sum of a large number of independent stochastic variables is a stochastic variable. The central limit theorem says that under very general conditions the distribution of the sum tends toward a normal (Gaussian) distribution law as the number of terms is increased. 
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Central Limit Theorem]
+Let $x_1, x_2, \cdots, x_n$ be independent stochastic variables with their means equal to $0$, possessing absolute moments $\mu_{2+\delta}^{(i)}$ of the order $2+\delta$, where $\delta$ is some number $> 0$. If, denoting by $B_n$ the mean square fluctuation of the sum $x_1 +x_2 +\cdots +x_n$, the quotient
+\begin{equation}
+\omega_n = \dfrac{\sum\limits_{i=1}^n \mu_{2+\delta}^{(i)}}{B_n^{1+\delta/2}} 
+\end{equation}
+tends to zero as $n \rightarrow 0$, the probability of the inequality
+\begin{equation}
+\dfrac{x_1+x_2+\cdots x_n}{\sqrt{B_n}} < t 
+\end{equation}
+tends uniformly to the limit
+\begin{equation}
+\dfrac{1}{\sqrt{2 \pi}} \int_{-\infty}^t \exp \left[- \dfrac{u^2}{2} \right] \dif u ~.
+\end{equation}
+For a  distribution $f(x_i)$, the absolute moment of order $\alpha$ is defined as 
+\begin{equation}
+\mu_{\alpha}^{(i)} = \int_{-\infty}^\infty |x_i|^\alpha f(x_i) \dif x_i ~.
+\end{equation}
+\end{tcolorbox}
+Almost all the probability distributions $f(x)$ of stochastic variables $x$ of interest to us in physical problems will satisfy the requirements of the central limit theorem. 
+
+By a random process or stochastic process $x(t)$, we mean a process in which the variable $x$ does not depend in a completely definite way on the independent variable $t$, which may denote the time. In observations on the different systems of a representative ensemble we find different functions $x(t)$. All we can do is to study certain probability distributions - we can not obtain the functions $x(t)$ themselves for the members of the ensemble. 
+
+We can determine, for example
+\begin{align}
+& p_1(x, t)\dif x = \text{Probability of finding $x$ in the range $(x, x+\dif x$) at time $t$} ~, \\
+\nonumber & p_2(x_1, t_1; x_2, t_2)\dif x_1 \dif x_2 = \text{Probability of finding $x$ in} \\ 
+& \text{$(x_1, x_1+\dif x_1)$ at time $t_1$ and in the range $(x_2, x_2+\dif x_2)$ at time $t_2$} ~,
+\end{align}
+If we had an actual oscillogram record covering a long period of time we might construct an ensemble by cutting the record up into strips of equal length $T$ and mounting them one over the other. The probabilities $p_1$ and $p_2$ will be found from the ensemble. Proceeding similarly we can form $p_3, p_4, \cdots$. The whole set of probability distributions $P_n(n =1, 2, \cdots, \infty)$ may be necessary to describe the random process completely. \textcolor{brown}{In many important cases $p_2$ contains all the information we need}. When this is true, the random process is called a \textcolor{red}{Markoff process}. A \textcolor{red}{stationary random process} is one for which the \textcolor{red}{joint probability distributions $p_n$ are invariant under a displacement of the origin of time}. 
+
+It is useful to introduce the \textcolor{blue}{conditional probability $P_2(x_1, 0|x_2, t) \dif x_2$} for the probability that given $x_1$ one finds $x$ in $\dif x_2$ at $x_2$ a time $t$ later. Then it obvious that
+\begin{equation}
+p_2(x_1, 0; x_2, t) = p_1(x_1, 0)P_2(x_1, 0|x_2, t) ~.
+\end{equation}
+
+
+
+
+\section{Wiener-Khintchine Theorem}
+\cite{kittel1958elementary} The Wiener-Khintchine theorem states a relationship between two important characteristics of a random process: the power spectrum of the process and the correlation function of the process. 
+
+Suppose we develop one of the records of $x(t)$ for $0 < t < T$ in a Fourier series:
+\begin{equation}
+x(t) = \sum_{n=1}^\infty (a_n \cos 2\pi f_n t+ b_n \sin 2\pi f_n t) ~,
+\end{equation}
+where $f_n = n/T$. We assume that $\langle x(t) \rangle = 0$, where the angular parentheses $\langle  \rangle$ denote time average; because the average is assumed zero there is no constant term in the Fourier series. The Fourier coefficients are highly variable from one record of duration $T$ to another. For many types of noise that \textcolor{red}{$a_n$, $b_n$ have Gaussian distributions}. When this is true, the process is said to be a \textcolor{red}{Gaussian random process}.
+
+Let us now imagine that $x(t)$ is an electric current flowing through unit resistance. The instantaneous power dissipation is $x^2(t)$. Each Fourier component will contribute to the total power dissipation. The power in the $n$th component is 
+\begin{equation}
+P_n = (a_n \cos 2\pi f_n t + b_n \sin 2\pi f_n t)^2 ~.
+\end{equation}
+We do not consider cross product terms in the power of the form
+\begin{equation}
+(a_n \cos 2\pi f_n t + b_n \sin 2\pi f_n t)(a_m \cos 2\pi f_m t + b_m \sin 2\pi f_m t)
+\end{equation}
+because for $n\neq m$ the time average of such terms will be zero. The time average of $P_n$ is 
+\begin{equation}
+\langle P_n \rangle = \langle a_n^2 +b_n^2 \rangle /2 ~,
+\label{eq:Pn_aver}
+\end{equation}
+because 
+\begin{align}
+\nonumber & \langle \cos^2 2\pi f_n t \rangle = \dfrac{1}{2} ~, \\
+\nonumber & \langle \sin^2 2\pi f_n t \rangle = \dfrac{1}{2} ~, \\
+\nonumber & \langle \cos 2\pi f_n t \sin 2\pi f_n t \rangle = 0 ~.
+\end{align}
+We turn to ensemble averages, denoted by a bar over the quantity. An ensemble average is an average over a large set of independent records, each record running in time from $0$ to $T$. For a random process,
+\begin{align}
+\overline{a_n} = 0 ~, ~~\overline{b_n} = 0 ~, ~~ \overline{a_n b_m} = 0 ~, \\
+\overline{a_n a_m} = \overline{b_n b_m} = \sigma_n^2 \delta_{nm} ~, 
+\end{align}
+where for a Gaussian random process, $\sigma_n$ is just the standard deviation. 
+\begin{equation}
+\overline{(a_n \cos 2\pi f_n t + b_n \sin 2\pi f_n t)^2} = \sigma_n^2 (\cos^2 2\pi f_n t + \sin^2 2\pi f_n t) = \sigma_n^2 ~.
+\end{equation}
+From Eq. (\ref{eq:Pn_aver}), the ensemble average of the time average power dissipation associated with the $n$th component of $x(t)$ is
+\begin{equation}
+\overline{\langle P_n \rangle} = \sigma_n^2 ~.
+\end{equation}
+
+
+
+
+\section{Power Spectrum}
+\cite{kittel1958elementary} Define the \textcolor{red}{power spectrum} or \textcolor{red}{spectral density} \textcolor{orange}{$G(f)$} of the random process as the \textcolor{orange}{ensemble average of the time average of the power dissipation in unit resistance per unit frequency bandwidth}. If we pick a frequency band width $\Delta f_n$ equal to the separation between two adjacent frequencies
+\begin{equation}
+\Delta f_n = f_{n+1} -f_{n}  = \dfrac{n+1}{T} - \dfrac{n}{T} = \dfrac{1}{T} ~,
+\end{equation}
+we have 
+\begin{equation}
+G(f_n) \Delta f_n = \overline{\langle P_n \rangle} = \sigma_n^2 ~.
+\end{equation}
+\begin{equation*}
+\color{red} \overline{x^2(t)} = \sum_n \sigma_n^2 = \sum_n G(f_n) \Delta f_n = \int_0^\infty G(f) \dif f ~.
+\end{equation*}
+The \textcolor{red}{integral of the power spectrum over all frequencies gives the ensemble average total power}, which we assume is independent of time, so we speak of it simply as the average total power. 
+
+\section{Correlation Function}
+\cite{kittel1958elementary} Consider the correlation function
+\begin{equation}
+\color{red} C(\tau) = \langle x(t) x(t+\tau)\rangle
+\end{equation}
+where the average is over the time $t$. The function is also called the \textcolor{orange}{autocorrelation function}. We may take an \textcolor{orange}{ensemble average of the time average $\langle x(t) x(t+\tau)\rangle$}, so that
+\begin{align}
+\nonumber C(\tau) &= \overline{\langle x(t) x(t+\tau)\rangle} \\
+\nonumber &= \overline{\langle \sum_{n,m} [a_n \cos 2\pi f_n t +b_n \sin 2\pi f_n t] [a_m \cos 2\pi f_m (t+\tau) +b_m \sin 2\pi f_m (t+\tau)]\rangle} \\
+\nonumber &= \dfrac{1}{2} \sum_n \overline{a_n^2 +b_n^2} \cos 2\pi f_n \tau \\
+&= \sum_n \sigma_n^2 \cos 2\pi f_n \tau ~.
+\end{align}
+
+\begin{equation}
+\color{red} C(\tau) = \int_0^\infty G(f) \cos 2\pi f \tau \dif f ~.
+\label{eq:C}
+\end{equation}
+The correlation function is the Fourier cosine transform of the power spectrum. If we set in
+\begin{equation}
+f(x) = \sqrt{\dfrac{2}{\pi}} \int_0^\infty g(u) \cos u x \dif u ~,
+\end{equation}
+by
+\begin{align}
+& u = 2\pi f ~, \\
+& 2 \sqrt{2\pi} g(u) = G(f) ~,
+\end{align}
+then
+\begin{equation}
+g(u) = \sqrt{\dfrac{2}{\pi}} \int_0^\infty f(t) \cos u t \dif t ~,
+\end{equation}
+gives
+\begin{equation}
+\color{red} G(f)  = 4 \int_0^\infty C(\tau) \cos 2\pi f \tau \dif \tau ~.
+\label{eq:G}
+\end{equation}
+This, together with Eq. (\ref{eq:C}),  is the \textcolor{red}{Wiener-Khintchine theorem}. It has an obvious physical content. The \textcolor{red}{correlation function} tells us essentially \textcolor{red}{how rapidly the random process is changing}. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,296 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}      % 花体
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Radiation Physics of Relativistic Flows}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{RADIATION PRELIMINARIES}
+\cite{2009herb.book.....D} The intensity $I_\epsilon$ is defined such that $I_\epsilon \dif \epsilon　\dif A \dif t \dif \Omega$ is the infinitesimal energy $\dif \mathcal E$ in photons with energy between $\epsilon$ and $\epsilon　+\dif \epsilon$ lying within solid angle element $\dif \Omega$ that pass through area element $\dif A$ oriented normal to the direction $\vec{\Omega}$ during differential time $\dif t$. The intensity is a local quantity, $I_\epsilon = I_\epsilon(\vec{x}, t)$. Other than polarization, $I_\epsilon$ provides a complete description of the radiation field. The \textcolor{red}{specific spectral energy density $u(\epsilon, \Omega) = \dif \mathcal E/\dif V\dif \epsilon \dif \Omega$}. By following a pencil beam of rays contained within differential volume $\dif V = c\dif t \dif A$, $\dif \mathcal E = u(\epsilon, \Omega) \dif V \dif \epsilon\dif \Omega = u(\epsilon, \Omega)c\dif t \dif A \dif \epsilon\dif \Omega = I_\epsilon\dif A \dif t \dif \epsilon\dif \Omega$, so that
+\begin{align}
+I_\epsilon = c u(\epsilon, \Omega) ~.
+\end{align}
+Consider a pencil beam of radiation, passing through area elements $\dif A_1 \cos \theta_1$ and $\dif A_2 \cos \theta_2$ separated by distance $d$ and oriented at angles $\theta_1$ and $\theta_2$, respectively, to the direction of the rays. If there is no absorption or emission of photons during propagation, then energy conservation of the radiation beam passing through $\dif A_1$ and $\dif A_2$ during time $\dif t$ means that $\dif \mathcal E = I_{\epsilon, 1} \dif A_1 \cos \theta_1 \dif t \dif \Omega_1 \dif \epsilon_1 = I_{\epsilon, 2} \dif A_2 \cos \theta_2 \dif t \dif \Omega_2 \dif \epsilon_2$. The bundle of rays passing through $\dif A_2$ lies within solid angle element $\dif \Omega_1  = \dif A_2 \cos \theta_2 /d^2$ as seen from the location of $\dif A_1$. The rays passing through $\dif A_1$ lie within the solid angle element $\dif \Omega_2  = \dif A_1 \cos \theta_1 /d^2$ as seen from the location of $\dif A_2$. For constant energy rays (no cosmological redshifting, which can be treated separately), $\epsilon_1 = \epsilon_2 = \epsilon$. $I_{\epsilon, 1} = I_{\epsilon, 2}$ or $\dif I_{\epsilon}/\dif s = 0$.
+
+Effects of absorption or emission on the evolution of the intensity over differential path length $\dif s$ are described by the equation of radiative transfer, given by
+\begin{align}
+& \dfrac{\dif I_\epsilon}{\dif s} = -\kappa_\epsilon I_\epsilon +j(\epsilon, \Omega) ~, \\
+& \dfrac{\dif I_\epsilon}{\dif \tau_\epsilon} = -I_\epsilon + \mathcal S_\epsilon ~.
+\end{align}
+$j(\epsilon, \Omega) = \dif \mathcal{E}/\dif V \dif t \dif \epsilon \dif \Omega$ is the emissivity, and the \textcolor{red}{differential optical depth $\tau_\epsilon = \kappa_\epsilon \dif s$} is defined in terms of the spectral absorption coefficient $\kappa_\epsilon$ (units of inverse length). The source function
+\begin{align}
+\mathcal{S}_\epsilon = \dfrac{j(\epsilon, \Omega)}{\kappa_\epsilon} ~.
+\end{align}
+
+
+
+
+\section{INVARIANT QUANTITIES}
+\cite{2009herb.book.....D} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{BLACKBODY RADIATION FIELD}
+\cite{2009herb.book.....D} The average energy in wave modes populated according to Boltzmann statistics is, letting $x = e^{-h\Delta U/k_B T}$, 
+\begin{align}
+\langle U \rangle &= \dfrac{\sum\limits_{n=0}^\infty n \Delta U e^{-n\Delta U/k_B T} }{\sum\limits_{n=0}^\infty e^{-n\Delta U/k_B T}} = \Delta U \dfrac{\sum\limits_{n=0}^\infty n x^n}{\sum\limits_{n=0}^\infty x^n} = \Delta U (1-x) x \sum_{n=0}^\infty n x^{n-1} \\
+& = \Delta U x(1-x) \dfrac{\dif}{\dif x} \left(\dfrac{1}{1-x} \right) = \dfrac{\Delta U}{x^{-1} -1} = \dfrac{h\nu}{e^{h\nu/k_B T} -1} ~,
+\end{align}
+where the energy $\Delta U = h\nu$ in a mode of frequency $\nu$, according to Planck's quantum hypothesis.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The \textcolor{red}{energy density of a blackbody radiation field} is
+\begin{align}
+\nonumber u_{\rm CMB} (\Theta) &= \dfrac{4\pi}{c} \int_0^\infty \dif \epsilon I_\epsilon^{\rm CMB}(\Theta) = \dfrac{8\pi^5}{15} \dfrac{m_e c^2}{\lambda_C^3} \Theta^4 \\
+\nonumber &= 4.14\times 10^{-13} (1+z)^4 \left(\dfrac{T}{2.72 {\rm K}} \right)^4 ~{\rm ergs ~cm}^{-3} \\
+&\simeq 0.26(1+z)^4 \left(\dfrac{T}{2.72 {\rm K}} \right)^4 ~{\rm eV ~cm}^{-3}
+\end{align}
+$u_{\rm CMB}(\Theta) = m_e c^2 \langle \epsilon_{\rm CMB}(\Theta)\rangle n_{\rm CMB}(\Theta)$.
+
+Because the blackbody radiation field is strongly peaked at photon energies $\epsilon \simeq \Theta$, a monochromatic $\delta$-function approximation oftentimes provides sufficient accuracy for calculations. A convenient approximation for the CMBR field is
+\begin{align}
+n_{\rm CMB} (\epsilon, z) = 407(1+z)^3 \delta[\epsilon -1.24 \times 10^{-9}(1+z)] ~.
+\end{align}
+
+
+
+\section{TRANSFORMED QUANTITIES}
+\cite{2009herb.book.....D} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{FLUXES OF RELATIVISTIC COSMOLOGICAL SOURCES}
+\cite{2009herb.book.....D} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

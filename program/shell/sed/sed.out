@@ -1,0 +1,25 @@
+\BOOKMARK [1][-]{section.1}{sed的选项、命令、替换标记}{}% 1
+\BOOKMARK [1][-]{section.2}{规则表达式}{}% 2
+\BOOKMARK [1][-]{section.3}{实例}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{替换操作：s命令}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{全面替换标记g}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{定界符}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{删除操作：d命令}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.5}{已匹配字符串标记&}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.6}{子串匹配标记"026E30F 1}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.7}{组合多个表达式}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.8}{引用}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.9}{选定行的范围：,（逗号）}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.10}{多点编辑：e命令}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.11}{从文件读入：r命令}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.12}{写入文件：w命令}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.13}{追加（行下）：a"026E30F 命令}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.14}{插入（行上）：i"026E30F 命令}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.15}{下一个：n命令}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.16}{变形：y命令}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.17}{退出：q命令}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.18}{保持和获取：h命令和G命令}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.19}{保持和互换：h命令和x命令}{section.3}% 22
+\BOOKMARK [2][-]{subsection.3.20}{脚本scriptfile}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.21}{打印奇数行或偶数行}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.22}{打印匹配字符串的下一行}{section.3}% 25

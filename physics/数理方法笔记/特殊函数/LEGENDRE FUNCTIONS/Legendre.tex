@@ -1,0 +1,617 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Legendre Functions}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\section{Legendre Polynomials}
+\cite{arfken} The Legendre equation,
+\begin{equation}
+(1-x^2) P^{\prime \prime}(x) - 2x P^\prime(x) +\lambda P(x)  = 0 ~,
+\end{equation}
+has regular singular points at $x = \pm 1$ and $x = \infty$, and therefore has a series solution about $x = 0$ that has a unit radius of convergence, i.e., the series solution will (for all values of the parameter $\lambda$) converge for $|x| < 1$. For most values of $\lambda$, the series solutions will diverge at $x = \pm 1$ (corresponding to $\theta = 0$ and $\theta = \pi$), making the solutions inappropriate for use in central force problems. However, if $\lambda$ has the value $l(l + 1)$, with $l$ an integer, the series become truncated after $x^l$, leaving a polynomial of degree $l$. The desired solutions to the Legendre equations as polynomials of successive degrees, called Legendre polynomials and designated $P_l$.  
+
+The generating function for the polynomial solutions of the Legendre ODE is
+\begin{equation}
+g(x, t) = \dfrac{1}{\sqrt{1-2xt+t^2}} = \sum_{n=0}^\infty P_n(x) t^n ~.
+\end{equation}
+Set $x = 1$ in that equation, bringing its left-hand side to the form
+\begin{equation}
+g(1, t) =  \dfrac{1}{\sqrt{1-2t+t^2}} = \dfrac{1}{1-t} = \sum_{n=0}^\infty t^n ~.
+\end{equation}
+$P_n (1) = 1$. Replace $x$ by $-x$ and $t$ by $-t$, The value of $g(x,t)$ is unaffected by this substitution, but the right-hand side takes a different form:
+\begin{align}
+& \sum_{n=0}^\infty P_n(x) t^n = g(x,t) = g(-x, -t) = \sum_{n=0}^\infty P_n(-x) (-t)^n ~, \\
+& \color{red} P_n(-x) = (-1)^n P_n(x) ~,
+\end{align}
+$P_n(-1) = (-1)^n$, and that $P_n(x)$ will have the same parity as $x^n$.
+
+
+
+
+\begin{equation}
+P_n(x) = \sum_{k=0}^{[n/2]} (-1)^k \dfrac{(2n-2k)!}{2^n k! (n-k)! (n-2k)!} x^{n-2k} ~.
+\end{equation}
+Here $[n/2]$ stands for the largest integer $\leqslant n/2$. This formula is consistent with the requirement that for $n$ even, $P_n(x)$ has only even powers of $x$ and even parity, while for $n$ odd, it has only odd powers of $x$ and odd parity.
+
+\subsection{Recurrence Formulas}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Upper and Lower Bounds for $P_n (\cos \theta)$}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Rodrigues Formula}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Orthogonality}
+\cite{arfken} The Legendre ODE is self-adjoint and the coefficient of $P^{\prime \prime}(x)$, namely $(1- x^2)$, vanishes at $x = \pm 1$, its solutions of different $n$ will automatically be orthogonal with unit weight on the interval $(-1, 1)$,
+\begin{align}
+& \int_{-1}^1 P_n(x) P_m(x) \dif x = 0 ~, ~~ (n \neq m) \\
+& \int_{0}^\pi  P_n(\cos \theta) P_m(\cos \theta) \sin \theta \dif \theta = 0 ~, ~~ (n \neq m)
+\end{align}
+Because the $P_n$ are real, no complex conjugation needs to be indicated in the orthogonality integral. The definition of the $P_n$ does not guarantee that they are normalized. By squaring the generating-function formula, yielding initially
+\begin{equation}
+(1-2xt +t^2)^{-1} = \left[\sum_{n=0}^\infty P_n(x) t^n \right]^2 ~.
+\end{equation}
+Integrating from $x = -1$ to $x = 1$ and dropping the cross terms because they vanish due to orthogonality
+\begin{equation}
+\int_{-1}^1 \dfrac{\dif x}{(1-2xt +t^2)} = \sum_{n=0}^\infty t^{2n} \int_{-1}^1 \left[P_n(x)  \right]^2 \dif x ~.
+\end{equation}
+\begin{align}
+\int_{-1}^1 \dfrac{\dif x}{(1-2xt +t^2)} = \dfrac{1}{2t} \int_{(1-t)^2}^{(1+t)^2} \dfrac{\dif y}{y} = \dfrac{1}{t}  \ln \left( \dfrac{1+t}{1-t} \right) ~.
+\end{align}
+Expanding this in a power series,
+\begin{equation}
+ \dfrac{1}{t}  \ln \left( \dfrac{1+t}{1-t} \right) = 2 \sum_{n=0}^\infty \dfrac{t^{2n}}{2n +1}  ~,
+\end{equation}
+and equating the coefficients of powers of $t$, 
+\begin{equation}
+ \int_{-1}^1 \left[P_n(x)  \right]^2 \dif x = \dfrac{2}{2n+1} ~.
+\end{equation}
+The orthonormality condition is
+\begin{equation}
+\color{red} \int_{-1}^1 P_n(x) P_m(x) \dif x = \dfrac{2\delta_{nm}}{2n+1} ~.
+\end{equation}
+This result can also be obtained using the Rodrigues formulas for $P_n$ and $P_m$.
+
+
+\subsection{Legendre Series}
+The orthogonality of the Legendre polynomials makes it natural to use them as a basis for expansions. Given a function $f(x)$ defined on the range$(-1, 1)$, the coefficients in the expansion
+\begin{equation}
+f(x) = \sum_{n=0}^\infty a_n P_n(x) ~,
+\end{equation}
+are given by the formula
+\begin{equation}
+a_n = \dfrac{2n+1}{2} \int_{-1}^1 f(x) P_n(x) \dif x
+\end{equation}
+The orthogonality property guarantees that this expansion is unique. Since we can (but perhaps will not wish to) convert our expansion into a power series by inserting the expansion and collecting the coefficients of each power of $x$, we can also obtain a power series, which we thereby know must be unique.
+
+
+An important application of Legendre series is to solutions of the Laplace equation. When the Laplace equation is separated in spherical polar coordinates, its general solution (for spherical symmetry) takes the form
+\begin{equation}
+\psi(r, \theta, \varphi) = \sum_{l, m} (A_{lm} r^l +B_{lm} r^{-l-1})P_l^m (\cos \theta) (A^\prime_{lm} \sin m \varphi + B^\prime_{lm} \cos m \varphi) ~,
+\end{equation}
+with $l$ required to be an integer to avoid a solution that diverges in the polar directions. Here we consider solutions with no azimuthal dependence (i.e., with $m = 0$), it reduces to 
+\begin{equation}
+\psi(r, \theta) = \sum_{l = 0}^\infty (a_{l} r^l +b_{l} r^{-l-1})P_l (\cos \theta) ~.
+\end{equation}
+Often our problem is further restricted to a region either within or external to a boundary sphere, and if the problem is such that must remain finite, the solution will have one of the two following forms:
+\begin{align}
+& \psi(r, \theta) = \sum_{l = 0}^\infty a_{l} r^l P_l (\cos \theta) ~~ (r \leqslant r_0) ~,\\
+& \psi(r, \theta) = \sum_{l = 0}^\infty a_{l} r^{-l-1} P_l (\cos \theta) ~~ (r \geqslant r_0) ~.
+\end{align}
+Sometimes the coefficients $(a_l)$ are determined from the boundary conditions of a problem rather than from the expansion of a known function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Physical Interpretation of Generating Function}
+\cite{arfken} If we introduce spherical polar coordinates $(r, \theta, \varphi)$ and place a charge $q$ at the point $a$ on the positive $z$ axis, the potential at a point $(r, \theta)$ (it is independent of $\varphi$) can be calculated, using the law of cosines, as
+\begin{align}
+\nonumber \psi(r, \theta) &= \dfrac{q}{4\pi \epsilon_0} \dfrac{1}{r_1} = \dfrac{q}{4\pi \epsilon_0} (r^2 +a^2 -2ar \cos \theta)^{-1/2} \\
+\nonumber &= \dfrac{q}{4\pi \epsilon_0 r} \left(1 -2\dfrac{a}{r} \cos \theta +\dfrac{a^2}{r^2} \right)^{-1/2} = \dfrac{q}{4\pi \epsilon_0 r} g\left(\cos \theta, \dfrac{a}{r}\right) \\
+&= \dfrac{q}{4\pi \epsilon_0 r} \sum_{n=0}^\infty P_n(\cos \theta) \left(\dfrac{a}{r} \right)^n ~.
+\label{equ:r>a}
+\end{align}
+The series only converges for $r > a$, with a rate of convergence that improves as $r/a$ increases. On the other hand, if we desire an expression for $\psi(r, \theta)$ when $r < a$,
+\begin{align}
+\nonumber \psi(r, \theta) &= \dfrac{q}{4\pi \epsilon_0 a} \left(1 -2\dfrac{r}{a} \cos \theta +\dfrac{r^2}{a^2} \right)^{-1/2} \\
+&= \dfrac{q}{4\pi \epsilon_0 a} \sum_{n=0}^\infty P_n(\cos \theta) \left(\dfrac{r}{a} \right)^n
+\label{equ:r<a}
+\end{align}
+valid when $r < a$. 
+
+\subsection{Expansion of $1/|\vec{r}_1 - \vec{r}_2|$}
+Eqs. (\ref{equ:r>a}) and (\ref{equ:r<a}) describe the interaction of a charge $q$ at position $\vec{a} = a \vec{\hat{e}}_z$ with a unit charge at position $\vec{r}$. The relevant quantities are $r$, $a$, and the angle $\theta$ between $\vec{r}$ and $\vec{a}$. Rewrite either Eq. (\ref{equ:r>a}) or (\ref{equ:r<a}) in a more neutral notation, to give the value of $1/|\vec{r}_1 - \vec{r}_2|$ in terms of the magnitudes $\vec{r}_1$, $\vec{r}_2$ and the angle between $\vec{r}_1$ and $\vec{r}_2$, which we now call $\chi$. If we define $r_>$ and $r_<$ to be respectively the larger and the smaller of $r_1$ and $r_2$, Eqs. (\ref{equ:r>a}) and (\ref{equ:r<a}) can be combined into the single equation
+\begin{equation}
+\dfrac{1}{|\vec{r}_1 - \vec{r}_2|} = \dfrac{1}{r_>} \sum_{n=0}^\infty \left(\dfrac{r_<}{r_>}\right)^n P_n(\cos \chi) ~,
+\end{equation}
+which will converge everywhere except when $r_1 = r_2$.
+
+
+\subsection{Electric Multipoles}
+Consider to $r > a$, its initial term (with $n = 0$) gives the potential we would get if the charge $q$ were at the origin, and that further terms must describe corrections arising from the actual position of the charge.
+\begin{align}
+\nonumber \psi(r, \theta) &= \dfrac{q}{4\pi \epsilon_0} \left(\dfrac{1}{r_1} - \dfrac{1}{r_2}\right) \\
+\nonumber &= \dfrac{q}{4\pi \epsilon_0 r} \left[\left(1 -2\dfrac{a}{r} \cos \theta +\dfrac{a^2}{r^2} \right)^{-1/2} - \left(1 +2\dfrac{a}{r} \cos \theta +\dfrac{a^2}{r^2} \right)^{-1/2}\right] \\
+\nonumber &= \dfrac{q}{4\pi \epsilon_0 r} \left[\sum_{n=0}^\infty P_n(\cos \theta) \left(\dfrac{a}{r} \right)^n - \sum_{n=0}^\infty P_n(\cos \theta) \left(-\dfrac{a}{r} \right)^n \right] \\
+&= \dfrac{2q}{4\pi \epsilon_0 r} \left[\dfrac{a}{r} P_1(\cos \theta) +\dfrac{a^3}{r^3} P_3(\cos \theta) +\cdots \right]
+\end{align}
+This configuration of charges is called an \textcolor{red}{electric dipole}, and its leading dependence on $r$ goes as $r^{-2}$. The strength of the dipole (called the \textcolor{red}{dipole moment}) can be identified as $2qa$, equal to the magnitude of each charge multiplied by their separation ($2a$). If we let $a \rightarrow 0$ while keeping the product $2qa$ constant at a value $\mu$, all but the first term becomes negligible, and we have
+\begin{equation}
+ \psi = \dfrac{\mu}{4\pi \epsilon_0} \dfrac{P_1(\cos \theta)}{r^2} ~,
+\end{equation}
+the potential of a point dipole of dipole moment $\mu$, located at the origin of the coordinate system (at $r = 0$). 
+
+We can extend the above analysis by combining a pair of dipoles of opposite orientation, thereby causing cancellation of their leading terms, leaving a potential whose leading contribution will be proportional to $r^{-3} P_2(\cos \theta)$. A charge configuration of this sort is called an \textcolor{red}{electric quadrupole}, and the $P_2$ term of the generating function expansion can be identified as the contribution of a point quadrupole, also located at $r = 0$. Further extensions, to \textcolor{red}{$2^n$-poles}, with contributions proportional to \textcolor{red}{$P_n(\cos \theta)/r^{n+1}$}, permit us to identify each term of the generating expansion with the potential of a point multipole. We thus have a \textcolor{red}{multipole expansion}.
+
+For the more general charge distributions, for simplicity limiting consideration to charges $q_i$ placed at respective positions $a_i$ on the polar axis of our coordinate system. Adding together the generating-function expansions of the individual charges, our combined expansion takes the form
+\begin{align}
+\nonumber \psi &= \dfrac{1}{4\pi \epsilon_0 r} \left[\sum_i q_i +\sum_i \dfrac{q_i a_i}{r} P_1(\cos \theta) +\sum_i \dfrac{q_i a_i^2}{r^2} P_2(\cos \theta) + \cdots \right] \\
+&= \dfrac{1}{4\pi \epsilon_0 r} \left[\mu_0 +\dfrac{\mu_1}{r} P_1(\cos \theta) +\dfrac{\mu_2}{r^2} P_2(\cos \theta) +\cdots \right]
+\end{align}
+where the $\mu_i$ are called the \textcolor{red}{multipole moments} of the charge distribution. $\mu_0$ is the $2^0$-pole, or \textcolor{red}{monopole moment}, with a value equal to the total net charge of the distribution; $\mu_1$ is the $2^1$-pole, or \textcolor{red}{dipole moment}, equal to $\sum_i q_i a_i$; $\mu_2$ is the $2^2$-pole, or \textcolor{red}{quadrupole moment}, given as $\sum_i q_i a_i^2$, etc. Our \textcolor{red}{general (linear) multipole expansion will converge for values of $r$ that are larger than all the $a_i$ values of the individual charges}. Put another way, the expansion will converge at points further from the coordinate origin than all parts of the charge distribution.
+
+Consider replacing $r$ by $|\vec{r} - \vec{r}_p|$. For $r > r_p$, the binomial expansion of $1/|\vec{r} -\vec{r}_p|^n$ will have the generic form
+\begin{equation}
+\dfrac{1}{|\vec{r} - \vec{r}_p|^n} = \dfrac{1}{r^n} + C \dfrac{r_p}{r^{n+1}} + \cdots ~,
+\end{equation}
+with the result that only the leading nonzero term will be unaffected by the change of expansion center. The lowest nonzero moment of the expansion will be independent of the choice of origin, but all higher moments will change when the expansion center is moved. Specifically, the total net charge (monopole moment) will always be independent of the choice of expansion center. The dipole moment will be independent of the expansion point only when the net charge is zero; the quadrupole moment will have such independence only if both the net charge and dipole moments vanish, etc.
+
+If we remove our restriction to linear arrays, our expansion would involve components of the multipole moments in different directions. In three-dimensional space, the dipole moment would have three components: $a$ generalizes to $(a_x , a_y , a_z )$, while the higher-order multipoles will have larger numbers of components $(a^2 \rightarrow a_x a_x , a_x a_y , \cdots)$. 
+
+The multipole expansion is not restricted to electrical phenomena, but applies anywhere we have an inverse-square force. For example, planetary configurations are described in terms of mass multipoles. And gravitational radiation depends on the time behavior of mass quadrupoles.
+
+
+
+
+
+
+\section{Associated Legendre Equation}
+\cite{arfken} 
+\begin{equation}
+(1-x^2) P^{\prime \prime}(x) - 2x P^\prime(x) + \left[ \lambda - \dfrac{m^2}{1-x^2} \right] P(x) = 0 ~.
+\end{equation}
+
+
+
+
+\begin{equation}
+P_l^m (x)  = \dfrac{(-1)^m}{2^l l!} (1-x^2)^{m/2} \dfrac{\dif^{l+m}}{\dif x^{l+m}} (x^2-1)^l ~,
+\end{equation}
+which gives results for $-m$ that do not appear similar to those for $+m$. 
+
+
+\begin{equation}
+P_l^{-m} (x) = (-1)^m \dfrac{(l-m)!}{(l+m)!} P_l^m (x) ~.
+\end{equation}
+$P_l^m$ and $P_l^{-m}$ are proportional.
+
+\subsection{Associated Legendre Polynomials}
+\begin{equation}
+g_m(x,t) \equiv \dfrac{(-1)^m (2m-1)!!}{(1-2xt+t^2)^{m+1/2}} = \sum_{s=0}^\infty \mathcal P_{s+m}^m (x) t^s ~.
+\end{equation}
+
+\subsection{Associated Legendre Functions}
+
+The associated Legendre function $P_m^m (x)$ is
+\begin{align}
+\nonumber P_m^m (x) &= \dfrac{(-1)^m}{2^m m!} (1-x^2)^{m/2} \dfrac{\dif^{2m}}{\dif x^{2m}} (x^2-1)^m = \dfrac{(-1)^m}{2^m m!} (2m)! (1-x^2)^{m/2} \\
+\nonumber &= (-1)^m (2m-1)!! (1-x^2)^{m/2} ~.
+\end{align}
+
+
+
+
+
+
+\subsection{Parity and Special Values}
+
+
+
+
+
+\subsection{Orthogonality}
+\begin{equation}
+\int_{-1}^1 P_p^m(x) P_q^m(x) \dif x = \dfrac{(-1)^m}{2^{p+q} p! q!} \int_{-1}^1 R^m \left(\dfrac{\dif^{p+m} R^p}{\dif x^{p+m}}  \right)  \left(\dfrac{\dif^{q+m} R^q}{\dif x^{q+m}}  \right) \dif x ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{align}
+& \color{red} \int_{-1}^1 P_p^m(x) P_q^m(x) \dif x = \dfrac{2}{2p+1} \dfrac{(p+m)!}{(p-m)!} \delta_{pq} ~. \\
+& \color{red} \int_{0}^\pi P_p^m(\cos \theta) P_q^m(\cos \theta) \sin \theta \dif \theta = \dfrac{2}{2p+1} \dfrac{(p+m)!}{(p-m)!} \delta_{pq} ~. 
+\end{align}
+The orthogonality of the $P_l^m$ with respect to the upper index when the lower index is held constant:
+\begin{equation}
+\color{red} \int_{-1}^1 P_l^m(x) P_l^n(x) (1-x^2)^{-1} \dif x = \dfrac{(l+m)!}{m(l-m)!} \delta_{mn} ~.
+\end{equation}
+This equation is not very useful because in spherical polar coordinates the boundary condition on the azimuthal coordinate $\varphi$ causes there already to be orthogonality with respect to $m$, and we are not usually concerned with orthogonality of the $P_l^m$ with respect to $m$.
+
+
+
+\section{Spherical Harmonics}
+\cite{arfken} The separated-variable methods for solving the Laplace, Helmholtz, or Schr\"odinger equations in spherical polar coordinates showed that the possible angular solutions $\Theta(\theta)\Phi(\varphi)$ are always the same in spherically symmetric problems. In particular the solutions for $\Phi$ depend on the single integer index $m$, and can be written in the form
+\begin{equation}
+\Phi_m(\varphi) = \dfrac{1}{\sqrt{2\pi}} e^{i m\varphi} ~, ~~ m = \cdots, -2, -1, 0, 1, 2, \cdots ,
+\end{equation}
+or 
+\begin{equation}
+\Phi_m(\varphi) = \left\{
+\begin{aligned}
+& \dfrac{1}{\sqrt{2\pi}} ~, & m = 0 ~, \\
+& \dfrac{1}{\sqrt{\pi}} \cos m \varphi ~, & m > 0 ~, \\
+& \dfrac{1}{\sqrt{\pi}} \sin |m| \varphi ~, & m < 0 ~.
+\end{aligned}
+\right.
+\end{equation}
+The above equations contain the constant factors needed to make $\Phi_m$ normalized, and those of different $m^2$ are automatically orthogonal because they are eigenfunctions of a Sturm-Liouville problem. The choices of the functions for $+m$ and $-m$ make $\Phi_m$ and $\Phi_{-m}$ orthogonal.
+\begin{equation}
+\int_0^{2\pi} [\Phi_m(\varphi) ]^\ast \Phi_{m^\prime}(\varphi) \dif \varphi = \delta_{mm^\prime} ~.
+\end{equation}
+The solutions $\Phi(\theta)$ could be identified as associated Legendre functions that can be labeled by the two integer indices $l$ and $m$, with $-l \leqslant m \leqslant l$. From the orthonormality integral for these functions, define the normalized solutions
+\begin{equation}
+\Theta_{lm} (\cos \theta) = \sqrt{\dfrac{2l+1}{2} \dfrac{(l-m)!}{(l+m)!} } P_l^m(\cos \theta) ~,
+\end{equation}
+satisfying the relation
+\begin{equation}
+\int_0^\pi [\Theta_{lm} (\cos \theta)]^\ast \Theta_{l^\prime m} (\cos \theta) \sin \theta \dif \theta = \delta_{ll^\prime} ~.
+\end{equation}
+An orthonormality condition of this type only applies if both functions $\Theta$ have the same value of the index $m$.  The complex conjugate is not really necessary because the $\Theta$ are real. When the argument of $P_l^m$ is $x = \cos \theta$, then $(1 -x^2)^{1/2} = \sin \theta$, so the $P_l^m$ are polynomials of overall degree $l$ in $\cos \theta$ and $\sin \theta$.
+
+The product \textcolor{red}{$\Theta_{lm}\Phi_m$} is called a \textcolor{red}{spherical harmonic}, and define
+\begin{equation}
+Y_l^m(\theta, \varphi) \equiv \sqrt{\dfrac{2l+1}{4\pi} \dfrac{(l-m)!}{(l+m)!} } P_l^m (\cos \theta) e^{i m \varphi} ~.
+\end{equation}
+These functions, being normalized solutions of a Sturm-Liouville problem, are orthonormal over the spherical surface, with
+\begin{equation}
+\int_0^{2\pi } \dif \varphi \int_0^\pi \sin \theta \dif \theta [Y_{l_1}^{m_1}(\theta, \varphi)]^\ast Y_{l_2}^{m_2}(\theta, \varphi) = \delta_{l_1 l_2} \delta_{m_1 m_2} ~.
+\end{equation}
+
+\subsection{Cartesian Representations}
+It is useful to express the spherical harmonics using Cartesian coordinates, which can be done by writing $\exp(\pm i\varphi)$ as $\cos \varphi \pm i \sin \varphi$ and using the formulas for $x, y, z$ in spherical polar coordinates (retaining, however, an overall dependence on $r$, necessary because the angular quantities must be independent of scale).
+
+Continuing to higher values of $l$, we obtain fractions in which the numerators are homogeneous products of $x, y, z$ of overall degree $l$, divided by a common factor $r^l$.
+
+\subsection{Overall Solutions}
+
+
+
+
+
+
+
+
+For the Laplace equation $\nabla^2 \psi = 0$, the general solution in spherical polar coordinates is a sum, with arbitrary coefficients, of the solutions for the various possible values of $l$ and $m$:
+\begin{equation}
+\psi(r, \theta, \varphi) = \sum_{l = 0}^\infty \sum_{m = -l}^l (a_{lm} r^l +b_{lm} r^{-l-1}) Y_l^m (\theta, \varphi) ~.
+\end{equation}
+For the Helmholtz equation $(\nabla^2 + k^2) \psi = 0$,
+\begin{equation}
+\psi(r, \theta, \varphi) = \sum_{l = 0}^\infty \sum_{m = -l}^l (a_{lm} j_l(kr) +b_{lm} y_l(kr)) Y_l^m (\theta, \varphi) ~,
+\end{equation}
+
+
+
+\subsection{Laplace Expansion}
+\textcolor{orange}{Any function $f(\theta, \varphi)$ (with sufficient continuity properties) evaluated over the surface of a sphere can be expanded in a uniformly convergent double series of spherical harmonics}. This expansion, known as a \textcolor{red}{Laplace series}, takes the form
+\begin{equation}
+\color{red} f(\theta, \varphi) = \sum_{l = 0}^\infty \sum_{m = -l}^l c_{lm} Y_l^m(\theta, \varphi) ~,
+\end{equation}
+with
+\begin{equation}
+\color{red} c_{lm} = \langle Y_l^m | f(\theta, \varphi)\rangle = \int_0^{2\pi } \dif \varphi \int_0^\pi \sin \theta \dif \theta  [Y_{l}^{m}(\theta, \varphi)]^\ast f(\theta, \varphi) ~.
+\end{equation}
+
+Consider the problem of determining the electrostatic potential within a charge-free spherical region of radius $r_0$, with the potential on the spherical bounding surface specified as an arbitrary function $V(r_0,\theta,\varphi)$ of the angular coordinates $\theta$ and $\varphi$. The potential $V(r,\theta,\varphi)$ is the solution of the Laplace equation satisfying the boundary condition at $r = r_0$ and regular for all $r \leqslant r_0$. This means it must be of the form of
+\begin{equation}
+V(r,\theta,\varphi) = \sum_{l=0}^{\infty} \sum_{m=-l}^l \left(a_{lm} r^l +b_{lm} r^{-l -1}  \right) Y_l^m(\theta,\varphi) ~,
+\end{equation}
+with the coefficients $b_{lm}$ set to zero to ensure a solution that is nonsingular at $r = 0$.
+\begin{equation}
+c_{lm} = \left\langle Y_l^m (\theta,\varphi) | V(r_0,\theta,\varphi) \right \rangle ~.
+\end{equation}
+For $r = r_0$,
+\begin{equation}
+V(r_0,\theta,\varphi) = \sum_{l=0}^{\infty} \sum_{m=-l}^l a_{lm} r_0^l Y_l^m(\theta,\varphi) ~,
+\end{equation}
+with the expression from
+\begin{equation}
+V(r_0,\theta,\varphi) = \sum_{l=0}^{\infty} \sum_{m=-l}^l c_{lm} Y_l^m(\theta,\varphi) ~,
+\end{equation}
+\begin{equation}
+a_{lm} = c_{lm}/ r_0^l ~.
+\end{equation}
+\begin{equation}
+V(r,\theta,\varphi) = \sum_{l=0}^{\infty} \sum_{m=-l}^l c_{lm} \left(\dfrac{r}{r_0} \right)^l Y_l^m(\theta,\varphi) 
+\end{equation}
+
+
+
+
+
+
+
+
+
+\subsection{Symmetry of Solutions}
+The angular solutions of given $l$ but different m are closely related in that they lead to the same solution for the radial equation. Except when $l = 0$, the individual solutions $Y_{lm}$ are not spherically symmetric, and we must recognize that a spherically symmetric problem can have solutions with less than the full spherical symmetry. A classical example of this
+phenomenon is provided by the Earth-Sun system, which has a spherically symmetric gravitational potential. However, the actual orbit of the Earth is planar. This apparent dilemma is resolved by noting that a solution exists for any orientation of the Earth’s orbital plane; that actually occurring was determined by ``initial conditions."
+
+A radial solution for given $l$, i.e., $r^l$ or $r^{-l-1}$, is associated with $2l + 1$ different angular solutions $Y_{lm}(-l \leqslant m \leqslant l)$, no one of which (for $l \neq 0$) has spherical symmetry. The most general solution for this $l$ must be a linear combination of these $2l + 1$ mutually orthogonal functions. The solution space of the angular solution of the Laplace equation for given $l$ is a Hilbert space containing the $2l +1$ members $Y_{l}^{-l}(\theta,\varphi), \cdots, Y_{l}^{l}(\theta,\varphi)$. If we write the Laplace equation in a coordinate system $(\theta^\prime,\varphi^\prime)$ oriented differently than the original coordinates, we must still have the same angular solution set, meaning that $Y_{lm}(\theta^\prime,\varphi^\prime)$ must be a linear combination of the original $Y_l^m$.
+\begin{equation}
+Y_{lm}(\theta^\prime,\varphi^\prime) = \sum_{m^\prime = -l}^l D_{m^\prime m}^l Y_{l}^{m^\prime} (\theta,\varphi) ~,
+\end{equation}
+where the coefficients D depend on the coordinate rotation involved. Note that a coordinate rotation cannot change the r dependence of our solution to the Laplace equation, the above expansion does not need to include a sum over all values of $l$.
+
+
+
+
+
+\subsection{Further Properties}
+Special values. At $\theta = 0$, the polar direction in the spherical coordinates, the value of $\varphi$ becomes immaterial, and all $Y_{lm}$ that have $\varphi$ dependence must vanish. Using also the fact that $P_l(1) = 1$, we find in general
+\begin{equation}
+Y_{lm}(0,\varphi) = \sqrt{\dfrac{2l+1}{4\pi}} \delta_{m0} ~.
+\end{equation}
+For $\theta = \pi$,
+\begin{equation}
+Y_{lm}(\pi,\varphi) = (-1)^l \sqrt{\dfrac{2l+1}{4\pi}} \delta_{m0} ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Legendre polynomials and Legendre functions}
+\cite{2008cmb..book.....D}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

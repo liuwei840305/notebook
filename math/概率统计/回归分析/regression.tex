@@ -1,0 +1,382 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{方差分析与回归分析}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{方差分析}
+
+\subsection{单因素方差分析}
+
+\subsection{多因素方差分析}
+
+\section{回归分析}
+确定性关系：变量之间的关系可以用函数关系表达；
+
+非确定性的关系：相关关系；
+
+设随机变量$Y$和普通变量$x$之间存在着相关关系，由于$Y$是随机变量，对于$x$的各个确定值，$Y$有它的分布。用$F(y|x)$表示当$x$取确定的$x$值时，所对应的$Y$的分布函数。若知道了$F(y|x)$随着$x$的取值而变化的规律，就完全掌握$Y$与$x$之间的关系了。这样做往往比较复杂。
+
+作为一种近似，考察$Y$的数学期望。若$Y$的数学期望$E(Y)$存在，则其值随$x$的取值而定，它是$x$的函数。将这一函数记为\textcolor{red}{$\mu_{Y|x}$}或\textcolor{red}{$\mu(x)$}，称为$Y$关于$x$的\textcolor{red}{回归函数}。将讨论$Y$与$x$的相关关系的问题转换为讨论$E(Y) = \mu(x)$与$x$的函数关系。
+
+若$\eta$是一个随机变量，则$E[(\eta -c)^2]$作为$c$的函数，在$c=E(\eta)$时$E[(\eta -c)^2]$达到最小。这表明在一切$x$的函数中，以回归函数$\mu(x)$作为$Y$的近似，其均方误差$E[(Y -\mu(x))^2]$为最小。
+
+回归分析的任务是根据试验数据去估计回归函数，讨论有关的点估计、区间估计、假设检验等。对随机变量$Y$的观察值作出点预测和区间预测。
+
+对于$x$取定一组不完全相同的值$x_1, x_2, \cdots, x_n$，设$Y_1, Y_2, \cdots, Y_n$分别是在$x_1, x_2, \cdots, x_n$处对$Y$的独立观察结果，称
+\begin{equation}
+(x_1, Y_1), (x_2, Y_2), \cdots, (x_n, Y_n) 
+\end{equation}
+是一个样本，对应的样本值记为
+\begin{equation}
+(x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n) ,
+\end{equation}
+利用样本来估计$Y$关于$x$的回归函数$\mu(x)$。
+
+\subsection{一元线性回归}
+设$Y$关于$x$的回归函数为$\mu(x)$；利用样本来估计$\mu(x)$的问题称为求$Y$关于$x$的回归问题。设$\mu(x)$为线性函数：
+\begin{equation}
+\mu(x) = a+bx
+\end{equation}
+设对于$x$(在某个区间内)的每一个值有
+\begin{equation}
+Y \sim N(a+bx, \sigma^2) ,
+\end{equation}
+其中$a, b$及$\sigma^2$都是不依赖于$x$的未知参数。记$\varepsilon = Y -(a+bx)$，对$Y$作这样的正态假设，相当于假设
+\begin{equation}
+Y = a +bx +\varepsilon, ~~ \varepsilon \sim N(0, \sigma^2)
+\label{1_regre}
+\end{equation}
+其中未知参数$a, b$及$\sigma^2$都不依赖于$x$。(\ref{1_regre})式称为\textcolor{red}{一元线性回归模型}，其中$b$称为\textcolor{red}{回归系数}。
+
+\subsubsection{$a, b$的估计}
+取$x$的$n$个不全相同的值$x_1, x_2, \cdots, x_n$作独立试验，得到样本
+\begin{equation}
+(x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n) ,
+\end{equation}
+由$\ref{1_regre}$式
+\begin{equation}
+Y_i = a +bx_i +\varepsilon_i, ~~ \varepsilon_i \sim N(0, \sigma^2), 
+\end{equation}
+各$\varepsilon_i$相互独立。于是
+\begin{equation}
+Y_i \sim  N(a+bx_i, \sigma^2), ~~ i = 1, 2, \cdots, n
+\end{equation}
+由$Y_1, Y_2, \cdots, Y_n$的独立性，$Y_1, Y_2, \cdots, Y_n$的联合概率密度
+\begin{eqnarray}
+\nonumber L  &=& \prod_{i=1}^n \frac{1}{\sigma \sqrt{2\pi}} \exp \left[-\frac{1}{2\sigma^2} (y_i -a -bx_i)^2   \right] \\
+&=&  \left( \frac{1}{\sigma \sqrt{2\pi}}  \right)^n \exp \left[-\frac{1}{2\sigma^2} \sum_{i=1}^n (y_i -a -bx_i)^2   \right] 
+\label{likelihood_func}
+\end{eqnarray}
+用最大似然估计法来估计参数$a, b$。对于任一组观察值$y_1, y_2, \cdots, y_n$，(\ref{likelihood_func})式是样本的似然函数。要$L$取最大值，只要(\ref{likelihood_func})式右端方括号中的平方和为最小，即
+\begin{equation}
+Q(a, b) = \sum_{i=1}^n (y_i -a -bx_i)^2
+\label{ls_method}
+\end{equation}
+取最小值。
+
+(Note: 若$Y$不是正态变量，直接使用(\ref{ls_method})式估计$a, b$，使$Y$的观察值$y_i$与$a+bx_i$偏差的平方和$Q(a, b)$为最小，这种方法称为\textcolor{red}{最小二乘法}。若$Y$是正态变量，则最小二乘法与最大似然估计法给出相同的结果)
+
+\begin{eqnarray}
+\nonumber \frac{\partial Q}{\partial a} &=& -2\sum_{i=1}^n (y_i -a -bx_i) = 0 \\
+\frac{\partial Q}{\partial b} &=& -2\sum_{i=1}^n (y_i -a -bx_i) x_i = 0
+\end{eqnarray}
+得到
+\begin{eqnarray}
+\nonumber na + \left(\sum_{i=1}^n x_i \right) b &=& \sum_{i=1}^n y_i \\
+\left( \sum_{i=1}^n x_i \right) a + \left(\sum_{i=1}^n x^2_i \right) b &=& \sum_{i=1}^n x_i y_i 
+\end{eqnarray}
+称为\textcolor{red}{正规方程组}。
+
+由于$x_i$不全相同，正规方程组的系数行列式
+\begin{equation*}
+\left|\begin{array}{cccc}   
+    n  & \sum\limits_{i=1}^n x_i \\   
+    \sum\limits_{i=1}^n x_i   & \sum\limits_{i=1}^n x_i^2
+\end{array}\right|   
+= n\sum_{i=1}^n x_i^2 -\left(\sum_{i=1}^n x_i \right)^2 = n\sum_{i=1}^n (x_i -\bar{x})^2 \neq 0 ~.
+\end{equation*}
+方程组有唯一解。$b, a$的最大似然估计为
+\begin{eqnarray}
+\nonumber \hat{b} &=& \frac{n\sum\limits_{i=1}^n x_i y_i -\left(\sum\limits_{i=1}^n x_i \right) \left(\sum\limits_{i=1}^n y_i\right)}{n\sum\limits_{i=1}^n x^2_i - \left(\sum\limits_{i=1}^n x_i \right)^2} =  \frac{ \sum\limits_{i=1}^n (x_i -\bar{x})(y_i -\bar{y} )}{\sum\limits_{i=1}^n (x_i -  \bar{x})^2 } \\
+\hat{a} &=& \frac{1}{n} \sum_{i=1}^n y_i -\frac{\hat{b}}{n} \sum_{i=1}^n x_i = \bar{y} - \hat{b} \bar{x}
+\end{eqnarray}
+其中
+\begin{eqnarray}
+\nonumber \bar{x} &=& \frac{1}{n} \sum_{i=1}^n x_i , \\
+\bar{y} &=& \frac{1}{n} \sum_{i=1}^n y_i ,
+\end{eqnarray}
+在得到$a, b$的估计$\hat{a}, \hat{b}$后，对于给定的$x$，取$\hat{a} + \hat{b} x$作为回归函数$\mu = a +bx$的估计，即$\widehat{\mu(x)} = \hat{a} + \hat{b} x$，称为$Y$关于$x$的\textcolor{red}{经验回归函数}。方程
+\begin{equation}
+ \hat{y} = \hat{a} + \hat{b} x
+\end{equation}
+称为$Y$关于$x$的\textcolor{red}{经验回归方程}，简称\textcolor{red}{回归方程},图形称为\textcolor{red}{回归直线}。
+将$\hat{a}$的表达式代入回归方程，则回归方程可写成
+\begin{equation}
+\hat{y} = \bar{y} +\hat{b}(x-\bar{x}) ~.
+\end{equation}
+即对于样本值$(x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n)$，回归直线通过散点图的几何中心$(\bar{x}, \bar{y})$。
+
+\begin{eqnarray}
+\nonumber S_{xx} &=& \sum_{i=1}^n (x_i -\bar{x})^2 = \sum_{i=1}^n x^2_i -\frac{1}{n} \left(\sum\limits_{i=1}^n x_i  \right)^2\\
+\nonumber S_{yy} &=& \sum_{i=1}^n (y_i -\bar{y})^2 = \sum_{i=1}^n y^2_i -\frac{1}{n} \left(\sum_{i=1}^n y_i  \right)^2\\
+S_{xy} &=& \sum_{i=1}^n (x_i -\bar{x}) (y_i -\bar{y}) = \sum_{i=1}^n x_i y_i -\frac{1}{n} \left(\sum_{i=1}^n x_i  \right) \left(\sum_{i=1}^n y_i  \right)
+\end{eqnarray}
+则
+\begin{eqnarray}
+\nonumber \hat{b} &=& \frac{S_{xy}}{S_{xx}} ~,\\
+\hat{a} &=& \frac{1}{n} \sum_{i=1}^n y_i -\left(\frac{1}{n} \sum_{i=1}^n x_i \right) \hat{b} ~.
+\end{eqnarray}
+
+\subsubsection{$\sigma^2$的估计}
+\begin{equation*}
+E\{[Y-(a+bx)]^2 \} = E(\epsilon^2) = D(\epsilon) +[E(\epsilon)]^2 = \sigma^2
+\end{equation*}
+利用样本估计$\sigma^2$：\\
+记$\hat{y}_i = \hat{y}|_{x=x_i} = \hat{a} +\hat{b} x_i$，$y_i -\hat{y}_i$记为$x_i$处的\textcolor{red}{残差}。
+\begin{equation}
+Q_e = \sum_{i=1}^n (y_i -\hat{y}_i)^2 = \sum_{i=1}^n (y_i -\hat{a} -\hat{b} x_i)^2
+\end{equation}
+记为\textcolor{red}{残差平方和}。它是经验回归函数在$x_i$处的函数值$\widehat{\mu(x_i)} = \hat{a} + \hat{b} x_i$与$x_i$处的观察值$y_i$的偏差的平方和。
+\begin{eqnarray*}
+Q_e &=& \sum_{i=1}^n (y-\hat{y}_i)^2 =  \sum_{i=1}^n [y_i-\bar{y}_i -\hat{b}(x_i -\bar{x} )]^2 \\
+&=& \sum_{i=1}^n (y_i -\bar{y})^2 -2\hat{b} \sum_{i=1}^n (x_i -\bar{x})(y_i -\bar{y}) + \hat{b}^2 \sum_{i=1}^n (x_i-\bar{x})^2 \\
+&=& S_{yy} -2\hat{b} S_{xy} +\hat{b}^2 S_{xx} \\
+&=& S_{yy} -\hat{b} S_{xy}
+\end{eqnarray*}
+$b, a$的估计量分别为
+\begin{eqnarray}
+\nonumber \hat{b} &=& \frac{\sum\limits_{i=1}^n (x_i -\bar{x})(Y_i -\overline{Y}) }{\sum\limits_{i=1}^n (x_i -\bar{x})^2} =  \frac{ \sum\limits_{i=1}^n (x_i -\bar{x})Y_i }{\sum\limits_{i=1}^n (x_i -  \bar{x})^2 } \\
+\hat{a} &=& \frac{1}{n} \sum_{i=1}^n Y_i -\frac{\hat{b}}{n} \sum_{i=1}^n x_i = \overline{Y} - \hat{b} \bar{x}
+\end{eqnarray}
+其中$\overline{Y} =\dfrac{1}{n} \sum\limits_{i=1}^n Y_i$，$\overline{x} = \dfrac{1}{n} \sum\limits_{i=1}^n x_i$。将$y_i$改为$Y_i (i = 1, 2, \cdots, n)$，记为
+\begin{eqnarray*}
+S_{YY} &=& \sum\limits_{i=1}^n (Y_i -\overline{Y})^2 \\
+S_{xY} &=& \sum\limits_{i=1}^n (x_i -\overline{x})(Y_i -\overline{Y})
+\end{eqnarray*}
+
+
+残差平方和$Q_e$的相应的统计量(仍记为$Q_e$)为
+\begin{equation}
+Q_e = S_{YY} -\hat{b} S_{xY} ~.
+\end{equation}
+\textcolor{red}{残差平方和$Q_e$}服从分布
+\begin{equation}
+\color{red} \frac{Q_e}{\sigma^2} \sim \chi^2 (n-2) ~,
+\end{equation}
+因此
+\begin{equation*}
+E\left( \frac{Q_e}{\sigma^2}\right) = n-2 ~,
+\end{equation*}
+也就是
+\begin{equation*}
+E\left( \frac{Q_e}{n-2}\right) = \sigma^2 ~.
+\end{equation*}
+于是得到$\sigma^2$的无偏估计量：
+\begin{equation}
+\color{red} \widehat{\sigma^2}  = \frac{Q_e}{n-2} = \frac{S_{YY} -\hat{b} S_{xY}}{n-2} ~.
+\end{equation}
+
+
+\subsubsection{线性假设的显著性检验}
+用$t$检验法检验假设
+\begin{eqnarray}
+\nonumber H_0 : b = 0 ~, \\
+H_1 : b \neq 0 ~.
+\end{eqnarray}
+已知
+\begin{equation}
+\hat{b} \sim N\left(b, ~\frac{\sigma^2}{S_{xx}} \right) ~.
+\end{equation}
+又
+\begin{equation}
+\frac{(n-2) \widehat{\sigma^2}}{\sigma^2} = \frac{Q_e}{\sigma^2} \sim \chi^2 (n-2) ~,
+\end{equation}
+且$\hat{b}$与$Q_e$独立。故
+\begin{equation*}
+\frac{\hat{b} -b}{\sqrt{\sigma^2/S_{xx} } }\bigg/\sqrt{\frac{(n-2)\widehat{\sigma^2}}{\sigma^2}\bigg/(n-2)} = \frac{\hat{b} -b}{\hat{\sigma} } \sqrt{S_{xx}} \sim  t(n-2) ~.
+\end{equation*}
+其中$\hat{\sigma} = \sqrt{\widehat{\sigma^2}}$。当$H_0$为真时$b=0$，
+\begin{equation}
+t = \frac{\hat{b} }{\hat{\sigma} } \sqrt{S_{xx}} \sim t(n-2) ~,
+\end{equation}
+且$E(\hat{b}) = b = 0$，即得$H_0$的拒绝域
+\begin{equation}
+|t| = \frac{|\hat{b}|}{\hat{\sigma} } \sqrt{S_{xx}}  \geqslant t_{\alpha/2} (n-2) ~,
+\end{equation}
+$\alpha$为显著性水平。
+
+当假设$H_0 : b = 0$被拒绝时，认为回归效果是显著的，反之，认为回归效果不显著。
+
+
+\subsubsection{系数$b$的置信区间}
+当回归效果显著时，需要对系数$b$作区间估计。由
+\begin{equation*}
+\frac{\hat{b} -b}{\hat{\sigma} } \sqrt{S_{xx}} \sim  t(n-2) 
+\end{equation*}
+得到$b$的置信水平为$1-\alpha$的置信区间为
+\begin{equation}
+\left(\hat{b} \pm t_{\alpha/2}(n-2) \times \frac{\hat{\sigma}}{S_{xx}} \right)
+\end{equation}
+
+
+\subsubsection{回归函数$\mu(x) = a+bx$函数值的点估计和置信区间}
+设$x_0$是自变量$x$的某一指定值。用经验回归函数$\hat{y} = \widehat{\mu(x)} = \hat{a}+\hat{b}x$在$x_0$的函数值$\hat{y}_0 = \widehat{\mu(x_0)} = \hat{a}+\hat{b}x_0$作为$\mu(x_0) = a+bx_0$的点估计，即
+\begin{equation}
+\hat{y}_0 = \widehat{\mu(x_0)} = \hat{a}+\hat{b}x_0 ~.
+\end{equation}
+考虑相应的估计量
+\begin{equation}
+\hat{Y}_0 = \hat{a}+\hat{b}x_0 ~,
+\end{equation}
+由于$E(\hat{Y}_0) = a+b x_0$，这一估计量是无偏的。求$\mu(x_0) = a +bx_0$的置信区间：
+\begin{equation*}
+\frac{\hat{Y}_0 - (a+bx_0)}{\sigma \sqrt{\dfrac{1}{n} +\dfrac{(x_0 -\bar{x})^2}{S_{xx}} } } \sim N(0, 1) ~.
+\end{equation*}
+\begin{equation}
+\frac{(n-2) \widehat{\sigma^2}}{\sigma^2} = \frac{Q_e}{\sigma^2} \sim \chi^2 (n-2) ~,
+\end{equation}
+且$Q_e, \hat{Y}_0$相互独立。
+\begin{equation*}
+\frac{\hat{Y}_0 - (a+bx_0)}{\sigma \sqrt{\dfrac{1}{n} +\dfrac{(x_0 -\bar{x})^2}{S_{xx}} } }\Bigg/ \sqrt{\dfrac{(n-2)\widehat{\sigma^2} }{\sigma^2} \bigg/ (n-2)} =  \frac{\hat{Y}_0 - (a+bx_0)}{\hat{\sigma} \sqrt{\dfrac{1}{n} +\dfrac{(x_0 -\bar{x})^2}{S_{xx}} } } \sim t(n-2) ~,
+\end{equation*}
+$\mu(x_0) = a +bx_0$的置信水平为$1-\alpha$的置信区间为
+\begin{equation}
+\left( \hat{Y}_0 \pm t_{\alpha/2}(n-2) \hat{\sigma} \sqrt{\dfrac{1}{n} +\dfrac{(x_0 -\bar{x})^2}{S_{xx}} }  \right) ~,
+\end{equation}
+或
+\begin{equation}
+\left( \hat{a} +\hat{b}x_0 \pm t_{\alpha/2}(n-2) \hat{\sigma} \sqrt{\dfrac{1}{n} +\dfrac{(x_0 -\bar{x})^2}{S_{xx}} }  \right) ~.
+\end{equation}
+这一置信区间的长度是$x_0$的函数，它随$|x_0 -\bar{x}|$的增加而增加，当$x_0 = \bar{x}$时最短。
+
+
+
+\subsubsection{$Y$的观察值的点预测和预测区间}
+
+一元回归模型
+\begin{equation}
+Y = \mu(x; \theta_1, \theta_2, \cdots, \theta_p) +\varepsilon, ~~ \varepsilon \sim N(0, \sigma^2), 
+\end{equation}
+其中$\theta_1, \theta_2, \cdots, \theta_p, \sigma^2$是与$x$无关的未知参数；
+
+\textcolor{red}{线性回归模型}：
+
+若回归函数$\mu(x; \theta_1, \theta_2, \cdots, \theta_p)$是参数$\theta_1, \theta_2, \cdots, \theta_p$的线性函数；
+
+\textcolor{red}{非线性回归模型}：
+
+若回归函数$\mu(x; \theta_1, \theta_2, \cdots, \theta_p)$是参数$\theta_1, \theta_2, \cdots, \theta_p$的非线性函数；
+
+\subsection{多元线性回归}
+随机变量$Y$与多个变量$x_1, x_2, \cdots, x_p (p > 1)$ 有关。对于自变量$x_1, x_2, \cdots, x_p$的一组确定的值，$Y$有它的分布。若$Y$的数学期望存在，则它是$x_1, x_2, \cdots, x_p$的函数，记为$\mu_{Y|x_1, x_2, \cdots, x_p}$或$\mu(x_1, x_2, \cdots, x_p)$，它就是$Y$关于$x$的回归函数。假设
+\begin{equation}
+Y = b_0 +b_1 x_1 + \cdots + b_p x_p + \epsilon, ~~\epsilon \sim N(0, \sigma^2) ~,
+\end{equation}
+其中$b_0, b_1, \cdots, b_p, \sigma^2$都是与$x_1, x_2, \cdots, x_p$无关的未知参数。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

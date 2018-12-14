@@ -1,0 +1,284 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{1} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Second Order Ordinary Differential Equation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Second Order Linear Equations}
+The general second order linear differential equation is
+\begin{equation}
+\color{red} \frac{\dif^2 y}{\dif x^2} +P(x) \frac{\dif y}{\dif x} +Q(x)y = R(x) ~,
+\label{2nd_ge}
+\end{equation}
+or
+\begin{equation}
+y^{\prime\prime} +P(x) y^\prime +Q(x) y = R(x)
+\end{equation}
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Theorem A]
+Let $P(x)$, $Q(x)$, and $R(x)$ be continuous functions on a closed interval $[a,b]$. If $x_0$ is any point in $[a,b]$, and if $y_0$ and $y^\prime_0$ are any numbers whatever, then equation (\ref{2nd_ge}) has one and only one solution $y(x)$ on the entire interval such that $y(x_0) = y_0$ and $y^\prime(x_0) = y_0$.
+\end{tcolorbox}
+
+If $R(x)$ is identically zero, then (\ref{2nd_ge}) reduces to the \textcolor{red}{homogeneous equation}
+\begin{equation}
+\color{red} \frac{\dif^2 y}{\dif x^2} +P(x) \frac{\dif y}{\dif x} +Q(x)y = 0 ~,
+\label{2nd_red}
+\end{equation}
+If $R(x)$ is not identically zero, then (\ref{2nd_ge}) is said to be \textcolor{red}{nonhomogeneous}.
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Theorem B]
+If $y_g$ is the general solution of the reduced equation (\ref{2nd_red}) and $y_p$ is any particular solution of the complete equation (\ref{2nd_ge}), then $y_g + y_p$ is the general solution of (\ref{2nd_ge}).
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Theorem C]
+If $y_1(x)$ and $y_2(x)$ are any two solutions of (\ref{2nd_red}), then
+\begin{equation}
+c_1 y_1(x) + c_2 y_2(x)
+\label{linear_comb}
+\end{equation}
+is also a solution for any constants $c_1$ and $c_2$ ~.
+\end{tcolorbox}
+Any linear combination of two solutions of the homogeneous equation (\ref{2nd_red}) also a solution. The solution ($\ref{linear_comb}$) is commonly called a linear combination of the solutions $y_1(x)$ and $y_2(x)$. 
+
+
+
+\subsection{The General Solution of the Homogeneous Equation}
+If two functions $f(x)$ and $g(x)$ are defined on an interval $[a, b]$ and have the property that one is a constant multiple of the other, then they are said to be \textcolor{red}{linearly dependent} on $[a, b]$. Otherwise, if neither is a constant multiple of the other, they are called \textcolor{red}{linearly independent}. It is worth noting that if $f(x)$ is identically zero, then $f(x)$ and $g(x)$ are linearly dependent for every function $g(x)$, since $f(x) = 0 \cdot g(x)$.
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Theorem A]
+Let $y_1(x)$ and $y_2(x)$ be \textcolor{red}{linearly independent solutions} of the \textcolor{red}{homogeneous equation}
+\begin{equation}
+y^{\prime\prime} +P(x) y^\prime +Q(x) y = 0
+\label{2nd_ho}
+\end{equation}
+on the interval $[a, b]$. Then
+\begin{equation}
+c_1 y_1(x) + c_2 y_2(x)
+\label{ge_solu}
+\end{equation}
+is the \textcolor{red}{general solution} of equation (\ref{2nd_ho}) on $[a, b]$, in the sense that every solution of (\ref{2nd_ho}) on this interval can be obtained from (\ref{ge_solu}) by a suitable choice of the arbitrary  constants $c_1$ and $c_2$.
+\end{tcolorbox}
+
+The Wronskian of $y_1$ and $y_2$ is
+\begin{equation}
+W(y_1, y_2) = \left[ \begin{array}{cc}
+y_1(x) & y_2(x) \\
+y^\prime_1(x) & y^\prime_2(x)
+\end{array} \right] = y_1(x) y^\prime_2(x) -y_2(x) y^\prime_1(x)
+\end{equation}
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Lemma 1]
+If $y_1(x)$ and $y_2(x)$ are any two solutions of equation (\ref{2nd_ho}) on $[a, b]$, then their Wronskian $W = W(y_1, y_2)$ is either identically zero or never zero on $[a, b]$.
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Lemma 2]
+If $y_1(x)$ and $y_2(x)$ are two solutions of equation (\ref{2nd_ho}) on $[a, b]$, then they are linearly dependent on this interval if and only if their Wronskian $W(y_1, y_2) = y_1y^\prime_2 -y_2y_1^\prime$ is identically zero.
+\end{tcolorbox}
+
+
+\subsection{The Use of A Known Solution to Find Another}
+\begin{equation}
+y^{\prime\prime} +P(x) y^\prime +Q(x) y = 0
+\label{2nd_homo}
+\end{equation}
+Assume that $y_1(x)$ is a known nonzero solution of (\ref{2nd_homo}), so that $cy_1(x)$ is also a solution for any constant $c$. 
+
+
+二阶非齐次常微分方程的解，就是相应的齐次微分方程的通解加上非齐次方程的一个特解。
+格林函数主要用于求解非齐次方程的特解。
+
+\subsection{The Homogeneous Equation with Constant Coefficients}
+If $P(x)$ and $Q(x)$ are constants $p$ and $q$:
+\begin{equation}
+y^{\prime\prime} + p y^\prime +q y = 0
+\end{equation}
+
+
+\subsection{The Method of Undetermined Coefficients}
+
+\subsection{The Method of Variation of Parameters}
+
+
+\subsection{Higher Order Linear Equations. Coupled Harmonic Oscillators}
+
+
+
+\subsection{Operator Methods for Finding Particular Solutions}
+
+
+
+\section{Power Series Solutions and Special Functions}
+
+
+
+\section{Fourier Series and Orthogonal Functions}
+
+
+\section{Some Special Functions of Mathematical Physics}
+
+
+
+
+\section{Laplace Transforms}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The Calculus of Variations}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

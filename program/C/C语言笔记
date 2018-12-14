@@ -1,0 +1,574 @@
+宏体换行需要在行末加反斜杠\
+宏名之后带括号的宏被认为是宏函数。在预处理阶段，宏函数会被展开。优点是没有普通函数保存寄存器和参数传递的开销，展开后的代码有利于CPU cache的利用和指令预测，速度快。缺点是可执行代码体积大。
+
+宏特殊用法
+1. 字符串化(Stringification)
+在宏体中，如果宏参数前加个#，那么在宏体扩展的时候，宏参数会被扩展成字符串的形式。如：
+#define WARN_IF(EXP) \
+     do { if (EXP) \
+             fprintf (stderr, "Warning: " #EXP "\n"); } \
+     while (0)
+WARN_IF (x == 0);会被扩展成：
+do { if (x == 0)
+    fprintf (stderr, "Warning: " "x == 0" "\n"); }
+while (0);
+这种用法可以用在assert中，如果断言失败，可以将失败的语句输出到反馈信息中
+
+2. 连接(Concatenation)
+在宏体中，如果宏体所在标示符中有##，那么在宏体扩展的时候，宏参数会被直接替换到标示符中。如：
+#define COMMAND(NAME)  { #NAME, NAME ## _command }
+
+struct command{
+    char *name;
+    void (*function) (void);
+};
+在宏扩展的时候
+struct command commands[] =
+{
+    COMMAND(quit),
+    COMMAND(help),
+    ...
+};
+会被扩展成：
+struct command commands[] =
+{
+    { "quit", quit_command },
+    { "help", help_command },
+    ...
+};
+这样就节省了大量时间，提高效率。
+
+算符优先级问题
+不仅宏体是纯文本替换，宏参数也是纯文本替换。有以下一段简单的宏，实现乘法：
+#define MULTIPLY(x, y) x * y
+MULTIPLY(1, 2)没问题，会正常展开成1 * 2。有问题的是这种表达式MULTIPLY(1+2, 3)，展开后成了1+2 * 3，显然优先级错了。在宏体中，给引用的参数加个括号就能避免这问题。
+#define MULTIPLY(x, y) (x) * (y)
+
+分号吞噬问题
+有如下宏定义：
+#define SKIP_SPACES(p, limit)  \
+     { char *lim = (limit);         \
+       while (p < lim) {            \
+         if (*p++ != ' ') {         \
+           p--; break; }}}
+假设有如下一段代码：
+if (*p != 0)
+   SKIP_SPACES (p, lim);
+else ...
+一编译，GCC报error: ‘else’ without a previous ‘if’。原来这个看似是一个函数的宏被展开后是一段大括号括起来的代码块，加上分号之后这个if逻辑块就结束了，所以编译器发现这个else没有对应的if。
+这个问题一般用do ... while(0)的形式来解决：
+#define SKIP_SPACES(p, limit)     \
+     do { char *lim = (limit);         \
+          while (p < lim) {            \
+            if (*p++ != ' ') {         \
+              p--; break; }}}          \
+     while (0)
+展开后就成了
+if (*p != 0)
+    do ... while(0);
+else ...
+这样就消除了分号吞噬问题。
+
+宏参数重复调用
+有如下宏定义：
+#define min(X, Y)  ((X) < (Y) ? (X) : (Y))
+当有如下调用时next = min (x + y, foo (z));，宏体被展开成next = ((x + y) < (foo (z)) ? (x + y) : (foo (z)));，可以看到，foo(z)被重复调用了两次，做了重复计算。更严重的是，如果foo是不可重入的(foo内修改了全局或静态变量)，程序会产生逻辑错误。所以，尽量不要在宏参数中传入函数调用。
+
+对自身的递归引用
+有如下宏定义：
+#define foo (4 + foo)
+按前面的理解，(4 + foo)会展开成(4 + (4 + foo)，然后一直展开下去，直至内存耗尽。但是，预处理器采取的策略是只展开一次。也就是说，foo只会展开成(4 + foo)，而展开之后foo的含义就要根据上下文来确定了。
+对于以下的交叉引用，宏体也只会展开一次。
+#define x (4 + y)
+#define y (2 * x)
+x展开成(4 + y) -> (4 + (2 * x))，y展开成(2 * x) -> (2 * (4 + y))。
+注意，这是极不推荐的写法，程序可读性极差。
+
+宏参数预处理
+宏参数中若包含另外的宏，那么宏参数在被代入到宏体之前会做一次完全的展开，除非宏体中含有#或##。
+有如下宏定义：
+#define AFTERX(x) X_ ## x
+#define XAFTERX(x) AFTERX(x)
+#define TABLESIZE 1024
+#define BUFSIZE TABLESIZE
+AFTERX(BUFSIZE)会被展开成X_BUFSIZE。因为宏体中含有##，宏参数直接代入宏体。
+XAFTERX(BUFSIZE)会被展开成X_1024。因为XAFTERX(x)的宏体是AFTERX(x)，并没有#或##，所以BUFSIZE在代入前会被完全展开成1024，然后才代入宏体，变成X_1024。
+
+
+
+do{...}while(0)的意义和用法
+linux内核和其他一些开源的代码中，经常会遇到这样的代码：
+do{
+ ...
+}while(0)
+没有分号。而在main函数中：
+do{
+  statement(s);
+}while(condition);
+
+1、辅助定义复杂的宏，避免引用的时候出错：
+举例来说，假设你需要定义这样一个宏：
+#define DOSOMETHING()\
+               foo1();\
+               foo2();
+这个宏的本意是，当调用DOSOMETHING()时，函数foo1()和foo2()都会被调用。但是如果你在调用的时候这么写：
+if(a>0)
+    DOSOMETHING();
+因为宏在预处理的时候会直接被展开，你实际上写的代码是这个样子的：
+if(a>0)
+    foo1();
+foo2();
+这就出现了问题，因为无论a是否大于0，foo2()都会被执行，导致程序出错。
+那么仅仅使用{}将foo1()和foo2()包起来行么？
+我们在写代码的时候都习惯在语句右面加上分号，如果在宏中使用{}，代码里就相当于这样写了：“{...};”，展开后就是这个样子：
+if(a>0)
+{
+    foo1();
+    foo2();
+};
+这样甚至不会编译通过。所以，很多人才采用了do{...}while(0)
+#define DOSOMETHING() \
+        do{ \
+          foo1();\
+          foo2();\
+        }while(0)\
+...
+if(a>0)
+    DOSOMETHING();
+...
+这样，宏被展开后，才会保留初始的语义。GCC提供了Statement-Expressions用以替代do{...}while(0); 所以你也可以这样定义宏：
+#define DOSOMETHING() ({\
+        foo1(); \
+        foo2(); \
+})
+
+2、避免使用goto对程序流进行统一的控制：
+有些函数中，在函数return之前我们经常会进行一些收尾的工作，比如free掉一块函数开始malloc的内存，goto一直都是一个比较简便的方法：
+int foo(){
+    somestruct* ptr = malloc(...);
+ 
+    dosomething...;
+    if(error)
+    {
+        goto END;
+    }
+ 
+    dosomething...;
+    if(error)
+    {
+        goto END;
+    }
+    dosomething...;
+ 
+END:
+    free(ptr);
+    return 0;
+}
+由于goto不符合软件工程的结构化，而且有可能使得代码难懂，所以很多人都不倡导使用，那这个时候就可以用do{}while(0)来进行统一的管理：
+int foo()
+{
+    somestruct* ptr = malloc(...);
+ 
+    do{
+        dosomething...;
+        if(error)
+        {
+            break;
+        }
+ 
+        dosomething...;
+        if(error)
+        {
+            break;
+        }
+        dosomething...;
+    }while(0);
+ 
+    free(ptr);
+    return 0;
+}
+这里将函数主体使用do()while(0)包含起来，使用break来代替goto，后续的处理工作在while之后，就能够达到同样的效果。
+
+3、避免空宏引起的warning
+内核中由于不同架构的限制，很多时候会用到空宏，在编译的时候，空宏会给出warning，为了避免这样的warning，就可以使用do{}while(0)来定义空宏：
+#define EMPTYMICRO do{}while(0)
+
+4、定义一个单独的函数块来实现复杂的操作：
+当你的功能很复杂，变量很多你又不愿意增加一个函数的时候，使用do{}while(0);，将你的代码写在里面，里面可以定义变量而不用考虑变量名会同函数之前或者之后的重复。
+
+
+
+C语言可变参数函数取参方法
+C语言支持可变参数函数(Variable Argument Functions)，即参数的个数可以是不定个，在函数定义的时候用(...)表示，比如我们常用的printf()\execl函数等；printf函数的原型如下：
+int printf(const char *format, ...);
+注意，采用这种形式定义的可变参数函数，至少需要一个普通的形参，比如上面代码中的*format，后面的省略号是函数原型的一部分。
+C语言之所以可以支持可变参数函数，一个重要的原因是C调用规范中规定C语言函数调用时，参数是从右向左压入栈的；这样一个函数实现的时候，就无需关心调用他的函数会传递几个参数过来，而只要关心自己用到几个；以printf为例：
+printf("%d%s\n",i,s);
+printf函数在定义的时候，不知道函数调用的时候会传递几个参数。在实现上，printf函数只需关心第一个参数，即字符串“%d%s\n”，当读到%d的时候，printf知道自己需要第二个参数，这时只需要去栈上寻找即可；当读到%s时，再去栈上网上寻找一个参数即可。简单说，printf不关心栈上到底压了多少参数，只关心自己需要多少。
+那么对于一个定义为可变参数的函数，函数定义的时候并没有定义形参原型，怎么使用参数呢？
+C语言定义了一系列宏来完成可变参数函数参数的读取和使用：宏va_start、va_arg和va_end；在ANSI C标准下，这些宏定义在stdarg.h中。三个宏的原型如下：
+void va_start(va_list ap, last);//取第一个可变参数（如上述printf中的i）的指针给ap，last是函数声明中的最后一个固定参数（比如printf函数原型中的*fromat）；
+type va_arg(va_list ap, type);//返回当前ap指向的可变参数的值，然后ap指向下一个可变参数；type表示当前可变参数的类型（支持的类型位int和double）；
+void va_end(va_list ap);//将ap置为NULL
+当一个函数被定义位可变参数函数时，其函数体内首先要定义一个va_list的结构体类型，这里沿用原型中的名字，ap。
+va_start使ap指向第一个可选参数。va_arg返回参数列表中的当前参数并使ap指向参数列表中的下一个参数。va_end把ap指针清为NULL。函数体内可以多次遍历这些参数，但是都必须以va_start开始，并以va_end结尾。
+下面是一个具体的示例(摘自wikipedia)：
+#include <stdarg.h>
+ 
+double average(int count, ...){
+    va_list ap;
+    int j;
+    double tot = 0;
+    va_start(ap, count); //使va_list指向起始的參數
+    for(j=0; j<count; j++)
+        tot+=va_arg(ap, double); //檢索參數，必須按需要指定類型
+    va_end(ap); //釋放va_list
+    return tot/count;
+}
+除此之外，我们还需要注意一个陷阱，即va_arg宏的第2个参数不能被指定为char、short或者float类型。《C和C++经典著作：C陷阱与缺陷》在可变参数函数传递时，因为char和short类型的参数会被提升为int类型，而float类型的参数会被提升为double类型 。
+例如，以下的代码是错误的
+a = va_arg(ap,char);
+因为我们无法传递一个char类型参数，如果传递了，它将会被自动转化为int类型。上面的式子应该写成：
+a = va_arg(ap,int);
+还需要注意的一个问题是，即时我们知道在某种体系结构下C语言函数的参数都压在栈上，我们也应该避免直接去栈上取想要的参数，因为这样会降低程序的灵活性和可移植性，并带来一些安全上潜在的危险。上述的三个宏，包括va_list，在不同的体系结构下会有不同的实现方法，比如va_list，有的系统上直接指向栈；而有的系统却将其实现为一个指针数组。
+
+
+
+
+Linux下常用的函数调用栈规范
+我们都应该知道，高级语言的函数调用过程中，有“栈”这么一个概念，被调用函数的局部变量是存放在栈中的，函数调用的参数也是通过栈传递的。那么，调用函数是怎么把各种数据压入栈中，被调用函数又是怎么对栈进行操作以获取必要的数据呢？函数调用发生完毕之后，谁又负责清理这个栈？这就用到了函数调用栈规范！
+
+函数调用栈规范是指编译器的一中“约定”，他规定了调用者如何传递参数，被调用者如何获取参数，调用完成后怎么清理栈，怎么传递返回值等。编译器在编译程序的时候遵循这种规范，从而使程序正确的执行。对于不同的编译器，不同的高级语言，这种规范是不尽相同的。
+
+在X86平台下的Linux内核中，常用的函数调用规范有：C，FastCall，Pascal等，下面简单介绍下这几种规范：
+
+1、C规范
+规定调用者将参数从右至左压栈，返回值通过EAX寄存器传递，如果返回值超过32位，则使用EDX:EAX传递，最后由调用者负责清理栈。这个规范被大多数C编译器遵守。
+
+我们需要注意的是，由调用者负责清理堆栈，可以支持变参函数，比如我们所熟悉的printf函数。让我们看个例子：
+
+printf("%d, %d, %d\n", i, j, k);
+这个语句的目的是调用一个printf函数。被调用的函数在编译的时候并不知道自己将要被传递多少个函数，但是调用者知道。这个语句返汇编后大概的样子如下：
+pushl   $k  //伪汇编，将k入栈
+pushl   $j
+pushl   $i
+push    $addr //addr为第一个参数的语句的地址
+call     printf
+addl    $0x10, %esp
+或者翻译成：
+sub    $0x10, %esp //先申请栈空间
+mov   $addr, (%esp)
+mov   $i, 0x4(%esp)
+mov   $j, 0x8(%esp)
+mov   $k, 0xc(%esp)
+call    printf
+addl   $0x10, %esp
+实际上，第二种翻译和第一种完成的功能基本一致，都是越右边的参数越靠近栈底，因为栈是从高地址往低地址增长的，所以地址也就越高。printf函数被调用后，先读栈顶的参数，也就是"%d, %d, %d\n"，然后根据这个参数确定其他参数的个数，并向高地址寻找即可。
+
+从上面的汇编代码可以看出，
+addl   $0x10, %esp
+这条指令是负责清理栈的，他位于调用者种，他知道自己应该清理多大的栈。而在被调用者中，往往通过
+ret   $n
+这条指令来清理栈的，因为printf在编译时并不知道自己会被传递多少个参数，因此这个n也就不能确定，所以没办法在被调用者中清理栈。
+
+2、FastCall
+顾名思义，fastcall就是快速调用的意思。因为压栈操作必须要访存，对于一些经常被调用的参数简单的小函数来说会有一定的开销，因此可以通过寄存器传参。以gcc为例，gcc使用fastcall的时候，默认从左到右的前两个参数通过ECX和EDX两个寄存器来传递，其他参数使用栈传递，但是可以通过__attribute__((regparm(n)))来控制可使用寄存器的数目，例如regparm(3)就表示前三个参数使用寄存器来传递，默认寄存器是EAX,ECX,EDX。返回值传递和栈清理同C规范相同。
+这种规范应该是对C规范的一种补充和优化，在linux内核中经常用到，比如系统调用。
+
+3、Pascal
+参数从左到右入栈，被调用者负责清理栈，返回值通过EAX或EDX:EAX传递。
+
+
+
+#pragma用法
+1.#pragma message
+    #pragma message("消息文本")   
+当编译器遇到这条指令时，就在编译输出窗口中将消息文本打印出来。
+
+2.#pragma code_seg
+    #pragma code_seg(["section-name"["section-class"]])
+它能够设置程序中函数代码存放的代码段。当我们开发驱动程序时便就会使用到它。
+
+3.#pragma once
+  只要在头文件的最开始加入这条指令就能够头文件被编译一次。
+
+4.#pragma hdrstop
+   表示编译头文件到此为止，后面的头文件不进行预编译。
+
+5.#pragma  resouce
+  #pragma  resouce"*.dfm"表示*.dfm文件中的资源加入工程。*.dfm中包括了外观定义。
+
+6. #pragma warning
+    #pragma warning (disable:4507  34; once:4385; error:164)  等价于
+    #pragma warning (disable:4507  34）  //不显示4507和30号警告信息
+    #pragma warning (once:4385）  //4358号警告信息仅报告一次
+    #pragma warning (error:164） //把164号警告信息作为一种错误
+
+7.  #pragma  comment
+    #pragma  comment(...) 该指令将一个注释放入一个对象文件或可执行文件中，常用lib关键字帮我们链入一个库文件。如：#pragma  comment（lib,"user32.lib") 该指令用来将user32.lib库文件加入到本工程中。
+
+8. #pragma  pack
+    这条指令主要用作改变编译器的默认对齐方式。
+
+目录：
+（0）   前言
+（1） #pragma message   能够在编译信息输出窗口中输出相应的信息
+（2） #pragma code_seg  能够设置程序中函数代码存放的代码段,开发驱动程序的时会用到
+（3） #pragma once      若用在头文件的最开始处就能够保证头文件被编译一次
+（4） #pragma hdrstop   表示预编译头文件到此为止
+（5） #pragma resource "*.dfm"  表示把*.dfm文件中的资源加入工程
+（6） #pragma warning   允许有选择性的修改编译器的警告消息的行为
+（7） #pragma comment   将一个注释记录放入一个对象文件或可执行文件中
+（8） #pragma data_seg  建立一个新的数据段并定义共享数据
+                                                    应用1：在DLL中定义一个共享的，有名字的数据段
+                                                    应用2： data_seg控制应用程序的启动次数
+（9） 其他用法
+
+(0)前言
+#Pragma 指令的作用是设定编译器的状态或者是指示编译器完成一些特定的动作。#pragma 指令对每个编译器给出了一个方法,在保持与C和C++语言完全兼容的情况下,给出主机或操作系统专有的特征。依据定义,编译指示是机器或操作系统专有的,且对于每个编译器都是不同的。  
+其格式一般为:   #Pragma   Para  
+其中Para为参数，下面来看一些常用的参数。  
+
+(1)#Pragma message参数能够在编译信息输出窗口中输出相应的信息
+       这对于源代码信息的控制是非常重要的。其使用方法为： Pragma   message(“消息文本”)   
+       当我们在程序中定义了许多宏来控制源代码版本的时候，我们自己有可能都会忘记有没有正确的设置这些宏，此时我们可以用这条指令在编译的时候就进行检查。假设我们希望判断自己有没有在源代码的什么地方定义了_X86这个宏可以用下面的方法  
+            #ifdef   _X86  
+            #pragma message(“_X86 macro activated!”)  
+            #endif  
+       若定义了_X86，程序编译时就会在显示“_X86 macro activated!”。我们就不会因为不记得自己定义的一些特定的宏而抓耳挠腮了 。  
+
+(2)#pragma code_seg能够设置程序中函数代码存放的代码段,
+     开发驱动程序的时候就会使用到它。格式如下：  
+         #pragma code_seg( [ [ { push | pop}, ] [ identifier, ] ][ "segment-name" [, "segment-class" ] ])
+     该指令用来指定函数在.obj文件中存放的节,观察OBJ文件可以使用VC自带的dumpbin命令行程序 ,如果code_seg没有带参数的话,则函数在OBJ文件中存放在默认在.text节中。
+    push (可选参数) 将一个记录放到内部编译器的堆栈中,可选参数可以为一个标识符或者节名
+    pop(可选参数) 将一个记录从堆栈顶端弹出,该记录可以为一个标识符或者节名
+    identifier (可选参数) 当使用push指令时,为压入堆栈的记录指派的一个标识符,当该标识符被删除的时候和其相关的堆栈中的记录将被弹出堆栈
+    "segment-name" (可选参数) 表示函数存放的节名
+例如:
+            //默认情况下,函数被存放在.text节中
+            void func1() {                  // stored in .text
+                              }
+            //将函数存放在.my_data1节中
+            #pragma code_seg(".my_data1")
+            void func2() {                  // stored in my_data1
+                              }
+            //r1为标识符,将函数放入.my_data2节中
+             #pragma code_seg(push, r1, ".my_data2")
+             void func3() {                  // stored in my_data2
+                               }
+              int main() {}
+
+(3)#pragma  once (比较常用)若用在头文件的最开始处就能够保证头文件被编译一次.
+      一般在整个工程中我们只要包含头文件一次就够了，若多个.c/.cpp 文件中都要包含同一个头文件，比如 Windows.h，那很多声明等等岂不是有两次了？解决这个问题的传统的方法是在头文件开始出用 #define 定义一个宏，比如 Windows.h 中:  
+              #ifndef   _WINDOWS_  
+              #define   _WINDOWS_  
+              #endif
+      这样就可以避免被包含多次。但是这样的后果是代码的可读性较差 (个人观点)，VC给我们提供了另外一个途径，那就是在文件的前面加上:  
+               #pragma   once”  
+
+(4)#pragma  hdrstop表示预编译头文件到此为止
+       后面的头文件不进行预编译。BCB可以预编译头文件以加快链接的速度，但如果所有头文件都进行预编译又可能占太多磁盘空间，所以使用这个选项排除一些头文件.有时单元之间有依赖关系，比如单元A依赖单元B，所以单元B要先于单元A编译。你可以用#pragma   startup指定编译优先级，如果使用了#pragma   package(smart_init) ，BCB就会根据优先级的大小先后编译。
+
+(5)#pragma  resource "*.dfm"表示把*.dfm文件中的资源加入工程。*.dfm中包括窗体外观的定义。  
+
+(6)#pragma warning允许有选择性的修改编译器的警告消息的行为
+指令格式如下:
+                #pragma warning( warning-specifier : warning-number-list [;warning-specifier :  warning-  number-list...])
+                #pragma warning( push[ ,n ] )
+                #pragma warning( pop )
+主要用到的警告表示有如下几个:
+                once:只显示一次(警告/错误等)消息
+                default:重置编译器的警告行为到默认状态
+                1,2,3,4:四个警告级别
+                disable:禁止指定的警告信息
+                error:将指定的警告信息作为错误报告
+                 #pragma   warning( disable: 4507  34; once : 4385; error : 164   )  
+  等价于：  
+                 #pragma   warning(disable:4507   34)   //  不显示4507和34号警告信息  
+                 #pragma   warning(once:4385)   //   4385号警告信息仅报告一次  
+                 #pragma   warning(error:164)   //   把164号警告信息作为一个错误。  
+                 #pragma   warning( push )保存所有警告信息的现有的警告状态。  
+                 #pragma   warning( push,n)保存所有警告信息的现有的警告状态，并且把全局警告等级设定为n。  
+                 #pragma   warning( pop )向栈中弹出最后一个警告信息，在入栈和出栈之间所作的一切改动取消。例如：  
+                 #pragma   warning(   push   )  
+                 #pragma   warning(   disable   :   4705   )  
+                 #pragma   warning(   disable   :   4706   )  
+                 #pragma   warning(   disable   :   4707   )  
+                 //.......  
+                 #pragma   warning(   pop   )  
+      在这段代码的最后，重新保存所有的警告信息(包括4705，4706和4707)。  
+
+(7)#pragma   comment将一个注释记录放入一个对象文件或可执行文件中
+该指令的格式为
+ #pragma comment( "comment-type" [, commentstring] )
+                 comment-type(注释类型):可以指定为五种预定义的标识符的其中一种，五种预定义的标识符为:
+           compiler:将编译器的版本号和名称放入目标文件中,本条注释记录将被编译器忽略，如果你为该记录类型提供了commentstring参数,编译器将会产生一个警告
+           例如:#pragma comment( compiler )
+           exestr: 链接时，将commentstring参数放入到可执行文件中,当操作系统加载可执行文件的时候,该参数字符串不会被加载到内存中.但是,该字符串可被dumpbin之类的程序查找出并打印出来,你可以用这个标识符将版本号码之类的信息嵌入到可执行文件中!
+            lib:用来将一个库文件链接到目标文件中
+比如我们连接的时候用到了WSock32.lib，你当然可以不辞辛苦地把它加入到你的工程中。但是我觉得更方便的方法是使用#pragma指示符，指定要连接的库:  
+                                    #pragma   comment(lib,   "WSock32.lib")
+              linker:将一个链接选项放入目标文件中,你可以使用这个指令来代替由命令行传入的或者在开发环境中设置的链接选项,你可以指定/include选项来强制包含某个对象,例如:
+                                     #pragma comment(linker, "/include:__mySymbol")
+你可以在程序中设置下列链接选项
+                                    /DEFAULTLIB
+                                    /EXPORT
+                                    /INCLUDE
+                                    /MERGE
+                                    / SECTION
+   这些选项在这里就不一一说明了,详细信息请看msdn!
+             user:将一般的注释信息放入目标文件中commentstring参数包含注释的文本信息,这个注释记录将被链接器忽略，例如:
+                                   #pragma comment( user, "Compiled on " __DATE__ " at " __TIME__ )
+
+(8)#pragma data_seg建立一个新的数据段并定义共享数据
+格式为：
+             #pragma data_seg （"shareddata"）
+             HWND sharedwnd=NULL;//共享数据
+              #pragma data_seg()
+
+应用1：在DLL中定义一个共享的，有名字的数据段。
+       注意：a、这个数据段中的全局变量能够被多个进程共享。否则多个进程之间无法共享DLL中的全局变量。
+       b、共享数据必须初始化，否则微软编译器会把没有初始化的数据放到.BSS段中，从而导致多个进程之间的共享行为失败。
+     假如在一个DLL中这么写：
+                 #pragma data_seg("MyData")
+                 int g_Value; // 全局变量未初始化
+                 #pragma data_seg()
+      DLL提供两个接口函数：
+                 int GetValue()
+                         {
+                          return g_Value;
+                          }
+                  void SetValue(int n)
+                          {
+                          g_Value = n;
+                          }
+          然后启动两个都调用了这个DLL的进程A和B，假如A调用了SetValue(5); B接着调用int m = GetValue(); 那么m的值不一定是5，而是个未定义的值。因为DLL中的全局数据对于每一个调用他的进程而言，是私有的，不能共享的。假如您对g_Value进行了初始化，那么g_Value就一定会被放进MyData段中。
+
+换句话说，假如A调用了SetValue(5); B接着调用int m = GetValue(); 那么m的值就一定是5！这就实现了跨进程之间的数据通信！#pragma
+
+应用2： data_seg控制应用程序的启动次数
+        有的时候我们可能想让一个应用程序只启动一次，就像单件模式(singleton)一样，实现的方法可能有多种，这里说说用#pragma data_seg来实现的方法，很是简洁便利。应用程序的入口文件前面加上：
+              #pragma data_seg("flag_data")
+              int app_count = 0;
+               #pragma data_seg()
+              #pragma comment(linker,"/SECTION:flag_data,RWS")
+    然后程序启动的地方加上
+               if(app_count>0)    // 如果计数大于0，则退出应用程序。
+                             {
+                             //MessageBox(NULL, "已经启动一个应用程序", "Warning", MB_OK);
+                             //printf("no%d application", app_count);
+                             return FALSE;
+                              }
+               app_count++;
+
+(9)其他用法
+    编译程序可以用#pragma指令激活或终止该编译程序支持的一些编译功能。例如，对循环优化功能：
+                 #pragma loop_opt(on)         // 激活
+                 #pragma loop_opt(off)       // 终止
+      有时，程序中会有些函数会使编译器发出你熟知而想忽略的警告，如   “Parameter xxx is never used in function xxx”，可以这样：
+                 #pragma warn —100         // Turn off the warning message for warning #100
+                 int insert_record(REC *r)
+                  { /* function body */ }
+                  #pragma warn +100        // Turn the warning message for warning #100 back on
+      函数会产生一条有唯一特征码100的警告信息，如此可暂时终止该警告。 每个编译器对#pragma的实现不同，在一个编译器中有效在别的编译器中几乎无效。可从编译器的文档中查看。
+
+Mix C Fortran
+Fortran与C混合编程
+
+由于 GNU 的 Fortran 和 C 语言二者的函数彼此可以直接相互调用，所以混合编程可以非常容易地实现。只要你足够仔细，确保函数调用时传递的参数类型正确，函数就可以在两种语言间来回调用，就像它们是同一种语言一样。
+
+下表中列出了 Fortran 的数据类型和它们在 C 中对应的类型。这张表在大多数平台下是没问题的，但是或许会有例外的情况发生。在你打算传递某种数据类型时，先编写一个简单的例子进行测试将是很明智的。
+C 类型	Fortran 类型	描述
+signed char	INTEGER*1	8位有符号整数
+short	INTEGER*2	16位有符号整数
+int	INTEGER	32位有符号整数
+float	REAL	32位浮点数
+double	DOUBLE PRECISION	64位浮点数
+void sub_()	SUBROUTINE SUB()	无返回值的 C 函数等价于 Fortran 子程序
+float fun_()	REAL FUNCTION FUN()	有返回值的 C 函数等价于 Fortran 的函数
+
+由于 Fortran 总是以引用的方式传递参数，而 C 则始终以地址方式传递数组，因此数组做参数时不需做任何修改。但是对多维数组来说，混合调用时其下标需要翻转，因为 Fortran 的数组是以列为主序（column-major order）而 C 数组以行为主序（row-major order）。
+
+Fortran调用C函数
+
+下面的 Fortran 程序调用一个 C 函数，函数传递的参数是一个字符串和一个浮点数：
+
+C   fortran2c.f
+C
+        PROGRAM FORTRAN2C
+C
+        CHARACTER*32 HELLO
+        REAL PI
+C
+        HELLO = "Hello C from Fortran"
+        HELLO(21:21) = CHAR(0)
+        PI = 3.14159
+        CALL SHOWHIPI(HELLO,PI)
+        END PROGRAM FORTRAN2C
+
+其中，可存储32个字符的 CHARACTER 型字符串变量 HELLO 中，存有 21 个字符，剩余部分用空格填充。要将该字符串格式化为 C 语言标准的字符串，我们必须在实际字符串结束的位置插入一个 ascii 码为“0”字符作为结束标志。而 REAL 型浮点数 PI 存储方式和 C 中 float 型变量完全一样，因此可以直接传递给函数。
+
+理解 Fortran 的参数总是通过引用传递是非常重要的，因此 C 函数接收到的总是被传递的变量的地址而不是变量值本身。下面的 C 函数输出 Fortran 程序传递进来的字符串和和浮点数：
+
+/* showhipi.c */
+#include <stdio.h>
+void showhipi_(char *string,float *pi)
+{
+       printf("%s\nPI=%f\n",string,*pi);
+}
+
+在不同的平台下 Fortran 和 C 语言的命名惯例和数据类型的匹配关系是不同的。如同你在本例中看到的，在函数名后添加一下划线是必须的。
+
+下面的命令编译两个源文件并将其链接成一个可执行程序：
+
+$ gfortran -c fortran2c.f -o fortran2c.o
+$ gcc -c showhipi.c -o showhipi.o
+$ gfortran fortran2c.o showhipi.o -o fortran2c
+
+最后一条命令也可用
+
+$ gcc fortran2c.o showhipi.o -o fortran2c -lgfortranbegin -lgfortran
+
+C调用Fortran函数
+
+要在 C 中调用一个 Fortran 子程序，我们必须传递参数的地址并将字符串格式化为 Fortran 的格式。在下面的例子的，我们给 Fortran 子程序传递了一个字符串和一个浮点数：
+
+/* c2fortran.c */
+int main(int argc,char *argv[])
+{
+     int i;
+     float e = 2.71828;
+     char hello[32];
+     int length = sizeof(hello);
+     strcpy(hello,"Hello Fortran from C");
+     for(i=strlen(hello); i<length; i++)
+          hello[i] = ' ';
+     showhie_(hello,&length,&e);
+     return(0);
+}
+
+在 C 中，字符串的长度是由 null 字符的位置决定的，但在 Fortran 中，所有字符串的长度都是固定的。由于 Fortran 没有办法确定传递给它字符串的长度，我们必须将字符串长度作为参数同时传递。
+
+本例中，字符数组用空格填充，数组大小作为第二个参数传递。注意到三个参数都是通过指针传递的──因为 Fortran 总是期待地址而不是真实的值。在被调用的子程序名后添加一下划线通常是必须的。
+
+下面是被调用的 Fortran 子程序的源代码：
+
+C   showhie.f
+C
+        SUBROUTINE SHOWHIE(HELLO,LENGTH,E)
+        CHARACTER*(*) HELLO
+        INTEGER LENGTH
+        REAL E
+C
+        WRITE(*,100) HELLO(1:LENGTH),LENGTH,E
+    100 FORMAT(3X,A,2X,I3,4X,F6.4)
+        RETURN
+        END SUBROUTINE SHOWHIE
+
+下面的三条命令编译源文件并链接成一个可执行文件：
+
+$ gfortran -c showhie.f -o showhie.o
+$ gcc -c c2fortran.c -o c2fortran.o
+$ gfortran c2fortran.o showhie.o -o c2fortran
+

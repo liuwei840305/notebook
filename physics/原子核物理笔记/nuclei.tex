@@ -1,0 +1,136 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{原子核物理}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+1. 核中不含有电子，讨论四种论据。\\
+解：1.) 统计性。原子核的统计性可以用双原子分子的转动光谱研究。若核$(A, Z)$是由$A$个质子，$A-Z$个电子构成，那么奇奇核或奇偶核的自旋与实验结果不符。偶数个质子耦合成整数自旋，奇数个电子耦合成半整数自旋。${}^{14}N$的总自旋是半整数，即为费米子，与实验不符，说明核不是由质子和电子组成。
+
+2.) 能量。电子是不参与强作用的轻子，若存在于核内，则是库仑相互作用产生的束缚态，束缚能的数量级为
+\begin{equation*}
+E \approx -\frac{Ze^2}{r} ~,
+\end{equation*}
+核电磁半径$r = 1.2 A^{1/3}$ (fm)，
+\begin{align*}
+E &\approx -\frac{Ze^2}{r}  \approx -Z \frac{e^2}{c\hbar} \frac{c\hbar}{1.2 A^{1/3} } \\
+&\approx -Z \frac{197 ~{\rm MeV\cdot fm}}{137 \times 1.2 A^{1/3} ~{\rm fm}} \\
+&\approx -1.2 \frac{Z}{A^{1/3} } ({\rm MeV}) ~.
+\end{align*}
+当$A \approx 125$，$Z \approx \frac{A}{2}$，
+\begin{equation}
+E \approx -15 ~{\rm MeV} ~.
+\end{equation}
+电子的德布罗意波长$\lambda$为
+\begin{equation}
+\lambda = \frac{\hbar}{p} = \frac{c\hbar}{cp} = \frac{197 ~{\rm MeV\cdot fm}}{15 ~{\rm MeV} } \approx 13 ~{\rm fm}
+\end{equation}
+$\lambda \gg r$，电子不可能束缚在核内。
+
+3.) 核磁矩。若核是由中子和质子组成，核磁矩应为两种核子磁矩的共同贡献(不同耦合形式有些差异)，即核磁矩的量级应是$\mu_N$的量级。若核是由质子和电子构成，则应是$\mu_e$的量级，但$\mu_e \approx 1800 \mu_N$。实验结果支持前者，与后者相差很大。
+
+4.) $\beta$衰变。原子核发生$\beta$衰变时放出电子，若核内只有质子和电子，则核放出电子并剩下子核，实为二体衰变，故电子应该是单能谱，与实际$\beta$连续谱矛盾。
+
+
+2. 原子核的大小可以通过下面方法测定：a) 电子散射；b) $\mu$原子的能级；c) 同位旋多重态的基态能量。
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

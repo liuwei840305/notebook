@@ -1,0 +1,341 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{燃烧的流体动力学}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{缓慢燃烧}
+
+
+
+
+
+\section{爆轰}
+缓慢燃烧在气体中的传播归因于加热，这种加热是由燃烧气体向尚未燃烧的气体直接传热造成的。当激波通过时，激波使气体加热，激波后面的气体温度高于其前面的温度。若激波足够强，它所造成的温升就能够引起燃烧。激波在其运动中就会``点燃"气体，燃烧将以激波的速度传播，或者说，它比通常的燃烧传播速度要快得多。这种燃烧传播机制称为\textcolor{red}{爆轰}。
+
+当激波通过气体中的某一点时，该点就开始发生反应，并一直延续到那一点的气体全部燃烧完毕为止。反应延续了一个时间$\tau$，表征反应的动力学特性。在激波后面将跟随一个与它一起运动的燃烧层，该层的宽度等于激波传播的速度乘以时间$\tau$。这一宽度与流场中出现的任何物体尺度无关。当所涉及的问题的特征尺度足够大时，可以把激波以及跟随它的燃烧带，看成将已燃气体与未燃气体分隔开的单个间断面，这个间断面称为\textcolor{red}{爆轰波}。	
+
+\begin{equation}
+w_1 - w_2 +\dfrac{1}{2}(V_1 +V_2)(p_2 -p_1) = 0
+\end{equation}
+$1$指未燃气体，$2$指燃烧生成物。由该方程得到$p_2$作为$V_2$的函数的曲线称为\textcolor{red}{爆轰绝热线}。该曲线不通过给定的初始点$(p_1, V_1)$，这与激波绝热线不同。激波绝热线通过初始点是由于$w_1$和$w_2$分别是$(p_1, V_1)$与$(p_2, V_2)$的同一函数。而现在两种气体的化学性质不同。爆轰绝热线总是处于激波绝热线的上方，因为燃烧时会出现高温，气体压力要大于同样比容下未燃气体的压力。
+
+质量通量密度，
+\begin{equation}
+j^2 = \dfrac{(p_2 -p_1)}{(V_1 -V_2)} ~,
+\end{equation}
+$j^2$是从点$(p_1, V_1)$到爆轰绝热线上任一点$(p_2, V_2)$的弦线的斜率。$j^2$不能小于切线$aO$的斜率。通量$j$恰好是单位面积的爆轰波表面在单位时间内所点燃的气体质量。在爆轰中，这个量不能小于某个极限值$j_{\rm min}$(取决于未燃气体的初始状态)。
+
+公式不仅对燃烧生成物的最终状态成立，且对所有中间态也成立。而在这些中间状态下，只有一部分反应能量已被释放出来。在任何状态下，气体的压力$p$和比容$V$服从线性关系：
+\begin{equation}
+p = p_1 +j^2 (V_1 -V_2) ~,
+\end{equation}
+
+穿过有限宽度的实际爆轰波层时气体状态的变化。爆轰波的前沿是未燃气体$1$中一个真正的激波。在激波中，气体被压缩和加热到气体$1$的激波绝热线上点$d$所代表的状态。在压缩气体中开始发生化学反应，当反应进行时，气体状态由一个沿弦$da$向下移动的点表示，这时释放出热量，并使气体膨胀，压力下降。这一过程一直延续到燃烧完毕为止，且反应热被全部释出为止。对应的点是$c$，它落在爆轰绝热线上，表示燃烧生成物的终态。
+
+
+爆轰不是由整个爆轰绝热线表示，而是仅由位于$O$点以上的那一部分表示。在$O$点上，从初始点$a$引出的直线$aO$与爆轰绝热线相切。
+
+\begin{equation}
+v_2 \leqslant c_2 ~,
+\end{equation}
+爆轰波相对于紧接其后方的气体，以等于或小于声速的速度运动。当爆轰对应于点$O$(儒盖特点)时，等式$v_2 = c_2$成立。
+
+爆轰波相对于气体$1$的速度总是超声速的(即使对于点$O$)：
+\begin{equation}
+v_1 > c_1 ~,
+\end{equation}
+
+
+若爆轰是由外源所产生而后入射到气体中来的激波所引起，爆轰绝热线上部的任何一点都可能对应于爆轰。由燃烧过程自身产生的爆轰，必定对应于儒盖特点。爆轰波相对于紧接波后的燃烧生成物的速度，恰好等于声速，而相对于未燃气体的速度$v_1 = j V_1$，则具有最小可能值。
+
+\begin{equation*}
+w = w_0 +c_p T = w_0 + \dfrac{\gamma p T}{\gamma -1} ~.
+\end{equation*}
+
+\begin{equation}
+\dfrac{\gamma_2 +1}{\gamma_2 -1} p_2 V_2 -\dfrac{\gamma_1 +1}{\gamma_1 -1} p_1 V_1 - V_1 p_2 +V_2 p_1 = 2q ~,
+\end{equation}
+$q = w_{01} - w_{02}$表示温度降到绝对零度时的反应热。该方程给出的曲线$p_2(V_2)$是一支直角双曲线。当$p_2/p_1 \rightarrow \infty$时，密度比趋于有限大的极限：
+\begin{equation*}
+\dfrac{\rho_2}{\rho_1} = \dfrac{V_1}{V_2} = \dfrac{\gamma_2 +1}{\gamma_2 -1} ~,
+\end{equation*}
+这是爆轰波中所能达到的最大压缩。
+
+强爆轰波下，即反应中所释放的热远大于原气体的内能，$q \gg c_{v_1} T$，可以略去
+\begin{equation}
+p_2 \left(\dfrac{\gamma_2 +1}{\gamma_2 -1} V_2 -V_1 \right) = 2q.
+\end{equation}
+
+儒盖特点对应的爆轰，$j^2 = c_2^2 /V_2^2 = \gamma_2 p_2/ V_2$，$p_2$和$V_2$表示为
+\begin{align}
+& p_2 = \dfrac{p_1 +j^2 V_1}{\gamma_2 +1} ~, \\
+& V_2 = \dfrac{\gamma_2(p_1 +j^2 V_1)}{j^2(\gamma_2 +1)}
+\end{align}
+
+\begin{equation*}
+v_1^4 -2v_1^2 [(\gamma_2^2 -1)q +((\gamma_2^2 -\gamma_1)c_{v_1}T_1] +\gamma_2^2 (\gamma_1 -1)^2 c_{v_1}^2 T_1^2 = 0 ~,
+\end{equation*}
+温度为
+\begin{equation*}
+T= \dfrac{pV}{c_p -c_v}  = \dfrac{pV}{c_v(\gamma-1)}
+\end{equation*}
+
+\begin{align}
+v_1 = \sqrt{\dfrac{1}{2}(\gamma_2 -1)[(\gamma_2 +1)q +(\gamma_1 +\gamma_2)c_{v_1}T_1] } +\sqrt{\dfrac{1}{2}(\gamma_2 +1)[(\gamma_2 -1)q +(\gamma_2 -\gamma_1)c_{v_1}T_1] }
+\end{align}
+该公式可由原混合气体的温度$T_1$确定爆轰的传播速度。
+
+\begin{align}
+\dfrac{p_2}{p_1} = \dfrac{v_1^2 +(\gamma_1 -1)c_{v_1}T_1}{(\gamma_2 +1)(\gamma_1 -1)c_{v_1}T_1} ~, \\
+\dfrac{V_2}{V_1} = \dfrac{\gamma_2[v_1^2 +(\gamma_1 -1)c_{v_1}T_1]}{(\gamma_2 +1)v_1^2} ~, 
+\end{align}
+可以确定燃烧生成物与温度为$T_1$的未燃气体之间的压力比和密度比。
+
+\begin{equation}
+v_2 = \sqrt{\dfrac{1}{2}(\gamma_2 -1)[(\gamma_2 +1)q +(\gamma_1 +\gamma_2)c_{v_1}T_1] } +\dfrac{\gamma_2 -1}{\gamma_2 +1}\sqrt{\dfrac{1}{2}(\gamma_2 +1)[(\gamma_2 -1)q +(\gamma_2 -\gamma_1)c_{v_1}T_1] }
+\end{equation}
+
+燃烧生成物相对于未燃气体的速度，$v_1 -v_2$，等于
+\begin{equation}
+v_1 - v_2  = \sqrt{2[(\gamma_2 -1)q +(\gamma_2 -\gamma_1)c_{v_1}T_1] /(\gamma_2 +1)}
+\end{equation}
+
+燃烧生成物的温度由
+\begin{equation}
+c_{v_2} T_2 = v_2^2 /\gamma_2(\gamma_2-1) ~,
+\end{equation}
+算出($v_2 = c_2$)。
+
+在强爆轰波下，
+\begin{align}
+v_1 = \sqrt{2(\gamma_2^2-1)q} ~, \\
+v_1 -v_2 = v_1 /(\gamma_2 +1) ~.
+\end{align}
+
+燃烧生成物的热力学状态
+\begin{align}
+& \dfrac{V_2}{V_1} = \dfrac{\gamma_2}{\gamma_2 +1} ~, \\
+& T_2 = \dfrac{2\gamma_2 q}{c_{v_2}(\gamma_2 +1)} ~, \\
+& \dfrac{p_2}{p_1} = \dfrac{2(\gamma_2 -1)q}{(\gamma_1 -1)c_{v_1}T_1} = \dfrac{\gamma_1 v_1^2}{(\gamma_2 +1)c_{1}^2} ~, 
+\end{align}
+
+在$q \gg c_{v_1}T_1$，爆轰和缓慢燃烧以后的生成物之间的温度的比值为
+\begin{equation}
+\dfrac{T_{2 \text{爆} }}{T_{2 \text{燃} }} = \dfrac{2\gamma_2^2}{\gamma_2 +1} ~.
+\end{equation}
+比值恒大于$1$($\gamma_2 > 1$)。
+
+以上假设燃烧的化学反应自始至终(即在所有介于原未燃气体与最终燃烧生成物之间的中间阶段)都是放热的。但是开始放热而最后阶段吸热的反应是可能存在的。
+
+
+
+表示爆轰混合物状态变化的任何弦线，必须通过这条中间绝热线，所以，对应于燃烧传播速度最小可能值的$j_{\rm min}$由切线$aO^\prime$的斜率确定。具有$j>j_{\rm min}$的爆轰波，对应于爆轰绝热线上位于$b$点上方的诸点，且$v_2 < c_2$。若$j = j_{\rm min}$，气体状态就沿着直线$ca$从点$c$变到$O^\prime$，进一步下移到$O$，此点代替通常的儒盖特点而成为自动爆轰所对应的点，$v_2 > c_2$。
+
+
+
+\section{爆轰波的传播}
+在原先静止的气体中爆轰波的传播。气体在一端$(x = 0)$封闭的管道中发生爆轰，边界条件是在爆轰波(它不影响波前气体的状态)的前方和管道的封闭端，气体的速度均为$0$。因为当气体通过时，气体得到一个非$0$的速度，所有在爆轰波与管道封闭端之间的区域，气体的速度一定要减小。在这种情况下，不存在用以表征沿管道($x$方向)流动条件的长度参数。气体速度能在激波(分隔两个速度均匀的区域)中或在自相似性的稀疏波中变化。
+
+假设爆轰波不对应于绝热线上的儒盖特点，爆轰波相对于后方气体而传播的速度为$v_2 < c_2$。在此情况下，跟随爆轰波的既不可能是激波，也不可能是弱间断(稀疏波的前阵面)。因为激波必须相对于前面的气体以超过$c_2$的速度运动，而弱间断则以等于$c_2$的速度运动，二者都会赶过爆轰波。在爆轰波后方运动的气体的速度不可能减小，即$x = 0$处的边界条件不可能得到满足。
+
+只有在对应于儒盖特点的爆轰波上才能得到满足。此时$v_2 = c_2$，跟随在爆轰波后面的是稀疏波。这稀疏波是当爆轰开始时，在$x = 0$形成的，它的前阵面与爆轰波重合。
+
+在管道封闭端点火的气体中沿管道传播的爆轰波，一定对应于儒盖特点。相对于紧随在波后的气体，爆轰波以等于当地声速的速度运动。爆轰波与稀疏波相连接，而在稀疏波中，气体速度(相对于管道)单调地下降到$0$。速度变为$0$的点为一弱间断。弱间断后方的气体处于静止状态。
+
+
+
+
+\section{不同燃烧方式之间的关系}
+爆轰对应于燃烧过程的爆轰绝热曲线上部的一些点。绝热线方程只是质量、动量和能量守恒定律(燃烧气体的初态和终态)的结果，对于任何可以将燃烧带看成某种间断面的其他燃烧方式来说，表示反应生成物状态的点一定落在同一条曲线上。
+
+
+
+
+
+
+
+
+
+
+\section{凝结间断}
+爆轰波和凝结间断之间，存在着形式上的相似性。凝结间断发生在含有过饱和水蒸气的气流中。间断是蒸汽在一个非常狭窄的区域内非常迅速地突然凝结的结果，该区域可以看成是分隔原来气体与含有凝结蒸汽(雾)的气体的一个间断面(即凝结间断)。凝结间断并不是由于气体经过普通激波的压缩而产生的。普通激波的压缩效应不可能导致凝结，因为激波中压力增大对过饱和度的影响小于温度升高的影响。
+
+与燃烧类似，蒸汽凝结是一种放热过程。以每单位质量气体中蒸汽在凝结时所释放的热量表示反应热$q$。对于未凝结原始气体的给定状态$p_1, V_1$来说，将$p_2$表示为$V_2$的函数的凝结绝热线，与燃烧绝热线有相同的形状。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

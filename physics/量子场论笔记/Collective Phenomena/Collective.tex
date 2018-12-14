@@ -1,0 +1,315 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Field Theory and Collective Phenomena}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Superfluids}
+\cite{2010qftn.book.....Z}
+Consider a finite density $\overline{\rho}$ of nonrelativistic bosons interacting with a short ranged repulsion.
+\begin{equation}
+\mathcal L = i \varphi^{\dagger} \partial_0 \varphi - \dfrac{1}{2m} \partial_i \varphi^{\dagger} \partial_i \varphi - g^2 (\varphi^{\dagger} \varphi - \overline{\rho})^2
+\end{equation}
+The last term is exactly the Mexican well potential,  forcing the magnitude of $\varphi$ to be close to $\sqrt{\overline{\rho}}$, thus suggesting that we use polar variables $\varphi \equiv \sqrt{\rho} e^{i\theta}$. Plugging in and dropping the total derivative $(i/2)\partial_0 \rho$, 
+\begin{equation}
+\mathcal L = -\rho \partial_0 -\dfrac{1}{2m} \left[\dfrac{1}{4 \rho} (\partial_i \rho)^2 +\rho (\partial_i \theta)^2 \right] - g^2 (\rho - \overline{\rho})^2 
+\end{equation}
+
+$\sqrt{\rho} = \sqrt{\overline{\rho}} +h$(the vacuum expectation value of $\varphi$ is $\sqrt{\overline{\rho}}$), assume $h \ll \sqrt{\overline{\rho}}$, and expand(dropped the (potentially interesting) term $ -\rho \partial_0$ because it is a total divergence)
+\begin{align}
+\nonumber \mathcal L &= \overline{\rho} \partial_0 \theta \dfrac{1}{4 g^2 \overline{\rho} - (1/2m)\partial_i^2} \partial_0 \theta - \dfrac{\overline{\rho}}{2m} (\partial_i \theta)^2 +\cdots \\
+&= \dfrac{1}{4g^2} (\partial_0 \theta)^2 - \dfrac{\overline{\rho}}{2m} (\partial_i \theta)^2
+\end{align}
+In the second equality we assumed that we are looking at processes with wave number $k$ small compared to $\sqrt{8g^2\overline{ρ}m}$ so that $(1/2m)\partial_i^2$ is negligible compared to $4g^2 \overline{\rho}$. There exists in this fluid of bosons a gapless mode (often referred to as the phonon) with the dispersion
+\begin{equation}
+\omega^2 = \dfrac{2g^2 \overline{\rho}}{m} \vec{k}^2
+\label{disper}
+\end{equation}
+where Bogoliubov's classic result are obtained without ever doing a Bogoliubov rotation.
+
+A linearly dispersing mode (that is, $\omega$ is linear in $k$) implies superfluidity. Consider a mass $M$ of fluid flowing down a tube with velocity $v$. It could lose momentum and slow down to velocity $v^\prime$ by creating an excitation of momentum $k : Mv = Mv^\prime + \hbar k$. This is only possible with sufficient energy to spare if $Mv^2/2 \geqslant Mv^{\prime 2}/2 +\hbar \omega(k)$. Eliminating $v^\prime$ we obtain for $M$ macroscopic $v \geqslant \omega/k$. For a linearly dispersing mode this gives a critical velocity $v_c \equiv \omega/k$ below which the fluid cannot lose momentum and is hence super. [Thus, from (\ref{disper}) the idealized $v_c = g\sqrt{2 \overline{\rho}/m}$.]
+
+Suitably scaling the distance variable, we can summarize the low energy physics of superfluidity in the compact Lagrangian
+\begin{equation}
+\mathcal L = \dfrac{1}{4g^2} (\partial_\mu \theta)^2 ~,
+\end{equation}
+which we recognize as the massless version of the scalar field theory, but with the important proviso that $\theta$ is a phase angle field, that is, $\theta(x)$ and $\theta(x) + 2\pi$ are really the same. This gapless mode is evidently the Nambu-Goldstone boson associated with the spontaneous breaking of the global $U(1)$ symmetry $\varphi \rightarrow e^{i\alpha} \varphi$.
+
+If we think about a gas of free bosons, we can give a momentum  $\hbar \vec{k}$ to any given boson at the cost of only $(\hbar \vec{k})^2/2m$ in energy. There exist many low energy excitations in a free boson system. But as soon as a short ranged repulsion is turned on between the bosons, a boson moving with momentum $\vec{k}$ would affect all the other bosons. A density wave is set up as a result, with energy proportional to k as we have shown in (\ref{disper}). The gapless mode has gone from quadratically dispersing to linearly dispersing. There are far fewer low energy excitations. Specifically, recall that the density of states is given by $N(E) \approx k^{D-1} (\dif k/\dif E)$. For example, for $D = 2$ the density of states goes from $N(E) \approx \rm constant$ (in the presence of quadratically dispersing modes) to $N(E) \approx E$ (in the presence of linearly dispersing modes) at low energies.
+
+The physics of superfluidity lies not in the presence of gapless excitations, but in the paucity of gapless excitations. (After all, the Fermi liquid has a continuum of gapless modes.) There are too few modes that the superfluid can lose energy and momentum to.
+
+
+\section{Euclid, Boltzmann, Hawking, and Field Theory at Finite Temperature}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Landau-Ginzburg Theory of Critical Phenomena}
+Consider a \textcolor{red}{ferromagnetic material in thermal equilibrium at temperature $T$}. The \textcolor{red}{magnetization $\vec{M}(x)$} is defined as the \textcolor{red}{average of the atomic magnetic moments taken over a region of a size much larger than the length scale characteristic of the relevant microscopic physics}. (we discuss a nonrelativistic theory and $x$ denotes the spatial coordinates only.) At \textcolor{red}{low temperatures}, \textcolor{red}{rotational invariance is spontaneously broken and the material exhibits a bulk magnetization pointing in some direction}. As the \textcolor{red}{temperature is raised past some critical temperature $T_c$}, the \textcolor{red}{bulk magnetization suddenly disappears}. With \textcolor{red}{increased thermal agitation}, the \textcolor{red}{atomic magnetic moments point in increasingly random directions, canceling each other out}. More precisely, it was found experimentally that just \textcolor{red}{below $T_c$}, the magnetization $|\vec{M}|$ vanishes as $\sim (T_c - T)^\beta$, where the so-called \textcolor{red}{critical exponent $\beta \simeq 0.37$}. This sudden change is known as a \textcolor{red}{second order phase transition}. In principle, we are to compute the partition function $Z = {\rm tr} ~e^{-\mathcal H/T}$ with the microscopic Hamiltonian $\mathcal H$, but $Z$ is apparently smooth in $T$ except possibly at $T = 0$. An infinite sum of terms each of which may be analytic in some variable need not be analytic in that variable. The trace in ${\rm tr} ~e^{-\mathcal H/T}$ sums over an infinite number of terms.
+
+The form of the free energy $G$ as a function of $\vec{M}$ for a system with volume $V$ could be argued from general principles. First, for $\vec{M}$ constant in $x$, we have by rotational invariance
+\begin{equation}
+G = V [a \vec{M}^2 + b (\vec{M}^2)^2 +\cdots] ~
+\end{equation}
+where $a, b, \cdots$ are unknown (but expected to be smooth) functions of $T$. Suppose that $a$ vanishes at some temperature $T_c$. We expect that for $T$ near $T_c$ we have $a = a_1(T - T_c) + \cdots$ [rather than, say, $a = a_2(T - T_c)^2 + \cdots]$. For $T > T_c$, $G$ is minimized at $\vec{M} = 0$, but as $T$ drops below $T_c$, new minima suddenly develop at $|\vec{M}| = \sqrt{(-a/2b)} \sim (T_c - T)^{1/2}$. Rotational symmetry is spontaneously broken.
+
+To include the possibility of $\vec{M}$ varying in space, $G$ must have the form
+\begin{equation}
+G = \int \dif^3 x \{\partial_i \vec{M} \partial_i \vec{M} + a\vec{M}^2 +b(\vec{M}^2)^2 +\cdots \}
+\label{G}
+\end{equation}
+where the coefficient of the $(\partial_i \vec{M})^2$ term has been set to $1$ by rescaling $\vec{M}$. Equ. (\ref{G}) is the Euclidean version of the scalar field theory. By dimensional analysis, $1/\sqrt{a}$ sets the length scale. More precisely, for $T > T_c$, turn on a perturbing external magnetic field $\vec{H}(x)$ by adding the term $-\vec{H}\cdot \vec{M}$. Assuming $\vec{M}$ small and minimizing $G$, we obtain $(-\partial^2 + a) \vec{M} \simeq \vec{H}$, with the solution
+\begin{align}
+\nonumber \vec{M}(x) &= \int \dif^3 y \int \dfrac{\dif^3 k}{(2\pi)^3} \dfrac{e^{i\vec{k}\cdot (\vec{x}-\vec{y})}}{\vec{k}^2 +a} \vec{H}(y) \\
+&= \int \dif^3 y \dfrac{1}{4\pi |\vec{x} -\vec{y}|} e^{-\sqrt{a} |\vec{x} -\vec{y}|} \vec{H}(y) 
+\end{align}
+Define a correlation function $\langle \vec{M}(x) \vec{M}(0)\rangle$ by asking what the magnetization $ \vec{M}(x)$ will be if we use a magnetic field sharply localized at the origin to create a magnetization $ \vec{M}(0)$ there. The correlation function is expected to die off as $e^{-|\vec{x}|/\xi}$ over some correlation length $\xi$ that goes to infinity as $T$ approaches $T_c$ from above. The critical exponent $\nu$ is traditionally defined by $\xi \sim 1/(T - T_c)^\nu$. In Landau-Ginzburg theory, also known as \textcolor{red}{mean field theory}, $\xi = 1/\sqrt{a}$ and hence $\nu = 1/2$. The important point is not how well the predicted critical exponents such as $\beta$ and $\nu$ agree with experiment but how easily they emerge from Landau-Ginzburg theory. 
+
+\section{Superconductivity}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

@@ -1,0 +1,514 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+
+\title{刚体运动}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\section{角速度}
+
+
+设刚体上任意点$P$在动坐标系中的径矢用$\vec{r}$表示，而该点在固定坐标系中的径矢为$\vec{\tau}$。$P$点的无穷小位移$\dif \vec{\tau}$等于质心位移$\dif \vec{R}$与绕质心转动无穷小角度$\dif \vec{\varphi}$产生的位移$\dif \vec{\varphi} \times \vec{r}$之和
+\begin{equation*}
+\dif \vec{\tau} = \dif \vec{R} +\dif \vec{\varphi} \times \vec{r} ~.
+\end{equation*}
+除以位移发生的时间$\dif t$，
+\begin{align*}
+& \dfrac{\dif \vec{\tau} }{\dif t} = \vec{v} ~, \\
+& \dfrac{\dif \vec{R} }{\dif t} = \vec{V} ~, \\
+& \dfrac{\dif \vec{\varphi} }{\dif t} = \vec{\Omega} ~, 
+\end{align*}
+可得到
+\begin{equation}
+\vec{v} = \vec{V} + \vec{\Omega} \times \vec{r} ~.
+\end{equation}
+$\vec{V}$是\textcolor{red}{刚体质心的速度}，即\textcolor{red}{刚体的平动速度}。$\vec{\Omega}$称为\textcolor{red}{刚体转动角速度}，其方向(也即$\dif \vec{\varphi}$)与转动轴方向一致。刚体上任意点的速度(相对于固定坐标系)，可以用刚体平动速度和转动角速度表示。
+
+
+设与刚体固连的坐标系的原点不在质心$O$，而在距离$O$点为$\vec{a}$的$O^\prime$点。设坐标原点$O^\prime$的平移速度为$\vec{V}^\prime$，在新坐标系中的角速度为$\vec{\Omega}^\prime$。刚体上某点$P$，$\vec{r}^\prime$表示其相对于$O^\prime$点的径矢，则$\vec{r} = \vec{r}^\prime +\vec{a}$，
+\begin{equation*}
+\vec{v} =  \vec{V} + \vec{\Omega} \times \vec{a} + \vec{\Omega} \times \vec{r}^\prime ~.
+\end{equation*}
+由$\vec{V}^\prime$和$\vec{\Omega}^\prime$的定义，
+\begin{equation*}
+\vec{v} = \vec{V}^\prime + \vec{\Omega}^\prime \times \vec{r}^\prime
+\end{equation*}
+因此
+\begin{align}
+& \vec{V}^\prime = \vec{V} +\vec{\Omega} \times \vec{a} ~, \\
+& \vec{\Omega}^\prime = \vec{\Omega} ~.
+\end{align}
+与刚体固连的坐标系在任意时刻的转动角速度与所选取的特定的坐标系无关。所有这样的坐标系均以角速度$\vec{\Omega}$旋转，大小相等，方向相互平行。
+
+
+
+\section{惯量张量}
+\begin{align}
+\nonumber T &= \sum \dfrac{mv^2}{2} ~, \\
+\nonumber &= \sum \dfrac{m}{2} (\vec{V} +\vec{\Omega} \times \vec{r})^2 ~, \\
+\nonumber &= \sum \dfrac{m V^2}{2} +\sum m\vec{V}\cdot (\vec{\Omega} \times \vec{r}) +\sum \dfrac{m}{2}  (\vec{\Omega} \times \vec{r})^2 ~, \\
+\nonumber &= \dfrac{(\mu \equiv \sum m) V^2}{2} + \vec{V} \times \vec{\Omega} \cdot \sum m \vec{r} +\dfrac{1}{2} \sum m \left[\Omega^2 r^2 -(\vec{\Omega} \cdot \vec{r})^2 \right]
+\end{align}
+对刚体的所有质点，$\vec{V}$和$\vec{\Omega}$都相同。其中
+\begin{equation}
+\sum m\vec{V}\cdot (\vec{\Omega} \times \vec{r}) = \sum m \vec{r}\cdot (\vec{V} \times \vec{\Omega}) = \vec{V} \times \vec{\Omega} \cdot \sum m \vec{r}
+\end{equation}
+若坐标原点选在刚体质心，则由于$\sum m \vec{r} = 0$，这一项为$0$。
+
+刚体的动能等于刚体随其质心平动的动能与刚体以角速度$\Omega$绕质心转动的动能之和(\textcolor{red}{柯尼希定理})，即
+\begin{equation}
+T = \dfrac{ \mu V^2}{2} +\dfrac{1}{2} \sum m(\vec{\Omega} \times \vec{r})^2 = \dfrac{ \mu V^2}{2} +\dfrac{1}{2} \sum m \left[\Omega^2 r^2 -(\vec{\Omega} \cdot \vec{r})^2 \right] ~,
+\end{equation}
+第一项是平动的动能，第二项是刚体以角速度$\vec{\Omega}$绕通过质心的轴转动的动能。注意这里固定在刚体上的坐标系的坐标原点选在质心。
+
+转动动能改成张量形式，
+\begin{align}
+\nonumber T_{\rm rot} &= \dfrac{1}{2} \sum m [\Omega_i^2 x_l^2 -\Omega_i x_i\Omega_k x_k] = \dfrac{1}{2} \sum m [\Omega_i\Omega_k\delta_{ik} x_l^2 -\Omega_i x_i\Omega_k x_k] ~, \\
+&= \dfrac{1}{2} \Omega_i\Omega_k \sum m (x_l^2 \delta{ik} - x_i x_k)
+\end{align}
+其中$\delta_{ik}$是单位张量($i=k$时等于$1$，$i\neq k$时等于$0$)。引入刚体\textcolor{red}{惯量矩张量}，刚体\textcolor{red}{惯量张量}
+\begin{align}
+I_{ik} &= \sum m (x_l^2 \delta{ik} - x_i x_k) ~, \\
+&= \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+\sum m (y^2 +z^2) & -\sum m xy & -\sum m xz \\
+-\sum m yx & \sum m (x^2 +z^2) & -\sum m yz \\
+-\sum m zx &  -\sum m zy & \sum m (x^2 +y^2)
+\end{pmatrix}
+\end{align}
+$I_{ik}$是对称的，$I_{ik} = I_{ki}$。惯量张量可以相加，即刚体转动惯量等于其各个部分转动惯量之和。分量$I_{xx}, I_{yy}, I_{zz}$称为对相应坐标轴的\textcolor{red}{转动惯量}。则刚体动能为
+\begin{equation}
+T = \dfrac{ \mu V^2}{2} +\dfrac{1}{2} \sum\limits_{i, k} I_{ik} \Omega_i \Omega_k ~,
+\end{equation}
+刚体的拉格朗日函数为
+\begin{equation}
+L = \dfrac{ \mu V^2}{2} +\dfrac{1}{2} \sum\limits_{i, k} I_{ik} \Omega_i \Omega_k -U ~.
+\end{equation}
+
+若将刚体当作连续体，则
+\begin{equation}
+I_{ik} = \int \rho (x_l^2 \delta -x_i x_k) \dif V ~.
+\end{equation}
+惯量张量可以通过适当选择坐标轴$x_1, x_2, x_3$的方向约化为对角的形式。这些方向称为\textcolor{red}{惯量主轴}，而惯量张量相应的对角分量称为\textcolor{red}{主转动惯量}，用$I_1, I_2, I_3$表示。这样选择坐标轴$x_1, x_2, x_3$后，转动动能表示为
+\begin{equation}
+T_{\rm rot} = \dfrac{1}{2} (I_1 \Omega_1^2 +I_2 \Omega_2^2 +I_3 \Omega_3^2) ~.
+\end{equation}
+$3$个主转动惯量中的每一个都不会大于另外两个之和。$3$个主转动惯量各不相等($I_1 \neq I_2 \neq I_3$)的刚体称为\textcolor{orange}{非对称陀螺}。若$2$个主转动惯量相等($I_1 = I_2 \neq I_3$)，则刚体称为\textcolor{orange}{对称陀螺}，此时在平面$x_1, x_2$内有一个主轴方向可以任取。若$3$个主转动惯量都相等($I_1 = I_2 = I_3$)，刚体称为\textcolor{orange}{球陀螺}，此时$3$个主轴可以任意选为任何$3$个相互垂直的轴。位于一条直线上的质点，选取该直线为$x_3$轴，则对于所有质点$x_1 = x_2 = 0$，则两个主转动惯量相等，第$3$个为$0$，
+\begin{equation}
+I_1 = I_2 = \sum m x_3^2 ~, ~~ I_3 = 0 ~.
+\end{equation}
+该系统称为\textcolor{orange}{转子}。
+
+之前的惯量张量是在以质心为原点的坐标系中定义的。相对于另一个坐标原点$O^\prime$定义惯量张量
+\begin{equation*}
+I^\prime_{ik} = \sum m (x^{\prime 2}_l \delta_{ik} -x^\prime_i x^\prime_k) ~.
+\end{equation*}
+如果距离$OO^\prime$由矢量$\vec{a}$表示，则$\vec{r} = \vec{r}^\prime +\vec{a}$，$x_i = x_i^\prime +a_i$，
+\begin{equation}
+I^\prime_{ik} = I_{ik} +\mu (a^2 \delta -a_i a_k) ~.
+\end{equation}
+
+\cite{2014Russell} In general, the distribution of matter can be described using the inertia tensor, a $3\times 3$ matrix
+\begin{equation*}
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+I_{xx} & I_{xy} & I_{xz} \\
+I_{yx} & I_{yy} & I_{yz} \\
+I_{zx} & I_{zy} & I_{zz} 
+\end{pmatrix}
+\end{equation*}
+The entries are the moments of inertia about the origin for a continuous distribution of mass:
+\begin{align*}
+& I_{xx} = \int y^2 +z^2 \dif m ~, ~~~I_{xy} = I_{yx} = -\int xy \dif m ~,\\
+& I_{yy} = \int x^2 +z^2 \dif m ~, ~~~I_{yz} = I_{zy} = -\int yz \dif m ~,\\
+& I_{zz} = \int x^2 +y^2 \dif m ~, ~~~I_{zx} = I_{xz} = -\int xz \dif m ~, 
+\end{align*}
+The total angular momentum is $\vec{L} = I \vec{\Omega}$, where $\vec{\Omega}$ is a column vector of the components of angular velocity. The components of the moment of inertia can be written more compactly using index notation as
+\begin{equation*}
+I_{ij} = \int (r^2 \delta_{ij} -x_i x_j) \rho \dif V ~.
+\end{equation*}
+Under a rotation of the coordinate system, the angular momentum equation becomes $\vec{L}^\prime = I^\prime \vec{\Omega}^\prime$. The relation to the original quantities is 
+\begin{align*}
+& \vec{L}^\prime = I^\prime \vec{\Omega}^\prime ~, \\
+& \hat{R}_\theta \vec{L} = I^\prime \hat{R}_\theta \vec{\Omega} ~, \\
+& \vec{L} =  \hat{R}^{-1}_\theta I^\prime \hat{R}_\theta ~.
+\end{align*}
+The moment of inertia changes under a transformation,
+\begin{equation*}
+I = \hat{R}^{-1}_\theta I^\prime ~. 
+\end{equation*}
+If the resulting matrix is diagonal, the moment of inertia tensor have been diagonalized,
+\begin{equation*}
+I = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+I_{x} & 0 & 0 \\
+0 & I_{y} & 0 \\
+0 & 0 & I_{z} 
+\end{pmatrix}
+\end{equation*}
+The diagonal entries are called the principal moments of inertia.
+
+
+\subsection{惯量主轴}
+从矩阵确定惯量主轴和主转动惯量，就是求惯量张量的本征值问题，即求方程$\boldsymbol{I} \vec{x} = \lambda \vec{x}$的本征值$\lambda$和本征矢量$\vec{x} = \renewcommand{\arraystretch}{0.7} \begin{pmatrix} x_1 \\x_2 \\x_3\end{pmatrix}$。惯量张量相应矩阵的对角化可以通过线性变换实现，这样的变换可以由本征矢量得到，且对应的本征值就是对角化的矩阵的对角元。本征值由特征方程(久期方程)
+\begin{equation}
+\text{det}(\boldsymbol{I} -\lambda \vec{E}) = 
+\renewcommand{\arraystretch}{0.9}
+\begin{vmatrix}
+I_{xx} -\lambda & -I_{xy} & -I_{xz} \\
+-I_{yx} & I_{yy} -\lambda & -I_{yz} \\
+-I_{zx} &  -I_{zy} & I_{zz} -\lambda
+\end{vmatrix}
+ = 0 ~,
+\end{equation}
+确定，这里$\vec{E}$是单位矩阵。特征方程是关于$\lambda$的三次方程，可解出$3$个根，就是$3$个主转动惯量$I_1, I_2, I_3$。代入$\boldsymbol{I} \vec{x} = \lambda \vec{x}$可求出相应于各$\lambda_i$的本征矢量
+\begin{equation*}
+\vec{x} = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix} 
+x_{1i} \\x_{2i} \\x_{3i} 
+\end{pmatrix}
+\end{equation*}
+$x_{1i}, x_{2i}, x_{3i}$是相对于原坐标系惯量主轴上一点的坐标，即本征矢量确定惯量主轴的方向。
+
+\subsection{对称轴的阶}
+对称轴的阶指若刚体绕该轴转动$\dfrac{2\pi}{n}$以及它的整数倍后回复原状，则该轴的阶为$n$，也称为$n$重对称轴。刚体可以有多个对称轴，不同轴的阶数一般并不相同。
+
+阶数的对称轴指的是几何对称轴，反映的是刚体的几何对称性。动力学对称轴是与主转动惯量相联系。若刚体的主转动惯量中至少有两个是相等的，则称该刚体有动力学对称轴。刚体可以没有几何对称轴，但可以有动力学对称轴。
+
+
+\section{刚体的角动量}
+系统的角动量取决于它相对于哪个点定义。刚体力学中最适合选取的点是动坐标系的原点，即刚体的质心。这样定义的角动量为$\vec{M}$。当选取刚体质心为坐标原点时，$\vec{M}$就是``内禀"角动量，仅与刚体相对质心的运动有关。
+\begin{align*}
+\vec{M} &= \sum m \vec{r} \times \vec{v} = \sum m \vec{r} \times (\vec{\Omega} \times \vec{r}) = \sum m [r^2 \vec{\Omega} -\vec{r} \cdot (\vec{\Omega} \cdot \vec{r}) ] ~, \\
+M_i &= \sum m (x_l^2 \Omega_i - x_i x_k \Omega_k) = \Omega_k \sum m (x_l^2 \delta_{ik} - x_i x_k) = I_{ik}\Omega_k ~.
+\end{align*}
+若坐标轴$x_1, x_2, x_3$的方向沿着刚体惯量主轴，则
+\begin{align}
+\nonumber & M_1 = I_1 \Omega_1 ~, \\
+\nonumber & M_2 = I_2 \Omega_2 ~, \\ 
+& M_3 = I_3 \Omega_3 ~.
+\end{align}
+对于球形陀螺，$3$个主转动惯量都相等，
+\begin{equation}
+\vec{M} = I \vec{\Omega} ~,
+\end{equation}
+即角动量矢量正比于角速度矢量，且有相同的方向。对于任意刚体，矢量$\vec{M}$一般不与矢量$\vec{\Omega}$方向相同，只有在刚体绕某个惯量主轴转动时，仅考虑刚体的自由转动。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{刚体的运动方程}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{欧拉角}
+描述刚体可以用质心的$3$个坐标和$3$个描述动坐标轴$x_1, x_2, x_3$相对固定坐标轴$X, Y, Z$取向的角度。选择同一个点为两个坐标系的原点。动坐标系的平面$x_1, x_2$与固定平面$XY$相交于某一直线，该直线称为\textcolor{red}{节线}。节线垂直于$Z$轴和$x_3$轴，选择矢量积$\vec{z} \times \vec{x}_3$的方向为节线方向($\vec{z}, \vec{x}_3$分别是坐标轴$Z, x_3$方向的单位矢量).
+
+$Z$轴和$x_3$轴之间的夹角$\theta$，$X$轴和$ON$轴之间的夹角$\varphi$，$ON$轴和$x_1$轴之间的夹角$\psi$。按螺旋法则确定的方向分别绕$Z$和$x_3$轴转动来计算$\varphi$和$\psi$。$\theta$取值范围从$0$到$\pi$，$\varphi$和$\psi$的取值范围从$0$到$2\pi$。
+
+用欧拉角及其导数表示角速度矢量$\vec{\Omega}$在动坐标轴$x_1, x_2, x_3$上的分量。将角速度$\dot{\theta}, \dot{\varphi}, \dot{\psi}$向这些轴投影。角速度$\dot{\theta}$的方向沿着节线$ON$，沿着$x_1, x_2, x_3$的分量为
+\begin{align}
+& \dot{\theta}_1 = \dot{\theta} \cos \psi ~, \\
+& \dot{\theta}_2 = -\dot{\theta} \sin \psi ~, \\
+& \dot{\theta}_3 = 0 ~.
+\end{align}
+角速度$\dot{\varphi}$的方向沿着$Z$轴，沿着$x_3$的分量为$\dot{\varphi}_3 = \dot{\varphi} \cos \theta$，在平面$x_1 x_2$上的投影等于$\dot{\varphi}\sin \theta$。再分解到$x_1$和$x_2$轴上可得
+\begin{align}
+& \dot{\varphi}_1 = \dot{\varphi} \sin \theta \sin \psi ~, \\
+& \dot{\varphi}_2 = \dot{\varphi} \sin \theta \cos \psi ~.
+\end{align}
+角速度$\dot{\psi}$的方向沿着$x_3$轴。
+\begin{align}
+& \Omega_1 = \dot{\varphi} \sin \theta \sin \psi +\dot{\theta} \cos \psi ~, \\
+& \Omega_2 = \dot{\varphi} \sin \theta \cos \psi -\dot{\theta} \sin \psi ~, \\
+& \Omega_3 = \dot{\varphi} \cos \theta +\dot{\psi} ~.
+\end{align}
+若选择刚体的惯量主轴为坐标轴$x_1, x_2, x_3$，可得到用欧拉角表示的转动动能。对于对称陀螺，$I_1 = I_2 \neq I_3$，
+\begin{equation}
+T_{\rm rot} = \dfrac{I_1}{2}(\dot{\varphi}^2 \sin^2 \theta +\dot{\theta}^2) +\dfrac{I_3}{2} (\dot{\varphi} \cos \theta +\dot{\psi})^2 ~.
+\end{equation}
+若认为$x_1$轴沿着节线$ON$，即$\psi = 0$，可得角速度分量为
+\begin{align}
+& \Omega_1 = \dot{\theta} ~, \\
+& \Omega_2 = \dot{\varphi} \sin \theta ~, \\
+& \Omega_3 = \dot{\varphi} \cos \theta +\dot{\psi} ~.
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{欧拉方程}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{非对称陀螺}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{刚体的接触}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

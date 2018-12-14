@@ -1,0 +1,319 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{密度扰动场}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+宇宙学的密度扰动通常假设为Gauss随机场；非线性结构形成于该场中的局域极大处；
+
+\section{Gauss随机场}
+宇宙密度涨落
+\begin{equation}
+\delta(\vec{x}, t) \equiv \frac{\rho(\vec{x}, t) -\left\langle \rho \right\rangle}{\left\langle \rho \right\rangle}
+\end{equation}
+
+原初密度涨落$\delta(\vec{x}, t_i)$的空间分布定义了一个三维随机场，$t_i$相应于暴涨结束的时刻；
+
+根据宇宙学原理，这个随机场应当是均匀各项同性的；
+
+由中心极限定理，大量独立的随机变量（事件）相加的结果趋于正态分布或Gauss分布；故密度扰动场应当是Gauss场，其平均值为0。
+
+一个Gauss随机场的统计性质可以用\textcolor{red}{功率谱$P(k)$}来表征，或功率谱的Fourier变换，\textcolor{red}{自相关函数$\xi(x)$}
+
+一个Gauss随机场若进行空间Fourier分解，则它的各谐频分量$\delta_k$的位相是相互独立的，即不同分量的位相在$0$到$2\pi$之间随机分布；
+
+设Gauss随机场$F(\vec{x})$，它是三维空间位置坐标$\vec{x}$的函数，若该场在尺度为$L$的方盒子内是周期函数，则利用Fourier分析，可以把它展开为一系列平面波的迭加
+\begin{equation}
+F(\vec{x}) = \sum F_k e^{-i\vec{k}\cdot \vec{x}}
+\end{equation}
+其中波数满足谐和边界条件
+\begin{equation}
+k_x = n\frac{2\pi}{L}, n = 1, 2, \cdots
+\end{equation}
+当盒子的大小变为无穷大，即$L\rightarrow \infty$，
+\begin{eqnarray}
+\nonumber F(\vec{x}) &=& \left(\frac{L}{2\pi} \right)^3  \int F_k(\vec{k}) \exp(-i\vec{k}\cdot \vec{x}) \dif^3 k, \\
+F_k(\vec{k}) &=& \frac{1}{L^3}  \int F(\vec{x}) \exp(i\vec{k}\cdot \vec{x}) \dif^3 x,
+\end{eqnarray}
+
+一个$n$维随机场$F(\vec{x})$是一组随机变量的集合，其中每个变量都是$n$维空间位置矢量的$\vec{x}$的函数。设有$m$个随机变量$y_i$，它们的联合Gauss几率分布是(BBKS)
+\begin{equation}
+P(y_1, y_2, \cdots, y_m) \dif y_1 \cdots \dif y_m = \frac{e^{-Q}}{[(2\pi)^m |M|]^{1/2}} \dif y_1 \cdots \dif y_m 
+\end{equation}
+\begin{eqnarray}
+Q \equiv \frac{1}{2} \sum \Delta y_i (M^{-1})_{ij} \Delta y_j, \\ 
+M_{ij} = \left\langle \Delta y_i \Delta y_j \right\rangle, ~ \Delta y_i \equiv y_i -\left\langle y_i \right\rangle
+\end{eqnarray}
+其中$i,j = 1, \cdots, m$，且$|M|$：协方差矩阵$M_{ij}$的行列式，
+
+根据Gauss场的统计性质，若$F(\vec{x})$是一个Gauss场，则由该场及其导数、积分以及线性函数构成的联合分布也是Gauss的
+
+
+
+\section{傅里叶变换的性质}
+
+\subsection{$\delta$函数的Fourier变换}
+\begin{equation}
+\delta(\vec{x}) = \left(\frac{L}{2\pi} \right)^3 \int \dif^3 k e^{-i\vec{k}\cdot \vec{x}} 
+\end{equation}
+
+
+\subsection{Parseval定理}
+\begin{eqnarray}
+\nonumber \int \dif^3 x |F(\vec{x})|^2 &=& \frac{1}{(2\pi)^6} \int \dif^3 x\int \dif^3 k F_k(\vec{k}) e^{-i\vec{k} \cdot \vec{x}} \int \dif^3 k' F^*_k(\vec{k}') e^{i\vec{k}' \cdot \vec{x}}, \\
+\nonumber &=& \frac{1}{(2\pi)^6} \int \dif^3 k \int \dif^3 k'  F_k(\vec{k}) F^*_k(\vec{k}') \int \dif^3 x e^{-i(\vec{k}-\vec{k}') \cdot \vec{x}}, \\
+\nonumber &=& \frac{1}{(2\pi)^3} \int \dif^3 k \int \dif^3 k'  F_k(\vec{k}) F^*_k(\vec{k}') \delta(\vec{k}-\vec{k}'), \\
+&=& \frac{1}{(2\pi)^3} \int \dif^3 k |F_k(\vec{k})|^2
+\end{eqnarray}
+$\int \dif^3 x |F(\vec{x})|^2$：场$F(\vec{x})$的总功率，
+
+$|F_k(\vec{k})|^2$：相应的功率谱，
+
+各项同性的功率谱，$|F_k(\vec{k})|^2 = |F_k(k)|^2 \equiv P(k)$
+
+\subsection{卷积定理}
+两个连续函数$f(\vec{x})$、$g(\vec{x})$的卷积
+\begin{equation}
+c(\vec{x}) = \int \dif^3 x' f(\vec{x}') g(\vec{x} -\vec{x}')
+\end{equation}
+它的Fourier变换
+\begin{eqnarray}
+\nonumber c_k(\vec{k}) &=& \int \dif^3 x c(\vec{x}) e^{i\vec{k} \cdot \vec{x}}, \\
+\nonumber &=& \int \dif^3 x \int \dif^3 x' f(\vec{x}') g(\vec{x}-\vec{x}') e^{i\vec{k} \cdot \vec{x}}, \\
+\nonumber &=& \int \dif^3 x \int \dif^3 x' \frac{1}{(2\pi)^3} \int \dif^3 k' \frac{1}{(2\pi)^3} \int \dif^3 k'' f_k(\vec{k}') g_k(\vec{k}'') e^{i[\vec{k}\cdot \vec{x} -\vec{k}'\cdot \vec{x}' -\vec{k}''\cdot (\vec{x}-\vec{x}') ]}, \\
+\nonumber &=& \int \dif^3 k' \int \dif^3 k'' f_k(\vec{k}') g_k(\vec{k}'') \delta(\vec{k}-\vec{k}'') \delta(\vec{k}''-\vec{k}'), \\
+&=& f_k(\vec{k}) g_k(\vec{k})
+\end{eqnarray}
+两个函数卷积的Fourier变换等于两函数各自Fourier变换的乘积
+
+
+\subsection{相关函数和功率谱（Wiener-Khinchin定理）}
+
+函数$F(\vec{x})$的\textcolor{red}{自相关函数}，简称\textcolor{red}{相关函数}，定义为
+\begin{equation}
+\xi(\vec{r}) =  \left\langle F(\vec{x}) F(\vec{x}+\vec{r}) \right\rangle 
+\end{equation}
+$\left\langle \cdot \right\rangle$：对函数$F(\vec{x})$的定义空间进行平均，即
+\begin{eqnarray}
+\nonumber \xi(\vec{r}) &=& \frac{1}{L^3} \int \dif^3 x F(\vec{x}) F(\vec{x}+\vec{r}), \\
+\nonumber &=& \frac{1}{L^3} \int \dif^3 x \int \left(\frac{L}{2\pi} \right)^3 \dif^3 k F_k(\vec{k}) e^{-i\vec{k}\cdot \vec{x}} \int \left(\frac{L}{2\pi} \right)^3 \dif k' F_k(\vec{k}') e^{-i\vec{k}'\cdot (\vec{x}+\vec{r})}, \\
+\nonumber &=& \left(\frac{L}{2\pi} \right)^3 \int \dif^3 k \int \dif^3 k' \frac{1}{(2\pi)^3} F_k(\vec{k}) F_k(\vec{k}') e^{-i\vec{k}'\cdot \vec{r}} \int \dif^3 x e^{-i(\vec{k}' + \vec{k})\cdot \vec{x}}, \\
+\nonumber &=& \left(\frac{L}{2\pi} \right)^3 \int \dif^3 k F_k(-\vec{k}) F_k(\vec{k}) e^{-i\vec{k}'\cdot \vec{r}}, \\
+&=& \left(\frac{L}{2\pi} \right)^3 \int \dif^3 k |F_k(\vec{k})|^2 e^{-i\vec{k}'\cdot \vec{r}}
+\end{eqnarray}
+相关函数和功率谱是Fourier变换对。
+
+在场为各项同性时，$|F_k(\vec{k})|^2 = P(k)$，且$\xi$具有转动不变性，
+\begin{eqnarray}
+\nonumber \xi(r) &=& \frac{L^3}{(2\pi)^3} \int P(k) \cos(kr \cos \theta) 2\pi k^2 \sin \theta \dif \theta \dif k, \\
+&=& \frac{L^3}{2\pi^2} \int P(k) \frac{\sin kr}{kr} k^2 \dif k
+\end{eqnarray}
+
+\subsection{导数和积分的Fourier变换}
+
+
+
+
+\subsection{Fourier延迟定理}
+
+
+\subsection{Fourier位移定理}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}

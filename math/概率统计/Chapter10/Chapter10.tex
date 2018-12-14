@@ -1,0 +1,398 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{tcolorbox}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+
+\title{Categorical Data and Nonparametric Methods}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Concepts of nonparametric inference}
+\textcolor{red}{Nonparametric statistics} fall into two categories: (a) procedures that do \textcolor{red}{not involve or depend on parametric assumptions}, though the underlying population distribution may belong to a particular parametric family; and (b) methods that do \textcolor{red}{not require that the data belong to a particular parametric family of distributions}. \textcolor{red}{Distribution procedures} such as the \textcolor{red}{KS test}, \textcolor{red}{rank statistics}, the \textcolor{red}{sign and Wilcoxon signed rank tests} are in the first category. \textcolor{red}{Contingency tables} and the variety of \textcolor{red}{density estimation methods} (histograms, kernel smoothing, nearest neighbor and nonparametric regressions) are in the second category. In the latter group of cases, the structure of the relationship between variables is treated nonparametrically, while there may be parametric assumptions about the distribution of model residuals. The term \textcolor{red}{semi-parametric} is sometimes used for procedures which combine parametric modeling with principles of nonparametrics.
+
+Some nonparametric procedures are analogous to parametric procedures but operate on the \textcolor{red}{ranks}, or \textcolor{red}{numbered position in the ordered sequence of data points}, rather than the measured values of the data points. Rank tests are often the most powerful available for \textcolor{red}{classificatory variables} which are ordered but not with meaningful numerical values. Note, however, that ranks cannot be reliably defined for multivariate datasets. Bayesian nonparametrics can be viewed as an oxymoron as Bayesian inference requires a mathematical probability model for the data in terms of well-defined parameters.
+
+\section{Tests of Goodness-of-Fit}
+Problems in which the possible distributions of the observations are not restricted to a specific parametric family are called \textcolor{red}{nonparametric problems}, and the statistical methods that are applicable in such problems are called \textcolor{red}{nonparametric methods}.
+
+
+\subsection{The $\chi^2$ Test}
+Suppose that a large population consists of items of \textcolor{red}{$k$ different types}, and let \textcolor{red}{$p_i$} denote the \textcolor{red}{probability that an item selected at random will be of type $i (i = 1, \cdots, k)$}. $p_i \geqslant 0$ for $i = 1, \cdots, k$ and \textcolor{red}{$\sum\limits^k_{i=1} p_i = 1$}. Let $p_1^0, \cdots, p_k^0$ be specific numbers such that $p_i^0 > 0$ for $i = 1, \cdots, k$ and \textcolor{red}{$\sum\limits^k_{i=1} p_i^0 = 1$}, and suppose that the following hypotheses are to be tested:
+\begin{eqnarray}
+&&H_0 : p_i = p_i^0 ~~{\rm for}~ i = 1, \cdots, k ~, \\
+&&H_1 : p_i \neq p_i^0 ~~{\rm for ~at ~least ~one ~value ~of}~ i ~.
+\end{eqnarray}
+We shall assume that \textcolor{red}{a random sample of size $n$ is to be taken from the given population}. That is, $n$ independent observations are to be taken, and there is probability $p_i$ that each observation will be of type $i (i = 1, \cdots, k)$. For $i = 1, \cdots, k$, let $N_i$ denote the number of observations in the random sample that are of type $i$. Thus, $N_1, \cdots, N_k$ are nonnegative integers such that $\sum\limits^k_{i=1} N_i = n$. $(N_1, \cdots, N_k)$ has the multinomial distribution with parameters $n$ and $p = (p_1, \cdots, p_k)$. When the null hypothesis $H_0$ is true, the expected number of observations of type $i$ is $np_i^0 (i = 1, \cdots, k)$. The difference between the actual number of observations $N_i$ and the expected number $np_i^0$ will tend to be smaller when $H_0$ is true than when $H_0$ is not true. It seems reasonable, therefore, to base a test of the above hypotheses on values of the differences $N_i - np_i^0$ for $i = 1, \cdots, k$ and reject $H_0$ when the magnitudes of these differences are relatively large.
+
+\begin{theo}[$\chi^2$ Statistic]{}
+The following statistic
+\begin{equation}
+\color{red} Q = \sum^k_{i=1} \frac{(N_i - np_i^0)^2}{np_i^0} 
+\end{equation}
+has the property that \textcolor{red}{if $H_0$ is true and the sample size $n \rightarrow \infty$}, then \textcolor{red}{$Q$ converges in distribution to the $\chi^2$ distribution with $k -1$ degrees of freedom}.
+\end{theo}
+If $H_0$ is true and the sample size $n$ is large, the distribution of $Q$ will be approximately the $\chi^2$ distribution with $k-1$ degrees of freedom.  
+
+\section{Goodness-of-Fit for Composite Hypotheses}
+
+
+\section{Contingency Tables}
+
+
+\section{Tests of Homogeneity}
+
+
+\section{Simpson’s Paradox}
+
+
+
+\section{Kolmogorov-Smirnov Tests}
+
+The Kolmogorov-Smirnov test (KS-test) tries to determine \textcolor{red}{if two datasets differ significantly}. The KS-test has the advantage of making no assumption about the distribution of data. (Technically speaking it is non-parametric and distribution free.) However this generality comes at some cost: other tests (for example Student's t-test) may be more sensitive if the data meet the requirements of the test. 
+
+In a typical experiment, data collected in one situation (let's call this the \textcolor{cyan}{control group}) is compared to data collected in a different situation (let's call this the \textcolor{cyan}{treatment group}) with the aim of seeing if the first situation produces different results from the second situation. If the outcomes for the treatment situation are ``the same" as outcomes in the control situation, we assume that treatment causes no effect. Rarely are the outcomes of the two groups identical, so the question arises: How different must the outcomes be? Statistics aim to assign numbers to the test results; \textcolor{red}{P-values} report if the numbers differ significantly. Reject the null hypothesis if P is "small".
+
+Kolmogorov-Smirnov Tests can be used to not only test the null hypothesis that a random sample came from a particular continuous distribution against the alternative hypothesis that the sample did not come from that distribution, but also test the null hypothesis that two independent samples came from the same distribution against the alternative hypothesis that they came from two different distributions.
+
+\subsection{The Sample Distribution Function}
+Construct an estimator of the distribution of the random sample that does not rely on the assumption that the distribution was normal. Suppose that the random variables $X_1, \cdots, X_n$ form a random sample from some continuous distribution, and let $x_1, \cdots, x_n$ denote the observed values of $X_1, \cdots, X_n$. Since the observations come from a continuous distribution, there is probability $0$ that any two of the observed values $x_1, \cdots, x_n$ will be equal. Therefore, we shall assume for simplicity that all $n$ values are different. We shall consider now a function $F_n(x)$, which is constructed from the values $x_1, \cdots, x_n$ and will serve as an estimate of the c.d.f. from which the sample was drawn.
+
+Let $x_1, \cdots, x_n$ be the observed values of a random sample $X_1, \cdots, X_n$. For each number $x (−\infty < x < \infty)$, define the value $F_n(x)$ as the proportion of observed values in the sample that are less than or equal to $x$. In other words, if exactly $k$ of the observed values in the sample are less than or equal to $x$, then $F_n(x) = k/n$. The function $F_n(x)$ defined in this way is called the \textcolor{red}{sample distribution function}, or simply the \textcolor{red}{sample c.d.f}. Sometimes $F_n(x)$ is called the \textcolor{red}{empirical c.d.f}.
+
+
+\begin{theo}[Glivenko-Cantelli Lemma]{}
+Let $F_n$ be the sample c.d.f. from an i.i.d. sample $X_1, \cdots, X_n$ from the c.d.f. F. Define
+\begin{equation}
+D_n = \underset{-\infty < x < \infty}{\rm sup} |F_n(x) - F (x)| ~.
+\end{equation}
+Then $D_n \stackrel{P}\longrightarrow 0$.
+\end{theo}
+Before the values of $X_1, \cdots, X_n$ have been observed, the value of $D_n$ is a random variable. When the sample size $n$ is large, the sample c.d.f. $F_n(x)$ is quite likely to be close to the c.d.f. $F(x)$ over the entire real line. In this sense, when the c.d.f. $F(x)$ is unknown, the sample c.d.f. $F_n(x)$ can be considered to be an estimator of $F(x)$. 
+
+\subsection{The Kolmogorov-Smirnov Test of a Simple Hypothesis}
+test the simple null hypothesis that the unknown c.d.f. $F(x)$ is actually a particular continuous c.d.f. $F^\star(x)$ against the general alternative that the actual c.d.f. is not $F^\star(x)$, i.e. test the following hypotheses:
+\begin{eqnarray}
+&&H_0 : F(x) = F^\star(x) ~~ {\rm for} ~ -\infty < x < \infty ~, \\
+&&H_1 : {\rm The ~hypothesis} ~H_0~ {\rm ~is ~not ~true.}
+\end{eqnarray}
+This problem is a \textcolor{red}{nonparametric problem} because the  \textcolor{red}{unknown distribution} from which the random sample is taken \textcolor{red}{might be any continuous distribution}. The $\chi^2$ test of goodness-of-fit can be used to test above hypotheses. That test, however, requires \textcolor{red}{grouping the observations into a finite number of intervals in an arbitrary manner}. 
+
+
+
+
+
+
+
+
+\section{Robust Estimation}
+
+
+
+
+\section{Sign and Rank Tests}
+
+
+
+\section{Univariate problems}
+\subsection{Kolmogorov–Smirnov and other e.d.f. tests}
+The \textcolor{red}{empirical distribution function} (\textcolor{red}{e.d.f.}) is the simplest and most direct  \textcolor{purple}{nonparametric estimator} of the underlying \textcolor{red}{cumulative distribution function} (\textcolor{red}{c.d.f.}) for the underlying population. The univariate dataset $X_1, X_2, \cdots, X_n$ is assumed to be drawn as independently and identically distributed (i.i.d.) samples from a common distribution function $F$. The 
+e.d.f. $\hat{F}_n$ is defined to be
+\begin{equation}
+\hat{F}_n = \frac{1}{n} \sum_{i=1}^n I[X_i \leqslant x] ~,
+\end{equation}
+for all real numbers $x$. The e.d.f. thus ranges from $0.0$ to $1.0$ with step heights of $1/n$ located at the values $X_i$. For each $x$, $F_n(x)$ follows the binomial distribution which is asymptotically normal. The mean and variance of $\hat{F}_n(x)$ are
+\begin{eqnarray*}
+E[\hat{F}_n(x)] &=& F(x) \\
+Var[\hat{F}_n(x)] &=& \frac{F(x)[1-F(x)]}{n} ~.
+\end{eqnarray*}
+For a chosen significance level $\alpha$, the $100(1 -\alpha)\%$ asymptotic confidence interval for $\hat{F}_n(x)$ is 
+\begin{equation}
+\hat{F}_n(x) \pm z_{1-\alpha/2} \sqrt{\hat{F}_n(x) [1-\hat{F}_n(x)]/n}
+\end{equation}
+where $z$ are the quantiles of the Gaussian distribution. 
+
+The e.d.f. is an unbiased and consistent estimator of the population distribution function, and is the generalized maximum likelihood estimator of the population c.d.f. The e.d.f. $\hat{F}_n$ uniquely, completely and accurately embodies all information in the measured $X_i$ without any ancillary choices.
+
+Several statistics have been developed to assist inference on the consistency of an observed e.d.f. with a model specified in advance. We want to test the null hypothesis that $F(x) = F_0(x)$ for all $x$, against the alternative that $F(x) \neq F_0(x)$ for some $x$, where $F_0$ is a distribution specified independently of the dataset under study.
+One-sample Kolmogorov–Smirnov (KS) test \textcolor{red}{measures the maximum distance between the e.d.f and the model},
+\begin{equation}
+M_{\rm KS} = \sqrt{n}~ \underset{x}\max |\hat{F}_n(x) - F_0(x)| ~.
+\end{equation}
+A large value of the supremum $M_{\rm KS}$ allows rejection of the null hypothesis that $F = F_0$ at a chosen significance level. The \textcolor{red}{distribution of $M_{\rm KS}$ is independent of the shape of $F$} as long as it is a continuous function. For large $n$ and a chosen significance level $\alpha$ (e.g. $\alpha = 0.05$), the cumulative distribution of the one-sample KS statistic is approximately
+\begin{equation}
+P_{\rm KS}(M_{\rm KS} > x) \simeq 2 \sum_{r=1}^\infty (-1)^{r-1} e^{-2r^2x^2} 
+\end{equation}
+with critical value
+\begin{equation}
+M_{\rm KS}^{\rm crit} > \left(-\frac{1}{2} \ln\left(\frac{\alpha}{2} \right) \right)^{1/2} ~.
+\end{equation}
+These results are based on advanced weak convergence theory. For \textcolor{red}{small samples}, tables of $M_{\rm KS}^{\rm crit}$ or bootstrap simulations must be used.
+
+
+The KS test is not distribution-free - so the widely tabulated critical values of the KS statistic are not valid - if the model parameters were estimated from the same dataset being tested. The critical values are only correct if the model parameters (except for normalization which is removed in the construction of the dataset e.d.f. and model c.d.f.) are known in advance of the dataset under consideration.
+
+The distribution of the KS statistic is also not distribution-free when the dataset has two or more dimensions. The reason is that a unique ordering of points needed to construct the e.d.f. cannot be defined in multivariate space. A two-dimensional KS-type statistic can be constructed and has been used fairly often in astronomy. But the distribution of this statistic is not knowable in advance and is not distribution-free; probabilities would have to be calculated for each situation using bootstrap or similar resampling techniques.
+
+The KS test is sensitive to global differences between two e.d.f.’s or one e.d.f. $\hat{F}_n$ and the model c.d.f. $F_0$ producing different mean values. But the test is less efficient in uncovering small-scale differences near the tails of the distribution.
+
+The \textcolor{red}{Cram\'{e}r-von Mises (CvM) statistic}, \textcolor{red}{$T_{\rm CvM}$}, \textcolor{red}{measures the sum of the squared differences between $\hat{F}_n$ and $F_0$},
+\begin{eqnarray}
+\nonumber T_{{\rm CvM},n} &=& n\int_{-\infty}^\infty [\hat{F}_n(x) -F_0(x)]^2 \dif F_0(x) \\
+&=& \frac{1}{12 n} + \sum_{i=1}^n \left(\frac{2i-1}{2n} -F(X_{(i)}) \right)^2
+\end{eqnarray}
+It \textcolor{red}{captures both global and local differences between the data and model}, and thus often performs better than the KS test. Two-sample KS and CvM tests are also commonly used, where the e.d.f. of one sample is compared to the e.d.f. of another sample rather than the c.d.f of a model distribution where $X_{(i)}$ is the $i$-th entry when $X_1, X_2, \cdots, X_n$ are placed in increasing order.
+
+\textcolor{red}{Anderson-Darling (AD) statistic}, \textcolor{red}{$A^2_{\rm AD}$}, a weighted variant of the CvM statistic,
+\begin{equation}
+A^2_{\rm AD} = n \sum_{i=1}^n \frac{[i/n -F_0(X_i)]^2}{F_0(X_i)(1-F_0(X_i))} ~.
+\end{equation}
+The Anderson–Darling test is more effective than other e.d.f. tests, and is particularly better than the Kolmogorov–Smirnov test, under many circumstances. 
+
+\subsection{Robust statistics of location}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Non-parametric tests: single samples}
+`Non-parametric tests’ implies that ‘no distribution is assumed'. Various tests exploit different things, but a common method is to use counting probabilities. In the chi-square test, the number of items in bin $i$ is $N_i$, and we expect $E_i$. For smallish numbers, Poisson statistics tell us that the variance is also $E_i$. So $(N_i -E_i)^2/E_i$ should be roughly a squared Gaussian variable, of unit variance. The runs test is just using the assumption that each successive observation is equally likely to be `up' or `down', so a Binomial distribution applies. The assumptions underlying non-parametric tests are weaker, and so more general, than for parametric tests.
+
+These make fewer assumptions about the data. If indeed the underlying distribution is unknown, there is no alternative. \\If the sample size is small, probably we must use a non-parametric test. \\The non-parametric tests can cope with data in non-numerical form, e.g. ranks, classifications. There may be no parametric equivalent. \\Non-parametric tests can treat samples of observations from several different populations.
+
+\subsection{Chi-square test}
+Consider observational data which can be binned, and a model/ hypothesis which predicts the population of each bin. The chi-square statistic describes the goodness-of-fit of the data to the model. If the observed numbers in each of $k$ bins are $O_i$, and the expected values from the model are $E_i$, then this statistic is
+\begin{equation}
+\chi^2 = \sum_{i=1}^k \frac{(O_i -E_i)^2}{E_i} ~.
+\end{equation}
+The null hypothesis $H_0$ is that the number of objects falling in each category is $E_i$; the chi-square procedure tests whether the $O_i$ are sufficiently close to $E_i$ to be likely to have occurred under $H_0$. The sampling distribution under $H_0$ of the statistic $\chi^2$ follows the \textcolor{red}{chi-square distribution with $\nu = (k-1)$ degrees of freedom}. \textcolor{red}{One degree of freedom} is lost because of the \textcolor{red}{constraint that $\sum_i O_i = \sum_i E_i$}. The chi-square distribution is given by
+\begin{equation}
+f(x) = \frac{2^{-\nu/2}}{\Gamma[\nu/2]} x^{\nu/2-1} {\rm e}^{-x/2} ~,
+\end{equation}
+for $x \geqslant 0$, the distribution function of the random variable $Y^2 = Z_1^2 + Z_2^2 + \cdots + Z_\nu^2$ where the $Z_i$ are independent random variables of the standard Normal distribution. If $\chi^2$ exceeds these values, $H_0$ is rejected at that level of significance.
+
+The premise of the chi-square test is that the deviations from $E_i$ are due to statistical fluctuations from limited numbers of observations per bin, i.e. `noise' or Poisson statistics, and the chi-square distribution simply gives the probability that the chance deviations from $E_i$ are as large as the observations $O_i$ imply. We need enough data per bin to ensure that each term in the chi-square summation is approximately Gaussian.
+
+The mean of the chi-square distribution equals the number of degrees of freedom, while the variance equals twice
+the number of degrees of freedom. If $\chi^2$ should come out (for more than four bins) as $\sim$ (number of bins $-1$) then accept $H_0$. But if $\chi^2$ exceeds twice (number of bins $-1$), probably $H_0$ will be rejected.
+
+The data must be binned to apply the test, and the bin populations must reach a certain size because it is obvious that instability results as $E_i \rightarrow 0$. And $> 80$ per cent of the bins must have $E_i > 5$. However, the binning of data in general, and certainly the binning of bins, results in loss of efficiency and information, resolution in particular. The chi-square test cannot tell direction, i.e. it is a ‘ two-tailed’ test; it can only tell whether the differences between sample and prediction exceed those which can be reasonably expected on the basis of statistical fluctuations due to the finite sample size. 
+
+\subsection{Kolmogorov-Smirnov one-sample test}
+Calculate $S_{\rm e}(x)$, the predicted cumulative (integral) frequency distribution under $H_0$. \\
+Consider the sample of $N$ observations, and compute $S_{\rm o}(x)$, the observed cumulative distribution, the sum of all observations to each $x$ divided by the sum of all $N$ observations. \\
+Find
+\begin{equation}
+D = {\rm max}|S_{\rm e}(x) - S_{\rm o}(x)|
+\end{equation}
+Consult the known sampling distribution for $D$ under $H_0$ to determine the fate of $H_0$. If $D$ exceeds a critical value at the appropriate $N$, then $H_0$ is rejected at that level of significance.
+
+As for the chi-square test, the sampling distribution indicates whether a divergence of the observed magnitude is `reasonable' if the difference between observations and prediction is due solely to statistical fluctuations.
+
+The Kolmogorov-Smirnov test treats the individual observations separately, and no information is lost because of grouping. It works for small samples; for very small samples it is the only alternative. For intermediate sample sizes it is more powerful. The Kolmogorov-Smirnov test is non-directional or two-tailed, as is the chi-square test. However, a method of finding probabilities for the one-tailed test does exist.
+
+To apply the Kolmogorov-Smirnov test, the distributions must be continuous functions of the variable. The chi-square test is applicable to data which can be simply binned, grouped, categorized - there is no need for measurement on a numerical scale.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Non-parametric tests: two independent samples}
+Suppose we have two samples, we want to know whether they could have been drawn from the same population, or from different populations, and if the latter, whether they differ in some predicted direction. 
+
+
+
+\subsection{Chi-square two-sample (or k-sample) test}
+Each sample is binned in the same $r$ bins (a $k \times r$ contingency table). $H_0$ is that the $k$ samples are from the same population. Then compute
+\begin{equation}
+\chi^2 = \sum_{i=1}^r \sum_{j=1}^k \frac{(O_{ij} -E_{ij})^2}{E_{ij}} ~.
+\end{equation}
+The $E_{ij}$ are the expectation values, computed from
+\begin{equation}
+E_{ij} = \frac{\sum\limits_{j=1}^k O_{ij} \cdot \sum\limits_{i=1}^r O_{ij} }{\sum\limits_{i=1}^r \sum\limits_{j=1}^k O_{ij} } ~.
+\end{equation}
+Under $H_0$ this is distributed as $\chi^2$, with $(r-1)(k-1)$ degrees of freedom.
+
+If there are only $2 \times 2$ cells, the total $(N)$ must exceed 30; if not, use the Fisher exact probability test.
+
+\subsection{Kolmogorov-Smirnov two-sample test}
+The maximum deviation between the cumulative distributions of two samples with $m$ and $n$ members. $H_0$ is that the two samples are from the same population, and $H_1$ can be that they differ (two-tailed test), or that they differ in a specific direction (one-tailed test).
+
+Exchange the cumulative distributions $S_{\rm e}$ and $S_{\rm o}$ for $S_m$ and $S_n$ corresponding to the two samples. 
+
+For large samples, one-tailed test, compute
+\begin{equation}
+\chi^2 = 4 D^2 \frac{mn}{m+n}
+\end{equation}
+which has a sampling distribution approximated by chi-square with two degrees of freedom. Then consult table to see if the observed $D$ results in a value of $\chi^2$ large enough to reject $H_0$ in favour of $H_1$ at the
+desired level of significance. The test is extremely powerful with an efficiency (compared to the $t$ test) of $> 95$ per cent for small samples, decreasing somewhat for larger samples. The efficiency always exceeds that of the chi-square test, and slightly exceeds that of the $U$ test for very small samples. For larger samples, the converse is true, and the $U$ test is to be preferred.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

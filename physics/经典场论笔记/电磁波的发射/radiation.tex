@@ -1,0 +1,152 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{电磁波的发射}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Scalar and vector potential}
+
+\subsection{Gauge transformation}
+\subsubsection{gauge freedom}
+
+\subsubsection{Coulomb Gauge}
+
+
+\subsubsection{Lorenz Gauge}
+
+\section{Retarded potential}
+\begin{eqnarray}
+\phi(\vec{r}, t) &=& \frac{1}{4\pi \epsilon_0} \int \frac{\rho(\vec{r}^{\prime}, t_r)}{R} \dif \tau^{\prime} \\
+\vec{A}(\vec{r}, t) &=& \frac{\mu_0}{4\pi \epsilon_0} \int \frac{\vec{J}(\vec{r}^{\prime}, t_r)}{R} \dif \tau^{\prime}
+\end{eqnarray}
+
+\subsection{Jefimenko's equations}
+\begin{eqnarray}
+\vec{E}(\vec{r}, t) &=& \frac{1}{4\pi \epsilon_0} \int \left[\frac{\rho(\vec{r}^{\prime}, t_r)}{R^2}\vec{\hat{R}} +\frac{\dot\rho(\vec{r}^{\prime}, t_r)}{cR}\vec{\hat{R}} -\frac{\vec{\dot J}(\vec{r}^{\prime}, t_r)}{c^2 R}  \right] \dif \tau^{\prime} \\
+\vec{B}(\vec{r}, t) &=& \frac{\mu_0}{4\pi} \int \left[\frac{\vec{J}(\vec{r}^{\prime}, t_r)}{R^2} +\frac{\vec{\dot J}(\vec{r}^{\prime}, t_r)}{c R} \right] \times \vec{\hat R} \dif \tau^{\prime}
+\end{eqnarray}
+
+\section{Li\'{e}nard-Wiechert Potential}
+The Li\'{e}nard-Wiechert potential for a moving point charge
+\begin{eqnarray}
+\phi(\vec{r}, t) &=& \frac{1}{4\pi \epsilon_0} \frac{qc}{(1-\vec{n}\cdot\vec{\beta}) R} \\ 
+\vec{A}(\vec{r}, t) &=& \frac{\mu_0}{4\pi} \frac{qc \vec{v}}{(1-\vec{n}\cdot\vec{\beta}) R} = \frac{\vec{v}}{c^2} \phi(\vec{r}, t)
+\end{eqnarray}
+
+\section{Fields of a moving point charge}
+The field of a point charge $q$ in arbitrary motion in SI unit
+\begin{eqnarray}
+\vec{E}(\vec{r}, t) &=& \frac{q}{4\pi \epsilon_0} \left[\frac{\vec{n} -\vec{\beta}}{\gamma^2 (1-\vec{n}\cdot\vec{\beta})^3 R^2} \right]_{\rm ret} +\frac{q}{4\pi \epsilon_0 c} \left[\frac{\vec{n} \times \{(\vec{n} -\vec{\beta}) \times \vec{\dot\beta} \}}{(1-\vec{n}\cdot\vec{\beta})^3 R} \right]_{\rm ret} \\
+\vec{B}  &=& \frac{1}{c}[\vec{n} \times \vec{E} ]_{\rm ret}
+\end{eqnarray}
+and in Gaussian (CGS) units
+\begin{eqnarray}
+\vec{E}(\vec{r}, t) &=& q\left[\frac{\vec{n} -\vec{\beta}}{\gamma^2 (1-\vec{n}\cdot\vec{\beta})^3 R^2} \right]_{\rm ret} +\frac{q}{c} \left[\frac{\vec{n} \times \{(\vec{n} -\vec{\beta}) \times \vec{\dot\beta} \}}{(1-\vec{n}\cdot\vec{\beta})^3 R} \right]_{\rm ret} \\
+\vec{B}  &=& [\vec{n} \times \vec{E} ]_{\rm ret}
+\end{eqnarray}
+The first term is \textcolor{red}{velocity field} and the second is \textcolor{red}{acceleration field}.
+
+The \textcolor{red}{Poynting vector} is
+\begin{equation}
+\vec{S} = \frac{1}{\mu_0} (\vec{E} \times \vec{B}) = \frac{1}{\mu_0 c} [\vec{E} \times (\vec{n} \times \vec{E})] = \frac{1}{\mu_0 c} [E^2 \vec{n} -(\vec{n}\cdot \vec{E})\vec{E}]
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

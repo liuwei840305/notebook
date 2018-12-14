@@ -1,0 +1,350 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb} 
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{MHD Turbulence}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\cite{2015bps..book.....C} The phenomenological theory of isotropic and homogeneous hydrodynamical turbulence
+
+invariance principles and dimensional analysis of the equations.
+
+In astrophysical plasmas, the dissipative coefficients, both resistive and viscous, are as a rule extremely small. Equivalently, the \textcolor{yellow}{Reynolds and Lundquist numbers are extremely large}. From hydrodynamics that in these circumstances, fluids enter a regime where vortices of different sizes and lasting over different times, smaller vortices typically lasting less than larger ones, appear in the flow, and generally chaotic, unpredictable motions result. When the chaotic motions, associated with the vortices, are present over a wide range of spatial scales, we speak of a regime of \textcolor{red}{developed turbulence}. \textcolor{blue}{Energy appears to be transported from the largest spatial scales to those sufficiently small to allow dissipation to set in}. The \textcolor{blue}{energy dissipation rate} as measured experimentally in many different fluids of varying Reynolds numbers appears to be \textcolor{blue}{independent from the viscosity of the fluid}, i.e., it reaches a finite value in the limit of zero viscosity.
+
+The appearance of stronger and stronger gradients in the flow is clearly borne out from inspection of the equation of motion of a viscous fluid. Navier-Stokes equation is
+\begin{equation}
+\frac{\partial \vec{U}}{\partial t} + (\vec{U}\cdot \nabla) \vec{U} = -\frac{1}{\rho} \nabla P +\nu \nabla^2 \vec{U} ~,
+\end{equation}
+where \textcolor{blue}{incompressibility} has been assumed, \textcolor{blue}{$\nabla \cdot \vec{U} = 0$}, and $\nu$ is the \textcolor{blue}{kinematic viscosity}. The importance of the nonlinear convective term, \textcolor{green}{$(\vec{U}\cdot \nabla) \vec{U}$}, \textcolor{yellow}{increases when the spatial scale $l$ decreases, (but not faster than $1/l$)}. The \textcolor{blue}{nonlinearity} of the term leads to the \textcolor{blue}{formation of harmonics in Fourier space and sharper gradients}. For \textcolor{blue}{compressible motions}, the \textcolor{yellow}{convective derivative acting on sound waves} is the cause of the formation of \textcolor{yellow}{increasingly steep wave fronts}. In the \textcolor{blue}{incompressible} case, the same term remains responsible for the \textcolor{yellow}{generation of harmonics and reduced spatial scales}. However, in this case, \textcolor{yellow}{vortex structures} are formed, rather than steep wave fronts. The importance of the viscous term, \textcolor{green}{$\nu \nabla^2 \vec{U}$}, \textcolor{yellow}{increases as $1/l^2$}, and therefore, at sufficiently small scales, the latter always dominates. Let \textcolor{blue}{$L$} be the spatial scale where \textcolor{blue}{energy is injected into the system}, and \textcolor{blue}{$l_d$} the spatial scale where the \textcolor{blue}{viscous term (or, in general, the dissipative terms) is no longer negligible}. If the scales $L$ and $l_d$ are separated by many orders of magnitude, \textcolor{red}{$L \gg l_d$}, as usually happens in astrophysical plasmas, we speak of \textcolor{red}{completely developed turbulence}.
+
+In natural plasmas energy sources for turbulence are present either in connection with global motions or as a consequence of instabilities arising in non-potential magnetic configurations. If the spatial and temporal scales involved are such that the plasma can be described by the MHD equations, we speak of \textcolor{red}{MHD turbulence}. 
+
+turbulence generates the viscosity needed to remove angular momentum. 
+
+The interaction of turbulence with higher energy particles is a determining factor in understanding the properties of cosmic rays.
+
+The development of turbulence in a magnetized plasma is considerably different from the purely hydrodynamical case, because of the intrinsic \textcolor{blue}{anisotropy created by the magnetic field}, which allows the existence of \textcolor{blue}{Alfv\'en waves propagating along field lines}. 
+
+Consider incompressible plasma, even though strictly incompressible plasmas don't really exist, though they remain a good approximation as long as the \textcolor{yellow}{fluctuations are subsonic or subalfv\'enic}, i.e. are \textcolor{blue}{sufficiently smaller than the characteristic speeds of propagation in the plasma}.
+ 
+\section{Homogeneous and Isotropic Hydrodynamical Turbulence}
+\cite{2015bps..book.....C} The energy is injected at macroscopic scales and transferred to structures of increasingly reduced scales, until these are so small that the dissipative terms become comparable to the other terms, no matter how small the viscous and resistive coefficients might be.
+
+The source of free energy at the injection scale may be connected to the kinetic energy associated with the velocity difference between two streams, as in the Kelvin-Helmholtz instability, or from the difference of thermal energy between two fluid layers, as in convection, or from the free energy stored in a non-potential magnetic field, as in the case of the tearing instability. As a consequence of the \textcolor{blue}{non-linear terms} of the equations, the \textcolor{blue}{energy is re-distributed over different scales}, in a way that does not correspond to an equipartition, but rather to a \textcolor{blue}{power-law energy distribution over spatial scales}. The \textcolor{red}{observed spectral index} of this distribution is close to \textcolor{red}{$1.67$}.
+
+There are \textcolor{red}{two properties} that \textcolor{red}{characterize a completely developed turbulence}. First: the \textcolor{orange}{dissipation} within the fluid is \textcolor{cyan}{independent of the exact value of the viscosity} and does \textcolor{cyan}{not tend to zero when the viscosity vanishes}. Second: the \textcolor{cyan}{energy transfer from the injection scales to the dissipative ones} does not take place directly, but through a \textcolor{cyan}{nonlinear cascade} which \textcolor{cyan}{transfers the energy from larger to smaller eddies}. This transfer is due to the \textcolor{cyan}{interactions between those modes} that, at each step, have \textcolor{cyan}{comparable scales}. Already at scales slightly smaller than the injection ones, the \textcolor{blue}{nonlinear interactions} that cause the \textcolor{blue}{cascade lose memory of the macroscopic anisotropies at the so-called injection scales}, so that the turbulence acquires a \textcolor{blue}{homogeneous and isotropic character}, at least in a \textcolor{blue}{statistical sense}.
+
+
+In Navier-Stokes Equation, the nonlinear term appears to be due to the convective derivative, however the pressure here is an unknown, and its role is to ensure incompressibility of the flow. Assuming a constant density, to remove pressure is to take the curl of that equation. Defining the \textcolor{red}{vorticity $\vec{\omega} = \nabla \times \vec{U}$},
+\begin{equation}
+\color{yellow} \frac{\partial \vec{\omega}}{\partial t} = \nabla \times (\vec{U} \times \vec{\omega}) +\nu \nabla^2 \vec{\omega} ~.
+\end{equation}
+It depends only on one vector field, i.e. $\vec{U}$, $\vec{\omega}$ being defined in terms of $\vec{U}$. 
+
+The \textcolor{red}{Reynolds number}, that measures the \textcolor{orange}{ratio between the convective and the viscous terms} at the macroscopic scales or injection scales, is defined by \textcolor{red}{$R = \mathcal U L/\nu$}, where $\mathcal U$ and  $L$ are a typical value of the velocity and its scale of variation, respectively. If the viscous term dominates, \textcolor{red}{$R \ll 1$} and the fluid motions will be \textcolor{red}{laminar}, while \textcolor{red}{$R \gg 1$}, the motions will be turbulent with extremely irregular variation of the velocity at every point. Identify \textcolor{blue}{$\mathcal U$ with the average, over very long times, of the effective velocity at each point of the fluid}. The velocity of each fluid particle can be written as $\vec{U} = \vec{U}_0 + \vec{w}$, where \textcolor{blue}{$\vec{w}$} refers to the \textcolor{blue}{fluctuating part of the velocity}, while $|\vec{U}_0 | \simeq \mathcal U$. The flow can be described as the \textcolor{blue}{superposition of turbulent eddies of different dimension, or scale}, the latter being defined as the order of magnitude of the distance that separates two points with substantially different speeds, $\Delta U \simeq |\vec{w}|$. If $\ell$ is the scale just defined and $w_\ell$ the corresponding velocity variation, we may associate a Reynolds number \textcolor{green}{$R_\ell = w_\ell \ell/ν\nu$} with each scale.
+
+When a turbulent flow sets in, vortices of large dimensions first appear, then giving rise to vortices of increasingly smaller size. In the large vortices, $\ell$ can be identified with $L$ and, on this scale, $\Delta U \simeq \mathcal U$ and consequently $R_L \simeq R$. For these vortices \textcolor{blue}{viscosity is not important} and \textcolor{yellow}{no dissipation of energy takes place}. The subsequent decrease of the size of the vortices, reduces l down to values where dissipation sets in. This happens at the scale ld , the dissipative scale, corresponding to a local Reynolds number Rd ≃ 1. The energy, injected in kinetic form at the scale L, is transferred unaltered to smaller scales until the dissipative scale is reached, where it is converted into heat.
+
+
+\begin{equation}
+\nabla^2 \left(\frac{P}{\rho} \right) = -\nabla \cdot (\vec{U} \cdot \nabla) \vec{U} ~.
+\end{equation}
+The pressure field necessary to maintain the fluid's incompressibility is also a nonlinear function of the convective derivative. Introducing the Fourier transform of the velocity field in three spatial dimensions as:
+\begin{equation}
+\vec{U}(\vec{x}, t) = \int \dif^3 \vec{k} \vec{U}_{\vec{k}}(t) {\rm e}^{i\vec{k}\cdot \vec{x}} ~,
+\end{equation}
+and applying a Fourier transform to both the Navier-Stokes equation and the pressure
+\begin{equation}
+\dfrac{\partial U_{ik}}{\partial t} = \int_{\vec{p}+\vec{q}=\vec{k}} A_{ilm} U_{l\vec{p}} U_{m\vec{q}} \dif \vec{q} -\nu k^2 U_{i\vec{k}} ~,
+\end{equation}
+where the tensor $A_{ilm}$ is given by
+\begin{equation*}
+A_{ilm} = -ik_m \left(\delta_{il} -\dfrac{k_i k_l}{k^2} \right) ~.
+\end{equation*}
+The fluid energy is conserved by nonlinear interactions among modes of different wave numbers. For every set of vectors $\vec{k}$, $\vec{p}$, $\vec{q}$ satisfying $\vec{p} + \vec{q} = \vec{k}$, the nonlinear term associated with the interactions between them is such that the time derivatives of the energies in each mode, defined as $E_{\vec{k}} = |\vec{U}_{\vec{k}}|^2/2$, when calculated from the interaction with the other two modes, obeys the relationship:
+\begin{equation*}
+\dfrac{\partial E_{\vec{k}}}{\partial t} +\dfrac{\partial E_{\vec{p}}}{\partial t} +\dfrac{\partial E_{\vec{q}}}{\partial t} = 0 ~.
+\end{equation*}
+The nonlinear interactions conserve energy between each triad of interacting modes. Because the full nonlinear term is nothing but a sum over triads, the nonlinear terms conserve energy, but redistribute it over different wave numbers. Energy flows in wavenumber space until it reaches the smallest scales where it can be dissipated. Since viscous dissipation only takes place at the scale $\ell_d$, all quantities characterizing the fluid at scales $\ell > \ell_d$ don't depend on viscosity. This is also true of the energy per unit mass transferred from one scale to the next per unit time that we shall indicate by $\varepsilon$. The dimensions of $\varepsilon$ are evidently $[l^2 t^{-3}]$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Introduce the spectral density (per unit mass), $E(k)$, where $k$ is the wavenumber associated with the scale $\ell$, $k \simeq 1/\ell$. The total energy per unit mass is
+\begin{equation*}
+E/m \propto \int E(k) \dif k ~,
+\end{equation*}
+from which the dimensions of $E(k)$ are $[l^3 t^{-2}]$. In the inertial range $E(k)$ can depend only on $\varepsilon$ and $k$, thus 
+\begin{equation}
+E(k) \propto \varepsilon^{2/3} k^{-5/3} ~,
+\end{equation}
+which is the celebrated \textcolor{red}{Kolmogorov spectrum}.
+ 
+\section{Magnetohydrodynamic Turbulence}
+Consider a plasma described by the MHD equations, immersed in a uniform magnetic field $\vec{B}_0$, and suppose that velocity and magnetic field fluctuations are present in the form of Alfv\'en waves of arbitrary amplitude. The Alfv\'en waves propagating in one direction along the field are an exact, nonlinear solution of the MHD equations. In terms of the Elsasser variables, $\vec{z}^\pm = \vec{u} \pm \vec{b}/\sqrt{4\pi \rho}$, the incompressible MHD equations may be written
+\begin{equation}
+\dfrac{\partial \vec{z}^\pm}{\partial t} \mp \vec{c}_a \cdot \nabla \vec{z}^\pm = -\dfrac{1}{\rho} \nabla p^T -( \vec{z}^\mp \cdot \nabla  \vec{z}^\pm) 
+\end{equation}
+where $\vec{c}_a = \vec{B}_0/\sqrt{\rho}$ is the Alfv\'en velocity and $p^T = p + |\vec{B}_0 + \vec{b}|^2/8\pi$ is the total pressure,  satisfying the Poisson-type equation
+\begin{equation}
+\nabla^2 \dfrac{p^T}{\rho} = -\nabla \cdot (\vec{z}^\mp \cdot \nabla  \vec{z}^\pm) ~,
+\end{equation}
+which guarantees the incompressibility of $\vec{z}^\pm$. In the above we have always assumed a constant density.
+
+Taking the Fourier transform in space,
+\begin{align}
+& \left(\dfrac{\partial \vec{z}^\pm_{\vec{k}}}{\partial t} \mp i\vec{k}\cdot \vec{c}_a \vec{z}_{\vec{k}}^\pm \right) = -i \vec{P}(\vec{k}) \int_{\vec{p}+\vec{q}=\vec{k}} \vec{z}^\mp_{\vec{p}} \vec{z}^\pm_{\vec{q}} \dif^3 \vec{q} ~, \\
+& \vec{P}(\vec{k})_{ilm} = k_m \left( \delta_{il} -\dfrac{k_ik_l}{k^2} \right) ~.
+\end{align}
+The difference between hydrodynamics and magnetohydrodynamics is that in MHD the nonlinear interactions couple two different fields $\vec{z}^\pm$, which are nothing but Alfvén waves propagating in opposite directions along the mean magnetic field $\vec{B}_0$. If imagining ensembles of localized wave-packets traveling along the field in opposite directions, the nonlinear interactions among them will be limited, in time, to the effective duration over which they cross paths, and this, in general, will slow down the nonlinear cascade. A different way of understanding this slowing down effect consists in moving to an ``interaction" representation of the fields, by incorporating the Alfv\'en wave-like temporal oscillations into the definition of the fields themselves:
+\begin{equation}
+\vec{z}^\pm_{\vec{k}}(t) \equiv \vec{z}^\pm_{\vec{k}}(t) \exp(\mp i \vec{k}\cdot \vec{c}_a t) ~,
+\end{equation}
+
+\begin{equation}
+\dfrac{\partial \vec{z}^\pm_{\vec{k}}}{\partial t} = -i\vec{P}(\vec{k}) \int_{\vec{p}+\vec{q}=\vec{k}} \vec{z}^\mp_{\vec{p}} \vec{z}^\pm_{\vec{q}} \exp(\mp i \vec{p}\cdot \vec{c}_a t) \dif^3 \vec{q}
+\end{equation}
+In the hydrodynamic case both $\vec{z}$ fields simplify into the simple velocity fluctuations $\vec{u}$, and the kernel in the convolution integral does not oscillate in time, (in other words, the hydrodynamic interactions of vortices in homogeneous turbulence is always resonant). In MHD however the kernel oscillates in time, decreasing the intensity of nonlinear interactions, and there are no resonant interactions between modes unless the vectors $\vec{p}$ and $\vec{c}_a$ are orthogonal. This introduces a directional anisotropy in the nonlinear cascade due to the presence of the mean field which has important implications when generalizing Kolmogorov's law to MHD.
+
+At any given scale in the inertial range, the Elsasser field on scales larger than the one in consideration may be seen as a mean stochastic field $c_a^s$, upon which wave packets at the smaller scale under consideration propagate while interacting nonlinearly to give rise to packets on smaller scales still, even though there still is a global isotropy in a statistical sense. This means that the cascade is still delayed by this Alfvén effect. A new time-scale $\tau_a \simeq l/c_a^s$ therefore appears and the nonlinear transfer time $\tau^\ast$ will no longer be equal to the turnover time
+\begin{equation}
+\tau_{nl} \simeq l/u(l) \simeq l\sqrt{4\pi \rho}/b(l) \simeq l/z^+(l) \simeq l/z^-(l) ~,
+\end{equation}
+where we have generalized from hydrodynamics to MHD by introducing the rms values of magnetic field fluctuations, $b(l)$, and supposed there is equipartition between velocity fluctuations, magnetic field fluctuations in velocity units and Elsasser field fluctuations. The collisions between Alfv\'en wave-packets on a scale l is limited by the crossing time $\tau_a$, and supposing that the collisions between individual wave-packets are independent stochastic events, the value of the effective time $\tau^\ast$ increases by a factor
+\begin{equation}
+\tau^\ast \simeq \tau_{nl} \left(\dfrac{\tau_{nl}}{\tau_a} \right) ~.
+\end{equation}
+Substituting this value in the equation for the energy flux Equation,
+\begin{equation}
+\Pi(l) \sim \dfrac{1}{2} \dfrac{u(l)^2}{\tau^\ast} \simeq  \dfrac{1}{2} \dfrac{u(l)^4}{l c^s_a} \simeq \epsilon ~,
+\end{equation}
+from which the energy on scale l may be found as $E(l) ≃ (\epsilon c_a^s l)^{1/2}$, or in terms of energy spectra $E_k \simeq (\epsilon c_a^s)^{1/2} k^{-3/2}$ known as the Iroshnikov-Kraichnan spectrum of MHD turbulence. In the above we have assumed that the amplitudes of the fields $z^\pm$ were about the same.
+
+The turnover time for the fields $z^\pm$ depend on the amplitude of the opposite field $z^\mp$
+\begin{equation}
+\tau^\pm_{nl} = l/z^\mp ~.
+\end{equation}
+In magnetohydrodynamics, the global integral invariants are different from the ones in hydrodynamics: in MHD nonlinear interactions separately conserve the energies per unit mass of the individual Elsasser fields $E^\pm = 1/2|\vec{z}^\pm|^2$ (corresponding physically to the conservation of total energy in the fluctuations as well as the mixed or cross-helicity $H_m = <\vec{u}\cdot \vec{b}>$). This implies that separate cascades with independent energy fluxes $\Pi^+$ and $\Pi^-$ are possible. Repeating the phenomenological arguments from Iroshnikov and Kraichnan separately on the fields $z^+$ and $z^-$, the two fluxes $\Pi^+$ and $\Pi^-$ are identical:
+\begin{equation}
+\Pi^+_k = \Pi^-_k = k^3 E^+_k E^-_k /c^s_a ~.
+\end{equation}
+For equal amplitudes in the fields we are once again led to the Iroshnikov-Kraichnan spectrum. If however the large scale amplitudes of the two fields are initially different, it leads to a new conclusion: because the energy fluxes, and therefore the dissipation rates, of the two fields are identical, for long times the field with initially lower energies will tend to be depleted with respect to the dominant one. This will eventually quench the turbulence, slowing down nonlinear interactions and leaving a nonlinear Alfv\'en wave, with a well-defined power spectrum, as an exact solution of the MHD equations, which in the presence of an even small mean field will end up propagating along the field in one direction. This evolution towards a configuration in which only one Elsasser field dominates is called \textcolor{red}{dynamic alignment}, since it involves an increase in the correlation between velocity and magnetic field fluctuations with time (corresponding to the decrease towards zero of one of the Elsasser fields). Incompressible MHD simulations have indeed shown that dynamic alignment occurs, while observations of the evolution of Alfv\'enic turbulence in space, in the solar wind, show that for the case of turbulence propagating away from the sun the opposite happens: there is a tendency for the development of the Elsasser mode corresponding to Alfv\'en waves propagating towards the sun, with respect to those propagating away, as the distance from the Sun increases, so that at large distances the two fields $\vec{z}^\pm$ become equivalent.
+
+The nonlinear fluxes depend on the angle between the wave-vectors and the mean field via the corresponding Alfv\'en times. If we imagine taking wave-packets in 3D that are elongated along the mean field, so that the dominant wave-vectors are quasiperpendicular to the field, i.e. $\vec{k}\cdot \vec{c}_a \simeq 0$ then propagation effects among wave-packets become negligible and we should return to a hydrodynamic or Kolmogorov type cascade (provided there is equipartition between the fields $\vec{z}^\pm$). In cases where the mean field is strong $B_0 \gg |\vec{z}^\pm|$, and remaining within the approximation where characteristic scales along the field are much greater than those transverse to the mean field, the effective reduction of nonlinear interactions along the field can be such as to quench parallel nonlinear interactions entirely, and a further simplification of the MHD equations, to so called reduced MHD or RMHD is possible. These equations describe two-dimensional fluctuating fields, polarized in planes orthogonal to the mean magnetic field and whose nonlinear interactions are confined in this orthogonal plane. Communication across planes occurs only via the propagation along the mean field $B_0$. Reduced MHD corresponds to a series of 2D incompressible MHD planes, coupled together by the linear propagation of the fluctuations as Alfv\'en waves along $B_0$ from one plane to another. In this approximation the spectral anisotropy that may develop can be calculated precisely. In the 2D planes where nonlinear interactions occur via the 2D incompressible MHD equations, we expect a cascade completely analogous to a Kolmogorov cascade with hydrodynamic type spectra. However, the evolution at a scale $l_\perp$ in two different planes separated by a distance $L$ along the field will be completely independent only if the propagation time between the two planes, $\tau_a = l_\parallel/c_a$, is longer than the nonlinear time $\tau^\ast(l_\perp)$. There will therefore be an anisotropy set by the region where $\tau_a = \tau_{nl}(l_\perp)$. Considering the Kolmogorov value for the nonlinear time $\tau^\ast = \tau_{nl}$, this region will be defined by
+\begin{equation}
+\dfrac{l_\parallel}{c_a} \simeq \dfrac{l_\perp}{u(l_\perp)} \sim \dfrac{l_\perp}{\epsilon l_\perp^{1/3}} ~,
+\end{equation}
+which in terms of parallel and perpendicular wavevectors $k_\parallel, k_\perp$ may also be written as
+\begin{equation}
+k_\parallel^c = \dfrac{u}{c_a} k_\perp^{2/3} k_{\perp 0}^{1/3} ~.
+\end{equation}
+which is known as the critical balance condition for $k_\perp$ and $k_\parallel$. A spectrum will develop in the parallel direction as a consequence of uncorrelated perpendicular planes only for wavevectors satisfying $k_\parallel \leqslant k_\parallel^c$.
+
+Magnetohydrodynamic turbulence in more general regimes is still an extremely active area of research, with vast astrophysical applications: we mention here the problems of stellar convection (where the role of the magnetic field is secondary, but the problem of maintaining and generating the field is fundamental, (see the chapter on dynamo theory), the heating and dynamics of the interstellar medium, the stability of molecular clouds, viscosity in accretion disks, and the heating of stellar coronae and acceleration of stellar winds. Let us briefly discuss this latter problem within the framework of MHD turbulence, with specific application to the case of our star, the Sun.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Turbulence and Coronal Heating}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\cite{2013ASSL..388.....F}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

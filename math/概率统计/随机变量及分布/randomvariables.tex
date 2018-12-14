@@ -1,0 +1,632 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+\usepackage{extpfeil}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{随机变量及其分布}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+A random variable is a real-valued function defined on a sample space. For each random variable $X$ and each set $C$ of real numbers, we could calculate the probability that $X$ takes its value in $C$. The collection of all of these
+probabilities is the distribution of $X$. 
+
+\section{离散型随机变量}
+Discrete distributions are those that assign positive probability to at most countably many different values. A discrete distribution can be characterized by its \textcolor{red}{probability function (p.f.)}, which specifies the probability that the random variable takes each of the different possible values. A random variable with a discrete distribution will be called a discrete random variable.
+
+Let $S$ be the sample space for an experiment. A real-valued function that is defined on $S$ is called a \textcolor{red}{random variable}.
+
+Let $X$ be a random variable. The distribution of $X$ is the collection of all probabilities of the form ${\rm Pr}(X \in C)$ for all sets $C$ of real numbers such that $\{X \in C\}$ is an event.
+
+A random variable $X$ has a discrete distribution or that $X$ is a discrete random variable if $X$ can take only a finite number $k$ of different values $x_1, \cdots, x_k$ or, at most, an infinite sequence of different values $x_1, x_2, \cdots$.
+
+If a random variable $X$ has a discrete distribution, the \textcolor{red}{probability function} (abbreviated \textcolor{red}{p.f.}) of $X$ is defined as the function $f$ such that for every real number $x$,
+\begin{equation}
+f(x) = {\rm Pr}(X = x) ~. 
+\end{equation}
+The closure of the set $\{x : f(x) > 0\}$ is called the \textcolor{red}{support of (the distribution of) $X$}.
+
+If $X$ has a discrete distribution, the probability of each subset $C$ of the real line can be determined from the relation
+\begin{equation*}
+{\rm Pr}(X \in C) = \sum_{x_i \in C} f(x_i) ~.
+\end{equation*}
+
+\subsection{$(0-1)$分布}
+A random variable \textcolor{red}{$Z$} that \textcolor{red}{takes only two values $0$ and $1$ with ${\rm Pr}(Z = 1) = p$} has the Bernoulli distribution with parameter $p$. We also say that $Z$ is a \textcolor{red}{Bernoulli random variable with parameter $p$}.
+
+设随机变量$X$只能取$0$和$1$两个值，
+\begin{equation}
+P\{X=k\} = p^k(1-p)^{1-k}, ~~k= 0, 1 ~~(0 < p < 1)
+\end{equation}
+
+\subsection{二项分布} 
+$X\sim b(n, p)$
+
+\textcolor{red}{伯努利试验}：
+
+试验$E$只有两个可能的结果：$A$及$\overline{A}$；
+
+$n$重伯努利试验：
+
+设$P(A) = p ~~(0 < p < 1)$，则$P(\overline{A}) = 1- p$，$E$独立地重复进行$n$次
+\begin{equation}
+P\{X = k\} = \binom nk p^k q^{n-k}, ~~k = 0, 1, 2, \cdots, n
+\end{equation}
+这里$q = 1-p$；
+
+\begin{equation}
+\sum_{k=0}^{n} P\{X = k\} = \sum_{k=0}^{n} \binom nk p^k q^{n-k} = (p+q)^k = 1
+\end{equation}
+
+\cite{arfken} The binomial distribution typically occurs in the study of \textcolor{red}{repeated independent trials of random events}. The $S = s$ successes in $n$ trials is given by the \textcolor{red}{binomial probability distribution}:
+\begin{equation}
+P(S=s) = \dfrac{n!}{s! (n-s)!} p^s q^{n-s} = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+n \\
+s
+\end{pmatrix} 
+p^s q^{n-s} ~.
+\end{equation}
+
+
+
+
+
+\subsection{泊松分布}
+$X \sim \pi(\lambda)$
+
+设随机变量$X$所有可能取的值为$0,1,2,\cdots$，而各个值的概率为
+\begin{equation}
+P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}, ~~k = 0,1,2,\cdots 
+\end{equation}
+这里$\lambda > 0$；
+
+\begin{equation}
+\sum_{k=0}^{\infty} P\{X=k\} = \sum_{k=0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!}  =e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} = 1
+\end{equation}
+
+
+\cite{arfken} Poisson noise, where fluctuations in a low rate of arrival of particles at a detector cause statistically predictable fluctuations in the detector signal. The Poisson distribution can be developed by considering the probabilities that varying numbers of events are detected over an interval during which events occur at a constant rate of probability. The essential features of the development are that it assumes that (1) the event rate is small enough that there will be observationally accessible intervals in which at most one event occurs (i.e., one can consider intervals containing either zero or one event), and (2) the total number of events is small enough that it is useful to model their occurrence by a discrete probability distribution.
+
+Define the probability $P_n(t)$ that exactly $n$ events occur in a time $t$, and that the probability of one event occurring in a short time interval $\dif t$ will be $\mu \dif t$, where $\mu$ is a constant such that $\mu \dif t \ll 1$. This time interval $\dif t$ is short enough that  the possibility that more than one event occurs within it can be neglected. Based on this hypothesis, set up a recursion relation for $P_n(t)$ by considering the two following mutually exclusive possibilities for the occurrence of $n$ events in a time $d + \dif t$: (1) that $n$ events occur during a time $t$ and no events occur in a subsequent time interval $\dif t$, and (2) that $n -1$ events occur during the time $t$ and one event occurs during the subsequent interval $\dif t$.
+\begin{equation*}
+P_n(t+\dif t) = P_n(t) P_0(\dif t) +P_{n-1} P_1(\dif t) ~.
+\end{equation*}
+Insert $P_1(\dif t) = \mu \dif t$ and $P_0(\dif t) = 1 - P_1(\dif t)$ and dividing through by $\dif t$, 
+\begin{equation}
+\dfrac{\dif P_n(t)}{\dif t} = \dfrac{P_n(t +\dif t) -P_n(t)}{\dif t} = \mu P_{n-1}(t) -\mu P_n(t) ~.
+\end{equation}
+For $n = 0$, it simplifies (because the possibility involving $P_{n-1}$ does not exist) to
+\begin{equation*}
+\dfrac{\dif P_0(t)}{\dif t} = -\mu P_0(t) ~.
+\end{equation*}
+This equation, with initial condition $P_0(0) = 1$ (meaning that it is certain that no events are observed in an interval of zero length), has solution $P_0(t) = e^{-\mu t}$. The probability that no events have occurred before time $t$ decays exponentially with $t$, at a rate dependent on the magnitude of $\mu$. From this starting point and the further initial conditions $P_n(0) = 0$ for $n \geqslant 1$ (again, no detection of events occurs during an interval of zero length), the recursion relation can be solved to yield
+\begin{equation}
+P_n(t) = \frac{(\mu t)^n}{n !} e^{-\mu t}
+\end{equation}
+It can be checked by substituting it into the recursion formula and by verifying that it satisfies the initial conditions $P_n(0) = \delta_{n0}$.
+The Poisson-distribution probabilities given for a discrete random variable $X$ in the standard form,
+\begin{equation}
+P(n) = \frac{\mu^n}{n !} e^{-\mu} ~, ~~ X = n = 0, 1, 2, \cdots 
+\end{equation}
+
+\subsubsection{Relation to Binomial Distribution}
+A Poisson distribution becomes a good approximation of the binomial distribution for a large number $n$ of trials and small probability $p \sim \mu/n$, with $\mu$ held constant.
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= Theorem]
+In the limit $n\rightarrow \infty$ and $p\rightarrow 0$ so that the mean value $np \rightarrow \mu$ stays finite, the binomial distribution becomes a Poisson distribution.
+\end{tcolorbox}
+
+
+
+
+
+
+\subsubsection{Poisson Processes}
+\cite{degroot2012probability} A Poisson process with rate $\lambda$ per unit time is a process that satisfies the following two properties: \\
+i. The \textcolor{red}{number of arrivals in every fixed interval of time of length $t$} has the \textcolor{red}{Poisson distribution with mean $\lambda t$}. \\
+ii. The \textcolor{red}{numbers of arrivals in every collection of disjoint time intervals} are \textcolor{red}{independent}. 
+
+
+
+
+A Poisson process can be used to model occurrences in any region that can be subdivided into arbitrarily small pieces. There are \textcolor{red}{three assumptions} that lead to the Poisson process model.
+
+The first assumption is that the \textcolor{red}{numbers of occurrences in any collection of disjoint intervals of time must be mutually independent}. 
+
+The second assumption is that the \textcolor{red}{probability of an occurrence during each very short interval of time must be approximately proportional to the length of that interval}. To express this condition more formally, use the standard mathematical notation in which $o(t)$ denotes any function of $t$ having the property that
+\begin{equation}
+\underset{t\rightarrow 0}\lim \dfrac{o(t)}{t}  = 0 ~.
+\end{equation}
+$o(t)$ must be a function that approaches $0$ as $t \rightarrow 0$, and, furthermore, this function must approach $0$ at a rate faster than $t$ itself. The second assumption can now be expressed as follows: There exists a constant $\lambda > 0$ such that for every time interval of length $t$, the probability of at least one occurrence during that interval has the form $\lambda t + o(t)$. Thus, for every very small value of $t$, the probability of at least one occurrence during an interval of length $t$ is equal to $\lambda t$ plus a quantity having a smaller order of magnitude.
+
+One of the consequences of the second assumption is that the \textcolor{red}{process being observed must be stationary over the entire period of observation}, i.e. the \textcolor{red}{probability of an occurrence must be the same over the entire period}. There can be neither busy intervals, during which we know in advance that occurrences are likely to be more frequent, nor quiet intervals, during which we know in advance that occurrences are likely to be less frequent. This condition is reflected in the fact that the same constant $\lambda$ expresses the probability of an occurrence in every interval over the entire period of observation. The second assumption can be relaxed at the cost of more complicated mathematics.
+
+The third assumption is that, for \textcolor{red}{each very short interval of time, the probability that there will be two or more occurrences in that interval must have a smaller order of magnitude than the probability that there will be just one occurrence}. In symbols, the probability of two or more occurrences in a time interval of length $t$ must be $o(t)$. Thus, the probability of two or more occurrences in a small interval must be negligible in comparison with the probability of one occurrence in that interval. Of course, it follows from the second assumption that the probability of one occurrence in that same interval will itself be negligible in comparison with the probability of no occurrences.
+
+Under the preceding three assumptions, it can be shown that the process will satisfy the definition of a Poisson process with rate $\lambda$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{连续型随机变量}
+A random variable $X$ has a continuous distribution or that X is a continuous random variable if there exists a nonnegative function $f$, defined on the real line, such that for every interval of real numbers (bounded or unbounded), the probability that $X$ takes a value in the interval is the integral of f over the interval. The function $f$ is called the \textcolor{red}{probability density function} (abbreviated \textcolor{red}{p.d.f.}) of $X$. The closure of the set $\{x : f(x) > 0\}$ is called the support of (the distribution of) $X$.
+
+Continuous Distributions Assign Probability $0$ to Individual Values.
+
+\subsection{Nonuniqueness of the p.d.f.}
+
+\subsection{均匀分布}
+$X\sim U(a, b)$
+
+\begin{equation}
+f(x) = \left\{
+\begin{aligned}
+&\frac{1}{b-a},& a < x < b\\
+&0,&  
+\end{aligned}
+\right.
+\end{equation}
+
+对任意实数，$x_1, x_2, (x_1 \leq x_2)$
+\begin{equation}
+P\{x_1 < X \leq x_2 \} = F(x_2) - F(x_1) = \int_{x_1}^{x_2} f(x) \dif x
+\end{equation}
+
+
+
+\subsection{指数分布}
+\begin{equation}
+f(x) = \left\{
+\begin{aligned}
+&\frac{1}{\theta} \exp \left[-\frac{x}{\theta} \right],& x > 0 \\
+&0,& 
+\end{aligned}
+\right.
+\end{equation}
+
+
+\subsection{正态分布}
+
+$X\sim N(\mu, \sigma^2)$
+
+\begin{equation}
+f(x) = \frac{1}{\sqrt{2\pi} \sigma} \exp \left[-\frac{(x-\mu)^2}{2\sigma^2} \right], ~~ -\infty < x < \infty,
+\end{equation}
+
+\begin{equation}
+F(x) = \frac{1}{\sqrt{2\pi} \sigma} \int_{-\infty}^{x} \exp \left[-\frac{(t-\mu)^2}{2\sigma^2} \right] \dif t,
+\end{equation}
+
+\textcolor{red}{标准正态分布}$~\mu = 0, ~\sigma = 1$
+\begin{equation}
+\varphi(x) = \frac{1}{\sqrt{2\pi}} \exp \left[-\frac{t^2}{2} \right], 
+\end{equation}
+
+\begin{equation}
+\Phi(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} \exp \left[-\frac{t^2}{2} \right] \dif t,
+\end{equation}
+
+\begin{equation}
+\Phi(-x) = 1 -\Phi(x)
+\end{equation}
+
+若$X\sim N(\mu, \sigma^2)$，则
+\begin{equation}
+Z = \frac{X-\mu}{\sigma} \sim N(0,1)
+\end{equation}
+
+
+\subsubsection{Limits of Poisson and Binomial Distributions}
+\cite{arfken} In a special limit, the discrete Poisson probability distribution is closely related to the continuous Gauss distribution.
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= Theorem]
+For large $n$ and mean value $\mu$, the Poisson distribution approaches a Gauss distribution. 
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= Theorem]
+In the limit $n \rightarrow \infty$, with $p$ a finite trial probability such that the mean value $np \rightarrow \infty$, the binomial distribution becomes a Gauss normal distribution. When $np \rightarrow \mu < \infty$, the binomial distribution becomes a Poisson distribution.
+\end{tcolorbox}
+
+
+\section{The Cumulative Distribution Function}
+The distribution function or \textcolor{red}{cumulative distribution function} (abbreviated \textcolor{red}{c.d.f.}) $F$ of a random variable $X$ is the function
+\begin{equation}
+F(x) = {\rm Pr}(X \leqslant x) ~{\rm for} ~ -\infty < x < \infty ~.
+\end{equation}
+
+The function $F(x)$ is nondecreasing as $x$ increases; that is, if $x_1 < x_2$, then $F(x_1) \leqslant F(x_2)$.
+
+$\underset{x\rightarrow -\infty}\lim F(x) = 0$ and $\underset{x\rightarrow \infty}\lim F(x) = 1$.
+
+A c.d.f. is always continuous from the right; that is, $F(x) = F(x^+)$ at every point $x$.
+
+For every value $x$,
+\begin{equation}
+{\rm Pr}(X > x) = 1 − F(x) ~.
+\end{equation}
+
+For all values $x_1$ and $x_2$ such that $x_1 < x_2$,
+\begin{equation}
+{\rm Pr}(x_1 < X \leqslant x_2) = F(x_2) -F(x_1) ~.
+\end{equation}
+
+For each value $x$,
+\begin{equation}
+{\rm Pr}(X < x) = F(x^-) ~.
+\end{equation}
+
+For every value $x$,
+\begin{equation}
+{\rm Pr}(X = x) = F (x) − F (x^-) ~.
+\end{equation}
+
+\subsection{The Quantile Function}
+Let $X$ be a random variable with c.d.f. $F$. For each $p$ strictly between $0$ and $1$, define \textcolor{red}{$F^{-1}(p)$ to be the smallest value $x$ such that $F(x) \geqslant p$}. Then \textcolor{red}{$F^{-1}(p)$} is called the \textcolor{red}{$p$ quantile of $X$} or the \textcolor{red}{$100 p$ percentile of $X$}. The function $F^{-1}$ defined here on the open interval $(0, 1)$ is called the \textcolor{red}{quantile function of $X$}.
+
+Quantiles of Continuous Distributions : When the c.d.f. of a random variable $X$ is continuous and one-to-one over the whole set of possible values of $X$, the inverse $F^{-1}(p)$ of $F$ exists and equals the quantile function of $X$.
+
+Quantiles of Discrete Distributions : 
+
+The $1/2$ quantile or the $50$th percentile of a distribution is called its \textcolor{red}{median}. The $1/4$ quantile or $25$th percentile is the \textcolor{red}{lower quartile}. The $3/4$ quantile or $75$th percentile is called the \textcolor{red}{upper quartile}.
+
+\section{多维随机变量}
+设$E$是一个随机试验，它的样本空间是$S = \{e\}$，设$X = X(e)$和$Y = Y(e)$是定义在$S$上的随机变量，由它们构成的一个向量$(X,Y)$，叫做\textcolor{red}{二维随机变量}或\textcolor{red}{二维随机向量}。
+
+设$(X, Y)$是二维随机变量，对于任意实数$x, y$，二元函数：
+\begin{equation}
+F(x, y) = P\{(X \leqslant x) \cap (Y \leqslant y) \}  \xlongequal{\text{记成}} P(X \leqslant x, Y \leqslant y)
+\end{equation}
+称为二维随机变量$(X, Y)$的分布函数，或称为随机变量$X$和$Y$的\textcolor{red}{联合分布函数}。
+
+
+Let $X$ and $Y$ be random variables such that $X$ is discrete and $Y$ is continuous. Suppose that there is a function $f(x, y)$ defined on the $xy$-plane such that, for every pair $A$ and $B$ of subsets of the real numbers
+\begin{equation}
+{\rm Pr}(X\in A ~{\rm and}~ Y\in B) = \int_B \sum_{x\in A} f(x,y) \dif y
+\end{equation}
+if the integral exists. Then the function $f$ is called the joint p.f./p.d.f. of $X$ and $Y$.
+
+Let $X$ and $Y$ have a joint c.d.f. $F$. The c.d.f. $F_1$ of just the single random variable $X$ can be derived from the joint c.d.f. $F$ as $F_1(x) = \underset{y\rightarrow \infty}\lim F(x, y)$. Similarly, the c.d.f. $F_2$ of $Y$ equals $F_2(y) = \underset{x\rightarrow \infty}\lim F(x, y)$, for $0 < y < \infty$.
+
+If $X$ and $Y$ have a continuous joint distribution with joint p.d.f. $f$, then the joint c.d.f. at $(x, y)$ is
+\begin{equation*}
+F(x,y) = \int_{-\infty}^y \int_{-\infty}^x f(r,s) \dif r \dif s ~. 
+\end{equation*}
+The joint p.d.f. can be derived from the joint c.d.f. by 
+\begin{equation*}
+f(x,y) = \frac{\partial^2 F(x,y)}{\partial x\partial y} = \frac{\partial^2 F(x,y)}{\partial y\partial x}
+\end{equation*}
+at every point $(x, y)$ at which these second-order derivatives exist.
+
+\subsection{边缘分布}
+Suppose that $X$ and $Y$ have a joint distribution. The c.d.f. of $X$ 
+\begin{equation*}
+F_1(x) = \underset{y\rightarrow \infty}\lim F(x, y)
+\end{equation*}
+is called the \textcolor{red}{marginal c.d.f.of $X$}. Similarly, the p.f. or p.d.f. of $X$ associated with the marginal c.d.f. of $X$ is called the \textcolor{red}{marginal p.f.} or \textcolor{red}{marginal p.d.f. of $X$}. 
+
+If $X$ and $Y$ have a discrete joint distribution for which the joint p.f. is $f$, then the marginal p.f. $f_1$ of $X$ is
+\begin{equation}
+f_1(x) = \sum_{{\rm All}~ y} f(x,y) ~.
+\end{equation}
+Similarly, the marginal p.f. $f_2$ of $Y$ is 
+\begin{equation}
+f_2(y) = \sum_{{\rm All}~ x} f(x,y) ~.
+\end{equation}
+
+If $X$ and $Y$ have a continuous joint distribution with joint p.d.f. $f$, then the marginal p.d.f. $f_1$ of $X$ is
+\begin{equation}
+f_1(x) = \int_{-\infty}^\infty f(x,y) \dif y ~~{\rm for} ~ -\infty < x < \infty ~.
+\end{equation}
+Similarly, the marginal p.d.f. $f_2$ of $Y$ is
+\begin{equation}
+f_2(y) = \int_{-\infty}^\infty f(x,y) \dif x ~~{\rm for} ~ -\infty < y < \infty ~.
+\end{equation}
+
+\subsection{条件分布}
+
+
+
+
+
+
+\subsection{相互独立的随机变量}
+设$F(x, y)$及$F_X(x), F_Y(y)$分别是二维随机变量$(X, Y)$的分布函数及边缘分布函数。若对于所有$x, y$有
+\begin{equation}
+P\{X \leqslant x, Y \leqslant y \} = P\{ X \leqslant x \} P\{ Y \leqslant y \} ,
+\end{equation}
+即
+\begin{equation}
+F(x, y) = F_X(x), F_Y(y)
+\end{equation}
+称随机变量$X$和$Y$是\textcolor{red}{相互独立}的。
+
+\subsection{两个随机变量的函数的分布}
+
+
+
+
+
+
+\subsection{Multivariate Distributions}
+
+The joint c.d.f. of $n$ random variables $X_1, \cdots, X_n$ is the function $F$ whose value at every point $(x_1, \cdots, x_n)$ in $n$-dimensional space $R^n$ is specified by the relation
+\begin{equation}
+F(x_1, \cdots, x_n) = {\rm Pr}(X_1 \leqslant x_1, X_2 \leqslant x_2, \cdots, X_n \leqslant x_n) ~.
+\end{equation}
+Every multivariate c.d.f. satisfies properties similar to those given earlier for univariate and bivariate c.d.f.'s.
+
+It is said that $n$ random variables $X_1, \cdots, X_n$ have a discrete joint distribution if the random vector $(X_1, \cdots, X_n)$ can have only a finite number or an infinite sequence of different possible values $(x_1, \cdots, x_n)$ in $R^n$. The joint p.f. of $X_1, \cdots, X_n$ is then defined as the function f such that for every point $(x_1, \cdots, x_n) \in R^n$,
+\begin{equation*}
+f(x_1, \cdots, x_n) = {\rm Pr}(X_1 = x_1, X_2 = x_2, \cdots, X_n = x_n) ~.
+\end{equation*}
+
+
+
+
+$N$ random variables $X_1, \cdots, X_n$ are independent if, for every $n$ sets $A_1, A_2, \cdots, A_n$ of real numbers, 
+\begin{equation*}
+{\rm Pr}(X_1 \in A_1, X_2 \in A_2, \cdots, X_n \in A_n) = {\rm Pr}(X_1 \in A_1){\rm Pr}(X_2 \in A_2) \cdots {\rm Pr}(X_n \in A_n) ~.
+\end{equation*}
+If $X_1, \cdots, X_n$ are independent, it follows easily that the random variables in every nonempty subset of $X_1, \cdots, X_n$ are also independent.
+
+Let $F$ denote the joint c.d.f. of $X_1, \cdots, X_n$, and let $F_i$ denote the marginal univariate c.d.f. of $X_i$ for $i = 1, \cdots, n$. The variables $X_1, \cdots, X_n$ are independent if and only if, for all points $(x_1, x_2, \cdots, x_n) \in R^n$,
+\begin{equation*}
+F(x_1, \cdots, x_n) = F_1(x_1)F_2(x_2)\cdots F_n(x_n) ~.
+\end{equation*}
+$X_1, \cdots, X_n$ are independent if and only if their joint c.d.f. is the product of their $n$ individual marginal c.d.f.'s. 
+
+If $X_1, \cdots, X_n$ have a continuous, discrete, or mixed joint distribution for which the joint p.d.f., joint p.f., or joint p.f./p.d.f. is $f$, and if $f_i$ is the marginal univariate p.d.f. or p.f. of $X_i (i = 1, \cdots, n)$, then $X_1, \cdots, X_n$ are independent if and only if the following relation is satisfied at all points $(x_1, x_2, \cdots, x_n) \in R^n$:
+\begin{equation*}
+f(x_1, \cdots, x_n) = f_1(x_1)f_2(x_2)\cdots f_n(x_n) ~.
+\end{equation*}
+
+Consider a given probability distribution on the real line that can be represented by either a p.f. or a p.d.f. $f$. It is said that $n$ random variables $X_1, \cdots, X_n$ form a random sample from this distribution if these random variables are independent and the marginal p.f. or p.d.f. of each of them is $f$. Such random variables are also said to be \textcolor{red}{independent and identically distributed}, abbreviated \textcolor{red}{i.i.d}. We refer to the number $n$ of random variables as the sample size.
+
+$X_1, \cdots, X_n$ form a random sample from the distribution represented by $f$ if their joint p.f. or p.d.f. $g$ is specified as follows at all points $(x_1, x_2, \cdots, x_n) \in R^n$:
+\begin{equation*}
+g(x_1, x_2, \cdots, x_n) = f(x_1)f(x_2) \cdots f(x_n) ~.
+\end{equation*}
+Clearly, an i.i.d. sample cannot have a mixed joint distribution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

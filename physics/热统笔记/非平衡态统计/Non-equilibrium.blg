@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Non-equilibrium.aux
+The style file: unsrt_update.bst
+Database file #1: ref.bib
+You've used 3 entries,
+            1814 wiz_defined-function locations,
+            465 strings with 4066 characters,
+and the built_in function-call counts, 482 in all, are:
+= -- 44
+> -- 12
+< -- 0
++ -- 6
+- -- 3
+* -- 13
+:= -- 84
+add.period$ -- 11
+call.type$ -- 3
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 30
+empty$ -- 58
+format.name$ -- 3
+if$ -- 114
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 6
+newline$ -- 18
+num.names$ -- 3
+pop$ -- 17
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 6
+stack$ -- 0
+substring$ -- 0
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 3
+width$ -- 4
+write$ -- 34

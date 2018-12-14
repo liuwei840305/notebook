@@ -1,0 +1,225 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref}
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+%\usepackage[dvipsnames]{color}
+
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{像差}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+共轴光具组：\\
+1. 物方每点发出的同心光束在像方仍保持为同心光束；\\
+2. 垂直于光轴的物平面上各点的像仍在垂直于光轴的一个平面上；\\
+3. 在每个像平面内横向放大率是常数，保持物、像之间的几何相似性；
+
+共轴球面组满足不了这些要求，
+
+任何偏离理想成像的现象，称为\textcolor{red}{像差}；
+
+在\textcolor{orange}{傍轴条件}下，理想成像是能近似实现的，
+
+傍轴条件要求\textcolor{orange}{成像光束的孔径小}、\textcolor{orange}{仪器的视场小}
+
+像差分为：\\
+1. 单色像差 \\
+i. 球面像差；\\
+ii. 慧形像差；\\
+iii. 像散；\\
+iv. 像场弯曲(场曲)；\\
+v. 畸变；
+
+
+2. 色像差 \\
+由色散引起
+
+\begin{equation}
+\sin \theta = \theta -\frac{\theta^3}{3!} +\frac{\theta^5}{5!} +\cdots
+\end{equation}
+
+
+赛德耳系数：\\
+把$\theta^3/3!$考虑进去，计算从物点发出的每一根光线的横向像差，即该光线经光具组后与理想像平面交点的位置偏离理想点的距离，得到表达式有五项，每一项的系数为赛德耳系数
+
+初级像差、三级像差理论
+
+光线追迹法：严格按照几何光学三定律计算每根光线的折射或反射，求出它们对理想像点的偏离；
+
+几何像差
+
+若存在衍射效应，波动光学
+
+\section{球面像差、球差}
+\textcolor{red}{孔径较大}时，由光轴上一物点发出的光束经球面折射后\textcolor{red}{不再交于一点}；
+
+球差大小与\textcolor{orange}{光线的孔径}有关
+
+孔径：由\textcolor{orange}{孔径角$u$}或\textcolor{orange}{光线在折射面上的高度$h$}表征；
+
+\textcolor{red}{配曲法}
+
+用配曲法不可能将一个透镜的球差完全消除；凸透镜的球差是正的，凹透镜的球差是负的，可以把凸凹透镜粘合起来，组成一个复合透镜，可使某个高度$h$上的球差完全抵消；透镜有一定厚度时，不能同时在任何高度上消除球差，但可使剩余的球差减到比单透镜小得多的程度；
+
+
+\section{慧形像差、慧差}
+\textcolor{red}{傍轴物点}发出的\textcolor{red}{宽阔光束}经光具组后在像平面上不再交于一点，而是\textcolor{red}{形成状如彗星的亮斑}；
+
+在光瞳上做一系列同心圆$1, 2, 3, 4, \cdots$，经过各个圆周的光线在像平面上仍将落在一系列圆周$1', 2', 3', 4', \cdots$上，但是这些圆不再是同心的，半径越大的圆，其中心离$P'$越远；
+
+用\textcolor{purple}{配曲法}可消除单个透镜的慧差，也可利用\textcolor{purple}{粘合透镜}消除慧差；
+
+消球差和消慧差的条件往往不一致，二者不容易同时消除；
+
+
+
+\section{正弦条件、齐明点}
+
+
+\begin{equation}
+ny\sin u = n' y' \sin u'
+\end{equation}
+\textcolor{red}{阿贝正弦条件}，是在轴上以消球差的前提下，傍轴物点以大孔径的光束成像的充分必要条件；
+
+\textcolor{red}{齐明点}：\\
+光轴上已消除球差且满足阿贝正弦条件的共轭点；
+
+
+N.B. 比较
+阿贝正弦条件
+\begin{equation}
+ny\sin u = n' y' \sin u'
+\end{equation}
+和
+亥姆霍兹公式
+\begin{equation}
+ny\tan u = n' y' \tan u'
+\end{equation}
+
+
+\section{像散、像场弯曲}
+二者都由于物点离光轴较远、光束倾斜度较大引起；
+
+
+像散：\\
+出射光束的截面一般呈\textcolor{blue}{椭圆形}，但\textcolor{blue}{在两处退化为直线}，称为\textcolor{red}{焦散线}；两焦散线互相垂直，分别称为\textcolor{red}{子午焦线}和\textcolor{red}{弧矢焦线}；在两焦线之间的某个地方光束的截面呈圆形，称为\textcolor{red}{明晰圈}，可以认为这里是光束聚焦最清晰的地方，是放置照相底片或屏幕的最佳位置；
+
+
+像场弯曲：\\
+对于物平面上的所有点，焦散线和明晰圈的轨迹一般是个\textcolor{blue}{曲面}；
+
+单个透镜，像场弯曲可通过在透镜前适当位置放一个光阑来矫正；像散需通过复杂的透镜组来消除；
+
+
+\section{畸变}
+由于光束的倾斜度较大引起的，并不破坏光束的同心性，不影响像的清晰度；
+
+像平面内图形各部分与原物不成比例；
+
+放在物平面内的方格，若\textcolor{cyan}{远光轴区域}的放大率比\textcolor{cyan}{光轴附近}\textcolor{red}{大}，在像平面内产生\textcolor{red}{枕形畸变}；若\textcolor{cyan}{远光轴区域}的放大率比\textcolor{cyan}{光轴附近}\textcolor{red}{小}，在像平面内产生\textcolor{red}{桶形畸变}：
+
+产生哪种畸变，与\textcolor{red}{孔径光阑}的位置有关；
+
+
+如对凸透镜，光阑放在前面，产生桶形畸变；放在后面，产生枕形畸变；
+
+对称镜头，将光阑放在一对相同的透镜中间，使两种相反的畸变互相抵消；
+
+\section{色像差}
+不同颜色的光所成的像，位置和大小都可能不同，前者称为\textcolor{red}{位置色差}(\textcolor{red}{轴向色差})；后者称为\textcolor{red}{放大率色差}(\textcolor{red}{横向色差})；
+
+
+
+
+
+
+目镜
+
+惠更斯目镜
+
+
+冉斯登目镜
+
+\end{document}

@@ -1,0 +1,252 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Bremsstrahlung}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\subsection{relativistic invariants}
+transformation of the energy loss rate by electromagnetic radiation as observed in different inertial frames of reference, i.e. how $\dif E/\dif t$ changes from one inertial frame of reference to another.
+
+\textcolor{red}{$\dif E/\dif t$} is a \textcolor{red}{Lorentz invariant} between inertial frames of reference.
+
+In the moving instantaneous rest frame of an accelerated charged particle, the total energy loss $\dif E^{\prime}$ has dipole symmetry and so is \textcolor{red}{emitted with zero net momentum}. Its four-momentum can be written $[\dif E^{\prime}/c, 0]$. This radiation is emitted in the interval of time $\dif t^{\prime}$, which is the zeroth component of the displacement four-vector $[c ~\dif t^{\prime}, 0]$. Using the inverse Lorentz transforms to relate $\dif E^{\prime}$ and $c ~\dif t^{\prime}$ to $\dif E$ and $c~ \dif t$,
+\begin{equation}
+\dif E = \gamma \dif E^{\prime} ; ~~ \dif t = \gamma \dif t^{\prime}
+\end{equation}
+hence
+\begin{equation}
+\dif E/\dif t  = \dif E^{\prime}/\dif t^{\prime}
+\end{equation}
+
+
+\subsection{The radiation of an accelerated charged particle – J. J. Thomson’s treatment}
+
+
+\subsection{The radiation of an accelerated charged particle – from Maxwell’s equations}
+Maxwell’s equations in free space are 
+\begin{eqnarray}
+\nabla \times \vec{E} &=& -\frac{\partial \vec{B}}{\partial t} ~,\\
+\nabla \times \vec{B} &=& \mu_0 \vec{J} +\frac{1}{c^2}\frac{\partial \vec{E}}{\partial t} ~,\\
+\nabla \cdot \vec{B} &=& 0 ~,\\
+\nabla \cdot \vec{E} &=& \frac{\rho_{\rm e}}{\epsilon_0}
+\end{eqnarray}
+Introduce the \textcolor{red}{scalar} and \textcolor{red}{vector potentials}, $\phi$ and $\vec{A}$ respectively,
+\begin{eqnarray}
+\vec{B} &=& \nabla \times \vec{A} ~, \\
+\vec{E} &=& -\frac{\partial \vec{A}}{\partial t} -\nabla \phi
+\end{eqnarray}
+four-vector potential $[\phi/c, \vec{A}]$ 
+\begin{equation}
+\nabla \times (\nabla \times \vec{A}) = \mu_0 \vec{J} -\frac{1}{c^2} \frac{\partial}{\partial t} \left(  \frac{\partial \vec{A}}{\partial t} +\nabla \phi \right)
+\end{equation}
+recall 
+\begin{equation*}
+\nabla \times (\nabla \times \vec{A})  = \nabla(\nabla\cdot \vec{A}) -\nabla^2 \vec{A}
+\end{equation*}
+
+\begin{eqnarray*}
+\nabla^2 \vec{A} -\frac{1}{c^2} \frac{\partial^2 \vec{A} }{\partial t^2} &=& -\mu_0 \vec{J} + \nabla\left[\nabla \cdot \vec{A} +\frac{1}{c^2} \frac{\partial \phi }{\partial t} \right] ~,\\
+\nabla^2 \phi -\frac{1}{c^2} \frac{\partial^2 \phi }{\partial t^2} &=& -\frac{\rho_{\rm e}}{\epsilon_0} - \frac{\partial}{\partial t}\left[\nabla \cdot \vec{A} +\frac{1}{c^2} \frac{\partial \phi }{\partial t} \right] 
+\end{eqnarray*}
+We can always add to $\vec{A}$ the gradient of any scalar quantity and it will be guaranteed to disappear upon curling. Write $\vec{A} = \vec{A} + \text{grad} \chi$, the value of $\vec{B}$ will be unchanged. 
+\begin{equation}
+\vec{E} = -\frac{\partial \vec{A}^{\prime} }{\partial t} -\nabla(\phi -\dot{\chi})
+\end{equation}
+we need to replace $\phi$ by $\phi^{\prime} = \phi − \dot{\chi}$. Express the condition that
+$\nabla \cdot \vec{A} +1/c^2 (\partial \phi/\partial t)$ should vanish as follows
+\begin{eqnarray}
+\nonumber &&\nabla \cdot (\vec{A}^{\prime} -\nabla \chi) + \frac{1}{c^2}\frac{\partial}{\partial t} (\phi^{\prime} +\dot{\chi}) = 0 ~, \\
+ &&\nabla \cdot \vec{A}^{\prime} +\frac{1}{c^2}\frac{\partial \phi^{\prime} }{\partial t} = \nabla^2 \chi -\frac{1}{c^2} \frac{\partial^2 \chi }{\partial t^2} \label{gauge}
+\end{eqnarray}
+Provided find a suitable function $\chi$, which satisfies (\ref{gauge}), we obtain the pair of equations separately for $\vec{A}$ and $\phi$:
+\begin{eqnarray}
+\nabla^2 \vec{A} -\frac{1}{c^2} \frac{\partial^2 \vec{A} }{\partial t^2} &=& -\mu_0 \vec{J} ~,\\
+\nabla^2 \phi -\frac{1}{c^2} \frac{\partial^2 \phi }{\partial t^2} &=& -\frac{\rho_{\rm e}}{\epsilon_0} \end{eqnarray}
+\begin{equation}
+\nabla^2 \chi -\frac{1}{c^2} \frac{\partial^2 \chi }{\partial t^2} \label{gauge} = 0
+\end{equation}
+This procedure is known as \emph{selecting the gauge}. This particular choice is known as \textcolor{red}{Lorentz gauge}.
+
+
+
+these results are correct provided the velocities of the charges are small. 
+
+\textcolor{red}{Li\'{e}nard–Wiechert potentials}
+\begin{eqnarray}
+\vec{A}(\vec{r}, t)  &=& \frac{\mu_0}{4\pi r} \left[\frac{q\vec{v}}{1-(\vec{v}\cdot \vec{n})/c}  \right]_{\rm ret} ~, \\
+\phi(\vec{r}, t) &=& \frac{1}{4\pi \epsilon_0 r} \left[\frac{q}{1-(\vec{v}\cdot \vec{n})/c}  \right]_{\rm ret} 
+\end{eqnarray}
+where \textcolor{red}{$\vec{n}$} is the \textcolor{red}{unit vector in the direction of the point of observation from the moving charge}. The potentials are evaluated at \textcolor{red}{retarded times relative to the location of the observer}.
+
+
+\subsection{The radiation losses of accelerated charged particles moving at relativistic velocities}
+It is assumed that, in the \textcolor{red}{particle’s instantaneous rest frame}, the acceleration of the particle is small. The norm of the acceleration four-vector is an invariant in any inertial frame of reference. The \textcolor{red}{acceleration four-vector of the particle}, \textcolor{red}{$\vec{A}$}, not to be confused with the vector potential $\vec{A}$, can be written
+\begin{eqnarray}
+\textcolor{blue}{ \vec{A} = \gamma \left[c\frac{\partial \gamma}{\partial t} ,  \frac{\partial \gamma \vec{v}}{\partial t}  \right]  = \left[\left(\frac{\vec{v}\cdot \vec{a}}{c^2}\right) \gamma^4 c,  \gamma^2 \vec{a} +\left(\frac{\vec{v}\cdot \vec{a}}{c^2}\right) \gamma^4 \vec{v}  \right] }
+\end{eqnarray}
+The acceleration $\vec{a} = \vec{\ddot{r}}$ and the velocity of the particle $\vec{v} = \vec{\dot{r}}$ are measured in the observer’s frame of reference $S$. In the \textcolor{red}{instantaneous rest frame of the particle}, \textcolor{red}{$S^{\prime}$}, the acceleration four-vector is $[0, \vec{a}_0]$, where $\vec{a}_0 = (\vec{\ddot{r}})_0$ is the \textcolor{red}{proper acceleration} of the particle. Equate the norms of the four-vectors in the reference frames $S$ and $S^{\prime}$:
+\begin{equation}
+-\vec{a}^2_0 = \gamma^8 c^2 \left(\frac{\vec{v}\cdot \vec{a}}{c^2}\right)^2 - \left[\gamma^2 \vec{a} +\left(\frac{\vec{v}\cdot \vec{a}}{c^2}\right) \gamma^4 \vec{v} \right]^2
+\end{equation}
+\begin{equation}
+\vec{a}^2_0 = \gamma^4 \left[ \vec{a}^2 +\gamma^2 \left(\frac{\vec{v}\cdot \vec{a}}{c}\right)^2 \right]
+\end{equation}
+The radiation rate ($\dif E/\dif t$) is a Lorentz invariant, then 
+\begin{eqnarray}
+\left(\frac{\dif E}{\dif t}\right)_{S} = \left(\frac{\dif E^{\prime}}{\dif t^{\prime}}\right)_{S^{\prime}} = \frac{q^2 |\vec{a}_0|^2}{6\pi \epsilon_0 c^3} = \frac{q^2 \gamma^4}{6\pi \epsilon_0 c^3} \left[  \vec{a}^2 +\gamma^2 \left(\frac{\vec{v}\cdot \vec{a}}{c}\right)^2 \right]
+\end{eqnarray}
+Resolve the acceleration of the particle into components parallel $a_{\parallel}$ and perpendicular $a_{\perp}$ to the velocity vector $\vec{v}$, that is,
+\begin{eqnarray*}
+\vec{a} &=& a_{\parallel} \vec{i}_{\parallel} +a_{\perp} \vec{i}_{\perp} ~,\\
+|\vec{a}|^2 &=& |a_{\parallel}|^2 +|a_{\perp}|^2
+\end{eqnarray*}
+then
+\begin{eqnarray}
+\nonumber \vec{a}^2 +\gamma^2 \left(\frac{\vec{v}\cdot \vec{a}}{c}\right)^2  &=& |a_{\parallel}|^2 +|a_{\perp}|^2 +\gamma^2\left(\frac{va_{\parallel}}{c} \right)^2 ~,\\
+\nonumber &=& |a_{\perp}|^2 + |a_{\parallel}|^2 (1+\frac{\gamma^2 v^2}{c^2}) ~,\\
+&=& |a_{\perp}|^2 + |a_{\parallel}|^2 \gamma^2
+\end{eqnarray}
+The loss rate can be written
+\begin{equation}
+\textcolor{red}{ \left(\frac{\dif E}{\dif t} \right)_{S} = \frac{q^2 \gamma^4}{6\pi \epsilon_0 c^3} (|a_{\perp}|^2 +\gamma^2 |a_{\parallel}|^2) }
+\end{equation}
+
+\subsection{Parseval’s theorem and the spectral distribution of the radiation of an accelerated electron}
+decomposition of the radiation field of the electron into its spectral components.
+
+Parseval’s theorem provides an procedure for relating the kinematic history of the particle to its radiation spectrum.
+
+Introduce the Fourier transform of the acceleration of the particle through the Fourier transform pair:
+\begin{eqnarray}
+\vec{\dot{v}}(t) &=& \frac{1}{(2\pi)^{1/2}} \int_{-\infty}^{\infty} \vec{\dot{v}}(\omega) \exp(-{\rm i} \omega t) \dif \omega ~,\\
+\vec{\dot{v}}(\omega) &=& \frac{1}{(2\pi)^{1/2}} \int_{-\infty}^{\infty} \vec{\dot{v}}(t) \exp({\rm i} \omega t) \dif t
+\end{eqnarray}
+According to \textcolor{red}{Parseval’s theorem}, $\vec{\dot{v}}(\omega)$ and $\vec{\dot{v}}(t)$ are related by the following integral:
+\begin{equation}
+\int_{-\infty}^{\infty} |\vec{\dot{v}}(t)|^2 \dif t = \int_{-\infty}^{\infty} |\vec{\dot{v}}(\omega)|^2 \dif \omega
+\end{equation}
+
+The energy radiated by a particle which has an acceleration history $\vec{\dot{v}}(t)$:
+\begin{eqnarray}
+\int_{-\infty}^{\infty} \frac{\dif E}{\dif t} \dif t = \int_{-\infty}^{\infty} \frac{e^2}{6\pi \epsilon_0 c^3} |\vec{\dot{v}}(t)|^2 \dif t = \int_{-\infty}^{\infty} \frac{e^2}{6\pi \epsilon_0 c^3} |\vec{\dot{v}}(\omega)|^2 \dif \omega
+\end{eqnarray}
+Since the acceleration is a real function,
+\begin{equation*}
+\int_{0}^{\infty} |\vec{\dot{v}}(\omega)|^2 \dif \omega = \int_{-\infty}^{0} |\vec{\dot{v}}(\omega)|^2 \dif \omega
+\end{equation*}
+The total emitted radiation is
+\begin{equation}
+\int_0^{\infty} I(\omega) \dif \omega = \int_{0}^{\infty} \frac{e^2}{3\pi \epsilon_0 c^3} |\vec{\dot{v}}(\omega)|^2 \dif \omega
+\end{equation}
+The total energy per unit bandwidth emitted throughout the period during which the particle is accelerated :
+\begin{equation}
+I(\omega) = \frac{e^2}{3\pi \epsilon_0 c^3} |\vec{\dot{v}}(\omega)|^2
+\end{equation}
+For a distribution of particles, this result must be integrated over all the particles contributing to the radiation at frequency $\omega$.
+
+
+
+
+\section{Bremsstrahlung}
+\textcolor{red}{free-free emission}: the radiation corresponds to \textcolor{red}{transitions between unbound states of the electron} in the field of the nucleus.
+
+Applications includes the radio emission of compact regions of ionised hydrogen at temperature $T \approx 10^4$ K, the X-ray emission of binary X-ray sources at $T \approx 10^7$ K and the diffuse X-ray emission of intergalactic gas in clusters of galaxies, which may be as hot as $T \approx 10^8$ K. It is also an important loss mechanism for relativistic cosmic ray electrons.
+
+\section{thermal bremsstrahlung}
+\cite{2012agn..book.....B} As both particles are not bound before and after the scattering process, this is also referred to as \textcolor{red}{free–free emission}. The interaction leads to a change in the momentum of the particles involved, and through this acceleration of charges to radiation. This type of scattering takes place for example in \textcolor{red}{hot, but nonrelativistic plasmas}. The most prominent source of extragalactic bremsstrahlung is the \textcolor{red}{intracluster gas} which is \textcolor{red}{bound in the gravitational wells of galaxy clusters} with temperatures of \textcolor{red}{$T \simeq 10^7 - 10^8$ K}. Interaction of two particles with the \textcolor{red}{same mass}, like electron-electron or positron-positron scattering does \textcolor{red}{not produce dipole radiation,and the quadrupole term is comparably low}. Only in the \textcolor{yellow}{relativistic} case can this produce a significant amount of radiation.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,67 @@
+Building on UNIX/Linux/Mac OS X/Cygwin/MinGW platforms	
+
+For building on UNIX and UNIX-like (GNU/Linux, Max OS X, Cygwin, MinGW-MSYS) platforms Xerces-C++ uses the GNU automake-based build systems and requires that you have GNU make installed. On some platforms GNU make is called gmake instead of make.
+
+As with all automake-based projects the build process is divided into two parts: configuration and building. The configuration part is performed using the configure script that can be found in the xerces-c-3.1.4 directory. The build part is performed by invoking make.
+
+Besides the standard configure options which you can view by running configure --help, Xerces-C++ provides a number of project-specific options that are worth mentioning. You can specify one option for each category outlined below. If you do not specify anything for a particular category then configure will select the most appropriate default. At the end of its execution configure prints the selected values for each category.
+
+Net Accessor (used to access network resources):
+
+Option 	                        Description 
+--enable-netaccessor-curl 	use the libcurl library 
+--enable-netaccessor-socket 	use plain sockets 
+--enable-netaccessor-cfurl 	use the CFURL API (only on Mac OS X) 
+--enable-netaccessor-winsock 	use WinSock (only on Windows, Cygwin, MinGW) 
+--disable-network 	        disable network support 
+
+Transcoder (used to convert between internal UTF-16 and other encodings):
+
+Option 	                        Description 
+--enable-transcoder-gnuiconv 	use the GNU iconv library 
+--enable-transcoder-iconv 	use the iconv library 
+--enable-transcoder-icu 	use the ICU library 
+--enable-transcoder-macosunicodeconverter 	use Mac OS X APIs (only on Mac OS X) 
+--enable-transcoder-windows 	use Windows APIs (only on Windows, Cygwin, MinGW)
+
+Message Loader (used to access diagnostics messages):
+
+Option 	                        Description 
+--enable-msgloader-inmemory 	store the messages in memory 
+--enable-msgloader-icu 	        store the messages using the ICU resource bundles 
+--enable-msgloader-iconv 	store the messages in the iconv message catalog  
+
+
+Thread support is enabled by default and can be disabled with the --disable-threads option.
+
+By default configure selects both shared and static libraries. You can use the --disable-shared and --disable-static options to avoid building the version you don't need.
+
+Finally, to make the build process cleaner the Xerces-C++ build system hides actual compiler commands being executed by make. If you would like to see those then you can specify the --disable-pretty-make option.
+
+If you need to specify compiler executables that should be used to build Xerces-C++, you can set the CC and CXX variables when invoking configure. Similarly, if you need to specify additional compiler or linker options, you can set the CFLAGS, CXXFLAGS, and LDFLAGS variables. For example:
+
+./configure --disable-static CC=gcc-4.3 CXX=g++-4.3 CFLAGS=-O3 CXXFLAGS=-O3
+
+Once the configuration part is complete you can run make (or gmake). Running make from the xerces-c-3.1.4 directory builds Xerces-C++ library and examples. The library is placed into the src/.libs directory. If you like to build only the library, you can run make from xerces-c-3.1.4/src.
+
+If you would like to build the tests and run the automated test suite, run make check from the xerces-c-3.1.4 directory. The automated test suite required Perl and the diff command.
+
+Finally, to install the library and examples you can run make install (or gmake install). To change the installation directory, use the --prefix configure option.
+
+Some platforms and configurations require extra configure and make options which are shown in the following table.
+
+
+Platform 	        Compiler 	Options 
+Solaris x86 	        Sun CC 	        ./configure CXX=CC CC=cc 
+Solaris x86-64          Sun CC 	        ./configure CXX=CC CC=cc CFLAGS=-xarch=amd64 CXXFLAGS=-xarch=amd64 (for newer Sun CC versions use -m64 instead of -xarch=amd64) 
+Solaris SPARC 	        Sun CC 	        ./configure CXX=CC CC=cc 
+Solaris SPARCv9         Sun CC 	        ./configure CXX=CC CC=cc CFLAGS=-xarch=v9 CXXFLAGS=-xarch=v9 (for newer Sun CC versions use -m64 instead of -xarch=v9) 
+AIX PowerPC 	        IBM XL C++ 	./configure CXX=xlC_r CC=xlc_r gmake libxerces_c_la_LDFLAGS=-qmkshrobj 
+AIX PowerPC-64 	        IBM XL C++ 	export OBJECT_MODE=64 ./configure CXX=xlC_r CC=xlc_r CXXFLAGS=-q64 CFLAGS=-q64 gmake libxerces_c_la_LDFLAGS=-qmkshrobj 
+HP-UX IA-64-32 	        HP aCC 	        ./configure CXX=aCC CC=aCC CFLAGS=-mt CXXFLAGS=-mt LDFLAGS=-mt 
+HP-UX IA-64 	        HP aCC 	        ./configure CXX=aCC CC=aCC CFLAGS="-mt +DD64" CXXFLAGS="-mt +DD64" LDFLAGS="-mt +DD64" 
+Mac OS X x86-64 	GCC 	        ./configure CFLAGS="-arch x86_64" CXXFLAGS="-arch x86_64"  
+Mac OS X PowerPC-64 	GCC 	        ./configure CFLAGS="-arch ppc64" CXXFLAGS="-arch ppc64" 
+Mac OS X x86/PowerPC 	GCC 	        ./configure --disable-dependency-tracking CFLAGS="-arch i386 -arch ppc" CXXFLAGS="-arch i386 -arch ppc" 
+Mingw x86 	        GCC             ./configure LDFLAGS=-no-undefined 
+Cygwin x86 	        GCC             ./configure LDFLAGS=-no-undefined 

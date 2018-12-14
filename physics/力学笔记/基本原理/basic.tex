@@ -1,0 +1,259 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{基本原理}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{质点系}
+
+\section{动量定理}
+
+\section{功与能}
+\subsection{动能}
+\begin{equation}
+E_k = \frac{1}{2} m v^2
+\end{equation}
+
+内力的总功与参考系无关；
+
+\subsection{保守力和非保守力}
+\subsubsection{保守力}
+在与其中一个质点相对静止的参考系中，作用于另一质点的力仅与该质点的始末位置有关，与该质点所经过的具体路径无关；
+
+保守力作功与路径无关$\Longleftrightarrow$沿任一闭合路径一周保守力作功为$0$；
+
+\textcolor{red}{保守体系}：
+
+若质点系内任意两质点间的作用力是保守力；
+
+\subsubsection{非保守力}
+凡作功不仅与始末位置有关，而且与具体路径有关，或沿闭合路径一周作功不为$0$的力；
+
+\textcolor{red}{耗散力}：
+
+沿闭合路径一周作功小于$0$的力；
+
+\subsection{势能}
+1. 势能总是与保守力相联系；\\
+2. 势能的绝对数值与参考位形(即零势能位形)的选取有关，势能的差与参考位形无关，对不同保守力所对应的势能，其参考位形的选取也可以不同；\\
+3. 势能与质点系各质点间相互作用的保守力相联系，为体系所共有；\\
+4. 与势能相联系的是保守内力对质点系所作的功，与参考系无关；
+
+\begin{equation}
+E_p = \int_r^{\infty} F(r) \dif r
+\end{equation}
+
+\subsubsection{势能曲线}
+
+
+
+
+
+\subsection{动能定理}
+\subsubsection{质点动能定理}
+\begin{equation}
+W = E_k -E_{k0}
+\end{equation}
+力对物体(质点)所做的功等于物体动能的增量；$W$表示功，$E_k$表示末状态的动能，$E_{k0}$表示初状态的动能；
+
+\subsubsection{质点系动能定理}
+质点系：设质点系由$N$个质点组成，
+\begin{equation}
+W_{\text{外}} + W_{\text{内}} = E_k -E_{k0}
+\end{equation}
+作用于质点系的所有外力所做的功与所有内力所做的功的总和等于质点系动能的增量；
+
+比较质点系动能定理和动量定理：
+
+1. 质点系动量定理是矢量形式，而质点系动能定理是标量形式；
+
+2. \textcolor{red}{内力的作用不改变质点系的总动量，但内力的作用一般要改变质点系的总动能}；
+
+
+\subsection{功能原理}
+外力的功和非保守内力的功之和等于质点系机械能的增量；\textcolor{red}{功能原理仅在惯性系成立}；
+
+\begin{equation}
+W_{\text{外}} + W_{\text{内}} = E_k(b) -E_{k}(a) \Longrightarrow W_{\text{外}} + W_{\text{保内}} +W_{\text{非保内}} = E_k(b) -E_{k}(a) 
+\end{equation}
+内力所作的功分为保守内力所作的功$W_{\text{保内}}$和非保守内力所作的功$W_{\text{非保内}}$；$W_{\text{保内}}  = E_p(a) -E_p(b)$，
+\begin{equation}
+W_{\text{外}} +W_{\text{非保内}} = E_k(b) -E_{k}(a) +E_p(b) -E_p(a) ~,
+\end{equation}
+定义\textcolor{red}{机械能}：
+\begin{equation}
+E = E_p +E_k ~,
+\end{equation}
+则
+\begin{equation}
+W_{\text{外}} +W_{\text{非保内}} = E(b) -E(a) ~,
+\end{equation}
+
+\textcolor{red}{机械能守恒定律}：
+
+若$W_{\text{外}} = 0$，$W_{\text{非保内}} = 0$，则质点系机械能守恒；
+
+
+\subsubsection{质心系}
+研究孤立质点系的运动，采用质心系；在质心系中，体系的动量恒为$0$；且因为孤立体系的质心系是惯性系，功能原理和机械能守恒定律均成立；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

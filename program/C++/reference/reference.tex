@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Reference}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Compound Types}
+A compound type is a type that is \textcolor{cyan}{defined in terms of another type}. Simple declarations consist of a type followed by a list of variable names. More generally, a declaration is a \textcolor{red}{base type} followed by a list of \textcolor{red}{declarators}. \textcolor{cyan}{Each declarator names a variable and gives the variable a type that is related to the base type}.
+
+\section{References}
+Technically speaking, when we use the term reference, we mean ``\textcolor{red}{lvalue reference}”.
+
+A reference defines an alternative name for an object. A reference type ``refers to” another type. We \textcolor{red}{define a reference type} by writing a declarator of the form \textcolor{red}{$\&$d}, where \textcolor{red}{d is the name being declared}.
+
+int ival = 1024; \\
+\textcolor{orange}{int $\&$refVal = ival;} // refVal refers to (is another name for) ival \\
+\textcolor{orange}{int $\&$refVal2;} // error: a reference must be initialized
+
+Ordinarily, when we initialize a variable, the value of the initializer is copied into the object we are creating. \textcolor{red}{When we define a reference, instead of copying the initializer’s value, we bind the reference to its initializer. Once initialized, a reference remains bound to its initial object. There is no way to rebind a reference to refer to a different object. Because there is no way to rebind a reference, references must be initialized.}
+
+A Reference Is an Alias
+
+A reference is not an object. Instead, a reference is just another name for an already existing object. After a reference has been defined, all operations on that reference are actually operations on the object to which the reference is bound. 
+
+refVal = 2; // assigns 2 to the object to which refVal refers, i.e., to ival \\
+int ii = refVal; // same as ii = ival
+
+When we assign to a reference, we are assigning to the object to which the reference is bound. When we fetch the value of a reference, we are really fetching the value of the object to which the reference is bound. When we use a reference as an initializer, we are really using the object to which the reference is bound.
+
+// ok: refVal3 is bound to the object to which refVal is bound, i.e., to ival \\
+int $\&$refVal3 = refVal;
+
+Because \textcolor{cyan}{references are not objects}, we may \textcolor{cyan}{not define a reference to a reference}.
+
+Reference Definitions
+
+We can \textcolor{cyan}{define multiple references in a single definition}. Each identifier that is a reference must be preceded by the \textcolor{red}{$\&$} symbol.
+
+With two exceptions, the type of a reference and the object to which the reference refers must match exactly. \textcolor{red}{A reference may be bound only to an object}, not to a literal or to the result of a more general expression
+
+int $\&$refVal4 = 10; // error: initializer must be an object \\
+double dval = 3.14; \\
+int $\&$refVal5 = dval; // error: initializer must be an int object
+
+\subsection{rvalue reference}
+These references are primarily intended for use inside classes. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

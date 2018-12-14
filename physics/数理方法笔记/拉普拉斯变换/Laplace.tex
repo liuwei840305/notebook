@@ -1,0 +1,472 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+%从右倾的积分号变为竖直的积分号
+%define a new command for \rm font of int
+\DeclareSymbolFont{rmlargesymbols}{OMX}{mdbch}{m}{n}
+% or \DeclareSymbolFont{rmlargesymbols}{U}{euex}{m}{n}
+\DeclareMathSymbol{\rmintop}{\mathop}{rmlargesymbols}{82}
+\newcommand{\rmint}{\rmintop\nolimits}
+
+\title{Laplace Transforms}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Definition}
+\cite{arfken} The Laplace transform $f(s)$ of a function $F(t)$ is defined by
+\begin{equation}
+f(s) = \mathcal L \{F(t) \} = \int_0^\infty e^{-st} F(t) \dif t ~,
+\end{equation}
+which is called a \textcolor{red}{one-sided Laplace transform}. The integral from $-\infty$ to $+\infty$ is referred to as a \textcolor{red}{two-sided Laplace transform}. Generally, $s$ is taken to be real and positive. It is possible to let $s$ become complex, provided ${\rm Re}(s) > 0$.
+
+The infinite integral of $F(t)$, 
+\begin{equation*}
+\int_0^\infty F(t) \dif t ~,
+\end{equation*}
+\textcolor{red}{need not exist}. For instance, $F(t)$ may diverge exponentially for large $t$. However, if there are some constants $s_0$, $M$, and $t_0 \geqslant 0$ such that for all $t > t_0$
+\begin{equation}
+|e^{-s_0 t} F(t)| \leqslant M ~,
+\label{condi_laplace}
+\end{equation}
+the Laplace transform will exist for $s > s_0$. $F(t)$ is then said to be of exponential order. $F(t) = e^{t^2}$ does not satisfy the condition given by Eq. (\ref{condi_laplace}) and is not of exponential order. Thus, $\mathcal L \{ e^{t^2}\}$ does not exist.
+
+The Laplace transform may also fail to exist because of a sufficiently strong singularity in the function $F(t)$ as $t \rightarrow 0$.
+\begin{equation*}
+\int_0^\infty e^{-st} t^n \dif t ~,
+\end{equation*}
+diverges at the origin for $n \leqslant 1$. The Laplace transform $\mathcal L \{ t^n\}$ does not exist for $n \leqslant 1$.
+
+The operation denoted by L is linear,
+\begin{equation}
+\mathcal L \{aF(t) +bG(t) \} = a \mathcal L \{F(t) \} + b \mathcal L \{G(t) \} 
+\end{equation}
+
+\section{Inverse Transform}
+\begin{align}
+& \mathcal L \{F(t) \} = f(s) ~, \\
+&  \mathcal L^{-1} \{f(s) \} = F(t) ~.
+\end{align}
+However, this inverse transform is not entirely unique. Two functions $F_1(t)$ and $F_2(t)$ can have the same transform, $f(s)$, if their difference, $N(t)=F_1(t) - F_2(t)$, is a \textcolor{red}{null function}, meaning that for all $t_0 > 0$ it satisfies
+\begin{equation*}
+\int_0^{t_0} N(t) \dif t = 0 ~.
+\end{equation*}
+which is known as \textcolor{red}{Lerch's theorem}, and is not quite equivalent to $F_1 = F_2$, because it permits $F_1$ and $F_2$ to differ at isolated points. However, in most problems studied by physicists or engineers this ambiguity is not important. 
+
+
+
+
+
+
+
+
+\section{Properties of Laplace transforms}
+The transform the first derivative of $F(t)$:
+\begin{align}
+\nonumber \mathcal L \{F^\prime(t) \} &= \int_0^\infty e^{-st} \dfrac{\dif F(t)}{\dif t} \dif t  \\
+\nonumber & = e^{-st} F(t) \Big|_0^\infty +s\int_0^\infty e^{-st} F(t) \dif t \\
+&= s \mathcal L \{F(t) \} -F(0) ~.
+\end{align}
+
+Change of Scale
+\begin{align}
+\nonumber \mathcal L \{F(at) \} &= \int_0^\infty e^{-st} F(at) \dif t  \\
+\nonumber & = \dfrac{1}{a} \int_0^\infty e^{-(s/a) (at)} F(at) \dif (at) \\
+&= \dfrac{1}{a} f\left(\dfrac{s}{a} \right)  ~.
+\end{align}
+
+Substitution
+
+
+
+Translation
+
+let $f(s)$ be multiplied by $e^{-bs}$ , with $b > 0$:
+\begin{align}
+\nonumber e^{-bs} f(s) &= e^{-bs} \int_0^\infty e^{-st} F(t) \dif t  \\
+\nonumber & = \int_0^\infty e^{-s(t+b)} F(t) \dif t \\
+\nonumber &= \int_b^\infty e^{-s\tau} F(\tau -b) \dif \tau \\
+\nonumber &= \int_0^\infty e^{-s\tau} F(\tau -b) u(\tau -b) \dif \tau \\
+\nonumber &= \mathcal L\{F(t-b) \}
+\end{align}
+Since $F(t)$ is assumed to be equal to zero for $t <0$, so that $F(\tau -b)=0$ for $0 \leqslant \tau < b$, the lower limit can be changed to zero without changing the value of the integral. Instead of relying on the assumption that $F (t ) = 0$ for negative $t$, we insert a Heaviside unit step function $u(\tau-b)$ to restrict the contributions from $F$ to positive arguments. It is often called the \textcolor{red}{Heaviside shifting theorem}.
+
+
+\section{Laplace convolution theorem}
+Take two transforms,
+\begin{equation*}
+f_1(s) = \mathcal L\{F_1(t) \} ~, ~~  f_2(s) = \mathcal L\{F_2(t) \}
+\end{equation*}
+
+
+
+\begin{align}
+& \mathcal L^{-1} \{f_1(s) f_2(s)\} = \int_0^t F_1(t -z) F_2(z) \dif z = F_1 \ast F_2 ~, \\
+& \mathcal L[F_1(t) \ast F_2(t)] = f_1(s) f_2(s) ~.
+\end{align}
+
+Convolution formulas are useful for finding new transforms or, in some cases, as an alternative to a partial fraction expansion. They also find use in the solution of integral equations.
+
+
+\section{Inverse Laplace transform}
+\cite{arfken} The Fourier transformable function had to satisfy the \textcolor{red}{Dirichlet conditions}. In order for $g(\omega)$ to be a valid Fourier transform,
+\begin{equation}
+\lim_{\omega \rightarrow \infty} g(\omega) = 0 ~,
+\end{equation}
+so that the \textcolor{red}{infinite integral would be well defined}. Now we wish to treat functions $F(t)$ that may diverge exponentially. Extract an exponential factor, $e^{\beta t}$, from the (possibly) divergent $F(t)$ and write
+\begin{equation}
+F(t) = e^{\beta t} G(t) ~.
+\label{eq:F(t)}
+\end{equation}
+If $F(t)$ diverges as $e^{\alpha t}$, require $\beta$ to be greater than $\alpha$ so that $G(t)$ will be convergent. Now, with $G(t) = 0$ for $t < 0$ and otherwise suitably restricted so that it may be represented by a Fourier integral,
+\begin{equation}
+G(t) = \dfrac{1}{2\pi} \int_{-\infty}^\infty e^{iut} \dif u \int_0^\infty G(v) e^{-iuv} \dif v ~, \\
+\label{eq:G(t)}
+\end{equation}
+Inserting Eq. (\ref{eq:G(t)}) into Eq. (\ref{eq:F(t)}), 
+\begin{align*}
+& F(t) = \dfrac{e^{\beta t}}{2\pi} \int_{-\infty}^\infty e^{iut} \dif u \int_0^\infty F(v) e^{-\beta v} e^{-iuv} \dif v ~, \\
+& F(t) = \dfrac{1}{2\pi i} \int_{\beta -i\infty}^{\beta +i\infty } e^{st} f(s) \dif s ~, \\
+& f(s) = \int_0^\infty F(v) e^{-s v} \dif v 
+\end{align*}
+where $s = \beta +i u$. The variable $s$ is complex, but must be restricted to ${\rm Re}(s) \geqslant \beta$ in order to guarantee convergence. The Laplace transform has extended a function specified on the positive real axis onto the complex plane, ${\rm Re}(s) \geqslant \beta$. The range $-\infty < u < \infty$ corresponds to a contour in the complex plane of s, which is a vertical line from $\beta -i \infty$ to $\beta + i\infty$.
+
+The path of inverse transform has become \textcolor{orange}{an infinite vertical line in the complex plane}. The constant \textcolor{orange}{$\beta$} was chosen so that \textcolor{red}{$f(s)$ would be nonsingular for $s \geqslant \beta$}. It can be shown that the nonsingularity of $f(s)$ extends to complex $s$ provided that ${\rm Re}(s) \geqslant \beta$, so the integrand can have singularities only to the left of the integration path. The inverse transformation is known as the \textcolor{red}{Bromwich integral}, although sometimes it is referred to as the \textcolor{red}{Fourier-Mellin theorem} or \textcolor{red}{Fourier-Mellin integral}. If $t > 0$ and $f(s)$ is analytic except for isolated singularities (and no branch points), and is also small at large $|s|$, the contour may be closed by an infinite semicircle in the left half-plane that does not contribute to the integral. Then by the residue theorem
+\begin{equation}
+F(t) = \sum (\text{residues included for} ~{\rm Re}(s) < \beta) ~.
+\end{equation}
+In many cases of interest $f(s)$ may become large in the left half-plane or have branch points. Possibly this means of evaluation with ${\rm Re}(s)$ ranging through negative values seems paradoxical in view of the previous requirement that ${\rm Re}(s) \geqslant \beta$. The paradox disappears when recalling that the requirement ${\rm Re}(s) \geqslant \beta$ was imposed to guarantee convergence of the Laplace transform integral that defined $f(s)$. Once $f(s)$ is obtained, we may then proceed to exploit its properties as an analytic function in the complex plane wherever we choose.
+
+
+\cite{Herman:1742872} A function $f(t)$ is said to be of exponential order if $$\int_0^\infty |f(t)| e^{-ct} \dif t < \infty ~.$$ Consider a causal function $f(t)$, which vanishes for $t < 0$, and define the function $g(t) = f(t) e^{-ct}$ with $c > 0$. For $g(t)$ absolutely integrable,
+\begin{equation}
+\int_{-\infty}^\infty |g(t)| \dif t = \int_0^\infty |f(t)| e^{-ct} \dif t < \infty ~,
+\end{equation}
+we can write the Fourier transform,
+\begin{equation}
+\hat{g}(\omega) = \int_{-\infty}^\infty g(t) e^{i \omega t}  \dif t =  \int_0^\infty f(t) e^{i \omega t-ct} \dif t ~,
+\end{equation}
+and the inverse Fourier transform,
+\begin{equation}
+g(t) = f(t) e^{-ct} = \dfrac{1}{2\pi} \int_{-\infty}^\infty \hat{g}(\omega) e^{-i \omega t}  \dif \omega ~.
+\end{equation}
+Multiplying by $e^{ct}$ and inserting $\hat{g}(\omega)$ into the integral for $g(t)$,
+\begin{equation}
+f(t) = \dfrac{1}{2\pi} \int_{-\infty}^\infty e^{-(i \omega -c)t}  \dif \omega  \int_0^\infty f(\tau) e^{(i \omega -c)\tau} \dif \tau ~.
+\end{equation}
+Letting $s = c-i \omega$ (so $\dif \omega = i \dif s$),
+\begin{equation}
+f(t) = \dfrac{i}{2\pi} \int_{c-i\infty}^{c+i\infty} e^{s t}  \dif s  \int_0^\infty f(\tau) e^{-s \tau} \dif \tau ~.
+\end{equation}
+The inside integral is simply $F(s)$. So
+\begin{equation}
+f(t) = \dfrac{1}{2\pi i} \int_{c-i\infty}^{c+i\infty} F(s) e^{s t}  \dif s ~.
+\end{equation}
+The integral is the inverse Laplace transform, called the \textcolor{red}{Bromwich Integral}. This integral is evaluated along a path in the complex plane called the \textcolor{red}{Bromwich contour}. The typical way to compute this integral is to first choose $c$ so that all poles are to the left of the contour. This guarantees that $f(t)$ is of \textcolor{blue}{exponential type}. The contour is a closed semicircle enclosing all the poles. One then relies on a generalization of Jordan's Lemma to the second and third quadrants \footnote{Closing the contour to the left of the contour can be reasoned in a manner similar to what we saw in Jordan's Lemma. Write the exponential as $e^{st} = e^{(s_R+is_I)t} = e^{s_R t} e^{is_I t}$. The second factor is an oscillating factor and the growth in the exponential can only come from the first factor. In order for the exponential to decay as the radius of the semicircle grows, $s_R t < 0$. Since $t > 0$, we need $s < 0$ which is done by closing the contour to the left. If $t < 0$, then the contour to the right would enclose no singularities and preserve the causality of $f(t)$.}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

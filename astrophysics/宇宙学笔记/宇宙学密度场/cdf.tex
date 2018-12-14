@@ -1,0 +1,581 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Cosmic Density Field}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Large-Scale Structure}
+
+\subsection{Two-Point Correlation Functions}
+\cite{2010gfe..book.....M} One of the most important statistics used to characterize the spatial distribution of galaxies is the two-point correlation function, defined as the \textcolor{blue}{excess number of galaxy pairs of a given separation, $r$, relative to that expected for a random distribution}:
+\begin{equation}
+\xi(r) = \dfrac{DD(r) \Delta r}{RR(r) \Delta r} -1 ~.
+\end{equation}
+Here \textcolor{orange}{$DD(r) \Delta r$ is the number of galaxy pairs with separations in the range $r \pm \Delta r/2$}, and \textcolor{orange}{$RR(r) \Delta r$ is the number that would be expected if galaxies were randomly distributed in space}. Galaxies are said to be \textcolor{red}{positively correlated on scale $r$ if $\xi(r) > 0$}, to be \textcolor{red}{anticorrelated if $\xi(r) < 0$}, and to be \textcolor{red}{uncorrelated if $\xi(r) = 0$}. Since it is relatively straightforward to measure, the two-point correlation function of galaxies has been estimated from various samples. In many cases, red-shifts are used as distances and the corresponding correlation function is called the \textcolor{blue}{correlation function in redshift space}. Because of \textcolor{yellow}{peculiar velocities}, this \textcolor{yellow}{redshift-space correlation is different from that in real space}. The latter can be estimated from the projected two-point correlation function, in which galaxy pairs are defined by their separations projected onto the plane perpendicular to the line-of-sight so that it is not affected by using redshift as distance. On scales smaller than about $10 h^{-1}$ Mpc the real-space correlation function can well be described by a power law,\footnote{because of the definition of the two-point correlation function, $\xi(r)$ has to become negative on large scales. A power law can only fit the data up to a finite scale.} 
+\begin{equation}
+\xi(r) = \left( \dfrac{r}{r_0} \right)^{-\gamma} ~,
+\end{equation}
+with $\gamma \sim 1.8$ and with a correlation length $r_0 \approx 5 h^{-1}$ Mpc. This shows that galaxies are strongly clustered on scales $\lesssim 5 h^{-1}$ Mpc, and the clustering strength becomes weak on scales much larger than $\sim 10 h^{-1}$ Mpc. The exact values of $\gamma$ and $r_0$ are found to depend significantly on the properties of the galaxies. In particular the correlation length, $r_0$, defined by $\xi(r_0) = 1$, is found to depend on both galaxy luminosity and color in the sense that brighter and redder galaxies are more strongly clustered than their fainter and bluer counterparts. 
+
+One can apply exactly the same correlation function analysis to groups and clusters of galaxies. This shows that their two-point correlation functions has a logarithmic slope, $\gamma$, that is similar to that of galaxies, but a correlation length, $r_0$, which increases strongly with the richness of the systems in question, from about $5 h^{-1}$ Mpc for poor groups to about $20 h^{-1}$ Mpc for rich clusters. 
+
+Another way to describe the clustering strength of a certain population of objects is to calculate the \textcolor{red}{variance of the number counts within randomly placed spheres of given radius $r$}:
+\begin{equation}
+\sigma^2(r) \equiv \dfrac{1}{(\bar{n} V)^2} \sum_{i=1}^M (N_i -\bar{n} V)^2 ~,
+\end{equation}
+where $\bar{n}$ is the mean number density of objects, $V = 4\pi r^3/3$, and $N_i (i = 1, \cdots, M)$ are the number counts of objects in $M$ randomly placed spheres. For optically selected galaxies with a luminosity of the order of $L^\ast$ one finds that $\sigma \sim 1$ on a scale of $r=8 h^{-1}$ Mpc and decreases to $\sigma \sim 0.1$on a scale of $r = 30 h^{-1}$ Mpc. This confirms that the galaxy distribution is strongly inhomogeneous on scales of $\lesssim 8 h^{-1}$ Mpc, but starts to approach homogeneity on significantly larger scales.
+
+Since galaxies, groups and clusters all contain large amounts of matter, we expect their spatial distribution to be related to the mass distribution in the Universe to some degree. However, the fact that different objects have different clustering strengths makes one wonder if any of them are actually fair tracers of the matter distribution. The spatial distribution of luminous objects, such as galaxies, groups and clusters, depends not only on the matter distribution in the Universe, but also on how they form in the matter density field. Therefore, without a detailed understanding of galaxy formation, it is unclear which, if any, population of galaxies accurately traces the matter distribution. It is therefore very important to have independent means to probe the matter density field.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Statistical Properties}
+\cite{2010gfe..book.....M} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Gravitational Collapse of the Cosmic Density Field}
+
+\subsection{Hierarchical Clustering}
+\cite{2010gfe..book.....M} In the linear regime the density perturbations $\delta(\vec{x},t)$ grow with time as $\delta(\vec{x},t) \propto D(t)$, and so the variance $\sigma^2(r,t) \propto D^2(t)$. For a power-law spectrum $P(k) \propto k^n$, $\sigma^2(r) \propto r^{-(n+3)}$
+\begin{equation}
+\sigma^2(r,t) = \left[\dfrac{r}{r^\ast(t)} \right]^{-(n+3)} = \left[ \dfrac{M}{M^\ast(t)}  \right]^{-(n+3)/3} ~,
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Results from Numerical Simulations}
+\cite{2010gfe..book.....M} The initial density field contains perturbations over a wide range of scales, and nonlinear evolution couples structures of different scale. Ro follow the evolution of the cosmic density field in detail, one must use $N$-body simulations. The first step is to generate an initial density field with precisely the desired statistical properties. One can start with an array of Fourier modes, each characterized by its wavevector $\vec{k}$, and assign each a random amplitude $|\delta_{\vec{k}}|$ and a random phase $\varphi_{\vec{k}}$ according to the distribution function. The linear overdensity field, $\delta(\vec{x})$, can then be obtained using fast Fourier transforms (FFTs), and set up in a simulation box. Because both $|\delta_{\vec{k}}|$ and $\varphi_{\vec{k}}$ are random variables, the field $\delta(\vec{x})$ from a particular set of $(|\delta_{\vec{k}}|,\varphi_{\vec{k}})$ represents only one specific realization of the model in consideration. The perturbation fields will differ from one realization to another, but should all be equivalent in a statistical sense. Because the density field must be sampled in a finite simulation box, there are also artificial effects due to the finite number of Fourier modes that is sampled. The realization to realization variance caused by these effects of finite volume is similar to the uncertainty in inferences from observational surveys due to their finite volume and is usually referred to as \textcolor{red}{cosmic variance}.
+
+
+\section{Large-Scale Mass Distribution}
+\subsection{Correlation Functions}
+\cite{2010gfe..book.....M} The properties of the cosmic density field can be described by the moments of the distribution function $\mathscr{P}_x$;
+
+\textcolor{red}{two-point correlation function} of the density perturbation field
+\begin{equation}
+\xi(x) = \langle \delta_1 \delta_2\rangle ~,
+\end{equation}
+where $x = |\vec{x}_1 -\vec{x}_2|$ is the separation in comoving units. $\xi(x)$ depends only on the amplitude $x$ of $\vec{x}$: the density perturbation field, $\delta(\vec{x})$, is a homogeneous and isotropic random field. Writing both $\delta_1$ and $\delta_2$ in terms of their Fourier transforms, 
+\begin{equation}
+\xi(x) = \frac{1}{V_u} \sum_k P(k) e^{i\vec{k}\cdot \vec{x}} = \frac{1}{(2\pi)^3} \int P(k) e^{i\vec{k}\cdot \vec{x}} \dif^3 \vec{k} 
+\end{equation}
+where
+\begin{equation}
+P(k) = V_u \langle |\delta_{\vec{k}}|^2 \rangle
+\end{equation}
+is the \textcolor{red}{power spectrum}. The two-point correlation function and power spectrum form a Fourier transform pair. Carrying out the integration over the angle between $\vec{k}$ and $\vec{x}$, 
+\begin{equation}
+\xi(x) = \frac{1}{2\pi^2} \int_0^\infty k^3 P(k) \frac{\sin kx}{kx} \frac{\dif k}{k} = \int_0^\infty \Delta^2(k) \frac{\sin kx}{kx} \frac{\dif k}{k} ~,
+\end{equation}
+where
+\begin{equation}
+\Delta^2(k) \equiv \frac{k^3}{2\pi^2} P(k) ~.
+\end{equation}
+The definition of the power spectrum gives
+\begin{equation}
+P(k) = 4\pi \int_0^\infty \xi(x) \frac{\sin kx}{kx} x^2 {\dif x}
+\end{equation}
+The volume average of $\xi(x)$ is 
+\begin{equation}
+\bar{\xi}(x) = \frac{3}{x^3} \int_0^x \xi(x^\prime) x^{\prime 2} \dif x^\prime ~,
+\end{equation}
+which is related to the power spectrum by
+\begin{equation}
+\bar{\xi}(x) = \int_0^\infty \Delta^2(k) \left[\frac{3(\sin kx -kx \cos kx)}{(kx)^3} \right] \frac{\dif k}{k} ~.
+\end{equation}
+The window function (the term in brackets) involved here dies off faster with increasing $k$ than the term $(\sin kx/kx)$ in the expression of $\xi(x)$, so $\bar{\xi}(x)$ gives a cleaner measure of the power spectrum at $k \sim \dfrac{1}{x}$ than does $\xi(x)$.
+
+\begin{equation*}
+J_3(x) = \int_0^x \xi(x^\prime) x^{\prime 2} \dif x^\prime = \frac{1}{3} x^3 \bar{\xi}(x) ~.
+\end{equation*}
+If $P(k) \approx k^n$ as $k \rightarrow 0$, then for $n > -3$ the main contribution to the integral of $\xi(x)$ is from $k \lesssim \dfrac{1}{x}$.
+Since the window function in $\xi(x)$ is about unity for $k \lesssim \dfrac{1}{x}$,
+\begin{equation}
+\bar{\xi}(x) \simeq \int_0^{1/x} \Delta^2(k) \frac{\dif k}{k} \propto x^{-(n+2)} ~,
+\end{equation}
+and $J_3(x) \propto x^{-n}$. For $n > 0$, 
+\begin{equation*}
+\int_0^\infty \xi(x^\prime) x^{\prime 2} \dif x^\prime = 0 ~.
+\end{equation*}
+Because $\xi(0) = \langle \delta^2(\vec{x}) \rangle  > 0$, this constraint means that $\xi(x)$ must pass through zero at some large $x$.
+
+The \textcolor{red}{$l$-point correlation function} is defined as
+\begin{equation}
+\xi^{(l)}(\vec{x}_1, \vec{x}_2, \cdots, \vec{x}_l) \equiv \langle \delta_1 \delta_2 \cdots \delta_l \rangle ~.
+\end{equation}
+The connected l-point function is obtained by subtracting from $\xi^{(l)}$ all the disconnected terms arising from lower-order correlations. The connected three- and four-point correlation functions are
+\begin{eqnarray*}
+\zeta(\vec{x}_1, \vec{x}_2, \vec{x}_3) &\equiv& \langle \delta_1 \delta_2  \delta_3 \rangle -\langle \delta_1 \rangle \langle \delta_2 \delta_3 \rangle (\text{three terms}) -\langle \delta_1 \rangle  \langle \delta_2 \rangle \langle \delta_3 \rangle \\
+&=& \langle \delta_1 \delta_2  \delta_3 \rangle ~,
+\end{eqnarray*}
+\begin{eqnarray*}
+\eta(\vec{x}_1, \vec{x}_2, \vec{x}_3, \vec{x}_4) &\equiv& \langle \delta_1 \delta_2  \delta_3 \delta_4 \rangle -\langle \delta_1 \rangle \langle \delta_2 \delta_3 \delta_4\rangle (\text{four terms}) \\
+&&-\langle \delta_1 \delta_2\rangle \langle \delta_3 \delta_4\rangle (\text{three terms}) -\langle \delta_1 \rangle  \langle \delta_2 \rangle \langle \delta_3 \rangle \langle \delta_4 \rangle  \\
+&=&  \langle \delta_1 \delta_2  \delta_3 \delta_4 \rangle -\xi(x_{12}) \xi(x_{34})(\text{three terms}) ~.
+\end{eqnarray*}
+For a Gaussian random field, $\zeta = \eta = 0$, and so are all connected higher-order correlation functions. The connected high-order correlation functions can be used to test whether a density perturbation field is Gaussian.
+
+\subsection{Particle Sampling and Bias}
+\cite{2010gfe..book.....M} A continuous density field with particles is represented by dividing the space into infinitesimal cells, and sample the density field in such a way that the number of particles in a particular cell has a Poisson distribution with a mean proportional to the mean density of the cell. Suppose that the volume of each cell, $\Delta V$, is chosen so small that the probability for a cell to contain more than one particle is zero. The occupancy of an arbitrary cell $(\mathscr{N}_i)$ has the following properties:
+\begin{equation}
+\mathscr{N}_i = \mathscr{N}_i^2 = \mathscr{N}_i^3 = \cdots ~.
+\end{equation}
+To sample a given density field $\rho(\vec{x})$ by a Poisson process, just need to specify $p^{(1)}(\vec{x})$, the probability for a cell located at $\vec{x}$ to contain one particle. This probability is equal to the average of $\mathscr{N}$ at $\vec{x}$
+\begin{equation}
+p^{(1)}(\vec{x}) = \langle \mathscr{N}(\vec{x}) \rangle_{\rm P} = [1+\delta(\vec{x})] \bar{n} \Delta V ~,
+\end{equation}
+where $\bar{n} = \bar{\rho}/m$ ($m$ being the mass of a particle) is the mean number density of particles, and $\langle \cdots \rangle_{\rm P}$ is the average over the Poisson distribution.
+
+
+\section{Galaxy Clustering}
+\cite{2010gfe..book.....M} To study the spatial clustering of galaxies, one usually starts with a galaxy sample for which sky positions and redshifts are listed for all members. Such a sample typically provides a non-uniform sampling of the true galaxy distribution in redshift space (and thus a distorted image of their distribution in real space) throughout a finite volume defined by the survey boundaries.  The observational criteria which define real samples typically induce strong selection effects. For example, only the intrinsically brightest galaxies may be included at large distances whereas relatively faint systems may be included in the foreground. Such effects must be carefully taken into account when using real samples to study galaxy clustering.
+
+\subsection{Correlation Analyses}
+\cite{2010gfe..book.....M} The two-point correlation function of galaxies can be estimated from a redshift survey as
+\begin{equation}
+\xi (r) = \frac{DD(r)}{RR(r)} -1 ~,
+\end{equation}
+where $DD(r)\Delta r$ is the observed number of galaxy-galaxy pairs with separations in the range $r \pm \Delta r/2$, and $RR(r) \Delta r$ is the expected number of such pairs in a `random' (i.e. uniform, Poisson distributed) sample with the same number of objects filling the same volume and with the same selection function as the real sample. $\xi(r)$ is zero if galaxies are distributed as a uniform Poisson process; any deviation from zero indicates spatial clustering. This definition is motivated by the idea that galaxies can be treated as a \textcolor{red}{Poisson sampling of a smooth underlying density field}. 
+
+If the number density of galaxies at each spatial location is proportional to the underlying density field, then $\xi(r)$ as defined above will be the same as the two-point correlation function of the density field. Other estimators of $\xi(r)$ are possible. Three that are frequently used can be written symbolically as
+\begin{equation}
+\xi(r) = \frac{DD}{DR} -1 ~, ~\xi(r) = \frac{DD\cdot RR}{DR^2} -1 ~, ~ \xi(r) = \frac{DD-2DR. +RR}{RR} ~,
+\end{equation}
+where $DR(r)$ is the number of cross-pairs between the real and random samples. For real applications, the last two estimators are usually preferred because they are less affected by sample boundaries. It is often advantageous to construct random samples that contain many more particles than there are galaxies in the real sample. In this case, $RR$ has to be multiplied by $(N_g/N_r)^2$ and $DR$ by $N_g/N_r$, where $N_g$ and $N_r$ are the number of galaxies in the real and the random samples, respectively.
+
+Assume that the fluctuation in the number of independent pairs in a given bin of $r$ has a Poisson distribution: $\delta N_{\rm pair} = N^{1/2}_{\rm pair}$. The error in $\xi$ is
+\begin{equation}
+\delta \xi(r) = \frac{1+\xi(r)}{\sqrt{N_{\rm pair}(r)}} ~.
+\end{equation}
+However, this method significantly underestimate the true uncertainty in the data. Another class of `internal' error estimators is based on dividing the data sample into a set of $N$ similar subsamples in space. The simplest one, often referred to as the subsample method, is to use the variance among all the subsamples, under the assumption that each of them is an independent realization of the underlying distribution. The covariance matrix is 
+\begin{equation}
+C(\xi_i, \xi_j) = \frac{1}{N} \sum_{k=1}^N (\xi_i^k -\bar{\xi}_i) (\xi_j^k -\bar{\xi}_j) ~,
+\end{equation}
+where $\xi_i^k$ denotes the measurement of $\xi$ at separation $r_i$ from the $k$th subsample, and $\bar{\xi}$ is the expectation value estimated independently from the $N$ subsamples. The problem with this method is that in real applications the subsamples, each with a volume much smaller than the total sample, may not be mutually independent because of the existence of long-range modes in the density fluctuations. Two other commonly used estimators in this class are the bootstrap method and jackknife method. In the bootstrap method, one forms a set of $N_{\rm rs}$ resamplings of the original sample, each containing $N$ galaxies (including duplicates) randomly picked from the original $N$ galaxies with replacement (i.e. a galaxy is retained in the stack even if it has already been picked). Thus, although each resample consists of the same number of galaxies as the original sample, it will include some of the galaxies more than once, while others may not be included at all. The covariance matrix is estimated from
+\begin{equation}
+C(\xi_i, \xi_j) = \frac{1}{N_{\rm rs}} \sum_{k=1}^{N_{\rm rs}} (\xi_i^k -\bar{\xi}_i) (\xi_j^k -\bar{\xi}_j) ~,
+\end{equation}
+where $\bar{\xi}$ is the mean obtained from the $N_{\rm rs}$ resamplings. In practice for large samples, one chooses $N_{\rm rs} \ll  N$ but still large enough to provide a good measurement of the covariance matrix. In the jackknife method, one forms a set of $N$ `copies' of the original sample, each time leaving out one of the $N$ galaxies. The covariance matrix is then estimated from
+\begin{equation}
+C(\xi_i, \xi_j) = \frac{N-1}{N} \sum_{k=1}^{N} (\xi_i^k -\bar{\xi}_i) (\xi_j^k -\bar{\xi}_j) ~,
+\end{equation}
+where $\xi_i^k$ is the measurement of $\xi$ at separation $r_i$ in the $k$th `copy' and $\xi$ is the mean of the $N$ copies. For large samples the jackknife approach as outlined above is impractical, since excluding a single galaxy has almost no effect. An alternative is to divide the full sample into $N_{\rm rs}$ disjoint subsamples, each containing $N/N_{\rm rs}$ galaxies. One can then proceed as before, estimating a correlation function for $N_{\rm rs}$ jackknife ‘copies’ of the original sample obtained by leaving out one subsample at a time.
+
+
+To take care of redshift distortions, first estimate the two-dimensional function $\xi(r_\pi,r_p)$, and then obtain the real-space correlation function from the projected function $w(r_p)$. For optically selected galaxies with $L \sim L^\ast$, the observed correlation function at $r \lesssim 20 h^{-1}$ Mpc can be approximated by a power law,
+\begin{equation}
+\xi(r) = \left(\frac{r}{r_0} \right)^{-\gamma} ~, {\rm with} ~r_0 \approx 5 h^{-1} {\rm Mpc ~and}~ \gamma \approx 1.7
+\end{equation}
+This indicates that the galaxy distribution becomes highly nonlinear on scales $\lesssim 5 h^{-1}$ Mpc. Bright, red galaxies are more strongly clustered than faint, blue ones.
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Power Spectrum Analysis}
+\cite{2010gfe..book.....M} Although the power spectrum is just the Fourier transform of the two-point correlation function, it is more advantageous to work with the power spectrum than with the two-point correlation function when studying galaxy clustering on large scales. The reason for this is that on large scales, where the density field is still in the linear regime, different Fourier modes evolve independently while the amplitude of the two-point correlation function is affected by many different modes. Consequently, power-spectrum amplitudes on large scales are less affected by small-scale structure than correlation function estimates, making observational results much easier to interpret.
+
+Given a galaxy sample, it is straightforward to measure the power spectrum. Suppose that the volume of the sample is $V_s$, which is described by a window function $W(\vec{x})$ such that $W(\vec{x})$ is equal to $1$ if $x \in V_s$ and to $0$ otherwise. Suppose that this volume is contained in a large box $V_u$ on which the Universe is assumed to be periodic. We divide $V_u$ into small cells of volume $\Delta V$ so that the galaxy occupation number in each cell, $\mathscr N_i$, is either $1$ or $0$. The observed galaxy density field can then be written as
+\begin{equation}
+n_o(\vec{x}) = \sum_j \mathscr N_j \delta^{\rm D} (\vec{x} -\vec{x}_j) W_j ~,
+\end{equation}
+where $W_j = W(\vec{x}_j)$ and $\delta^{\rm D}(\vec{x})$ is the Dirac delta function. For a magnitude-limited sample, this density must be multiplied by the reciprocal of the selection function to correct for selection effects. The corrected density field is
+\begin{equation}
+n_c(\vec{x}) = A \sum_j \mathscr N_j S_j^{-1} \delta^{\rm D} (\vec{x} -\vec{x}_j) W_j ~,
+\end{equation}
+where $S_j = S(\vec{x}_j)$, and the prefactor $A = \overline{n}V_s/\sum_j \mathscr N_j S_j^{-1} W_j$ is included so that $\int n_c(\vec{x}) \dif^3 \vec{x} =  \overline{n}V_s$, with $\overline{n}$ the mean number density of galaxies. Note that $A$ is equal to $1$ for the top-hat window considered here and is included in the equation to encompass other possible choices. 
+\begin{equation}
+\tilde{n}_c(\vec{k}) = \dfrac{A}{V_u} \sum_j \mathscr N_j S_j^{-1}  W_j {\rm e}^{-i \vec{k} \cdot \vec{x}_j} ~.
+\end{equation}
+The average of this is
+\begin{equation}
+\langle \tilde{n}_c(\vec{k}) \rangle = \overline{n} \tilde{W}(\vec{k}) ~, ~~ \text{where} ~~ \tilde{W}(\vec{k}) = \dfrac{A}{V_u} \int W(\vec{x}) {\rm e}^{-i\vec{k} \cdot \vec{x}} \dif^3 \vec{x} ~,
+\end{equation}
+is the Fourier transform of the window function. $\langle \mathscr N_j \rangle/S_j = \overline{n} \Delta V$. Using $\mathscr N_i^2 = \mathscr N_i$ and $\langle \mathscr N_i \mathscr N_j \rangle = \overline{n}^2 S_i S_j [1+\xi(\vec{x}_i -\vec{x}_j)]$, 
+\begin{align}
+\nonumber \langle \tilde{n}_c(\vec{k}) \tilde{n}_c^\ast (\vec{k}) \rangle &= \dfrac{A^2}{V_u^2} \sum_{i,j} \langle \mathscr N_i \mathscr N_j \rangle S_i^{-1} S_j^{-1} W_i W_j {\rm e}^{i \vec{k}\cdot (\vec{x} -\vec{x}_j)} \\
+&= \dfrac{A^2}{V_u^2}  \sum_{j} \mathscr N_i (W_j /S_j)^2 +\overline{n}^2 |\tilde{W}(\vec{k})|^2 + \dfrac{\overline{n}^2}{V_u} \sum_{\vec{k}^\prime} |\tilde{W}(\vec{k}^\prime)|^2 P(\vec{k} -\vec{k}^\prime) ~,
+\end{align}
+where $P(k) = \int \xi(\vec{x}) {\rm e}^{-i\vec{k}\cdot \vec{x}} \dif^3 \vec{x}$ is the power spectrum of the galaxy density field. If the survey volume is large in comparison to the wavelengths in consideration, $\tilde{W}(\vec{k}^\prime)$ is sharply peaked at $\vec{k}^\prime = 0$, and we can replace $P(\vec{k} -\vec{k}^\prime)$ by $P(\vec{k})$ in the above equation and pull it out of the summation. 
+\begin{align}
+P(\vec{k}) &\approx \dfrac{V_u^2 \langle |\tilde{n}_c(\vec{k}) - \langle\tilde{n}_c(\vec{k}) \rangle|^2 \rangle -N_{\rm eff}}{\overline{n}^2 V_u \sum_{\vec{k}^\prime} |\tilde{W}(\vec{k}^\prime)|^2} ~, \\
+N_{\rm eff} &\equiv \dfrac{(\overline{n} V_s)^2  \sum_j \mathscr N_j (W_j S^{-1}_j)^2 }{(\sum_j \mathscr N_j W_j S^{-1}_j)^2} ~.
+\end{align}
+The summations over $j$ in $N_{\rm eff}$ can be replaced by those over all the galaxies in the sample with $\mathscr N_j$ set to $1$. In a volume-limited sample, $S_i = 1$ and so $N_{\rm eff} =\overline{n}V_s$ . It shows that the true power spectrum is equal to the power spectrum of the corrected number density field, $n_c(\vec{x})$, with a subtraction of the shot noise, $N_{\rm eff}$, and a deconvolution with the window function. The final power spectrum is usually binned in shells in $k$-space:
+\begin{equation}
+P(k) = \dfrac{1}{V_k} \int_{V_k} P(\vec{k}^\prime) \dif^3 \vec{k}^\prime ~,
+\end{equation}
+where $V_k$ is the volume of the shell in $\vec{k}$-space.
+
+Since the derivation is independent of the assumption that $W(\vec{x})$ is a top-hat, it is valid for any form of $W(\vec{x})$. As for the correlation functions, assign different weights to different regions to reduce the variance in the estimate. This can be done by using a window function that is inhomogeneous in space.
+
+\subsection{Angular Correlation Function and Power Spectrum}
+\cite{2010gfe..book.....M} For a two-dimensional sample, estimate the angular correlation function of galaxies, $w(\vartheta)$, from the definition:
+\begin{equation}
+\langle \nu(\hat{\vec{r}}_1) \nu(\hat{\vec{r}}_2) \rangle \dif \omega_1 \dif \omega_2 = \overline{\nu}^2 [1+w(\vartheta)]  \dif \omega_1 \dif \omega_2 ~,
+\end{equation}
+where $\nu(\hat{\vec{r}}) \dif \omega$ is the number of galaxies within a solid angle $ \dif \omega$ in the direction $\hat{\vec{r}}$, and $\overline{\nu}$ is the mean surface density. Suppose that the volume density of galaxies (assumed to be in comoving units) at redshift $z$ and in the direction $\hat{\vec{r}}$ is $n(\hat{\vec{r}},z)$. The surface density, which is the projection of the three-dimensional distribution on the sky, can be written as
+\begin{equation}
+\nu(\hat{\vec{r}})  = \int_0^\infty n(\hat{\vec{r}},z) S(z) \dfrac{\dif^2 V}{\dif z \dif \omega} \dif z ~,
+\end{equation}
+where $S(z)$ is the selection function of the survey, and $\dif^2 V$ is the comoving volume element corresponding to $\dif z$ and $\dif \omega$ at redshift $z$.
+\begin{align}
+\overline{\nu} &= \int_0^\infty \overline{n}(z) S(z) \dfrac{\dif^2 V}{\dif z \dif \omega} \dif z ~, \\
+w(\vartheta) &= \dfrac{\overline{n}^2}{\overline{\nu}^2} \int_0^\infty \overline{n}(z_1) S(z_1) \overline{n}(z_2)S(z_2) \xi(r_{12}, z) \dfrac{\dif^2 V_1}{\dif z_1 \dif \omega_1}  \dfrac{\dif^2 V_2}{\dif z_2 \dif \omega_2} \dif z_1 \dif z_2 ~,
+\end{align}
+where $\xi(r_{12}, z)$ is the spatial correlation function at redshift $z \equiv (z_1 + z_2 )/2$, $r_{12}$ is the separation between $(\hat{\vec{r}}_1,z_1)$ and $(\hat{\vec{r}}_2,z_2)$, and $\cos \vartheta = \hat{\vec{r}}_1 \cdot \hat{\vec{r}}_2$. This is a general relation between the angular and spatial correlation functions, taking into account possible evolutions in $\overline{n}$ and $\xi$ with redshift, as well as cosmological effects. If the survey is not very deep, so that the evolutionary and cosmological effects are all negligible, 
+\begin{align}
+\overline{\nu} &= \int_0^\infty S(r) r^2 \dif r ~, \\
+w(\vartheta) &= \dfrac{1}{\overline{\nu}^2} \int_0^\infty S(r_1) S(r_2) \xi(r_{12}) r_1^2 r_2^2  \dif r_1 \dif r_2 ~, 
+\end{align}
+where $r_{12}^2 = r_1^2 + r_2^2 − 2r_1 r_2 \cos \vartheta$. In the small-angle limit where $\vartheta$ is small and the mean distance of the pair, $x \equiv (r_1 +r_2)/2$, is much larger than the value of $y \equiv r_1 -r_2$, $r_{12}^2 \approx y^2 +x^2 \vartheta^2$ and 
+\begin{equation}
+w(\vartheta) = \int_0^\infty x^4 S^2(x) \dif x \int_{-\infty}^\infty \dif y \xi \left[(y^2 +x^2 \vartheta^2)^{1/2} \right] \Bigg/ \left[\int_0^\infty S(x) x^2 \dif x \right]^2 ~.
+\end{equation}
+If $\xi(r)$ is a power law,
+\begin{equation}
+\xi(r) = A/r^\gamma ~,
+\end{equation}
+the angular correlation function is also a power law,
+\begin{equation}
+w(\vartheta) = B/\vartheta^{\gamma -1} ~,
+\end{equation}
+with the amplitude $B$ related to $A$ by
+\begin{equation}
+B = A \sqrt{\pi} \dfrac{\Gamma[(\gamma-1)/2]}{\Gamma(\gamma/2)} \int_0^\infty x^{5-\gamma} S^2(x) \dif x \Bigg/ \left[\int_0^\infty S(x) x^2 \dif x \right]^2 ~.
+\end{equation}
+For given $\gamma$ and $A$, the amplitude of the angular correlation function depends only on the shape of the selection function. For a magnitude-limited sample, the selection function can be written as $S(x) = f(x/d^\ast)$, where $d^\ast \approx 10^{0.2 m_{\rm lim}}$ (with $m_{\rm lim}$ the magnitude limit) is the characteristic depth of the sample, and $f$ is a universal function (under the assumption that cosmological effects and $K$ corrections are small). This form of $S(x)$ implies that for a given $\xi(r)$ the angular correlation function scales with the sample depth as
+\begin{equation}
+w(\vartheta, d^\ast) = \mathscr W(\vartheta d^\ast)/d^\ast ~,
+\end{equation}
+where $\mathscr W$ is a scaling function.
+
+The power spectrum can also be estimated for a two-dimensional sky survey of galaxies. Dividing the sky into small cells, $j = 1, 2, \cdots$, so that the galaxy occupation number $\mathscr N_j$ is either $1$ or $0$, we can write the observed surface density field as
+\begin{equation}
+\nu_o(\hat{\vec{r}}) = \sum_j \mathscr N_j \delta^{(2)} (\hat{\vec{r}} -\hat{\vec{r}}_j) W_j ~,
+\end{equation}
+where $W_j \equiv W(\hat{\vec{r}}_j)$ and $W(\hat{\vec{r}})$ is a window function specifying the sky coverage of the survey. Expanding $\nu_o(\hat{\vec{r}})$ in spherical harmonics,
+\begin{equation}
+\nu_o(\hat{\vec{r}}) = \sum_{\ell m} a_{\ell m} Y_{\ell m}(\hat{\vec{r}}) ~,
+\end{equation}
+where $Y_{\ell m}(\hat{\vec{r}})$ is the spherical harmonic function calculated at the direction $\hat{\vec{r}} = (\vartheta, \varphi)$, 
+\begin{equation}
+a_{\ell m} = \sum_j \mathscr N_j W_j Y^\ast_{\ell m}(\hat{\vec{r}}_j) ~.
+\end{equation}
+The angular power spectrum is
+\begin{equation}
+C_\ell \approx \dfrac{\langle |a_{\ell m} -\langle a_{\ell m} \rangle|^2\rangle}{\overline{\nu}^2 \langle J_{\ell m} \rangle} - \dfrac{1}{\overline{\nu}} ~,
+\end{equation}
+where
+\begin{align}
+\nonumber \langle a_{\ell m} \rangle &= \int W( \vartheta, \varphi) Y_{\ell m}( \vartheta, \varphi) \dif \omega ~, \\
+\nonumber \langle J_{\ell m} \rangle &= \int W( \vartheta, \varphi) |Y_{\ell m}( \vartheta, \varphi)|^2 \dif \omega ~,
+\end{align}
+and the approximation assumes that the size of the window is much larger than the angular scale corresponding to mode $\ell$. The angular power spectrum $C_\ell$ is related to the angular correlation function by
+\begin{equation}
+w( \vartheta) = \dfrac{1}{4\pi} \sum_{\ell} (2\ell +1) C_\ell \mathscr P_\ell(\cos  \vartheta) ~,
+\end{equation}
+where $P_\ell$ is the Legendre function. Using the relation between the angular and spatial correlation functions, one can relate $C_\ell$ to the spatial power spectrum $P(k)$:
+\begin{equation}
+C_\ell = \dfrac{2}{\pi (2\ell +1)} \int \dif k k^2 P(k) \left[\int S(r) j_\ell(kr) r^2 \dif r \right]^2 \Bigg/ \left[\int S(r) r^2 \dif r  \right]^2
+\end{equation}
+where $j_\ell$ is the spherical Bessel function.
+
+
+
+
+
+
+
+
+
+
+\cite{2003moco.book.....D} The simplest statistic is the two-point function: in real space it is \textcolor{red}{$w(\theta)$} the \textcolor{red}{angular correlation function}. In Fourier space, the relevant function is the Fourier transform of $w$, \textcolor{red}{$P_2(l)$}, the \textcolor{red}{two-dimensional power spectrum}. 
+
+A given galaxy is at comoving distance $\chi(z)$ away from us. The $z$-axis is typically chosen so that it points to the center of the distribution of galaxies. In the plane perpendicular to this axis, \textcolor{blue}{a galaxy's position is determined by the two-dimensional vector $\vec{\theta} = (\theta_1, \theta_2)$}. Therefore, the \textcolor{blue}{three-dimensional position vector $\vec{x}$} has components 
+\begin{equation}
+\vec{x}(\chi(z), \vec{\theta}) = \chi(z)(\theta_1, \theta_2, l) ~.
+\end{equation}
+The assumption that all galaxies are located near the $z$-axis clearly breaks down if the survey measures structure on very large angular scales.
+
+We \textcolor{blue}{measure all galaxies along the line of sight}, effectively \textcolor{blue}{integrating over $\chi(z)$}. Therefore an \textcolor{blue}{overdensity at angular position $\vec{\theta}$} is 
+\begin{equation}
+\delta_2(\vec{\theta}) = \int_0^{\chi_{\infty}} \dif \chi W(\chi) \delta(\vec{x}(\chi, \vec{\theta})) ~,
+\end{equation}
+where the subscript $2$ denotes the fact that $\delta$ on the left is the \textcolor{blue}{angular} - or \textcolor{blue}{two-dimensional} - \textcolor{blue}{overdensity}, while $\delta$ on the right is the full \textcolor{blue}{three-dimensional overdensity}. The upper limit on the $\chi$ integral corresponds to $z \rightarrow \infty$, equal to $\chi_\infty = 2/H_0$ in a fiat, matter-dominated universe. The \textcolor{red}{selection function $W(\chi)$} encodes the information: it is the \textcolor{blue}{probability of observing a galaxy a comoving distance $\chi$ from us}. Galaxies at large distances are too faint to be included in a survey, whereas there are relatively few galaxies at very low redshift simply because the volume is small. Since it is a probability, the selection function is normalized so that $ \int_0^{\chi_{\infty}} \dif \chi W(\chi) = 1$.
+
+The $2$D vector conjugate to $\vec{\theta}$ will be $\vec{l}$, so that the Fourier transform of $\delta_2(\vec{\theta})$ is
+\begin{equation}
+\tilde{\delta}_2(\vec{l}) = \int \dif^2 \theta {\rm e}^{-i\vec{l}\cdot \vec{\theta}} \delta_2(\vec{\theta}) ~.
+\end{equation}
+The \textcolor{orange}{two-dimensional power spectrum} is defined as
+ \begin{equation}
+\langle \tilde{\delta}_2(\vec{l}) \tilde{\delta}_2^\ast(\vec{l}^\prime) \rangle = (2\pi)^2 \delta^2(\vec{l} -\vec{l}^\prime) P_2(l) ~,
+\end{equation}
+The $2$D power spectrum is
+\begin{align}
+\nonumber P_2(l) &= \dfrac{1}{(2\pi)^2} \int \dif^2 l^\prime \langle \delta_2(\vec{l}) \delta_2^\ast(\vec{l}^\prime) \rangle ~, \\
+\nonumber &= \dfrac{1}{(2\pi)^2} \int \dif^2 l^\prime \int \dif^2 \theta \int \dif^2 \theta^\prime {\rm e}^{-i\vec{l}\cdot \vec{\theta}} {\rm e}^{-i\vec{l}^\prime \cdot \vec{\theta}^\prime } \int_0^{\chi_{\infty}} \dif \chi W(\chi) \int_0^{\chi_{\infty}} \dif \chi^\prime W(\chi^\prime) \\
+\nonumber & \langle \delta(\vec{x}(\chi, \vec{\theta})) \delta(\vec{x}^\prime(\chi^\prime, \vec{\theta}^\prime)) \rangle  ~.
+\end{align}
+The integral over $\vec{l}^\prime$ gives $(2\pi)^2$ times a Dirac delta function in $\vec{\theta}^\prime$ and the brackets give the $3$D correlation function, 
+\begin{equation}
+\xi(\vec{x} - \vec{x}^\prime) \equiv \langle \delta(\vec{x}) \delta(\vec{x}^\prime) \rangle = \int \dfrac{\dif^3 k}{(2\pi)^2} P(k) {\rm e}^{i\vec{k} \cdot (\vec{x} -\vec{x}^\prime)} ~.
+\end{equation}
+The average here $\langle \cdots \rangle$ is over all realizations of the density field. At very small distance, we expect galaxies to be clustered strongly as a result of gravity, so $\xi$ is positive. As the distance gets larger, correlations die off and $\xi$ gets smaller and eventually goes negative. The second line follows since the correlation function is the Fourier transform of the power spectrum. 
+
+\begin{align}
+P_2(l) &=  \int \dif^2 \theta {\rm e}^{-i\vec{l}\cdot \vec{\theta}} \int_0^{\chi_{\infty}} \dif \chi W(\chi) \int_0^{\chi_{\infty}} \dif \chi^\prime W(\chi^\prime)  \int \dfrac{\dif^3 k}{(2\pi)^3} P(k) {\rm e}^{i\vec{k} \cdot [\vec{x}(\chi, \vec{\theta}) -\vec{x}(\chi^\prime, 0)]} ~, \\
+&= \int_0^{\chi_{\infty}} \dif \chi W(\chi) \int_0^{\chi_{\infty}} \dif \chi^\prime W(\chi^\prime) \int_{-\infty}^\infty \dfrac{\dif k_3}{2\pi} P \left(\sqrt{k_3^2 +l^2/\chi^2} \right) {\rm e}^{ik_3 [\chi -\chi^\prime]} ~.
+\end{align}
+The argument of the exponential is $i[k_1 \chi \theta_1 +k_2 \chi \theta_2 +k_3(\chi -\chi^\prime)]$,  so the integral over angles $ \vec{\theta}$ gives Dirac delta functions setting $l_1 =\chi k_1$ and $l_2 = \chi k_2$.
+
+The only $3$D Fourier modes that contribute to the integral are those with $k_3$ very small, much smaller than $l/\chi$. We first need to estimate $l$, the variable conjugate to $\theta$. Roughly, $l^{-1}$ is of order the angular scales probed by the survey. Since we are working in the small angle approximation, $l/\chi \sim 1/(\chi \theta) \gg 1/\chi$. 
+ 
+
+The modes with longitudinal wavenumber $k_3$ much greater than $\chi^{-1}$ do not give rise to angular correlations because of cancellations along the line of sight. Only modes with $k_3$ smaller than $\chi^{-1}$ lead to angular correlations. Therefore, the 
+relevant transverse wavenumbers $l/\chi$ are much larger than the relevant longitudinal wavenumbers, and the argument of the $3$D power spectrum can be set to $l/\chi$. With this approximation, the $k_3$ integral gives a Dirac delta function in $\chi - \chi^\prime$ so
+\begin{equation}
+P_2(l) = \int_0^{\chi_{\infty}} \dif \chi \dfrac{W^2(\chi)}{\chi^2} P(l/\chi) ~.
+\end{equation}
+This is an expression for the $2$D power spectrum as an integral over the line of sight. Change dummy variables from $\chi \rightarrow k \equiv l/\chi$ to rewrite the integral as 
+\begin{equation}
+P_2(l) = \dfrac{1}{l} \int_0^\infty \dif k P(k) W^2(l/k) ~.
+\end{equation}
+The angular correlation function is the Fourier transform of the $2$D power spectrum, 
+\begin{equation}
+w(\theta) = \int \dfrac{\dif^2 l}{(2\pi)^2} {\rm e}^{i\vec{l}\cdot \vec{\theta}} P_2(l) ~.
+\end{equation}
+Since $P_2$ depends only on the magnitude of $\vec{l}$, the angular part of the integration over $l$ is $\int_0^{2\pi} \dif \phi {\rm e}^{il\theta \cos \phi}$, which is proportional to $J_0(l\theta)$, the Bessel function of order zero.
+\begin{equation}
+w(\theta) = \int_0^\infty \dfrac{\dif l}{2\pi} l P_2(l) J_0(l \theta) = \int_0^\infty \dif k k P(k) F(k, \theta) ~,
+\end{equation}
+where the second line follows from changing the order of integration. Here the kernel for the angular correlation function is 
+\begin{equation}
+F(k, \theta) \equiv \dfrac{1}{k} \int_0^\infty \dfrac{\dif l}{(2\pi)} J_0(l\theta) W^2(l/k) ~.
+\end{equation}
+The kernel is a function of $k \theta$. The kernel is constant at small $k \theta$ and then begins damped oscillations. The contribution from small $k$ though is suppressed because the integral is over the kernel weighted by $kP(k)$, and the latter goes to zero as 
+$k \rightarrow 0$. The modes that contribute most to $w(\theta)$ are typically those with wavenumbers of order the first turnover in the kernel, $k \theta \sim 0.2 h$ Mpc$^{-1}$ degrees for APM and a factor of $3$ smaller for the deeper Sloan Digital Sky Survey (SDSS). This means that the angular correlation function at $5^\circ$ in APM is most sensitive to power at $k = 0.04 h$ Mpc$^{-1}$. The wavenumbers contributing to $w(\theta)$ in a deeper angular survey are smaller. This makes sense: the same angle probes larger physical scales in a deeper survey. 
+
+ 
+
+
+
+ 
+
+
+
+\cite{2008cosm.book.....W}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

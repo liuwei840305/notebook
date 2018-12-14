@@ -1,0 +1,487 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{the Laws of Electrodynamics}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2001imhd.book.....D} For stationary conductors, the \textcolor{red}{Ohm's law} takes
+\begin{equation*}
+\vec{J} =  \sigma \vec{E} ~,
+\end{equation*}
+where $\vec{E}$ is the electric field and $\vec{J}$ the current density. $\vec{J}$ is proportional to the Coulomb force $\vec{f} = q \vec{E}$ which acts on the free charge carriers, $q$ being their charge. If the conductor is moving in a magnetic field with velocity $\vec{u}$, the free charges will experience an additional force, $q \vec{u} \times \vec{B}$, and Ohm's law becomes
+\begin{equation*}
+\color{red} \vec{J} =  \sigma (\vec{E} + \vec{u} \times \vec{B}) = \sigma \vec{E}_r ~,
+\end{equation*}
+The quantity  
+\begin{equation}
+\vec{E}_r = \vec{E} + \vec{u} \times \vec{B} ~, 
+\end{equation}
+is the total electromagnetic force per unit charge, or called the effective electric field $\vec{E}_r = \dfrac{\vec{f} }{q}$ measured in a frame of reference moving with velocity $\vec{u}$ relative to the laboratory frame. 
+
+Faraday's law states that the e.m.f. is generated in a conductor as a result of: (i) a time-dependent magnetic field; or (ii) the motion of a conductor within a magnetic field. In either case Faraday's law may be written as
+\begin{equation*}
+\text{emf} = \oint\limits_C \vec{E}_r \cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int\limits_S  \vec{B} \cdot \dif \vec{S} ~,
+\end{equation*}
+where $C$ is a closed curve composed of line elements $\dif \vec{l}$. The curve may be fixed in space, or else move with the conducting medium (if the medium does indeed move). $S$ is any surface which spans $C$. $\vec{E}_r$ indicates that the 'effective' electric field for each line element $\dif l$ must be used:
+\begin{equation}
+\vec{E}_r = \vec{E} + \vec{u} \times \vec{B} ~, 
+\end{equation}
+where $\vec{E}, \vec{u}$ and $\vec{B}$ are measured in the laboratory frame and $\vec{u}$ is the velocity of the line element $\dif \vec{l}$.
+
+If $C$ is a closed curve drawn in space, and $S$ is any surface spanning that curve, Amp\`ere's circuital law states that
+\begin{equation}
+\oint\limits_C \vec{B} \cdot \dif \vec{l} = \mu \int\limits_S \vec{J} \cdot \dif \vec{S} 
+\end{equation}
+
+the Lorentz force per unit volume of the conductor is given by
+\begin{equation}
+\vec{F} = \vec{J} \times \vec{B}
+\end{equation}
+
+
+\section{The Electric Field and the Lorentz Force}
+A particle moving with velocity $\vec{u}$ and carrying a charge $q$ is subject to three electromagnetic forces:
+\begin{equation}
+\vec{f} = q\vec{E}_s +q\vec{E}_i +q\vec{u}\times \vec{B} ~.
+\end{equation}
+The first is the electrostatic force, or Coulomb force, which arises from the mutual repulsion or attraction of electric charges ($\vec{E}_s$ is the electrostatic field). The second is the force which the charge experiences in the presence of a time-varying magnetic field, $\vec{E}_i$ being the electric field induced by the changing magnetic field. The third contribution is the Lorentz force which arises from the motion of the charge in a magnetic field. The Coulomb's law means $\vec{E}_s$ is irrotational, and Gauss's law fixes the divergence of $\vec{E}_s$,
+\begin{align}
+& \nabla \cdot \vec{E}_s = \frac{\rho_e}{\epsilon_0} ~, \\
+& \nabla \times \vec{E}_s = 0
+\end{align}
+where $\rho_e$ is the total charge density (free charges plus bound charges) and $\epsilon_0$ is the permittivity of free space. Introduce the \textcolor{red}{electrostatic potential, $V$}, defined by $\vec{E}_s = -\nabla V$.
+\begin{equation*}
+\nabla^2 V = -\frac{\rho_e}{\epsilon_0}
+\end{equation*}
+The induced electric field has zero divergence, while its curl is finite and governed by Faraday's law,
+\begin{align}
+& \nabla \cdot \vec{E}_i = 0 ~, \\
+& \nabla \times \vec{E}_i = -\frac{\partial \vec{B}}{\partial t}
+\end{align}
+Define the total electric field as $\vec{E} =  \vec{E}_s +  \vec{E}_i$,
+\begin{align}
+& \nabla \cdot \vec{E} = \frac{\rho_e}{\epsilon_0} ~, \\
+& \nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t} ~, \\
+& \vec{f} = q(\vec{E} +\vec{u}\times \vec{B} )
+\end{align}
+
+
+\section{Ohm's Law and the Volumetric Lorentz Force}
+In a stationary conductor, the current density, $\vec{J}$, is proportional to the force experienced by the free charges. The Ohm's law is $\vec{J} = \sigma \vec{E}$. In a conducting fluid, the electric field must be measured in a frame moving with the local velocity of the conductor
+\begin{equation}
+\vec{J} = \sigma \vec{E}_r = \sigma (\vec{E} +\vec{u}\times \vec{B})
+\end{equation}
+where $\vec{u}$ varies with position generally. The volumetric Lorentz force is
+\begin{equation}
+\vec{F} = \rho_e \vec{E} +\vec{J} \times \vec{B} ~,
+\end{equation}
+where $\vec{F}$ is the force per unit volume acting on the conductor. In conductors travelling at the sort of speeds we are interested in (much less than the speed of light), the first term is negligible. Conservation of charge is
+\begin{align*}
+& \dfrac{\partial \rho_e}{\partial t} +\nabla \cdot \vec{J} = 0 ~, \\
+& \dfrac{\partial \rho_e}{\partial t} +\sigma \nabla \cdot  (\vec{E} +\vec{u}\times \vec{B}) = 0 ~, \\
+& \dfrac{\partial \rho_e}{\partial t} +\sigma \dfrac{\rho_e}{\varepsilon_0} + \sigma \nabla \cdot (\vec{u}\times \vec{B}) = 0 ~, \\
+& \dfrac{\partial \rho_e}{\partial t} +\dfrac{\rho_e}{\tau_e} + \sigma \nabla \cdot (\vec{u}\times \vec{B}) = 0 ~, 
+\end{align*}
+where $\tau_e = \dfrac{\varepsilon_0}{\sigma}$ is called the \textcolor{orange}{charge relaxation time}, and for a typical conductor has a value of around $10^{-18}$ s. Consider $\vec{u} = 0$,
+\begin{align*}
+& \dfrac{\partial \rho_e}{\partial t} +\dfrac{\rho_e}{\tau_e} = 0 ~, \\
+& \rho_e = \rho_e(0) \exp \left[-\frac{t}{\tau_e} \right]
+\end{align*}
+Any net charge density which, at $t = 0$, lies in the interior of a conductor will move rapidly to the surface under the action of the electrostatic repulsion forces. $\rho_e$ is always zero in stationary conductors, except during some minuscule period when a battery, say, is turned on. Consider $\vec{u}$ is non-zero, and time-scale of events is much longer than $\tau_e$ (exclude events like batteries being turned on). $\partial \rho_e/\partial t$ may be neglected compared with $\rho_e/\tau_e$. Then the pseudo-static equation is obtained, i.e.
+\begin{equation}
+\rho_e = -\varepsilon_0 \nabla \cdot (\vec{u}\times \vec{B}) ~.
+\label{pseudo_static}
+\end{equation}
+when there is motion, a finite charge density can be sustained in the interior of the conductor. However, $\rho_e$ is very small, i.e. too low to produce any significant electric force, $\rho_e \vec{E}$. From Eq. (\ref{pseudo_static}), $\rho_e \sim \varepsilon_0 u B /l$, while Ohm's law requires $\vec{E} \sim \vec{J}/\sigma$,
+\begin{equation*}
+\rho_e \vec{E} \sim [\varepsilon_0 u B /l ] [J/\sigma] \sim \frac{u\tau_e}{l} J B ~,
+\end{equation*}
+where $l$ is a typical length-scale for the flow.  Since $u\tau_e/l \sim 10^{-18}$, 
+\begin{equation}
+\vec{F} = \vec{J} \times \vec{B} ~,
+\end{equation}
+Eq. (\ref{pseudo_static}) is equivalent to ignoring $\partial \rho_e/\partial t$  in the charge conservation equation, i.e.
+\begin{equation}
+\nabla \cdot \vec{J} = 0 ~.
+\end{equation}
+
+\section{Amp\`ere's Law}
+The Amp\`ere-Maxwell equation states the magnetic field can be generated by a given distribution of current,
+\begin{equation}
+\nabla \times \vec{B} = \mu \left[\vec{J} +\varepsilon_0 \frac{\partial \vec{E}}{\partial t} \right] ~.
+\end{equation}
+The last term is called the \textcolor{red}{displacement current}. Since $\dfrac{\partial \rho_e}{\partial t}$ is negligible in conductors, the contribution of $\epsilon_0 \dfrac{\partial \vec{E}}{\partial t}$ is also small in MHD.
+\begin{equation*}
+\varepsilon_0 \dfrac{\partial \vec{E}}{\partial t} \sim \dfrac{\varepsilon_0}{\sigma} \dfrac{\partial \vec{J}}{\partial t} \sim \tau_e \dfrac{\partial \vec{J}}{\partial t} \ll \vec{J} ~.
+\end{equation*}
+Thus use the differential form of Amp\`ere's law in MHD
+\begin{align}
+& \nabla \times \vec{B} = \mu \vec{J} \label{ampere_law} \\
+& \nabla \cdot \vec{J} = 0
+\end{align}
+In infinite domains, Eq. (\ref{ampere_law}) may be inverted using the \textcolor{red}{Biot-Savart law},
+\begin{equation}
+\vec{B}(\vec{x}) = \frac{\mu}{4\pi} \int \dfrac{\vec{J}(\vec{x}^\prime) \times \vec{r}}{r^3} \dif^3 \vec{x}^\prime ~, ~~ \vec{r} = \vec{x} - \vec{x}^\prime
+\end{equation}
+A small element of material located at $\vec{x}^\prime$ and carrying a current density of $\vec{J}(\vec{x}^\prime)$ induces a magnetic field at point $\vec{x}$
+\begin{equation*}
+\dif \vec{B}(\vec{x}) =  \frac{\mu}{4\pi} \dfrac{\vec{J}(\vec{x}^\prime) \times \vec{r}}{r^3} \dif^3 \vec{x}^\prime
+\end{equation*}
+
+\subsection{Force-free fields}
+Magnetic fields of the form $\nabla \times \vec{B} = \alpha \vec{B}, \alpha$ = constant, are known as \textcolor{red}{force-free fields}, since $\vec{J} \times \vec{B} = 0$. (More generally, fields of the form $\nabla \times  \vec{G} = \alpha \vec{G}$ are known as  \textcolor{blue}{Beltrami fields}.) They are important in plasma MHD where the Lorentz force is frequently required to vanish. For a force-free fields, 
+\begin{equation}
+(\nabla^2 +\alpha^2 ) \vec{B} = 0
+\end{equation}
+There are no force-free fields, other than $\vec{B} = 0$, for which $\vec{J}$ is localised in space and $\vec{B}$ is everywhere differentiable and $0(x^{-3})$ at infinity.
+
+\section{Faraday's Law in Differential Form}
+The differential form of Faraday's Law is 
+\begin{equation}
+\nabla \times \vec{E} = -\dfrac{\partial \vec{B}}{\partial t} ~,
+\label{diff_Faradaylaw}
+\end{equation}
+i.e. the electric field can be induced by a time-varying magnetic field.
+\begin{equation}
+\text{e.m.f} = \oint_C \vec{E}_r \cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int_S \vec{B} \cdot \dif \vec{S} ~,
+\label{emf}
+\end{equation}
+where \textcolor{red}{$\vec{E}_r$ is the electric field measured in a frame of reference moving with $\dif \vec{l}$}. The e.m.f. around a closed loop is equal to the total rate of change of flux of $\vec{B}$ through that loop. The flux may change because $\vec{B}$ is changing with time, or because the loop is moving uniformly in an inhomogeneous field, or because the loop is changing shape. The differential form of Faraday's law is a special case of Eq. (\ref{emf}). 
+
+Eq. (\ref{diff_Faradaylaw}) ensures that $\partial \vec{B}/\partial t$ is solenoidal, since $\nabla \cdot (\nabla \times \vec{E}) = 0$. 
+\begin{equation}
+\nabla \cdot \vec{B} = 0 ~.
+\end{equation}
+Introduce the \textcolor{red}{vector potential, $\vec{A}$}, 
+\begin{align}
+& \vec{B}  = \nabla \times \vec{A} ~, \\
+& \nabla \cdot \vec{A} = 0 ~.
+\end{align}
+This definition automatically ensures that $\vec{B}$ is solenoidal, since $\nabla \cdot (\nabla \times \vec{A}) = 0$
+\begin{align}
+& \vec{E} = -\dfrac{\partial \vec{A}}{\partial t} -\nabla V ~, \\
+& \vec{E} = \vec{E}_i +\vec{E}_s ~, \\
+& \nabla \times \vec{E}_s = 0 ~, ~~ \nabla \cdot \vec{E}_i = 0 ~, \\
+& \vec{E}_i = -\dfrac{\partial \vec{A}}{\partial t} ~, ~~ \vec{E}_s = -\nabla V ~, 
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The Reduced Form of Maxwell's Equations for MHD}
+For materials which are neither magnetic nor dielectric, Maxwell's equations are
+\begin{align}
+& \nabla \cdot \vec{E} = \frac{\rho_e}{\epsilon_0} ~, \\
+& \nabla \cdot \vec{B} = 0 ~, \\
+& \nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t} ~, \\
+& \nabla \times \vec{B} = \mu\left( \vec{J} +\varepsilon_0 \dfrac{\partial \vec{E}}{\partial t} \right) \\
+& \nonumber \text{and} \\
+& \frac{\partial \rho_e}{\partial t} +\nabla \cdot \vec{J} = 0 ~,\\
+& \vec{F} = q(\vec{E} +\vec{u}\times \vec{B} )
+\end{align}
+In MHD, the charge density $\rho_e$ plays no significant part. The electric force, $q \vec{E}$, is minute by comparison with the Lorentz force, and that the contribution of $\partial \rho_e/\partial t$ to the charge conservation equation is also negligible. Drop Gauss's law and ignore $\rho_e$. In MHD the displacement currents are negligible by comparison with the current density, $\vec{J}$, and so the Amp\`ere-Maxwell equation reduces to the differential form of Amp\`ere's law. 
+\begin{align}
+& \nabla \times \vec{B} = \mu \vec{J}  ~, ~~ \nabla \cdot \vec{J} = 0 ~, \\
+& \nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t} ~, \nabla \cdot \vec{B} = 0 ~, \\
+& \vec{J} = \sigma(\vec{E} + \vec{u} \times \vec{B}) ~, ~~ \vec{F} = \vec{J} \times \vec{B} ~.
+\end{align}
+
+\subsection{A paradox}
+Consider a hollow plastic sphere which is mounted on a frictionless spindle and is free to rotate. Charged metal pellets are embedded in the surface of the sphere and a wire loop is placed near its centre, the axis of the loop being parallel to the rotation axis. The loop is connected to a battery, so that a current flows and a dipole-like magnetic field is created. We now ensure that everything is stationary and (somehow) disconnect the battery. The magnetic field declines and so, by Faraday's law, we induce an electric field which is azimuthal, i.e. $\vec{E}$ takes the form of rings which are con-centric with the axis of the wire loop. This electric field now acts on the charges to produce a torque on the sphere, causing it to spin up. At the end of the process we have gained some angular momentum in the sphere, but at the cost of the magnetic field.
+
+\subsection{The Poynting vector}
+Use Faraday's law and Amp\`ere's law
+\begin{align}
+\frac{\dif }{\dif t} \int_V \frac{B^2}{2\mu} \dif V &= -\int_V \vec{J}\cdot \vec{E} \dif V -\oint_S [(\vec{E} \times \vec{B})/\mu] \cdot \dif \vec{S} ~, \\
+&= -\int_V \vec{J}\cdot \left(\frac{\vec{J}}{\sigma} -\vec{u} \times \vec{B} \right) \dif V -\oint_S [(\vec{E} \times \vec{B})/\mu] \cdot \dif \vec{S} ~, \\
+&= -\frac{1}{\sigma} \int_V \vec{J}^2 \dif V +\int_V \vec{J}\cdot (\vec{u} \times \vec{B}) \dif V -\oint_S \vec{P} \cdot \dif \vec{S} ~, \\
+&= -\frac{1}{\sigma} \int_V \vec{J}^2 \dif V -\int_V \vec{u}\cdot (\vec{J} \times \vec{B}) \dif V -\oint_S \vec{P} \cdot \dif \vec{S} ~,
+\end{align}
+where \textcolor{red}{$\vec{P} = (\vec{E} \times \vec{B})/\mu$} is called the \textcolor{red}{Poynting vector}. The integrals on the right represent Joule dissipation, the rate of loss of magnetic energy due to the rate of working of the Lorentz force on the medium, and the rate at which electromagnetic energy flows out through the surface S, the Poynting vector being the electromagnetic energy flux density.
+
+\section{A Transport Equation for B}
+\begin{align}
+\nonumber \frac{\partial \vec{B}}{\partial t} &= -\nabla \times \vec{E} = -\nabla \times \left[\frac{\vec{J}}{\sigma} -\vec{u}\times \vec{B} \right] = \nabla \times \left[\vec{u}\times \vec{B} -\frac{\nabla \times \vec{B}}{\mu \sigma} \right] ~,\\
+&= \nabla \times (\vec{u}\times \vec{B}) +\lambda \nabla^2 \vec{B} ~, ~~ \lambda = (\mu \sigma)^{-1}
+\end{align}
+This is called the \textcolor{red}{induction equation}, or a more descriptive name the advection-diffusion equation for $\vec{B}$. The quantity \textcolor{red}{$\lambda$} is called the \textcolor{red}{magnetic diffusivity}. 
+
+\subsection{Decay of force-free fields}
+ If, at $t = 0$, there exists a force-free field, $\nabla \times \vec{B} = \alpha \vec{B}$, in a stationary fluid, then that field will decay as $\vec{B} \sim \exp(-\lambda \alpha^2 t)$, remaining as a force-free field.
+
+\section{On the Remarkable Nature of Faraday and of Faraday's Law}
+Suppose that $\vec{G}$ is a solenoidal field, $\nabla \cdot \vec{G} = 0$, and $S_m$ is a surface which is embedded in a conducting medium, i.e. $S_m$ is locked into the medium and moves as the fluid moves. ($m$ indicates that it is a material surface). 
+\begin{equation}
+\frac{\dif }{\dif t} \int_{S_m} \vec{G} \cdot \dif \vec{S} = \int_{S_m} \left[\frac{\partial \vec{G}}{\partial t} - \nabla \times (\vec{u}\times \vec{G})\right] \cdot \dif \vec{S}
+\end{equation}
+The flux of $\vec{G}$ through $S_m$ changes for two reasons. First, even if $S_m$ were fixed in space there is a change in flux whenever $\vec{G}$ is time-dependent. Second, if the boundary of $S_m$ moves it may expand at points to include additional flux, or perhaps contract at other points to exclude flux. In a time $\delta t$, the surface adjacent to the line element $\dif \vec{l}$ increases by an amount $\dif \vec{S} = (\vec{u}\times \dif \vec{l}) \delta t$, and so the increase in flux due to movement of the boundary $C_m$ is
+\begin{equation*}
+\delta \int_{S_m} \vec{G} \cdot \dif \vec{S} = \oint_{C_m} \vec{G} \cdot (\vec{u}\times \dif \vec{l}) \delta t = -\oint_{C_m} (\vec{u}\times \vec{G}) \cdot  \dif \vec{l} \delta t
+\end{equation*}
+The change in flux through $S_m$ in a time $\delta t$ is
+\begin{equation*}
+\delta \int_{S_m} \vec{G} \cdot \dif \vec{S} = \delta t \int_{S_m} \frac{\partial \vec{G}}{\partial t} \cdot \dif \vec{S} +\oint_{S_m} \vec{G} \cdot \delta \vec{S} ~,
+\end{equation*}
+where $\delta \vec{S}$ is the element of area swept out by the line element $\dif \vec{l}$ in time $\delta t$. However, $\delta \vec{S} = \dif \vec{l}^\prime \times \dif \vec{l}$, where $\dif \vec{l}^\prime$ is the infinitesimal displacement of the element $\dif \vec{l}$ in time $\delta t$. Since $\dif \vec{l}^\prime = \vec{u} \delta t$, $\delta \vec{S} = (\vec{u} \times \dif \vec{l}) \delta t$ and 
+\begin{equation*}
+\delta \int_{S_m} \vec{G} \cdot \dif \vec{S} = \delta t \int_{S_m} \frac{\partial \vec{G}}{\partial t} \cdot \dif \vec{S} -\oint_{C_m} (\vec{u}\times \vec{G}) \cdot  \dif \vec{l} \delta t
+\end{equation*}
+
+\begin{equation}
+\frac{\partial \vec{G}}{\partial t} = \nabla \times (\vec{u}\times \vec{G}) 
+\end{equation}
+the flux of $\vec{B}$ (or $\nabla \times \vec{u}$) through any material surface, $S_m$, is conserved as the flow evolves.
+
+It is not necessary to invoke the idea of a continuously moving medium and of material surfaces. If we consider any curve, $C$, moving in space with a prescribed velocity, $\vec{u}$,
+\begin{equation}
+\frac{\dif }{\dif t} \int_{S} \vec{G} \cdot \dif \vec{S} = \int_{S} \left[\frac{\partial \vec{G}}{\partial t} - \nabla \times (\vec{u}\times \vec{G})\right] \cdot \dif \vec{S}
+\end{equation}
+where $S$ is any surface which spans the curve $C$.
+
+Suppose a curve, $C$ deforms in space with a prescribed velocity $\vec{u}(\vec{x})$.  (This could be, but need not be, a material curve.) Then, at each point on the curve,
+\begin{equation*}
+\nabla \times (\vec{E} +\vec{u} \times \vec{B}) = -\left\{\frac{\partial \vec{B}}{\partial t} -\nabla \times (\vec{u} \times \vec{B})  \right\}
+\end{equation*}
+Integrate this over any surface $S$ which spans $C$,
+\begin{equation*}
+\oint_C (\vec{E} +\vec{u} \times \vec{B}) \cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int_S \vec{B} \cdot \dif \vec{S}~.
+\end{equation*}
+In a frame of reference moving with velocity $\vec{u}$, the electric field is $\vec{E}_r = \vec{E} + \vec{u}\times \vec{B}$, then
+\begin{equation*}
+\oint_C \vec{E}_r \cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int_S \vec{B} \cdot \dif \vec{S} ~.
+\end{equation*}
+Define the e.m.f. to be the closed integral of $\vec{E}_r$,
+\begin{equation}
+\text{e.m.f.} = \oint_C \vec{E}_r \cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int_S \vec{B} \cdot \dif \vec{S} ~.
+\end{equation}
+if $C$ and $S$ happen to be material curves and surfaces embedded in a fluid,
+\begin{equation}
+\text{e.m.f.} = \oint_{C_m} \vec{E}_r \cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int_{S_m} \vec{B} \cdot \dif \vec{S} ~.
+\end{equation}
+The integral version of Faraday's law describes the e.m.f. generated in two very different situations, i.e. when $\vec{E}$ is induced by a time-dependent magnetic field, and when $\vec{E}_r $ is induced (at least in part) by motion of the circuit within a magnetic field. If $\vec{B}$ is constant, and the e.m.f. is due solely to movement of the circuit, then $\oint \vec{E}_r \cdot \dif \vec{l}$ is called a \textcolor{red}{motional e.m.f}. If the circuit is fixed and B is time-dependent, then $\oint \vec{E} \cdot \dif \vec{l}$ is termed a \textcolor{red}{transformer e.m.f}. In either case, however, the e.m.f. is equal to (minus) the rate of change of flux. The motional e.m.f. is due essentially to the Lorentz force, $q\vec{u}\times \vec{B}$, while transformer e.m.f. results from the Maxwell equation $\nabla \times \vec{E} = -\dfrac{\partial \vec{B}}{\partial t}$.
+
+\subsection{Faraday's law in ideal conductors: Alfv\'en's theorem}
+From Ohm's law, $\vec{J} = \sigma \vec{E}_r$, 
+\begin{equation}
+\frac{1}{\sigma} \oint_{C_m} \vec{J}\cdot \dif \vec{l} = -\frac{\dif }{\dif t} \int_{S_m} \vec{B} \cdot \dif \vec{S} ~.
+\end{equation}
+for any material surface, $S_m$. Suppose that $\sigma \rightarrow \infty$,
+\begin{equation}
+\frac{\dif }{\dif t} \int_{S_m} \vec{B} \cdot \dif \vec{S} = 0 ~, ~~ \sigma \rightarrow \infty
+\end{equation}
+In a perfect conductor, the flux through any material surface $S_m$ is preserved as the flow evolves. Assume an individual flux tube sitting in a perfectly conducting fluid. Since $\vec{B}$ is solenoidal ($\nabla \cdot \vec{B} = 0$), the flux of $\vec{B}$ along the tube, $\Phi$, is constant. Consider a material curve $C_m$ which at some initial instant encircles the flux tube. The flux enclosed by $C_m$ will remain constant as the flow evolves, and this is true of each and every curve enclosing the tube at $t = 0$. The tube itself moves with the fluid, as if frozen into the medium. This, in turn, suggests that every field line moves with the fluid, since we could let the tube have a vanishingly small cross section. 
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title=Alfv\'en's theorem]
+magnetic field lines are frozen into a perfectly conducting fluid in the sense that they move with the fluid.
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

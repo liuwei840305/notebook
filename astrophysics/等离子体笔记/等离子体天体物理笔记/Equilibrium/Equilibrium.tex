@@ -1,0 +1,317 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Magnetohydrodynamics}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Equilibrium States of Ideal Plasmas}
+A \textcolor{red}{static equilibrium state} is defined by the conditions \textcolor{red}{$\vec{U} = 0$} and \textcolor{red}{$\dfrac{\partial }{\partial t} = 0$}. A system in equilibrium will remain in that state \textcolor{orange}{if no changes occur in the forces acting on the system or in the boundary conditions}. When dealing with MHD equilibrium configurations of an ideal plasma, pressure, magnetic and all other forces of different nature acting on the system must be taken into account. In astrophysics, the most relevant force is \textcolor{red}{gravity}. Since angular momentum and rotation around gravitational center are common, \textcolor{red}{centrifugal forces} are also often important in non-static equilibria.  The \textcolor{red}{anisotropic nature of magnetic forces} considerably contributes to the complexity of equilibrium structures, as shown by the generalized MHD virial theorem. One consequence of this theorem is the \textcolor{red}{impossibility for an isolated plasma to be in equilibrium under the effects of the pressure and self-consistent magnetic forces only}: \textcolor{red}{external forces are required for confinement}.
+
+Assume $\vec{U} = 0$ and $q = 0$, 
+\begin{equation*}
+\boxed{\rho\frac{\dif \vec{U}}{\dif t} = -\nabla \cdot  \mathbf P +q \vec{E} +\frac{\vec{J}\times \vec{B}}{c}} \Longrightarrow\dfrac{\partial \mathbf G_{ik} }{\partial x_k} = 0 ~,
+\end{equation*}
+where $\mathbf G_{ik}$ incorporates the entire pressure tensor $ \mathbf P_{ik}$, including its off-diagonal part, and all the magnetic terms, namely
+\begin{equation*}
+\mathbf G_{ik} = \mathbf P_{ik} +\frac{B^2}{8\pi} \delta_{ik} -\frac{B_iB_k}{4\pi} = \left(P + \frac{B^2}{8\pi} \right)\delta_{ik} +\Pi_{ik} -\frac{B_iB_k}{4\pi}
+\end{equation*}
+Multiplying by $x_i$, summing over $i$ and integrating in $\dif V$ over the entire space,
+\begin{align}
+\nonumber 0 &= \int_V x_i \dfrac{\partial \mathbf G_{ik} }{\partial x_k}  \dif V \\
+&= \int_S x_i \mathbf G_{ik} \dif S_k -\int_V \dfrac{\partial x_i }{\partial x_k} \mathbf G_{ik} \dif V
+\label{xG}
+\end{align}
+The first term represents the flux of $\vec{r} \mathbf G$ across the surface $S$ that encloses $V$, i.e. the surface at infinity. For an isolated system, with ``good" convergence properties of the components of $\mathbf G_{ik}$, the surface integral vanishes. The second integral, the volume integral of the trace of $\mathbf G$, is also equal to zero. But since ${\rm Tr}~ \Pi = 0$,
+\begin{equation}
+{\rm Tr}~ \mathbf G = 3P +\frac{B^2}{8\pi} > 0 ~.
+\end{equation}
+The Eq. (\ref{xG}) cannot be satisfied, which implies that the initial assumption, namely the \textcolor{red}{existence of an equilibrium under the sole action of pressure and magnetic forces, is not valid}. The theorem holds only if the system is \textcolor{yellow}{uniquely composed by the plasma} and is \textcolor{yellow}{isolated in three dimensions}.
+
+The static equilibrium equation is
+\begin{equation}
+\nabla P = \frac{1}{c} \vec{J} \times \vec{B} ~,
+\end{equation}
+then
+\begin{equation*}
+\vec{J}  \cdot \nabla P =  \vec{B}\cdot \nabla P = 0~.
+\end{equation*}
+Since $\nabla P$ is perpendicular to the \textcolor{orange}{surfaces $P = {\rm const.}$}, thus both vectors \textcolor{orange}{$\vec{B}$ and $\vec{J}$ lie on those surfaces}. Even in the presence of a magnetic field, the magnetic force may vanish. This certainly happens when \textcolor{blue}{$\vec{J} = 0$}, in which case the field is said to be a \textcolor{red}{potential field}. If $\vec{J}$ vanishes, $\nabla \times \vec{B} = 0$ and the field can be represented as the gradient of a scalar function, the magnetic potential. However, the Lorentz force can also vanish if \textcolor{orange}{$\vec{J} \neq 0$ when $\vec{J}$ and $\vec{B}$ are parallel to each other}. These particular magnetic configurations are called \textcolor{red}{force-free fields}. 
+
+\subsection{Force-Free Equilibria}
+Force-free fields are a common feature of rarefied plasmas whenever the pressure gradients are sufficiently small to be neglected. The equilibrium equation, $\vec{J} \times  \vec{B} \propto (\nabla \times \vec{B}) \times \vec{B} = 0$, which implies:
+\begin{equation}
+\nabla \times \vec{B} = \alpha \vec{B} ~,
+\end{equation}
+where $\alpha = \alpha(\vec{r})$. Force-free equilibria arise when both the pressure gradients and the Lorentz force separately vanish. If the plasma pressure is everywhere much smaller than magnetic pressure, it is unlikely that gradients in the plasma pressure can supply the force required to balance any significant Lorentz force, i.e.
+\begin{equation*}
+\dfrac{c|\nabla P|}{|\vec{J} \times \vec{B}|} = \dfrac{4\pi |\nabla P|}{|(\nabla \times \vec{B}) \times \vec{B}|} \ll 1 ~.
+\end{equation*}
+If we add to $P$ or to $B$ a constant pressure or a constant magnetic field, the value of $\beta$ is changed, but not that of the ratio of their gradients. Thus a force-free field may also exist when $\beta > 1$.
+\begin{equation*}
+\nabla \cdot (\nabla \times \vec{B}) = \nabla \cdot (\alpha \vec{B}) = \alpha \nabla \cdot \vec{B} +\vec{B}\cdot \nabla \alpha = 0 ~, \Longrightarrow \vec{B}\cdot \nabla \alpha = 0 ~.
+\end{equation*}
+Constancy along magnetic field lines is the only constraint satisfied by the function $\alpha(\vec{r})$. $\vec{B}$ must lie on the surfaces $\alpha =$ const. If $\alpha$ is a constant independent of the coordinates,
+\begin{equation}
+\nabla \times (\nabla \times \vec{B}) = -\nabla^2 \vec{B} = \alpha (\nabla \times \vec{B}) = \alpha^2 \vec{B} ~.
+\label{force_field}
+\end{equation}
+Consider a field given by $\vec{B} = \vec{B}(x) = [0, B_y(x), B_z(x)]$, which satisfies the condition $\nabla \cdot \vec{B} = 0$. With a proper choice of the initial conditions, the solutions of Eq. (\ref{force_field}) can be written as
+\begin{equation}
+B_y = B_0 \cos (\alpha x) ~, B_z = -B_0 \sin(\alpha x) ~.
+\end{equation}
+This is a force-free field whose lines of force are straight lines in every plane $x =$ const. However, their inclination with respect to the $y$ axis changes, making a complete turn when $x$ is increased by $2\pi/\alpha$.
+
+Consider axially symmetric force-free fields, in which the fields have a helical structure. Axial symmetry requires that the components of $\vec{B}$ depend only on the radial coordinate $r$, the distance from the axis of symmetry, and the condition $\nabla \cdot \vec{B} = 0$ implies that $B_r = 0$ and thus $\vec{B} = \vec{B}(r) = [0, B_\theta (r), B_z(r)]$. The field lines wind on coaxial cylindrical surfaces, forming a helical structure. Define the pitch of the helix, $\kappa$, as the distance covered in the $z$ direction by a representative points performing a complete revolution along a field line, then
+\begin{equation*}
+\kappa(r) = \dfrac{2\pi r B_z(r)}{B_\theta(r)} ~.
+\end{equation*}
+\begin{align*}
+& \dfrac{1}{r} \dfrac{\dif }{\dif r} \left(r\frac{\dif B_\theta}{\dif r} \right) +\left(\alpha^2 -\frac{1}{r^2} \right) B_\theta = 0 ~, \\
+& \dfrac{1}{r} \dfrac{\dif }{\dif r} \left(r\frac{\dif B_z}{\dif r} \right) +\alpha^2 B_z = 0 ~.
+\end{align*}
+The solutions of the above equations are:
+\begin{align}
+& B_\theta = B_0 J_1(\alpha r) ~, \\
+& B_z = B_0 J_0(\alpha r) ~,
+\end{align}
+where $J_n$ are the Bessel functions of order $n$. The field lines are helices whose pitch varies with $r$. On the axis $(r = 0)$, the field is directed along $z$ ($J_1(0) = 0$). As $r$ increases, an azimuthal component appears and the helix pitch decreases until, in correspondence with the first zero of $J_0$, the axial component vanishes and the field is totally azimuthal. For larger values of $\alpha r$, the field is still a helix, but with the opposite sense of rotation because $J_0$ changes sign. If $r$ is further increased, the first zero of $J_1$ is encountered and the field is again purely axial, but its sense is opposite to that of the field on the axis.
+
+
+
+
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title=Woltjer's theorem]
+For a given set of boundary conditions, the plasma state with the minimum magnetic energy is a force-free field with $\alpha$ = const.
+\end{tcolorbox}
+The \textcolor{red}{magnetic helicity} is defined by:
+\begin{equation}
+\mathcal H = \int_V \vec{A} \cdot \vec{B} \dif V ~,
+\end{equation}
+where $\vec{A}$ is the potential vector, $\vec{B} = \nabla \times \vec{A}$. The evolution equation for $\vec{A}$ is
+
+
+
+
+\subsection{Equilibria in the Presence of Magnetic Forces}
+When non-vanishing magnetic forces are considered, the equilibrium equation is:
+\begin{equation}
+\nabla \left(P + \frac{B^2}{8\pi} \right) = \frac{1}{4\pi} (\vec{B}\cdot \nabla) \vec{B} ~.
+\end{equation}
+Given a cylindrical magnetic field $\vec{B} = [0, B_\theta (r ), B_z (r )]$, 
+\begin{equation}
+\dfrac{\dif }{\dif r} \left(P + \frac{B_\theta^2+B_z^2}{8\pi} \right) = - \frac{1}{4\pi} \frac{B_\theta^2}{r} \textcolor{red}{?} ~. 
+\end{equation}
+
+\subsubsection{Theta-pinch, $B_\theta = 0$}
+Such a configuration can be produced by \textcolor{orange}{currents flowing in the azimuthal direction $\theta$ on the surface of a plasma column}.
+\begin{equation*}
+P + \frac{B^2}{8\pi} = \text{const.} 
+\end{equation*}
+The value of the constant is determined by the radial boundary conditions. If the plasma column has a radius $a$ and is surrounded by a vacuum (or by a medium of negligible pressure) and outside of the column a constant axial magnetic field is present, $B_z = B_0$, the equilibrium condition becomes
+\begin{equation*}
+P + \frac{B^2}{8\pi} = \frac{B_0^2}{8\pi} ~.
+\end{equation*}
+The force $\vec{J}\times \vec{B}$, directed towards the axis of the cylinder, pinches the plasma and compensates the push produced by the internal pressure. Notice that this solution is valid also in configurations that do not show an axial symmetry: it suffices that $(\vec{B}\cdot \nabla)\vec{B} = 0$, which happens, for instance, when the field lines are straight.
+
+
+\subsubsection{Zeta-pinch, $B_z = 0$}
+Assume an axial current flow in a column of radius $a$, surrounded by a vacuum. Envisage such a current as formed by many wires in which parallel currents flow. Since parallel currents attract each other, the joint effect will again be the squeezing of the plasma column. The equilibrium condition now reads:
+\begin{align}
+& \dfrac{\dif P}{\dif r} = -\dfrac{B_\theta}{4\pi r} \dfrac{\dif (rB_\theta)}{\dif r} ~. \\
+\nonumber & \int_0^a r^2 \dfrac{\dif P}{\dif r} \dif r = -\dfrac{1}{4\pi} \int_0^a r B_\theta  \dfrac{\dif (rB_\theta)}{\dif r} \dif r ~. \\
+\nonumber & 2\int_0^a rP \dif r = \dfrac{1}{8\pi} [aB_\theta(a)]^2 ~.
+\end{align}
+If the plasma can be considered a perfect gas, $P = nkT$, 
+\begin{equation*}
+\dfrac{1}{\pi} \int_0^a 2\pi r(nkT) \dif r = \dfrac{kT}{\pi} \int_0^a 2\pi r n \dif r = \dfrac{kN_\ell T}{\pi} ~,
+\end{equation*}
+where the temperature $T$ is assumed to be constant inside the plasma column and $N_\ell$ represents the number of particles per unit length of the column (linear density):
+\begin{equation*}
+N_\ell = \int_0^a 2\pi r n \dif r ~.
+\end{equation*}
+The intensity of the current flowing in the plasma column is:
+\begin{equation*}
+I = \int_0^a 2\pi r J_z \dif r ~,
+\end{equation*}
+and
+\begin{equation*}
+J_z = \dfrac{c}{4\pi r} \dfrac{\dif (rB_\theta)}{\dif r} ~,
+\end{equation*}
+so
+\begin{equation*}
+\dfrac{2I}{c} = aB_\theta(a) ~.
+\end{equation*}
+
+\begin{equation*}
+\color{red} I^2 = 2kT N_\ell c^2 ~,
+\end{equation*}
+which is known as the \textcolor{red}{Bennet's relation}. This relation is independent of the details of the pressure profile. Assume that $J_z$ is constant inside the plasma column and zero outside,
+\begin{align*}
+& B_\theta = \dfrac{2I}{a^2} r ~~ (r \leqslant a) ~, \\
+& P(r) = \dfrac{I^2}{\pi a^2} \left(1 - \dfrac{r^2}{ a^2} \right) ~.
+\end{align*}
+
+
+
+
+\section{Perturbed Equilibrium States}
+The existence of an equilibrium state is not by itself a guarantee that the equilibrium will not change with time: an equilibrium results from a precise balance of the forces acting on the system, which in turn implies a well defined set of values of the parameters characterizing the system. If one or more of those values are changed, the equilibrium cannot be maintained and the system evolves dynamically. If only small perturbations of the equilibrium parameters are considered, there are essentially two possibilities: either the resulting force is such as to push to restore the system to equilibrium or it causes a further displacement from it. In the first case, an oscillatory regime sets in and the amplitude of the perturbations remains small: the equilibrium is then said to be \textcolor{orange}{stable}. In the second case, the amplitude of the perturbation increases and the equilibrium is said to be \textcolor{orange}{unstable}. The intermediate case, in which perturbations do not alter the balance of forces, corresponds to a \textcolor{orange}{marginal} or \textcolor{orange}{neutral equilibrium}.
+
+Reality is better represented by a (theoretical) equilibrium with perturbations, a situation which makes a stability analysis of the system a requirement. The rate of change with time of the parameters that characterize the system must be such that their values will not be substantially altered during their measurement. It follows that the physical concept of equilibrium (not the mathematical one!) makes sense only when referred to a well defined timescale. We only want to verify the existence of states that do not undergo substantial changes over what we consider the relevant timescales. 
+
+The analysis of the dynamical evolution of an equilibrium subject to small perturbations, the \textcolor{orange}{ linear stability analysis}, can be performed by using two different methods.
+
+The first, the \textcolor{red}{normal modes method}, basically consists in the study of the dynamics of the perturbed system. This not only determines whether a system is stable or not, but also characterizes the dynamics of small perturbations, namely the characteristic frequencies of oscillation in the case of stable systems or the growth rates of the amplitude of perturbations in the unstable case. The assumption that perturbations are small allows significant mathematical simplification coming from linearization of the equations. In the stable case perturbations remain small and the solutions found are valid also for long time spans. In the unstable case, perturbations grow, typically exponentially, and the validity of solutions is limited to short time periods.
+
+The second method, called the \textcolor{red}{energy method}, is a \textcolor{orange}{variational method} generalizing the result of classical mechanics that \textcolor{cyan}{equilibrium states correspond to energy extrema, with stable equilibria localized at energy minima and unstable ones at energy maxima}. The energy method establishes if a system is stable or not, but does \textcolor{cyan}{not yield any detailed information on the system's dynamics}.
+
+A system can be considered stable only if stability is achieved for \textcolor{red}{any} possible perturbation, provided that it is compatible with the constraints imposed on the system, but must be considered unstable even if a single growing perturbation is found. 
+
+All $f$ entering the system of equations that governs the system's dynamics, are expanded as
+\begin{equation*}
+\color{red} f = f_0 + \epsilon f_1,
+\end{equation*}
+with $\epsilon \ll 1$. $f_0$ corresponds to the equilibrium state and $\epsilon f_1$ to the perturbation. 
+
+This representation is introduced into the equations and terms of order higher than the first one in $\epsilon$ are discarded.
+
+The equation are written order by order, with terms of zeroth order separated from those of first order and the resulting equations are separately solved. The first order equations, evidently linear in the quantities $f_1$, determine the dynamics of perturbations. The coefficients of those linear equations are functions of the unperturbed quantities and of the other parameters that may enter in the starting set of equations.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

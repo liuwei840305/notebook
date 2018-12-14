@@ -1,0 +1,252 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amssymb}
+\usepackage{yhmath}
+
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{harpoon}   %矢量符号
+\usepackage{tcolorbox}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{曲线积分}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\section{第一型曲线积分}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设$D \subset \mathbf R^3$是一个区域，函数$f: D \rightarrow \mathbf R$。可求长曲线$\Gamma \subset D$，其两个端点分别记为$A$和$B$。在$\Gamma$上依次取一列点$\{p_i : i = 0, 1, \cdots, n \}$，使得$p_0 = A$，$ p_n = B$。称$\wideparen{p_{i-1}p_i}$为$\Gamma$的第$i$段曲线，令$\Delta s_i = s(\wideparen{p_{i-1}p_i})$，即$\Gamma$的第$i$段曲线的弧长。在$\wideparen{p_{i-1}p_i}$上任取一点$\xi_i(i = 1, 2, \cdots, n)$，若极限
+\begin{equation}
+\underset{\text{max} \Delta s_i \rightarrow 0}\lim \sum_{i=1}^n f(\xi_i) \Delta s_i ~,
+\end{equation}
+为一个有限数，且其值不依赖于点$\xi_i$在$\wideparen{p_{i-1}p_i}$上的选择，该极限值记为
+\begin{equation*}
+\int_\Gamma f(p) \dif s ~\text{或者} ~\int_\Gamma f(x, y, z) \dif s
+\end{equation*}
+称为函数$f$在$\Gamma$上的第一型曲线积分。
+\end{tcolorbox}
+若$f(p) = 1$对$p \in \Gamma$成立，
+\begin{equation*}
+\int_\Gamma \dif s = s(\Gamma) ~,
+\end{equation*}
+即曲线$\Gamma$的弧长。
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设区域$D \subset \mathbf R^3$，光滑曲线$\Gamma \subset D$，函数$f: D \rightarrow \mathbf R$连续。设$\Gamma$有向量参数表示$\vec{r} = \vec{r}(t), t \in [\alpha, \beta]$，
+\begin{equation}
+\int_\Gamma f \dif s = \int_\alpha^\beta f\circ \vec{r}(t) ||\vec{r}^\prime(t) || \dif t~.
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 推论]
+设平面曲线$\Gamma$有显式表达$y = \varphi(x), x \in [a, b]$，其中$\varphi$在$[a, b]$上连续，那么
+\begin{equation}
+\int_\Gamma f \dif s = \int_a^b f(x, \varphi(x)) \sqrt{1 +(\varphi^\prime(x) )^2} \dif x~.
+\end{equation}
+\end{tcolorbox}
+1. 求出$\Gamma$的一个向量参数方程$\vec{r} = \vec{r}(t)$，\\
+2. 计算弧元$\dif s = || \vec{r}^\prime(t) || \dif t$，\\
+3. 计算定积分$\int_\alpha^\beta f\circ \vec{r}(t) ||\vec{r}^\prime(t) || \dif t$。
+
+\section{第二型曲线积分}
+设区域$D \subset \mathbf R^3$，在$D$上定义了一个向量值函数$\vec{F} = \vec{F}(\vec{p}), \vec{p} \in D$。$\vec{F}$是在$D$上定义的一个\textcolor{red}{向量场}。
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设$D \subset \mathbf R^3$是一个区域，映射$\vec{F}: D \rightarrow \mathbf R^3$。可求长的有向曲线$\Gamma \subset D$，其起点记为$A$，终点记为$B$。在$\Gamma$上依从$A$到$B$的方向顺次取一列点$\{\vec{p}_i : i = 0, 1, \cdots, n \}$，使得$\vec{p}_0 = A$，$\vec{p}_n = B$。置$\Delta \vec{p}_i = \vec{p}_i -\vec{p}_{i-1}, (i = 1, 2, \cdots, n)$。若对于在$\Gamma$的弧段$\wideparen{\vec{p}_{i-1}\vec{p}_i}$上任取的点$\vec{\xi}_i$，极限
+\begin{equation}
+\underset{\text{max} ||\Delta p_i || \rightarrow 0}\lim \sum_{i=1}^n \vec{F}(\vec{\xi}_i) \cdot \Delta \vec{p}_i ~,
+\end{equation}
+为一确定的有限数，记为
+\begin{equation*}
+\int_\Gamma \vec{F}(\vec{p})\cdot \dif \vec{p} ~,
+\end{equation*}
+称它是向量函数$\vec{F}$沿有向曲线$\Gamma$上的第二型曲线积分。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设区域$D \subset \mathbf R^3$，连续映射$\vec{F}: D \rightarrow \mathbf R^3$。设$\Gamma \subset D$是一条有向光滑曲线，它具有参数向量方程$\vec{r} = \vec{r}(t), \alpha \leqslant t \leqslant \beta$，且参数$t$的增加对应着$\Gamma$的定向，则
+\begin{equation*}
+\int_\Gamma \vec{F}(\vec{p})\cdot \dif \vec{p} = \int_\alpha^\beta \vec{F}\circ \vec{r}(t) \cdot \vec{r}^\prime(t) \dif t ~.
+\end{equation*}
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+\section{Green公式}
+
+
+
+\section{等周问题}
+
+
+
+\section{有界变差函数}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

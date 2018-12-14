@@ -1,0 +1,228 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Qualitative Theory}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Qualitative Properties of Solutions}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Nonlinear Equations}
+
+\subsection{Autonomous Systems. The Phase Plane and Its Phenomena}
+\begin{equation}
+\frac{\dif^2 x}{\dif t^2} = f\left(x, \frac{\dif x}{\dif t} \right)
+\end{equation}
+The values of $x$ (position) and $\dif x/\dif t$ (velocity), which at each instant characterize the state of the system, are called its \textcolor{red}{phases}, and the plane of the variables $x$ and $\dif x/\dif t$ is called the \textcolor{red}{phase plane}. Introduce the variable $y = \dif x/\dif t$,
+\begin{equation}
+\left\{
+\begin{aligned}
+\frac{\dif x}{\dif t} &= y \\
+\frac{\dif y}{\dif t} &= f(x, y) ~.
+\label{equ_sys}
+\end{aligned}
+\right.
+\end{equation}
+When $t$ is regarded as a parameter, then in general a solution of (\ref{equ_sys}) is a pair of functions $x(t)$ and $y(t)$ defining a curve in the $xy$-plane, 
+\begin{equation}
+\left\{
+\begin{aligned}
+\frac{\dif x}{\dif t} &= F(x, y) \\
+\frac{\dif y}{\dif t} &= G(x, y) ~.
+\label{equ_sys_ge}
+\end{aligned}
+\right.
+\end{equation}
+where $F$ and $G$ are continuous and have continuous first partial derivatives throughout the plane. A system of this kind, in which the \textcolor{orange}{independent variable $t$ does not appear in the functions $F$ and $G$} on the right, is said to be \textcolor{red}{autonomous}. 
+
+If $t_0$ is any number and $(x_0,y_0)$ is any point in the phase plane, then there exists a unique solution
+\begin{equation}
+\left\{
+\begin{aligned}
+x &= x(t) \\
+y &= y(t) ~.
+\label{sulo}
+\end{aligned}
+\right.
+\end{equation}
+of (\ref{equ_sys_ge}) such that $x(t_0) = x_0$ and $y(t_0) = y_0$. If $x(t)$ and $y(t)$ are not both constant functions, then (\ref{sulo}) defines a curve in the phase plane called a path of the system. If (\ref{sulo}) is a solution of (\ref{equ_sys_ge}), then 
+\begin{equation}
+\left\{
+\begin{aligned}
+x &= x(t +c) \\
+y &= y(t +c) ~.
+\label{sulo_c}
+\end{aligned}
+\right.
+\end{equation}
+is also a solution for any constant $c$. Each path is represented by many solutions, which differ from one another only by a translation of the parameter. Any path through the point $(x_0,y_0)$ must correspond to a solution of the form (\ref{sulo_c}). At most one path passes through each point of the phase plane. The direction of increasing $t$ along a given path is the same for all solutions representing the path. We shall use arrows to indicate the direction in which the path is traced out as $t$ increases.
+
+In general the path of (\ref{equ_sys_ge}) cover the entire phase plane and do not intersect one another. The only exceptions to this statement occur at points $(x_0, y_0)$ where both $F$ and $G$ vanish :
+\begin{equation}
+F(x_0, y_0) = 0 ~, ~~{\rm and} ~~ G(x_0, y_0) = 0 
+\end{equation}
+These points are called  \textcolor{red}{critical points}.
+
+
+
+
+
+
+
+
+
+
+\subsection{Types of Critical Points. Stability}
+
+
+\subsection{Critical Points and Stability for Linear Systems}
+
+
+\subsection{Stability by Liapunov's Direct Method}
+
+
+\subsection{Simple Critical Points of Nonlinear Systems}
+
+
+\subsection{Nonlinear Mechanics. Conservative Systems}
+
+
+
+\subsection{Periodic Solutions. The Poincare-Bendixson Theorem}
+
+
+
+
+
+
+
+
+\end{document}

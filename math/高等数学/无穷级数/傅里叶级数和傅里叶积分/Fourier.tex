@@ -1,0 +1,274 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{傅里叶级数和傅里叶积分}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+周期现象
+
+周期函数
+
+与所考虑的周期线性有关的各种量，在经历周期$T$后，重新取得它们的原值
+\begin{equation}
+\varphi(t+T) = \varphi(t)
+\end{equation}
+
+周期函数的图解可以由一系列正弦型量的图解得来；
+\begin{equation}
+\varphi(t) = A_0 +\sum_{n=1}^{\infty} A_n \sin(n\omega t +\alpha_n)
+\label{sin_exp}
+\end{equation}
+其中
+\begin{equation}
+\omega = \frac{2\pi}{T}
+\end{equation}
+
+由函数$\varphi(t)$表示的复杂振动可以分解成各别的调和振动；
+
+函数$\varphi(t)$的\textcolor{red}{调和成分}或\textcolor{red}{调和素}：组成展开式(\ref{sin_exp})的各个正弦型量；
+
+\textcolor{red}{调和分析}：将周期函数分解成调和素的手续；
+
+\section{傅里叶级数}
+假定函数$f(x)$在区间$[-\pi,\pi]$上按常义或者非常义可积分，对后一情形，假定函数绝对可积；设展开式
+\begin{equation}
+f(x) = a_0 + \sum_{n=1}^{\infty} (a_n \cos nx +b_n \sin nx)
+\end{equation}
+成立；
+
+欧拉—傅里叶公式
+\begin{equation}
+a_0 = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) \dif x
+\end{equation}
+
+\begin{equation}
+a_m = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos mx \dif x ~~ (m = 1,2,3,\cdots)
+\end{equation}
+
+\begin{equation}
+b_m = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin mx \dif x ~~(m = 1,2,3,\cdots)
+\end{equation}
+
+如果周期是$2\pi$的函数$f(x)$可以展开成一致收敛的三角级数，则这级数一定是$f(x)$的傅里叶级数；
+
+两个函数在这区间上\textcolor{red}{正交}：如果在区间$[a,b]$上所定义的两函数$\varphi(x)$和$\psi(x)$的乘积，其积分为$0$，
+\begin{equation}
+\int_{a}^{b} \varphi(x) \psi(x) \dif x = 0
+\end{equation}
+
+\textcolor{red}{正交函数系}：考虑定义在区间$[a,b]$上的函数系$\{\varphi_n(x) \}$。设系中各函数与它们的平方在$[a,b]$上皆可积分，则它们的两两乘积在同一区间上也可积分。如果系中各函数两两正交，即
+\begin{equation}
+\int_{a}^{b} \varphi_n(x) \varphi_m(x) \dif x = 0 ~~(n,m = 0,1,2,3,\cdots; n\neq m)
+\end{equation}
+
+假定
+\begin{equation}
+\int_{a}^{b} \varphi^2_n(x) \dif x = \lambda_n > 0
+\end{equation}
+若$\lambda_n = 1~~(n = 0,1,2,\cdots)$，函数系是\textcolor{red}{规范}的；
+
+\textcolor{red}{加权$p(x)$的正交性}：
+\begin{equation}
+\int_{a}^{b} p(x) \varphi(x) \psi(x) \dif x = 0
+\end{equation}
+如：函数系$\{J_0(\xi_n x)\}$是加权$x$正交的；
+
+已给函数对于函数系$\{\varphi_n(x)\}$的\textcolor{red}{(广义)傅里叶级数}
+
+设在区间$[a,b]$上已给任一正交系$\{\varphi_n(x)\}$。将定义在$[a,b]$上的函数$f(x)$展开成函数$\varphi$的级数，
+\begin{equation}
+f(x) = c_0 \varphi_0(x) +c_1 \varphi_1(x) +\cdots +c_n \varphi_n(x) +\cdots 
+\end{equation}
+其中
+\begin{equation}
+c_m = \frac{1}{\lambda_m} \int_a^b f(x) \varphi_m(x) \dif x ~~(m = 0,1,2,\cdots)
+\end{equation}
+
+三角插值法
+
+用三角多项式
+\begin{equation}
+\sigma_n(x) = \alpha_0 + \sum_{k=1}^{n} (\alpha_k \cos kx +\beta_k \sin kx)
+\label{triang_poly}
+\end{equation}
+作为函数$f(x)$的近似式，使三角多项式与函数在许多点上有相同的值。
+
+选取$n$阶三角多项式(\ref{triang_poly})的$2n+1$个系数：$\alpha_0,\alpha_1,\beta_1,\cdots,\alpha_n,\beta_n$，使得在区间$(-\pi,\pi)$内预先指定的$2n+1$个点处，如
+\begin{equation}
+\xi_i = i \lambda ~~(i = -n, -n+1, \cdots, -1, 0, 1, \cdots, n-1, n)
+\end{equation}
+各点处，
+\begin{equation}
+ \lambda = \frac{2\pi}{2n+1},
+\end{equation}
+三角多项式的值与函数$f(x)$的值相等。
+
+\begin{equation}
+\alpha_0 + \sum_{k=1}^{n} (\alpha_k \cos k\xi_i +\beta_k \sin k\xi_i) = f(\xi_i) ~~(i = -n, -n+1, \cdots, n)
+\end{equation}
+
+
+\subsection{函数的傅里叶级数展开式}
+
+\subsection{非周期函数}
+
+\subsection{只含余弦或正弦}
+
+
+\subsection{傅里叶级数的收敛性}
+
+
+
+\subsection{傅里叶级数的逐项积分法}
+假定函数$f(x)$在区间$[-\pi,\pi]$上绝对可积，设它的傅里叶级数
+\begin{equation}
+f(x) \sim \frac{a_0}{2} + \sum_{n=1}^{\infty} (a_n \cos nx +b_n \sin nx)
+\label{fourier}
+\end{equation}
+
+任意区间$[x', x'']$（其中$-\pi \leq x' < x'' \leq \pi$）
+\begin{equation}
+\int_{x'}^{x''} f(x) \dif x = \int_{x'}^{x''} \frac{a_0}{2} \dif x +\sum_{n=1}^{\infty} \int_{x'}^{x''} [a_n \cos nx +b_n \sin nx ] \dif x
+\end{equation}
+函数$f(x)$的积分可将与它相应的傅里叶级数逐项积分而求得。即令不假定傅里叶级数(\ref{fourier})本身收敛于函数$f(x)$，还恒可将它逐项积分
+
+\subsection{傅里叶级数的逐项微分法}
+
+
+\section{傅里叶积分}
+
+
+
+设函数$f(x)$在点$x$处连续，如果不连续，则设
+\begin{equation}
+f(x) = \frac{f(x+0) +f(x-0)}{2}
+\end{equation}
+成立。
+
+在主值意义下一定存在，且
+\begin{equation}
+\text{V.p.} \int_{-\infty}^{+\infty} \dif z \int_{-\infty}^{+\infty} f(u) \sin z(u-x) \dif u = 0
+\end{equation}
+
+\begin{equation}
+F(z) = \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{+\infty} f(u) e^{izu} \dif u
+\end{equation}
+
+\begin{equation}
+f(x) = \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{+\infty} F(z) e^{-ixz} \dif z 
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

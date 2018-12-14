@@ -1,0 +1,218 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Inflation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{perkins2008particle} Structure had its origins in quantum fluctuations in energy density which occurred in the very early universe and were then `frozen-out' when the universe underwent an \textcolor{yellow}{exponential and superluminal expansion stage} called \textcolor{blue}{inflation}. These tiny fluctuations in density and temperature --- typically at the $10^{-5}$ level --- then acted as seeds for the development of much greater fluctuations in density via the subsequent process of gravitational collapse during the epoch of matter domination.
+
+One of the most remarkable features of the universe is that stars are always clumped into galaxies each containing of order $10^{11}$ stars. The \textcolor{yellow}{galaxies are separated by distances some two orders of magnitude larger than their diameters} ($\sim$ Mpc as compared with $\sim 10$ kpc), and one might ask the question; why has matter become distributed in this particular fashion --- rather than, for example, in one giant galaxy? In the early universe \textcolor{yellow}{primordial density fluctuations could only start to grow}, provided that they were \textcolor{yellow}{spread out over distances which now correspond to the dimensions of galaxy clusters}, and that \textcolor{yellow}{these dimensions were in turn determined by the properties and interactions of the primordial photons and neutrinos which dominated the radiation era}.
+
+\section{Three puzzles}
+
+\subsection{Flatness}
+\cite{2008cosm.book.....W}
+
+\cite{ryden2016introduction}
+
+
+
+\cite{perkins2008particle} The fractional difference between the actual density and the critical density is
+\begin{equation}
+\dfrac{\Delta \rho}{\rho} = \dfrac{\rho -\rho_c}{\rho} = \dfrac{3k c^2}{8\pi G R^2 \rho} ~.
+\end{equation}
+During the radiation-dominated era, $\rho \propto R^{-4}$. $\dfrac{\Delta \rho}{\rho} \propto R^2 \propto t$. So at early times, $\Delta \rho/\rho$ must have been much smaller than it is today, when $t \sim 4 \times 10^{17}$ s and it is of order unity. For example, for $kT \sim 10^{14}$ GeV, a typical energy scale of grand unification, $t \sim 10^{-34}$ s, and at that time $\Delta \rho/\rho$ would have been $\sim 10^{-34}/10^{18} \sim 10^{-52}$ (and even smaller than
+this if we include the period of matter dominance). How then could $\Omega = \rho/\rho_c$ have been so closely tuned as to give of the order of unity today?
+
+
+
+
+
+\subsection{Horizon}
+\cite{2008cosm.book.....W}
+
+\cite{perkins2008particle} The \textcolor{yellow}{particle horizon} is defined as the \textcolor{yellow}{distance out to which one can observe a particle, by exchange of a light signal}. In other words, the \textcolor{green}{horizon and the observer are causally connected}. More distant particles are not observed, they are beyond the horizon. The horizon is finite because of the finiteness of the velocity of light and the finite age of the universe. In a static universe of age $t$, we expect to be able to observe particles out to a horizon distance $D_H = ct$. As time passes, $D_H$ will increase and more particles will move inside the horizon. At the present time, the universe has age $t_0 \sim 1/H_0$. The quantity $ct_0 \sim c/H_0$ is usually referred to as the \textcolor{red}{Hubble radius}, that is, the product of the Hubble time and the velocity of light.
+
+These two problems require a mechanism which allows thermal equilibrium outside conventional particle horizons, and can reduce the curvature $k/R^2$ by a huge factor. Guth postulated an extremely rapid exponential expansion by a huge factor as a preliminary stage of the Big Bang, a phenomenon known as inflation. 
+
+\cite{ryden2016introduction}
+
+
+
+\subsection{Monopole}
+\cite{2008cosm.book.....W}
+
+\cite{perkins2008particle} 
+
+\cite{ryden2016introduction}
+
+
+
+
+\section{Slow-roll inflation}
+
+\cite{2008cosm.book.....W}
+
+
+
+\cite{perkins2008particle} The early Guth model of inflation sketched above suffered because it did not seem possible to obtain the necessary inflationary growth as well as to terminate the inflation efficiently so as to end up with a reasonably homogeneous
+universe. Wherever the transition between `false' and `true' vacuum takes place via quantum-mechanical tunnelling, `bubbles' of true vacuumform and inflation ends. These bubbles will then grow slowly via causal processes, whereas outside them, exponential inflation continues, and one ends up with a very lumpy situation.
+
+
+\cite{ryden2016introduction}
+
+
+\cite{cheng2005relativity}
+
+
+\section{Chaotic inflation, eternal inflation}
+
+\cite{2010宇宙大尺度结构的形成, 2012宇宙大尺度结构的形成} \textcolor{red}{chaotic inflation}
+
+只需要一个单一的标量场$\phi$（Higgs场）来描述真空，
+
+该标量场的拉氏量
+\begin{equation}
+L_{\phi} = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - V(\phi)
+\end{equation}
+标量场的能—动量张量
+\begin{equation}
+T_{\mu\nu} = \partial_\mu \phi \partial_\nu \phi -g_{\mu\nu} L_{\phi}
+\end{equation}
+$g_{\mu\nu}$：度规张量
+
+
+\textcolor{red}{hybrid inflation}
+
+
+
+
+
+
+\section{Quantum fluctuations and inflation}
+\cite{perkins2008particle} Quantum fluctuations are at the heart of anisotropies in the early universe. Quantum fluctuations in elementary particle physics, in the form of the creation and annihilation of virtual electron-positron pairs, were able to account for the anomalous magnetic moments of the electron and the muon. 
+
+In a static universe, such virtual processes could not result in production of real particles, since pair creation will always be followed by annihilation. However, in the inflationary scenario, the rapid expansion implies that any virtual particle-antiparticle pairs which are created would not be able to annihilate completely. Both creation and annihilation rates are the product of particle densities and interaction cross sections. So a lower particle density at annihilation than for the previous process of creation would lead to a net creation of real particles (from the energy in the inflaton field). This is the mechanism assumed for particle (and antiparticle) creation in the early universe. Such quantum fluctuations are also involved in connection with Hawking radiation from black holes.
+
+Quantum fluctuations arise as a result of the uncertainty relation. In a particular time interval $\Delta t$ the energy of a system cannot be specified to an accuracy better than $\Delta E$, where $\Delta t \cdot \Delta E \sim \hbar$. Fluctuations in the inflaton field amplitude $\phi$ can be thought of as due to the different times at which different `bubble' universes complete inflation, via the relation
+\begin{equation}
+\Delta t = \dfrac{\Delta \phi}{\dot{\phi}} ~.
+\end{equation}
+
+When discussing fluctuations in the microwave background radiation, the amplitude of the fluctuations at the horizon scale are important, and they are determined by the different amounts that the universes have expanded:
+\begin{equation}
+\dfrac{\Delta \rho}{\rho} = \delta_{\rm hor} = H \Delta t \sim \dfrac{H^2}{\dot{\phi}} ~,
+\end{equation}
+where the Hubble time is $1/H$ and we have used the relation $\Delta \phi \sim H$ from the uncertainty principle (again in units $h/2\pi = c = 1$). The estimated density fluctuation is
+\begin{equation}
+\dfrac{\Delta \rho}{\rho} \sim \left(\dfrac{m}{M_{\rm PL} } \right)  \left(\dfrac{\phi}{M_{\rm PL} } \right)^2 ~.
+\end{equation}
+Experimentally this quantity is of order $10^{-5}$. Ideally of course it would be nice to predict the magnitude of the fluctuations from the inflation model, but at the present time this does not seem possible, since the number expected depends on the precise form assumed for the inflaton potential $V(\phi)$.
+
+The polarization of the CMB induced by gravitational waves accompanying inflation, it may prove possible to perfect the inflation model. At present, however, no definite predictions seem to be possible regarding the level of quantum
+fluctuations. 
+
+\section{The spectrum of primordial fluctuations}
+\cite{perkins2008particle} The quantum fluctuations are `zero-point' oscillations in the cosmic fluid. As soon as inflation commences, however, at superluminal velocity, most of the fluid will move outside the horizon scale $1/H$. (The horizon distance is of order $ct$ where $t$ is the time after the beginning of the expansion, and in units $c = 1$ is equal to the reciprocal of the expansion rate $1/H$). This means that there will no longer be communication between the crests and the troughs of the oscillations: the quantum fluctuations are therefore `frozen' as classical density fluctuations at the super-horizon scale. Since no particular distance scale is specified for the fluctuations, the spectrum of fluctuations should follow a power law, which (unlike an exponential, for example) does not involve any absolute scale. These fluctuations in density correspond to perturbations in the metric of space-time associated with variations in the curvature parameter. As discussed below, there are different possible types of fluctuation; however, it is usually assumed that the perturbations are adiabatic, that is, that the density variations are the same in different components (baryons, photons, etc.).
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

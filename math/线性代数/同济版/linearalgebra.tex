@@ -1,0 +1,322 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{线性代数}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+\section{矩阵及其运算}
+\subsection{矩阵}
+由$m\times n$个数$a_{ij}(i = 1, 2, \cdots, m; j = 1, 2, \cdots, n)$排成的$m$行$n$列的数表
+\begin{table}[htp]
+\begin{center}
+\renewcommand{\arraystretch}{0.7}
+\begin{tabular}{cccc}
+$a_{11}$ & $a_{11}$ & $\cdots$ & $a_{1n}$ \\
+$a_{21}$ & $a_{22}$ & $\cdots$ & $a_{2n}$ \\
+$\vdots$   & $\vdots$  &            & $\vdots$ \\
+$a_{m1}$ & $a_{m1}$ & $\cdots$ & $a_{mn}$
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+称为$m$行$n$列矩阵，简称$m\times n$矩阵，记作
+\begin{equation}
+A = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+a_{11} & a_{11} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots   & \vdots  &            & \vdots \\
+a_{m1} & a_{m1} & \cdots & a_{mn}
+\end{pmatrix}
+\end{equation}
+$m\times n$个数称为矩阵$A$的元素，简称元，数$a_{ij}$位于矩阵$A$的第$i$行第$j$列，称为矩阵$A$的$(i, j)$元。以数$a_{ij}$为$(i, j)$元的矩阵简记为$(a_{ij})$或$(a_{ij})_{m\times n}$。$m\times n$矩阵$A$也记为$A_{m\times n}$。行数与列数都等于$n$的矩阵称为$n$阶矩阵或$n$阶方阵。$n$阶矩阵$A$也记作$A_n$。
+
+对角矩阵(对角阵)，记作$\Lambda = \text{diag}(\lambda_1, \lambda_2, \cdots, \lambda_n)$。
+
+
+
+
+元素都是$0$的矩阵称为零矩阵，记作$\vec{0}$。
+
+
+
+
+
+\subsection{矩阵的运算}
+\subsubsection{矩阵的加法}
+有两个$m\times n$矩阵$A = (a_{ij})$和$B = (b_{ij})$，矩阵$A$与$B$的和记作$A+B$，
+\begin{equation*}
+A + B = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+a_{11} +b_{11} & a_{11} +b_{12} & \cdots & a_{1n} +b_{1n} \\
+a_{21} +b_{21} & a_{22} +b_{22} & \cdots & a_{2n} +b_{2n}\\
+\vdots   & \vdots  &            & \vdots \\
+a_{m1} +b_{m1} & a_{m1} +b_{m2} & \cdots & a_{mn} ++b_{mn}
+\end{pmatrix}
+\end{equation*}
+当两个矩阵是同型矩阵时，这两个矩阵才能进行加法运算。设$A, B, C$都是$m\times n$矩阵
+\begin{align*}
+& A + B = B +A ~; \\
+& (A + B) +C = A + (B +C) ~. 
+\end{align*}
+
+
+
+
+\subsubsection{数与矩阵相乘}
+数$\lambda$与矩阵$A$的乘积记作$\lambda A$或$A \lambda$，
+\begin{equation*}
+\lambda A = A \lambda =
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+ \lambda a_{11} &  \lambda a_{11} & \cdots &  \lambda a_{1n} \\
+ \lambda a_{21} &  \lambda a_{22} & \cdots &  \lambda a_{2n} \\
+\vdots   & \vdots  &            & \vdots \\
+ \lambda a_{m1} &  \lambda a_{m1} & \cdots &  \lambda a_{mn}
+\end{pmatrix}
+\end{equation*}
+
+
+
+\subsubsection{矩阵与矩阵相乘}
+
+
+
+
+
+
+
+\subsubsection{矩阵的转置}
+把矩阵$A$的行换成同序数的列得到的矩阵，叫做$A$的转置矩阵，记作$A^T$。
+
+
+
+
+
+
+
+
+设$A$为$n$阶方阵，若满足$A^T = A$，即
+\begin{equation*}
+a_{ij} = a_{ji} ~~(i , j = 1, 2, \cdots, n) ~,
+\end{equation*}
+$A$称为对称矩阵，简称对称阵，其元素以对角线为对称轴对应相等。
+
+
+
+
+\subsubsection{方阵的行列式}
+由$n$阶方阵$A$的元素所构成的行列式(各元素的位置不变)，称为方阵$A$的行列式，记作$|A|$或$\text{det} A$。
+
+
+行列式$|A|$的各个元素的代数余子式$A_{ij}$所构成的矩阵
+\begin{equation*}
+\color{red} A^\ast = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+A_{11} & A_{21} & \cdots & A_{n1} \\
+A_{12} & a_{22} & \cdots & A_{n2} \\
+\vdots   & \vdots  &            & \vdots \\
+A_{1n} & a_{2n} & \cdots & A_{nn}
+\end{pmatrix}
+\end{equation*}
+称为矩阵$A$的\textcolor{red}{伴随矩阵}，简称\textcolor{red}{伴随阵}。
+
+\subsubsection{共轭矩阵}
+当$A = (a_{ij})$为复矩阵时，$\bar{a}_{ij}$表示$a_{ij}$的共轭复数，记为
+\begin{equation*}
+\bar{A} = (\bar{a}_{ij}) ~,
+\end{equation*}
+$\bar{A}$称为$A$的\textcolor{red}{共轭矩阵}。设$A, B$为复矩阵，$\lambda$为复数，
+\begin{align*}
+& \overline{A +B} = \overline{A} +\overline{B} ~, \\
+& \overline{\lambda A} = \overline{\lambda}~ \overline{A} ~, \\
+& \overline{AB} =  \overline{A}~  \overline{B} 
+\end{align*}
+
+\subsection{逆矩阵}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+对于$n$阶矩阵$A$，若有一个$n$阶矩阵$B$，使得
+$\vec{A B} = \vec{B A} = \vec{E}$，矩阵$\vec{A}$是可逆的，矩阵$\vec{B}$称为$\vec{A}$的\textcolor{red}{逆矩阵}，简称逆阵。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+若矩阵$A$可逆，则$|A| \neq 0$。
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+若$|A| \neq 0$，则矩阵$\vec{A}$可逆，且
+\begin{equation}
+\vec{A}^{-1} = \dfrac{1}{|A|} \vec{A}^\ast ~,
+\end{equation}
+其中$\vec{A}^\ast$为矩阵$\vec{A}$的\textcolor{red}{伴随阵}。
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

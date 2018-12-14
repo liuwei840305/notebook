@@ -1,0 +1,900 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+%\usepackage{fourier}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{CMB的各向异性}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\cite{2010宇宙大尺度结构的形成, 2012宇宙大尺度结构的形成} CMB温度在全天空的分布基本上是均匀各项同性的，平均温度$T_0 = 2.725 \pm 0.002$ K，只存在很小的涨落$\Delta T/T \sim 10^{-5}$;
+
+The current temperature of the CMB is $T_0 = 2.725$ K, i.e. averaging over all locations,
+\begin{equation}
+\left\langle T \right\rangle = \frac{1}{4\pi} \int T(\theta, \phi) \sin \theta \dif \theta \dif \phi = 2.725 \text{K}
+\end{equation}
+and the energy density is
+\begin{equation}
+\epsilon_{\gamma,0} = \alpha T_0^4 = 0.261 ~\text{MeV} \text{m}^{-3},
+\end{equation}
+is only $5\times 10^{-5}$ times the current critical density.
+
+The energy per CMB photon is
+\begin{equation}
+hf_{\text{mean}} = 6.34\times 10^{-4} ~\text{eV},
+\end{equation}
+the number density of CMB photons in the universe is
+\begin{equation}
+n_{\gamma, 0} = 4.11\times 10^8 ~\text{m}^{-3},
+\end{equation}
+
+The current density parameter for baryons is
+\begin{equation}
+\Omega_{b,0} \approx 0.04,
+\end{equation}
+the current density is
+\begin{equation}
+\epsilon_{b, 0} = \Omega_{b,0} \epsilon_{c, 0} \approx 0.04 \times 5200 ~\text{MeV} \text{m}^{-3} \approx 210 ~\text{MeV} \text{m}^{-3},
+\end{equation}
+the energy density in baryons today is about $800$ times the energy density in CMB photons. The rest energy of a proton or neutron is $939$ MeV, the number density of baryons is
+\begin{equation}
+n_{b, 0} = \frac{\epsilon_{b,0}}{E_{b} } \approx \frac{210 ~\text{MeV} \text{m}^{-3} }{939 ~\text{MeV} } \approx 0.22 ~\text{m}^{-3} .
+\end{equation}
+The ratio of baryons to photons in the universe is
+\begin{equation}
+\eta = \frac{n_{b,0}}{n_{\gamma,0} } \approx \frac{0.22 ~\text{m}^{-3} }{ 4.11\times 10^8 ~\text{m}^{-3} } \approx 5\times 10^{-10}
+\end{equation}
+
+The mean photon energy is comparable to the energy of vibration or rotation for a small molecule such as $H_2O$. THus, CMB photons can zip along for more than 13 billion years through the tenuous intergalactic medium, then be absorbed a microsecond away from the Earth's surface by a water molecule in the atmosphere. Microwaves with wavelengths shorter than $\lambda \sim 3$ cm are strongly absorbed by water molecule.
+
+\section{Recombination and decoupling}
+the baryonic matter goes from being an ionized plasma to a gas of neutral atoms,
+
+the universe goes from being opaque to being transparent,
+
+\textcolor{red}{Epoch of recombination}: the time at which the baryonic component of the universe goes from being ionized to being neutral, i.e. the instant in time when the number density of ions is equal to the number density of neutral atoms.
+
+辐射与物质退耦：$1000 \leq z \leq 1200$
+
+\textcolor{red}{Epoch of decoupling}: the time when the rate at which photons scatter from electrons  becomes smaller than the Hubble parameter; when photons decouple, they cease to interact with the electrons, and the universe becomes transparent.
+
+\textcolor{red}{Epoch of last scattering}: the time at which a typical CMB photon underwent its last scattering from an electron. Surrounding every observer in the universe is a \textcolor{red}{last scattering surface}, from which the CMB photons have been streaming freely, with no further scattering by electrons.
+
+
+\section{CMB温度涨落的统计描述}
+\cite{2010宇宙大尺度结构的形成, 2012宇宙大尺度结构的形成} 密度扰动线性演化；
+
+那时的密度扰动谱与原初扰动谱之间由线性转移函数联系；
+
+the dimensionless temperature fluctuation at a given point on the sky is
+\begin{equation}
+\frac{\delta T}{T}(\theta, \phi) = \frac{T(\theta, \phi) -T_0}{T_0} .
+\end{equation}
+After subtraction of the Doppler dipole, the root mean square temperature fluctuation is
+\begin{equation}
+\left\langle \left(\frac{\delta T}{T}\right)^2 \right\rangle^{1/2} = 1.1 \times 10^{-5}
+\end{equation}
+
+
+全天空CMB温度分布用球谐函数展开
+\begin{equation}
+\frac{\Delta T}{T}(\theta, \phi) = \frac{T(\theta, \phi) -T_0}{T_0} = \sum_{l=0}^{\infty} \sum_{m=-l}^{l} a_{lm} Y_{lm}(\theta, \phi)
+\end{equation}
+$\theta$和$\phi$为球坐标下的极角和方位角；
+
+$Y_{lm}$: 球谐函数
+\begin{equation}
+Y_{lm}(\theta, \phi) = \left[ \frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}  \right]^{1/2} P^{|m|}_l(\cos \theta) e^{im\phi}
+\end{equation}
+$P^{|m|}_l(\cos \theta)$: 缔合Legendre多项式
+\begin{equation}
+P^{|m|}_l(\mu) = (1-\mu^2)^{\frac{|m|}{2}} \frac{\dif^{|m|}}{\dif \mu^{|m|}} P_l (\mu)
+\end{equation}
+
+$Y_{lm}$满足正交归一化条件：
+\begin{equation}
+\int_0^{2\pi} \int_0^{\pi} Y^*_{lm}(\theta, \phi) Y_{l'm'}(\theta, \phi) \sin \theta \dif \theta \dif \phi = \delta_{ll'} \delta_{mm'}
+\end{equation}
+$\Delta T/T$的球谐函数展开类似于密度涨落$\delta (\vec{x})$的平面波展开，但$\Delta T/T$来自天空的球面背景，球面上的正交完备函数集是$Y_{lm}$，正如平面波展开中$\exp(i \vec{k}\cdot \vec{x})$是平直空间中的正交函数集。
+
+\begin{equation}
+a_{lm} = \int_{4\pi} \frac{\Delta T}{T}(\theta, \phi) Y^*_{lm}(\theta, \phi) \dif \Omega
+\end{equation}
+
+\begin{equation}
+\langle a^*_{lm} a_{l'm'} \rangle = C_l \delta_{ll'} \delta_{mm'}
+\end{equation}
+其中的平均是对全天平均\textcolor{red}{?}；
+
+$C_l$: \textcolor{red}{角功率谱}
+\begin{equation}
+C_l = \frac{1}{2l +1} \sum_m a^*_{lm} a_{lm} = \langle |a_{lm}|^2 \rangle
+\end{equation}
+
+CMB的温度涨落也常用\textcolor{red}{自协方差函数}$C(\theta)$定义
+\begin{equation}
+C(\theta) = \left \langle \frac{\Delta T}{T}(\vec{n}_1) \frac{\Delta T}{T}(\vec{n}_2) \right \rangle
+\end{equation}
+$\vec{n}_1$和$\vec{n}_2$为指向天空1和2两个方向的单位矢量，$\vec{n}_1 \cdot \vec{n}_2 = \cos \theta$; 对全天空平均; $\vec{n}_1$和$\vec{n}_2$的夹角始终保持为$\theta$;
+
+由球谐函数的正交性，
+\begin{equation}
+\sum_{lm} Y^*_{lm}(\vec{n}_1) Y_{lm}(\vec{n}_2) = \sum_l \frac{2l+1}{4\pi} P_l (\cos \theta)\textcolor{red}{?}
+\end{equation}
+$P_l (\cos \theta)$: Legendre多项式，
+
+自协方差函数$C(\theta)$与角功率谱$C_l$的关系
+\begin{equation}
+C(\theta) = \frac{1}{4\pi} \sum_l (2l+1) C_l P_l (\cos \theta)\textcolor{red}{?}
+\end{equation}
+N.B. 星系两点相关函数与功率谱的关系，
+
+$l=0$项：对单极矩的改正，亦即宇宙中某个观测者观察到的天空平均温度，相对于宇宙中所有可能的观测者观察到天空温度整体平均值的修正\textcolor{red}{?}；对背景辐射温度各向异性没有贡献，可略去；
+
+$l=1$项：偶极矩，起源于我们附近的宇宙物质密度涨落所引起的本动运动，表现为地球相对于宇宙平均背景的运动，或偏离宇宙哈勃流的运动；局域效应，在对背景辐射温度各向异性的讨论中也可略去；
+
+$l=2$项：四极矩，$l>2$项：多极矩，它们都产生于复合期间或复合后的密度涨落，表示背景辐射的内禀各向异性；较大的$l$相应于较小的$\theta$角内的温度涨落；根据函数$Y_{lm}$的零点分布特征，估计$l$与角分辨率之间大致为$\theta \sim 180^{\circ}/l$。
+
+把辐射亮温度函数$\delta^{(r)}$展开为Legendre多项式，
+\begin{equation}
+\delta_k^{(r)}(\mu, t) = \sum_{l=0}^{\infty} (2l +1) P_l(\mu) (-i)^l \sigma_l(k, t)
+\end{equation}
+$\mu = \cos \theta$：光子动量和波矢量$\vec{k}$之间夹角的余弦\textcolor{red}{?}；可以利用数值计算得到的$\sigma_l$，得出CMB温度涨落的自协方差函数$C(\theta)$，二者关系为
+\begin{equation}
+C(\theta) = \frac{1}{2\pi^2} \int_0^{\infty} \sum_{l \geq 2}(2l +1) \left[\frac{1}{4} \sigma_l(k,t_0) \right]^2 P_l(\cos \theta) k^2 \dif k\textcolor{red}{?}
+\end{equation}
+$1/4$来源于$\Delta T/T = \delta_r/4$
+
+CMBfast
+
+采用\textcolor{red}{温度功率谱$l(l+1)C_l/2\pi$}来描述CMB温度涨落$\delta T$，
+
+实际温度功率谱是一个三维的概念，因为温度即辐射能量是在三维空间中分布的，我们看到的二维分布实际上是三维分布在天球上投影的结果。在空间为平直的情况下，根据Hankel变换，可以得到投影后的角相关函数用三维波数积分表示的形式：\textcolor{red}{?}
+\begin{equation}
+C(\theta) = \int_0^{\infty} F^2(k) J_0(k\theta) \frac{\dif k}{k}
+\end{equation}
+其中
+\begin{equation}
+F^2(k = l+\frac{1}{2}) = \frac{(l+1/2)(2l+1)}{4\pi} C_l ~~~(\text{当}\theta \ll 1, l \gg 1)
+\end{equation}
+为三维空间的功率谱，$J_0$为Bessel函数，
+\begin{equation}
+J_0(z) \simeq \sqrt{\frac{2}{\pi z}} \cos(z-\frac{1}{4} \pi)
+\end{equation}
+当$\theta \ll 1$时，$J_0$的这一表达式与Legendre多项式的近似表示
+\begin{equation}
+P_l (\cos \theta) \simeq \sqrt{\frac{2}{\pi l \sin \theta}} \cos \left[(l+\frac{1}{2})\theta -\frac{1}{4} \pi \right]
+\end{equation}
+当$l$和$z$都很大时，趋于一致，且$l\rightarrow k$；
+
+同时三维功率谱
+\begin{equation}
+F^2(k = l+\frac{1}{2}) = \frac{2l^2 +2l +1/2}{4\pi} C_l \rightarrow \frac{l(l+1)}{2\pi} C_l
+\end{equation}
+是常用的温度功率谱，虽然它的形式是二维球面上的统计描述，但是其中已经包含了三维空间的全部信息；
+
+\begin{equation}
+C(\theta) = \frac{1}{2\pi} \int_0^{\infty} l(l+1) C_l P_l (\cos \theta) \frac{\dif l}{l}\textcolor{red}{?}
+\end{equation}
+
+在对CMB温度涨落的实际测量中，接收天线有一个有限的波束宽度(beamwidth)，使得测量结果不是天球上实际温度的逐点分布，而是经过某种响应函数平滑后的结果；响应函数一般具有Gauss分布：
+\begin{equation}
+F(\theta) = \frac{1}{2\pi \theta_f^2} \exp \left(-\frac{\theta^2}{2\theta_f^2} \right)\textcolor{red}{?}
+\end{equation}
+$\theta_f$：波束的宽度；但通常用$l$代替$\theta$，故
+\begin{equation}
+F_l = \exp \left[ -\left(l+\frac{1}{2} \right)^2 \frac{1}{2} \theta_f^2 \right]\textcolor{red}{?}
+\end{equation}
+
+
+观测到的温度自协方差函数
+\begin{equation}
+C(\theta;\theta_f) = \frac{1}{4\pi} \sum_{l=2}^{\infty} (2l+1)F_l C_l P_l(\cos \theta)\textcolor{red}{?}
+\end{equation}
+
+对于用单波束扫描进行的测量，温度涨落的均方值为
+\begin{equation}
+\left\langle \left(\frac{\Delta T}{T} \right)^2 \right\rangle = \frac{1}{4\pi} \sum (2l+1)C_l F_l = C(0;\theta_f)\textcolor{red}{?}
+\end{equation}
+
+对于用双波束进行的测量，其中每一波束的宽度为$\theta_f$，波束摆度(beam throw)即两个波束之间的夹角$\theta$，温度涨落的均方值为
+\begin{equation}
+\left\langle \left(\frac{\Delta T}{T} \right)^2 \right\rangle = \left\langle \frac{(T_1 -T_2)^2}{T^2} \right\rangle = 2[C(0;\theta_f) -C(\theta;\theta_f)]\textcolor{red}{?}
+\end{equation}
+
+对于用三波束进行的测量，其中间波束为1，其余2、3两个波束与1之间的夹角均为$\theta$，温度涨落的均方值为
+\begin{equation}
+\left\langle \left(\frac{\Delta T}{T} \right)^2 \right\rangle = \left\langle \frac{[T_1 -(T_2+T_3)/2]^2}{T^2} \right\rangle = \frac{3}{2}C(0;\theta_f) -2C(\theta;\theta_f) +\frac{1}{2}C(2\theta;\theta_f)\textcolor{red}{?}
+\end{equation}
+
+地面观测通常受到大气辐射的影响，因而更常用双波束或三波束扫描的方法，以消除大气辐射的干扰；
+
+\cite{cheng2005relativity} The CMB temperature has directional dependence $T(\theta, \phi)$ with an average of
+\begin{equation}
+\left\langle T \right\rangle = \dfrac{1}{4\pi} \int T(\theta, \phi) \sin \theta \dif \theta \dif \phi = 2.725 \rm K ~.
+\end{equation}
+The temperature fluctuation
+\begin{equation}
+\dfrac{\delta T}{T}(\theta, \phi) \equiv \dfrac{T(\theta, \phi) -\left\langle T \right\rangle}{\left\langle T \right\rangle} ~,
+\end{equation}
+has a root-mean-square value of
+\begin{equation}
+\left\langle \left(\dfrac{\delta T}{T} \right)^2 \right\rangle^{1/2} = 1.1 \times 10^{-5} ~.
+\end{equation}
+For the dependence on $(\theta, \phi)$ by the temperature fluctuation (think of it as vibration modes on the surface of an elastic sphere), we expand it in terms of spherical harmonics
+\begin{equation}
+\dfrac{\delta T}{T}(\theta, \phi) = \sum_{l=0}^\infty\sum_{m=-l}^l a_{lm} Y_l^m(\theta, \phi) ~.
+\end{equation}
+These basis functions obey the orthonormality condition
+\begin{equation}
+\int Y_l^{ \ast m} Y_{l^\prime}^{m^\prime} \sin \theta \dif \theta \dif \phi = \delta_{ll^\prime} \delta_{mm^\prime} ~,
+\end{equation}
+and the addition theorem
+\begin{equation}
+\sum_m Y_l^{\ast m}(\hat{n}_1) Y_l^{m}(\hat{n}_2)  = \dfrac{2l+1}{4\pi} P_l(\cos \theta_{12}) ~,
+\end{equation}
+where $P_l(\cos \theta)$ is the Legendre polynomial, and $\hat{n}_1$ and $\hat{n}_2$ are two unit vectors pointing in directions with an angular separation $\theta_{12}$. Namely, $\hat{n}_1 \cdot \hat{n}_2 = \cos \theta_{12}$. The multipole number ``l" represents the number of nodes (locations of zero amplitude) between equator and poles, while ``m" is the longitudinal node number. For a given $l$, there are $2l + 1$ values for $m$, $-l, -l +1, \cdots, l-1, l$. The expansion coefficients $a_{lm}$, much like the individual amplitudes in a Fourier series, are determined by the underlying density perturbation. They can be projected out from the temperature fluctuation 
+\begin{equation}
+a_{lm} = \int  Y_l^{ \ast m}(\theta, \phi) \dfrac{\delta T}{T}(\theta, \phi) \sin \theta \dif \theta \dif \phi ~.
+\end{equation}
+These multipole moments can only be predicted statistically.
+
+Consider two points at $\hat{n}_1$ and $\hat{n}_2$ separated by $\theta$. We define the \textcolor{red}{correlation function}
+\begin{equation}
+\color{red} C(\theta) \equiv \left\langle \dfrac{\delta T}{T}(\hat{n}_1) \dfrac{\delta T}{T}(\hat{n}_2) \right\rangle_{\hat{n}_1 \cdot \hat{n}_2 = \cos \theta_{12}} ~, 
+\end{equation}
+where the \textcolor{yellow}{angle brackets} denote the \textcolor{yellow}{averaging over an ensemble of realizations of the fluctuation}.\footnote{In principle it means \textcolor{yellow}{averaging over many universes}. Since we have only one universe, this ensemble averaging is carried out by \textcolor{yellow}{averaging over multiple moments with different $m$ moments}, which in theory should be equal because of spherical symmetry.} The inflationary cosmology predicts that the fluctuation is Gaussian\footnote{If the temperature fluctuation is not Gaussian, higher order correlations would contain additinal information.} (i.e. maximally random) and is thus independent of the $a_{lm}$s. Namely, the multipoles $a_{lm}$ are uncorrelated for different values of $l$ and $m$:
+\begin{equation}
+\left\langle a_{lm} \right\rangle = 0  ~, ~~~  \left\langle a^\ast_{lm} a_{l^\prime m^\prime} \right\rangle = C_l \delta_{ll^\prime} \delta_{mm^\prime} ~,
+\end{equation}
+which defines the power spectrum $C_l$ as a measure of the relative strength of spherical harmonics in the decomposition of the temperature fluctuations. The lack of $m$-dependence reflects the rotational symmetry of the underlying cosmological model. 
+\begin{equation}
+\color{red} C(\theta) = \dfrac{1}{4\pi} \sum_{l=0}^\infty (2l+1)C_l P_l(\cos \theta) ~.
+\end{equation}
+The information carried by $C(\theta)$ in the angular space can be represented by $C_l$ in the space of multipole number $l$. The power spectrum $C_l$ is the focus of experimental comparison with theoretical predictions. From
+the map of measured temperature fluctuations, one can extract multipole moments by the projection and since we do not actually have an ensemble of universes to take the statistical average, this is \textcolor{yellow}{estimated by averaging over the $a_{lm}$s with different $m$s}. Such an estimate will be uncertain by an amount inversely proportional to the square-root of the number of samples
+\begin{equation}
+\color{red} \left\langle \left(\dfrac{\delta C_l}{C_l} \right)^2 \right\rangle^{1/2} \propto \sqrt{\dfrac{1}{2l +1}} ~.
+\end{equation}
+The expression also makes it clear that the variance will be quite \textcolor{blue}{significant for low multiple moments} when we have only a very small number of samples. This is referred to as the \textcolor{red}{``cosmic variance problem"}.
+
+
+
+
+
+\cite{2008cosm.book.....W} Expand the difference $\Delta T(\hat{n})$ between the microwave radiation temperature observed in a direction given by the unit vector $\hat{n}$ and the present mean value $T_0$ of the temperature in spherical harmonics $Y_\ell^m(\hat{n})$:
+\begin{equation}
+\Delta T(\hat{n}) \equiv T(\hat{n}) -T_0 = \sum_{\ell m} a_{\ell m} Y_\ell^m(\hat{n}) ~, ~~~ T_0 \equiv \dfrac{1}{4\pi} \int \dif^2 \hat{n} T(\hat{n}) ~,
+\end{equation}
+the sum over $\ell$ running over all positive-definite integers, and the sum over $m$ running over integers from $-\ell$ to $\ell$. Since $\Delta T(\hat{n})$ is real, the coefficients $a_{\ell m}$ must satisfy the reality condition
+\begin{equation}
+a^\ast_{\ell m} = a_{\ell -m} ~.
+\end{equation}
+The \textcolor{orange}{earth's motion} contributes to $\Delta T(\hat{n})$ an anisotropy that to a good approximation is \textcolor{yellow}{proportional to $P_1(\cos \theta) \propto Y_1^0(\theta, \phi)$} (with the $z$-axis taken in the direction of the earth's motion), so the main $a_{\ell m}$ produced by this effect is that with \textcolor{yellow}{$\ell = 1$ and $m = 0$}.
+
+The coefficients $a_{\ell m}$ reflect not only what was \textcolor{red}{happening at the time of last scattering}, but also the \textcolor{red}{particular position of the earth in the universe}. The averages may be regarded either as  \textcolor{orange}{averages over the possible positions from which the radiation could be observed}, or  \textcolor{orange}{averages over the historical accidents that produced a particular pattern of fluctuations}. The ergodic theorem shows that, under reasonable assumptions, these two kinds of average are the same. These averages will be denoted $\langle \cdots \rangle$. For \textcolor{orange}{anisotropies that arise from quantum fluctuations during inflation}, it is these  \textcolor{orange}{averages over historical accidents} that are  \textcolor{orange}{related to quantum mechanical expectation values}. Assume that the \textcolor{red}{universe is rotationally invariant on the average}, so all averages $\langle \Delta T(\hat{n}_1)\Delta T(\hat{n}_2)\Delta T(\hat{n}_3) \cdots \rangle$ are \textcolor{red}{rotationally invariant functions of the directions} $\hat{n}_1$, $\hat{n}_2$, etc. \textcolor{red}{$\langle \Delta T(\hat{n}) \rangle$ is independent of $\hat{n}$}. Since $ \Delta T(\hat{n})$ is defined as the departure of the temperature from its angular average, its angular average $\int \Delta T(\hat{n}) \dif^2 \hat{n}/4\pi$  vanishes. \textcolor{red}{Averaging over the position of the observer}, $\int \langle \Delta T(\hat{n}) \rangle \dif^2 \hat{n} = 0$, so since $\langle \Delta T(\hat{n}) \rangle$ is independent of $\hat{n}$, it too vanishes. 
+
+The simplest non-trivial quantity characterizing the anisotropies in the microwave background is the \textcolor{red}{average of a product of two $\Delta T$s}. \textcolor{yellow}{Rotational invariance} requires that the \textcolor{green}{product of two $a$s} takes the form
+\begin{equation}
+\color{yellow} \langle a_{\ell m} a_{\ell^\prime m^\prime} \rangle = \delta_{\ell \ell^\prime} \delta_{m -m^\prime} C_\ell ~,
+\end{equation}
+for in this case the \textcolor{red}{average of the product of two $\Delta T$s is rotationally invariant}:
+\begin{equation}
+\langle \Delta T(\hat{n})\Delta T(\hat{n}^\prime) \rangle = \sum_{\ell m} C_\ell Y_\ell^m(\hat{n}) Y_\ell^m(\hat{n}^\prime) = \sum_\ell C_\ell \left(\dfrac{2\ell +1}{4\pi} \right) P_\ell(\hat{n} \cdot \hat{n}^\prime) ~,
+\end{equation}
+where $P_\ell$ is the Legendre polynomial. By inverting the Legendre transformation, 
+\begin{equation}
+C_\ell = \dfrac{1}{4\pi} \int \dif^2 \hat{n} \dif^2 \hat{n}^\prime P_\ell(\hat{n} \cdot \hat{n}^\prime)  \langle \Delta T(\hat{n})\Delta T(\hat{n}^\prime) \rangle ~.
+\end{equation}
+Define the multipole coefficients $C_\ell$ by
+\begin{equation}
+\langle a_{\ell m} a_{\ell^\prime m^\prime}^\ast \rangle = \delta_{\ell \ell^\prime} \delta_{m m^\prime} C_\ell ~,
+\end{equation}
+which shows that the $C_\ell$ are real and positive. For \textcolor{orange}{perturbations $\Delta T$ that are Gaussian}, \textcolor{orange}{a knowledge of the $C_\ell$ tells us all we need to know about averages of all products of $\Delta T$s}.
+
+We \textcolor{orange}{cannot average over positions} from which to \textcolor{orange}{view the microwave background}. What is actually observed is a quantity \textcolor{yellow}{averaged over $m$ but not position}:
+\begin{equation}
+\color{yellow} C_\ell^{\rm obs} \equiv \dfrac{1}{2\ell +1} \sum_m a_{\ell m} a_{\ell -m} = \dfrac{1}{4\pi} \int \dif^2 \hat{n} \dif^2 \hat{n}^\prime P_\ell(\hat{n} \cdot \hat{n}^\prime) \Delta T(\hat{n})\Delta T(\hat{n}^\prime) ~.
+\end{equation}
+The \textcolor{red}{fractional difference between the cosmologically interesting $C_\ell$ and the observed $C_{\rm obs}$} is known as the \textcolor{red}{cosmic variance}. For \textcolor{yellow}{Gaussian perturbations}, the \textcolor{yellow}{mean square cosmic variance decreases with $\ell$}. The mean square fractional difference is
+\begin{equation}
+\color{yellow} \left\langle \left(\dfrac{C_\ell - C_\ell^{\rm obs}}{C_\ell} \right)^2 \right\rangle = 1 -2 +\dfrac{1}{(2\ell +1)^2 C_\ell^2} \sum_{m m^\prime} \langle a_{\ell m} a_{\ell -m} a_{\ell m^\prime} a_{\ell -m^\prime} \rangle ~.
+\label{eq:frac_diff}
+\end{equation}
+If $\Delta T$ is governed by a Gaussian distribution, then so are its multipole coefficients $a_{\ell m}$ (but not quantities quadratic in the $a_{\ell m}$, such as $C_\ell$.) It follows that
+\begin{align}
+\nonumber \langle a_{\ell m} a_{\ell -m} a_{\ell m^\prime} a_{\ell -m^\prime} \rangle &= \langle a_{\ell m} a_{\ell -m} \rangle \langle a_{\ell m^\prime} a_{\ell -m^\prime} \rangle + \langle a_{\ell m} a_{\ell m^\prime} \rangle \langle a_{\ell -m}  a_{\ell -m^\prime} \rangle \\
+&+  \langle a_{\ell m} a_{\ell -m^\prime} \rangle \langle a_{\ell -m}  a_{\ell m^\prime} \rangle ~.
+\label{eq:alm4}
+\end{align}\footnote{Non-Gaussian terms in the probability distribution of anisotropies would show up as non-vanishing averages of products of odd numbers of the $a_{\ell m}$, as well as corrections to formulas for the averages of products of even numbers of the $a_{\ell m}$. Such non-Gaussian terms are produced both in the early universe and at relatively late times. The weakness of microwave background anisotropies indicates that any non-Gaussian terms are likely to be quite small. So far, there is no observational evidence of such terms.}
+
+The first term on the right-hand side of Eq. (\ref{eq:alm4}) contributes $(2\ell + 1)^2 C_\ell^2$ to the sum in Eq. (\ref{eq:frac_diff}), while  the second and third terms each contribute $(2\ell + 1)C_\ell^2$ to the sum, 
+\begin{equation}
+\left\langle \left(\dfrac{C_\ell - C_\ell^{\rm obs}}{C_\ell} \right)^2 \right\rangle = \dfrac{2}{2\ell +1} ~.
+\end{equation}
+This sets a limit on the accuracy with which we can measure $C_\ell$ for small values of $\ell$. The same analysis shows that for $\ell \neq \ell^\prime$, 
+\begin{equation}
+\left\langle \left(\dfrac{C_\ell - C_\ell^{\rm obs}}{C_\ell} \right) \left(\dfrac{C_{\ell^\prime} - C_{\ell^\prime}^{\rm obs}}{C_{\ell^\prime}} \right) \right\rangle = 0 ~,
+\end{equation}
+so the fluctuations of $C_\ell^{\rm obs}$ away from the smoothly varying quantity $C_\ell$ are uncorrelated for different values of $\ell$. This means that when $C_\ell^{\rm obs}$ is measured for all in some range $\Delta \ell$ in which $C_\ell$ actually varies little, the uncertainty due to cosmic variance in the value of $C_\ell$ obtained in this range is reduced by a factor $1/\sqrt{\Delta \ell}$.  Even so, measurements of $C_\ell$ for $\ell < 5$ probably tell us little about cosmology. Also, measurements for $\ell > 2, 000$ are corrupted by foreground effects, such as the Sunyaev-Zel'dovich effect. There is lots of structure in $C_\ell$ at values of between $5$ and $2,000$ that provides invaluable cosmological information.
+
+The primary anisotropies in the cosmic microwave background arise from several sources:
+
+1. \textcolor{red}{Intrinsic temperature fluctuations} in the electron-nucleon-photon plasma at the time of \textcolor{blue}{last scattering}, at a redshift of about $1,090$. 
+
+2. The \textcolor{red}{Doppler effect} due to \textcolor{blue}{velocity fluctuations} in the plasma at \textcolor{blue}{last scattering}.
+
+3. The \textcolor{blue}{gravitational redshift} or \textcolor{blue}{blueshift} due to \textcolor{blue}{fluctuations in the gravitational potential at last scattering}. This is known as the \textcolor{red}{Sachs-Wolfe effect}.
+
+4. \textcolor{blue}{Gravitational redshifts} or \textcolor{blue}{blue shifts} due to \textcolor{blue}{time-dependent fluctuations in the gravitational potential between the time of last scattering and the present}. (It is necessary that the \textcolor{blue}{fluctuations be time-dependent}; \textcolor{blue}{a photon falling into a time-independent potential well will lose the energy it gains when it climbs out of it}.) This is known as the \textcolor{red}{integrated Sachs-Wolfe effect}.
+
+From the time the temperature dropped below $10^4$ K until vacuum energy became important at a redshift of order unity, the gravitational field of the universe was dominated to a fair approximation by cold dark matter, which can be treated by the
+methods of Newtonian physics. Both the Sachs-Wolfe and integrated Sachs-Wolfe effect turn out to dominate the multipole coefficients $C_\ell$ for \textcolor{blue}{relatively small $\ell$}, \textcolor{blue}{less than about $40$}. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{The $C_l$'s}
+\cite{2003moco.book.....D} The temperature field in the universe as 
+\begin{equation}
+T(\vec{x}, \hat{p}, \eta) = T(\eta) [1+\Theta(\vec{x}, \hat{p}, \eta)] ~.
+\end{equation}
+Although this field is defined at every point in space and time, we can observe it only here (at $\vec{x}_0$) and now (at $\eta_0$). Our only handle on the anisotropies is their dependence on the direction of the incoming photons, $\hat{p}$. So all the richness we observe comes from the changes in the temperature as the direction vector $\hat{p}$ changes. Observers typically makes maps, wherein the temperature is reported at a number of incoming directions, or ``spots on the sky." These spots are labeled not by the $\hat{p}_x, \hat{p}_y, \hat{p}_z$ components of $\hat{p}$, but rather by polar coordinates $\theta, \phi$. 
+
+Expand the field in terms of spherical harmonics,
+\begin{equation}
+\Theta(\vec{x}, \hat{p}, \eta) = \sum_{l=1}^\infty \sum_{m=-l}^{l} a_{lm}(\vec{x}, \eta) Y_{lm}(\hat{p}) ~.
+\end{equation}
+The subscripts $l, m$ are conjugate to the real space unit vector $\hat{p}$, just as the variable $\vec{k}$ is conjugate to the Fourier transform variable $\vec{x}$. We are all familiar with Fourier transforms, so it is useful to think of the expansion in terms of spherical harmonics as a kind of generalized Fourier transform. The complete set of eigenfunctions for the Fourier transform are $e^{i\vec{k}\cdot \vec{x}}$, here the complete set of eigenfunctions for expansion on the surface of a sphere are $Y_{lm}(\hat{p})$. All of the information contained in the temperature field $T$ is also contained in the space-time dependent amplitudes $a_{lm}$. Consider an experiment which maps the full sky with an angular resolution of $7^\circ$. The full sky has $4\pi$ radians$^2 \simeq 41,000$ degrees$^2$ so there 
+are $840$ pixels with area of $(7^\circ)^2$. Thus, such an experiment would have $840$ independent pieces of information. Were we to characterize this information with $a_{lm}$'s instead of temperatures in pixels, there would be some /max above which there is no information. One way to determine this $l_{\rm max}$ is to set the total number of recoverable $a_{lm}$'s as $\sum_{l=0}^{l_{\rm max}} (2l+1) = (l_{\rm max} +1)^2 = 840$. The information could be equally well characterized by specifying all the $a_{lm}$'s up to $l_{\rm max} = 28$. The independent information was contained in multipoles up to $l \sim 30$. 
+
+Relate the observables, the $a_{lm}$'s, to the $\Theta_l$, use the orthogonality property of the spherical harmonics. The $Y_{lm}$'s are normalized 
+\begin{equation}
+\int \dif \Omega Y_{lm}(\hat{p}) Y_{l^\prime m^\prime}^\ast(\hat{p}) = \delta_{ll^\prime} \delta_{mm^\prime} ~,
+\end{equation}
+where $\Omega$ is the solid angle spanned by $\hat{p}$. The expansion of $\Theta$ in terms of spherical harmonics can be inverted by multiplying both sides by $Y_{lm}^\ast(\hat{p})$ and integrating: 
+\begin{equation}
+a_{lm}(\vec{x}, \eta) = \int \dfrac{\dif^3 k}{(2\pi)^3} e^{i\vec{k}\cdot \vec{x}} \int \dif \Omega Y_{lm}^\ast(\hat{p}) \Theta(\vec{k}, \hat{p}, \eta) ~.
+\end{equation}
+The right-hand side is written in terms of the Fourier transform ($\Theta(\vec{k})$ instead of $\Theta(\vec{x})$).
+
+As with the density perturbations, we cannot make predictions about any particular $a_{lm}$, just about the distribution from which they are drawn, a distribution which traces its origin to the quantum fluctuations first laid down during inflation. The mean value of all the $a_{lm}$'s is zero, but they will have some nonzero variance. The \textcolor{red}{variance of the $a_{lm}$'s} is called \textcolor{red}{$C_l$}. 
+\begin{equation}
+\langle a_{lm} \rangle = 0 ~, ~~~ \langle a_{lm} a_{l^\prime m^\prime}^\ast \rangle = \delta_{l l^\prime}\delta_{m m^\prime} C_l ~.
+\end{equation}
+For a \textcolor{orange}{given $l$}, \textcolor{orange}{each $a_{lm}$ has the same variance}. For $l = 100$, all $201$ $a_{100,m}$'s are drawn from the same distribution. When we measure these $201$ coefficients, we are sampling the distribution. This much information will give us a good handle on the underlying \textcolor{orange}{variance of the distribution}. If we measure the five components of the quadrupole ($l = 2$), we do not get very much information about the underlying variance, $C_2$. Thus, there is a fundamental uncertainty in the knowledge we may get about the $C_l$'s. This uncertainty, which is most pronounced at low $l$, is called cosmic variance. Quantitatively, the uncertainty scales simply as the inverse of the square root of the number of possible samples, or 
+\begin{equation}
+\left(\dfrac{\Delta C_l}{C_l} \right)_{\text{cosmic variance} } = \sqrt{\dfrac{2}{2l+1}} ~.
+\end{equation}
+Now obtain an expression for $C_l$ in terms of $\Theta_l(k)$. First square $a_{lm}$ and take the expectation value of the distribution. For this we need $\langle \Theta(\vec{k}, \hat{p})\Theta^\ast(\vec{k}^\prime, \hat{p}^\prime) \rangle$, where from now on, keep the $\eta$ dependence implicit. This expectation value is complicated because it depends on two separate phenomena: (i) the initial amplitude and phase of the perturbation is chosen during inflation from a Gaussian distribution and (ii) the evolution we have studied in this chapter turns this initial perturbation into anisotropics, i.e. produces the dependence on $\hat{p}$. To simplify then, it makes sense to separate these two phenomena and write the photon distribution as $(\delta \times (\Theta/\delta)$, where the dark matter overdensity $\delta$ does not depend on any direction vector. The ratio does not depend on the initial amplitude, so it can be removed from the averaging over the distribution. 
+\begin{align}
+\nonumber \langle \Theta(\vec{k}, \hat{p}) \Theta(\vec{k}^\prime, \hat{p}^\prime) \rangle &= \langle \delta(\vec{k}) \delta^\ast(\vec{k}^\prime) \rangle \dfrac{\Theta(\vec{k}, \hat{p})}{\delta(\vec{k})} \dfrac{\Theta^\ast(\vec{k}^\prime, \hat{p})}{\delta^\ast(\vec{k}^\prime)} ~, \\
+&= (2\pi)^3 \delta^3(\vec{k} -\vec{k}^\prime) P(k) \dfrac{\Theta(\vec{k}, \hat{k}\cdot \hat{p})}{\delta(k)} \dfrac{\Theta^\ast(\vec{k}, \hat{k}\cdot\hat{p}^\prime)}{\delta^\ast(k)} ~,
+\end{align}
+where the second equality uses the definition of the matter power spectrum $P(k)$, but also contains a subtlety in the ratio $\Theta/\delta$. This ratio, which is determined solely by the evolution of both $\delta$ and $\Theta$, depends only on the magnitude of $\vec{k}$ and the dot product $\hat{k}\cdot \hat{p}$. Two modes with the same $k$ and $\hat{k}\cdot \hat{p}$ evolve identically even though their initial amplitudes and phases are different. 
+
+The anisotropy spectrum is
+\begin{equation}
+C_l = \int \dfrac{\dif^3 k}{(2\pi)^3} P(k) \int \Omega Y_{lm}^\ast(\hat{p}) \dfrac{\Theta(\vec{k}, \hat{k}\cdot \hat{p})}{\delta(k)} \int \dif \Omega^\prime Y_{lm}(\hat{p}^\prime) \dfrac{\Theta^\ast(\vec{k}, \hat{k}\cdot\hat{p}^\prime)}{\delta^\ast(k)} ~.
+\end{equation}
+Expand $\Theta(\vec{k}, \hat{k}\cdot \hat{p})$ and $\Theta(\vec{k}, \hat{k}\cdot \hat{p}^\prime)$ in spherical harmonic using $\Theta(\vec{k}, \hat{k}\cdot \hat{p}) = \sum_l (-i)^{l} (2l+1) \mathcal P_l(\hat{k}\cdot \hat{p}) \Theta_l(k)$, 
+\begin{align}
+\nonumber C_l &= \int \dfrac{\dif^3 k}{(2\pi)^3} P(k) \sum_{l^\prime l^{\prime \prime}} (-i)^{l^\prime} (i)^{l^{\prime \prime}} (2l^\prime+ 1)(2l^{\prime \prime} +1) \dfrac{\Theta_{l^{\prime}}(k) \Theta^\ast_{l^{\prime \prime}}(k)}{|\delta(k)|^2} \\
+&\times \int \dif \Omega \mathcal P_{l^{\prime}}(\hat{k}\cdot\hat{p}) Y_{lm}^\ast(\hat{p}) \int \dif \Omega^\prime P_{l^{\prime \prime}}(\hat{k}\cdot\hat{p}^\prime) Y_{lm}(\hat{p}^\prime) ~.
+\end{align}
+The two angular integrals are identical. They are nonzero only if $l^\prime = l$ and $l^{\prime \prime} = l$, in which case they are equal to $4\pi Y_{lm}(\hat{k})/(2l+1)$ (or the complex conjugate). The angular part of the $\dif^3 k$ integral then becomes an integral over $|Y_{lm}|^2$, which is just equal to $1$, leaving
+\begin{equation}
+C_l = \dfrac{2}{\pi} \int_0^\infty \dif k k^2 P(k) \left|\dfrac{\Theta_l(k)}{\delta(k)} \right|^2 ~.
+\end{equation}
+For a given $l$, then, the variance of $a_{lm}$, $C_l$ is an integral over all Fourier modes of the variance of $\Theta_l(\hat{k})$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Sample and cosmic variance}
+\cite{2000PhR...333..245G} The multipoles $C_\ell$ can be related to the  \textcolor{yellow}{expected value of the spherical harmonic coefficients} by
+\begin{equation}
+\color{yellow} \left\langle \sum_m a_{\ell m}^2 \right\rangle = (2\ell +1) C_\ell ~,
+\end{equation}
+since there are  \textcolor{blue}{$(2 \ell+1) a_{\ell m}$ for each $\ell$} and  \textcolor{yellow}{each has an expected autocorrelation of $C_\ell$}. In a theory such as inflation, the temperature fluctuations follow a Gaussian distribution about these expected ensemble averages. This makes the  \textcolor{yellow}{$a_{\ell m}$ Gaussian random variables}, resulting in a \textcolor{yellow}{$\chi^2_{2\ell +1}$ distribution for $\sum_m a^2_{\ell m}$}. The  \textcolor{yellow}{width of this distribution} leads to a  \textcolor{red}{\bf cosmic variance} in the \textcolor{blue}{estimated $C_{\ell}$} of  \textcolor{yellow}{$\sigma^2_{\rm cv} = \left(\ell +\dfrac{1}{2} \right)^{-1/2} C_{\ell}$}, which is much greater for small l than for large $\ell$ (unless $C_\ell$ increases in a manner highly inconsistent with theoretical expectations). So, although cosmic variance is an unavoidable source of error for anisotropy measurements, it is much less of a problem for small scales than for COBE.
+
+Just as it is difficult to measure the $C_\ell$ with only a few $a_{\ell m}$, it is challenging to use a small piece of the sky to measure multipoles whose spherical harmonics cover the sphere. It turns out that limited sky coverage leads to a sample variance for a particular multipole related to the cosmic variance for any value of $\ell$ by
+\begin{equation}
+\sigma^2_{\rm sv} \simeq (4\pi/\Omega) \sigma^2_{\rm cv} ~,
+\end{equation}
+where $\Omega$ is the solid angle observed. One caveat: in testing cosmological models, this cosmic and sample variance should be derived from the $C_\ell$ of the model, not the observed value of the data. The difference is typically small but will bias the analysis of forthcoming high-precision observations if cosmic and sample variance are not handled properly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{大角尺度上的各向异性：Sachs-Wolfe效应}
+
+
+
+
+
+
+
+\section{中角尺度上的各向异性：Doppler峰与声峰}
+
+
+
+
+\section{小角尺度上的各向异性}
+在小的角尺度上(如$\theta < 1'$)，CMB的各向异性或其温度功率谱迅速减小，
+
+1. 统计原因，当扰动的线度小于最后散射层的厚度
+\begin{equation}
+\lambda_{lsl} \approx 16(\Omega_0 h^2)^{-1/2} ~\text{Mpc}
+\end{equation}
+时，视线方向上会有一系列相互独立的扰动存在于最后散射层，这些扰动的随机迭加，会导致观测到的涨落强度缩减一个因子$N^{-1/2}$，$N$为视线方向上最后散射层里包含的扰动的数目；
+
+2. 阻尼尺度，相应于大约$1'$的张角，在此角度以下，CMB的各向异性几乎都被阻尼衰减掉了；
+
+
+\section{视线方向随时间变化的引力势的影响}
+光子离开最后散射面后，如果在其到达观测者的途中经过一个随时间变化的引力势阱$\dot{\varphi}$，则光子的引力红移将积累为温度的涨落
+\begin{equation}
+\frac{\Delta T}{T} = \int \frac{\dot{\varphi}}{c^2} \frac{\dif l}{c}
+\end{equation}
+${\dif l}$：固有距离的增量；
+引力势阱深度的变化引起经过它的光子温度的涨落，发生在远晚于复合时期之后，与复合时期的物理过程无关，是一种非内禀的涨落；
+
+对于Einstein-de Sitter宇宙，这一效应并不显现；
+
+\textcolor{red}{Rees-Sciama效应}：密度扰动经历非线性增长；小尺度；
+
+\textcolor{red}{积分Sachs-Wolfe效应}：$\Omega_0$明显不等于$1$，因而$\varphi$中的时间变化不能完全相消，引起CMB温度的涨落；大尺度；产生时间很晚($\Omega_0 \neq 1$的影响直到很低红移时才显现)；
+
+\section{Sunyaev-Zel'dovich效应}
+
+\textcolor{red}{Sunyaev-Zel'dovich效应}
+
+许多星系团中的气体是高度电离的，CMB光子经过时，会被热气体中的高能电子Compton散射变成高能光子，使原来位于Rayleigh-Jeans区域的光子频移到Wien区域(Comptonization)，从而造成观测到的CMB谱在星系团方向上产生畸变，
+
+星系团中气体被电离的原因：第一代天体，基本粒子的衰变，早期恒星，活动星系核或类星体能量的注入；
+
+在Rayleigh-Jeans区域，CMB的温度变化为
+\begin{equation}
+\frac{\Delta T}{T} =  -2y = -2 \int \left(\frac{k_B T_e}{m_e c^2} \right) \sigma_T n_e c \dif t
+\end{equation}
+负号表示CMB温度的降低；
+
+视线方向存在热电离气体的观测证据；复合之后再加热和再电离过程；
+
+\textcolor{red}{热S-Z效应}(或\textcolor{red}{运动S-Z效应})：热气体相对于各项同性的CMB有本动运动时所产生的效应；对于这一气体云，在其静止参考系中，CMB光子是各向异性的，但经过热电子散射后，光子重新分布而变为各项同性的；这一本动运动引起的温度涨落为
+\begin{equation}
+\frac{\Delta T}{T} =  \int \sigma_T n_e \frac{v_{||}}{c} \dif l
+\end{equation}
+$\dif l =c \dif t$：光子在气体云中穿过的距离；
+
+$v_{||}$：气体云的本动速度在视线方向的分量；
+
+与光子频率无关；
+
+
+估计星系团径向本动速度；
+
+\section{星系际介质再电离}
+
+IGM再电离对CMB各向异性：
+若整个宇宙空间的IGM自红移$z$开始被全部再电离，将导致CMB光子的\textcolor{red}{Thomson散射光深}为
+\begin{equation}
+\tau = \int_0^{z} \frac{\sigma_T n_e c}{H_0} \frac{\dif z'}{(1+z')^2 \sqrt{1+\Omega_m z'}}
+\end{equation}
+$n_e$：自由电子数密度；当红移$z \gg 1$时，
+\begin{equation}
+\tau \simeq 2.2 \times 10^{-3} \left( \frac{\Omega_b h}{0.03} \right) \left(\frac{\Omega_m}{0.3} \right)^{-1/2} z^{3/2}
+\end{equation}
+
+
+只要宇宙再电离的时刻不早于$z \sim 20$，再电离对CMB温度涨落$\Delta T/T$的观测结果就不会产生显著影响；$\tau \simeq1$相应于$z \simeq 59$，此时宇宙视界张角大约为$\theta \sim z^{-1/2} \sim 7^{\circ}$，CMB温度功率谱中所有的峰结构就会消失，所有关于原初扰动以及复合过程的物理信息就都不复存在；
+
+\section{CMB偏振}
+CMB的偏振产生于最后散射层中的自由电子对CMB的Thomson散射。当一束沿$y$方向入射的非偏振光($I$)经由自由电子散射后，在与入射方向垂直的方向，会观测到完全偏振的线偏振光；
+
+若电子散射的背景辐射来自各个方向，且各向同性，则偏振会完全消失；
+
+若背景辐射是偶极各向异性，也不会产生偏振；
+
+在背景辐射为四极各向异性时，才会产生偏振；
+
+偏振是一个张量，正比于CMB强度角分布的四极项，而与偶极项及其他高阶项无关；
+
+CMB的偏振分为\textcolor{red}{电场型($E$型)}和\textcolor{red}{磁场型($B$型)}两种偏振模式；
+
+对称性上，$E$型是偶宇称的，而$B$型是奇宇称的；
+
+标量扰动(如温度扰动)仅给出$E$型偏振，$B$型偏振只能由张量扰动(如引力波)给出；
+
+CMB偏振的来源：
+
+1. 最后散射层中，\textcolor{red}{重子物质的扰动}(Sachs-Wolfe效应)使得CMB产生四极各向异性，再经过自由电子散射后出现偏振；当扰动波长与自由电子的平均自由程相当时，偏振信号最强；只有在最后散射层中，偏振才会产生，因为若偏振光再经过多次散射，偏振特性就会消失；
+
+2. \textcolor{red}{暴涨时期原初张量扰动产生的引力波}；四极引力波；引力波密度参数$\Omega_{GW}$的上限$\Omega_{GW} h^2 < 10^{-12}$；
+
+3. \textcolor{red}{弱引力透镜}；弱引力透镜引起像的几何形状的畸变；由于像畸变的张量性质，产生偏振信号；在小的角尺度上，强于引力波；
+
+4. \textcolor{red}{宇宙再电离}；第一代天体形成，星系际介质被加热直至电离，使得任何背景辐射的四极分量产生线偏振信号
+
+
+\section{Statistical utensils}
+
+\subsection{Gaussian random variables}
+\cite{2008cmb..book.....D} A random variable is a real function $X$ on a probability space $(\Omega, \dif \mu)$. The set $\Omega$ is a measurable space with normalized measure $\mu$, i.e., $\int_{\Omega} \dif \mu = 1$, The integral
+\begin{equation}
+\int_\Omega X \dif \mu = \langle X \rangle ~,
+\end{equation}
+is called the expectation value or simply the mean of $X$.
+\begin{equation}
+\int_\Omega (X-\langle X \rangle)^2 \dif \mu = \langle X^2 \rangle -\langle X \rangle^2 ~,
+\end{equation}
+is called the variance of $X$ and its (positive) square root is the `standard deviation'. If $\langle X \rangle = 0$, we call $X$ a fluctuation. Sometimes $\Omega$ is called the `space of realizations' or the `ensemble'. A random variable is strongly continuous if the derivative of its probability distribution $\dif \mu/\dif X \equiv p$ is an integrable function\footnote{In the more general case, $p$ is a distribution in the sense of Schwartz, i.e., a functional on some space of functions on $\mathbb{R}$.} on $\mathbb{R}$. 
+\begin{equation}
+\langle X \rangle = \int_\Omega X \dif \mu = \int_\mathbb{R} x p(x) \dif x ~.
+\end{equation}
+The probability distribution satisfies the normalization condition
+\begin{equation}
+\int_\mathbb{R} p(x) \dif x = 1 ~.
+\end{equation}
+The distribution function $p(x)$, also called the probability density, fully determines the random variable.
+
+A random variable with probability distribution
+\begin{equation}
+p(x) = \dfrac{1}{\sqrt{2\pi} \sigma} {\rm e}^{-(x-x_0)^2/2\sigma^2} ~,
+\end{equation}
+is called a Gaussian random variable (normal distribution) with mean $x_0$ and variance $\sigma^2$. The Gaussian distribution with mean $0$ and variance $1$ is called the standard normal distribution.
+
+The cumulants of a random variable with mean $x_0$ are defined by
+\begin{equation}
+V_n \equiv \int_{-\infty}^\infty (x-x_0)^n p(x) \dif x ~.
+\end{equation}
+The cumulants of a Gaussian random variable are given by
+\begin{align}
+& V_0 = 1, \\
+& V_n = \left\{
+\begin{aligned}
+0 ~~~&~ \text{if} ~ n ~\text{is odd} \\
+\sigma^n (n-1)!! ~~~&~ \text{if} ~ n > 0, ~\text{is even} ~.
+\end{aligned}
+\right.
+\end{align}
+where the double factorial of a number is defined by $m!! = m(m − 2)(m − 4) \cdots$.
+
+Let $X_i$ be independent random variables with means $x_i$ and variances $\sigma_i$. Independence means that $\langle (X_i -x_i)(X_j -x_j) \rangle = \delta_{ij} \sigma_i^2$. The sums
+\begin{equation}
+S_n = \dfrac{\sum\limits_{i=1}^n X_i -x_i}{\sqrt{n} \sum\limits_{i=1}^n \sigma_i} ~,
+\end{equation}
+converge (weakly) to the standard normal distribution. In physics it means that an experimental error which comes from many independent sources is often close to Gaussian.
+
+For the CMB its main relevance is that the observed $C_{\ell}$s, which are given by the average $C^o_\ell = \dfrac{1}{2\ell+1} \sum\limits_{-\ell}^{\ell} |a_{\ell m} |^2$ even though by themselves not Gaussian, tend to Gaussian variables with mean $C_{\ell}$ and variance $C_{\ell}^2/\ell$ for large $\ell$. The variance of the variable $|a_{\ell m}|^2$ is $2C_{\ell}^2$,  the central limit theorem implies that
+\begin{equation}
+\dfrac{\sqrt{2}}{\sqrt{(2\ell+1)} C_\ell} \sum_{-\ell}^\ell (|a_{\ell m}|^2 - C_\ell) ~,
+\end{equation}
+converges to the standard normal distribution. Hence $C_{\ell}^o$ converges to a Gaussian distribution with mean $C_{\ell}$ and variance $C_{\ell}^2/\ell$ which becomes small with increasing $\ell$.
+
+A collection $X_1 \cdots X_N$ of random variables is called Gaussian if their joint probability density is given by
+\begin{equation}
+p(\vec{x}) = \dfrac{1}{\sqrt{(2\pi)^N {\rm det}(C)}} \exp \left(-\dfrac{1}{2} \vec{x}^T C^{-1} \vec{x} \right) ~,   ~~ \vec{x} \in \mathbb{R}^N ~,
+\end{equation}
+where $C$ is a real, positive-definite, symmetric $N \times N$ matrix.
+\begin{equation}
+\langle X_i X_j \rangle \equiv \dfrac{1}{\sqrt{(2\pi)^N {\rm det}(C)}} \int x_i x_j \exp \left(-\dfrac{1}{2} \vec{x}^T C^{-1} \vec{x} \right) \dif x^N = C_{ij} ~.
+\end{equation}
+there exists an orthogonal matrix $S$, $S S^T = 1$ so that
+\begin{equation}
+S^T C^{-1} S = D = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+\lambda_{1} & 0 & \cdots & \cdots  \\
+0 & \lambda_{2} & 0 & \cdots \\
+\vdots   & \vdots  &    \vdots   & \vdots \\
+0 & \cdots & 0 & \lambda_{N}
+\end{pmatrix}
+\end{equation}
+Since $|{\rm det} S| = 1$, $1/{\rm det} C = {\rm det} D = \lambda_1 \lambda_2 \cdots \lambda_N$ and for $y = Sx$ we have $\dif^N x = \dif^N y$. This yields
+\begin{align}
+\nonumber \langle X_i X_j \rangle &= S_{ik}^T S_{jl}^T \dfrac{\sqrt{\prod_{n=1}^N \lambda_n}}{(2\pi)^{N/2}} \int y_k y_l \exp \left(-\dfrac{1}{2} \sum_{n=1}^N y_n^2 \lambda_n \right) \dif x^N \\
+&= S_{ik}^T (\lambda_k)^{-1} \delta_{kl} S_{lj} = (S^T D^{-1} S)_{ij} = C_{ij} ~.
+\end{align}
+The matrix $C$ is called the correlation matrix. Arbitrary linear combinations of a collection of Gaussian random variables result again in a collection of Gaussian random variables, whereas powers of Gaussian random variables are not Gaussian. The sum of the squares of $n$ independent Gaussian random variables with the same distribution results in a $\chi^2$-distributed variable with $n$ degrees of freedom.
+
+Wick's theorem provides a general formula for the n-point correlator of a collection of Gaussian variables. For $n$ odd the result vanishes. For even $n$s, we obtain the $n$-point correlator by summing all the possible products of $2$-point correlators made from the variables $X_{i_1}, \cdots , X_{i_n}$,
+\begin{equation}
+\langle X_i \cdots X_{i_{2n}} \rangle  = \sum_{\{j_1, \cdots, j_{2n} = \{i_1, \cdots, i_{2n}} C_{j_1 j_2 }\cdots C_{j_{2n-1}j_{2n}} ~.
+\end{equation}
+The sum is not over all permutations, but only over those which give rise to different pairs. Since $C_{ij} = C_{ji}$ we could also simply sum over all permutations of $(i_1, \cdots, i_{2n})$ and divide by $2^n n!$, since for each collection into pairs, there are $2^n n!$ permutations which give rise to the same pairs. The factor $2^n$ stems from the fact that in each of the pairs we can interchange the factors and $n!$ permutations simply interchange some of the pairs. For example, $2n = 4$ admits $4!/2^22 = 3$ different pairings, namely $\langle X_1 X_2\rangle \langle X_3 X_4\rangle$, $\langle X_1 X_3\rangle \langle X_2 X_4\rangle$ and $\langle X_1 X_4\rangle \langle X_3 X_2\rangle$. It means that for a collection of Gaussian random variables, all $n$-point correlators are determined by the $2$-point correlator alone.
+
+consider only the case of a diagonal covariance matrix $C$. For the step from $n$ to $n + 1$ we use the fact that for an exponentially decaying function $\int\limits_{-\infty}^\infty \dif x \dfrac{\dif f}{\dif x} = 0$, hence
+\begin{align}
+\nonumber 0 &= \int \dif x^N \dfrac{\dif^2}{x^j x^k} \left(x_{i_1} x_{i_2} \cdots x_{i_{2n}} {\rm e}^{-\sum\limits_{m=1}^N x_m^2 \lambda_m /2} \right) \\
+\nonumber &= \int \dif x^N {\rm e}^{-\sum\limits_{m=1}^N x_m^2 \lambda_m /2} \left(\sum_{r\neq s = 1}^{2n} \delta_{i_rj} \delta_{i_s k} x_{i_1} \cdots \check{x}_{i_r} \cdots \check{x}_{i_s} \cdots x_{i_{2n}} \right. \\
+\nonumber & \left. - \lambda_j \delta_{jk} x_{i_1} \cdots x_{i_{2n}} +\lambda_j \lambda_k x_j x_k x_{i_1} \cdots x_{i_{2n}} - \sum_r \lambda_j x_j \delta_{k i_r} x_{i_1} \cdots \check{x}_{i_r} \cdots x_{i_{2n}} \right. \\
+& \left. -\sum_r \lambda_k x_k \delta_{ji_r} x_{i_1} \cdots   \check{x}_{i_r} \cdots x_{i_{2n}} \right) ~,
+\end{align}
+where a check over a variable xm means that this variable is omitted in the product. In the above integral, all except the term proportional to $\lambda_j \lambda_k$ are $2n$-point correlators. Express the $(2n + 2)$-point correlator proportional to $\lambda_j \lambda_k$ in terms of $2n$-point correlators. Use the fact that $\lambda_k^{-1} \delta_{jk} = \langle X_j X_k \rangle$. The above equation therefore gives
+\begin{align}
+\nonumber \langle X_j X_k X_{i_1} \cdots X_{i_{2n}} \rangle  &= -\sum_{r\neq s=1}^{2n} \langle X_{i_r} X_{j} \rangle \langle X_{i_s} X_{k} \rangle \langle X_{i_1} \cdots \check{X}_{i_r} \cdots \check{X}_{i_s} \cdots X_{i_{2n}} \rangle \\
+\nonumber & + \langle X_{j} X_{k} \rangle \langle X_{i_1} \cdots X_{i_{2n}} \rangle \\
+\nonumber & + \sum_r \langle X_k X_{i_r} \rangle \langle X_{j} X_{i_1} \cdots \check{X}_{i_r} \cdots X_{i_{2n}} \rangle \\
+\nonumber &+ \sum_r \langle X_j X_{i_r} \rangle \langle X_{k} X_{i_1} \cdots \check{X}_{i_r} \cdots X_{i_{2n}} \rangle ~.
+\end{align}
+Wick's theorem for $2n$ implies that
+\begin{equation}
+\langle X_k X_{i_1} \cdots \check{X}_{i_r} \cdots X_{i_{2n}} \rangle = \sum_s  \langle X_k X_{i_s} \rangle \langle X_{i_1} \cdots \check{X}_{i_r} \cdots \check{X}_{i_s} \cdots X_{i_{2n}} \rangle
+\end{equation}
+
+\begin{equation}
+\langle X_j X_{k} X_{i_1} \cdots X_{i_{2n}} \rangle = \langle X_j X_{k} \rangle \langle X_{i_1} \cdots X_{i_{2n}} \rangle +\sum_r \langle X_k X_{i_r} \rangle \langle X_j X_{i_1} \cdots \check{X}_{i_r} \cdots X_{i_{2n}} \rangle ~.
+\end{equation}
+Since the $2n$-point correlators $\langle X_{i_1} \cdots X_{i_{2n}} \rangle$ and $\langle X_j X_{i_1} \cdots \check{X}_{i_r} \cdots X_{i_{2n}} \rangle$ are the sum of all possible products of $2$-point correlators, this represents simply the sum of all possible products of $2$-point correlators of $X_j, X_k, X_{i_1}, \cdots , X_{i_{2n}}$, hence Wick's theorem is proven.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Random fields}
+\cite{2008cmb..book.....D} A random field is an application $X : S \rightarrow \{\text{random variables}\} : \vec{n} \mapsto X(\vec{n})$ which assigns to each point n in the space $S$ a random variable $X(\vec{n})$. Here the space $S$ can be $\mathbb{R}^n$, the sphere or some other space. Think mainly of $S$ being the CMB sky, hence the sphere on which our random fields are for example the temperature fluctuations $\Delta T(\vec{n})$ or the polarization. Another example is three-dimensional-space  (either $\mathbb{R}^3$, the $3$-sphere or the $3$-pseudo-sphere) where, for example, the density and velocity fluctuations are random fields of interest to us.
+
+A random field is called Gaussian if arbitrary collections $X(\vec{n}_1), \cdots , X(\vec{n}_N)$ are Gaussian random variables. The correlator
+\begin{equation}
+\langle X(\vec{n}_1) X(\vec{n}_2) \rangle = C(\vec{n}_1, \vec{n}_2) ~,
+\end{equation}
+is called the correlation function or the $2$-point function. For Gaussian random fields, the $n$-point function is given by the sum of all possible different products of $2$-point functions\footnote{In (Euclidean) quantum field theory the $2$-point function is called the propagator and the theory is Gaussian if and only if it is trivial. Only in the absence of interactions are all $n$-point functions determined by the propagators and the so-called `connected part', which is the $n$-point function subtracted by the Gaussian result, vanishes.}.
+
+A random field respects a symmetry group $G$ of the space $S$ if the correlation function is invariant under transformations $\vec{n} \mapsto R\vec{n}$ for all $R \in G$. In other words
+\begin{equation}
+C(R\vec{n}_1, R\vec{n}_2) = C(\vec{n}_1, \vec{n}_2) ~.
+\end{equation}
+For this it is not necessary that $X(\vec{n}) = X(R\vec{n})$, but the transformed variable must have identical statistical properties. In cosmology, we expect the CMB sky to be statistically isotropic, i.e., invariant under rotations. This means that the correlation function is a function only of the scalar product $\mu = \vec{n}_1 \cdot \vec{n}_2$. We can expand it in terms of Legendre polynomials,
+\begin{equation}
+C(\vec{n}_1, \vec{n}_2) = C(\mu) = \dfrac{1}{4\pi} \sum_\ell (2\ell +1) C_\ell P_\ell (\mu) ~.
+\end{equation}
+When expanding a statistically isotropic random variable on the CMB sky in spherical harmonics,
+\begin{equation}
+X(\vec{n}) = \sum_{\ell m} a_{\ell m} Y_{\ell m} (\vec{n}) ~,
+\end{equation}
+the coefficients $a_{\ell m}$ satisfy
+\begin{equation}
+\langle a_{\ell_1 m_1} \bar{a}_{\ell_2 m_2} \rangle = \delta_{m_1 m_2} \delta_{\ell_1 \ell_2} C_{\ell_1} ~.
+\end{equation}
+To see this we write the correlation function as
+\begin{equation}
+\sum_{\ell m} C_{\ell} Y_{\ell m}(\vec{n}_1) \bar{Y}_{\ell m}(\vec{n}_2) = \sum_{\ell m \ell^\prime m^\prime} \langle a_{\ell m} \bar{a}_{\ell m} \rangle Y_{\ell m}(\vec{n}_1) \bar{Y}_{\ell m}(\vec{n}_2)
+\end{equation}
+
+
+For statistically isotropic random fields, the expansion in terms of spherical harmonics diagonalizes the correlation function. This is why it is so useful to determine the $a_{\ell m}$s measured by an experiment. If the underlying fluctuations are Gaussian, these are independent Gaussian variables.
+
+
+Consider the random fields on three-dimensional Euclidean space. For a random field $X(\vec{x})$ we expect its statistical properties to be independent of translations and rotations. Therefore, the correlation function $C(\vec{x}_1, \vec{x}_2)$ depends only on the distance $|\vec{x}_1 - \vec{x}_2| \equiv r$. For statistically homogeneous random fields, the power spectrum is simply the Fourier transform of the correlation function. Statistical isotropy implies that the latter depends only on the modulus of $\vec{k}$. The power spectrum of a statistically homogeneous and isotropic random field $X$ is defined by
+\begin{align}
+\nonumber \langle X(\vec{k}) \bar{X}(\vec{k}^\prime) \rangle &= (2\pi)^3 \delta(\vec{k} -\vec{k}^\prime) P_X(k) \\
+\nonumber &= \int \dif^3 x \int \dif^3 x^\prime \langle X(\vec{x}) \bar{X}(\vec{x}^\prime) \rangle {\rm e}^{i(\vec{k}\cdot \vec{x} -\vec{k}^\prime \cdot \vec{x}^\prime)} \\
+\nonumber &= \int \dif^3 x \int \dif^3 x^\prime \langle C(\vec{x} -\vec{x}^\prime) \rangle {\rm e}^{i(\vec{k}\cdot (\vec{x}-\vec{x}^\prime) -(\vec{k}^\prime -\vec{k}) \cdot \vec{x}^\prime)} \\
+\nonumber &=  \int \dif^3 z \int \dif^3 x^\prime \langle C(\vec{z}) \rangle {\rm e}^{i(\vec{k}\cdot \vec{z} -(\vec{k}^\prime -\vec{k}) \cdot \vec{x}^\prime)} \\
+&= (2\pi)^3 \delta(\vec{k}-\vec{k}^\prime) \hat{C}(k) ~.
+\end{align}
+For statistically homogeneous fields, the Fourier coefficients $X(\vec{k})$ are independent random variables and are therefore especially useful for statistical analysis and parameter estimation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

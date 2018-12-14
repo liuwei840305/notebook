@@ -1,0 +1,308 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{微正则系综}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{经典微正则系综}
+\cite{2013热力学} 在一定宏观条件下微观状态出现的几率，即系综的几率密度$\rho$。考虑处于平衡态下的孤立系。对于孤立系，根据Liouville定理，系综的几率密度在运动中不变，即
+\begin{equation}
+\dfrac{\dif \rho}{\dif t} = 0 ~.
+\end{equation}
+考虑到平衡态下的任何物理量均不随时间改变，其必要条件为
+\begin{equation}
+\dfrac{\partial \rho}{\partial t} = 0 ~.
+\end{equation}
+沿一条相轨道(或相空间中的一条``流管")几率密度$\rho$的值到处都是一样的，即在一条``流管"内的$\rho$是一个常数。等几率原理用系综语言等价地表达为：
+\begin{equation}
+\rho =\begin{cases}
+C, & \text{当}~ E \leqslant H(q_1, \cdots, p_s) \leqslant E +\Delta E ~,\\
+0, & \text{当}~ H < E ~\text{和}~ H > E +\Delta E ~, ~~ \Delta E \rightarrow 0 ~,
+\end{cases}
+\end{equation}
+$C$由归一化条件确定：
+\begin{equation}
+\lim_{\Delta E \rightarrow 0} C \int_{\Delta E} \dif \Omega  =1 ~.
+\end{equation}
+力学量$O(q_1, \cdots, p_s)$的平均值为：
+\begin{equation}
+\overline{O} = \lim_{\Delta E \rightarrow 0} C \int_{\Delta E} O \dif \Omega ~.
+\end{equation}
+
+
+
+
+
+
+1) 各态历经假说或遍历性假说：对于孤立的保守力学系统，只要时间足够长，从任一初态出发，都将经过能量曲面上的一切微观状态。即只要时间足够长，代表点可以沿一条相轨道跑遍能量曲面上的一切点。若假说成立，则对于处于平衡态的孤立系，可以得出：\\
+1. 等几率原理或微正则系综可以从Liouville定理推导出来。\\
+2. 力学量沿相轨道的长时间平均等于对微正则系综的系综平均。
+
+数学上证明了``各态历经假说"不成立。对高维相空间，一条相轨道不可能跑遍能量曲面。
+
+``准各态历经假说"：一个力学系统在足够长时间的运动中，它的代表点可以无限接近于能量曲面上的任何点。即代表点虽不能完全跑遍能量曲面，但可以``几乎跑遍"，剩下跑不到的地方对平均的贡献可以忽略不计(数学上称这些区域的测度为$0$)。``准各态历经假说"也被证明是不成立的。
+
+要把统计物理学完全建立在力学的基础上，把统计规律归结为力学规律是不可能的。
+
+2) 各态历经实现的物理原因 \\
+等几率原理是正确的，其正确性并不依赖于``各态历经假说"。玻尔兹曼的``各态历经假说"，是指``代表点沿一条相轨道跑遍能量曲面"。该假说不成立，并不表示``宏观条件所允许的那些微观态都可能出现"(简称``各态历经")就不对。对于实际的宏观孤立系，``各态历经"是可以实现的。
+
+
+
+3) 长时间平均与系综平均相等\\
+玻尔兹曼定义力学量的长时间平均：
+\begin{equation}
+\left\langle O \right\rangle \equiv \lim_{T\rightarrow \infty} \frac{1}{T} \int_0^T O(q_1(t), \cdots, p_s(t)~ ) \dif t ~,
+\end{equation}
+其中$(q_1(t), \cdots, p_s(t) )$要用正则运动方程的解代入。力学量是通过系统微观状态随时间的变化而依赖于时间的。玻尔兹曼原来的长时间平均的定义要求沿一条相轨道进行长时间平均，并通过引入``各态历经假说"来证明对于处于平衡态的孤立系，上式所定义的长时间平均就等于对微正则系综的平均。
+
+
+
+
+
+\cite{2007热力学与统计物理学} 
+
+
+
+描述孤立系统平衡性质的系综； 
+
+\textcolor{red}{孤立系统}:完全没有相互作用的系统；\\
+
+\textcolor{red}{各态历经假说}或\textcolor{red}{遍历性假说}
+
+对于孤立的保守力学系统，只要时间足够长，从任一初态出发，都将经过能量曲面上的一切微观状态；
+
+只要时间足够长，代表点可以沿一条相轨道跑遍能量曲面上的一切点；
+
+若假说成立，对于处于平衡态的孤立系，
+
+1) 等几率原理或微正则系综可以从刘维尔定理推导出来；
+
+2) 力学量沿相轨道的长时间平均等于对微正则系综的系综平均；
+
+数学上证明“各态历经假说”不成立；\\
+
+\textcolor{red}{准各态历经假说}
+
+一个力学系统在足够长时间的运动中，它的代表点可以无限接近于能量曲面上的任何点；
+
+准各态历经假说也被证明不成立；\\
+
+区分“各态历经假说”和“各态历经”：
+
+对实际的宏观孤立系，“各态历经”是可以实现的；
+
+准孤立系：存在外界对习题的干扰；对系统宏观能量值的影响忽略，但可以改变系统的微观状态；
+
+代表点在没有受到外界干扰的很短的时间内，沿着某一条相轨道运动，当时间较长后，由于外界干扰，代表点从原来的相轨道移到另一条相轨道运动，在足够长的时间内，代表点经历了许多的相轨道，跑遍能量曲面$E$和$E+\delta E$之间的所有点；
+
+
+长时间平均等于系统平均
+
+玻尔兹曼定义的力学量的长时间平均
+\begin{equation}
+\left\langle O \right\rangle \equiv \lim_{T\rightarrow \infty} \frac{1}{T} \int_0^T O(q_1(t), \cdots, p_s(t)~ ) \dif t
+\end{equation}
+
+要求沿一条相轨道进行长时间平均；
+
+重新定义长时间平均
+\begin{equation}
+\left\langle O \right\rangle \equiv \lim_{T\rightarrow \infty} \frac{1}{T} \int_0^T O(t) \dif t
+\end{equation}
+$O(t)$：时刻$t$力学量的取值；
+
+处于平衡态下的孤立系，只要时间足够长，系统将遍历能量曲面$E$与$E+\dif E$之间的所有微观态（准孤立系“各态历经”）；
+
+$\dif t_{\dif \Omega}$：在（微观长的）$T$时间内，系统的微观态处于${\dif \Omega}$内的总时间；
+
+$\rho$：微正则系综的几率密度；
+
+体系处于${\dif \Omega}$内的几率
+\begin{equation}
+\lim_{T\rightarrow \infty} \frac{\dif t_{\dif \Omega}}{T}
+\end{equation}
+
+\begin{equation}
+\lim_{T\rightarrow \infty} \frac{\dif t_{\dif \Omega}}{T} \Longleftrightarrow \rho \dif \Omega
+\end{equation}
+
+长时间平均就等于对微正则系综的系综平均；
+
+
+The macrostate of a system is defined by the number of molecules $N$, the volume $V$, and the energy $E$. 
+
+In the phase space, the representative points of the ensemble have a choice to lie anywhere within a ``hypershell" defined by the condition
+\begin{equation}
+\left(E -\frac{\Delta}{2} \right) \leqslant H(q, p) \leqslant \left(E +\frac{\Delta}{2} \right)
+\end{equation}
+The volume of the phase space enclosed within this shell is
+\begin{equation}
+\omega = \int\limits^\prime \dif \omega \equiv \int\limits^\prime  \dif^{3N} q \dif^{3N} p ~,
+\end{equation}
+where the primed integration extends only over that part of the phase space which conforms to above condition. $\omega$ will be a function of the parameters $N, V, E$, and $\Delta$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

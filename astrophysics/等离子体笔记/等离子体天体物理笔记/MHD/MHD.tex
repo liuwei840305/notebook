@@ -1,0 +1,905 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Magnetohydrodynamics}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\cite{2001imhd.book.....D} Let $\mu$ be the permeability of free space, $\sigma$ and $\rho$ denote the electrical conductivity and density of the conducting medium, respectively, and $l$ be a characteristic length scale. Three important parameters in MHD are:
+\begin{align}
+& \color{red} \text{Magnetic Reynolds number}, ~R_m = \mu \sigma u l ~,\\
+& \color{red} \text{Alfv\'en velocity}, ~v_a = \dfrac{B}{\sqrt{\rho \mu} } ~,\\
+& \color{red} \text{Magnetic damping time}, ~\tau = [\sigma B^2 /\rho]^{-1} ~.
+\end{align}
+When $R_m$ is large, the magnetic field lines act rather like elastic bands frozen into the conducting medium. The magnetic flux passing through any closed material loop (a loop always composed of the same material particles) tends to be conserved during the motion of the fluid. And small disturbances of the medium tend to result in near-elastic oscillations, with the magnetic field providing the restoring force for the vibration. In a fluid, this results in Alfv\'en waves, which turn out to have a frequency of $\omega \sim v_a/l$. When $R_m$ is small, on the other hand, $\vec{u}$ has little influence on $\vec{B}$, the induced field being negligible by comparison with the imposed field. The magnetic field is dissipative in nature, rather than elastic, damping mechanical motion by converting kinetic energy into heat via Joule dissipation. The relevant time scale is the damping time, $\tau$, rather than $l/v_a$.
+
+
+
+\cite{1996bspp.book.....B} Magnetohydrodynamics is the fluid theory of electrically charged fluids subject to the presence of external and internal magnetic fields. However, \textcolor{cyan}{magnetohydrodynamics is a further approximation to a more general hydrodynamic theory}, the \textcolor{red}{multi-fluid theory of plasmas}. 
+\section{Equation of State}
+\cite{1996bspp.book.....B} When calculating moment equations, the fluid equations of a plasma form a hierarchy of ever increasing order where each order contains a next order quantity which must be determined from the next order equation. Such a procedure must be closed by truncation of the hierarchy at a certain level. The most common and simples way is assuming an equation of stafe for the pressure which makes the energy equation obsolete and avoids explicitly taking into account the transport of heat.
+
+The actual form of the equation of state depends on the form of the pressure tensor, e.g., isotropic or anisotropic, and even more general on the behavior of the fluid condensed in the number and momentum density equations. The equations of state may differ and are indeed often different for different fluid components, especially electrons and ions.
+
+\subsection{Isotropic Pressure}
+If the pressure is taken to be isotropic, the pressure tensor becomes diagonal
+\begin{equation}
+\mathbf{P}_s = p_s I
+\end{equation}
+i.e.
+\begin{equation}
+\mathbf{P}_s = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+p_s & 0 & 0 \\
+0 & p_s & 0 \\
+0 &  0 & p_s
+\end{pmatrix}
+\end{equation}
+and only one such equation of state is needed. 
+
+For an isothermal case, $T_s = \rm const.$, one simply takes the ideal gas equation
+\begin{equation}
+p_s = n_s k_B T_s ~.
+\end{equation}
+Isothermal conditions can be applied when the temporal variations are so slow that the plasma has sufficient time to redistribute energy in order to maintain a constant heat bath temperature. Such conditions frequently apply to the global situation of the magneto- sphere. When $T_s = T_{s0}$ is assumed constant, the pressure becomes proportional to the density of the species
+\begin{equation}
+p_s = n_s k_B T_{s0} ~.
+\end{equation}
+and the system of equations is truncated to a closed set.
+
+When the time variations are so fast that no susceptible heat exchange can take place the plasma evolves adiabatically. Let the rhs of equation
+\begin{equation}
+\frac{3}{2} n_s k_B \left(\frac{\partial T_s}{\partial t} +\vec{v}_s\cdot \nabla T_s \right) +p_s \nabla \cdot \vec{v}_s = -\nabla \cdot \vec{q}_s -(\mathbf{P}_s^\prime \cdot \nabla )\cdot \vec{v}_s
+\end{equation}
+to zero.
+\begin{equation}
+\frac{3}{2} \frac{\dif (n_s k_B T_s)}{\dif t} -\frac{5}{2} k_B T_s \frac{\dif n_s}{\dif t} = 0 ~,
+\end{equation}
+or
+\begin{equation}
+n_s \frac{\dif T_s}{\dif t} -\frac{2}{3} T_s \frac{\dif n_s}{\dif t} = 0 ~,
+\end{equation}
+and the adiabatic solution is
+\begin{equation}
+T_s = T_{s0} \left(\frac{n_s}{n_{s0}} \right)^{\gamma -1} ~,
+\end{equation}
+or in term of scalar pressure
+\begin{equation}
+p_s = p_{s0} \left(\frac{n_s}{n_{s0}} \right)^{\gamma} ~.
+\end{equation}
+The \textcolor{purple}{adiabatic index, $\gamma = c_p/c_v = 5/3$}, which is the ratio of the two specific heats at constant pressure and constant volume, is constant in a collisionless ideal isotropic plasma. And as long as there are no further interactions between the different species in the plasma the temperatures and densities of each species evolve according to the adiabatic law. The index $\gamma$ can also be regarded as a \textcolor{purple}{polytropic index}, comprising not only the adiabatic case, but also the \textcolor{purple}{isobaric or constant pressure, $\gamma =0$}, the  \textcolor{purple}{isothermal or constant temperature, $\gamma = 1$}, and the  \textcolor{purple}{isometric or constant density, $\gamma = \infty$}.
+
+
+
+\subsection{Anisotropic Pressure}
+In anisotropic plasmas, the pressure tensor splits into parallel and perpendicular pressure
+\begin{equation}
+\color{red} \mathbf{P}_s = p_{s\perp} \mathbf{I} +(p_{s\parallel} -p_{s\perp}) \frac{\mathbf{BB} }{B^2} ~,
+\end{equation}
+which, in a coordinate system where the \textcolor{blue}{$z$ axis is aligned with the magnetic field direction}
+\begin{equation}
+\mathbf{P}_s = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+p_{s\perp} & 0 & 0 \\
+0 & p_{s\perp} & 0 \\
+0 &  0 & p_{s\parallel}
+\end{pmatrix}
+\end{equation}
+It is then not a priori clear that both parallel and perpendicular pressure evolve accord- ing to the same adiabatic laws while it is still a good approximation to use the ideal gas equation for both pressures
+\begin{align}
+& p_{s\parallel} = n_s k_B T_{s\parallel} \\
+& p_{s\perp} = n_s k_B T_{s\perp}
+\end{align}
+If the adiabatic approximation is justified, one can use the general definition of the adiabatic index
+\begin{equation}
+\gamma = \dfrac{(d +2)}{d} ~,
+\end{equation}
+where $d$ is the degree of freedoms the particles of the plasma have. The parallel pressure has $d = 1$, while the perpendicular has $d = 2$, and the adiabatic equations of state become
+\begin{align}
+& p_{s\parallel} =  p_{s\parallel 0} \left(\dfrac{n_s}{n_{s0} } \right)^3 \\
+& p_{s\perp} = p_{s\perp 0} \left(\dfrac{n_s}{n_{s0} } \right)^2 
+\end{align}
+The above reasoning \textcolor{blue}{neglects the coupling between the two pressure components due to inhomogeneous magnetic fields}. Moreover the above equations do \textcolor{blue}{not include any dependence on the magnetic field strength}, whereas, for example, in a pure mirror geometry, the \textcolor{blue}{magnetic field strength determines the ratio between parallel and perpendicular pressures}. Hence, these equations can only be applied in situations where the magnetic field is of minor importance.
+
+\subsection{Double-Adiabatic Invariants}
+
+\section{Two-Fluid Models}
+\cite{2015bps..book.....C} For a completely ionized hydrogen plasma, composed by electrons and protons, there are two kinetic equations, one for each species, $f_p$ and $f_e$. If the only forces coming into play are those of electromagnetic origin, the two kinetic equations are
+\begin{equation}
+\frac{\partial f_s}{\partial t} +\vec{v} \cdot \nabla f_s +\frac{e_s}{m_s} \left( \vec{E} +\frac{\vec{v}}{c} \times \vec{B}\right) \cdot \nabla_{\vec{v}} f_s = \left(\frac{\partial f_s}{\partial t} \right)_{\rm coll} ~, ~~ s = e, p ~.
+\end{equation}
+\begin{equation}
+\frac{\partial n_s}{\partial t} +\nabla \cdot (n_s \vec{u}^{(s)}) = \left( \frac{\partial n_s}{\partial t} \right)_{\rm coll} ~,
+\label{conti}
+\end{equation}
+where
+\begin{eqnarray*}
+n_s &=& \int f_s \dif \vec{v} ~,\\
+\vec{u}^{(s)} &=& \frac{1}{n_s} \int \vec{v} f_s \dif \vec{v} ~.
+\end{eqnarray*}
+The equation of motion is
+\begin{equation*}
+\frac{\partial (n_s m_s u_i^{(s)} )}{\partial t} +\frac{\partial (n_s m_s \langle v_i v_k \rangle_{s} )}{\partial x_k} -e_s n_s E_i -\frac{e_s n_s}{c} (\vec{u}^{(s)} \times \vec{B})_i = R_i^{(s)} ~,
+\end{equation*}
+where $\langle \rangle_{s}$ indicates that the average is taken with respect to the distribution function $f_s$. $R_i^{(s)}$ refers to the collisional term,
+\begin{equation*}
+\vec{R}^{(s)} = \int m_s \vec{v} \left(\frac{\partial f_s}{\partial t} \right)_{\rm coll} \dif \vec{v} ~.
+\end{equation*}
+Define a pressure tensor for each species:
+\begin{equation*}
+P_{ik}^{(s)} = n_s m_s \langle w_i w_k \rangle = P^{(s)}\delta_{ik} +\Pi^{(s)}_{ik} ~,
+\end{equation*}
+The equation of motions for electrons and protons is
+\begin{equation}
+\frac{\partial (n_s m_s u_i^{(s)} )}{\partial t} +\frac{\partial}{\partial x_k} \left(n_s m_s u_i^{(s)} u_k^{(s)} +P^{(s)}_{ik} -e_s n_s E_i \right) -\frac{e_s n_s}{c} (\vec{u}^{(s)} \times \vec{B})_i = R_i^{(s)}
+\label{momentum}
+\end{equation}
+And  the energy equations is
+\begin{align}
+\nonumber & \frac{\partial}{\partial t}\left(\frac{1}{2} m_s n_s (u^{(s)})^2 +\frac{3}{2} P^{(s)} \right) +\frac{\partial}{\partial x_k}\left(\left[ \frac{1}{2} m_s n_s (u^{(s)})^2 +\frac{5}{2} P^{(s)} \right]u_k +u_i^{(s)} \Pi_{ik}^{(s)} +q_k^{(s)}\right) \\
+& -e_s n_s E_i u_i^{(s)} = Q^{(s)} ~,
+\label{energy}
+\end{align}
+with
+\begin{equation*}
+Q^{(s)} = \int \frac{1}{2} m_s v^2 \left(\frac{\partial f_s}{\partial t} \right)_{\rm coll} \dif \vec{v} ~.
+\end{equation*}
+Note that the colliding particles have vastly different masses. For each species, the collisional term will be the sum of the contributions coming from both same species particle and different species particle collisions. 
+\begin{equation*}
+C(s, s^\prime) = \left(\frac{\partial f_s}{\partial t} \right)_{\rm coll} (s, s^\prime = e, p) ~.
+\end{equation*}
+The conservation law for total particle number can be written as
+\begin{equation}
+\int C(s, s^\prime) \dif \vec{v} = 0 ~,
+\end{equation}
+valid both for $s = s^\prime $ and $s \neq  s^\prime$. The global momentum and energy conservation give
+\begin{align*}
+\int m_s \vec{v} C(s, s^\prime) \dif \vec{v} = 0 ~,\\
+\int \frac{1}{2}m_s v^2 C(s, s^\prime) \dif \vec{v} = 0 ~,
+\end{align*}
+for collisions between particles of the same species. For collisions between particles of different species, 
+\begin{align*}
+\int m_s \vec{v} C(s, s^\prime) \dif \vec{v} +\int m^\prime_s \vec{v} C(s^\prime, s) \dif \vec{v}  = 0 ~, \color{red}{?}\\
+\int \frac{1}{2}m_s v^2 C(s, s^\prime) \dif \vec{v} +\int \frac{1}{2}m^\prime_s v^2 C(s^\prime, s) \dif \vec{v} = 0 ~. \color{red}{?}
+\end{align*}
+The collisional term in Eq. (\ref{conti}) always vanishes. In Eqs. (\ref{momentum}) and (\ref{energy}), only collision between different species enter
+\begin{align*}
+& \left(\frac{\partial n_s}{\partial t} \right)_{\rm coll} = 0, \\
+& \vec{R}^{(s)} = \int m_s \vec{v} C(s, s^\prime) \dif \vec{v}  ~~ (s \neq  s^\prime) ~, \\
+& Q^{(s)} = \int \frac{1}{2} m_s v^2 C(s, s^\prime) \dif \vec{v} ~~ (s \neq  s^\prime) ~.
+\end{align*}
+Since the momentum and energy lost by one species are gained by the other, 
+\begin{align}
+\vec{R}^{(e)} = -\vec{R}^{(p)} ~, \\
+Q^{(e)} = -Q^{(p)} ~.
+\end{align}
+The systems of Eq. (\ref{conti}) (with no collisional term), Eqs. (\ref{momentum}) and (\ref{energy}) is the basic system of equations of the so-called \textcolor{red}{two-fluid model}. 
+
+In general the temperatures and the heat fluxes of the two fluids will be different
+\begin{align}
+& T^{(s)} = \frac{P^{(s)} }{kn_s} ~, \\
+& q_i^{(s)} = \left\langle \frac{1}{2} m_s w_i \sum_k w_k w_k \right\rangle_s ~.
+\end{align}
+The closure can be obtained by assuming that each fluid is in a state of local thermodynamical equilibrium at its own temperature, which allows the neglect of the viscous and thermal conduction terms. The coupling between the two
+species is maintained by the terms that represent the mutual exchange of momentum and energy and, \textcolor{red}{to achieve closure, they must be expressed in terms of the macroscopic variables}. The two-fluid model is a good description of the electro-proton system when the \textcolor{blue}{two species have not yet attained a common thermal equilibrium}. Such a situation may occur in a rarefied plasma, because of the relative inefficiency of the collisions between different species, $\tau_{ep} \gg \tau_{pp} \gg \tau_{ee}$. A typical example is the solar wind,
+where, at Earth orbit, the electron temperature is higher than the proton one.
+
+\section{The One-Fluid Model}
+The temperatures of the two fluids are not substantially different. Introduce a \textcolor{red}{fictitious fluid}, representative of the entire plasma. The equations of such a model look similar to those of a neutral gas, with some extra terms to take into account the electromagnetic effects.
+
+The total numerical density of the plasma, $n(\vec{r}, t)$, i.e. the total number of particles per unit volume, \textcolor{orange}{irrespective of the sign of charge}, is
+\begin{equation*}
+n = n_e + n_p ~.
+\end{equation*}
+Then the mass density, charge density and current density are respectively defined
+\begin{eqnarray*}
+\rho(\vec{r}, t) &=& n_p m_p +n_e m_e ~, \\
+q(\vec{r}, t) &=& e(n_p -n_e) ~, \\
+\vec{J} (\vec{r}, t) &=& e(n_p \vec{u}^{(p)} -n_e \vec{u}^{(e)})
+\end{eqnarray*}
+The continuity equations becomes
+\begin{align*}
+& \boxed{\frac{\partial (m_p n_p)}{\partial t} + \nabla \cdot (m_p n_p\vec{u}^{(p)}) + \frac{\partial (m_e n_e)}{\partial t} + \nabla \cdot (m_e n_e \vec{u}^{(e)}) = 0}\\
+& \frac{\partial \rho}{\partial t} + \nabla \cdot (m_p n_p\vec{u}^{(p)} + m_e n_e \vec{u}^{(e)}) = 0~.
+\end{align*}
+Introduce the \textcolor{red}{fluid velocity} vector,
+\begin{equation}
+\color{red} \vec{U} = \frac{m_p n_p\vec{u}^{(p)} + m_e n_e \vec{u}^{(e)}}{m_p n_p + m_e n_e} = \frac{m_p n_p\vec{u}^{(p)} + m_e n_e \vec{u}^{(e)}}{\rho} ~.
+\end{equation}
+Since $n_e \simeq n_p$, it is a sort of \textcolor{orange}{local center-of-mass speed}, i.e.
+\begin{equation*}
+\vec{U} = \frac{m_p n_p\vec{u}^{(p)} + m_e n_e \vec{u}^{(e)}}{\rho} \approx \frac{m_p \vec{u}^{(p)} + m_e \vec{u}^{(e)}}{m_p +m_e}
+\end{equation*}
+Thus
+\begin{equation}
+\color{orange} \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \vec{U}) = 0
+\label{one_conti}
+\end{equation}
+In the same way,  the charge-conservation equation is
+\begin{equation}
+\color{orange} \frac{\partial q}{\partial t} + \nabla \cdot \vec{J} = 0
+\label{one_charge_conser}
+\end{equation}
+
+Define the random speed as $\vec{w}^\prime = \vec{v} - \vec{U}$. Since the pressures of the two species have to be added, it would be more logical to refer their peculiar velocities to the same fluid speed, $\vec{U}$, rather than to two different average speeds, $\vec{u}^{(e)}$ and $\vec{u}^{(p)}$. The new definition of the peculiar velocities implies
+\begin{equation*}
+\color{red} \langle \vec{w}^\prime \rangle_s = \vec{u}^{(s)} - \vec{U} \neq 0 ~.
+\end{equation*}
+The term $m_s n_s \langle v_i v_k \rangle_s$ is modified as follows
+\begin{align*}
+m_s n_s \langle v_i v_k \rangle & = m_s n_s \langle (w_i^\prime +U_i)(w_k^\prime +U_k) \rangle_s \\
+&  \boxed{= m_s n_s  \langle (w_i^\prime w_k^\prime +w_i^\prime U_k +w_k^\prime U_i +U_i U_k) \rangle_s }\\
+&  \boxed{= m_s n_s  \langle w_i^\prime w_k^\prime \rangle_s +m_s n_s \langle (w_i^\prime U_k +w_k^\prime U_i +U_i U_k) \rangle_s }\\
+&  \boxed{= m_s n_s  \langle w_i^\prime w_k^\prime \rangle_s +m_s n_s (\langle w_i^\prime \rangle_s U_k + \langle w_k^\prime \rangle_s U_i +U_i U_k ) }\\
+& \boxed{= m_s n_s  \langle w_i^\prime w_k^\prime \rangle_s +m_s n_s \left[ \left(u^{(s)}_{i} -U_i \right)U_k +\left(u^{(s)}_{k} -U_k \right)U_i +U_iU_k \right] }\\
+& = P^{(s)}_{ik} +m_s n_s \left(u^{(s)}_{i}U_k +u^{(s)}_{k} U_i -U_iU_k \right) ~,
+\end{align*}
+where the tensors $P^{(s)}_{ik}$ are defined in terms of the respective $\vec{w}_i^\prime$. 
+\begin{align}
+\nonumber & \frac{\partial (m_s n_s u_i^{(s)})}{\partial t} +\frac{\partial }{\partial x_k} \left[P^{(s)}_{ik} +n_s m_s \left(u_i^{(s)}U_k +u^{(s)}_{k} U_i -U_iU_k \right) \right] \\
+& -e_s n_s E_i -\frac{e_s n_s}{c} \left(\vec{u}^{(s)} \times \vec{B} \right)_i = R^{(s)}_i ~,
+\end{align}
+where the only forces acting on the system are assumed to be of electromagnetic origin. Define a \textcolor{red}{total pressure tensor} as
+\begin{equation*}
+\color{red} P_{ik} = P^{(e)}_{ik} +P^{(p)}_{ik} ~,
+\end{equation*}
+The Euler equation turns out to be
+\begin{align*}
+& \frac{\partial (m_p n_p u_i^{(p)} +m_e n_e u_i^{(e)})}{\partial t} +\frac{\partial }{\partial x_k} \left[P^{(p)}_{ik} +P^{(e)} _{ik} \right] \\
+& +\frac{\partial }{\partial x_k} \left[n_p m_p \left(u_i^{(p)}U_k +u^{(p)}_{k} U_i -U_iU_k \right) +n_e m_e \left(u_i^{(e)}U_k +u^{(e)}_{k} U_i -U_iU_k \right) \right] \\
+& -e_p n_p E_i -e_e n_e E_i -\frac{e_p n_p}{c} \left(\vec{u}^{(p)} \times \vec{B} \right)_i -\frac{e_e n_e}{c} \left(\vec{u}^{(e)} \times \vec{B} \right)_i  = R^{(p)}_i +R^{(e)}_i ~, \\
+& \rho\frac{\partial U_i}{\partial t} +\frac{\partial P_{ik} }{\partial x_k} +\frac{\partial }{\partial x_k} \left[n_p m_p u_i^{(p)}U_k +n_p m_p  u^{(p)}_{k} U_i -n_p m_p  U_iU_k \right. \\ 
+& \left. +n_e m_e u_i^{(e)}U_k +n_e m_e u^{(e)}_{k} U_i -n_e m_e U_iU_k \right] -q E_i -\frac{1}{c} \left[ \left(e_p n_p \vec{u}^{(p)} +e_e n_e \vec{u}^{(e)} \right)  \times \vec{B} \right]_i  = 0 ~,\\
+& \rho\frac{\partial U_i}{\partial t} +\frac{\partial P_{ik} }{\partial x_k} +\frac{\partial }{\partial x_k} \left[\left(n_p m_p u_i^{(p)} +n_e m_e u_i^{(e)} \right) U_k +\left(n_p m_p u_k^{(p)} +n_e m_e u_k^{(e)} \right) U_i \right. \\ 
+& \left. -(m_pn_p +m_en_e) U_i U_k\right] -q E_i -\frac{1}{c} \left[ \left(e_p n_p \vec{u}^{(p)} +e_e n_e \vec{u}^{(e)} \right)  \times \vec{B} \right]_i  = 0 ~,\\
+& \rho\frac{\partial U_i}{\partial t} +\frac{\partial P_{ik} }{\partial x_k} +\textcolor{red}{?} \frac{\partial \rho U_i U_k }{\partial x_k} -q E_i -\frac{1}{c} \left[ \left(e_p n_p \vec{u}^{(p)} +e_e n_e \vec{u}^{(e)} \right)  \times \vec{B} \right]_i  = 0 
+\end{align*}
+\begin{align}
+\rho\frac{\partial U_i}{\partial t} +\rho U_k\frac{\partial U_i}{\partial x_k} = -\frac{\partial P_{ik} }{\partial x_k} +qE_i +\frac{(\vec{J}\times \vec{B})_i}{c} ~,
+\label{one_euler}
+\end{align}
+or
+\begin{equation}
+\rho\frac{\dif \vec{U}}{\dif t} = -\nabla \cdot \vec{P} +q \vec{E} +\frac{\vec{J}\times \vec{B}}{c} ~.
+\end{equation}
+The \textcolor{red}{kinetic temperature} of the one-fluid model can be defined as
+\begin{equation*}
+\frac{3}{2} nkT = \sum_s \int \frac{1}{2} m_s w^{\prime 2} f_s \dif \vec{v} = \sum_s \frac{1}{2} P_{ii} = \frac{3}{2} P ~,
+\end{equation*}
+so
+\begin{equation}
+\color{red} T = \frac{P_{ii}}{3nk} ~.
+\end{equation}
+Provided that the heat flux vectors, $\vec{q}^{(s)}$, are defined in terms of the peculiar velocities $\vec{w}^\prime$,  the term $\frac{1}{2} m_s n_s \langle v_i v^2 \rangle_s$ is
+\begin{align}
+\nonumber \frac{1}{2} m_s n_s \langle v_i v^2 \rangle =& \frac{3}{2} P^{(s)} U_i +P_{ik}^{(s)} U_k \\
+& +\frac{1}{2} m_s n_s \left(u_i^{(s)} U_k U_k +2u_k^{(s)} U_k U_i +u_i^{(s)} U^2 -2U_i U^2 \right) +q_i^{(s)} ~.
+\end{align}
+The energy equation is 
+\begin{align}
+\nonumber & \frac{\partial }{\partial t}\left[ \frac{1}{2} m_s n_s(2u_k^{(s)} U_k -U^2) +\frac{3}{2} P^{(s)}\right] +\frac{\partial }{\partial x_i} \left[\frac{3}{2} P^{(s)}U_i +P_{ik}^{(s)}U_k  \right. \\
+& \left. + \frac{1}{2} m_s n_s \left(u_i^{(s)} U_kU_k +2u_k^{(s)}U_kU_i +u_i^{(s)} U^2 -2U_i U^2 \right) +q_i^{(s)} \right] -e_sn_s E_k u_k^{(s)} = Q^{(s)} ~.
+\end{align}
+Define the \textcolor{red}{total heat flux vector $\vec{q} = \vec{q}^{(e)} + \vec{q}^{(p)}$}, the energy equation for the one-fluid model is
+\begin{equation}
+\frac{\partial }{\partial t}\left( \frac{1}{2} \rho U^2 +\frac{3}{2} P\right) +\frac{\partial }{\partial x_i} \left[U_i\left( \frac{1}{2}\rho U^2 +\frac{5}{2} P \right)  + \Pi_{ik}U_k +q_i \right] -J_k E_k = 0 ~.
+\label{one_energy}
+\end{equation}
+The term $\vec{J}\cdot \vec{E}$ is
+\begin{align*}
+\vec{J}\cdot\vec{E} &= \left( \frac{c}{4\pi} (\nabla \times \vec{B}) -\frac{1}{4\pi} \frac{\partial \vec{E} }{\partial t} \right) \cdot \vec{E} \\
+&= -\frac{c}{4\pi} \left[\nabla \cdot (\vec{E} \times \vec{B}) -\vec{B}\cdot (\nabla \times \vec{E}) \right] -\frac{1}{4\pi} \frac{\partial \vec{E} }{\partial t}\cdot \vec{E} ~,
+\end{align*}
+where
+\begin{equation*}
+\nabla \cdot (\vec{F} \times \vec{G} ) = \vec{G} \cdot (\nabla \times \vec{F}) -\vec{F} \cdot (\nabla \times \vec{G})
+\end{equation*}
+
+\begin{align*}
+\vec{J}\cdot\vec{E} &= -\frac{c}{4\pi} \left[\nabla \cdot (\vec{E} \times \vec{B}) +\frac{1}{c} \left(\vec{B}\cdot \frac{\partial \vec{B} }{\partial t} +\vec{E}\cdot \frac{\partial \vec{E} }{\partial t}\right) \right]  \\
+&= -\nabla\cdot \vec{S} - \frac{\partial }{\partial t}\left(\frac{E^2 }{8\pi} +\frac{B^2 }{8\pi}\right) ~,
+\end{align*}
+where the Poynting vector $\vec{S} = \dfrac{c}{4\pi}(\vec{E}\times \vec{B})$, representing electromagnetic energy flux, has been introduced. This general form of $\vec{J}\cdot \vec{E}$ is valid both for ideal and dissipative plasmas. The coupling between the electromagnetic energy equation and the plasma energy equation occurs via $\vec{J}\cdot \vec{E}$, which provides a loss for the electromagnetic field and a corresponding source for plasma energy when positive, so that total energy is conserved. Finite conductivity effects are implicitly contained in $\vec{E}$.
+\begin{equation}
+\frac{\partial }{\partial t}\left( \frac{1}{2} \rho U^2 +\frac{3}{2} P +\frac{E^2 }{8\pi} +\frac{B^2 }{8\pi}\right) +\frac{\partial }{\partial x_i} \left[U_i\left(\frac{1}{2} \rho U^2 +\frac{5}{2} P \right) +\Pi_{ik}U_k +q_i +S_i\right] = 0 ~.
+\end{equation}
+The time variation of the total energy (including the contributions coming from electric and magnetic fields) is balanced by the flux terms that also contain the dissipative effects, some of which appear explicitly while others are implicitly contained in the Poynting vector. Even if a magnetic diffusivity term $\eta = \dfrac{c^2}{4\pi \sigma}$ does not appear explicitly, the transformation of magnetic energy into different energy forms, such as thermal energy or kinetic energy of accelerated particles, can still take place. The energy equation can be written as
+\begin{equation}
+\frac{\rho^\gamma}{\gamma-1} \frac{\dif \left( P\rho^{-\gamma}\right)}{\dif t} = -\Pi_{ik} \frac{\partial U_i}{\partial x_k}  -\frac{\partial q_k}{\partial x_k} +(qU_k -J_k)\left(E_k +\frac{(\vec{U}\times \vec{B})_k}{c} \right) ~,
+\label{one_thermal}
+\end{equation}
+where the term $q\vec{U}\cdot (\vec{U}\times \vec{B})$ identically vanishes. The system of equations formed by Eqs. (\ref{one_conti}), (\ref{one_charge_conser}), (\ref{one_euler}) and (\ref{one_energy}) [or (\ref{one_thermal})], coupled to Maxwell’s equations for $\nabla \times \vec{E}$ and $\nabla \times \vec{B}$, is the basis of the one-fluid model. It consists of $12$ scalar equations in the $21$ unknowns $\rho, P, \vec{U}, q, \vec{J}, \vec{E}, \vec{B}, \Pi_{ik}, \vec{q}$. To close the system, 
+\begin{align*}
+& \frac{\partial }{\partial t}\left(en_p u_i^{(p)} -en_e u_i^{(e)} \right) \\
+& +\frac{\partial }{\partial x_k}\left[en_p \left(u_i^{(p)} U_k +u_k^{(p)} U_i \right) -en_e\left(u_i^{(e)} U_k +u_k^{(e)} U_i \right) +e\left(\frac{P_{ik}^{(p)}}{m_p} -\frac{P_{ik}^{(e)}}{m_e}\right) \right] \\
+& -e^2 \left(\frac{n_p}{m_p} +\frac{n_e}{m_e} \right) E_i -\frac{e^2}{c} \left(\frac{n_p}{m_p} (\vec{u}^{(p)}\times \vec{B})_i +\frac{n_e}{m_e} (\vec{u}^{(e)}\times \vec{B})_i \right) \\
+&= e\left(\frac{R_{i}^{(p)}}{m_p} -\frac{R_{i}^{(e)}}{m_e}\right) \\
+&= eR_{i}^{(p)} \left(\frac{1}{m_p} +\frac{1}{m_e}\right)
+\end{align*}
+Here the collisional terms $\vec{R}^{(s)}$ no longer cancel each other and to close the system their difference must be expressed  in terms of the fundamental variables of the fluid model. 
+
+Considering that $m_e \ll m_p$ and $n_e \simeq n_p$, it becomes
+\begin{align}
+\frac{\partial J_i}{\partial t} +\frac{\partial \left(J_i U_k +J_k U_i \right)}{\partial x_k} - \frac{e}{m_e} \frac{\partial P_{ik}^{(e)}}{\partial x_k} -\frac{e^2 n_e}{m_e}E_i -\frac{e^2 n_e}{m_e m_p c} \left[ \left(m_e \vec{u}^{(p)} + m_p \vec{u}^{(e)}\right) \times \vec{B} \right]_i = \frac{e R_{i}^{(p)}}{m_e} ~,
+\label{miss_equ}
+\end{align}
+where
+\begin{equation*}
+m_e \vec{u}^{(p)} + m_p \vec{u}^{(e)} = (m_e +m_p) \vec{U} + (m_e -m_p) \frac{\vec{J}}{en_e} \simeq m_p\left(\vec{U} -\frac{\vec{J}}{en_e} \right) ~.
+\end{equation*}
+Define the relationship between the collisional terms $\vec{R}^{(s)}$ and the fluid variables. Express $\vec{R}^{(s)}$ in terms of the difference between the fluid speeds of the two species,
+\begin{equation*}
+\vec{R}^{(s)} = -n_s m_s \nu_{s,s^\prime} \left(\vec{u}^{(s)} - \vec{u}^{(s^\prime )}\right) ~,
+\end{equation*}
+where \textcolor{orange}{$\nu_{s,s^\prime}$ represents an average frequency for collisions of the particles of type $s$ with type $s^\prime$}. This approximation corresponds to envisaging that the \textcolor{yellow}{force acting between the two species during a collision is of a viscous nature}, so that it \textcolor{blue}{vanishes when the fluid speeds of the the species coincide}.
+
+Since $n_e \simeq n_p$, $\vec{R}^{(e)} = -\vec{R}^{(p)}$ implies that 
+\begin{align*}
+& \boxed{m_e n_e \nu_{e,p} (\vec{u}^{e} -\vec{u}^{p}) = -m_p n_p \nu_{p,e} (\vec{u}^{p} -\vec{u}^{e}) } \\
+& m_e \nu_{e, p} = m_p \nu_{p, e} ~. 
+\end{align*}
+The Eq. (\ref{miss_equ}) becomes
+\begin{align}
+\nonumber & \boxed{ \frac{m_e}{e^2 n_e} \left[\frac{\partial J_i}{\partial t} +\frac{\partial (J_i U_k +J_k U_i)}{\partial x_k} \right] -\frac{1}{en_e} \frac{\partial P_{ik}^{(e)}}{\partial x_k} -E_i } \\ 
+\nonumber & \boxed{ -\frac{1}{m_pc}\left[m_p\left( \vec{U}-\frac{\vec{J}}{en_e} \right)\times \vec{B} \right]_i = \frac{1}{en_e}(-m_pn_p \nu_{p,e}) \left(\vec{u}^{(p)} -\vec{u}^{(e)} \right) } \\
+\nonumber & \boxed{E_i +\frac{1}{c} (\vec{U} \times \vec{B})_i + \frac{1}{e^2n_e}(-m_p \nu_{p,e}) \left(e n_p \vec{u}^{(p)} - en_e\vec{u}^{(e)} \right) = \frac{m_e}{e^2 n_e} \left[\frac{\partial J_i}{\partial t} +\frac{\partial (J_i U_k +J_k U_i)}{\partial x_k} \right] } \\
+\nonumber & \boxed{+\frac{(\vec{J}\times \vec{B})_i}{en_e c} -\frac{1}{en_e} \frac{\partial P_{ik}^{(e)}}{\partial x_k}  } \\
+\nonumber & \boxed{E_i +\frac{1}{c} (\vec{U} \times \vec{B})_i -\frac{m_e \nu_{e,p}}{e^2n_e} \left(e n_p \vec{u}^{(p)} - en_e\vec{u}^{(e)} \right) = \frac{m_e}{e^2 n_e} \left[\frac{\partial J_i}{\partial t} +\frac{\partial (J_i U_k +J_k U_i)}{\partial x_k} \right] } \\
+\nonumber & \boxed{+\frac{(\vec{J}\times \vec{B})_i}{en_e c} -\frac{1}{en_e} \frac{\partial P_{ik}^{(e)}}{\partial x_k}  } \\
+& E_i +\frac{1}{c} (\vec{U} \times \vec{B})_i -\frac{J_i}{\sigma} = \frac{m_e}{e^2 n_e} \left[\frac{\partial J_i}{\partial t} +\frac{\partial (J_i U_k +J_k U_i)}{\partial x_k} \right] +\frac{(\vec{J}\times \vec{B})_i}{en_e c} -\frac{1}{en_e} \frac{\partial P_{ik}^{(e)}}{\partial x_k} ~,
+\label{ohm_gen}
+\end{align}
+where
+\begin{equation*}
+\color{green} \sigma = \frac{e^2 n_e}{m_e \nu_{ep} } ~,
+\end{equation*}
+is the \textcolor{green}{plasma electric conductivity}($\nu_{ep}$ appearing in the definition of $R^{(s)}$ relates to the transfer of momentum between species, while the collisional frequencies discussed in the Introduction relate to the transfer of energy.). It is called the \textcolor{red}{generalized Ohm equation}. Whenever \textcolor{orange}{all the terms of the rhs can be neglected, the classic form of Ohm's law in a moving, conducting medium is recovered}. Equations (\ref{one_conti}), (\ref{one_charge_conser}), (\ref{one_euler}) and (\ref{one_energy}) [or (\ref{one_thermal})] together with Maxwell’s equations for $\nabla \times \vec{E}$ and $\nabla \times \vec{B}$ and Eq. $(\ref{ohm_gen})$ provide a consistent system of equations with an equal number of equations and unknowns provided that we are able to solve the closure problem, i.e. to express the fluid quantities $\Pi_{ik}, P^{(e)}_{ik} , \vec{q}$ in terms of the others. There is generally no unique way to achieve closure, however there are two situations where the system may be closed without considering any moment higher than third order.
+
+The \textcolor{red}{cold plasma model} assume that all components of the pressure tensor $P_{ik}$, as well as those of the heat flux vector $\vec{q}$, vanish. Thus all thermal effect are neglected. In a cold plasma the number of unknowns reduces to $14$, while the number of equations is still $15$. When the energy equation is in the form of Eq. (\ref{one_thermal}), the rhs identically vanishes. Thus the energy equation reduces to
+\begin{equation*}
+(q\vec{U} -\vec{J}) \cdot \left(\vec{E} +\frac{(\vec{U}\times \vec{B})}{c} \right) = 0 ~.
+\end{equation*}
+This equation is automatically satisfied provided that Ohm's law takes the form
+\begin{equation*}
+\vec{E} +\frac{(\vec{U}\times \vec{B})}{c} = 0 ~.
+\end{equation*}
+i.e. a cold plasma turns out to be a necessarily ideal plasma, since in the cold plasma approximation all effects associated with the existence of collisions between the microscopic particles of the plasma have been neglected.
+
+The \textcolor{red}{collisional plasma} in which the system can be easily closed, is a plasma which is always \textcolor{red}{in local thermodynamical equilibrium} and corresponding distribution function is a \textcolor{red}{maxwellian}.  The same reasonings and approximations developed for neutral gases can be applied. As a first approximation, 
+\begin{equation*}
+\Pi   = 0 ~~ , ~~ \vec{q}  = 0 ~~, ~~ P \neq 0 ~~, ~~ P^{(e)} \simeq P^{(p)} = \frac{P}{2} ~.
+\end{equation*}
+In the presence of a \textcolor{blue}{strong magnetic field and a low degree of collisionality}, plasmas may retain \textcolor{blue}{anisotropic thermodynamic properties even within the fluid approximation}, in the sense that \textcolor{blue}{temperatures and pressures in the directions parallel and orthogonal to the magnetic field will be different}.  The pressure tensor of the plasma, in a one-fluid approximation, is written as
+\begin{equation*}
+P_{ij} = P_\perp \delta_{ij} +(P_\parallel -P_\perp) b_i b_j ~,
+\end{equation*}
+where $b_i = B_i /B$  is the $i$-th component of a unit vector along the mean magnetic field $\vec{B}$ and subscripts $\parallel, \perp$ indicate directions parallel and perpendicular to the magnetic field respectively. The equation of continuity is not changed. For the single fluid equation of motion, one can proceed without separating parallel and perpendicular components for the velocity, but retaining the general tensor nature of the pressure.
+\begin{align*}
+& \rho \frac{\dif \vec{U}}{\dif t}\Bigg|_\parallel = -\nabla_\parallel P_\parallel -(P_\perp -P_\parallel) \left(\frac{\nabla B}{B} \right)_\parallel \\
+& \rho \frac{\dif \vec{U}}{\dif t}\Bigg|_\perp = -\nabla_\perp \left( P_\perp +\frac{B^2}{8\pi} \right) +\left(\frac{\vec{B}\cdot \nabla \vec{B}}{4\pi} \right)_\perp \left(1 +\frac{P_\perp -P_\parallel}{B^2/4\pi} \right) = 0 ~.
+\end{align*}
+The equation describing internal energy becomes
+\begin{equation}
+\frac{1}{2} \dfrac{D P_\parallel}{D t} +\dfrac{D P_\perp}{D t} +\left(\frac{P_\parallel}{2} +P_\perp \right) \frac{\partial U_j}{\partial x_j} +P_{ij} \frac{\partial U_j}{\partial x_i} = 0 ~.
+\end{equation}
+$\psi = \dfrac{m v^2_\parallel}{2}$, with $v_\parallel = \vec{v} \cdot \vec{b}$, now depends not only on velocity, but also on position and time, through the time and spatial dependence of $\vec{b}$. 
+\begin{equation*}
+\frac{\partial \psi}{\partial t} = m v_\parallel \vec{v} \cdot \frac{\partial \vec{b}}{\partial t} ~,
+\end{equation*}
+\begin{align*}
+& \nabla \psi = m v_\parallel (\vec{v} \cdot \nabla \vec{b}) ~, \\
+& \nabla_{\vec{v}} \psi = m v_\parallel \vec{b} ~.
+\end{align*}
+Since $v_\parallel = w_\parallel +U_\parallel$, where $U$ is the mean velocity, $P_\parallel = \rho \langle w_\parallel^2 \rangle$. 
+
+\begin{equation}
+\frac{\rho}{2} \dfrac{D U^2_\parallel}{D t} -\rho U_\parallel U_i \dfrac{D b_i}{D t} = - U_\parallel b_i \frac{\partial P_{ik} }{\partial x_k} + q U_\parallel E_\parallel ~.
+\end{equation}
+The equation for the parallel and perpendicular pressures are resepctively 
+\begin{align}
+& \dfrac{D P_\parallel}{D t} +P_\parallel \frac{\partial U_j}{\partial x_j} +2 P_\parallel b_i b_j \frac{\partial U_i}{\partial x_j} = 0 \\
+& \dfrac{D P_\perp}{D t} +2 P_\perp \frac{\partial U_j}{\partial x_j} -P_\perp b_i b_j \frac{\partial U_i}{\partial x_j} = 0
+\end{align}
+These equations replace the adiabatic equation of state valid for an isotropic rarified plasma and lead to changes in the dynamics in the presence of a strong magnetic field.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{MHD Equations}
+\cite{2015bps..book.....C}  The (classical) magnetohydrodynamic, or MHD, regime is derived from the collisional one-fluid model. The characteristic length-scales $\mathcal{L}$ and time-scales $\tau$, for electric and magnetic field dynamics, is the spatial scale over which the fields show a significant variation, and the typical timescale over which the fields change. Let $\mathcal{U}$ be a representative value of the fluid velocity of the plasma. The \textcolor{red}{MHD regime} is defined by 
+\begin{align}
+& \color{red}  \mathcal{U} \simeq \frac{\mathcal{L}}{\tau} ~, \\
+& \mathcal{U} \ll c ~.
+\end{align}
+The first requirement means that \textcolor{yellow}{``the typical speed" of electromagnetic phenomena}, that we identify with $\dfrac{\mathcal{L}}{\tau}$,  \textcolor{yellow}{is of the same order of magnitude as the typical speed of hydrodynamical phenomena} defined by $\mathcal{U}$. Since the two classes of phenomena ``proceed with the same speed", the potential for mutual interaction is maximized. This regime is intermediate between a situation dominated by electromagnetic effects, where hydrodynamical aspects appear as perturbations, and the symmetrical one, where hydrodynamics dominates and electromagnetic interactions bring in only small corrections. The second requirement is that the \textcolor{blue}{macroscopic plasma motions be non-relativistic}. If this holds systematically, since individual speeds of the bulk of particles must also be close to the macroscopic fluid speed, the \textcolor{yellow}{thermal speed of the plasma must also be non-relativistic}.
+
+\subsection{Dimensional analysis}
+$\mathcal{E}, \mathcal{B}, \mathcal{Q}, \mathcal{J}$ are the characteristic values for the electric and magnetic fields and for the charge and current densities, respectively. 
+\begin{equation*}
+\nabla \times \vec{E} = -\frac{1}{c} \frac{\partial \vec{B}}{\partial t}  \longrightarrow \frac{\mathcal{E}}{\mathcal L} \simeq \frac{1}{c} \frac{\mathcal B}{\tau}
+\end{equation*}
+i.e.
+\begin{equation}
+\frac{\mathcal{E}}{\mathcal B} \simeq  \frac{\mathcal L}{c\tau} \simeq \frac{\mathcal U}{c} \ll 1 ~. \textcolor{red}{is~ this~ related~ to~ Gaussian~ unit ~?}
+\end{equation}
+
+\begin{equation*}
+\nabla \times \vec{B} = \frac{4\pi}{c} \vec{J} +  \frac{1}{c}\frac{\partial \vec{E}}{\partial t} \longrightarrow \frac{\mathcal B}{\mathcal L} \simeq \frac{4\pi}{c} \mathcal{J} + \frac{\mathcal E}{c\tau} 
+\end{equation*}
+\begin{equation*}
+1 \simeq \frac{4\pi}{c} \mathcal{J}  \frac{\mathcal L}{\mathcal B} +  \frac{\mathcal E}{\mathcal B}   \frac{\mathcal L}{c\tau} \simeq \frac{4\pi}{c} \mathcal{J}  \frac{\mathcal L}{\mathcal B} +\color{yellow} \left( \frac{\mathcal U}{c}  \right)^2
+\end{equation*}
+The last term is negligible and equation reduces to
+\begin{equation}
+\color{red} \nabla \times \vec{B} = \frac{4\pi}{c} \vec{J} 
+\end{equation}
+In the \textcolor{red}{MHD regime, the displacement current can be neglected}, i.e. in a \textcolor{red}{low frequency regime}. The \textcolor{blue}{displacement current becomes important} only when $\vec{E}$ varies rapidly with time, namely in a \textcolor{blue}{high frequency regime}.  The elimination of the displacement current implies that the continuity equation for the electrical charge must also change.
+\begin{equation*}
+\frac{\mathcal Q}{\tau} +\frac{\mathcal J}{\mathcal L} = 0 \longrightarrow \frac{\mathcal E}{4\pi \mathcal L}\frac{1}{\tau} +\frac{c\mathcal B}{4\pi \mathcal L}  \frac{1}{\mathcal L} = 0
+\end{equation*}
+The ratio of of the first term to the second one is
+\begin{equation*}
+\frac{\mathcal E}{\mathcal B} \frac{\mathcal L}{c\tau}  \simeq \left( \frac{\mathcal U}{c}  \right)^2 \ll 1 ~,
+\end{equation*}
+i.e. in the MHD regime, the \textcolor{red}{temporal derivative of charge density is negligible}: the equation for the charge conservation can be written simply as $\color{red} \nabla \cdot \vec{J} = 0$. For the momentum equation,
+\begin{equation*}
+\rho \frac{\mathcal U}{\tau} \simeq -\frac{P}{\ell} +{\mathcal Q}{\mathcal E} +\frac{1}{c} {\mathcal J}{\mathcal B} ~.
+\end{equation*}
+The ratio of the electric to the magnetic parts of the Lorentz force becomes
+\begin{equation*}
+\frac{{\mathcal Q}{\mathcal E}}{{\mathcal J}{\mathcal B}/c} \simeq \left(\frac{\mathcal E}{\mathcal B} \right)^2 \simeq \left(\frac{\mathcal U}{c} \right)^2 \ll 1 ~,
+\end{equation*}
+\begin{empheq}[box=\widefbox]{align*}
+\nabla \cdot \vec{E}  = 4\pi Q \Longrightarrow \mathcal Q = \dfrac{\mathcal E}{4\pi \mathcal L} ~, \\
+ \nabla \times \vec{B} = \frac{4\pi}{c} \vec{J} \Longrightarrow \mathcal J = \dfrac{c \mathcal B}{4\pi \mathcal L} ~.
+\end{empheq}
+i.e. the \textcolor{red}{electric part of the force may be neglected}. The momentum equation in MHD is
+\begin{equation}
+\color{red} \rho \frac{\dif \vec{U}}{\dif t} = -\nabla P +\frac{1}{c} \vec{J} \times \vec{B} ~.
+\end{equation}
+The Ohm's equation is
+\begin{align*}
+& E_i + \frac{\left(\vec{U} \times \vec{B}\right)_i }{c} -\frac{J_i}{\sigma} = \frac{m_e}{e^2 n_e} \left[\frac{\partial J_i}{\partial t} +\frac{\partial \left(J_i U_k +J_k U_i \right) }{\partial x_k} \right] +\frac{\left(\vec{J} \times \vec{B}\right)_i}{en_ec} -\frac{1}{en_e} \frac{\partial P^{(e)}_{ik}}{\partial x_k} ~, \\
+& \boxed{1 + \frac{\left(\vec{U} \times \vec{B}\right)_i }{E_i c} -\frac{J_i}{E_i \sigma} = \frac{m_e}{E_i e^2 n_e} \left[\frac{\partial J_i}{\partial t} +\frac{\partial \left(J_i U_k +J_k U_i \right) }{\partial x_k} \right] +\frac{\left(\vec{J} \times \vec{B}\right)_i}{E_i en_ec} -\frac{1}{E_i en_e} \frac{\partial P^{(e)}_{ik}}{\partial x_k} }~,
+\end{align*}
+The two terms in square bracket have the same order of magnitude. 
+
+\fbox{$\sigma = \dfrac{e^2 n_e}{m_e \nu_{ep}}$ is the plasma electric conductivity, and $\omega_{pe}^2 = \dfrac{4\pi e^2 n_e}{m_e}$ the electron plasma frequency.} Define
+\begin{equation*}
+\omega \simeq \tau^{-1} ~, ~~ c_s \simeq \left(\frac{P}{\rho} \right)^{1/2}
+\end{equation*}
+\begin{empheq}[box=\widefbox]{align*}
+& \frac{J_i}{E_i \sigma} \longrightarrow \frac{\mathcal B c}{4\pi \mathcal L \mathcal E} \frac{m_e \nu_{ep}}{e^2 n_e} =  \frac{\mathcal B}{\mathcal E} \frac{c}{\mathcal L} \frac{m_e \nu_{ep}}{4\pi e^2 n_e} = \frac{c^2}{\mathcal U^2} \frac{\mathcal U}{\mathcal L} \frac{\nu_{ep}}{\omega_{pe}^2 } = \left(\frac{\omega}{\omega_{pe}} \right)\left(\frac{\nu_{ep}}{\omega_{pe}} \right) \left(\frac{c}{\mathcal U} \right)^2 \\
+& \frac{m_e}{e^2 n_eE_i } \frac{\partial J_i}{\partial t} \longrightarrow \frac{m_e}{4\pi e^2 n_e} \frac{\mathcal B c}{\mathcal E \mathcal L \tau} = \frac{\omega^2}{\omega_{pe}^2 } \frac{c^2}{\mathcal U^2} \\
+& \frac{\left(\vec{J} \times \vec{B}\right)_i}{E_i en_ec} \longrightarrow \frac{\mathcal B^2 c}{4\pi \mathcal L} \frac{1}{\mathcal E e n_e c} = \frac{m_e}{4\pi e^2 n_e} \frac{e\mathcal B}{m_e c} \frac{\mathcal B}{\mathcal E} \frac{c}{\mathcal L} = \frac{\omega_{ce}\omega}{\omega_{pe}^2} \frac{c^2}{\mathcal U^2}\\
+& \frac{1}{E_i en_e} \frac{\partial P^{(e)}_{ik}}{\partial x_k} \longrightarrow \frac{c_s^2 \rho}{\mathcal E \mathcal L e n_e} = c_s^2 \frac{m_p n_p c}{\mathcal {B U} \mathcal L e n_e}  \simeq c_s^2 \frac{m_p c}{e \mathcal B} \frac{\mathcal U}{ \mathcal L} \frac{1}{ \mathcal U^2} = \frac{\omega}{\omega_{cp}} \left(\frac{c_s}{\mathcal U} \right)^2
+\end{empheq}
+\begin{align*}
+1:1:\left(\frac{\omega}{\omega_{pe}} \right)\left(\frac{\nu_{ep}}{\omega_{pe}} \right) \left(\frac{c}{\mathcal U} \right)^2:\left(\frac{\omega}{\omega_{pe}} \right)^2 \left(\frac{c}{\mathcal U} \right)^2:\left(\frac{\omega}{\omega_{pe}} \right)\left(\frac{\omega_{ce}}{\omega_{pe}} \right) \left(\frac{c}{\mathcal U} \right)^2: \frac{\omega}{\omega_{cp}}  \left(\frac{c_s}{\mathcal U} \right)^2
+\end{align*}
+where $\omega_{pe}$ is the electron plasma frequency, $\omega_{ce}$ and $\omega_{cp}$ are, respectively, the electron and proton cyclotron frequencies and $\nu_{ep}$ is the electron-proton collision frequency. 
+
+To neglect the terms in square bracket, then
+\begin{equation}
+\frac{\omega}{\omega_{pe}} \ll \frac{\mathcal U}{c} ~.
+\end{equation}
+To neglect the term proportional to $\vec{J}\times \vec{B}$, connected with the so-called \textcolor{red}{Hall effect},
+\begin{equation}
+\frac{\omega\omega_{ce}}{\omega^2_{pe}} \ll  \left(\frac{\mathcal U}{c} \right)^2 ~.
+\end{equation}
+It can also be rewritten in terms of the proton cyclotron frequency $\omega_{cp}$ and the Alfv\'{e}n speed $c_a = \dfrac{B}{\sqrt{4\pi m_p n_p}}$ as
+\begin{empheq}[box=\widefbox]{align*}
+\frac{\left(\vec{J} \times \vec{B}\right)_i}{E_i en_ec} \longrightarrow \frac{m_p}{4\pi e^2 n_e} \frac{e\mathcal B}{m_p c} \frac{\mathcal B}{\mathcal E} \frac{c}{\mathcal L} = \frac{\mathcal B^2 }{4\pi m_p n_p} \frac{m_p c}{e \mathcal B} \frac{\tau}{\mathcal {UL} } \omega = \frac{c_a^2}{\omega_{cp} } \frac{\omega}{\mathcal U^2}
+\end{empheq}
+\begin{equation}
+\frac{\omega}{\omega_{cp}} \ll  \left(\frac{\mathcal U}{c_a} \right)^2 ~.
+\end{equation}
+The electron pressure term can be neglected when
+\begin{equation}
+\frac{\omega}{\omega_{cp}} \ll  \left(\frac{\mathcal U}{c_s} \right)^2 ~.
+\end{equation}
+When all these conditions are satisfied, which is most easily achieved in the low frequency regime typical of MHD, Ohm’s equation reduces simply to
+\begin{equation}
+\color{orange} \vec{E} +\frac{\vec{U}\times \vec{B}}{c} = \frac{\vec{J}}{\sigma} ~,
+\end{equation}
+which is \textcolor{red}{Ohm's equation for a resistive plasma}. If
+\begin{equation}
+\frac{\omega \nu_{ep}}{\omega^2_{pe}} \ll \left(\frac{\mathcal U}{c} \right)^2 ~,
+\end{equation}
+is satisfied, the term $\dfrac{\vec{J}}{\sigma}$ can also be neglected. This happens under \textcolor{blue}{very high electrical conductivity}, and the Ohm's equation to an \textcolor{orange}{ideal plasma} is
+\begin{equation}
+\color{orange} \vec{E} +\frac{\vec{U}\times \vec{B}}{c} = 0 ~.
+\end{equation}
+The term $\dfrac{\mathcal{QU}}{\mathcal J} \sim \dfrac{\mathcal{EU} }{\mathcal{B}c} \sim ({\mathcal U}/c)^2$, the energy equation can be reduced to
+\begin{equation}
+\frac{\rho^\gamma}{\gamma-1} \frac{\dif \left(P \rho^{-\gamma}\right) }{\dif t} = \frac{J^2}{\sigma} ~.
+\end{equation}
+Take the curl of Ohm's law, 
+\begin{eqnarray*}
+\nabla \times \vec{E} +\frac{1}{c}\nabla \times (\vec{U}\times \vec{B}) = -\frac{1}{c}\frac{\partial \vec{B}}{\partial t} + \frac{\nabla \times (\vec{U}\times \vec{B})}{c} = \nabla \times \left(\frac{\vec{J}}{\sigma} \right) = \nabla \times \left(\frac{c}{4\pi\sigma} \nabla \times \vec{B}\right) 
+\end{eqnarray*}
+Define the \textcolor{red}{magnetic diffusivity},
+\begin{equation}
+\color{red} \eta = \frac{c^2}{4\pi \sigma} ~,
+\end{equation}
+it becomes
+\begin{equation}
+\color{red} \frac{\partial \vec{B}}{\partial t} = \nabla \times (\vec{U}\times \vec{B}) +\eta \nabla^2 \vec{B} -\nabla \eta \times (\nabla \times \vec{B}) ~,
+\end{equation}
+which is known as the \textcolor{red}{magnetic induction equation}, sometimes also called  \textcolor{red}{Faraday’s equation}.
+
+The \textcolor{red}{resistive MHD equations} are
+\begin{align}
+& \color{red} \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \vec{U}) = 0 ~, \\
+& \color{red} \rho \frac{\dif \vec{U}}{\dif t} = -\nabla P + \frac{\vec{J}}{c} \times \vec{B} = -\nabla P +\frac{1}{4\pi} (\nabla \times \vec{B}) \times \vec{B} ~, \\
+& \color{red} \frac{1}{\gamma-1} \rho^\gamma \frac{\dif \left(P \rho^{-\gamma} \right) }{\dif t} = \frac{4\pi}{c^2} \eta J^2 ~, \\
+& \color{red} \frac{\partial \vec{B}}{\partial t} = \nabla \times (\vec{U} \times \vec{B}) + \eta \nabla^2 \vec{B} -\nabla \eta \times (\nabla \times \vec{B}) ~.
+\end{align}
+The equations for an \textcolor{orange}{ideal plasma} are obtained by taking \textcolor{orange}{$\eta = 0$}, or, letting $\sigma$ tend to infinity. The above equations are a closed system that completely determines the $8$ primary unknowns $\rho, P, \vec{U}, \vec{B}$. The other quantities can then be deduced in terms of the primary ones. The current density, electric field and charge density are obtained from
+\begin{align*}
+& \vec{J} = \frac{c}{4\pi} (\nabla \times \vec{B}) ~, \\
+& \vec{E} = -\frac{\vec{U}\times \vec{B}}{c} + \frac{\vec{J}}{\sigma} ~, \\
+& q = \frac{1}{4\pi} (\nabla \cdot \vec{E}) ~.
+\end{align*}
+The electrical conductivity $\sigma$ is assumed to be a known quantity and depends in general on density and temperature via the collision frequency, though it will often be taken as a constant.
+
+By comparing the MHD equations with the corresponding ones for a neutral gas, they represent the minimum possible number of equations describing a plasma as a conducting medium. 
+
+\subsection{Magnetic Pressure}
+The last term of momentum equation can be modified
+\begin{equation*}
+\frac{1}{4\pi} (\nabla \times \vec{B}) \times \vec{B} = \frac{1}{4\pi}  (\vec{B} \cdot  \nabla)\vec{B} - \frac{1}{8\pi} \nabla B^2 ~,
+\end{equation*}
+according to the vector identity :
+\begin{equation*}
+\nabla (\vec{F} \cdot \vec{G}) = (\vec{F} \cdot  \nabla)\vec{G} +(\vec{G}\cdot \nabla)\vec{F} +\vec{F}\times (\nabla \times \vec{G}) +\vec{G} \times (\nabla \times \vec{F}) ~.
+\end{equation*}
+Then
+\begin{equation}
+\rho \frac{\dif \vec{U}}{\dif t} = -\nabla \left(P+\frac{B^2}{8\pi} \right) +\frac{1}{4\pi}  (\vec{B} \cdot  \nabla)\vec{B} ~.
+\end{equation}
+The $i$-th component is
+\begin{equation*}
+\rho \frac{\dif U_i}{\dif t} = -\frac{\partial}{\partial x_i} \left(P+\frac{B^2}{8\pi} \right) +\frac{B_k}{4\pi} \frac{\partial B_i}{\partial x_k}  = -\frac{\partial}{\partial x_i} \left(P+\frac{B^2}{8\pi} \right) +\frac{1}{4\pi} \frac{\partial (B_i B_k)}{\partial x_k} ~.
+\end{equation*}
+i.e.
+\begin{equation}
+ \color{red} \rho \frac{\dif U_i}{\dif t} = -\frac{\partial T_{ik}}{\partial x_k} ~,
+\end{equation}
+where a new tensor has been introduced
+\begin{equation}
+ \color{red} T_{ik} = \left(P+\frac{B^2}{8\pi} \right)\delta_{ik} -\frac{B_i B_k}{4\pi} ~.
+\end{equation}
+Assuming that the $z$-axis of our reference system is aligned with the magnetic field, which is always achievable locally by an appropriate rotation of the axes, the tensor $T_{ik}$ reduces to
+\begin{equation}
+\begin{pmatrix}
+P+\dfrac{B^2}{8\pi} & 0 & 0 \\
+  0 & P+\dfrac{B^2}{8\pi}& 0 \\
+  0 & 0 & P-\dfrac{B^2}{8\pi}\\
+\end{pmatrix}
+\end{equation}
+The presence of a magnetic field introduces an extra \textcolor{red}{isotropic pressure, $B^2/8\pi$}, and an \textcolor{red}{anisotropic negative pressure} (i.e. a \textcolor{red}{tension}) \textcolor{red}{along the field, $-B^2/4\pi$}. 
+
+Consider a magnetic field given by $\vec{B} = [0, B_y(x), B_z(x)]$, whose field lines are straight lines (for $B_y = 0$, the field lines are straight lines parallel to the $z$-axis, while if $B_y \neq 0$ the field lines are straight in any given plane $x = \rm const.$, but their inclination changes when $x$ is varied). For this field the \textcolor{red}{tension term vanishes}, which suggests that the \textcolor{yellow}{tension is active only when the field lines are curved}. In a certain sense, the field lines of $\vec{B}$ behave as they were composed of an elastic material : any deformation induces a tension that tends to restore a configuration with unbent, straight field lines.
+
+The relative importance of plasma kinetic to magnetic pressures is measured by the parameter \textcolor{orange}{$\beta$}, defined by
+\begin{equation}
+\color{orange} \beta = \frac{P}{B^2/8\pi} = \frac{2}{3} \frac{E_{\rm th} }{E_{\rm mag}}~.
+\end{equation}
+where $E_{\rm th}/V = \dfrac{3}{2} P$ is the thermal energy density and $E_{\rm mag}/V = B^2/8\pi$ is the magnetic energy density. Whenever $\beta \gg 1$ the system's dynamics is dominated by hydrodynamical effects, while when $\beta \ll 1$ magnetic effects are dominant. 
+
+
+\subsection{The Conservative Form of MHD Equations}
+An equation is said to be conservative if it is possible to cast it in a form similar to the continuity equation, i.e.
+\begin{equation*}
+\frac{\partial \Sigma}{\partial t} +\nabla \cdot \vec{\Phi} = 0 ~,
+\end{equation*}
+where $\Sigma$ is the density of some quantity, and $ \vec{\Phi}$ can be thought as the flux of the same quantity. Its
+generalization to a vector quantity $\vec \Sigma$ is:
+\begin{equation*}
+\frac{\partial \Sigma_i}{\partial t} + \frac{\partial \Phi_{ik} }{\partial x_k} = 0 ~,
+\end{equation*}
+where $\Phi$, a tensor, is now the flux of the vector density. The lhs of the momentum equation can be written as
+\begin{align*}
+\rho \frac{\partial U_i}{\partial t} +\rho U_k \frac{\partial U_i}{\partial x_k} &= \frac{\partial (\rho U_i)}{\partial t} -U_i\frac{\partial \rho }{\partial t} +\rho U_k  \frac{\partial U_i}{\partial x_k} \\
+&=  \frac{\partial (\rho U_i)}{\partial t} +U_i\frac{\partial (\rho U_k)}{\partial x_k} +\rho U_k  \frac{\partial U_i}{\partial x_k} \\
+&=  \frac{\partial (\rho U_i)}{\partial t} + \frac{\partial (\rho U_i U_k)}{\partial x_k}
+\end{align*}
+thus
+\begin{equation}
+\color{blue} \frac{\partial (\rho U_i)}{\partial t} + \frac{\partial }{\partial x_k}\left[\rho U_i U_k + \left(P+\frac{B^2}{8\pi} \right)\delta_{ik} -\frac{B_i B_k}{4\pi}\right] = 0 ~.
+\end{equation}
+The energy equation cannot be cast in conservative form, because it describes how the internal energy varies with time, and it is not internal energy density that is conserved, but the total energy density. The internal energy per unit mass of a perfect gas is
+\begin{equation*}
+W = c_V T = c_V \frac{R}{\mu} \frac{P}{\rho} = \frac{1}{\gamma -1} \frac{P}{\rho}
+\end{equation*}
+and the internal energy per unit volume is
+\begin{equation}
+\epsilon = \rho W = \frac{P}{\gamma -1} ~.
+\end{equation}
+\begin{empheq}[box=\widefbox]{align*}
+& \frac{1}{\gamma-1} \rho^\gamma \frac{\dif \left(P \rho^{-\gamma} \right) }{\dif t} = \frac{4\pi}{c^2} \eta J^2 ~, \\
+& \rho^\gamma \left(\frac{\dif \epsilon }{\dif t} \rho^{-\gamma} +\epsilon \frac{\dif \rho^{-\gamma} }{\dif t} \right) = \frac{4\pi}{c^2} \eta J^2 ~, \\
+& \frac{\partial \epsilon }{\partial t} +(\vec{U}\cdot \nabla)\epsilon -\frac{\gamma \epsilon}{\rho} \frac{\dif \rho}{\dif t} = \frac{4\pi}{c^2} \eta J^2 ~,
+\end{empheq}
+\begin{equation}
+\frac{\partial \epsilon}{\partial t} +(\vec{U}\cdot \nabla)\epsilon +\gamma\epsilon(\nabla \cdot \vec{U}) = \frac{4\pi}{c^2} \eta J^2 ~,
+\end{equation}
+i.e. the internal energy of a given volume can vary both due to compressive effects (the term proportional to $\nabla \cdot \vec{U}$) and to dissipative effects (the term proportional to $\eta$).
+\begin{equation}
+\color{blue} \frac{\partial }{\partial t}\left( \frac{1}{2} \rho U^2 +\frac{P}{\gamma-1} +\frac{B^2 }{8\pi}\right) +\frac{\partial }{\partial x_i} \left[U_i\left(\frac{1}{2} \rho U^2 +\frac{\gamma P}{\gamma-1} \right) +\frac{c}{4\pi} (\vec{E} \times \vec{B})_i \right] = 0 ~,
+\end{equation}
+which describes the conservation of total energy density. The induction equation is intrinsically non-conservative, because of the presence of the dissipative terms containing $\eta$. It may be cast in a conservative form for ideal plasmas for which $\eta = 0$. The $i$-th component of $\nabla \times (\vec{U} \times \vec{B})$ is
+\begin{equation*}
+[\nabla \times (\vec{U} \times \vec{B}) ]_i = \epsilon_{ijk} \frac{\partial (\epsilon_{klm} U_l B_m)}{\partial x_j} = \frac{\partial (U_i B_j -B_i U_j)}{\partial x_j}
+\end{equation*}
+where $\epsilon_{ijk}$ is the antisymmetric tensor and 
+\begin{equation*}
+\epsilon_{ijk}\epsilon_{klm} = \epsilon_{kij} \epsilon_{klm} = \delta_{il} \delta_{jm} - \delta_{im} \delta_{jl} ~.
+\end{equation*}
+The induction equation can be written as
+\begin{equation}
+\color{blue} \frac{\partial B_i}{\partial t} +\frac{\partial (U_k B_i -B_k U_i)}{\partial x_k} = [\eta \nabla^2 \vec{B} -\nabla \eta \times (\nabla \times \vec{B})]_i ~,
+\end{equation}
+When $\eta = 0$, it is conservative which represents the magnetic flux conservation for ideal plasmas.
+
+
+\section{The Time Evolution of Magnetic Fields}
+Consider Farday's equation assuming that the resistivity $\eta$ is a constant, independent of thermodynamical variables (e.g. density and temperature):
+\begin{equation}
+\frac{\partial \vec{B} }{\partial t} = \nabla \times (\vec{U} \times \vec{B} ) + \eta \nabla^2 \vec{B} ~.
+\end{equation}
+If the velocity field $\vec{U}$ is known, then it does not require any other of the MHD equations for closure, and may be solved for the magnetic field once an initial field is given at an initial time. This approach to understanding the evolution of magnetic fields is known as the \textcolor{red}{kinematical approach}.
+
+The temporal variation of $\vec{B}$ is given by two terms, each describing a different physical process. The first term, containing the fluid velocity $\vec{U}$, is a \textcolor{red}{convective term}, describing how the field changes due to convection and concentration and rarefaction from the velocity field; the second term is a \textcolor{red}{diffusive term}. The corresponding processes occur on completely different timescales. From the dimensional analysis, the convective term can be evaluated as ($\mathcal U$ being the magnitude of the velocity)
+\begin{equation*}
+\frac{\mathcal B}{\tau_f} ~~{\rm with } ~~ \tau_f = \frac{\mathcal L}{\mathcal U} ~,
+\end{equation*}
+while for the diffusive term
+\begin{equation*}
+\frac{\mathcal B}{\tau_d} ~~{\rm with } ~~ \tau_d = \frac{\mathcal L^2 }{\eta} ~,
+\end{equation*}
+with $\tau_f$ and $\tau_d$ corresponding to convective and diffusion timescales respectively. 
+
+The relative importance of convection and diffusion is measured by the ratio of the magnitude of the two terms
+\begin{equation}
+\color{red} \mathcal R_{m} = \frac{\tau_d}{\tau_f} =  \frac{\mathcal {U L}}{\eta} ~,
+\end{equation}
+called \textcolor{red}{magnetic Reynolds number}. If, as often happens in MHD, the typical convection speed is of the same order of the Alfv\'en speed, typical of magnetic phenomena, the magnetic Reynolds number is called the  \textcolor{red}{Lundquist number}, defined by
+\begin{equation}
+\color{red} \mathcal S =  \frac{c_a \mathcal  L}{\eta} ~.
+\end{equation}
+
+
+
+
+
+
+\subsection{$\mathcal{R}_m \ll 1$ : Magnetic Diffusion}
+If $\mathcal{R}_m \ll 1$, the convective term can be neglected and the induction equation reduces to
+\begin{equation*}
+\frac{\partial \vec{B} }{\partial t} = \eta \nabla^2 \vec{B} 
+\end{equation*}
+Write the magnetic field in terms of its Fourier transform
+\begin{equation*}
+\vec{B}(\vec{r}, t) = \int  \vec{B}(\vec{k}, \omega) e^{i(\vec{k}\cdot \vec{r} -\omega t)} \dif \vec{k} \dif \omega ~,
+\end{equation*}
+then
+\begin{equation*}
+\int (i\omega -\eta k^2) \vec{B}(\vec{k}, \omega) e^{i(\vec{k}\cdot \vec{r} -\omega t)} \dif \vec{k} \dif \omega = 0 ~,
+\end{equation*}
+Since the above equation must be identically satisfied for every $\vec{B}(\vec{k}, \omega)$, it follows that $\omega = -i\eta k^2$. 
+\begin{align*}
+\vec{B}(\vec{r}, t) &= \int \delta(\omega +\eta k^2) \vec{B}(\vec{k}, \omega) e^{i(\vec{k}\cdot \vec{r} -\omega t)} \dif \vec{k} \dif \omega \\
+&= \int \vec{B}(\vec{k}) e^{(i\vec{k}\cdot \vec{r} -\eta k^2 t)} \dif \vec{k} ~,
+\end{align*}
+which is the Fourier representation of the solution of the diffusive equation: the \textcolor{green}{Fourier components of a generic magnetic field, given at $t = 0$ by $\vec{B}(\vec{k})$, decay exponentially with time}. The magnetic energy $\left(\dfrac{B^2}{8\pi} \right)V$ decreases because the \textcolor{red}{resistivity} transforms magnetic energy into other forms of energy. A part of the original magnetic energy goes into thermal energy (Joule effect), but in general a fraction may be converted into kinetic energy from acceleration of the fluid. If $\dfrac{\partial \vec{B} }{\partial t} \neq 0$, an electric field is generated which might accelerate plasma particles. Notice that the components corresponding to \textcolor{orange}{large values of $k$, i.e. to small wavelengths, decrease faster}. Since small wavelengths describe rapid spatial variations, the field becomes smoother during its general decrease. The \textcolor{orange}{diffusive time $\tau_d$}: in \textcolor{orange}{thermonuclear fusion machines $\tau_d \simeq 10$ s}; in the \textcolor{orange}{liquid Earth core}, its value increases up to \textcolor{orange}{$10^4$ years}; while in the \textcolor{orange}{Sun's interior} it can reach up to \textcolor{orange}{$10^{10}$ years}, of the same order or larger than the age of the Sun itself.
+
+\subsection{$\mathcal{R}_m \gg 1$ : Alfv\'en's Theorem}
+When the \textcolor{orange}{electrical conductivity is very high} and/or the \textcolor{orange}{spatial scales are very large}, $\mathcal R_m \gg 1$, so that the diffusive term becomes negligible. Such conditions often arise in natural plasmas (as given by the example of the Sun above), it can be approximated by ideal plasmas, with $\eta = 0$.
+\begin{equation}
+\frac{\partial \vec{B} }{\partial t} = \nabla \times (\vec{U} \times \vec{B} ) ~.
+\label{convec}
+\end{equation}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title=Alfv\'en's theorem]
+The magnetic flux through any closed line that moves with the fluid is constant in time.
+\end{tcolorbox}
+%\begin{theo}[Alfv\'en's theorem]{}
+%The magnetic flux through any closed line that moves with the fluid is constant in time.
+%\end{theo}
+
+Consider at time $t$, a closed curve $C$, that we identify with the particles that, in that particular moment, lie on it. Because of the motion of the plasma, the particles will be displaced. At time $t + \dif t$, they will define a different curve $C^\prime$. To compute the flux of $\vec{B}$ through a closed curve, we can utilize any surface having that curve as a boundary, let's choose a generic surface $S$ at time $t$ and a surface $S^\prime$ at time $t + \dif t$, made up of $S$ plus the surface $A$ formed by the flux lines joining $C$ and $C^\prime$. The change in the flux from time $t$ to time $t + \dif t$ is
+\begin{equation*}
+\dif \Phi = \int_{S^\prime} \vec{B}^\prime \cdot \dif  \vec{S}^\prime - \int_{S} \vec{B} \cdot \dif  \vec{S} ~,
+\end{equation*}
+where the field
+\begin{equation*}
+\vec{B}^\prime  = \vec{B}( \vec{r}, t + \dif t) = \frac{\partial \vec{B} }{\partial t} \dif t +\vec{B}( \vec{r}, t) ~.
+\end{equation*}
+\begin{align*}
+\dif \Phi = \int_{S} (\vec{B}^\prime-\vec{B}) \cdot \dif  \vec{S} +\vec{B} \cdot \vec{n} A \textcolor{red}{?} ~,
+\end{align*}
+where the difference between $\vec{B}^\prime$ and $\vec{B}$ has been neglected in calculating the flux through the surface $A$, which is first order in $\dif t$ because \textcolor{red}{$\vec{n}A = -\dif \vec{l}\times \vec{U} \dif t$}.
+\begin{align*}
+& \dif \Phi = \int_{S} (\vec{B}^\prime-\vec{B}) \cdot \dif  \vec{S} -\int_C (\vec{U} \times \vec{B}) \cdot \dif \vec{l} \dif t \\
+& \frac{\dif \Phi }{\dif t} = \int_S \left(\frac{\partial \vec{B} }{\partial t} -\nabla \times (\vec{U} \times \vec{B}) \right) \cdot \dif \vec{S}
+\end{align*}
+If Eq. (\ref{convec}) is valid, the flux is constant in time. Let $C_1$ and $C_2$ be two curves connected, at time $t$, by magnetic field lines, to form a \textcolor{red}{flux tube}. The total flux of $\vec{B}$ across the surface of the tube $\Phi_B$, is given by the flux across $C_1$ and $C_2$, since the \textcolor{blue}{flux across the lateral surface of the tube vanishes} by construction. From Alfv\'en's theorem, it follows that \textcolor{blue}{$\Phi_B$ will remain constant during the whole dynamical evolution of the system}. Let the area enclosed by $C_1$ and $C_2$ shrink to zero so that the flux tube becomes a single field line. Then that \textcolor{red}{field lines move together with the fluid} or the \textcolor{red}{field lines are frozen in the fluid}. 
+\begin{align*}
+\frac{\dif \rho}{\dif t} &= -\rho \nabla \cdot \vec{U} ~, \\
+\frac{\dif \vec{B} }{\dif t} &= (\vec{B} \cdot \nabla) \vec{U} -\vec{B}(\nabla \cdot \vec{U}) ~,
+\end{align*}
+\begin{align}
+\frac{\dif }{\dif t} \left(\frac{\vec{B}}{\rho} \right) &= \frac{1}{\rho} [(\vec{B} \cdot \nabla) \vec{U} -\vec{B}(\nabla \cdot \vec{U})] +\frac{\vec{B}(\nabla \cdot \vec{U} )}{\rho} \\
+&= \left( \frac{\vec{B}}{\rho} \cdot \nabla \right) \vec{U}
+\label{B_move}
+\end{align}
+If the fluid motion is described by a velocity field $\vec{U}(\vec{r})$, the equation that governs the \textcolor{red}{motion of a generic line element $\dif  \vec{\ell}$ joining the points $\vec{r}$ and $\vec{r} + \dif \vec{\ell}$} is
+\begin{equation}
+\frac{\dif (\dif \vec{\ell})}{\dif t} = \frac{\dif (\vec{r} +\dif \vec{\ell})}{\dif t} -\frac{\dif \vec{r}}{\dif t} = \vec{U}(\vec{r} +\dif \vec{\ell}) -\vec{U}(\vec{r}) = (\dif \vec{\ell} \cdot \nabla)  \vec{U}
+\label{rho_move}
+\end{equation}
+The comparison of Eq. (\ref{B_move}) and (\ref{rho_move}) shows that they are identical, i.e. \textcolor{yellow}{$\dfrac{\vec{B}}{\rho}$ evolves precisely as $\dif \vec{\ell}$} and it follows that, \textcolor{yellow}{if $\dif \vec{\ell}$ and $\vec{B}$ are parallel at a given moment, they will remain so at any later time}. It is the \textcolor{yellow}{``freezing" condition of field lines in the fluid}.
+
+Imagine marking all particles that lie on a field line at a given moment, by painting them in red. During the dynamical evolution, the line traced by the red particles will be deformed but the property shows that \textcolor{orange}{it will still be a field line}. Alfv\'en's theorem thus allows to \textcolor{orange}{identify a line of $\vec{B}$} and to \textcolor{orange}{follow it in time}. When Alfv\'en's theorem does not apply, i.e. when $\eta \neq 0$, this is not possible. It is true that at any given moment field lines may still be drawn, but their identification with those drawn at a different time will be no longer possible. Thus, Alfv\'en's theorem endows field lines with a degree of reality well beyond that of a useful visualization tool. Moreover, since the fluid motion is considered to be continuous, the \textcolor{orange}{lines of $\vec{B}$ can only be deformed, but not broken}, so that the \textcolor{orange}{field topology}, i.e. the \textcolor{orange}{ensemble of the geometrical properties that are conserved during deformations, cannot be altered}.
+
+In an \textcolor{orange}{ideal plasma}, \textcolor{orange}{magnetic field and matter are strongly tied together} and their \textcolor{orange}{dynamics depends on by the dominant term in the momentum equation}. If $\beta \gg 1$, the motion is determined by pressure forces and matter drags the magnetic field. If $\beta \ll 1$, magnetic forces are the dominant ones and matter is dragged by the magnetic field.
+
+In most cases $S \gg 1$, and the resistive effects may be neglected all together. However, this would be wrong. The dimensional analysis used to obtain the estimates of the relative importance of convective and diffusive terms completely neglects the vector character of the induction equation. On average the convective term dominates over the diffusive one by many orders of magnitude, but this is untrue where the convective term vanishes or becomes very small. This may happen close to points where \textcolor{orange}{$\vec{U} = 0$}, where \textcolor{orange}{$\vec{U}$ is parallel to $\vec{B}$} $(\vec{U}\times \vec{B} = 0)$ or finally where \textcolor{orange}{$\nabla \times (\vec{U}\times \vec{B}) = 0$}. In these regions the \textcolor{orange}{ideal plasma condition} may become \textcolor{red}{locally invalid}, and the \textcolor{orange}{diffusive term may no longer be neglected}. In these situations, \textcolor{orange}{Alfv\'en's theorem does not hold}, the \textcolor{orange}{field topology may change} and magnetic energy may be transformed into other forms of energy. Then the effects of the resistive, or other non-ideal terms in Ohm's law, are important: in fusion machines non-ideal effects may be the cause of instabilities driving the disruption of the plasma configuration; in astrophysics heating processes and very dynamic energy releases are observed in situations where the only apparent source of energy resides in magnetic fields. But the \textcolor{blue}{transformation of magnetic into thermal energy and other energy forms is only possible when resistive or other non-ideal effects are at work}.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

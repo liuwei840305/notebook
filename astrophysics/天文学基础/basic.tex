@@ -1,0 +1,129 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Basic}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{The Celestial Sphere}
+
+\subsection{Retrograde Motion}
+
+\subsection{The Equatorial Coordinate System}
+
+\subsection{Spherical Trigonometry}
+
+
+\section{The Kinematics of the Milky Way}
+
+\subsection{Peculiar Motions and the Local Standard of Rest}
+\cite{Carroll2007}
+
+In astronomy, the \textcolor{red}{local standard of rest} or LSR follows the mean motion of material in the Milky Way in the neighborhood of the Sun. The path of this material is not precisely circular. The Sun follows the solar circle (eccentricity $e < 0.1$) at a speed of about $255$ km/s in a clockwise direction when viewed from the galactic north pole at a radius of $\approx 8.34$ kpc about the center of the galaxy near Sgr A$^\ast$, and has only a slight motion, towards the solar apex, relative to the LSR.
+
+The LSR velocity is anywhere from $202 - 241$ km/s. In $2014$, very-long-baseline interferometry observations of maser emission in high mass star forming regions placed tight constraints on combinations of kinematic parameters such as the circular orbit speed of the Sun ($\Theta_0 + V_\odot = 255.2 \pm 5.1$ km/s). There is significant correlation between the circular motion of the solar circle, the solar peculiar motion, and the predicted counterrotation of star-forming regions. Additionally, local estimates of the velocity of the LSR based on stars in the vicinity of the Sun may potentially yield different results than global estimates derived from motions relative to the Galactic center.
+
+The \textcolor{red}{local standard of rest (LSR)} is a point in space that has a velocity equal to the average velocity of stars in the solar neighborhood, including the Sun. There are \textcolor{red}{two} forms of the local standard of rest.
+
+The \textcolor{red}{dynamical LSR} is \textcolor{red}{a point in the vicinity of the Sun} which is in \textcolor{red}{a circular orbit around the Galactic center}. The Sun's motion with respect to the dynamical LSR is called the \textcolor{red}{peculiar solar motion}.
+
+The \textcolor{red}{kinematical LSR}, which is the form conventionally used by observational astronomers, is the \textcolor{red}{mean standard of rest of specified star catalogues or stellar populations}. The Sun's motion with respect to an agreed kinematical LSR is known as the \textcolor{red}{standard solar motion}, defined as the \textcolor{red}{average velocity of spectral types A through G as found in general catalogues of radial velocity, regardless of luminosity class}. This motion is $19.5$ km/s toward $18$ hours right ascension and $30^\circ$ declination for epoch $1900.0$ (galactic coordinates $l=56^\circ, b=23^\circ$). Basic solar motion is the most probable velocity of stars in the solar neighborhood, so it is weighted more heavily by the radial velocities of stars of the most common spectral types (A, gK, dM) in the solar vicinity. In this system, the Sun moves at $15.4$ kilometers per second toward $l=51^\circ, b=23^\circ$.
+
+The motion of the sun relative to a hypothetical circular orbit about the center of the galaxy. The local standard of rest is approximately $16.5$ km s$^{-1}$ in the direction of the galactic coordinates $l = 53^\circ, b = 23^\circ$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,511 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{Counting Statistics and Error Prediction}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Errors and accuracy and precision of measurements}
+A measurement is an attempt to determine the value of a certain parameter or quantity. Anyone attempting a measurement should keep in mind the following two axioms regard- ing the result of the measurement:
+
+Axiom 1: No measurement yields a result without an error. \\
+Axiom 2: The result of a measurement is almost worthless unless the error associated with that result is also reported.
+
+The term \textcolor{red}{error} is used to define the following concept:\\
+Error = (Measured or computed value of quantity $Q$) − (True value of $Q$) \\
+or \\
+Error = Estimated uncertainty of the measured or computed value of $Q$.
+
+The \textcolor{red}{accuracy} of an experiment tells us how close the result of the measurement is to the true value of the measured quantity. The \textcolor{red}{precision} of an experiment is a measure of the exactness of the result.
+
+\section{Types of errors}
+There are many types of errors, but they are usually grouped into two broad categories: \textcolor{red}{systematic} and  \textcolor{red}{random}.
+ 
+Systematic (or determinate) errors are those that a affect all the results in the same way. Systematic errors introduce uncertainties that do not obey a particular law and cannot be estimated by repeating the measurement.  e experimenter should make every reasonable effort to minimize or, better yet, eliminate systematic errors. Once a systematic error is identified, all results are corrected appropriately.
+
+Random (or statistical) errors can either decrease or increase the results of a measurement, but in a nonreproducible way. Most of the random errors cannot be eliminated. They can be reduced, however, by improving the experimental apparatus, improving the technique, and/or repeating the experiment many times. 
+
+
+
+\section{Arithmetic mean and its standard error}
+Although the true value of a quantity can never be determined, the error of the measurement can be reduced if the experiment is repeated many times.
+
+Consider an experiment that has been repeated $N$ times, where $N$ is a large number, and produced the individual outcomes $n_i|i = 1, N$. Let the frequency of occurrence of $n_i$ be $P_{n_i}$. If one plots $P_{n_i}$ versus $n_i$, the resulting curve resembles a Gaussian distribution. The larger the value of $N$, the more the histogram coincides with a normal distribution. Assume that the line is an acceptable representation of the experimental results. Under these circumstances, how should the result of the measurement be reported and its standard error be reported?
+
+The result of the measurement is reported as the arithmetic average defined by
+\begin{equation}
+\bar{n} = \dfrac{n_1 +n_2 +\cdots +n_N}{N} = \sum_{i=1}^N \dfrac{n_i}{N} ~,
+\end{equation}
+As $N$ increases, a better estimate of the true value of $n$ is obtained-that is, the error of the measurement becomes smaller. The true value of $n$, which is also called the \textcolor{red}{true mean}, can only be obtained with an infinite number of measurements.
+
+The error of $n$ depends on the way the individual measurements are distributed around $\bar{n}$ - that is, it depends on the width of the Gaussian. As the width becomes smaller, the error becomes smaller, and therefore the measurement is better. The standard error of $\bar{n}$ is defined in terms of the standard deviation of the distribution. The standard deviation of the distribution is
+\begin{equation}
+\sigma^2 = \sum_{i=1}^N \dfrac{(n_i-m)^2}{N} ~.
+\end{equation}
+
+With a finite number of measurements at our disposal, this equation for $\sigma$ has to be modified in two ways. First, because the true mean $m$ is never known, it is replaced by its best estimate, which is $\bar{n}$. Second, it can be generally shown that the best estimate of the standard deviation of $N$ measurements is given by the following equation:
+\begin{equation}
+\color{red} \sigma^2 =\dfrac{1}{N-1}  \sum_{i=1}^N (n_i- \bar{n})^2 ~.
+\end{equation}
+The differences are the use of $\bar{n}$ instead of $m$ and the use of $N-1$ in the denominator instead of $N$. The factor $N - 1$ is equal to the \textcolor{red}{``degrees of freedom"} or the \textcolor{red}{number of independent data or equations provided by the results}. The $N$ independent outcomes constitute, originally, $N$ independent data. However, \textcolor{red}{after $\bar{n}$ is calculated, only $N - 1$ independent data are left for the calculation of $\sigma$}. For a large number of measurements, it does not make any practical difference if one divides by $N$ or $N - 1$. But it makes a difference for small values of $N$.
+
+Since the $N$ results are distributed, $68.3\%$ of the outcomes fall between $\bar{n}- \sigma$ and $\bar{n}+ \sigma$. Therefore, one additional measurement has a $68.3\%$ chance of providing a result within $\bar{n}\pm \sigma$. \textcolor{red}{$\sigma$} is called the \textcolor{red}{standard deviation} or the \textcolor{red}{standard error of a single measurement}.
+
+ 
+ According to the definition of the standard error, if $\sigma_{\bar{n}}$ is the standard error of $\bar{n}$, it ought to have such a value that a new average $\bar{n}$ would have a $68.3\%$ chance of falling between $\bar{n}- \sigma_{\bar{n}}$ and $\bar{n}+ \sigma_{\bar{n}}$. The quantity, $\bar{n}$, is a linear function of the uncorrelated random variables $n_1, n_2, \cdots, n_N$ each with standard deviation $\sigma$. Therefore, 
+\begin{equation}
+\bar{n} = \sum_{i=1}^N a_i n_i ~,
+\end{equation}
+ where $a_i = \dfrac{1}{N}$. The standard deviation of $\bar{n}$ is
+\begin{equation}
+\sigma_{\bar{n}} = \sqrt{\sum_{i=1}^N a_i^2 \sigma_i^2} = \sqrt{\dfrac{1}{N^2} \sigma^2} = \dfrac{\sigma}{\sqrt{N}} ~.
+\end{equation}
+ 
+ If the series of $N$ measurements is repeated, the new average will probably be different from $\bar{n}$, but it has a $68.3\%$ chance of having a value between $\bar{n}- \sigma_{\bar{n}}$ and $\bar{n}+ \sigma_{\bar{n}}$. The result of the $N$ measurements is reported as
+\begin{equation}
+\bar{n}\pm \sigma_{\bar{n}} = \bar{n}\pm \dfrac{ \sigma}{\sqrt{N}} ~.
+\end{equation}
+When a series of measurements is performed, it would be desirable to calculate the result in such a way that the error is a minimum. The average $\bar{n}$ minimizes the quantity
+\begin{equation}
+ \sum_{i=1}^N (\bar{n}-n_i)^2 ~.
+\end{equation}
+which is proportional to the standard error. The error is reduced if the number of trials increases. However, that reduction is proportional to $1/\sqrt{N}$.
+
+ 
+\section{Confidence limits}
+
+ 
+Individual specimens, however, have values of $x$ distributed around the nominal value $x_n$ according to a Gaussian distribution
+\begin{equation*}
+G(x) = \dfrac{1}{\sqrt{2\pi}\sigma} \exp \left[-\dfrac{(x-x_n)^2}{2\sigma^2} \right]
+\end{equation*}where $x_n = $ nominal value of $x = $ average value of $x$, $\sigma =$ standard deviation of the distribution.
+The manufacturer of any product  would like to know what the \textcolor{red}{probability is that any one item will deviate from the nominal value by a certain amount}. Or, \textcolor{red}{setting some acceptable value of $x$, call it $x_a$}, the manufacturer would like to know what is the \textcolor{red}{probability that $x$ will be bigger than $x_a$}. Questions of this type come under the subject of ``quality control."  The probability that $x$ will exceed $x_a$ is given by
+\begin{equation}
+P(x > x_a) = \int_{x_a}^\infty \dfrac{\dif x}{\sqrt{2\pi}\sigma}  \exp \left[-\dfrac{(x-x_n)^2}{2\sigma^2} \right] ~.
+\end{equation}
+The acceptable value of $x$ is usually expressed as
+\begin{equation}
+x_a = x_n +k \sigma ~,
+\end{equation}
+that is, the extreme acceptable value of $x$, $x_a$, is allowed to be k standard deviations different from $x_n$. In terms of the standard normal distribution, it takes the form
+\begin{equation}
+P(t > k) = \int_k^\infty \dfrac{1}{\sqrt{2\pi}}  \exp \left[-\dfrac{t^2}{2} \right] \dif t ~, 
+\end{equation}
+where
+\begin{equation}
+t = \dfrac{(x-x_n)}{\sigma}
+\end{equation}
+and $P(t > k) = $ probability that $x$ will exceed $x_a$ by $k$ standard deviations.
+
+The Gaussian distribution is determined by checking the variable $x$ for a large number of specimens. An average value of $x$ is calculated: 
+\begin{equation}
+\bar{x} = \frac{1}{N} \sum_{i=1}^N x_i ~,
+\end{equation}
+and a standard deviation
+\begin{equation}
+\sigma = \sqrt{\frac{1}{(N-1)} \sum_{i=1}^N (x_i -\bar{x})^2 } ~,
+\end{equation}
+is obtained.  The average $\bar{x}$ should be almost equal to the nominal value of $x$. A Gaussian distribution for this sample peaks at $\bar{x}$ and has a standard deviation $\sigma$. Knowing $\sigma$, the value of $x_a$ is calculated after the confidence limit - the value of $k$ - has been decided upon.
+ 
+\section{Propagation of errors}
+I has to determine a quantity that is a function of more than one random variable. It is very important to know how to calculate the error of the complex quantity in terms of the errors of the individual random variables, which is generally known as \textcolor{red}{propagation of errors}.
+
+Consider the function $f(x_1, x_2, \cdots, x_M)$ that depends on the random variables $x_1, x_2, \cdots, x_M$. Generally, the values of $x_1, x_2, \cdots, x_M$ are determined experimentally and then the value of $f(x_1, x_2, \cdots, x_M)$ is calculated. $x_i$'s are determined experimentally, which means that average values $\bar{x}_1, \bar{x}_2, \cdots, \bar{x}_M$ are determined along with their standard errors $\sigma_1, \sigma_2, \cdots, \sigma_M$. The function $f(x_1, x_2, \cdots, x_M)$ can be expanded in a Taylor series around the averages $\bar{x}_i|i = 1, M$
+\begin{equation*}
+f(x_1, x_2, \cdots, x_M) = f(\bar{x}_1, \bar{x}_2, \cdots, \bar{x}_M) + \sum_{i=1}^M (x_i -\bar{x}_i) \dfrac{\partial f}{\partial \bar{x}_i} +O(x_i -\bar{x}_i)^2
+\end{equation*}
+The notation used for the derivative is
+\begin{equation*}
+\dfrac{\partial f}{\partial \bar{x}_i} = \dfrac{\partial f}{\partial x_i} \Big|_{x_i = \bar{x}_i} ~.
+\end{equation*}
+The average value of $f(x_1, x_2, \cdots, x_M)$ is $\bar{f} = f(\bar{x}_1, \bar{x}_2, \cdots, \bar{x}_M)$. The variance of $f(x_1, x_2, \cdots, x_M)$ is given by
+\begin{equation}
+\color{red} \sigma^2_f = V(f) = \sum_{i=1}^M \left( \dfrac{\partial f}{\partial \bar{x}_i} \right)^2 \sigma_i^2 + 2\sum_{i> }^M \sum_i^M \dfrac{\partial f}{\partial \bar{x}_i} \dfrac{\partial f}{\partial \bar{x}_j} \rho_{ij} \sigma_i \sigma_j ~,
+\end{equation}
+where $\rho_{ij}$ is the correlation coefficient. The standard error of $f(x_1, x_2, \cdots, x_M)$ is equal to the standard deviation
+\begin{equation}
+\color{red} \sigma = \sqrt{\sum_{i=1}^M \left( \dfrac{\partial f}{\partial \bar{x}_i} \right)^2 \sigma_i^2 + 2\sum_{i> }^M \sum_i^M \dfrac{\partial f}{\partial \bar{x}_i} \dfrac{\partial f}{\partial \bar{x}_j} \rho_{ij} \sigma_i \sigma_j }
+\end{equation}
+In most practical cases, the random variables are uncorrelated-that is, $\rho_{ij} = 0$, and
+\begin{equation}
+\sigma_{\bar{f}} = \sqrt{\sum_{i=1}^M \left( \dfrac{\partial f}{\partial \bar{x}_i} \right)^2 \sigma_i^2 }
+\end{equation}
+
+Consider again the function $f(x_1, x_2, \cdots, x_M)$ and assume that the variables $x_1, x_2, \cdots, x_M$ have changed by the amounts $\Delta x_1, \Delta x_2, \cdots, \Delta x_M)$. The variation or change of $f(x_1, x_2, \cdots, x_M)\Delta$ is given by (for uncorrelated variables)
+\begin{equation}
+\Delta f = \sqrt{\sum_{i=1}^M \left( \dfrac{\partial f}{\partial x_i}  \right)^2 \Delta x_i^2}
+\end{equation}
+It should not be used if it is specified what the change of variable is, that is, if the change is a decrease or an increase. If the change is known, one should calculate the function $f(x_1, x_2, \cdots, x_M)$ using the new values of the $x$'s and obtain $\Delta f$ by subtracting the new from the old value.
+
+\section{Goodness of data-$\chi^2$ criterion-rejection of data}
+A number of tests have been devised for the purpose of checking how reliable the results are, that is, checking the ``goodness of data."  The test that is used more frequently than any other to check the goodness of data is the \textcolor{red}{$\chi^2$ criterion (chi square)}, or \textcolor{red}{Pearson's $\chi^2$ test}. The $\chi^2$ test is based on the quantity
+\begin{equation}
+\color{red} \chi^2 = \dfrac{\sum\limits_{i=1}^N (\bar{n} -n_i)^2}{\bar{n}} ~,
+\end{equation}
+where $n_i|i = 1, N$ represents the results of $N$ measurements with $\bar{n}$ being the average. If the set of measurements is repeated, the \textcolor{red}{value of $\chi^2$} gives the \textcolor{red}{probability to obtain a new $\chi^2$ that is larger or smaller than the first value}.  In practice, a range of acceptable $\chi^2$ values is selected in advance; then a set of data is accepted if $\chi^2$ falls within this preselected range.
+
+
+One of the criteria used for data rejection is \textcolor{red}{Chauvenet's criterion}, stated as follows: \textcolor{blue}{A reading or outcome may be rejected if it has a deviation from the mean greater than that corresponding to the $1 - (1/2N)$, where $N$ is the number of measurement.}
+
+\section{Statistical error of radiation measurements}
+Radioactive decay is a truly random process that obeys the Poisson distribution, according to which the standard deviation of the true mean $m$ is $\sqrt{m}$. However, the true mean is never known and can never be found from a  nite number of measurements. Suppose one performs only one measurement and the result is $n$ counts. The best estimate of the true mean, as a result of this single measurement, is this number $n$. If one takes this to be the mean, its standard deviation will be $\sqrt{n}$. Indeed, this is what is done in practice. The result of a single count $n$ is reported as $n \pm \sqrt{n}$, which implies that 1. The outcome $n$ is considered the true mean, 2. The standard deviation is reported as the standard error of $n$. The relative standard error of the count $n$ is
+\begin{equation}
+\dfrac{\sigma_n}{n} = \dfrac{\sqrt{n} }{n} = \dfrac{1}{\sqrt{n} } ~,
+\end{equation}
+which shows that the relative error decreases if the number of counts obtained in the scaler increases. To increase the number $n$, one either counts for a long time or repeats the measurement many times and combines the results. Repetition of the measurement is preferable to one single long count because by performing the experiment many times, the reproducibility of the results is checked.
+
+Consider now a series of $N$ counting measurements with the individual results $n_i|i = 1, N$. It is assumed that the counts ni were obtained under identical conditions and for the same counting time; thus, their differences are solely due to the statistical nature of radiation measurements. Each number $n_i$ has a standard deviation $\sigma_i = \sqrt{n_i}$. The average of this series of measurements is,
+\begin{equation}
+\bar{n} = \dfrac{1}{N} \sum_{i=1}^N n_i ~.
+\end{equation}
+The standard error of $\bar{n}$ can be calculated in two ways:
+
+The average $\bar{n}$ is the best estimate of a Poisson distribution of which the outcomes $n_i|i = 1, N$ are members. The standard deviation of the Poisson distribution is $\sigma = \sqrt{m} = \sqrt{\bar{n}}$. The standard error of the average is
+\begin{equation}
+\sigma_{\bar{n}} = \dfrac{\sigma}{\sqrt{N} } =  \sqrt{\dfrac{\bar{n} }{N} }
+\end{equation}
+The average $\bar{n}$ may be considered a linear function of the independent variables $n_i$, each with standard error$\sqrt{n_i}$.
+\begin{equation}
+\sigma_{\bar{n}} = \sqrt{\sum_{i=1}^N \left( \dfrac{\partial \bar{n} }{\partial n_i} \right)^2 \sigma^2_{n_i} } = \sqrt{\sum_{i=1}^N \dfrac{1}{N^2} \left( \sqrt{n_i} \right)^2 } = \sqrt{\sum_{i=1}^N \dfrac{n_i}{N^2} } = \dfrac{\sqrt{n_{\rm tot}} }{N}
+\end{equation}
+where $n_{\rm tot} = n_1 + n_2 + \cdots + n_N =$ number of counts obtained from $N$ measurements.
+
+In certain cases, the observer needs to combine results of counting experiments with quite different statistical uncertainties. Then the average should be calculated by weight- ing the individual results according to their standard deviations. The equation for the average is
+\begin{equation}
+\bar{n} = \dfrac{\sum\limits_{i=1}^N \dfrac{n_i}{\sigma^2_i} }{\sum\limits_{i=1}^N \dfrac{1}{\sigma^2_i} } ~.
+\end{equation}
+
+\section{Standard error of counting rates}
+In radiation measurements, a number of counts is recorded by a scaler (or other instrument) with the sample present (called the \textcolor{red}{gross count $G$}) and next with, the sample removed, another count is taken to record the background $B$. What is reported is the net counting rate and its standard error.
+
+$G =$ number of counts recorded by the scaler in time $t_G$ with the sample present $=$ gross count \\$B =$ number of counts recorded by the scaler in time $t_B$ without the sample $=$ background count
+\begin{align}
+& g = \dfrac{G}{t_G} = \text{gross counting rate} ~, \\
+& b = \dfrac{B}{t_B} = \text{background counting rate} ~, \\
+& r = \text{net counting rate} = \dfrac{G}{t_G} -\dfrac{B}{t_B} = g -b ~.
+\end{align}
+The standard error of the net counting rate can be calculated by realizing that $r$ is a function of four independent variables $G$, $t_G$, $B$, and $t_B$:
+\begin{equation}
+\sigma_r = \sqrt{\left( \dfrac{\partial r}{\partial G} \right)^2 \sigma_G^2 +\left( \dfrac{\partial r}{\partial t_G} \right)^2 \sigma_{t_G}^2 +\left( \dfrac{\partial r}{\partial B} \right)^2 \sigma_B^2 +\left( \dfrac{\partial r}{\partial t_B} \right)^2 \sigma_{t_B}^2}
+\end{equation}
+
+When the counting rate is extremely high, the detector may be missing some counts. Then a ``dead time" correction is necessary, in addition to background subtraction.
+
+The electronic equipment available today is such that the error in the measurement of time is, in almost all practical cases, much smaller than the error in the measurement of $G$ and $B$. Unless otherwise specified, $\sigma_{t_G}$ and $\sigma_{t_B}$ will be taken as zero.
+\begin{equation}
+\sigma_r = \sqrt{\left( \dfrac{\partial r}{\partial G} \right)^2 \sigma_G^2 +\left( \dfrac{\partial r}{\partial B} \right)^2 \sigma_B^2} ~.
+\end{equation}
+The standard errors of $G$ and $B$ are
+\begin{align}
+& \sigma_G = \sqrt{G} ~, \\
+& \sigma_B = \sqrt{B} ~,
+\end{align}
+the standard error of the net counting rate,
+\begin{equation}
+\sigma_r = \sqrt{\dfrac{G}{t^2_G} +\dfrac{B}{t^2_B}} ~.
+\end{equation}
+In the equation for the net counting rate, it is the quantities $G$, $t_G$, $B$, and $t_B$ that are the independent variables, not $g$ and $b$. The error of $r$ will be calculated from the error in $G$, $t_G$, $B$, and $t_B$. It is very helpful to remember the following rule:  The statistical error of a certain radiation count is determined from the number recorded by the scaler.  That number is $G$ and $B$, not the rates $g$ and $b$.
+
+
+If the experiment is performed $N$ times with results $G_1, G_2, G_3, \cdots, G_N$, and $B_1, B_2, B_3, \cdots, B_N$ for gross and background counts, the average net counting rate is
+\begin{equation}
+\bar{r} = \dfrac{1}{N} \sum\limits_{i=1}^N r_i = \dfrac{1}{N} \sum\limits_{i=1}^N \left(\dfrac{G_i}{t_{G_i}} -\dfrac{B_i}{t_{B_i}} \right) ~.
+\end{equation}
+In most cases, $t_{G_i}$ and $t_{B_i}$ are kept constant for all $N$ measurements. That is, $t_{G_i} = t_G$ and $t_{B_i} = t_B$. Then
+\begin{equation}
+\bar{r} = \dfrac{1}{N} \sum\limits_{i=1}^N \left(\dfrac{G_i}{t_{G_i}} -\dfrac{B_i}{t_{B_i}} \right) = \dfrac{1}{N} \sum\limits_{i=1}^N \left(\dfrac{G}{t_{G}} -\dfrac{B}{t_{B}} \right) ~,
+\end{equation}
+where
+\begin{align}
+G = \sum\limits_{i=1}^N G_i ~, \\
+B = \sum\limits_{i=1}^N B_i ~.
+\end{align}
+The standard error of the average counting rate is
+\begin{equation}
+\sigma_{\bar{r}} = \dfrac{1}{N} \sqrt{\sum\limits_{i=1}^N \sigma^2_{r_i} } =  \dfrac{1}{N} \sqrt{\sum\limits_{i=1}^N \left(\dfrac{G_i}{t^2_{G}} +\dfrac{B_i}{t^2_{B}} \right)} = \dfrac{1}{N} \sqrt{\dfrac{G}{t^2_{G}} +\dfrac{B}{t^2_{B}}}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Methods of error reduction}
+ In general, the first task of the investigator is to improve the counting apparatus by reducing the background as much as possible. Actually, the important quantity is the ratio $b/g$ or $b/r$ and not the absolute value of the background. Assuming that all possible improvements of background have been achieved, there are procedures that, if followed, will result in a smaller error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Minimum detectable activity}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Detector dead-time correction and measurement of dead time}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Loss-free counting and zero dead time}
+Radiation measurements can be classified into two major areas: those with \textcolor{red}{low-to-medium dead times} and those with \textcolor{red}{high dead times}. In environmental and most health physics applications, radiation levels are low enough so that dead-time correction is not necessary. With environmental samples, in particular, the problem is to determine whether or not the MDA is exceeded rather than worry about deadtime. However, in high counting rates, particularly in gamma-ray spectroscopy, counting systems usually cannot correctly account for dead times above $50\%$. 
+
+
+
+
+
+\cite{2010rdm..book.....K} Radioactive decay is a random process. Consequently, any measurement based on observing the radiation emitted in nuclear decay is subject to some degree of statistical fluctuation. These inherent fluctuations represent an unavoidable source of uncertainty in all nuclear measure­ments and often can be the predominant source of imprecision or error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

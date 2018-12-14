@@ -1,0 +1,174 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{黑洞}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Black holes in the nuclei of galaxies}
+\textcolor{red}{Dead stars} with masses greater than \textcolor{red}{$3M_{\odot}$} must be black holes,
+
+The only properties which \textcolor{red}{isolated black holes} can possess are \textcolor{red}{mass}, \textcolor{red}{angular momentum} and \textcolor{red}{electric charge}.
+
+For a \textcolor{red}{non-rotating black hole}, a \emph{Schwarzschild black hole}, there is a \textcolor{red}{spherical surface about the black hole} from which \textcolor{red}{electromagnetic radiation suffers an infinite gravitational redshift}, \textcolor{red}{as observed from outside this surface}. This \textcolor{red}{surface of infinite redshift} has radius
+\begin{equation}
+r_g = \frac{2GM}{c^2} = 3\left(\frac{M}{M_{\odot}}\right) ~\text{km}
+\end{equation}
+
+and is known as the \textcolor{red}{Schwarzschild radius}. Radiation with frequency $\nu_0$ emitted at
+radius $r$ from the black hole suffers a gravitational redshift, so that the frequency of the radiation as observed at an infinite distance from the black hole $\nu_{\infty}$ is
+\begin{equation}
+\nu_{\infty} = \nu_0 \left(1- \frac{2GM}{rc^2} \right)^{1/2} = \nu_0 \left(1- \frac{r_g}{r} \right)^{1/2}
+\end{equation}
+
+There is a last stable circular orbit about a Schwarzschild black hole at radius $r = 3 r_g$. Within this radius, test particles spiral inevitably into the black hole, contributing to its mass and angular momentum. As will be shown below, the \textcolor{red}{speed of a test particle on the last stable circular orbit} of a Schwarzschild black hole is \textcolor{red}{$v_{\phi} = c/2$}.
+
+In the case of black holes with \textcolor{red}{finite angular momentum $J$}, the \emph{Kerr black holes}, the \textcolor{red}{surface of infinite redshift} occurs at radius
+\begin{equation}
+r_{\infty} = \frac{GM}{c^2} + \left[ \left(\frac{GM}{c^2} \right)^2 -\left(\frac{J}{Mc} \right)^2 \right]^{1/2}
+\end{equation}
+There is a \textcolor{red}{maximum angular momentum} which a rotating black hole can possess, \textcolor{red}{$J_{\rm max} = GM^2/c$}. The radius of the surface of infinite redshift for a maximally rotating black hole then occurs at \textcolor{red}{$r_{\infty} = GM/c^2 = r_g/2$}, that is, half the Schwarzschild radius of a non-rotating black hole.
+
+There is a last stable orbit about a Kerr black hole, but now test particles can orbit in either the \textcolor{red}{corotating or counter-rotating directions with respect to the angular momentum axis of the black hole}. For a maximally rotating Kerr black hole, the last stable circular orbit for corotating test particles coincides with $r_{\infty}$, that is \textcolor{red}{$r = GM/c^2$}, one sixth of the corresponding radius for a non-rotating, Schwarzschild black hole.
+
+The \textcolor{red}{binding energies of particles on the last stable orbit} for Schwarzschild and maximally rotating Kerr black holes, relative to their rest mass energies, are
+\begin{equation}
+\text{Schwarzschild} ~~ \left[1 -\sqrt{\frac{8}{9}} \right] ~~~~ \text{Kerr} ~~\left[1 -\sqrt{\frac{1}{3}} \right]
+\end{equation}
+corresponding to $5.72\%$ and $42.3\%$ of their rest mass energies, respectively. A fraction of the rotational energy of a rotating black hole can also be made available to the external Universe. In terms of the rest-mass energy of the black hole, this fraction is
+\begin{equation}
+1-2^{-1/2} \left\{1+[1-(J/J_{\rm max})^2]^{1/2} \right\}^{1/2} 
+\end{equation}
+amounting to $29\%$ for a maximally rotating Kerr black hole, $J = J_{\rm max}$.
+
+
+
+
+
+
+
+
+\section{引力波}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

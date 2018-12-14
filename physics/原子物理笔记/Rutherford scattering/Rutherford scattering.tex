@@ -1,0 +1,208 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{xcolor,amsmath}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+
+
+
+\title{Coulomb Scattering}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+From Coulomb's law
+\begin{eqnarray}
+\vec{F} &=& m\frac{\dif^2 \vec{r}}{\dif t^2} = m\ddot{\vec{r}} = \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{r^2} \vec{\hat{e}}_r ~, 
+\end{eqnarray}
+where
+\begin{eqnarray*}
+ \vec{r} &=& r \vec{\hat{e}}_r = r(\cos \theta ~\hat{i} +\sin \theta~\hat{j}) \\
+\vec{\hat{e}}_r &=& (\cos \theta ~\hat{i} +\sin \theta~\hat{j}) \\
+\vec{\hat{e}}_\theta &=& (-\sin \theta ~\hat{i} +\cos \theta ~\hat{j}) \\
+\vec{\dot{\hat{e}}}_r &=& \dot{\theta} (-\sin \theta ~\hat{i} +\cos \theta~\hat{j}) = \dot{\theta} \vec{\hat{e}}_\theta \\
+\vec{\dot{\hat{e}}}_\theta &=& \dot{\theta}(-\cos \theta ~\hat{i} -\sin \theta ~\hat{j}) = -\dot{\theta}\vec{\hat{e}}_r
+\end{eqnarray*}
+thus 
+\begin{eqnarray*}
+\dot{\vec{r}} &=& \dot{r} \vec{\hat{e}}_r + r\vec{ \dot{\hat{e}}}_r \\
+&=& \dot{r} (\cos \theta ~\hat{i} +\sin \theta ~\hat{j}) + r \dot{\theta} (-\sin \theta~\hat{i} +\cos \theta ~\hat{j}) \\
+&=& \dot{r} \vec{\hat{e}}_r  + r \dot{\theta} \vec{\hat{e}}_\theta
+\end{eqnarray*}
+and
+\begin{eqnarray*}
+\ddot{\vec{r}} &=& (\dot{r} \vec{\hat{e}}_r  + r \dot{\theta} \vec{\hat{e}}_\theta)^\prime \\
+&=& \ddot{r} \vec{\hat{e}}_r +\dot{r} \vec{\dot{\hat{e}}}_r +\dot{r} \dot{\theta} \vec{\hat{e}}_\theta +r \ddot{\theta} \vec{\hat{e}}_\theta +r \dot{\theta} \vec{\dot{\hat{e}}}_\theta \\
+&=& \ddot{r} \vec{\hat{e}}_r +\dot{r} \vec{\dot{\hat{e}}}_r +\dot{r} \dot{\theta} \vec{\hat{e}}_\theta +r \ddot{\theta} \vec{\hat{e}}_\theta +r \dot{\theta} \vec{\dot{\hat{e}}}_\theta \\
+&=& \ddot{r} \vec{\hat{e}}_r +\dot{r} \dot{\theta} \vec{\hat{e}}_\theta +\dot{r} \dot{\theta} \vec{\hat{e}}_\theta +r \ddot{\theta} \vec{\hat{e}}_\theta -r \dot{\theta}^2 \hat{\vec{e}}_r \\
+&=& (\ddot{r} -r \dot{\theta}^2) \hat{\vec{e}}_r +(2\dot{r} \dot{\theta} +r\ddot{\theta} )\vec{\hat{e}}_\theta
+\end{eqnarray*}
+Since Coulomb's force points to $\vec{\hat{e}}_r$, 
+\begin{eqnarray}
+2\dot{r} \dot{\theta} +r\ddot{\theta} = 0 \\
+\nonumber \dif \ln r^2 +\dif \ln \dot{\theta} = 0 \\
+r^2 \dot{\theta} = {\rm const.}
+\end{eqnarray}
+It is the conservation of angular momentum.
+\begin{eqnarray}
+m\frac{\dif^2 \vec{r}}{\dif t^2} = m \frac{\dif \vec{v}}{\dif t} = m \frac{\dif \vec{v}}{\dif \theta} \frac{\dif \theta}{\dif t} &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{r^2} \vec{\hat{e}}_r \\
+\frac{\dif \vec{v}}{\dif \theta} &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m r^2 \dot{\theta}} \vec{\hat{e}}_r
+\end{eqnarray}
+performing integration on both sides,
+\begin{eqnarray}
+\int_{\vec{v}_1}^{\vec{v}_2} \dif \vec{v} &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m r^2 \dot{\theta}} \int_\pi^\theta \vec{\hat{e}}_r \dif \theta ~, \\
+\nonumber (\vec{v}_2 -\vec{v}_1) &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m r^2 \dot{\theta}} \int_\pi^\theta (\cos \theta ~\hat{i} + \sin \theta ~\hat{j}) \dif \theta ~, \\
+(\vec{v}_2 -\vec{v}_1) &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m r^2 \dot{\theta}} (\sin \theta ~\hat{i} -(1+\cos \theta) ~\hat{j})
+\end{eqnarray}
+dot product $\vec{v}_1$ on both sides, 
+\begin{eqnarray}
+(\vec{v}_2 -\vec{v}_1) \cdot \vec{v}_1 &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m r^2 \dot{\theta}} (\sin \theta ~\hat{i} -(1+\cos \theta) ~\hat{j}) \cdot \vec{v}_1
+\end{eqnarray}
+the initial velocity direction is $\vec{v}_1 = v ~\hat{i}$, 
+\begin{eqnarray}
+v (\cos \theta -1) &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m r^2 \dot{\theta}} \sin \theta
+\end{eqnarray}
+due to $m r^2 \dot{\theta} = -m vb$, where $b$ is compact parameter,
+\begin{eqnarray}
+\nonumber b &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m v^2} \frac{\sin \theta }{(1-\cos \theta)} \\
+\nonumber &=& \frac{1}{4\pi \epsilon_0} \frac{Z_1 Z_2e^2}{m v^2} \cot \frac{\theta}{2} \\
+&=& \frac{1}{2} \frac{Z_1 Z_2e^2}{4\pi \epsilon_0 E} \cot \frac{\theta}{2} 
+\end{eqnarray}
+$a \equiv \dfrac{Z_1 Z_2e^2}{4\pi \epsilon_0 E}$
+\begin{equation}
+b = \frac{a}{2} \cot \frac{\theta}{2}
+\end{equation}
+
+
+Consider the scattering of two structureless charged particles by Coulomb interaction, which is called Coulomb scattering or Rutherford scattering. The two charged particles represent the alpha particle and the nucleus of the target atom. Since the mass of electrons is extremely small, one can ignore the scattering by electrons. One to one correspondence holds between the impact parameter $b$ and the scattering angle $\theta$. The alpha particles which pass the area $2\pi b\dif b$ of the impact parameter between $b$ and $b + \dif b$ are scattered to the region of solid angle $\dif \Omega = 2\pi \sin \theta \dif \theta$ around the scattering angle $\theta$. The differential cross section is defined as the number of particles scattered to the region of solid angle $\dif \Omega$ when there exists one incident particle per unit time and unit area. 
+\begin{equation}
+\dfrac{\dif \sigma}{\dif \theta} = \dfrac{2\pi b}{|\dif \theta/\dif b|} ~.
+\end{equation}
+Using 
+\begin{align}
+b &= a \cot \left(\dfrac{\theta}{2} \right) ~, \\
+a &= \dfrac{Z_1 Z_2 e^2}{\mu \nu^2} ~,
+\end{align}
+which holds between the impact parameter $b$ and the scattering angle $\theta$ in the case of Coulomb scattering, 
+\begin{equation}
+\dfrac{\dif \sigma}{\dif \Omega} = \dfrac{\sigma_R}{\dif \Omega} \equiv \dfrac{1}{2\pi \sin \theta} \dfrac{\dif \sigma}{\dif \theta} = \dfrac{a^2}{4} \dfrac{1}{\sin^4 \theta/2} ~.
+\end{equation}
+$\mu$ is the reduced mass, and v is the speed of the relative motion in the asymptotic region, i.e., at the beginning of scattering. The characteristics of the Coulomb scattering are that the forward scattering is strong, but also that backward scattering takes place with a certain probability as well. 
+
+The distance of closest approach $d$ and the scattering angle $\theta$ or the impact parameter $b$ is related by
+\begin{equation}
+d = a \left[1 + \csc \left(\dfrac{\theta}{2} \right) \right] = a +\sqrt{a^2 +b^2} ~.
+\end{equation}
+for the Rutherford scattering. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

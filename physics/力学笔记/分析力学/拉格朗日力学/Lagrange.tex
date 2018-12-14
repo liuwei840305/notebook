@@ -1,0 +1,251 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+\usepackage{extarrows}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{Lagrange力学}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+系统的\textcolor{red}{自由度}
+
+唯一确定系统位置所需独立变量的数目；对完整系统；
+
+对非完整系统的自由度不能这样定义
+
+质点在空间的位置由径矢$\myvec{r}$确定；
+
+质点的速度，
+\begin{equation}
+\myvec{v} = \frac{\dif \myvec{r}}{\dif t}
+\end{equation}
+质点的加速度，
+\begin{equation}
+\myvec{a} = \frac{\dif \myvec{v}}{\dif t} = \frac{\dif^2 \myvec{r}}{\dif t^2}
+\end{equation}
+
+任意$s$个可以完全刻画系统（$s$个自由度）位置的变量$q_1, q_2, \cdots, q_s$，称为该系统的\textcolor{red}{广义坐标}，其导数称为\textcolor{red}{广义速度}。
+
+加速度与坐标、速度的关系式，运动方程
+
+\textcolor{red}{最小作用量原理（Hamilton原理）}
+
+描述每一个力学系统都可以用一个相应的函数$\mathscr{L}(q_1, q_2, \cdots, q_s, \dot{q}_1, \dot{q}_2, \cdots, \dot{q}_s; t)$或者$\mathscr{L}(q, \dot{q}, t)$；
+
+在时刻$t=t_1$和$t=t_2$系统的位置由两个坐标和确定。系统在这两个位置之间的运动使得积分
+\begin{equation}
+\mathcal{S} = \int_{t_1}^{t_2} \mathscr{L}(q, \dot{q}, t) \dif t
+\end{equation}
+取最小值。
+
+$\mathscr{L}$：给定系统的\textcolor{red}{拉格朗日(Lagrange)函数}；
+
+$\mathcal{S}$：\textcolor{red}{作用量}。
+
+Lagrange函数$\mathscr{L}$可以附加任意一个关于时间和坐标的函数的全导数。
+
+\textcolor{red}{Eular-Lagrange方程}
+\begin{equation}
+\frac{\dif }{\dif t} \frac{\partial \mathscr{L}}{\partial \dot{q}_i} -\frac{\partial \mathscr{L}}{\partial q_i} = 0, ~~ (i = 1, 2, 3, \cdots)
+\end{equation}
+
+
+\textcolor{red}{约束}
+
+
+\section{Generalized Coordinates}
+
+
+
+
+
+
+
+\section{D'Alembert Principle}
+A virtual displacement $\delta \vec{r}$ is an infinitesimal displacement of the system that is compatible with the constraints. Contrary to the case of a real infinitesimal displacement $\dif \vec{r}$, in a virtual displacement the forces and constraints acting on the system do not change. A virtual displacement will be characterized by the symbol $\delta$, a real displacement by $\dif$. Mathematically we operate with the element $\delta$ just as with a differential. 
+
+
+
+
+called the \textcolor{red}{principle of virtual work}. 
+
+
+
+
+
+\textcolor{red}{d'Alembert principle}
+
+
+\section{Lagrange Equations}
+
+
+
+
+
+
+
+
+\textcolor{red}{Eular-Lagrange方程}
+\begin{equation}
+\frac{\dif }{\dif t} \frac{\partial \mathscr{L}}{\partial \dot{q}_i} -\frac{\partial \mathscr{L}}{\partial q_i} = 0, ~~ (i = 1, 2, 3, \cdots)
+\end{equation}
+
+
+
+
+
+
+
+\subsection{Lagrange Equation for Nonholonomic Constraints}
+For systems with holonomic constraints, the dependent coordinates can be eliminated by introducing generalized coordinates.
+
+
+
+
+
+
+
+\section{Special Problems}
+
+\subsection{Velocity-DependentPotentials}
+
+
+
+
+\subsection{Nonconservative Forces and Dissipation Function (Friction Function)}
+
+
+
+
+\subsection{Nonholonomic Systems and Lagrange Multipliers}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

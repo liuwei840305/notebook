@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: rigidbody.aux
+The style file: unsrt_update.bst
+Database file #1: ref.bib
+I was expecting a `,' or a `}'---line 5 of file ref.bib
+ :      
+ :      year = 2014,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty journal in 2014Russell
+Warning--empty year in 2014Russell
+You've used 1 entry,
+            1814 wiz_defined-function locations,
+            452 strings with 3654 characters,
+and the built_in function-call counts, 144 in all, are:
+= -- 8
+> -- 4
+< -- 0
++ -- 2
+- -- 1
+* -- 8
+:= -- 30
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 1
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 8
+empty$ -- 15
+format.name$ -- 1
+if$ -- 26
+int.to.chr$ -- 0
+int.to.str$ -- 1
+missing$ -- 1
+newline$ -- 7
+num.names$ -- 1
+pop$ -- 6
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 3
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 1
+width$ -- 2
+write$ -- 9
+(There was 1 error message)

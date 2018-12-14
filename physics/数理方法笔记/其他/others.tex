@@ -1,0 +1,523 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{1.5} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\title{其它}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{最速下降法}
+求下述类型复积分对于大$k$值的渐近逼近方法：
+\begin{equation}
+\int g(z) \exp[k f(z)] \dif z
+\label{integ}
+\end{equation}
+式中$g(z)$和$f(z)$与$k$无关；
+
+现把$k$看作正实数，但对于$k$是复值结果一般也是正确的，这需要引述几点关于一个复变量($\zeta$)函数的渐近展开：\\
+渐近展开定义：若
+\begin{equation}
+F(\zeta) = \sum_{m=0}^{n} \frac{a_m}{\zeta^m} +R_n(\zeta) ,
+\end{equation}
+对于一个给定区间内的${\rm arg}~ \zeta$，当$\zeta \rightarrow \infty$时，对所有的$n$，$\zeta^n R_n(\zeta) \rightarrow 0$，$a_0, a_1, \cdots, a_n$是常数，则可写成
+\begin{equation}
+F(\zeta) \sim a_0 + \frac{a_1}{\zeta} +\frac{a_2}{\zeta^2} +\cdots
+\label{F_asymp}
+\end{equation}
+右方称为对于该${\rm arg}~ \zeta$给定范围的$F(\zeta)$的渐近展开；
+
+若$F(\zeta)$是两个函数$G(\zeta)$和$H(\zeta)$的商，则可写成
+\begin{equation}
+G(\zeta) \sim H(\zeta)\left( a_0 + \frac{a_1}{\zeta} +\frac{a_2}{\zeta^2} +\cdots \right)
+\end{equation}
+
+渐近展开的主要性质：
+
+若$|\zeta|$充分大时，(\ref{F_asymp})式的级数停止或收敛，则该级数是渐近的；但对于$|\zeta|$的任意值，它常常未能收敛。
+
+一般地说，对于给定的$F(\zeta)$，一种特殊的展开只对${\rm arg}~ \zeta$的一个特定范围成立；若它对所有的${\rm arg}~ \zeta$都成立，则它是收敛的。
+
+对于给定的$F(\zeta)$，在${\rm arg}~ \zeta$的适当范围内，渐近展开是唯一的，即(\ref{F_asymp})式中各系数都是唯一的；另一方面，任一函数的渐近展开也属于无穷多个其他函数；
+
+两个函数乘积的渐近展开由它们各自的渐近展开相乘得到；
+
+(\ref{F_asymp})式可逐项积分，从而无条件地得出$F(\zeta)$积分的渐近展开；
+
+它也可以逐项微分，只要它存在，就得出$F(\zeta)$微分的渐近展开；
+
+一般，对于一个给定的(充分大的)$|\zeta|$值，(\ref{F_asymp})式各项的模开头逐项减小到一极小值，随后又增大；若对展开式求和到最小项前任何项，则误差具有第一个省略项的数量级；$|\zeta|$值越大，可用的准确度越高；在物理应用这，通常只用第一项就足够了；
+
+得出(\ref{integ})式按$k$的逆幂渐近展开的方法的根据是将它与下述形式的积分联系起来：
+\begin{equation}
+\int_0^{\infty} h(\mu) \exp[-k \mu^2] \dif \mu
+\label{rela_formu}
+\end{equation}
+为了能导出(\ref{rela_formu})式的渐近展开，把$h(\mu)$展开为$\mu$的升幂级数，并逐项积分；
+
+\textcolor{red}{Watson引理}： \\
+设
+\begin{equation}
+h(\mu) = \frac{1}{\mu^{\alpha}} \sum_{s=0}^{\infty} c_s \mu^{\beta s} ,
+\end{equation}
+其收敛半径为$\rho$，$\beta$是正实数，且$\alpha$的实部小于$1$；设存在一个实数$d$，使得对所有大于$\rho$的实数值$\mu$，$\mu^{\alpha} \exp[-d \mu^2] h(\mu)$有界，则
+\begin{eqnarray}
+&& \frac{1}{2k^{(1-\alpha)/2}} \left\lbrace c_0 \Gamma\left(\frac{-\alpha +1}{2} \right) + c_1 \Gamma\left(\frac{\beta-\alpha +1}{2} \right) \frac{1}{k^{\beta/2}} \right. \\ \nonumber
+&& \left. + c_2  \Gamma\left(\frac{2\beta-\alpha +1}{2} \right) \frac{1}{k^{\beta}}   +c_3  \Gamma\left(\frac{3\beta-\alpha +1}{2} \right) \frac{1}{k^{3\beta/2}} +\cdots        \right\rbrace
+\end{eqnarray}
+是(\ref{rela_formu})式的渐近展开；$\Gamma$表示伽马函数；
+
+为了能改变积分变量，以便用一个或多个(\ref{rela_formu})式类型的积分来表示(\ref{integ})式，须用一些线段组成积分路线，沿着其中每一线段，$f(z)$的虚部为常数，而$f(z)$的实部单调下降到$-\infty$；若不是这样，则第一步要适当改变路线；路线的改变由复平面内积分的基本规则所支配；这里只说明，怎样才能利用一些具有所需性质的线段使路线闭合，并已假定可尝试用标准方法对任何余下的围道积分求值；
+
+
+
+\section{稳相法}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Dyson Series}
+
+
+
+
+
+
+\subsection{Hamiltonian derivation}
+\cite{2014qfts.book.....S} We reproduce the position-space Feynman rules using time-dependent perturbation theory. Instead of assuming that the quantum field satisfies the Euler-Lagrange equations, we instead assume its dynamics is determined by a Hamiltonian $H$ by the Heisenberg equations of motion $i \partial_t \phi(x) = [\phi, H]$. The formal solution of this equation is
+\begin{equation}
+ \phi(\vec{x}, t) = S(t, t_0)^\dagger \phi(\vec{x}) S(t, t_0) ~,
+\end{equation}
+where $S(t, t_0)$ is the \textcolor{red}{time-evolution operator} (the \textcolor{red}{$S$-matrix}) that satisfies
+\begin{equation}
+i \partial_t S(t, t_0) = H(t) S(t, t_0) ~.
+\end{equation}
+These are the dynamical equations in the \textcolor{red}{Heisenberg picture} where \textcolor{red}{all the time dependence is in operators}. \textcolor{red}{States including the vacuum state $|\Omega \rangle$ in the Heisenberg picture are}, by definition, \textcolor{red}{time independent}.
+
+The Hamiltonian can either be defined at any given time as a functional of the fields $\phi(\vec{x})$ and $\pi(\vec{x})$ or equivalently as a functional of the creation and annihilation operators $a^\dagger_p$ and $a_p$. We will not need an explicit form of the Hamiltonian for this derivation so we just assume it is some time-dependent operator $H(t)$.
+
+The first step in time-dependent perturbation theory is to write the Hamiltonian as
+\begin{equation}
+H(t) = H_0 +V(t) ~,
+\end{equation}
+where the time evolution induced by $H_0$ can be solved exactly and $V$ is small in some sense. For example, $H_0$ could be the free Hamiltonian, which is time independent, and V might be a $\phi^3$ interaction:
+\begin{equation}
+V(t) = \int \dif^3 x \dfrac{g}{3!} \phi(\vec{x}, t)^3 ~.
+\end{equation}
+The operators $\phi(\vec{x}, t), H, H_0$ and $V$ are all in the Heisenberg picture.
+
+Next, we need to change to the \textcolor{red}{interaction picture}. In the interaction picture the \textcolor{red}{fields evolve only with $H_0$}. The interaction picture fields are just what we had been calling (and will continue to call) the \textcolor{red}{free fields}:
+\begin{equation}
+\phi_0(\vec{x}, t) = e^{iH_0(t-t_0)} \phi(\vec{x}) e^{-iH_0(t-t_0)} = \int \dfrac{\dif^3 p}{(2\pi)^3} \dfrac{1}{\sqrt{2\omega}_p} (a_p e^{-ipx} + a^\dagger_p e^{ipx} ) ~.
+\end{equation}
+To be precise, $\phi(\vec{x})$ is the \textcolor{red}{Schr\"odinger picture field}, which does not change with time. The free fields are equal to the Schr\"odinger picture fields and also to the Heisenberg picture fields, by definition, at a single reference time, which we call $t_0$.
+
+The Heisenberg picture fields are related to the free fields by
+\begin{align}
+\nonumber \phi(\vec{x}, t) &= S^\dagger(t, t_0) e^{-iH_0(t-t_0)} \phi_0(\vec{x}, t) e^{iH_0(t-t_0)} S(t, t_0) \\
+&= U^\dagger(t, t_0) \phi_0(\vec{x}, t) U(t, t_0) ~.
+\end{align}
+The operator $U(t,t_0) \equiv e^{iH_0(t-t_0)} S(t,t_0)$ therefore relates the full Heisenberg picture fields to the free fields at the same time $t$. The evolution begins from the time $t_0$ where the fields in the two pictures (and the Schr\"odinger picture) are equal.
+
+a differential equation for $U(t, t_0)$ is  
+\begin{align}
+\nonumber i \partial_t U(t, t_0) &= i\left(\partial_t e^{iH_0(t-t_0)} \right) S(t, t_0) + e^{iH_0(t-t_0)} i \partial_t S(t, t_0) \\
+\nonumber &= -e^{iH_0(t-t_0)} H_0 S(t, t_0) +e^{iH_0(t-t_0)} H(t) S(t, t_0) \\
+\nonumber &= e^{iH_0(t-t_0)} [-H_0 +H(t)] e^{-iH_0(t-t_0)} e^{iH_0(t-t_0)} S(t, t_0) \\
+&= V_I(t) U(t, t_0) ~,
+\label{eq:eqU}
+\end{align}
+where $V_I(t) \equiv e^{iH_0 (t-t_0)} V(t) e^{-iH_0(t-t_0)}$ is the original Heisenberg picture potential $V(t)$, now expressed in the interaction picture.
+
+If everything commuted, the solution to Eq. (\ref{eq:eqU}) would be $U(t, t_0) = \exp \left(-i \int_{t_0}^t V_I(t^\prime) \dif t^\prime \right)$. But $V_I(t_1)$ does not necessarily commute with $V_I(t_2)$, so this is not the right answer. It turns out that the right answer is very similar:
+\begin{equation}
+U(t, t_0) = T \left\{ \exp \left[-i \int_{t_0}^t \dif t^\prime V_I(t^\prime) \right] \right\}  ~,
+\end{equation}
+where $T\left\{ \right\}$ is the \textcolor{red}{time-ordering operator}. This solution works because time ordering effectively makes everything inside commute:
+\begin{equation}
+T\left\{A \cdots B \cdots \right\} = T\left\{B \cdots A \cdots \right\} ~.
+\end{equation}
+Since it has the right boundary conditions, namely $U(t, t) = 1$, this solution is unique.
+
+Time ordering of an exponential is defined in the obvious way through its expansion:
+\begin{equation}
+U(t, t_0) = 1 -i \int_{t_0}^t \dif t^\prime V_I(t^\prime) -\dfrac{1}{2} \int_{t_0}^t \dif t^\prime \int_{t_0}^t \dif t^{\prime \prime} T\left\{V_I(t^\prime) V_I( t^{\prime \prime}) \right\}  +\cdots
+\end{equation}
+This is known as a Dyson series. Dyson defined the time-ordered product and this series in his classic paper. In that paper he showed the equivalence of old-fashioned perturbation theory or, more exactly, the interaction picture method developed by Schwinger and Tomonaga based on time-dependent perturbation theory, and Feynman's method, involving space-time diagrams, which we are about to get to.
+
+
+\subsubsection{Perturbative solution for the Dyson series}
+Removing the subscript on $V$ for simplicity, the differential equation we want to solve is
+\begin{equation}
+i \partial_t U(t, t_0) = V(t) U(t, t_0) ~.
+\end{equation}
+Integrating this equation lets us write it in an equivalent form:
+\begin{equation}
+U(t, t_0) = 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) U(t^\prime, t_0) ~,
+\end{equation}
+where 1 is the appropriate integration constant so that $U(t_0,t_0) = 1$.
+
+Solve the integral equation order-by-order in $V$. At zeroth order in $V$,
+\begin{equation}
+U(t,t_0) = 1 ~.
+\end{equation}
+To first order in $V$,
+\begin{equation}
+U(t,t_0) = 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) + \cdots ~.
+\end{equation}
+To second order,
+\begin{align}
+\nonumber U(t,t_0) &= 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) \left[1 - i \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime \prime}) +\cdots  \right] \\
+&= 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) +(-i)^2 \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) +\cdots ~.
+\end{align}
+The second integral has $t_0 < t^{\prime \prime} < t^{\prime} < t$, which is the same as $t_0 < t^{\prime \prime} < t$ and $t^{\prime \prime} < t^{ \prime} < t$. So it can also be written as
+\begin{equation}
+ \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) = \int_{t_0}^{t} \dif t^{\prime \prime} \int_{t^{\prime\prime} }^{t} \dif t^{\prime} V(t^{\prime})V(t^{\prime \prime}) = \int_{t^{\prime} }^{t} \dif t^{\prime \prime}   \int_{t_0}^{t}  \dif t^{\prime} V(t^{\prime \prime})V(t^{\prime})
+\end{equation}
+where we have relabeled $t^{\prime\prime} \leftrightarrow t^{\prime}$ and swapped the order of the integrals to form. Averaging the first and third form gives
+\begin{align}
+\nonumber \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) &= \dfrac{1}{2}  \int_{t_0}^{t} \dif t^{\prime} \left[ \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) + \int_{t^\prime}^t \dif t^{\prime \prime} V(t^{\prime \prime}) V(t^{\prime}) \right] \\
+ &= \dfrac{1}{2}  \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^t \dif t^{\prime \prime} T\left\{V(t^\prime) V(t^{\prime\prime}) \right\} ~.
+\end{align}
+Thus 
+\begin{equation}
+U(t,t_0) = 1 -i\int_{t_0}^t \dif t^\prime V(t^\prime) + \dfrac{(-i)^2}{2} \int_{t_0}^t \dif t^\prime \int_{t_0}^t \dif t^{\prime\prime}  T\left\{V(t^\prime) V(t^{\prime\prime}) \right\}  +\cdots ~.
+\end{equation}
+Continuing this way, we find, restoring the subscript on $V$, that
+\begin{equation}
+U(t,t_0) = T\left\{\exp \left[-i \int_{t_0}^t \dif t^\prime V_I(t^\prime) \right] \right\} ~.
+\end{equation}
+
+
+\subsection{Perturbation Theory}
+\cite{1995qtf..book.....W} The technique that has historically been most useful in calculating the $S$-matrix is perturbation theory, an expansion in powers of the interaction term $V$ in the Hamiltonian $H = H_0 +V$.  The $S$-matrix is
+\begin{align}
+\nonumber & S_{\beta \alpha} = \delta(\beta -\alpha) - 2i \pi \delta(E_\beta - E_\alpha) T_{\beta \alpha}^\dagger \\
+\nonumber & T_{\beta \alpha}^\dagger = (\Phi_\beta, V \Psi_\alpha^\dagger) ~,
+\end{align}
+where $\Psi_\alpha^\dagger$ satisfies the \textcolor{yellow}{Lippmann-Schwinger equation}
+\begin{equation}
+\Psi_\alpha^\dagger = \Phi_\alpha +\int \dif \gamma \dfrac{T_{\gamma \alpha}^\dagger \Phi_\gamma}{E_\alpha -E_\gamma +i\epsilon} ~.
+\end{equation}
+Operating on this equation with $V$ and taking the scalar product with $\Phi_\beta$ yields an integral equation for $T^\dagger$
+\begin{equation}
+T_{\beta \alpha}^\dagger = V_{\beta \alpha} + \int \dif \gamma \dfrac{V_{\beta \gamma} T^\dagger_{\gamma \alpha}}{E_\alpha -E_\gamma +i\epsilon} ~,
+\label{eq:T_gammabeta}
+\end{equation}
+where
+\begin{equation}
+V_{\beta \alpha} \equiv (\Phi_\beta, V \Phi_\alpha) ~.
+\end{equation}
+The perturbation series for $T_{\gamma \alpha}^\dagger$ is obtained by iteration from Eq. (\ref{eq:T_gammabeta})
+\begin{equation}
+T_{\beta \alpha}^\dagger = V_{\beta \alpha} +\int \dif \gamma \dfrac{V_{\beta \gamma} V_{\gamma \alpha}}{E_\alpha -E_\gamma +i\epsilon} +\int \dif \gamma \dif \gamma^\prime \dfrac{V_{\beta \gamma} V_{\gamma \gamma^\prime} V_{\gamma^\prime \alpha}}{(E_\alpha -E_{\gamma^\prime} +i\epsilon)(E_\alpha -E_\gamma +i\epsilon)} +\cdots ~.
+\label{eq:old_per}
+\end{equation}
+The method of calculation based on Eq. (\ref{eq:old_per}), which dominated calculations of the $S$-matrix in the $1930$s, is today known as old-fashioned perturbation theory. 
+
+
+
+
+
+
+\begin{equation}
+i \dfrac{\dif }{\dif \tau} U(\tau, \tau_0) = V(\tau) U(\tau, \tau_0) ~,
+\end{equation}
+where
+\begin{equation}
+V(t) \equiv \exp(i H_0 t) V \exp(-i H_0 t)
+\end{equation}
+(Operators with this sort of time-dependence are said to be defined in the interaction picture, to distinguish their time-dependence from the time-dependence $O_H (t) = \exp(i H t) O_H \exp(-i H t)$ required in the Heisenberg picture of quantum mechanics.)
+
+
+The time-ordered product of $n$ $V$s is a sum over all $n!$ permutations of the $V$s, each of which gives the same integral over all $t_1, t_2, \cdots t_n$, 
+\begin{equation}
+S = 1 + \sum_{n=1}^\infty \dfrac{(-i)^n}{n!} \int_{-\infty}^\infty \dif t_1 \dif t_2 \cdots \dif t_n T\{V(t_1) \cdots V(t_n) \} ~.
+\end{equation}
+This is sometimes known as the \textcolor{red}{Dyson series}. This series can be summed if the $V(t)$ at different times all commute. The sum is then
+\begin{equation}
+S = \exp \left(-i \int_{-\infty}^\infty \dif t V(t)  \right) ~.
+\end{equation}
+
+
+\section{Sokhotski - Plemelj theorem}
+Let $C$ be a smooth closed simple curve in the plane, and ${\displaystyle \varphi }$ an analytic function on $C$. Then the Cauchy-type integral
+\begin{equation}
+{\frac {1}{2\pi i}}\int _{C}{\frac {\varphi (\zeta )\,d\zeta }{\zeta -z}} ~,
+\end{equation}
+defines two analytic functions of $z$, $\phi _{i}$ inside $C$ and $\phi _{e}$ outside. The Sokhotski-Plemelj formulas relate the limiting boundary values of these two analytic functions at a point $z$ on $C$ and the Cauchy principal value ${\mathcal {P}}$ of the integral:
+\begin{align}
+\phi_{i}(z) &= {\frac {1}{2\pi i}}{\mathcal {P}}\int _{C}{\frac {\varphi (\zeta )\,d\zeta }{\zeta -z}}+{\frac {1}{2}}\varphi (z) ~, \\
+\phi_{e}(z) &= {\frac {1}{2\pi i}}{\mathcal {P}}\int _{C}{\frac {\varphi (\zeta )\,d\zeta }{\zeta -z}}-{\frac {1}{2}}\varphi (z) ~.
+\end{align}
+Subsequent generalizations relaxed the smoothness requirements on curve $C$ and the function $\phi$.
+
+Let $f$ be a complex-valued function which is defined and continuous on the real line, and let $a$ and $b$ be real constants with $a < 0 <  b$. Then
+\begin{align}
+\lim_{\varepsilon \rightarrow 0^{+}}\int_{a}^{b}{\frac {f(x)}{x\pm i\varepsilon }}\,dx=\mp i\pi f(0)+{\mathcal {P}}\int_{a}^{b}{\frac {f(x)}{x}}\,dx,
+\end{align}
+where \textcolor{red}{$\mathcal {P}$} denotes the \textcolor{red}{Cauchy principal value}. (Note that this version makes no use of analyticity.)
+\begin{align}
+\lim_{\varepsilon \rightarrow 0^{+}} \int_{a}^{b}{\frac {f(x)}{x\pm i\varepsilon }}\,dx = \mp i\pi \lim_{\varepsilon \rightarrow 0^{+}} \int_{a}^{b}{\frac {\varepsilon }{\pi (x^{2}+\varepsilon ^{2})}}f(x)\,dx + \lim_{\varepsilon \rightarrow 0^{+}}\int _{a}^{b}{\frac {x^{2}}{x^{2}+\varepsilon ^{2}}}\,{\frac {f(x)}{x}}\,dx ~.
+\end{align}
+For the first term, ​$\varepsilon/\pi(x^2 + \varepsilon^2)$ is a \textcolor{red}{nascent delta function}, and therefore approaches a Dirac delta function in the limit. Therefore, the first term equals $\mp i\pi  f(0)$.
+
+For the second term, the factor ​$x^2/(x^2 + \varepsilon^2)$ approaches $1$ for $|x| \gg \varepsilon$, approaches $0$ for $|x| \ll \varepsilon$, and is exactly symmetric about $0$. Therefore, in the limit, it turns the integral into a Cauchy principal value integral.
+
+\subsection{The Sokhotski-Plemelj formula}
+The Sokhotski-Plemelj formula is a relation between the following generalized functions (also called distributions),
+\begin{align}
+\lim_{\varepsilon \rightarrow 0} \dfrac{1}{x \pm i\varepsilon} = {\mathcal P} \dfrac{1}{x} \mp i \pi \delta(x) ~,
+\end{align}
+where $\varepsilon > 0$ is an infinitesimal real quantity. This identity formally makes sense only when first multiplied by a function $f(x)$ that is smooth and non-singular in a neighborhood of the origin, and then integrated over a range of $x$ containing the origin. We shall also assume that $f(x) \rightarrow 0$ sufficiently fast as $x  \rightarrow \pm \infty$ in order that integrals evaluated over the entire real line are convergent. Moreover, all surface terms at $\pm \infty$ that arise when integrating by parts are assumed to vanish.
+
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x\pm i\varepsilon} = {\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} \mp i \pi f(0) ~,
+\end{equation}
+where the \textcolor{red}{Cauchy principal value integral} is defined as:
+\begin{equation}
+{\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} \equiv \lim_{\delta \rightarrow 0} \left\{\int_{-\infty}^{-\delta} \dfrac{f(x) \dif x}{x} + \int_{\delta}^{\infty} \dfrac{f(x) \dif x}{x}  \right\} ~,
+\end{equation}
+assuming $f(x)$ is regular in a neighborhood of the real axis and vanishes as $|x| \rightarrow 0$. 
+
+A generalization is
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0} \dfrac{1}{x -x_0\pm i\varepsilon} = {\cal P} \dfrac{1}{x-x_0} \mp i \pi \delta(x-x_0)  ~,
+\end{equation}
+where
+\begin{equation}
+{\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x-x_0} \equiv \lim_{\delta \rightarrow 0} \left\{\int_{-\infty}^{x_0 -\delta} \dfrac{f(x) \dif x}{x-x_0}  + \int_{x_0 +\delta}^\infty \dfrac{f(x) \dif x}{x-x_0}  \right\}
+\end{equation}
+
+\subsection{Derivation 1}
+\begin{equation}
+\dfrac{1}{x \pm i\varepsilon} = \dfrac{x\mp i \varepsilon}{x^2 +\varepsilon^2} ~,
+\end{equation}
+where $\varepsilon$ is is a positive infinitesimal quantity. Thus, for any smooth function that is non-singular in a neighborhood of the origin,
+\begin{equation}
+\int_{-\infty}^\infty \dfrac{f(x) \dif x}{x \pm i\varepsilon} = \int_{-\infty}^\infty \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2} \mp i \varepsilon \int_{-\infty}^\infty \dfrac{ f(x) \dif x}{x^2 +\varepsilon^2} 
+\end{equation}
+
+\begin{equation}
+\int_{-\infty}^\infty \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2} = \int_{-\infty}^{-\delta} \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2} + \int_{\delta}^{\infty} \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2} +  \int_{-\delta}^{\delta} \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2}
+\end{equation}
+In the first two integrals, it is safe to take the limit $\varepsilon \rightarrow 0$. In the third integral, if $\delta$ is small enough, then we can approximate $f(x) \simeq f(0)$ for values of $|x| < \delta$. 
+\begin{equation}
+\int_{-\infty}^\infty \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2} = \lim_{\delta \rightarrow 0} \left\{ \int_{-\infty}^{-\delta} \dfrac{f(x) \dif x}{x} + \int_{\delta}^{\infty} \dfrac{f(x) \dif x}{x} \right\} + f(0) \int_{-\delta}^{\delta} \dfrac{ x \dif x}{x^2 +\varepsilon^2} ~.
+\end{equation}
+However, 
+\begin{equation}
+\int_{-\delta}^{\delta} \dfrac{ x \dif x}{x^2 +\varepsilon^2} = 0 ~,
+\end{equation}
+since the integrand is an odd function of $x$ that is being integrated symmetrically about the origin, and
+\begin{equation}
+{\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} \equiv \lim_{\delta \rightarrow 0} \left\{ \int_{-\infty}^{-\delta} \dfrac{f(x) \dif x}{x} + \int_{\delta}^{\infty} \dfrac{f(x) \dif x}{x} \right\} 
+\end{equation}
+defines the \textcolor{red}{principal value integral}. Hence,
+\begin{equation}
+\int_{-\infty}^\infty \dfrac{ x f(x) \dif x}{x^2 +\varepsilon^2} = {\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} ~.
+\end{equation}
+
+Since $\varepsilon$ is an infinitesimal quantity, the only significant contribution from
+\begin{equation}
+\varepsilon \int_{-\infty}^\infty \dfrac{ f(x) \dif x}{x^2 +\varepsilon^2} 
+\end{equation}
+can come from the integration region where $x \simeq 0$, where the integrand behaves like $\varepsilon^{-2}$. Approximate $f(x) \simeq f(0)$, 
+\begin{equation}
+\varepsilon \int_{-\infty}^\infty \dfrac{ f(x) \dif x}{x^2 +\varepsilon^2} \simeq \varepsilon f(0) \int_{-\infty}^\infty \dfrac{ \dif x}{x^2 +\varepsilon^2} = \pi f(0) ~,
+\end{equation}
+where
+\begin{equation}
+\int_{-\infty}^\infty \dfrac{ \dif x}{x^2 +\varepsilon^2} = \dfrac{1}{\varepsilon} \tan^{-1} \left(\dfrac{x}{\varepsilon} \right) \Big|_{-\infty}^\infty = \dfrac{\pi}{\varepsilon} ~.
+\end{equation}
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x\pm i\varepsilon} = {\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} \mp i \pi f(0) ~.
+\end{equation}
+
+\subsection{Derivation 2}
+Consider the following path of integration in the complex plane, denoted by $C$. $C$ is the contour along the real axis from $-\infty$ to $-\delta$, followed by a semicircular path $C_\delta$ (of radius $\delta$), followed by the contour along the real axis from $\delta$ to $\infty$. The infinitesimal quantity $\delta$ is assumed to be positive. Then
+\begin{equation}
+\int_{C} \dfrac{f(x) \dif x}{x} = {\cal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} +\int_{C_\delta} \dfrac{f(x) \dif x}{x}
+\end{equation}
+In the limit of $\delta \rightarrow 0$, we can approximate $f(x) \simeq f(0)$ in the last integral. Noting that the contour $C_\delta$ can be parameterized as $x = \delta e^{i\theta}$ for $0 \leqslant \theta \leqslant \pi$, we end up with 
+\begin{equation}
+ \lim_{\delta \rightarrow 0} \int_{C_\delta} \dfrac{f(x) \dif x}{x} = f(0) \lim_{\delta \rightarrow 0} \int_\pi^0 \dfrac{i\delta e^{i\delta}}{\delta e^{i\delta}} \dif \theta = -i\pi f(0) ~.
+\end{equation}
+Hence 
+\begin{equation}
+\int_{C} \dfrac{f(x) \dif x}{x} = {\cal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} -i\pi f(0) ~.
+\end{equation}
+By deforming the contour $C$ to a contour $C^\prime$ that consists of a straight line that runs from $-\infty +i\varepsilon$ to $\infty +i\varepsilon$, where $\varepsilon$ is a positive infinitesimal (of the same order of magnitude as $\delta$). Assuming that $f(x)$ has no singularities in an infinitesimal neighborhood around the real axis, we are free to deform the contour $C$ into $C^\prime$ without changing the value of the integral. It follows that
+\begin{equation}
+\int_{C} \dfrac{f(x) \dif x}{x} = \int_{-\infty +i\varepsilon}^{\infty +i\varepsilon} \dfrac{f(x) \dif x}{x} = \int_{-\infty}^{\infty} \dfrac{f(y+i\varepsilon)}{y+i\varepsilon} \dif y~,
+\end{equation}
+Since $\varepsilon$ is infinitesimal, we can approximate $f(y+i\varepsilon) \simeq f(y)$\footnote{More precisely, we can expand $f(y+i\varepsilon)$ in a Taylor series about $\varepsilon = 0$ to obtain $f(y+i\varepsilon) = f(y)+{\cal O}(\varepsilon)$. At the end of the calculation, we may take $\varepsilon \rightarrow 0$, in which case the ${\cal O}(\varepsilon)$ terms vanish.}. 
+\begin{equation}
+\int_{C} \dfrac{f(x) \dif x}{x} = \int_{-\infty}^{\infty} \dfrac{f(x)}{x+i\varepsilon} \dif x ~.
+\end{equation}
+
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0} \int_{-\infty}^{\infty} \dfrac{f(x)}{x+i\varepsilon} \dif x = {\mathcal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} - i \pi f(0) ~.
+\end{equation}
+
+\subsection{Derivation 3}
+Starting from the definition of the Cauchy principal value, integrate by parts to obtain
+\begin{align*}
+\int_{-\infty}^{-\delta} \dfrac{f(x) \dif x}{x} &= f(x) \ln |x| \Big|_{-\infty}^{-\delta} - \int_{-\infty}^{-\delta} f^\prime(x) \ln|x| \dif x = f(-\varepsilon) \ln \varepsilon - \int_{-\infty}^{-\delta} f^\prime(x) \ln|x| \dif x ~, \\
+\int_{\delta}^\infty \dfrac{f(x) \dif x}{x} &= f(x) \ln |x| \Big|_{\delta}^\infty - \int_{\delta}^\infty f^\prime(x) \ln|x| \dif x = -f(\varepsilon) \ln \varepsilon - \int_{\delta}^\infty f^\prime(x) \ln|x| \dif x ~,
+\end{align*}
+where we have assumed that $f(x) \rightarrow 0$ sufficiently fast as $x \rightarrow \pm \infty$ so that the surface terms at $\pm \infty$ vanish.
+\begin{equation}
+{\cal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} = \lim_{\delta \rightarrow 0} \left\{[f(-\varepsilon) -f(\varepsilon)] \ln \delta - \int_{-\infty}^{-\delta} f^\prime(x) \ln|x| \dif x - \int_{\delta}^\infty f^\prime(x) \ln|x| \dif x \right\} ~.
+\end{equation}
+Since $f(x)$ is differentiable and well behaved, we can define
+\begin{equation}
+g(x) \equiv \int_0^1 f^\prime(xt) \dif t = \dfrac{f(x) -f(0)}{x} ~,
+\end{equation}
+which implies that $g(x)$ is smooth and non-singular and
+\begin{equation}
+f(x) = f(0) +xg(x) ~.
+\end{equation}
+
+\begin{align*}
+{\cal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} &= \lim_{\delta \rightarrow 0} \left\{-2g(x) \delta \ln \delta -\int_{-\infty}^{-\delta} f^\prime(x) \ln|x| \dif x -\int_\delta^\infty f^\prime(x) \ln|x| \dif x \right\} \\
+&= -\int_{-\infty}^\infty f^\prime(x) \ln|x| \dif x ~.
+\end{align*}
+$\ln|x|$ is integrable at $x = 0$, so that the last integral is well-defined. Finally, we integrate by parts and drop the surface terms at $\pm \infty$ (under the usual assumption that $f^\prime(x) \rightarrow 0$ sufficiently fast as $x \rightarrow \infty$). The end result is
+\begin{equation}
+{\cal P} \int_{-\infty}^\infty \dfrac{f(x) \dif x}{x} = \int_{-\infty}^\infty f(x) \dfrac{\dif \ln|x|}{\dif x}  \dif x ~.
+\end{equation}
+That is, we have derived the generalized function identity,
+\begin{equation}
+\dfrac{\dif \ln|x|}{\dif x} = {\cal P} \dfrac{1}{x} ~.
+\end{equation}
+Begin with the definition of the principal value of the complex logarithm,
+\begin{equation}
+{\rm Ln} z = \ln |z| + i {\rm arg}~ z ~,
+\end{equation}
+where ${\rm arg}~ z$ is the principal value of the argument (or phase) of the complex number $z$, with the convention that $-\pi  < {\rm arg} z \leqslant  \pi$. In particular, for real $x$ and a positive infinitesimal $\varepsilon$,
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0} {\rm Ln} (x \pm i \varepsilon) = \ln |x| \pm i\pi \Theta (-x) ~,
+\end{equation}
+where $\Theta(x)$ is the Heaviside step function. Differentiating with respect to $x$ immediately yields the Sokhotski-Plemelj formula,
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0} \dfrac{1}{x \pm i\varepsilon} = {\cal P} \dfrac{1}{x} \mp i \pi \delta(x) ~,
+\end{equation}
+where we have used
+\begin{equation}
+\dfrac{\dif}{\dif x} \Theta(-x) = -\dfrac{\dif}{\dif x} \Theta(x) = -\delta(x) ~.
+\end{equation}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

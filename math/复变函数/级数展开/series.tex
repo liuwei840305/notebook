@@ -1,0 +1,321 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{级数展开}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{序列与极限}
+\subsection{序列的极限}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设$z_1, z_2, \cdots, z_n, \cdots$是复数序列，记作$\{z_n \}$。若任给正数$\varepsilon > 0$，存在自然数$N$，使当$n>N$时，总有
+\begin{equation}
+|z_n -z_0| < \varepsilon ~,
+\end{equation}
+成立。则称复数序列$\{z_n \}$收敛于复数$z_0$，或称$\{z_n \}$以$z_0$为极限，
+\begin{equation*}
+\underset{n\rightarrow +\infty}\lim z_n -z_0 ~\text{或}~ z_n \rightarrow z_0.
+\end{equation*}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+序列$\{z_n \}$以$z_0$为极限的\textcolor{red}{充要条件}是
+\begin{equation}
+1) \underset{n\rightarrow +\infty}\lim x_n = x_0  ~\text{及}~ \underset{n\rightarrow +\infty}\lim y_n = y_0 
+\end{equation}
+其中$z_n = x_n +i y_n (n = 1, 2, \cdots), z_0 = x_0 +iy_0$，或 \\
+2) 当$z_0 \neq 0$时，
+\begin{equation*}
+\underset{n\rightarrow +\infty}\lim |z_n| = |z_0|  ~\text{及}~  \underset{n\rightarrow +\infty}\lim {\rm Arg} z_n = {\rm Arg} z_0
+\end{equation*}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设序列$\{z_n \}$与序列$\{z^\prime_n \}$分别有极限为$z_0$及$z^\prime_0$，即
+\begin{align*}
+\underset{n\rightarrow +\infty}\lim z_n = z_0  ~, \underset{n\rightarrow +\infty}\lim z^\prime_n = z^\prime_0 ~,
+\end{align*}
+则
+\begin{align*}
+& 1) \underset{n\rightarrow +\infty}\lim (z_n \pm z^\prime_n) = z_0 +z^\prime_0 ~, \\
+& 2) \underset{n\rightarrow +\infty}\lim z_n z^\prime_n = z_0 z^\prime_0 ~, \\
+& 3) \underset{n\rightarrow +\infty}\lim \dfrac{z_n}{z^\prime_n} = \dfrac{z_0}{z^\prime_0} ~, z^\prime \neq 0 ~.
+\end{align*}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+对于一个复数序列$\{z_n \}$，若存在一个正数$M$，使$|z_n| \leqslant M (n = 1, 2, \cdots)$，就称$\{z_n \}$是有界的；否则，就称$\{z_n \}$是无界的。
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+对于一个复数序列$\{z_n \}$，若存在一个正数$M$，使$|z_n| \leqslant M (n = 1, 2, \cdots)$，就称$\{z_n \}$是有界的；否则，就称$\{z_n \}$是无界的。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+对于一个复数序列$\{z_n \}$，若任给$M > 0$，可以找到自然数$N$，使当$n > N$时，有
+\begin{equation*}
+|z_n| > M ~,
+\end{equation*}
+就称$\{z_n \}$趋向于$\infty$，记作$\underset{n\rightarrow +\infty}\lim z_n = \infty$。
+\end{tcolorbox}
+
+复数序列$\{z_n \}$收敛的柯西(Cauchy)判别法：
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+复数序列$\{z_n \}$有极限的\textcolor{red}{充要条件}是：任给$\varepsilon > 0$，可以找到$N$，使当$n > N$时，对于任何自然数$m$，有
+\begin{align*}
+|z_{n+m} - z_n| < \varepsilon  ~. 
+\end{align*}
+\end{tcolorbox}
+
+
+\subsection{矩形套定理 ~ 列紧性定理 ~覆盖定理}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 矩形套定理]
+设有一串矩形$R_n = \{ a_n \leqslant x \leqslant b_n, c_n \leqslant y \leqslant d_n \} (n = 1, 2, \cdots)$，且足标较大的矩形包含在足标较小的矩形中，即$R_1 \supset R_2 \supset \cdots \supset R_n \supset \cdots$。又设矩形$R_n$的对角线$D_n \rightarrow 0$，则有且仅有一个点属于所有的矩形$R_n (n = 1, 2, \cdots)$。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 列紧性定理]
+设复数序列$\{z_n \}$是有界的，则必存在一个收敛的子序列$\{z_{n_i} \}$。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 覆盖定理]
+设$F$是有界闭集，$K$是一些圆的集合(实际只要开集即可)，且$K$覆盖$F$，这表示对于$F$中的任一点$z$，在$K$中一定可以找到一个圆，使点$z$属于这个圆，则在$K$中一定可以找到有限个圆，也覆盖闭集$F$。
+\end{tcolorbox}
+
+
+
+
+\subsection{复数项级数}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+考虑复数项级数
+\begin{equation}
+u_1 +u_2 +\cdots +u_n + \cdots
+\label{series}
+\end{equation}
+构成部分和
+\begin{equation}
+s_n = \sum_{k=1}^n u_k = u_1 +u_2 +\cdots +u_n ~,
+\end{equation}
+得到序列$\{s_n\}$，若序列$\{s_n\}$有极限为$s$：
+\begin{equation*}
+\underset{n\rightarrow +\infty}\lim s_n = s ~,
+\end{equation*}
+则称级数\textcolor{red}{收敛}，其和为$s$，记作$\sum\limits_{k=1}^\infty u_k =s$。若序列$\{s_n\}$没有极限，则称级数\textcolor{red}{发散}。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设级数(\ref{series})收敛，则
+\begin{equation}
+\underset{n\rightarrow +\infty} u_n = 0 ~.
+\end{equation}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+级数(\ref{series})收敛的充要条件是：任给$\varepsilon > 0$，存在自然数$N$，使当$n > N$时，对任意自然数$m$，总有
+\begin{equation}
+|u_{n+1} +u_{n+2} +\cdots +u_{n+m}| <  \varepsilon ~.
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+若级数(\ref{series})中每一项取模后得到级数
+\begin{equation}
+|u_{1}| + |u_{2}| +\cdots +|u_{n}| +\cdots
+\end{equation}
+收敛，则称级数(\ref{series})\textcolor{red}{绝对收敛}。
+\end{tcolorbox}
+绝对收敛级数一定是收敛的。
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+若级数(\ref{series})中的每一项$u_n$对充分大的$n$，满足
+\begin{equation}
+|u_{n}| \leqslant M_n ~,
+\end{equation}
+且级数$\sum\limits_{k=1}^\infty M_n$收敛，则级数(\ref{series})\textcolor{red}{绝对收敛}。
+\end{tcolorbox}
+
+设有两个级数
+\begin{align}
+u_1 +u_2 +\cdots +u_n \cdots ~, \\
+u^\prime_1 +u^\prime_2 +\cdots +u^\prime_n \cdots ~,
+\label{series2}
+\end{align}
+由它们构造另外两个级数
+\begin{align}
+\label{series3}
+& (u_1 \pm u^\prime_1) +(u_2 \pm u^\prime_2) +\cdots +(u_n \pm u^\prime_n) +\cdots ~, \\
+\nonumber & u_1u^\prime_1 +(u_1u^\prime_2 +u_2 u^\prime_1) +(u_1u^\prime_3 +u_2 u^\prime_2 +u_3u^\prime_1) +\cdots \\
+& +(u_1u^\prime_n +u_2 u^\prime_{n-1} +\cdots +u_{n-1}u^\prime_2 +u_n u^\prime_1) +\cdots ~,
+\label{series4}
+\end{align}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设级数(\ref{series})与级数(\ref{series2})都绝对收敛，且
+\begin{equation}
+\sum_{n=1}^\infty u_n = s, ~~ \sum_{n=1}^\infty u^\prime_n = s^\prime ~.
+\end{equation}
+则级数(\ref{series3})及级数(\ref{series4})也绝对收敛，且
+\begin{align}
+& \sum_{n=1}^\infty (u_n \pm u^\prime_n) = s \pm s^\prime, \\
+& \sum_{n=1}^\infty (u_1u^\prime_n +u_2u^\prime_{n-1} +\cdots +u_{n-1}u^\prime_{2} +u_{n}u^\prime_{1}) = s s^\prime, 
+\end{align}
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

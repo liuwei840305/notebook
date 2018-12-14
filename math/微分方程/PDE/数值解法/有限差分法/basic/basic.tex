@@ -1,0 +1,1280 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Finite Diference Numerical Methods}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+Partial differential equations are often classified. Equations with the same classification have qualitatively similar mathematical and physical properties. The heat equation $\left(\dfrac{\partial u}{\partial t} = k\dfrac{\partial^2 u}{\partial x^2} \right)$ is an example  of a parabolic partial differential equation. Solutions usually exponentially decay in time and approach an equilibrium solution. Information and discontinuities propagate at an infinite velocity. The wave equation $\left(\dfrac{\partial^2 u}{\partial t^2} = c^2 \dfrac{\partial^2 u}{\partial x^2} \right)$ typifies hyperbolic partial differential equations. There are modes of vibration. Information propagates at a finite velocity and thus discontinuities persist. Laplace's equation $\left(\dfrac{\partial^2 u}{\partial x^2} + \dfrac{\partial^2 u}{\partial y^2} = 0 \right)$ is an example of an elliptic partial differential equation. Solutions usually satisfy maximum principles. The terminology parabolic, hyperbolic, and elliptic result from transformation properties of the conic sections.
+
+
+\section{Finite Differences and Truncated Taylor Series}
+The fundamental technique for finite difference numerical calculations is based on polynomial approximations to $f(x)$ near $x=x_0$. Let $x = x_0 +\Delta x$, so $\Delta x = x - x_0$,
+\begin{equation}
+f(x) \approx f(x_0) +(x-x_0) f^\prime(x_0) +\frac{(x-x_0)^2}{2!} f^{\prime\prime}(x_0) = f(x_0) +\Delta x f^\prime(x_0) +\frac{(\Delta x)^2}{2!} f^{\prime\prime}(x_0) ~,
+\end{equation}
+
+A formula for the error in these polynomial approximations is obtained from
+\begin{equation}
+f(x) = f(x_0) +\Delta x f^\prime(x_0) +\cdots +\frac{(\Delta x)^n}{n!} f^{(n)}(x_0) +R_n ~,
+\end{equation}
+known as the \textcolor{red}{Taylor series with remainder}. The remainder \textcolor{red}{$R_n$} (called the \textcolor{red}{truncation error}) is known to be in the form of the next term of the series, but evaluated at a usually unknown intermediate point:
+\begin{equation}
+\color{red} R_n = \frac{(\Delta x)^{(n+1)} }{(n+1)!} f^{(n+1)}(\xi_{n+1})
+\end{equation}
+where $x_0 < \xi_{n+1} < x = x_0 +\Delta x$. For this to be valid, $f(x)$ must have $n+1$ continuous derivatives.
+
+The error in the tangent line approximation is given 
+\begin{equation}
+f(x_0 +\Delta x) = f(x_0) +\Delta x f^\prime(x_0) +\frac{(\Delta x)^2}{2!} f^{\prime\prime}(x_0) ~,
+\end{equation}
+called the extended mean value theorem. If $\Delta x$ is small, then $\xi_2$ is contained in a small interval, and the truncation error is almost determined (provided that $\dif^2 f/\dif x^2$ is continuous),
+\begin{equation*}
+R \approx \frac{(\Delta x)^2}{2} f^{\prime\prime}(x_0) ~.
+\end{equation*}
+It is said that the truncation error is $O(\Delta x)^2$, ``order delta-x squared", meaning that
+\begin{equation*}
+|R| \leqslant C(\Delta x)^2 ~,
+\end{equation*}
+since we usually assume that $\dif^2 f/\dif x^2$ is bounded ($|\dif^2 f/\dif x^2| < M$). Thus, $C= M/2$.
+
+\subsection{First derivative approximations}
+\begin{equation*}
+\frac{\dif f}{\dif x}(x_0) = \frac{f(x_0 +\Delta x) -f(x_0)}{\Delta x} -\frac{\Delta x}{2} \frac{\dif^2 f}{\dif x^2}(\xi_2) ~.
+\end{equation*}
+
+The \textcolor{red}{forward difference approximation}
+\begin{equation}
+\color{red} \frac{\dif f}{\dif x}(x_0) \approx \frac{f(x_0 +\Delta x) -f(x_0)}{\Delta x} 
+\end{equation}
+
+
+\begin{equation*}
+\frac{\dif f}{\dif x}(x_0) = \frac{f(x_0 -\Delta x) -f(x_0)}{-\Delta x} +\frac{\Delta x}{2} \frac{\dif^2 f}{\dif x^2}(\bar{\xi}_2) ~.
+\end{equation*}
+The \textcolor{red}{backward difference approximation}
+\begin{equation}
+\color{red} \frac{\dif f}{\dif x}(x_0) \approx \frac{f(x_0) -f(x_0 -\Delta x)}{\Delta x} 
+\end{equation}
+The \textcolor{blue}{truncation error is $O(\Delta x)$} and nearly identical for both forward and backward difference approximations of the first derivative.
+
+\begin{align*}
+f(x_0 +\Delta x) &= f(x_0) +\Delta x f^\prime(x_0) +\frac{(\Delta x)^2}{2!} f^{\prime\prime}(x_0) +\frac{(\Delta x)^3}{3!} f^{\prime\prime\prime}(x_0) + \cdots ~, \\
+f(x_0 -\Delta x) &= f(x_0) -\Delta x f^\prime(x_0) +\frac{(\Delta x)^2}{2!} f^{\prime\prime}(x_0) -\frac{(\Delta x)^3}{3!} f^{\prime\prime\prime}(x_0) + \cdots ~,
+\end{align*}
+
+\begin{align*}
+& f(x_0 +\Delta x) -f(x_0 -\Delta x) = 2 \Delta x f^\prime(x_0) +\frac{2}{3!} (\Delta x)^3 f^{\prime\prime\prime}(x_0) \\
+& f^\prime(x_0) = \frac{f(x_0 +\Delta x) -f(x_0 -\Delta x)}{2 \Delta x} -\frac{ (\Delta x)^2}{6} f^{\prime\prime\prime}(\xi_3)
+\end{align*}
+The \textcolor{red}{centered difference approximation}
+\begin{equation}
+\color{red} \frac{\dif f}{\dif x}(x_0) \approx \frac{f(x_0 +\Delta x) -f(x_0 -\Delta x)}{2 \Delta x} ~,
+\end{equation}
+the \textcolor{blue}{truncation error is $O(\Delta x)^2$}. However, it is not always better to use the centered difference formula.
+
+\subsection{Second derivative}
+\begin{align*}
+& f(x_0 +\Delta x) +f(x_0 -\Delta x) = 2f(x_0) +(\Delta x)^2 f^{\prime\prime}(x_0) +\frac{2 (\Delta x)^4}{4!}  f^{\prime\prime\prime\prime}(x_0) +\cdots \\
+& f^{\prime\prime}(x_0) = \frac{f(x_0 +\Delta x) -2f(x_0) + f(x_0 -\Delta x)}{(\Delta x)^2} -\frac{(\Delta x)^2}{12}  f^{\prime\prime\prime\prime}(\xi) 
+\end{align*}
+
+The centered difference approximation for the second derivative 
+\begin{equation}
+\frac{\dif^2 f}{\dif x^2}(x_0) \approx \frac{f(x_0 +\Delta x) -2f(x_0) + f(x_0 -\Delta x)}{(\Delta x)^2} ~,
+\end{equation}
+with an $O(\Delta x)^2$ truncation error. In general, the weights must sum to  zero for any finite difference approximation to any derivative.
+
+\subsection{Partial derivatives}
+If $u(x, y)$, for $\dfrac{\partial u}{\partial x}$
+\begin{equation*}
+\dfrac{\partial u}{\partial x}(x_0, y_0) \approx \frac{u(x_0 +\Delta x, y_0) -u(x_0 -\Delta x, y_0)}{2 \Delta x} 
+\end{equation*}
+for $\dfrac{\partial u}{\partial y}$
+\begin{equation*}
+\dfrac{\partial u}{\partial y}(x_0, y_0) \approx \frac{u(x_0, y_0 +\Delta y) -u(x_0, y_0-\Delta y)}{2 \Delta y} 
+\end{equation*}
+
+The Laplacian $\Delta u = \dfrac{\partial^2 u}{\partial x^2} +\dfrac{\partial^2 u}{\partial y^2}$,
+\begin{equation}
+\Delta u \approx  \frac{u(x_0 +\Delta x, y_0) -2u(x_0, y_0) + u(x_0 -\Delta x, y_0)}{(\Delta x)^2} +\frac{u(x_0, y_0+\Delta y) -2u(x_0, y_0) + u(x_0 , y_0-\Delta y)}{(\Delta y)^2} ~,
+\end{equation}
+the error is the largest of $O(\Delta x)^2$ and $O(\Delta y)^2$. Let $\Delta x =\Delta y$, the standard five-point finite difference approximation is
+\begin{equation}
+\Delta u \approx  \frac{u(x_0 +\Delta x, y_0) + u(x_0 -\Delta x, y_0) +u(x_0, y_0+\Delta y) + u(x_0 , y_0-\Delta y) -4u(x_0, y_0)}{(\Delta x)^2} ~,
+\end{equation}
+
+
+
+\section{Heat Equation}
+\subsection{Homogeneous Problems}
+Consider the one-dimensional heat equation without sources on a finite interval $0< x < L$:
+\begin{align*}
+\dfrac{\partial u}{\partial t} &= k \dfrac{\partial^2 u}{\partial x^2} \\
+u(0, t) &= 0 \\
+u(L, t) &= 0 \\
+u(x, 0) &= f(x) \\
+\end{align*}
+\begin{equation*}
+\dfrac{\partial u}{\partial t} (x_0, t_0) = \frac{u(x_0, t_0+\Delta t) -u(x_0, t_0)}{\Delta t} -\frac{\Delta t}{2} \dfrac{\partial^2 u}{\partial t^2} (x_0, \eta_1)  ~,
+\end{equation*}
+where $t_0 < \eta_1 < t_0 +\Delta t$.
+\begin{equation}
+\dfrac{\partial^2 u}{\partial x^2}(x_0, t_0) = \frac{u(x_0 +\Delta x, t_0) -2u(x_0, t_0) + u(x_0 -\Delta x, t_0)}{(\Delta x)^2} -\frac{(\Delta x)^2}{12} \dfrac{\partial^4 u}{\partial x^4} (\xi_1, t_0)  ~,
+\end{equation}
+where $x_0 < \xi_1 < x_0 +\Delta x$. The heat equation at any point $x=x_0, t=t_0$,
+\begin{equation}
+\frac{u(x_0, t_0+\Delta t) -u(x_0, t_0)}{\Delta t} = k \frac{u(x_0 +\Delta x, t_0) -2u(x_0, t_0) + u(x_0 -\Delta x, t_0)}{(\Delta x)^2} +E ~,
+\end{equation}
+where the discretization (or truncation) error is
+\begin{equation}
+E = \frac{\Delta t}{2} \dfrac{\partial^2 u}{\partial t^2} (x_0, \eta_1) -\frac{k(\Delta x)^2}{12} \dfrac{\partial^4 u}{\partial x^4} (\xi_1, t_0) ~.
+\label{trun_err}
+\end{equation}
+Introduce the approximation that results by ignoring the truncation error:
+\begin{equation}
+\frac{u(x_0, t_0+\Delta t) -u(x_0, t_0)}{\Delta t} \approx k \frac{u(x_0 +\Delta x, t_0) -2u(x_0, t_0) + u(x_0 -\Delta x, t_0)}{(\Delta x)^2} 
+\end{equation}
+Introduce $\tilde{u}(x_0, t_0)$ an approximation at the point $x=x_0, t=t_0$ of the exact solution $u(x_0,t_0)$. Let the approximation $u(x_0,t_0)$ solve
+\begin{equation}
+\frac{\tilde{u}(x_0, t_0+\Delta t) -\tilde{u}(x_0, t_0)}{\Delta t} = k \frac{\tilde{u}(x_0 +\Delta x, t_0) -2\tilde{u}(x_0, t_0) + \tilde{u}(x_0 -\Delta x, t_0)}{(\Delta x)^2} ~,
+\label{tilde_equ}
+\end{equation}
+$\tilde{u}(x_0,t_0)$ is the exact solution of an equation that is only approximately correct. We  hope that the desired solution $u(x_0,t_0)$ is accurately approximated by $\tilde{u}(x_0,t_0)$.
+
+Introduce a uniform mesh $\Delta x$ and a constant discretization time $\Delta t$. Divide the rod of length $L$ into $N$ equal intervals, $\Delta x=L/N$. We have $x_0=0, x_1=\Delta x,x_2=2\Delta x, \cdots,x_N= N\Delta x=L$.
+\begin{equation}
+x_j = j \Delta x ~.
+\end{equation}
+Introduce time step sizes $\Delta t$,
+\begin{equation}
+t_m = m \Delta t ~.
+\end{equation}
+The exact temperature at the mesh point $u(x_j, t_m)$ is approximately $\tilde{u}(x_j,t_m)$. Introduce 
+\begin{equation}
+\tilde{u}(x_j,t_m) \equiv u_j^{(m)} ~,
+\end{equation}
+indicating the exact solution of (\ref{tilde_equ}) at the $j$th mesh point at time $t_m$. Equation  (\ref{tilde_equ}) will be satisfied at each mesh point $x_0=x_j$ at each time $t_0=t_m$ (excluding the space-time boundaries). $x_0+\Delta x$ becomes $x_j+\Delta x=x_{j+1}$ and $t_0+\Delta t$ becomes $t_m+\Delta t=t_{m+1}$.
+\begin{equation}
+\frac{u_j^{(m+1)} -u_j^{(m)} }{\Delta t} = k\frac{u_{j+1}^{(m)} -2u_{j}^{(m)} + u_{j-1}^{(m)} }{(\Delta x)^2} ~,
+\label{pde}
+\end{equation}
+for $j=1, \cdots ,N-1$ and $m$ starting from $1$. It is called a \textcolor{red}{partial difference equation}. The local truncation error is given by (\ref{trun_err}). It is the larger of $O(\Delta t)$ and $O(\Delta x)^2$. Since $E \rightarrow 0$ as $\Delta x \rightarrow 0$ and $\Delta t \rightarrow 0$, the approximation (\ref{pde}) is said to be consistent with the partial differential equation.
+
+$u_j^{(m)}$ satisfies the initial conditions (at the mesh points)
+\begin{equation}
+u_j^(0) = u(x,0) = f(x) = f(x_j) ~,
+\end{equation}
+where $x_j=j\Delta x$ for $j=0, \cdots, N$. $u_j^{(m)}$ also satisfies the boundary conditions (at each time step)
+\begin{align}
+u_0^{(m)} = u(0, t) = 0 ~,
+u_N^{(m)} = u(L, t) = 0 ~.
+\end{align}
+
+\begin{equation}
+u_j^{(m+1)}  = u_j^{(m)}  +s\left(u_{j+1}^{(m)} -2u_j^{(m)} +u_{j-1}^{(m)} \right)
+\label{pde_formula}
+\end{equation}
+where $s$ is a dimensionless parameter,
+\begin{equation}
+s = k \dfrac{\Delta t}{(\Delta x)^2} ~.
+\end{equation}
+$u_j^{(m+1)}$ is a linear combination of the specified three earlier values. We begin our computation using the initial condition $u_j^{(0)} = f(x_j), ~{\rm for}~ j =1, \cdots, N-1$. For mesh points adjacent to the boundary (i.e., $j=1$ or $j=N-1$), (\ref{pde_formula}) requires the solution on the boundary points ($j=0$~ or ~$j=N$). We obtain these values from the boundary conditions.
+
+Propagation speed of disturbances. Suppose that the initial conditions at the mesh points are zero except for $1$ at some interior mesh point far from the boundary. At the first time step, the solution is zero everywhere except at the original  nonzero mesh point and its two immediate neighbors. This process continues. The isolated initial nonzero value spreads out at a constant speed (until the boundary has been reached). This disturbance propagates at velocity $\Delta x/\Delta t$. However, for the heat equation, disturbances move at an infinite speed. In some sense the numerical  scheme poorly approximates this property of the heat equation. However if the parameter $s$ is fixed, the numerical propagation speed is
+\begin{equation}
+\dfrac{\Delta x}{\Delta t} = \dfrac{k \Delta x}{s(\Delta x)^2} = \dfrac{k }{s\Delta x}
+\end{equation}
+As $\Delta x \rightarrow 0$ (with $s$ fixed), this speed approaches $\infty$ as is desired.
+
+
+\subsection{Separation of Variables}
+Consider
+\begin{align*}
+u_j^{(m+1)} &= u_j^{(m)}  +s\left(u_{j+1}^{(m)} -2u_j^{(m)} +u_{j-1}^{(m)} \right) \\
+u_j^{(0)} &= f(x_j) = f_j \\
+u_0^{(m)} &= 0 \\
+u_N^{(m)} &= 0 
+\end{align*}
+where $s = \dfrac{k \Delta t}{(\Delta x)^2}, x_j = j \Delta x, t = m\Delta t$. Assume the equation has special product solutions
+\begin{equation}
+u_j^{(m)} = \phi_j h_m ~,
+\end{equation}
+then
+\begin{equation*}
+\phi_j h_{m+1} = \phi_j h_m +s(\phi_{j+1} h_m -2\phi_j h_m +\phi_{j-1} h_m) ~.
+\end{equation*}
+\begin{equation*}
+\frac{h_{m+1} }{h_m} = 1+s\left(\frac{\phi_{j+1} +\phi_{j-1} }{\phi_j} -2\right) = +\lambda
+\end{equation*}
+where $\lambda$ is a separation constant.
+\begin{align}
+& h_{m+1} = +\lambda h_m ~, \\
+& \phi_{j+1} +\phi_{j-1} = \left(\frac{-\lambda +1-2s}{s} \right) \phi_j ~,
+\end{align}
+with two homogeneous boundary conditions
+\begin{align}
+\phi_0 = 0 ~, ~\phi_N = 0 ~.
+\end{align}
+First-order difference equations, 
+\begin{equation}
+h_m = \lambda^m h_0 ~,
+\end{equation}
+where $h_0$ is an initial condition for the first-order difference equation. Or assume that a homogeneous solution exists in the form $h_m=Q^m$. Thus $Q^{m+1}=\lambda Q^m$ or $Q=\lambda$. If $\lambda > 1$, then the solution exponentially grows $[\lambda^m=e^{m \log \lambda}=e^{(\log \lambda/\Delta t)t}$, since $m=t/\Delta t]$. If $0<\lambda<1$, the solution exponentially decays. If $-1<\lambda<0$, the solution has an oscillatory (and exponential) decay, known as a convergent oscillation. If $\lambda<-1$, the solution has a divergent oscillation. If $\lambda$ is complex, $\lambda = r e^{i\theta}$, $r = |\lambda|$ and $\theta = \arg \lambda$ (or angle),
+\begin{equation*}
+\lambda^m = r^m e^{im\theta} = |\lambda|^m (\cos m\theta +i \sin m \theta) ~.
+\end{equation*}
+The solution grows in discrete time $m$ if $|\lambda|>1$ and decays if $|\lambda|<1$.
+
+The solution $\lambda^m$ of $h_{m+1}=\lambda h_m$ remains bounded as $m$ increases ($t$ increases) if $|\lambda|
+\leqslant 1$. It grows if $|\lambda| > 1$.
+
+Second-order difference equations, assume $\phi_j = Q^j$. The boundary conditions, $\phi_0=\phi_N=0$, suggest the solution may oscillate. This usually occurs if $Q$ is complex with $|Q|=1$,
+\begin{equation}
+\phi_j = (|Q| e^{i\theta})^j = e^{i\theta j} = e^{i\theta (x/\Delta x)} = e^{i\alpha x} ~,
+\end{equation}
+where $\alpha = \theta/\Delta x = (\arg Q)/\Delta x$. 
+\begin{align*}
+e^{i\alpha x} +e^{-i\alpha x} = \frac{\lambda -1+2s}{s}  \\
+2\cos (\alpha \Delta) = \frac{\lambda -1+2s}{s} 
+\end{align*}
+\begin{equation}
+\phi_j = c_1 \sin \alpha x +c_2 \cos \alpha x ~.
+\end{equation}
+The boundary conditions, $\phi_0=\phi_N=0$, imply that $c_2=0$ and $\alpha=n\pi/L$, where $n=1,2,3,\cdots$. Thus,
+\begin{equation}
+\phi_j = \sin \frac{n\pi x}{L} = \sin \frac{n\pi j \Delta x}{L} = \sin \frac{n\pi j}{N} 
+\end{equation}
+
+\subsection{Fourier-von Neumann Stability Analysis}
+\begin{align*}
+u_j^{(m)} &= e^{i\alpha x} Q^{t/\Delta t} = e^{i\alpha j \Delta x} Q^m ~. \\
+Q &= 1 +s(e^{i\alpha \Delta x} -2 +e^{-i\alpha \Delta x}) = 1-2s\left[1-\cos \left(\alpha \Delta x \right) \right]
+\end{align*}
+Since
+\begin{equation*}
+u_j^{(m)} = \sin \frac{n\pi x}{L} Q^{t/\Delta t} ~,
+\end{equation*}
+where $\alpha = \dfrac{n\pi}{L}$,
+\begin{equation}
+Q = 1-2s \left[1-\cos \left( \frac{n\pi \Delta x}{L} \right) \right]
+\end{equation}
+and $n =1, 2, 3, \cdots, N-1$. For partial differential equations, there are an infinite number of eigenfunctions $(\sin n\pi x/L, n=1, 2, 3,\cdots)$. However,  for partial difference equation, there are only $N-1$ independent eigenfunctions $(\sin n\pi x/L, n=1, 2, 3, \cdots, N-1)$:
+\begin{equation}
+\phi_j = \sin \frac{n\pi x}{L} = \sin \frac{n\pi j \Delta x}{L} = \sin \frac{n\pi j}{N} ~.
+\end{equation}
+\begin{equation}
+u_j^{(m)} = \sum_{n=1}^{N-1} \beta_n \sin \frac{n\pi x}{L} \left[1-2s \left(1-\cos \frac{n\pi}{N}\right) \right]^{t/\Delta t} ~,
+\end{equation}
+where 
+\begin{equation*}
+s = \frac{k\Delta t}{(\Delta x)^2} ~.
+\end{equation*}
+These coefficients can be determined from the $N-1$ initial conditions, using the discrete orthogonality of the eigenfunctions $\sin \dfrac{n\pi j}{N}$.
+
+\begin{align}
+u_j^{(m)} &= \sin \frac{n\pi x}{L} \left[1-2s \left(1-\cos \frac{n\pi}{N}\right) \right]^{t/\Delta t} ~, ~~ n= 1, 2, \cdots, N-1\\
+u(x, t) &= \sin \frac{n\pi x}{L} e^{-k(n\pi/L)^2 t} ~, ~~ n=1, 2, \cdots
+\end{align}
+where $s = \dfrac{k\Delta t}{(\Delta x)^2}$. For the partial differential equation, each wave exponentially decays, $e^{-k(n\pi/L)^2 t}$. For the partial difference equation, the time dependence is
+\begin{equation}
+Q^m = \left[1-2s \left(1-\cos \frac{n\pi}{N}\right) \right]^{t/\Delta t} ~,
+\end{equation}
+If $|Q| \leqslant 1$ for all solutions, the numerical scheme is stable. Otherwise, the scheme is unstable. If $Q>1$, there is exponential growth in time, while exponential decay occurs if $0<Q<1$. The solution is constant in time if $Q=1$. There is a convergent oscillation in time $(-1< Q<0)$, a pure oscillation $(Q=-1)$, and a divergent oscillation $(Q<-1)$. Convergent oscillations do not  duplicate the behavior of the partial differential equation. 
+
+$1-2s \left(1-\cos \dfrac{n\pi}{N}\right) \geqslant -1$, for $n = 1, 2, 3, \cdots, N-1$ or
+\begin{align*}
+& s \leqslant \frac{1}{1-\cos \dfrac{n\pi}{N} } ~{\rm for} ~~n = 1, 2, 3, \cdots, N-1 \\
+\Longrightarrow & s \leqslant \frac{1}{1-\cos \dfrac{(N-1)\pi}{N} } \\
+\Longrightarrow & s \leqslant \frac{1}{2} < \frac{1}{1-\cos \dfrac{(N-1)\pi}{N} }
+\end{align*}
+
+Since $1-\cos(N-1)\pi/N<2$, and hence we are guaranteed that the numerical solution will be stable if $s\leqslant \dfrac{1}{2}$.
+
+If $s> \dfrac{1}{2}$, usually $Q<-1$ (but not necesarily) for some $n$. Then the numerical solution will contain a divergent oscillation. It is called numerical instability. If $s>\dfrac{1}{2}$, the most rapidly ``growing" solution corresponds to a rapid oscillation $(n=N-1)$ in space. The numerical instability is characterized by divergent oscillation in time $(Q<-1)$ of a rapidly oscillatory $(n=N-1)$ solution in space. 
+
+\begin{equation}
+\Delta t \leqslant \frac{(\Delta x)^2}{2k}
+\end{equation}
+The time steps $\Delta t$ must not be too large (otherwise the scheme becomes unstable).
+
+When $s = \dfrac{1}{2}$,
+\begin{equation*}
+u_j^{(m+1)} = \dfrac{1}{2} \left[u_{j+1}^{(m)} +u_{j-1}^{(m)} \right] ~.
+\end{equation*}
+
+
+If $n/N \ll 1$, $\cos n\pi/N \approx 1 -\dfrac{1}{2}\left(\dfrac{n\pi}{N} \right)^2$, 
+\begin{equation*}
+Q^{t/\Delta t} \approx \left[1-s \left(\dfrac{n\pi}{N} \right)^2 \right]^{t/\Delta t} = \left[1-k\Delta t \left(\dfrac{n\pi}{L} \right)^2 \right]^{t/\Delta t} ~,
+\end{equation*}
+where $N = L/\Delta x$. As $\Delta t \rightarrow 0$, 
+\begin{equation*}
+Q^{t/\Delta t}  \rightarrow e^{-k(n\pi/L)^2 t}
+\end{equation*}
+
+\begin{equation*}
+Q^m - \exp \left[-kt\frac{(n\pi)^2}{L^2} \right] = O(\Delta t) ~.
+\end{equation*}
+
+The relationship between convergence and stability can be generalized.
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= Lax equivalency Theorem]
+For consistent finite difference approximations of time-dependent linear partial differential equations that are well posed, the numerical scheme converges if it is stable and it is stable if it converges.
+\end{tcolorbox}
+
+\begin{equation}
+u_j^{(m+1)} = s u_{j-1}^{(m)} +(1-2s)u_j^{(m)} +s u_{j+1}^{(m)}
+\end{equation}
+
+\subsection{Matrix Notation}
+For fixed $t$, $u(x,t)$ is only a function of $x$. Its discretization $u_j^{(m)}$ is defined at each of the $N+1$ mesh points (at every time step). Introduce a vector $\vec{u}$ of dimension $N+1$ that changes at each time step. It is a function of $m$, $u^{(m)}$. The $j$th component of $\vec{u}^{(m)}$ is the value of $u(x,t)$ at the $j$th mesh point :
+\begin{equation}
+\left(\vec{u}^{(m)} \right)_j = u_j^{(m)}
+\end{equation}
+The partial difference equation is
+\begin{equation}
+u_j^{(m+1)}  = u_j^{(m)}  +s\left(u_{j+1}^{(m)} -2u_j^{(m)} +u_{j-1}^{(m)} \right) ~.
+\end{equation}
+Apply  the boundary conditions, $u_0^{(m)}=u_N^{(m)}=0$, then 
+\begin{equation}
+u_1^{(m+1)}  = u_1^{(m)}  +s\left(u_{2}^{(m)} -2u_1^{(m)} +u_{0}^{(m)} \right) = (1-2s)u_1^{(m)} +su_2^{(m)} ~.
+\end{equation}
+At each time step, there are $N-1$ unknowns. Introduce the $N-1 \times N-1$ tridiagonal matrix $\vec{A}$ with all entries zero except for the main diagonal (with entries $1-2s$) and neighboring diagonals (with entries $s$) : 
+\begin{equation}
+\vec{A} = \begin{pmatrix} 
+1-2s & s & 0 & 0 & 0 & 0 & 0 \\ 
+s & 1-2s & s & 0 & 0 & 0 & 0 \\
+0 & s & 1-2s & s & 0 & 0 & 0 \\
+0 & 0 & \cdots & \cdots & \cdots & 0 & 0 \\
+0 & 0 & 0 & s & 1-2s & s & 0 \\
+0 & 0 & 0 & 0 & s & 1-2s & s \\
+0 & 0 & 0 & 0 & 0 & s & 1-2s
+\end{pmatrix}
+\end{equation}
+
+
+The partial difference equation becomes the following vector equation :
+\begin{equation}
+\vec{u}^{(m+1)} = \vec{A} \vec{u}^{(m)} ~.
+\end{equation}
+\begin{equation}
+\vec{u}^{(m)} = \vec{A}^m \vec{u}^{(0)} ~.
+\end{equation}
+The matrix $\vec{A}$ raised to the $m$th power describes how the initial condition influences the solution at the $m$th time step $(t=m \Delta t)$.
+
+Introduce the eigenvalues $\mu$ of the matrix $\vec{A}$, the values $\mu$ such that there are nontrivial vector solutions $\vec{\xi}$ :
+\begin{equation}
+\vec{A} \vec{\xi} = \mu \vec{\xi} ~.
+\label{eigen_equ}
+\end{equation}
+The eigenvalues satisfy
+\begin{equation}
+\det [\vec{A} -\mu \vec{I}] = 0
+\end{equation}
+where $\vec{I}$ is the identity matrix. Nontrivial vectors $\vec{\xi}$ that satisfy (\ref{eigen_equ}) are called eigenvectors corresponding to $\mu$. Since $\vec{A}$ is an $(N-1)\times (N-1)$ matrix, $\vec{A}$ has $N-1$ eigenvalues. However, some of  the eigenvalues may not be distinct, there may be multiple eigenvalues (or degeneracies). For a distinct eigenvalue, there is a unique eigenvector (to within a multiplicative constant). In the case of a multiple eigenvalue (of multiplicity $k$), there may be at most $k$ linearly independent eigenvectors. If for some eigenvalue there are less than $k$ eigenvectors, the matrix is defective. If $\vec{A}$ is real and symmetric, it is known that any possible multiple eigenvalues are not defective. The matrix $\vec{A}$ has $N-1$ eigenvectors (which can be shown to be linearly independent). Furthermore, if $\vec{A}$ is real and symmetric, the eigenvalues (and consequently the eigenvectors) are real and the eigenvectors  are orthogonal. Let $\mu_n$ be the $n$th eigenvalue and $\vec{\xi}_n$ the corresponding eigenvector.
+
+We can solve vector equation (equivalent to the partial difference equation) using the method of eigenvector expansion.(This technique is analogous to using an eigenfunction expansion to solve the partial differential equation.) Any
+vector can be expanded in a series of the eigenvectors:
+\begin{equation}
+\vec{u}^{(m)} = \sum_{n=1}^{N-1} c_n^{(m)} \vec{\xi}_n
+\end{equation}
+The vector changes with $m$(time), and the constants $c_n^{(m)}$ depend on $m$(time) :
+\begin{equation}
+\vec{u}^{(m+1)} = \sum_{n=1}^{N-1} c_n^{(m+1)} \vec{\xi}_n
+\end{equation}
+\begin{equation}
+\vec{u}^{(m+1)} = \vec{A} \vec{u}^{(m)} = \sum_{n=1}^{N-1} c_n^{(m)}  \vec{A} \vec{\xi}_n = \sum_{n=1}^{N-1} c_n^{(m)}  \mu_n \vec{\xi}_n ~,
+\end{equation}
+\begin{equation}
+c_n^{(m+1)} = \mu_n c_n^{(m)}
+\end{equation}
+\begin{equation}
+c_n^{(m+1)} = c_n^{(0)}  (\mu_n )^m ~,
+\end{equation}
+\begin{equation}
+\vec{u}^{(m+1)} = \sum_{n=1}^{N-1} c_n^{(0)}  (\mu_n)^m \vec{\xi}_n
+\end{equation}
+$c_n^{(0)} $ can be determined from the initial condition. The growth of the solution as $t$ increases ($m$ increases) depends on $(u_n)^m$, where $m=t/\Delta t$. Since $\Delta_n$ is real,
+\begin{eqnarray*}
+(\mu_n)^m = \left\{
+\begin{aligned}
+&{\rm exponential ~growth}~  &  \mu_n > 1 \\
+&{\rm exponential~ decay} ~ &  0 < \mu_n < 1 \\
+&{\rm convergent~ oscillation} ~ &  -1 < \mu_n < 0 \\
+&{\rm divergent ~oscillation} ~ & \mu_n < -1
+\end{aligned}
+\right.
+\end{eqnarray*}
+The numerical solution is unstable if any eigenvalue $\mu_n > 1$ or any $\mu_n < -1$.
+
+
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= Gershgorin circle Theorem]
+Every eigenvalue of $\vec{A}$ lies in at least one of the circles $c_1,\cdots, c_{N-1}$ in the complex plane where $c_i$ has its center at the $i$th diagonal entry and its radius equal to the sum of the absolute values of the rest of that row.
+\end{tcolorbox}
+If $a_{ij}$ are the entries of $\vec{A}$, then all eigenvalues $\mu$ lie in at least one of the following circles:
+\begin{equation}
+|\mu -a_{ii}| \leqslant \sum_{j=1, ~j\neq i}^{N-1} |a_{ij}| ~.
+\end{equation}
+Two circles are $|\mu-(1-2s)|<s$ and the other $N-3$ circles are
+\begin{equation}
+|\mu-(1-2s)| < 2s
+\end{equation}
+Since the eigenvalues $\mu$ are also known to be real,
+\begin{equation*}
+1-4s \leqslant \mu \leqslant 1~.
+\end{equation*}
+Stability is guaranted if $-1\leqslant \mu \leqslant 1$, and the Gershgorin circle theorem implies that the numerical scheme is stable if $s \leqslant \dfrac{1}{2}$. If $s > \dfrac{1}{2}$, the Gershgorin circle theorem does not imply the scheme is unstable.
+
+
+
+\subsection{Nonhomogeneous Problems}
+Consider
+\begin{align*}
+\dfrac{\partial u}{\partial t} &= k \dfrac{\partial^2 u}{\partial x^2} +Q(x, t)\\
+u(0, t) &= A(t) \\
+u(L, t) &= B(t) \\
+u(x, 0) &= f(x) \\
+\end{align*}
+Using a forward difference in time and a centered difference in space
+\begin{align*}
+\frac{u_j^{(m+1)} -u_j^{(m)} }{\Delta t} &= \frac{k}{(\Delta x)^2} \left( u_{j+1}^{(m)} -2u_{j}^{(m)} + u_{j-1}^{(m)} \right) +Q(j\Delta x, m \Delta t) \\
+u_0^{(m)} &= A(m\Delta t) \\
+u_N^{(m)} &= B(m\Delta t) \\
+u_j^{(m)} &= f(j\Delta x) ~. \\
+\end{align*}
+The stability analysis for homogeneous problems is valid for nonhomogeneous problems.Thus, $s=\dfrac{k \Delta t}{(\Delta x)^2} \leqslant \frac{1}{2}$.
+
+
+
+
+\subsection{Other Numerical Schemes}
+The numerical scheme for the heat equation, which uses the centered difference in space and forward difference in time, is stable if $s=k\dfrac{\Delta t}{(\Delta x)^2} \leqslant 2$. The time step is small [being proportional to $(\Delta x)^2$].
+
+\subsubsection{Richardson's scheme}
+Use centered differences in both space and time
+\begin{equation}
+\frac{u_j^{(m+1)} -u_j^{(m-1)} }{\Delta t} = \frac{k}{(\Delta x)^2} \left[u_{j+1}^{(m)} -2u_{j}^{(m)} + u_{j-1}^{(m)}  \right]
+\end{equation}
+or
+\begin{equation}
+u_j^{(m+1)} = u_j^{(m-1)} +s\left[u_{j+1}^{(m)} -2u_{j}^{(m)} + u_{j-1}^{(m)}  \right]
+\end{equation}
+The truncation error is the sum of a $(\Delta t)^2$ and $(\Delta x)^2$ terms. This numerical method is always unstable.
+
+\subsubsection{Crank-Nicolson scheme}
+The forward difference in time
+\begin{equation*}
+\dfrac{\partial u}{\partial t} \approx \frac{u(t+\Delta t) -u(t) }{\Delta t}
+\end{equation*}
+may be interpreted as the centered difference around $t+\Delta t/2$. The error in approximating $\dfrac{\partial u}{\partial t}(t+\Delta t/2)$ is $O(\Delta t)^2$. We discretize the second derivative at $t+\Delta t/2$ with a centered difference scheme. Since this involves functions evaluated at this in-between time, we take the average at $t$ and $t+\Delta t$.
+\begin{equation}
+\color{red} \frac{u_j^{(m+1)} -u_j^{(m)} }{\Delta t} = \frac{k}{2} \left[\frac{u_{j+1}^{(m)} -2u_{j}^{(m)} + u_{j-1}^{(m)} }{(\Delta x)^2} + \frac{u_{j+1}^{(m+1)} -2u_{j}^{(m+1)} + u_{j-1}^{(m+1)} }{(\Delta x)^2} \right]
+\end{equation}
+the truncation error remains the sum of two terms, one $(\Delta x)^2$ and the other $(\Delta t)^2$. The advantage of the Crank-Nicolson method is that the scheme is stable for all $s=\dfrac{k\Delta t}{(\Delta x)^2}$. $\Delta t$ can be as large as desired. 
+
+\subsection{Other Types of Boundary Condition}
+\textcolor{blue}{$\dfrac{\partial u}{\partial x}=g(t)$ at $x=0$} (rather than $u$ being given at $x=0$). Since the discretization of the partial differential equation has an $O(\Delta x)^2$ truncation error, introduce an equal error in the boundary condition by using a centered difference in space
+\begin{equation}
+\dfrac{\partial u}{\partial x}  \approx \frac{u(x+\Delta x, t) -u(x-\Delta x, t)}{2\Delta x} ~.
+\end{equation}
+The boundary condition $\dfrac{\partial u}{\partial x}=g(t)$ at $x=0$ becomes
+\begin{equation}
+\frac{u_1^{(m)} -u_{-1}^{(m)} }{2\Delta x} = g(t) = g(m\Delta t) = g_m ~.
+\end{equation}
+The temperature at the fictitious point $(x_{-1} =-\Delta x)$:
+\begin{equation}
+u_{-1}^{(m)} = u_{1}^{(m)} -2\Delta x g_m~.
+\end{equation}
+we determine the value at the fictitious point initially, $u_{-1}^{(0)}$. This fictitious point is needed to compute the boundary temperature at later times via the partial difference equation. At $x=0 (j=0)$
+\begin{align*}
+u_{0}^{(m+1)} &= u_{0}^{(m)} +s\left(u_{1}^{(m)} -2u_{0}^{(m)} +u_{-1}^{(m)}\right) \\
+&= u_{0}^{(m)} +s\left(u_{1}^{(m)} -2u_{0}^{(m)} +u_{1}^{(m)} -2\Delta x g_m\right)
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Two-Dimensional Heat Equation}
+\begin{align*}
+\dfrac{\partial u}{\partial t} &= k \left( \dfrac{\partial^2 u}{\partial x^2} +\dfrac{\partial^2 u}{\partial y^2}  \right)
+\end{align*}
+Introduce a two-dimensional mesh(or latice), where we asume that $\Delta x= \Delta y$,
+\begin{equation}
+\frac{u_{j,l}^{(m+1)} -u_{j,l}^{(m)} }{\Delta t} = \frac{k}{(\Delta x)^2} \left[u_{j+1,l}^{(m)} +u_{j-1,l}^{(m)} +u_{j,l+1}^{(m)} +u_{j,l-1}^{(m)} -4u_{j,l}^{(m)}\right]
+\end{equation}
+where $u_{j,l}^{(m)} \approx u(j\Delta x, l\Delta y, m\Delta t)$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Partial Differential Equations}
+\cite{1992nrc.book.....P} Partial differential equations (PDEs) are classified into the three categories, hyperbolic, parabolic, and elliptic, on the basis of their characteristics, or curves of information propagation. The prototypical example of a hyperbolic equation is the one-dimensional wave equation
+\begin{equation}
+\frac{\partial^2 u}{\partial t^2} = v^2 \frac{\partial^2 u}{\partial x^2}
+\label{wave}
+\end{equation}
+where $v =$ constant is the velocity of wave propagation. The prototypical parabolic equation is the diffusion equation
+\begin{equation}
+\frac{\partial u}{\partial t} = \frac{\partial}{\partial x} \left(D \frac{\partial u}{\partial x} \right)
+\label{diffu}
+\end{equation}
+where $D$ is the diffusion coefficient. The prototypical elliptic equation is the Poisson equation
+\begin{equation}
+\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = \rho(x, y)
+\label{poiss}
+\end{equation}
+Equations (\ref{wave}) and (\ref{diffu}) both define \textcolor{red}{initial value} or \textcolor{red}{Cauchy} problems: If information on $u$ (perhaps including time derivative information) is given at some initial time $t_0$ for all $x$, then the equations describe how $u(x,t)$ propagates itself forward in time. In other words, equations (\ref{wave}) and (\ref{diffu}) describe time evolution. 
+
+Equation (\ref{poiss}) directs us to find a single ``static" function $u(x, y)$ which satisfies the equation within some $(x, y)$ region of interest, and which - one must also specify - has some desired behavior on the boundary of the region of interest. These problems are called \textcolor{red}{boundary value} problems. It is not possible stably to just ``integrate in from the boundary" in the same sense that an initial value problem can be ``integrated forward in time".
+
+\section{Initial Value Problems}
+One's principal computational concern must be the stability of the algorithm. 
+
+\subsection{Flux-Conservative Initial Value Problems}
+The flux-conservative equation
+\begin{equation}
+\frac{\partial \vec{u} }{\partial t} = - \frac{\partial \vec{F} }{\partial x} 
+\end{equation}
+where $\vec{u}$ and $\vec{F}$ are vectors, and where (in some cases) $\vec{F}$ may depend not only on $\vec{u}$ but also on spatial derivatives of $\vec{u}$. The vector $\vec{F}$ is called the conserved flux.
+
+The one-dimensional wave equation with constant velocity of propagation $v$ is
+\begin{equation}
+\frac{\partial^2 u}{\partial t^2} = v^2 \frac{\partial^2 u}{\partial x^2}
+\end{equation}
+can be rewritten as a set of two first-order equations
+\begin{align}
+\frac{\partial r}{\partial t} = v\frac{\partial s}{\partial x} \\
+\frac{\partial s}{\partial t} = v\frac{\partial r}{\partial x}
+\end{align}
+where
+\begin{align}
+r &\equiv v\frac{\partial u}{\partial x} \\
+s &\equiv \frac{\partial u}{\partial t} 
+\end{align}
+\begin{equation}
+\vec{F}(\vec{u}) = \left(
+\begin{aligned}
+&0 & -v \\
+&-v & 0 
+\end{aligned}
+\right) \cdot \vec{u}
+\end{equation}
+
+The equation for a scalar $u$,
+\begin{equation}
+\frac{\partial u}{\partial t} = -v\frac{\partial u}{\partial x}
+\end{equation}
+with $v$ a constant. The general solution of this equation is a wave propagating in the positive $x$-direction,
+\begin{equation}
+u = f(x -vt)
+\end{equation}
+where $f$ is an arbitrary function.
+
+Choose equally spaced points along both the $t$- and $x$-axes,
+\begin{align}
+x_j &= x_0 +j\Delta x \\
+t_n &= t_0 +n\Delta t
+\end{align}
+Let $u^n_j$ denote $u(t_n , x_j)$. 
+\begin{equation}
+\frac{\partial u}{\partial t} \Bigg|_{j,n} = \frac{u_{j}^{n+1} -u_{j}^{n} }{\Delta t} +O(\Delta t)
+\end{equation}
+which is called \textcolor{red}{forward Euler differencing}. While forward Euler is only first-order accurate in $\Delta t$,  one is able to calculate quantities at timestep $n+1$ in terms of only quantities known at timestep $n$. 
+\begin{equation}
+\frac{\partial u}{\partial x} \Bigg|_{j,n} = \frac{u_{j+1}^{n} -u_{j-1}^{n} }{2\Delta x} +O(\Delta x^2)
+\end{equation}
+The FTCS representation (Forward Time Centered Space) is
+\begin{equation}
+\frac{u_{j}^{n+1} -u_{j}^{n} }{\Delta t} = -v \left( \frac{u_{j+1}^{n} -u_{j-1}^{n} }{2\Delta x}\right)
+\label{ftcs}
+\end{equation}
+The FTCS representation is an explicit scheme. This means that $u^{n+1}_j$ for each $j$ can be calculated explicitly from the quantities that are already known. The implicit schemes require us to solve implicit equations coupling
+the $u^{n+1}_j$ for various $j$. The FTCS algorithm is also an example of a single-level scheme, since only values at time level $n$ have to be stored to find values at time level $n+1$.
+
+\subsection{von Neumann Stability Analysis}
+The von Neumann analysis is local: Imagine that the coefficients of the difference equations are so slowly varying as to be considered constant in space and time. In that case, the independent solutions, or eigenmodes, of the difference equations are all of the form
+\begin{equation}
+u_j^n = \xi^n e^{ikj\Delta x}
+\end{equation}
+where $k$ is a real spatial wave number (which can have any value) and $\xi = \xi(k)$ is a complex number that depends on $k$. The time dependence of a single eigenmode is nothing more than successive integer powers of the complex number $\xi$. The difference equations are unstable (have exponentially growing modes) if $|\xi(k)| > 1$ for some $k$. The number $\xi$ is called the amplification factor at a given wave number $k$.
+\begin{equation}
+\xi(k) = 1-i\frac{v\Delta t}{\Delta x} \sin k \Delta x
+\end{equation}
+whose modulus is $> 1$ for all $k$. so the \textcolor{yellow}{FTCS scheme is unconditionally unstable}.
+
+If the velocity $v$ were a function of $t$ and $x$, then we would write $v_j^n$ in equation (\ref{ftcs}). In the von Neumann stability analysis $v$ would still be treated as a constant, the idea being that for $v$ slowly varying the analysis is local. Even in the case of strictly constant $v$, the von Neumann analysis does not rigorously treat the
+end effects at $j = 0$ and $j = N$.
+
+If the equation's right-hand side were nonlinear in $u$, a von Neumann analysis would linearize by writing $u = u_0 + \delta u$, expanding to linear order in $\delta u$. Assuming that the $u_0$ quantities already satisfy the difference equation exactly, the analysis would look for an unstable eigenmode of $\delta u$.
+
+\subsubsection{Lax Method}
+The instability in the FTCS method can be cured by a simple change due to Lax. Replaces the term $u^n_j$ in the time derivative term by its average
+\begin{equation}
+u^n_j \rightarrow \frac{1}{2} (u^n_{j+1} +u^n_{j-1})
+\end{equation}
+\begin{equation}
+u_{j}^{n+1} =\frac{1}{2} (u^n_{j+1} +u^n_{j-1}) -\frac{v\Delta t }{2\Delta x}\left(u_{j+1}^{n} -u_{j-1}^{n} \right)
+\end{equation}
+The amplification factor is
+\begin{equation}
+\xi = \cos k \Delta x -i \frac{v\Delta t }{\Delta x} \sin k \Delta x 
+\end{equation}
+The stability condition $|\xi|^2 \leqslant 1$ leads to the requirement
+\begin{equation}
+\frac{|v|\Delta t }{\Delta x} \leqslant 1
+\end{equation}
+It is \textcolor{red}{Courant-Friedrichs-Lewy stability criterion}, often called simply the \textcolor{red}{Courant condition}.
+
+\begin{equation}
+\frac{u_{j}^{n+1} -u_{j}^{n} }{\Delta t} = -v \left( \frac{u_{j+1}^{n} -u_{j-1}^{n} }{2\Delta x}\right) +\frac{1}{2} \left( \frac{u_{j+1}^{n} -2u_j^n + u_{j-1}^{n} }{\Delta t}\right) ~,
+\end{equation}
+which is exactly the FTCS representation of the equation
+\begin{equation}
+\frac{\partial u}{\partial t} = -v\frac{\partial u}{\partial x} +\frac{(\Delta x)^2}{2\Delta t} \nabla^2 u ~.
+\end{equation}
+The Lax scheme is said to have numerical dissipation, or numerical viscosity. Unless $|v|\Delta t$ is exactly equal to $\Delta x$, $|\xi| < 1$ and the amplitude of the wave decreases spuriously.
+
+ The scales to study accurately are those that encompass many grid points, so that they have $k\Delta x \ll 1$. For these scales, the amplification factor can be seen to be very close to one, in both the stable and unstable schemes. The stable and unstable schemes are therefore about equally accurate. For the unstable scheme, however, short scales with $k\Delta x \sim 1$, which we are not interested in, will blow up and swamp the interesting part of the solution. Much better to have a stable scheme in which these short wavelengths die away innocuously. Both the stable and the unstable schemes are inaccurate for these short wavelengths, but the inaccuracy is of a tolerable character when the scheme is stable.
+
+When the independent variable $\vec{u}$ is a vector,
+\begin{equation}
+\frac{\partial }{\partial t}
+\begin{bmatrix}
+r \\ 
+s
+\end{bmatrix}
+= \frac{\partial }{\partial x}
+\begin{bmatrix}
+vs \\ 
+vr
+\end{bmatrix}
+\label{u_vector}
+\end{equation}
+The Lax method for this equation is
+\begin{align}
+r_{j}^{n+1} &=\frac{1}{2} (r^n_{j+1} +r^n_{j-1}) -\frac{v\Delta t }{2\Delta x}\left(s_{j+1}^{n} -s_{j-1}^{n} \right) \\
+s_{j}^{n+1} &=\frac{1}{2} (s^n_{j+1} +s^n_{j-1}) -\frac{v\Delta t }{2\Delta x}\left(r_{j+1}^{n} -r_{j-1}^{n} \right)
+\end{align}
+assume that the eigenmode is
+\begin{equation}
+\begin{bmatrix}
+r_j^n \\ 
+s_j^n
+\end{bmatrix}
+= \xi^n e^{ikj\Delta x} 
+\begin{bmatrix}
+r^0 \\ 
+s^0
+\end{bmatrix}
+\end{equation}
+The vector on the right-hand side is a constant (both in space and in time) eigenvector, and $\xi$ is a complex number.
+\begin{equation}
+\begin{bmatrix}
+(\cos k\Delta x) -\xi & i\dfrac{v\Delta t }{\Delta x} \sin k\Delta x \\ 
+i\dfrac{v\Delta t }{\Delta x} \sin k\Delta x & (\cos k\Delta x) -\xi
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+r^0 \\ 
+s^0
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\ 
+0
+\end{bmatrix}
+\end{equation}
+Only if the determinant of the matrix on the left vanishes, i.e.
+\begin{equation}
+\xi = \cos k\Delta x \pm i \dfrac{v\Delta t }{\Delta x} \sin k\Delta x 
+\end{equation}
+The stability condition is that both roots satisfy $|\xi| \leqslant 1$.
+
+\subsubsection{Other Varieties of Error}
+Finite-difference schemes for hyperbolic equations can exhibit dispersion, or phase errors.
+\begin{equation}
+\xi = e^{-ik\Delta x} +i\left(1- \dfrac{v\Delta t }{\Delta x} \right) \sin k\Delta x 
+\end{equation}
+An arbitrary initial wave packet is a superposition of modes with different $k$'s. At each timestep the modes get multiplied by different phase factors, depending on their value of $k$.  If $\Delta t = \Delta x/v$, then the exact solution for each mode of a wave packet $f(x − vt)$ is obtained if each mode gets multiplied by $\exp(-ik\Delta x)$. For this value of $\Delta t$, equation shows that the finite-difference solution gives the exact analytic result. However, if $v \Delta t/\Delta x$ is not exactly $1$, the phase relations of the modes can become hopelessly garbled and the wave packet disperses. The dispersion becomes large as soon as the wavelength becomes comparable to the grid spacing $\Delta x$.
+
+nonlinear instability : 
+\begin{equation}
+\frac{\partial v}{\partial t} = -v\frac{\partial v}{\partial x} +\cdots
+\end{equation}
+The nonlinear term in $v$ can cause a transfer of energy in Fourier space from long wavelengths to short wavelengths. This results in a wave profile steepening until a vertical profile or ``shock" develops. Since the von Neumann analysis suggests that the stability can depend on $k\Delta x$, a scheme that was stable for shallow profiles can become unstable for steep profiles. This kind of difficulty arises in a differencing scheme where the cascade in Fourier space is halted at the shortest wavelength representable on the grid, that is, at $k \sim 1/\Delta x$. If energy simply accumulates in these modes, it eventually swamps the energy in the long wavelength modes of interest.
+
+For wave equations, propagation errors (amplitude or phase) are usually most worrisome. For advective equations, transport errors are usually of greater concern.
+
+
+The simplest way to model the transport properties ``better" is to use \textcolor{red}{upwind differencing}
+\begin{equation}
+\frac{u_{j}^{n+1} -u_{j}^{n} }{\Delta t} = -v_j^n \left\{ 
+\begin{aligned}
+\frac{u_{j}^{n} -u_{j-1}^{n} }{\Delta x} ~, ~~ u_j^n > 0 \\
+\frac{u_{j+1}^{n} -u_{j}^{n} }{\Delta x}~, ~~ u_j^n < 0
+\end{aligned}
+\right.
+\end{equation}
+This scheme is only first-order, not second-order, accurate in the calculation of the spatial derivatives. Upwind differencing generally adds fidelity to problems where the advected variables are liable to undergo sudden changes of state, e.g., as they pass through shocks or other discontinuities. The amplification factor (for constant $v$) is
+
+
+
+
+
+\subsubsection{Second-Order Accuracy in Time}
+When using a method that is first-order accurate in time but second-order accurate in space, one generally has to take $v\Delta t$ significantly smaller than $\Delta x$ to achieve desired accuracy
+
+The staggered leapfrog method for the conservation equation is to use the values of $u^n$ at time $t^n$, compute the fluxes $F_j^n$. Then compute new values $u^{n+1}$ using the time-centered values of the fluxes:
+\begin{equation}
+u_{j}^{n+1} -u_{j}^{n-1} = -\frac{\Delta t}{\Delta x} (F_{j+1}^{n} -F_{j-1}^{n})
+\end{equation}
+The time levels in the time derivative term ``leapfrog" over the time levels in the space derivative term.
+
+For equation
+\begin{equation}
+\frac{\partial u}{\partial t} = -v\frac{\partial u}{\partial x} ~,
+\end{equation}
+staggered leapfrog takes the form
+\begin{equation}
+u_{j}^{n+1} -u_{j}^{n-1} = -\frac{v \Delta t}{\Delta x} (u_{j+1}^{n} -u_{j-1}^{n})
+\end{equation}
+The von Neumann stability analysis now gives a quadratic equation for $\xi$,
+\begin{equation}
+\xi^2 -1 = -2i\xi \frac{v \Delta t}{\Delta x} \sin k \Delta x
+\end{equation}
+\begin{equation}
+\xi = -i \frac{v \Delta t}{\Delta x} \sin k \Delta x \pm \sqrt{1- \left(\frac{v \Delta t}{\Delta x} \sin k \Delta x \right)^2}
+\end{equation}
+$|\xi|^2 = 1$ for any $v\Delta t \leqslant \Delta x$. The great advantage of the staggered leapfrog method is that there is no amplitude dissipation.
+
+For equation (\ref{u_vector}), if the variables are centered on appropriate half-mesh points
+\begin{align}
+r^n_{j+1/2} \equiv v \frac{\partial u}{\partial x} \Bigg|^n_{j+1/2} = v \frac{u_{j+1}^{n} -u_{j}^{n} }{\Delta x} \\
+s_j^{n+1/2} \equiv  \frac{\partial u}{\partial t} \Bigg|_j^{n+1/2} = \frac{u_{j}^{n+1} -u_{j}^{n} }{\Delta t}
+\end{align}
+the leapfrog differencing is
+\begin{align}
+\frac{r_{j+1/2}^{n+1} -r^n_{j+1/2} }{\Delta t} &= \frac{s_{j+1}^{n+1/2} -s_{j}^{n+1/2} }{\Delta x} \\
+\frac{s_{j}^{n+1/2} -s^{n-1/2}_{j} }{\Delta t} &= v \frac{r_{j+1/2}^{n} -r_{j-1/2}^{n} }{\Delta x} ~,
+\end{align}
+there is no amplitude dissipation when Courant condition required for stability is satisfied.
+\begin{equation}
+\frac{u_{j}^{n+1} -2u_j^n + u_{j}^{n-1} }{(\Delta t)^2} = v^2 \frac{u_{j+1}^{n} -2u_j^n + u_{j-1}^{n} }{(\Delta x)^2}
+\end{equation}
+For nonlinear equations, the leapfrog method usually becomes unstable when the gradients get large. The instability is related to the fact that odd and even mesh points are completely decoupled.
+
+The Two-Step Lax-Wendroff scheme is a second-order in time method which avoids large numerical dissipation and mesh drifting.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Fluid Dynamics with Shocks}
+There are basically three important general methods for handling shocks. The oldest and simplest method is to add artificial viscosity to the equations, modeling the way Nature uses real viscosity to smooth discontinuities. This scheme is excellent for nearly all problems in one spatial dimension.
+
+The second method combines a high-order differencing scheme that is accurate for smooth flows with a low order scheme that is very dissipative and can smooth the shocks. Various upwind differencing schemes are combined using weights chosen to zero the low order scheme unless steep gradients are present, and also chosen to enforce various ``monotonicity" constraints that prevent nonphysical oscillations from appearing in the numerical solution.
+
+The third is \textcolor{red}{Godunov's approach}. Here one gives up the simple linearization inherent in finite differencing based on Taylor series and includes the nonlinearity of the equations explicitly. There is an analytic solution for the evolution of two uniform states of a fluid separated by a discontinuity, the Riemann shock problem. Godunov's idea was to approximate the fluid by a large number of cells of uniform states, and piece them together using the Riemann solution.
+
+
+\subsection{Diffusive Initial Value Problems}
+Assume $D$ is a constant. The equation becomes
+\begin{equation}
+\frac{\partial u}{\partial t} = D \frac{\partial^2 u}{\partial x^2} ~,
+\label{D_const}
+\end{equation}
+which is
+\begin{equation}
+\frac{u_j^{n+1} -u_j^{n}}{\Delta t} = D \left[\frac{u_{j+1}^{n} -2u_j^{n} +u_{j-1}^{n}}{(\Delta x)^2} \right]
+\end{equation}
+The FTCS scheme was unstable for the hyperbolic equation. The amplification factor is
+\begin{equation}
+\xi = 1-\frac{4D \Delta t}{(\Delta x)^2} \sin^2 \left(\frac{k \Delta x}{2} \right)
+\end{equation}
+The requirement $|\xi| \leqslant 1$ leads to the stability criterion
+\begin{equation}
+\frac{2D \Delta t}{(\Delta x)^2} \leqslant 1
+\label{crit}
+\end{equation}
+i.e. the maximum allowed timestep is, up to a numerical factor, the diffusion time across a cell of width $\Delta x$.
+
+The diffusion time $\tau$ across a spatial scale of size $\lambda$ is of order
+\begin{equation}
+\tau \sim \frac{\lambda^2 }{D}
+\end{equation}
+If we are limited to timesteps satisfying (\ref{crit}), we will need to evolve through of order $\left(\dfrac{\lambda^2}{(\Delta x)^2} \right)$ steps before things start to happen on the scale of interest.
+
+There are two different answers, each of which has its pros and cons. The first answer is to seek a differencing scheme that drives small-scale features to their equilibrium forms, e.g., satisfying equation (\ref{D_const}) with the left-hand side set to zero. This answer generally makes the best physical sense. But it leads to a differencing scheme (“fully implicit”) that is only first-order accurate in time for the scales that we are interested in. The second answer is to let small-scale features maintain their initial amplitudes, so that the evolution of the larger-scale features of interest takes place superposed with a kind of ``frozen in" (though fluctuating) background of small-scale stuff. This gives a differencing scheme (``Crank- Nicholson") that is second-order accurate in time. Toward the end of an evolution calculation, however, one might want to switch over to some steps of the other kind, to drive the small-scale stuff into equilibrium. 
+
+Consider
+\begin{equation}
+\frac{u_j^{n+1} -u_j^{n}}{\Delta t} = D \left[\frac{u_{j+1}^{n+1} -2u_j^{n+1} +u_{j-1}^{n+1}}{(\Delta x)^2} \right]
+\label{full_impli}
+\end{equation}
+Schemes with this character are called fully implicit or backward time, by contrast with FTCS (which is called fully
+explicit). 
+\begin{equation}
+-\alpha u_{j-1}^{n+1} +(1+2\alpha)u_j^{n+1} -\alpha u_{j+1}^{n+1} = u_j^n ~, ~~ j = 1, 2, \cdots, J-1
+\end{equation}
+where
+\begin{equation}
+\alpha \equiv \frac{D \Delta t}{(\Delta x)^2} 
+\end{equation}
+In the limit $\alpha \rightarrow \infty (\Delta t \rightarrow \infty)$. Dividing by $\alpha$, the difference equations are just the finite-difference form of the equilibrium equation
+\begin{equation}
+\frac{\partial^2 u}{\partial x^2} = 0 
+\end{equation}
+The amplification factor for equation (\ref{full_impli}) is
+\begin{equation}
+\xi = \frac{1}{1+4\alpha \sin^2 \left(\dfrac{k \Delta x}{2} \right) } ~,
+\end{equation}
+$|\xi| < 1$ for any stepsize $\Delta t$. The scheme is unconditionally stable. The details of the small-scale evolution from the initial conditions are obviously inaccurate for large $\Delta t$. But, as advertised, the correct equilibrium solution is obtained. This is the characteristic feature of implicit methods.
+
+Form the average of the explicit and implicit FTCS schemes:
+\begin{equation}
+\frac{u_j^{n+1} -u_j^{n}}{\Delta t} = \frac{D}{2} \left[\frac{(u_{j+1}^{n+1} -2u_j^{n+1} +u_{j-1}^{n+1}) +(u_{j+1}^{n} -2u_j^{n} +u_{j-1}^{n}) }{(\Delta x)^2} \right] ~,
+\end{equation}
+both the left- and right-hand sides are centered at timestep $n + \dfrac{1}{2}$, so the method is second-order accurate in time as claimed. The amplification factor is
+\begin{equation}
+\xi = \frac{1-2\alpha \sin^2 \left(\dfrac{k \Delta x}{2} \right)}{1+2\alpha \sin^2 \left(\dfrac{k \Delta x}{2} \right) } ~,
+\end{equation}
+the method is stable for any size $\Delta t$. This scheme is called the Crank-Nicholson scheme.
+
+If $D = D(x)$, make an analytic change of variable
+\begin{equation}
+y = \int \frac{\dif x}{D(x)} ~,
+\end{equation}
+\begin{align}
+& \frac{\partial u}{\partial t} = \frac{\partial}{\partial x} \left(D(x) \frac{\partial u}{\partial x} \right) \\
+\Longrightarrow & \frac{\partial u}{\partial t} = \frac{1}{D(y)} \frac{\partial^2 u}{\partial y^2}
+\end{align}
+$D$ is evaluated at the appropriate $y_j$. The stability criterion in an explicit scheme becomes
+\begin{equation}
+\Delta t \leqslant \underset{j}{\rm min} \left[\frac{(\Delta y)^2}{2D_j^{-1} } \right]
+\end{equation}
+The constant spacing $\Delta y$ in $y$ does not imply constant spacing in $x$.
+
+Alternative method is
+\begin{equation}
+\frac{u_j^{n+1} -u_j^{n}}{\Delta t} =  \left[\frac{D_{j+1/2}(u_{j+1}^{n} -u_j^{n} ) -D_{j-1/2}(u_{j}^{n} -u_{j-1}^{n} ) }{(\Delta x)^2} \right]
+\end{equation}
+where
+\begin{equation}
+D_{j+1/2} \equiv D(x_{j+1/2})
+\end{equation}
+and the heuristic stability criterion is
+\begin{equation}
+\Delta t \leqslant \underset{j}{\rm min} \left[\frac{(\Delta x)^2}{2D_{j+1/2} } \right]
+\end{equation}
+
+For nonlinear diffusion, $D = D(u)$, 
+
+
+\subsubsection{Schr\"odinger Equation}
+The physical problem imposes constraints on the differencing scheme. Consider the time-dependent Schr\"odinger equation of quantum mechanics. For the scattering of a wavepacket by a one-dimensional potential $V(x)$, 
+\begin{equation}
+i \frac{\partial \psi}{\partial t} = -\frac{\partial^2 \psi}{\partial x^2} +V\psi
+\end{equation}
+One is given the initial wavepacket, $\psi(x, t = 0)$, together with boundary conditions that $\psi \rightarrow 0$ at $x \rightarrow \pm \infty$. An first- order accuracy in time and implicit scheme for stability is
+\begin{equation}
+i \left[\frac{\psi_j^{n+1} -\psi_j^{n}}{\Delta t} \right] = - \left[\frac{u_{j+1}^{n+1} -2u_j^{n+1} +u_{j-1}^{n+1}}{(\Delta x)^2} \right] +V_j \psi^{n+1}_j
+\end{equation}
+for which 
+\begin{equation}
+\xi = \frac{1}{1+i \left[ \dfrac{4\Delta t}{(\Delta x)^2} \sin^2 \left( \dfrac{k \Delta x}{2} \right) +V_j \Delta t \right]}
+\end{equation}
+It is unconditionally stable, but unfortunately is not unitary. It requires that the total probability of finding the particle somewhere remains unity, i.e.
+\begin{equation}
+\int_{-\infty}^\infty |\psi|^2 \dif x = 1
+\end{equation}
+The initial wave function $\psi(x, 0)$ is normalized to satisfy.
+
+\begin{equation}
+i \frac{\partial \psi}{\partial t} = H \psi
+\end{equation}
+where the operator $H$ is
+\begin{equation}
+H = -\frac{\partial^2}{\partial x^2} +V(x)
+\end{equation}
+\begin{equation}
+\psi(x, t) = e^{-iHt} \psi(x, 0)
+\end{equation}
+The unstable explicit FTCS scheme is
+\begin{equation}
+\psi_j^{n+1} = (1-iH \Delta t)\psi_j^{n}
+\end{equation}
+where $H$ is represented by a centered finite-difference approximation in $x$. The stable implicit scheme is
+\begin{equation}
+\psi_j^{n+1} = (1+iH \Delta t)^{-1} \psi_j^{n}
+\end{equation}
+These are both first-order accurate in time. However, \textcolor{cyan}{neither operator is unitary}.
+
+\textcolor{red}{Cayley's form} for the \textcolor{orange}{finite-difference representation of $e^{-iHt}$}, which is second-order accurate and unitary, is
+\begin{equation}
+e^{-iHt} \simeq \frac{1-\dfrac{1}{2} iH \Delta t}{1+\dfrac{1}{2} iH \Delta t}
+\end{equation}
+i.e.
+\begin{equation}
+(1+\dfrac{1}{2} iH \Delta t) \psi_j^{n+1} = (1-\dfrac{1}{2} iH \Delta t) \psi_j^n
+\end{equation}
+It is \textcolor{blue}{stable, unitary, and second-order accurate in space and time}.
+
+\subsection{Initial Value Problems in Multidimensions}
+First run your programs on very small grids, e.g., $8\times 8$, even though the resulting accuracy is so poor as to be useless. When your program is all debugged and demonstrably stable, then you can increase the grid size to a reasonable one and start looking at the results. New instabilities sometimes do show up on larger grids; but old instabilities never (in our experience) just go away.
+
+\subsubsection{Lax Method for a Flux-Conservative Equation}
+Consider
+\begin{equation}
+\frac{\partial u}{\partial t} = -\nabla \cdot \vec{F} =-\left(\frac{\partial F_x}{\partial x} +\frac{\partial F_y}{\partial y} \right)
+\end{equation}
+\begin{align}
+x_j = x_0 +j\Delta ~,
+y_l = y_0 +l\Delta ~,
+\end{align}
+where $\Delta x = \Delta y \equiv \Delta$. The Lax scheme is
+\begin{equation}
+u_{j, l}^{n+1} = \frac{1}{4} (u_{j+1, l}^{n} +u_{j-1, l}^{n} +u_{j, l+1}^{n} +u_{j, l-1}^{n}) -\frac{\Delta t}{2\Delta} (F_{j+1, l}^{n} -F_{j-1, l}^{n} +F_{j, l+1}^{n} -F_{j, l-1}^{n})
+\end{equation}
+For 
+\begin{equation}
+F_x = v_x u, ~~ F_y = v_y u ~,
+\end{equation}
+this requires an eigenmode with two dimensions in space, only a dependence on powers of $\xi$ in time,
+\begin{equation}
+u_{j, l}^{n+1} = \xi^n e^{ik_x j\Delta} e^{ik_y l\Delta}
+\end{equation}
+\begin{equation}
+\xi = \frac{1}{2} (\cos k_x \Delta +\cos k_y \Delta) -i\alpha_x \sin k_x \Delta -i\alpha_y \sin k_y \Delta
+\end{equation}
+where
+\begin{align}
+\alpha_x = \frac{v_x \Delta t}{\Delta} ~, ~~\alpha_y = \frac{v_y \Delta t}{\Delta} ~,
+\end{align}
+\begin{align}
+\nonumber |\xi |^2 &= 1-(\sin^2 k_x \Delta +\sin^2 k_y \Delta) \left[\frac{1}{2} -(\alpha_x^2 +\alpha_y^2) \right] \\
+& -\frac{1}{4}(\cos k_x \Delta -\cos k_y \Delta)^2 -(\alpha_y \sin k_x \Delta -\alpha_x \sin k_y \Delta)^2
+\end{align}
+The stability requirement $|\xi |^2 \leqslant 1$ becomes
+\begin{align}
+\frac{1}{2}-(\alpha_x^2 +\alpha_y^2) \geqslant 0 \\
+{\rm or } ~ \Delta t \leqslant \frac{\Delta}{\sqrt{2}(v_x^2 +v_y^2)^{1/2}}
+\end{align}
+
+The N-dimensional Courant condition: If $|v|$ is the maximum propagation velocity in the problem, then
+\begin{equation}
+\Delta t \leqslant \frac{\Delta}{\sqrt{N}|v|}
+\end{equation}
+
+\subsubsection{Diffusion Equation in Multidimensions}
+Consider
+\begin{equation}
+\frac{\partial u}{\partial t} = D  \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} \right)
+\end{equation}
+The Crank-Nicholson scheme in two dimensions is
+\begin{equation}
+u_{j, l}^{n+1} = u_{j, l}^{n} +\frac{\alpha}{2} \left(\delta_x^2 u_{j, l}^{n+1} +\delta_x^2 u_{j, l}^{n} +\delta_y^2 u_{j, l}^{n+1} +\delta_y^2 u_{j, l}^{n} \right)
+\end{equation}
+where
+\begin{align}
+\alpha \equiv \frac{D\Delta t}{\Delta^2} ~, ~~ \Delta \equiv \Delta x = \Delta y ~, \\
+\delta_x^2 u_{j, l}^{n} \equiv u_{j+1, l}^{n} -2u_{j, l}^{n} +u_{j-1, l}^{n}
+\end{align}
+
+A generalizing the Crank-Nicholson algorithm. It is still second-order accurate in time and space, and unconditionally stable, called the \textcolor{red}{alternating-direction implicit method (ADI)}, which embodies the concept of operator splitting or time splitting. Divide each timestep into two steps of size $\Delta t/2$. In each substep, a different dimension is treated implicitly:
+\begin{align}
+u_{j, l}^{n+1/2} &= u_{j, l}^{n} +\frac{\alpha}{2} \left(\delta_x^2 u_{j, l}^{n+1/2} +\delta_y^2 u_{j, l}^{n} \right) \\
+u_{j, l}^{n+1} &= u_{j, l}^{n+1/2} +\frac{\alpha}{2} \left(\delta_x^2 u_{j, l}^{n+1/2} +\delta_y^2 u_{j, l}^{n+1} \right)
+\end{align}
+in which each substep requires only the solution of a simple tridiagonal system.
+
+\subsubsection{Operator Splitting Methods Generally}
+The basic idea of operator splitting, which is also called time splitting or the method of fractional steps, is that suppose an initial value equation of the form
+\begin{equation}
+\frac{\partial u}{\partial t} = \mathscr L u ~,
+\end{equation}
+where $\mathscr L$ is some operator. While $\mathscr L$ is not necessarily linear, suppose that it can at least be written as a linear sum of $m$ pieces, which act additively on $u$,
+\begin{equation}
+\mathscr L u = \mathscr L_1 u +\mathscr L_2 u +\cdots +\mathscr L_m u ~.
+\end{equation}
+Finally, suppose that for each of the pieces, a differencing scheme for updating the variable $u$ from timestep $n$ to timestep $n+1$ is already known, valid if that piece of the operator were the only one on the right-hand side. Write these updatings symbolically as
+\begin{align}
+\nonumber & u^{n+1} = \mathscr U_1(u^n, \Delta t) ~, \\
+\nonumber & u^{n+1} = \mathscr U_2(u^n, \Delta t) ~, \\
+\nonumber & \cdots \\
+& u^{n+1} = \mathscr U_m(u^n, \Delta t) ~.
+\end{align}
+One form of operator splitting would be to get from $n$ to $n+1$ by the following sequence of updatings:
+\begin{align}
+\nonumber & u^{n+1/m} = \mathscr U_1(u^n, \Delta t) ~, \\
+\nonumber & u^{n+2/m} = \mathscr U_2(u^{n+1/m}, \Delta t) ~, \\
+\nonumber & \cdots \\
+& u^{n+1} = \mathscr U_m(u^{n+(m-1)/m}, \Delta t) ~.
+\end{align}
+Let $\mathscr U_1$ now denote an updating method that includes algebraically all the pieces of the total operator $\mathscr L$, but which is desirably stable only for the $\mathscr L_1$ piece; likewise $\mathscr U_2, \cdots, \mathscr U_m$. Then a method of getting from $u^n$ to $u^{n+1}$ is
+\begin{align}
+\nonumber & u^{n+1/m} = \mathscr U_1(u^n, \Delta t/m) ~, \\
+\nonumber & u^{n+2/m} = \mathscr U_2(u^{n+1/m}, \Delta t/m) ~, \\
+\nonumber & \cdots \\
+& u^{n+1} = \mathscr U_m(u^{n+(m-1)/m}, \Delta t/m) ~.
+\end{align}
+The timestep for each fractional step is now only $1/m$ of the full timestep, because each partial operation acts with all the terms of the original operator. Equation is usually, though not always, stable as a differencing scheme for the operator $\mathscr L$. In fact, as a rule of thumb, it is often sufficient to have stable $\mathscr U_i$'s only for the operator pieces having the highest number of spatial derivatives - the other $\mathscr U_i$'s can be unstable - to make the overall scheme stable!
+
+
+
+
+
+
+\section{Boundary Value Problems}
+In contrast to initial value problems, stability is relatively easy to achieve for boundary value problems. The efficiency of the algorithms, both in computational load and storage requirements, becomes the principal concern.
+
+Represent the function $u(x, y)$ by its values at the discrete set of points
+\begin{align}
+x_j = x_0 +j\Delta ~, ~~ j = 0, 1, \cdots, J \\
+y_l = y_0 +l\Delta ~, ~~ l = 0, 1, \cdots, L
+\end{align}
+where $\Delta$ is the grid spacing. 
+\begin{align}
+&\frac{u_{j+1, l} -2u_{j, l} +u_{j-1, l} }{\Delta^2} +\frac{u_{j, l+1} -2u_{j, l} +u_{j, l-1} }{\Delta^2} = \rho_{j, l} \\
+{\rm or} ~ &u_{j+1, l} +u_{j-1, l} +u_{j, l+1} +u_{j, l-1} -4u_{j, l}  = \rho_{j, l} \Delta^2
+\end{align}
+
+\begin{equation}
+\vec{A} \cdot \vec{u} = \vec{b}
+\end{equation}
+There are three different approaches to the solution, not all applicable in all cases: relaxation methods, ``rapid" methods (e.g., Fourier methods), and direct matrix methods.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

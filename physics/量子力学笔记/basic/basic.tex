@@ -1,0 +1,366 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Foundation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{量子力学的假定}\cite{1986qmv1.book.....C} 对一个物理体系的经典描述可归结如下
+\begin{enumerate}[label=(\roman*)]
+\item 体系在确定时刻$t_0$的态，决定于$N$个广义坐标$q_i(t_0)$和$N$个共轭动量$p_i(t_0)$的数值；
+\item 如果知道了体系在指定时刻的态，各物理量在该时刻的值便完全确定。即知道了体系在时刻$t_0$的态，就可以确切地预言在该时刻进行的任何一种测量的结果；
+\item 体系的态随时间演变由Hamilton-Jacobi方程组来确定。只要给定在指定时刻$t_0$的函数值$\{q_i(t_0), p_i(t_0)\}$，此方程组的解$\{q_i(t), p_i(t)\}$就是唯一的。只要知道了体系的初态，便可以确定它在任意时刻的态。
+\end{enumerate}1. 体系的态的描述
+
+用一个平方可积波函数来描述粒子在指定时刻的态。用态空间$\mathscr{E}_r$中的一个右矢和每一个波函数联系起来。给出$\mathscr{E}_r$空间中的右矢$|\psi \rangle$等价于给出对应的波函数$\psi(\vec{r}) = \langle \vec{r}|\psi\rangle$。一个粒子在确定时刻的量子态可由$\mathscr{E}_r$空间中的一个右矢来描述。
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]
+假定一：在确定的时刻$t_0$，一个物理体系的态由态空间$\mathscr{E}$中一个特定的右矢$|\psi(t_0) \rangle$来确定。
+\end{tcolorbox}
+
+由于$\mathscr{E}$是一个矢量空间，该假定隐含着叠加原理：若干态矢量的线性组合也是一个态矢量。
+
+2. 物理量的描述
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]
+假定二：每一个可以测量的物理量$\mathscr{A}$都可以用在$\mathscr{E}$空间中起作用的一个算符$A$来描述。这个算符是一个观察算符。
+\end{tcolorbox}
+
+$A$应当是观察算符。
+
+与经典力学对比，量子力学是以不同的方式来描述体系的态及有关物理量的：\textcolor{red}{态}用\textcolor{red}{矢量}来表示，\textcolor{red}{物理量}用\textcolor{red}{算符}表示。
+
+3. 物理量的测量
+
+a. 可能的结果
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]
+假定三：每次测量物理量$\mathscr{A}$，可能得到的结果，只能是对应的观察算符$A$的本征值之一。
+\end{tcolorbox}
+$A$是厄密算符，所以测量$\mathscr{A}$所得的结果总是实数。
+
+若$A$的谱是分立的，测量$\mathscr{A}$可能得到的结果是量子化的。b. 谱分解原理
+
+考虑一个体系，它在指定时刻的态由右矢$|\psi\rangle$描述，假设这个右矢已归一化为$1$：
+\begin{equation}
+\langle \psi |\psi\rangle = 1
+\end{equation}
+想要预言在该时刻测量体系的物理量$\mathscr{A}$(它与观察算符$A$相联系)所得的结果。
+
+$\alpha$. 分立谱的情况
+
+假设$A$的谱是分立谱。若$A$的全体本征值$a_n$都是非简并的，与一个本征值相联系的本征矢只有一个(除相位因子以外)，即$|u_n\rangle$
+\begin{equation}
+A|u_n\rangle = a_n |u_n \rangle
+\end{equation}
+由于$A$是观察算符，故已归一化的$|u_n\rangle$的集合构成$\mathscr{E}$中的一个正交归一基，态矢量$ |\psi\rangle$写作
+\begin{equation}
+|\psi\rangle = \sum_n c_n |u_n \rangle
+\end{equation}
+假定：测量$\mathscr{A}$时得到结果$a_n$的几率$\mathscr{P}(a_n)$是
+\begin{equation}
+\mathscr{P}(a_n) = |c_n|^2 = |\langle u_n |\psi\rangle|^2
+\end{equation}
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]假定四：（非简并的离散谱）若体系处于已归一化的态$|\psi \rangle$中，则测量物理量$\mathscr{A}$得到的结果为对应观察算符$A$的非简并本征值$a_n$的概率$\mathscr{P}(a_n)$是\begin{equation*}
+\mathscr{P}(a_n) = |\langle u_n|\psi \rangle|^2
+\end{equation*}
+$|u_n \rangle$是的已归一化的本征矢，属于本征值$a_n$。\end{tcolorbox}
+若某些本征值$a_n$是简并的，与之对应的正交归一本征矢$|u_n \rangle$就有若干个：
+\begin{equation}
+A|u_n^i \rangle = a_n |u_n^i \rangle ~, ~~ i = 1, 2, \cdots, g_n
+\end{equation}
+$|\psi \rangle$仍然可以按正交归一基$\{|u_n^i \rangle \}$展开，
+\begin{equation}
+|\psi \rangle = \sum_n \sum_{i=1}^{g_n} c_n^i |u_n^i \rangle
+\end{equation}
+几率$\mathscr{P}(a_n)$
+\begin{equation}
+\mathscr{P}(a_n) = \sum_{i=1}^{g_n} |c_n^i|^2 = \sum_{i=1}^{g_n} |\langle u_n^i |\psi \rangle|^2
+\end{equation}
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]假定四：（离散谱）若体系处于已归一化的态$|\psi \rangle$中，则测量物理量$\mathscr{A}$得到的结果为对应观察算符$A$的本征值$a_n$的概率$\mathscr{P}(a_n)$是
+\begin{equation*}
+\mathscr{P}(a_n) = \sum_{i=1}^{g_n} |\langle u_n^i|\psi \rangle|^2
+\end{equation*}
+$g_n$是$a_n$的简并度，$\{|u^i_n \rangle\} (i = 1, 2, \cdots, g_n)$是一组正交归一矢量，它们在对应于$A$的本征值$a_n$的本征子空间空间$\mathscr{E}_n$中构成一个基。
+\end{tcolorbox}
+该假定要有意义，在$a_n$有简并时，几率$\mathscr{P}(a_n)$必须与$\mathscr{E}$中基$\{|u_n^i \rangle \}$的选择无关。
+
+$\beta$. 连续谱的情况
+
+假定$A$的谱是连续的，且假设并没有简并。$A$的广义上已正交归一化的本征矢集$|v_a \rangle$
+\begin{equation}
+A |v_a \rangle = a |v_a \rangle
+\end{equation}
+构成$\mathscr{E}$空间中的一个连续基。在这个基中可将任意右矢$|\psi \rangle$分解为
+\begin{equation}
+|\psi \rangle = \int \dif a~ c(a) |v_a \rangle
+\end{equation}
+由于测量$\mathscr{A}$的可能结果构成一个连续集合定义几率密度：测量$\mathscr{A}$的值介于$a$和$a+\dif a$之间的几率是
+\begin{equation*}
+\dif \mathscr{P}(a_n) = \rho(a) \dif a
+\end{equation*}
+其中
+\begin{equation*}
+\rho(a) = |c(a)|^2 = |\langle v_a | \psi \rangle|^2
+\end{equation*}
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]假定四：（非简并连续谱）测量处于已归一化的态$|\psi \rangle$的体系的物理量$\mathscr{A}$时，得到介于$a$和$a +\dif a$之间结果的概率$\dif \mathscr{P}(a)$是
+\begin{equation*}
+\dif \mathscr{P}(a) = |\langle v_a|\psi \rangle|^2 \dif a
+\end{equation*}
+$|v_a \rangle$是与$\mathscr{A}$相联系的观察算符$A$的本征矢，属于本征值$a$。
+\end{tcolorbox}
+
+
+$\gamma$. 重要后果
+
+考虑两个右矢$|\psi \rangle$和$|\psi^\prime \rangle$
+\begin{equation}
+|\psi^\prime \rangle = e^{i\theta} |\psi \rangle
+\end{equation}
+$\theta$为实数。若$|\psi \rangle$是归一化的，则$|\psi^\prime \rangle$也是归一化的
+\begin{equation}
+\langle \psi^\prime |\psi^\prime \rangle = \langle \psi | e^{-i\theta} e^{i\theta}| \psi \rangle = \langle \psi | \psi \rangle
+\end{equation}
+
+
+互成比例的两个态矢量表示同一个物理状态。
+
+
+
+总的相位因子对于物理预言没有影响，但展开式中各系数的相对相位则是有影响的。
+
+c. 波包的收缩
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]假定五：如果处于态$|\psi \rangle$的体系测量物理量$\mathscr{A}$得到的结果是$a_n$，则刚测量之后体系的态是$|\psi \rangle$在属于$a_n$的本征子空间上的归一化的投影$\dfrac{P_n|\psi \rangle}{\sqrt{\langle \psi|P_n|\psi \rangle}}$。\end{tcolorbox}
+4. 体系随时间的演变
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]假定六：态矢量$|\psi(t) \rangle$随时间的演变遵从薛定谔方程\begin{equation*}
+i\hbar \dfrac{\dif }{\dif t} |\psi(t) \rangle = H(t) |\psi(t) \rangle
+\end{equation*}
+$H(t)$是与体系的总能量相联系的观察算符。$H$叫做体系的哈密顿算符。\end{tcolorbox}
+5. 量子化规则
+
+对于经典力学中已定义的物理量$\mathscr{A}$，怎样构成在量子力学中描述该物理量的算符$A$。
+
+a. 规则的陈述
+
+考虑处在标量势场中的一个无自旋粒子构成的体系，
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]
+与粒子的位置$\vec{r}(x, y, z)$相联系的是观察算符$\vec{R}(X, Y, Z)$。\\
+与粒子的动量$\vec{p}(p_x, p_y, p_z)$相联系的是观察算符$\vec{P}(P_x, P_y, P_z)$。
+\end{tcolorbox}
+$\vec{R}$和$\vec{P}$的诸分量满足正则对易关系：
+\begin{align}
+& [R_i, R_j] = [P_i, P_j] = 0 \\
+& [R_i, P_j] = i\hbar \delta_{ij}
+\end{align}
+粒子的任何一个物理量$\mathscr{A}$都可以表示为基本力学量$\vec{r}$和$\vec{p}$的函数：$\mathscr{A}(\vec{r}, \vec{p}, t)$。要得到对应的观察算符$A$，在$\mathscr{A}(\vec{r}, \vec{p}, t)$的表达式中，将变量$\vec{r}$和$\vec{p}$换成观察算符$\vec{R}$和$\vec{P}$：
+\begin{equation}
+A(t) = \mathscr{A}(\vec{R}, \vec{P}, t) ~.
+\end{equation}
+
+\begin{equation}
+\vec{r} \cdot \vec{p} = xp_x + yp_y +zp_z = \vec{p} \cdot \vec{r} = p_x x + p_y y +p_z z
+\end{equation}
+在经典力学中标量积$\vec{r} \cdot \vec{p}$是可以对易的。但是若将$\vec{r}$和$\vec{p}$换成对应的观察算符$\vec{R}$和$\vec{P}$，
+\begin{equation}
+\vec{R} \cdot \vec{P} \neq \vec{P} \cdot \vec{R} 
+\end{equation}
+此外，$\vec{R} \cdot \vec{P}$和$\vec{P} \cdot \vec{R} $都不是厄密算符
+
+对称化规则。和$\vec{r} \cdot \vec{p}$相联系的观察算符是
+\begin{equation}
+\dfrac{1}{2} (\vec{R} \cdot \vec{P} +\vec{P} \cdot \vec{R})
+\end{equation}
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= ]
+要得到描述一个已有经典定义的物理量$\mathscr{A}$的观察算符$A$，只需在$\mathscr{A}$的经过适当对称化的表达式中，将$\vec{r}$和$\vec{p}$分别换成观察算符$\vec{R}$和$\vec{P}$。
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

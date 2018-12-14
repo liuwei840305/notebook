@@ -1,0 +1,284 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{不定积分}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{原函数(不定积分)的概念}
+
+若在给定的整个区间上，$f(x)$是函数$F(x)$的导数，或$f(x)\dif x$是$F(x)$的微分
+\begin{equation}
+F^{\prime}(x) = f(x), ~\dif F(x) = f(x) \dif x
+\end{equation}
+那么，在所给定的区间上，函数$F(x)$叫做$f(x)$的\textcolor{red}{原函数}或$f(x)$的积分。
+
+\section{有理式的积分}
+
+\subsection{某些含有根式的函数的积分}
+
+寻求替换$t = \omega(x)$(其中$\omega$本身能用初等函数表示出来)，这替换会把被积表达式化成有理函数的形状，这个方法叫做\textcolor{red}{有理化被积表达式法}。
+
+\subsubsection{形状为$R\left(x, \sqrt[\uproot{10}\leftroot{-2}m]{\dfrac{\alpha x+\beta}{\gamma x+\delta}}  \right)$的积分}
+考虑形如
+\begin{equation}
+\int R\left(x, \sqrt[\uproot{16}\leftroot{-2}m]{\frac{\alpha x+\beta}{\gamma x+\delta}}  \right)
+\end{equation}
+的积分，其中$R$表示两个自变量的有理函数，$m$是\textcolor{red}{自然数}，而$\alpha, \beta, \gamma, \delta$是常数。
+
+令
+\begin{equation}
+t = \omega(x) = \sqrt[\uproot{16}\leftroot{-2}m]{\frac{\alpha x+\beta}{\gamma x+\delta}} , ~t^m = \frac{\alpha x+\beta}{\gamma x+\delta} , ~x = \varphi(t) = \frac{\delta t^m -\beta}{\alpha -\gamma t^m}
+\end{equation}
+则积分变成
+\begin{equation}
+\int R(\varphi(t), t) \varphi^{\prime}(t) \dif t
+\end{equation}
+
+形如
+\begin{equation}
+\int R\left(x, \left(\frac{\alpha x+\beta}{\gamma x+\delta} \right)^r, \left(\frac{\alpha x+\beta}{\gamma x+\delta} \right)^s, \cdots \right) \dif x
+\end{equation}
+其中指数$r, s, \cdots$都是有理数。
+
+
+\subsubsection{二项式微分的积分}
+形如
+\begin{equation}
+x^m (a+bx^n)^p \dif x
+\end{equation}
+的微分式叫做\textcolor{red}{二项式微分}，其中$a, b$是任何常数，而指数$m, n, p$是\textcolor{red}{有理数}。
+
+若用$\lambda$表示分数$m$及$n$的分母的最小公倍数，就有形如$R(\sqrt[\uproot{6}\leftroot{-2}\lambda]{x})\dif x$的表达式。作替换$t = \sqrt[\uproot{6}\leftroot{-2}\lambda]{x}$；
+
+令$z = x^n$，
+\begin{equation}
+x^m (a+bx^n)^p \dif x = \frac{1}{n} (a+bz)^p z^{\frac{m+1}{n} -1} \dif z ,
+\end{equation}
+令
+\begin{equation}
+\frac{m+1}{n} -1 = q ,
+\end{equation}
+即有
+\begin{equation}
+\int x^m (a+bx^n)^p \dif x = \frac{1}{n} \int (a+bz)^p z^{q} \dif z ,
+\label{formu_1}
+\end{equation}
+
+
+\begin{equation}
+t = \sqrt[\uproot{16}\leftroot{-2}\nu]{\frac{a+bz}{z}}
+\end{equation}
+
+若$p, q, p+q$中有一个是整数，或者$p, (m+1)/n, (m+1)/n +p$中有一个是整数，等式(\ref{formu_1})的两个积分都可按有限形状表示出来。
+
+在有限形状中二项微分没有其他可积的情形。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

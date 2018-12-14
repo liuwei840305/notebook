@@ -1,0 +1,387 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref}
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+%\usepackage{fourier}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{CMB的各向异性}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+CMB温度在全天空的分布基本上是均匀各项同性的，平均温度$T_0 = 2.725 \pm 0.002$ K，只存在很小的涨落$\Delta T/T \sim 10^{-5}$;
+
+The current temperature of the CMB is $T_0 = 2.725$ K, i.e. averaging over all locations,
+\begin{equation}
+\left\langle T \right\rangle = \frac{1}{4\pi} \int T(\theta, \phi) \sin \theta \dif \theta \dif \phi = 2.725 \text{K}
+\end{equation}
+and the energy density is
+\begin{equation}
+\epsilon_{\gamma,0} = \alpha T_0^4 = 0.261 ~\text{MeV} \text{m}^{-3},
+\end{equation}
+is only $5\times 10^{-5}$ times the current critical density.
+
+The energy per CMB photon is
+\begin{equation}
+hf_{\text{mean}} = 6.34\times 10^{-4} ~\text{eV},
+\end{equation}
+the number density of CMB photons in the universe is
+\begin{equation}
+n_{\gamma, 0} = 4.11\times 10^8 ~\text{m}^{-3},
+\end{equation}
+
+The current density parameter for baryons is
+\begin{equation}
+\Omega_{b,0} \approx 0.04,
+\end{equation}
+the current density is
+\begin{equation}
+\epsilon_{b, 0} = \Omega_{b,0} \epsilon_{c, 0} \approx 0.04 \times 5200 ~\text{MeV} \text{m}^{-3} \approx 210 ~\text{MeV} \text{m}^{-3},
+\end{equation}
+the energy density in baryons today is about $800$ times the energy density in CMB photons. The rest energy of a proton or neutron is $939$ MeV, the number density of baryons is
+\begin{equation}
+n_{b, 0} = \frac{\epsilon_{b,0}}{E_{b} } \approx \frac{210 ~\text{MeV} \text{m}^{-3} }{939 ~\text{MeV} } \approx 0.22 ~\text{m}^{-3} .
+\end{equation}
+The ratio of baryons to photons in the universe is
+\begin{equation}
+\eta = \frac{n_{b,0}}{n_{\gamma,0} } \approx \frac{0.22 ~\text{m}^{-3} }{ 4.11\times 10^8 ~\text{m}^{-3} } \approx 5\times 10^{-10}
+\end{equation}
+
+The mean photon energy is comparable to the energy of vibration or rotation for a small molecule such as $H_2O$. THus, CMB photons can zip along for more than 13 billion years through the tenuous intergalactic medium, then be absorbed a microsecond away from the Earth's surface by a water molecule in the atmosphere. Microwaves with wavelengths shorter than $\lambda \sim 3$ cm are strongly absorbed by water molecule.
+
+\section{Recombination and decoupling}
+the baryonic matter goes from being an ionized plasma to a gas of neutral atoms,
+
+the universe goes from being opaque to being transparent,
+
+\textcolor{red}{Epoch of recombination}: the time at which the baryonic component of the universe goes from being ionized to being neutral, i.e. the instant in time when the number density of ions is equal to the number density of neutral atoms.
+
+辐射与物质退耦：$1000 \leq z \leq 1200$
+
+\textcolor{red}{Epoch of decoupling}: the time when the rate at which photons scatter from electrons  becomes smaller than the Hubble parameter; when photons decouple, they cease to interact with the electrons, and the universe becomes transparent.
+
+\textcolor{red}{Epoch of last scattering}: the time at which a typical CMB photon underwent its last scattering from an electron. Surrounding every observer in the universe is a \textcolor{red}{last scattering surface}, from which the CMB photons have been streaming freely, with no further scattering by electrons.
+
+
+\section{CMB温度涨落的统计描述}
+密度扰动线性演化；
+
+那时的密度扰动谱与原初扰动谱之间由线性转移函数联系；
+
+the dimensionless temperature fluctuation at a given point on the sky is
+\begin{equation}
+\frac{\delta T}{T}(\theta, \phi) = \frac{T(\theta, \phi) -T_0}{T_0} .
+\end{equation}
+After subtraction of the Doppler dipole, the root mean square temperature fluctuation is
+\begin{equation}
+\left\langle \left(\frac{\delta T}{T}\right)^2 \right\rangle^{1/2} = 1.1 \times 10^{-5}
+\end{equation}
+
+
+全天空CMB温度分布用球谐函数展开
+\begin{equation}
+\frac{\Delta T}{T}(\theta, \phi) = \frac{T(\theta, \phi) -T_0}{T_0} = \sum_{l=0}^{\infty} \sum_{m=-l}^{l} a_{lm} Y_{lm}(\theta, \phi)
+\end{equation}
+$\theta$和$\phi$为球坐标下的极角和方位角；
+
+$Y_{lm}$: 球谐函数
+\begin{equation}
+Y_{lm}(\theta, \phi) = \left[ \frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}  \right]^{1/2} P^{|m|}_l(\cos \theta) e^{im\phi}
+\end{equation}
+$P^{|m|}_l(\cos \theta)$: 缔合Legendre多项式
+\begin{equation}
+P^{|m|}_l(\mu) = (1-\mu^2)^{\frac{|m|}{2}} \frac{\dif^{|m|}}{\dif \mu^{|m|}} P_l (\mu)
+\end{equation}
+
+$Y_{lm}$满足正交归一化条件：
+\begin{equation}
+\int_0^{2\pi} \int_0^{\pi} Y^*_{lm}(\theta, \phi) Y_{l'm'}(\theta, \phi) \sin \theta \dif \theta \dif \phi = \delta_{ll'} \delta_{mm'}
+\end{equation}
+$\Delta T/T$的球谐函数展开类似于密度涨落$\delta (\vec{x})$的平面波展开，但$\Delta T/T$来自天空的球面背景，球面上的正交完备函数集是$Y_{lm}$，正如平面波展开中$\exp(i \vec{k}\cdot \vec{x})$是平直空间中的正交函数集。
+
+\begin{equation}
+a_{lm} = \int_{4\pi} \frac{\Delta T}{T}(\theta, \phi) Y^*_{lm}(\theta, \phi) \dif \Omega
+\end{equation}
+
+\begin{equation}
+\langle a^*_{lm} a_{l'm'} \rangle = C_l \delta_{ll'} \delta_{mm'}
+\end{equation}
+其中的平均是对全天平均\textcolor{red}{?}；
+
+$C_l$: \textcolor{red}{角功率谱}
+\begin{equation}
+C_l = \frac{1}{2l +1} \sum_m a^*_{lm} a_{lm} = \langle |a_{lm}|^2 \rangle
+\end{equation}
+
+CMB的温度涨落也常用\textcolor{red}{自协方差函数}$C(\theta)$定义
+\begin{equation}
+C(\theta) = \left \langle \frac{\Delta T}{T}(\vec{n}_1) \frac{\Delta T}{T}(\vec{n}_2) \right \rangle
+\end{equation}
+$\vec{n}_1$和$\vec{n}_2$为指向天空1和2两个方向的单位矢量，$\vec{n}_1 \cdot \vec{n}_2 = \cos \theta$; 对全天空平均; $\vec{n}_1$和$\vec{n}_2$的夹角始终保持为$\theta$;
+
+由球谐函数的正交性，
+\begin{equation}
+\sum_{lm} Y^*_{lm}(\vec{n}_1) Y_{lm}(\vec{n}_2) = \sum_l \frac{2l+1}{4\pi} P_l (\cos \theta)\textcolor{red}{?}
+\end{equation}
+$P_l (\cos \theta)$: Legendre多项式，
+
+自协方差函数$C(\theta)$与角功率谱$C_l$的关系
+\begin{equation}
+C(\theta) = \frac{1}{4\pi} \sum_l (2l+1) C_l P_l (\cos \theta)\textcolor{red}{?}
+\end{equation}
+N.B. 星系两点相关函数与功率谱的关系，
+
+$l=0$项：对单极矩的改正，亦即宇宙中某个观测者观察到的天空平均温度，相对于宇宙中所有可能的观测者观察到天空温度整体平均值的修正\textcolor{red}{?}；对背景辐射温度各向异性没有贡献，可略去；
+
+$l=1$项：偶极矩，起源于我们附近的宇宙物质密度涨落所引起的本动运动，表现为地球相对于宇宙平均背景的运动，或偏离宇宙哈勃流的运动；局域效应，在对背景辐射温度各向异性的讨论中也可略去；
+
+$l=2$项：四极矩，$l>2$项：多极矩，它们都产生于复合期间或复合后的密度涨落，表示背景辐射的内禀各向异性；较大的$l$相应于较小的$\theta$角内的温度涨落；根据函数$Y_{lm}$的零点分布特征，估计$l$与角分辨率之间大致为$\theta \sim 180^{\circ}/l$。
+
+把辐射亮温度函数$\delta^{(r)}$展开为Legendre多项式，
+\begin{equation}
+\delta_k^{(r)}(\mu, t) = \sum_{l=0}^{\infty} (2l +1) P_l(\mu) (-i)^l \sigma_l(k, t)
+\end{equation}
+$\mu = \cos \theta$：光子动量和波矢量$\vec{k}$之间夹角的余弦\textcolor{red}{?}；可以利用数值计算得到的$\sigma_l$，得出CMB温度涨落的自协方差函数$C(\theta)$，二者关系为
+\begin{equation}
+C(\theta) = \frac{1}{2\pi^2} \int_0^{\infty} \sum_{l \geq 2}(2l +1) \left[\frac{1}{4} \sigma_l(k,t_0) \right]^2 P_l(\cos \theta) k^2 \dif k\textcolor{red}{?}
+\end{equation}
+$1/4$来源于$\Delta T/T = \delta_r/4$
+
+CMBfast
+
+采用\textcolor{red}{温度功率谱$l(l+1)C_l/2\pi$}来描述CMB温度涨落$\delta T$，
+
+实际温度功率谱是一个三维的概念，因为温度即辐射能量是在三维空间中分布的，我们看到的二维分布实际上是三维分布在天球上投影的结果。在空间为平直的情况下，根据Hankel变换，可以得到投影后的角相关函数用三维波数积分表示的形式：\textcolor{red}{?}
+\begin{equation}
+C(\theta) = \int_0^{\infty} F^2(k) J_0(k\theta) \frac{\dif k}{k}
+\end{equation}
+其中
+\begin{equation}
+F^2(k = l+\frac{1}{2}) = \frac{(l+1/2)(2l+1)}{4\pi} C_l ~~~(\text{当}\theta \ll 1, l \gg 1)
+\end{equation}
+为三维空间的功率谱，$J_0$为Bessel函数，
+\begin{equation}
+J_0(z) \simeq \sqrt{\frac{2}{\pi z}} \cos(z-\frac{1}{4} \pi)
+\end{equation}
+当$\theta \ll 1$时，$J_0$的这一表达式与Legendre多项式的近似表示
+\begin{equation}
+P_l (\cos \theta) \simeq \sqrt{\frac{2}{\pi l \sin \theta}} \cos \left[(l+\frac{1}{2})\theta -\frac{1}{4} \pi \right]
+\end{equation}
+当$l$和$z$都很大时，趋于一致，且$l\rightarrow k$；
+
+同时三维功率谱
+\begin{equation}
+F^2(k = l+\frac{1}{2}) = \frac{2l^2 +2l +1/2}{4\pi} C_l \rightarrow \frac{l(l+1)}{2\pi} C_l
+\end{equation}
+是常用的温度功率谱，虽然它的形式是二维球面上的统计描述，但是其中已经包含了三维空间的全部信息；
+
+\begin{equation}
+C(\theta) = \frac{1}{2\pi} \int_0^{\infty} l(l+1) C_l P_l (\cos \theta) \frac{\dif l}{l}\textcolor{red}{?}
+\end{equation}
+
+在对CMB温度涨落的实际测量中，接收天线有一个有限的波束宽度(beamwidth)，使得测量结果不是天球上实际温度的逐点分布，而是经过某种响应函数平滑后的结果；响应函数一般具有Gauss分布：
+\begin{equation}
+F(\theta) = \frac{1}{2\pi \theta_f^2} \exp \left(-\frac{\theta^2}{2\theta_f^2} \right)\textcolor{red}{?}
+\end{equation}
+$\theta_f$：波束的宽度；但通常用$l$代替$\theta$，故
+\begin{equation}
+F_l = \exp \left[ -\left(l+\frac{1}{2} \right)^2 \frac{1}{2} \theta_f^2 \right]\textcolor{red}{?}
+\end{equation}
+
+
+观测到的温度自协方差函数
+\begin{equation}
+C(\theta;\theta_f) = \frac{1}{4\pi} \sum_{l=2}^{\infty} (2l+1)F_l C_l P_l(\cos \theta)\textcolor{red}{?}
+\end{equation}
+
+对于用单波束扫描进行的测量，温度涨落的均方值为
+\begin{equation}
+\left\langle \left(\frac{\Delta T}{T} \right)^2 \right\rangle = \frac{1}{4\pi} \sum (2l+1)C_l F_l = C(0;\theta_f)\textcolor{red}{?}
+\end{equation}
+
+对于用双波束进行的测量，其中每一波束的宽度为$\theta_f$，波束摆度(beam throw)即两个波束之间的夹角$\theta$，温度涨落的均方值为
+\begin{equation}
+\left\langle \left(\frac{\Delta T}{T} \right)^2 \right\rangle = \left\langle \frac{(T_1 -T_2)^2}{T^2} \right\rangle = 2[C(0;\theta_f) -C(\theta;\theta_f)]\textcolor{red}{?}
+\end{equation}
+
+对于用三波束进行的测量，其中间波束为1，其余2、3两个波束与1之间的夹角均为$\theta$，温度涨落的均方值为
+\begin{equation}
+\left\langle \left(\frac{\Delta T}{T} \right)^2 \right\rangle = \left\langle \frac{[T_1 -(T_2+T_3)/2]^2}{T^2} \right\rangle = \frac{3}{2}C(0;\theta_f) -2C(\theta;\theta_f) +\frac{1}{2}C(2\theta;\theta_f)\textcolor{red}{?}
+\end{equation}
+
+地面观测通常受到大气辐射的影响，因而更常用双波束或三波束扫描的方法，以消除大气辐射的干扰；
+
+
+\section{大角尺度上的各向异性：Sachs—Wolfe效应}
+
+
+
+
+
+
+
+\section{中角尺度上的各向异性：Doppler峰与声峰}
+
+
+
+
+\section{小角尺度上的各向异性}
+在小的角尺度上(如$\theta < 1'$)，CMB的各向异性或其温度功率谱迅速减小，
+
+1. 统计原因，当扰动的线度小于最后散射层的厚度
+\begin{equation}
+\lambda_{lsl} \approx 16(\Omega_0 h^2)^{-1/2} ~\text{Mpc}
+\end{equation}
+时，视线方向上会有一系列相互独立的扰动存在于最后散射层，这些扰动的随机迭加，会导致观测到的涨落强度缩减一个因子$N^{-1/2}$，$N$为视线方向上最后散射层里包含的扰动的数目；
+
+2. 阻尼尺度，相应于大约$1'$的张角，在此角度以下，CMB的各向异性几乎都被阻尼衰减掉了；
+
+
+\section{视线方向随时间变化的引力势的影响}
+光子离开最后散射面后，如果在其到达观测者的途中经过一个随时间变化的引力势阱$\dot{\varphi}$，则光子的引力红移将积累为温度的涨落
+\begin{equation}
+\frac{\Delta T}{T} = \int \frac{\dot{\varphi}}{c^2} \frac{\dif l}{c}
+\end{equation}
+${\dif l}$：固有距离的增量；
+引力势阱深度的变化引起经过它的光子温度的涨落，发生在远晚于复合时期之后，与复合时期的物理过程无关，是一种非内禀的涨落；
+
+对于Einstein-de Sitter宇宙，这一效应并不显现；
+
+\textcolor{red}{Rees-Sciama效应}：密度扰动经历非线性增长；小尺度；
+
+\textcolor{red}{积分Sachs-Wolfe效应}：$\Omega_0$明显不等于$1$，因而$\varphi$中的时间变化不能完全相消，引起CMB温度的涨落；大尺度；产生时间很晚($\Omega_0 \neq 1$的影响直到很低红移时才显现)；
+
+\section{Sunyaev-Zel'dovich效应}
+
+\textcolor{red}{Sunyaev-Zel'dovich效应}
+
+许多星系团中的气体是高度电离的，CMB光子经过时，会被热气体中的高能电子Compton散射变成高能光子，使原来位于Rayleigh-Jeans区域的光子频移到Wien区域(Comptonization)，从而造成观测到的CMB谱在星系团方向上产生畸变，
+
+星系团中气体被电离的原因：第一代天体，基本粒子的衰变，早期恒星，活动星系核或类星体能量的注入；
+
+在Rayleigh-Jeans区域，CMB的温度变化为
+\begin{equation}
+\frac{\Delta T}{T} =  -2y = -2 \int \left(\frac{k_B T_e}{m_e c^2} \right) \sigma_T n_e c \dif t
+\end{equation}
+负号表示CMB温度的降低；
+
+视线方向存在热电离气体的观测证据；复合之后再加热和再电离过程；
+
+\textcolor{red}{热S-Z效应}(或\textcolor{red}{运动S-Z效应})：热气体相对于各项同性的CMB有本动运动时所产生的效应；对于这一气体云，在其静止参考系中，CMB光子是各向异性的，但经过热电子散射后，光子重新分布而变为各项同性的；这一本动运动引起的温度涨落为
+\begin{equation}
+\frac{\Delta T}{T} =  \int \sigma_T n_e \frac{v_{||}}{c} \dif l
+\end{equation}
+$\dif l =c \dif t$：光子在气体云中穿过的距离；
+
+$v_{||}$：气体云的本动速度在视线方向的分量；
+
+与光子频率无关；
+
+
+估计星系团径向本动速度；
+
+\section{星系际介质再电离}
+
+IGM再电离对CMB各向异性：
+若整个宇宙空间的IGM自红移$z$开始被全部再电离，将导致CMB光子的\textcolor{red}{Thomson散射光深}为
+\begin{equation}
+\tau = \int_0^{z} \frac{\sigma_T n_e c}{H_0} \frac{\dif z'}{(1+z')^2 \sqrt{1+\Omega_m z'}}
+\end{equation}
+$n_e$：自由电子数密度；当红移$z \gg 1$时，
+\begin{equation}
+\tau \simeq 2.2 \times 10^{-3} \left( \frac{\Omega_b h}{0.03} \right) \left(\frac{\Omega_m}{0.3} \right)^{-1/2} z^{3/2}
+\end{equation}
+
+
+只要宇宙再电离的时刻不早于$z \sim 20$，再电离对CMB温度涨落$\Delta T/T$的观测结果就不会产生显著影响；$\tau \simeq1$相应于$z \simeq 59$，此时宇宙视界张角大约为$\theta \sim z^{-1/2} \sim 7^{\circ}$，CMB温度功率谱中所有的峰结构就会消失，所有关于原初扰动以及复合过程的物理信息就都不复存在；
+
+\section{CMB偏振}
+CMB的偏振产生于最后散射层中的自由电子对CMB的Thomson散射。
+
+
+
+
+
+
+\end{document}

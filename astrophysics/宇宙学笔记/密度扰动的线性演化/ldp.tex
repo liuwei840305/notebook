@@ -1,0 +1,211 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{密度扰动的线性演化}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{}
+
+\textcolor{red}{线性转移函数}
+
+\section{密度扰动功率谱}
+把整个宇宙分割成许多个立方体，立方体之间满足周期性边界条件
+
+密度涨落定义为
+\begin{equation}
+\delta(\vec{x}) = \left[\rho(\vec{x}) -\left\langle \rho \right\rangle \right] /\left\langle \rho \right\rangle 
+\end{equation}
+$\left\langle \rho \right\rangle$: 体积$V$内的平均密度;
+
+把$\delta(\vec{x})$进行平面波展开
+\begin{equation}
+\delta(\vec{x}) = \sum_k \delta_k \exp (i\vec{k}\cdot \vec{x}) = \sum_k \delta^*_k \exp(-i\vec{k}\cdot \vec{x})
+\end{equation}
+周期性边界条件要求
+\begin{equation}
+k_x = n_x \frac{2\pi}{L}, ~k_y = n_y \frac{2\pi}{L}, ~k_z = n_z \frac{2\pi}{L}, 
+\end{equation}
+$n_x, n_y, n_z$为整数;
+\begin{equation}
+\delta_k = \frac{1}{V} \int_V \delta(\vec{x}) \exp (-i\vec{k}\cdot \vec{x}) \dif \vec{x}
+\end{equation}
+
+假设取另一个体积$V$，把该体积内的扰动同样展开成以上形式，则展开式的系数$\delta_k$可能会不同；若取大量数目的体积$V$，无论是$\delta_k$的振幅还是相位，都可能会各处不同；如果相位是随机的，此时的密度扰动场具有Gauss分布的统计特征，它的全空间平均值，即
+\begin{equation}
+\left\langle \delta(\vec{x}) \right\rangle \equiv \bar{\delta}(\vec{x}) = 0
+\end{equation}
+但方差
+\begin{equation}
+\sigma^2 \equiv \left\langle \delta^2(\vec{x}) \right\rangle = \sum_k \left\langle |\delta_k|^2 \right\rangle = \frac{1}{V} \sum_k \delta_k^2 \neq 0
+\end{equation}
+当$V\rightarrow \infty$，
+\begin{equation}
+\delta(\vec{x}) = \frac{V}{(2\pi)^3} \int \delta_k \exp (i\vec{k}\cdot \vec{x}) \dif \vec{k}
+\end{equation}
+
+\begin{equation}
+\sigma^2 \equiv \left\langle \delta^2(\vec{x}) \right\rangle = \frac{1}{V} \int \delta^2(\vec{x}) \dif \vec{x} = \frac{V}{(2\pi)^3} \int \delta^2_k \dif \vec{k}
+\end{equation}
+
+若密度扰动场在统计上是均匀各项同性的，统计性质与方向无关，因此
+\begin{equation}
+\sigma^2 = \frac{V}{2\pi^2} \int_0^{\infty} \delta^2_k k^2 \dif k = \frac{V}{2\pi^2} \int_0^{\infty} \delta^2_k k^3 \dif \ln k = \frac{V}{2\pi^2} \int_0^{\infty} P(k) k^3 \dif \ln k
+\end{equation}
+密度扰动的\textcolor{red}{功率谱}
+\begin{equation}
+P(k) = \delta^2_k
+\end{equation}
+与空间位置无关，只是时间的函数
+$\delta^2_k k^3$或者$P(k) k^3$：在$k$尺度上，单位对数间隔内密度扰动的功率大小，即在该尺度上成团强度的大小。对于CDM宇宙，演化的结果是小尺度上有较大的扰动功率，即成团先从小的质量开始，然后通过引力作用逐渐形成越来越大的结构，hierarchical、bottom-up成团模式；对于HDM宇宙，大尺度将产生较大的扰动功率，使大尺度上优先成团，再通过分裂过程产生较小尺度的结构，top-down模式。
+
+线性演化阶段结束时的功率谱与初始功率谱的关系
+\begin{equation}
+P(k, t_f) \equiv \delta^2_k(t_f) = T^2(k) \delta^2_k(t_i) D^2(t_i, t_f) = T^2(k) P(k, t_i) D^2(t_i, t_f)  
+\end{equation}
+
+一个半径为$R$的球体积内的平均质量
+\begin{equation}
+\left\langle M \right\rangle = \left\langle \rho \right\rangle V = \frac{4\pi}{3} \left\langle \rho \right\rangle R^3
+\end{equation}
+质量涨落方差
+\begin{equation}
+\sigma_M^2 = \left\langle \frac{[M -\left\langle M \right\rangle]^2}{\left\langle M \right\rangle^2} \right\rangle = \left\langle \left( \frac{\delta M}{M} \right)^2 (R) \right\rangle 
+\end{equation}
+表示在全空间任意选取的、半径为$R$的球体积$V=4\pi R^3/3$内质量涨落的方均值。
+
+由Fourier级数展开，
+\begin{eqnarray}
+\nonumber \sigma_M^2 &=& \left\langle \frac{\int \delta(\vec{x}) \dif \vec{x} }{V} \frac{\int \delta(\vec{x}') \dif \vec{x}' }{V} \right\rangle \\
+\nonumber &=& \frac{1}{V^2}  \left\langle \int_V \int_V \sum_k \delta_k \exp (i\vec{k}\cdot \vec{x}) \sum_{k'} \delta^*_{k'} \exp (-i\vec{k'}\cdot \vec{x'}) \dif \vec{x} \dif \vec{x}' \right\rangle \\
+\nonumber &=& \frac{1}{V^2}  \left\langle \sum_{k,k'} \delta_k \delta^*_{k'}  \int_V \exp (i\vec{k}\cdot \vec{x}) \dif \vec{x} \int_V \exp (-i\vec{k'}\cdot \vec{x'}) \dif \vec{x}' \right\rangle \\
+\nonumber &=& \frac{1}{V^2} \int_V \dif \vec{x}_0 \left[ \sum_{k,k'} \delta_k \delta^*_{k'}  \int_V \exp [i\vec{k}\cdot (\vec{x}_0 +\vec{x})] \dif \vec{x} \int_V \exp [-i\vec{k'}\cdot (\vec{x}_0 +\vec{x'})] \dif \vec{x}'  \right] \\
+\nonumber &=& \frac{1}{V^2} \int_V \dif \vec{x}_0 \exp [i(\vec{k}-\vec{k'})\cdot \vec{x}_0] \left[ \sum_{k,k'} \delta_k \delta^*_{k'}  \int_V \exp [i\vec{k}\cdot \vec{x}] \dif \vec{x} \int_V \exp [-i\vec{k'}\cdot \vec{x'}] \dif \vec{x}'  \right]
+\end{eqnarray}
+由于
+\begin{equation}
+\int_V \dif \vec{x}_0 \exp [i(\vec{k}-\vec{k'})\cdot \vec{x}_0]  = \delta_{k,k'}
+\end{equation}
+上式化为
+\begin{equation}
+\sigma_M^2 = \sum_k \delta^2_k \left[ \frac{1}{V} \int_V \exp [i\vec{k}\cdot \vec{x}] \dif \vec{x} \right]^2
+\end{equation}
+
+\begin{equation}
+\frac{1}{V} \int_V \exp [i\vec{k}\cdot \vec{x}] \dif \vec{x} = \frac{3}{(kR)^3} [\sin(kR) -kR\cos(kR)] \equiv W(kR)
+\end{equation}
+
+\begin{equation}
+\sigma_M^2 = \sum_k \delta^2_k W^2(kR) = \frac{V}{2\pi^2} \int_0^{\infty} \delta^2_k W^2(kR) k^2 \dif k = \frac{V}{2\pi^2} \int_0^{\infty} P(k) W^2(kR) k^3 \dif \ln k 
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

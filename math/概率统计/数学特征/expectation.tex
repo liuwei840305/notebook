@@ -1,0 +1,326 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{随机变量的数字特征}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{数学期望}
+又称\textcolor{red}{期望}，\textcolor{red}{均值} 
+
+设离散型随机变量$X$的分布律
+\begin{equation}
+P\{X= x_k\} = p_k, ~~k = 1,2, \cdots
+\end{equation}
+若级数
+\begin{equation}
+\sum_{k=1}^{\infty} x_k p_k
+\end{equation}
+绝对收敛，则称级数$\sum_{k=1}^{\infty} x_k p_k$的和为随机变量$X$的\textcolor{red}{数学期望}，记为$E(X)$，
+\begin{equation}
+E(X) = \sum_{k=1}^{\infty} x_k p_k .
+\end{equation}
+设连续型随机变量$X$的概率密度为$f(x)$，若积分
+\begin{equation}
+\int_{-\infty}^{\infty} xf(x) \dif x
+\end{equation}
+绝对收敛，则称积分$\int_{-\infty}^{\infty} xf(x) \dif x$的值为随机变量$X$的\textcolor{red}{数学期望}，记为$E(X)$，
+\begin{equation}
+E(X) = \int_{-\infty}^{\infty} xf(x) \dif x .
+\end{equation}
+
+设Y是随机变量$X$的函数：
+\begin{equation}
+Y = g(X),
+\end{equation}
+($g$是连续函数)。\\
+i) $X$是离散型随机变量，它的分布律为
+\begin{equation}
+P\{X= x_k\} = p_k, ~~k = 1,2, \cdots
+\end{equation}
+若
+\begin{equation}
+\sum_{k=1}^{\infty} g(x_k) p_k
+\end{equation}
+绝对收敛，则有
+\begin{equation}
+E(Y) = E[g(X)] = \sum_{k=1}^{\infty} g(x_k) p_k 
+\end{equation}
+ii) $X$是连续型随机变量，它的概率密度为$f(x)$。若
+\begin{equation}
+\int_{-\infty}^{\infty}  g(x) f(x) \dif x 
+\end{equation}
+绝对收敛，则有
+\begin{equation}
+E(Y) = E[g(X)] = \int_{-\infty}^{\infty} g(x) f(x) \dif x
+\end{equation}
+
+数学性质
+
+设随机变量的数学期望存在，
+
+1) 设$C$是常数，则有
+\begin{equation}
+E(C) = C
+\end{equation}
+2) 设$X$是一随机变量，$C$是常数，则有
+\begin{equation}
+E(CX) = C E(X)
+\end{equation}
+3) 设$X$，$Y$是两个随机变量，则有
+\begin{equation}
+E(X+Y) = E(X) + E(Y)
+\end{equation}
+4) 设$X$，$Y$是相互独立的随机变量，则有
+\begin{equation}
+E(XY) = E(X)E(Y)
+\end{equation}
+
+\section{方差}
+设$X$是一个随机变量，若$E\{[X -E(X)]^2\}$存在，则称
+\begin{equation*}
+E\{[X -E(X)]^2\}
+\end{equation*}
+为$X$的\textcolor{red}{方差}，记为$D(X)$，或${\rm Var}(X)$
+\begin{equation}
+D(X) = {\rm Var}(X) = E\{[X -E(X)]^2\} = E(X^2) -[E(X)]^2
+\end{equation}
+
+\textcolor{red}{标准差}、\textcolor{red}{均方差}
+\begin{equation}
+\sigma(X) = \sqrt{D(X)}
+\end{equation}
+
+数学性质
+
+1) 设$C$是常数，则有
+\begin{equation}
+D(C) = 0,
+\end{equation}
+2) 设$X$是随机变量，$C$是常数，则有
+\begin{equation}
+D(CX) = C^2 D(X),
+\end{equation}
+3) 设$X$，$Y$是两个随机变量，则有
+\begin{eqnarray}
+\nonumber D(X+Y) &=& D(X) + D(Y) +2E\{[X-E(X)][Y-E(Y)]\} \\
+\nonumber &=& D(X) + D(Y) +2\{E(XY) -E(X)E(Y) \}, \\
+ &=& D(X) + D(Y) +2{\rm Cov}(X, Y)
+\end{eqnarray}
+若$X$，$Y$相互独立，则有
+\begin{equation}
+D(X+Y) = D(X) + D(Y),
+\end{equation}
+4) $D(X)=0$的充要条件是$X$以概率$1$取常数$C$，即
+\begin{equation}
+P\{X =C\} =1
+\end{equation}
+
+若$X_i \sim N(\mu_i, \sigma^2_i), i = 1,2,\cdots, n$，且它们相互独立，则它们的线性组合：
+\begin{equation}
+C_1 X_1 +C_2 X_2 +\cdots +C_n X_n,
+\end{equation}
+($C_1, C_2, \cdots, C_n$是不全为$0$的常数)，仍然服从正态分布，
+\begin{equation}
+C_1 X_1 +C_2 X_2 +\cdots +C_n X_n \sim N\left(\sum_{i=1}^{n}C_i \mu_i, \sum_{i=1}^{n} C^2_i \sigma^2_i \right )
+\end{equation}
+
+\textcolor{red}{切比雪夫不等式}
+
+设随机变量$X$具有数学期望
+\begin{equation}
+E(X) = \mu,
+\end{equation}
+方差
+\begin{equation}
+D(X) = \sigma^2,
+\end{equation}
+则对于任意正数$\varepsilon$，不等式
+\begin{equation}
+P\{|X-\mu| \geq \varepsilon\} \leq \frac{\sigma^2}{\varepsilon^2}
+\end{equation}
+成立。
+
+
+\section{协方差、相关系数}
+
+\textcolor{red}{协方差}
+\begin{equation}
+{\rm Cov}(X, Y) = E\{[X-E(X)][Y-E(Y)]\}
+\end{equation}
+
+\textcolor{red}{相关系数}
+\begin{equation}
+\rho_{XY} = \frac{{\rm Cov}(X, Y)}{\sqrt{D(X)}\sqrt{D(Y)}}
+\end{equation}
+
+$X$和$Y$\textcolor{red}{不相关}：
+\begin{equation}
+\rho_{XY} = 0
+\end{equation}
+
+
+
+\section{矩、协方差矩阵}
+设$X$，$Y$是两个随机变量，
+
+若
+\begin{equation}
+E(X^k), k = 1,2,\cdots
+\end{equation}
+存在，称它为$X$的\textcolor{red}{$k$阶原点矩}，简称\textcolor{red}{$k$阶矩}；
+
+若
+\begin{equation}
+E\{[X-E(X)]^k\}, k = 1,2,3,\cdots
+\end{equation}
+存在，称它为$X$的\textcolor{red}{$k$阶中心矩}；
+
+若
+\begin{equation}
+E(X^kY^l), k, l = 1,2,\cdots
+\end{equation}
+存在，称它为$X$和$Y$的\textcolor{red}{$k+l$阶混合矩}；
+
+若
+\begin{equation}
+E\{[X-E(X)]^k [Y-E(Y)]^l\}, k = 1,2,3,\cdots
+\end{equation}
+存在，称它为$X$和$Y$的\textcolor{red}{$k+l$阶混合中心矩}；\\
+
+设$n$维随机变量$(X_1, X_2, \cdots, X_n)$的二阶混合中心矩
+\begin{equation}
+c_{ij} = {\rm Cov}(X_i, X_j) = E\{[X_i-E(X_i)] [X_j-E(X_j)]\}, i,j = 1,2,\cdots, n
+\end{equation}
+都存在，则称矩阵
+\begin{equation}
+C = \begin{pmatrix}
+c_{11} & c_{12} & \dots & c_{1n} \\
+c_{21} & c_{22} & \dots & c_{2n} \\
+\vdots  & \vdots &            & \vdots \\
+c_{n1} & c_{n2} & \dots & c_{nn} \\
+\end{pmatrix}
+\end{equation}
+为$n$维随机变量$(X_1, X_2, \cdots, X_n)$的\textcolor{red}{协方差矩阵}；对称矩阵：$c_{ij} = c_{ji}$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

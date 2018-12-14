@@ -1,0 +1,52 @@
+Introduction
+
+Now we have storage1, storage2, node1~node6 and fat.
+ storage1   : The login node. DO NOT run heavy works on this node. 
+              Just for logining and submitting jobs. 
+ 
+ storage2   : 2(cpu)*6(core)*2(processor) 62G memory [Intel E5 2.00GHz]
+ 
+ node1~node6: 2(cpu)*8(core)*2(processor) 62G memory [Intel E5 2.60GHz]
+ 
+ fat        : 4(cpu)*8(core)*2(processor)  1T memory [Intel E7 2.00GHz]
+storage1
+We have the only ip [159.226.170.75] to login to our cluster. storage1 is the login point. Each of the node in our cluster share the home directory of storage1, that means you just need to keep you files on storage1, and use them on each node with the same path. Because storage1 is the only login point, and it is an import information server, everyone are responsible for keeping it working healthy.
+So, again, DO NOT run heavy works on this node. Just for logining and submitting jobs.
+storage2
+This node can be used for serial works. You can ssh by name 'storage2'. Beside the shared home directory, this node have it local home directory [/home_local], which is also very big. If you need large mount of disk spaces, we can set up your local home directory on it. BUT, according to the schedule, these disks will be used by Tianlai data later. So do not keep too much important files on the local home directory.
+node1~node6
+We have 6 computing nodes, which have quick cpus, for MPI jobs. You need to setup the ssh-key yourself. If you do not know how to do that, keep reading and see below :)
+It would be better to run MPI jobs on node1~node5, and node6 for serial jobs.
+fat
+This node has very large memory. So if you need large memory, try it. The fat also has its local disk. According to the test so far, too much disk reading and writing will cause some problem with the whole cluster. So if your code need much disk reading or writing, please use the local disk. But the local disk on fat is not very large. Please move out the large files after the calculations. Thanks.
+[edit] Shell and password
+
+The default shell is bash shell on our cluster, and the softwares which are installed in /opt, are automatically set up under bash shell.
+If you want to change your passed, you need to use yppasswd instead of passwd, like:
+ $ yppasswd xxx
+ $ Changing NIS account information for xxx on storage1
+ $ Please enter old passed:
+ $ Changing NIS passed for xxx on storage1
+ $ Please enter new passed:
+ $ Please retype new passed:
+[edit] Setup ssh-key for MPI
+
+You can setup the key on storage1. Firstly, go to the ~/.ssh
+ $ cd ~/.ssh
+and run
+$ ssh-keygen -t rsa
+press enter without input anything, then
+$ cp id_rsa.pub authorized_keys
+$ chmod 500 authorized_keys
+You only need to setup on storage1, because each node share the same home directory.
+[edit]Submit MPI jobs
+
+For MPI you can submit jobs using HOSTFILE. You can make a HOSTFILE, in which you need to list the nodes you want to use:
+ node1
+ node2
+ node3
+and then
+ $ nohup mpirun -np XX -hostfile Dir/To/Your/HOSTFILE a.out > output.o 2> output.e &
+XX is the number of cores you want to use, and
+output.o will collect the output of your code, and
+output.e will collect the error and warning.

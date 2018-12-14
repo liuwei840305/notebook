@@ -1,0 +1,293 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{extarrows}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Kilonova}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2017LRR....20....3M} The mergers of double neutron star (NS-NS) and black hole (BH)-NS binaries are promising gravitational wave (GW) sources. The neutron-rich ejecta from such merger events undergoes rapid neutron capture (r-process) nucleosynthesis, enriching our Galaxy with rare heavy elements like gold and platinum. The radioactive decay of these unstable nuclei also powers a rapidly evolving, supernova-like transient known as a ``kilonova" (also known as ``macronova"). Kilonovae are an approximately isotropic electromagnetic counterpart to the GW signal.  $\sim$day-long optical (``blue") emission from lanthanide-free components of the ejecta; $\sim$hour-long precursor UV/blue emission, powered by the decay of free neutrons in the outermost ejecta layers; and enhanced emission due to energy input from a long-lived central engine, such as an accreting BH or millisecond magnetar.
+
+
+NS-NS/BH-NS mergers are predicted to be accompanied by a more isotropic counterpart, commonly known as a `kilonova' (also known as `macronova'). Kilonovae are day to week-long thermal, supernova-like transients, which are powered by the radioactive decay of heavy, neutron-rich elements synthesized in the expanding merger ejecta. 
+
+
+Consider the merger ejecta of total mass $M$, which is expanding at a constant velocity $v$, such that its radius is $R \approx vt$ after a time $t$ following the merger. Assume spherical symmetry, which is a reasonable first-order approximation because the ejecta has a chance to expand laterally over the many orders of magnitude in scale from the merging binary $(R_0 \sim 10^6$ cm) to the much larger radius $(R_{\rm peak} \sim 10^{15}$ cm) at which the kilonova emission peaks.
+
+The ejecta is hot immediately after the merger, especially if it originates from the shocked interface between the colliding NS-NS binary. This thermal energy cannot, however, initially escape as radiation because of its high optical depth at early times,
+\begin{equation}
+\tau \simeq \rho \kappa R = \dfrac{3M \kappa}{4\pi R^2} \simeq 70 \left(\dfrac{M}{10^{-2} M_\odot} \right) \left(\dfrac{\kappa}{1 {\rm cm^2 g^{-1}} } \right) \left(\dfrac{v}{0.1 c} \right)^{-2} \left(\dfrac{t}{1 \rm day} \right)^{-2} ~,
+\end{equation}
+and the correspondingly long photon diffusion timescale through the ejecta,
+\begin{equation}
+t_{\rm diff} \simeq \dfrac{R}{c} \tau = \dfrac{3M \kappa}{4\pi c R} = \dfrac{3M \kappa}{4\pi c v t} ~,
+\end{equation}
+where $\rho = 3M/(4\pi R^3)$ is the mean density and $\kappa$ is the opacity (cross section per unit mass). As the ejecta expands, the diffusion time decreases with time $t_{\rm diff} \propto t^{-1}$, until eventually radiation can escape on the expansion timescale, as occurs once $t_{\rm diff} = t$. This condition determines the characteristic timescale at which the light curve peaks,
+\begin{equation}
+t_{\rm peak} \equiv \left(\dfrac{3M \kappa}{4\pi \beta v c} \right)^{1/2} \approx 1.6 {\rm d} \left(\dfrac{M}{10^{-2} M_\odot} \right)^{1/2}  \left(\dfrac{v}{0.1 c} \right)^{-1/2} \left(\dfrac{\kappa}{1 {\rm cm^2 ~g^{-1}} } \right)^{1/2} 
+\end{equation}
+where the constant $\beta \approx 3$ depends on the precise density profile of the ejecta. For values of the opacity $\kappa \sim 1-100$ cm$^2$ g$^{-1}$ which characterize the range from Lanthanide-free and Lanthanide-rich matter respectively, it predicts characteristic durations $\sim 1$ day$-1$ week.
+
+The temperature of matter freshly ejected at the radius of the merger $R_0 \leqslant 100$ km exceeds billions of degrees. However, absent a source of persistent heating, this matter will cool through adiabatic expansion, losing all but a fraction $\sim R_0/R_{\rm peak} \sim 10^{-9}$ of its initial thermal energy before reaching the radius $R_{\rm peak} = v t_{\rm peak}$ at which the ejecta becomes transparent. Such adiabatic losses would leave the ejecta so cold as to be effectively invisible.
+
+In reality, the ejecta will be continuously heated by a combination of sources, at a total rate $\dot{Q}(t)$. At a minimum, this heating includes contributions from radioactivity due to r-process nuclei and, possibly, free neutrons. More speculatively, the ejecta can also be heated from within by a central engine, such as a long-lived magnetar or accreting BH. In most cases of relevance, $\dot{Q}(t)$ is constant or decreasing with time less steeply than $\propto t^{-2}$. The peak luminosity of the observed emission equals the heating rate at the peak time ($t = t_{\rm peak}$),
+\begin{equation}
+L_{\rm peak} \approx \dot{Q}(t_{\rm peak}) ~,
+\end{equation}
+commonly known as ``Arnett's Law".
+
+In order to quantify the key observables of kilonovae (peak timescale, luminosity, and effective temperature), we must understand three key ingredients:
+\begin{itemize}
+   \item The mass and velocity of the ejecta from NS–NS/BH–NS mergers.
+   \item The opacity $\kappa$ of expanding neutron-rich matter.
+   \item The variety of sources which contribute to heating the ejecta $\dot{Q}(t)$, particularly on timescales of $t_{\rm peak}$, when the ejecta is first becoming transparent.
+   \end{itemize}
+
+
+
+
+\subsection{Sources of ejecta in binary NS mergers}
+
+
+
+
+
+
+
+
+
+\subsection{Opacity}
+
+
+
+
+\section{Unified toy model}
+Kilonova emission can be powered by a variety of different energy sources, including radioactivity and central engine activity. Following the merger, the ejecta velocity structure approaches one of homologous expansion, with the faster matter lying ahead of slower matter. Approximation the distribution of mass with velocity greater than a value $v$ as a power-law,
+\begin{equation}
+M_v = M\left( \dfrac{v}{v_0} \right)^{-\beta} ~, ~~ v \geqslant v_0 ~,
+\end{equation}
+where $M$ is the total mass, $v_0 \approx 0.1$ c is the average ($\sim$ minimum) velocity. We adopt a fiducial value of $\beta approx 3$, motivated by a power-law fit to the dynamical ejecta in the numerical simulations. In general the velocity distribution derived from numerical simulations cannot be fit by a single power-law. 
+
+The radiation escapes from the mass layer $M_v$ on the diffusion timescale
+\begin{equation}
+t_{d, v} \approx \dfrac{3 M_v \kappa_v}{4\pi \beta R c} \xlongequal[R = vt]{} \dfrac{M_v^{4/3} \kappa_v}{4\pi M^{1/3} v_0 t c} ~,
+\end{equation}
+where $\kappa_v$ is the opacity of the mass layer $v$. Equating $t_{d,v} = t$ gives the mass depth from which radiation peaks for each time $t$,
+\begin{equation}
+M_v(t) = 
+\begin{cases}
+M\left(\dfrac{t}{t_{\rm peak}} \right)^{3/2}, & t < t_{\rm peak}\cr 
+M, & t > t_{\rm peak} \cr 
+\end{cases}
+\end{equation}
+where $t_{\rm peak}$ is the peak time for diffusion out of the whole ejecta mass. Emission from the outer layers (mass $M_v < M$) peaks first, while the luminosity of the innermost shell of mass $\sim M$ peaks at $t = t_{\rm peak}$. The deepest layers usually set the peak luminosity of the total light curve, except when the heating rate and/or opacity are not constant with depth if the outer layers are free neutrons instead of r-process nuclei.
+
+As the ejecta expands, the radius of each layer $M_v$ of mass $\dif M_v$ evolves according to
+\begin{equation}
+\dfrac{\dif R_v}{\dif t} = v ~.
+\end{equation}
+The thermal energy $E_v$ of the layer evolves according to
+\begin{equation}
+\dfrac{\dif E_v}{\dif t} = - \dfrac{E_v}{R_v} \dfrac{\dif R_v}{\dif t} -L_v +\dot{Q} ~,
+\end{equation}
+where the first term accounts for losses due to PdV expansion in the radiation-dominated ejecta. The second term
+\begin{equation}
+L_v = \dfrac{E_v}{t_{d,v} +t_{lc, c} } ~,
+\end{equation}
+accounts for radiative losses (the observed luminosity) and $t_{lc,v} = \dfrac{R_v}{c}$ limits the energy loss time to the light crossing time (this becomes important at late times when the layer is optically thin). The third term
+\begin{equation}
+\dot{Q}(t) = \dot{Q}_{r,v} +\dot{Q}_{\rm mag} +\dot{Q}_{\rm fb}
+\end{equation}
+accounts for sources of heating, including radioactivity, a millisecond magnetar or fall-back accretion. The radioactive heating rate, being intrinsic to the ejecta, will in general vary between different mass layers $v$. In the case of magnetar or accretion heating, radiation must diffuse from the central cavity through the entire ejecta shell.
+
+The time evolution of the ejecta velocity due to acceleration by pressure forces. For radioactive heating, the total energy input $\int \dot{Q}_{r,v} \dif t$ is less than the initial kinetic energy of the ejecta, in which case changes to the initial velocity distribution are safely ignored. However, free expansion is not always a good assumption when there is substantial energy input from a central engine. In such cases, the velocity of the central shell is evolved separately according to
+\begin{equation}
+\dfrac{\dif }{\dif t} \left( \dfrac{Mv_0^2}{2} \right) = M v_0 \dfrac{\dif v_0}{\dif t} = \dfrac{E_{v0}}{R_0} \dfrac{\dif R_0}{\dif t} ~,
+\end{equation}
+where the source term on the right hand side balances the PdV loss term in the thermal energy, and $R_0$ is the radius of the inner mass shell. Here neglects the special relativistic effects, which are important for low ejecta masses $\leqslant 10^{-2} M_\odot$ and energetic engines, such as stable magnetars.
+
+Assuming blackbody emission, the temperature of the thermal emission is
+\begin{equation}
+T_{\rm eff} = \left( \dfrac{L_{\rm tot} }{4 \pi \sigma R^2_{\rm ph}} \right)^{1/4} ~,
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

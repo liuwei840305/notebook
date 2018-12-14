@@ -1,0 +1,890 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{狭义相对论——运动学}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Michelson-Morley实验}
+\begin{equation}
+c (\frac{d}{c-v} +\frac{d}{c+v}) = 2d \frac{c^2}{c^2-v^2} \approx 2d\left(1+\frac{v^2}{c^2} \right)
+\end{equation}
+
+\begin{equation}
+\frac{2d}{\sqrt{1-v^2/c^2}} \approx 2d \left(1+\frac{v^2}{2c^2} \right)
+\end{equation}
+两条路径的光程差为
+\begin{equation}
+\frac{dv^2}{c^2}
+\end{equation}
+若把整个仪器在水平面内旋转$90^{\circ}$，差值将变号，则转动过程中干涉条纹的位移正比于
+\begin{equation}
+\frac{2dv^2}{c^2}
+\end{equation}
+利用多次反射，$d \approx 11$m，或$2\times 10^7$个黄光波长。地球公转速率$v \approx 3\times 10^4$m/s，则
+\begin{equation}
+\frac{2dv^2}{c^2} = 2d \times 10^{-8} = 0.4~ \text{个黄光波长}
+\end{equation}
+故预期位移是干涉条纹间距的$0.4$倍。实际观测到的位移比此预期值的$1/20$还小。
+
+\section{stellar aberration}
+
+\section{牛顿力学回顾}
+
+伽利略相对性原理：
+
+力学定律的表述在所有惯性参考系都相同。
+
+伽利略变换
+\begin{equation}
+\left\{
+\begin{aligned}
+x' &=& x -vt \\
+y' &=& y \\
+z' &=& z\\
+t' &=& t
+\end{aligned} \right.
+\end{equation}
+
+\section{相对性原理}
+参考系：一个坐标系和固定在这个坐标系里的钟；
+
+惯性系：在其中，一个自由运动物体，即一个无外力作用于其上的运动物体，是以恒定速度行进的；
+
+\section{基本假设}
+\textcolor{red}{爱因斯坦相对性原理}：
+
+自然定律的表述在所有惯性参考系都相同；
+
+\textcolor{red}{光速不变性原理}：
+
+真空中的光速与测量它的参考系无关，在两个作相对运动的惯性参考系中测到的光速相同；\\
+光速在所有惯性参考系中都相同；
+
+$c$是能量传递的最大速率。
+
+\section{时间的相对性}
+异地对钟
+
+用不同的方法异地对钟，结果都一致；
+
+\textcolor{red}{同时的相对性}
+
+在一个参考系中校准同步的两个钟，在另一个相对它运动的参考系中看两个钟是否同步：
+
+设有两个观测者，$S$站在站台上，$S'$在相对站台高速运动的列车上。$S'$可用列车中部的灯来校准车头和车尾的钟。开灯后，灯光同时到达车头和车尾。
+
+在站台上的$S$看来，灯光向前向后的速率都是$c$，但列车以速度$v$向前运动，传到车尾的灯光比传到车头的灯光少走了一段路，因而灯光先到车尾。$S'$校准了的两个钟，$S$看并没有校准。换句话说，从$S'$看是同时的两件事，$S$看一先一后，发生于不同时刻。\\
+
+同时的概念是相对的，与观测者的运动有关；
+
+\textcolor{red}{爱因斯坦膨胀}
+运动参考系中时间的膨胀
+
+爱因斯坦光子钟
+
+设$S'$的钟放在列车地板上，它发出一束垂直向上的光，被车顶的镜子反射回来。测得车高是$h$，用光速刻度钟的这段走时$T_0$
+\begin{equation}
+2h = cT_0
+\end{equation}
+
+从静止观测者$S$看，由于列车向前运动，光沿一等腰三角形的两腰传播，
+\begin{equation}
+2l = cT
+\end{equation}
+$T$：$S$测得的光束传播时间；$S$测得的时间$T$比$S'$的$T_0$要长；$S$发现$S'$的钟变慢了。
+
+\begin{equation}
+l^2 =  \left(\frac{1}{2}cT\right)^2 =  h^2 + \left( \frac{1}{2}vT\right)^2 
+\end{equation}
+
+\begin{equation}
+T = \frac{T_0}{\sqrt{1-v^2/c^2}}
+\end{equation}
+$T_0$：与钟相对静止的观测者读的时间，钟的\textcolor{red}{固有时、原时}；
+
+\textcolor{red}{从静止观测者看，运动的时钟变慢了}；运动参考系中的时间膨胀了；时钟变慢的因子是
+\begin{equation}
+\sqrt{1-v^2/c^2}
+\end{equation}
+
+从$S'$看来，由于$S$相对于他运动，所以$S$的钟变慢了，因子也是
+\begin{equation}
+\sqrt{1-v^2/c^2}
+\end{equation}
+
+\section{长度的相对性}
+$S$和$S'$测量列车的长度，
+
+$S'$测量到的长度$L_0$，为列车的\textcolor{red}{固有长度}；是与它相对静止的观测者量到的；
+
+静止观测者$S$，在某一时刻记下车头、车尾经过站台的位置$A$和$B$，量出这两点之间的距离$L$，就是他量得的列车长度；
+
+同时是相对的，从$S$来看，$A$和$A'$、$B$和$B'$同时对齐，所以$AB$就是车长；但从$S'$来看，$A$、$B$两处的钟并没有对齐，站台向后掠过，$B$的钟比$A$的钟慢了些，$A$和$A'$先对齐，$B$和$B'$后对齐，列车要比$AB$长；
+
+\textcolor{red}{静止观测者看到的运动物体缩短了}；
+
+\textcolor{red}{洛伦兹收缩}
+
+$S'$从车尾向车头发射一束光，到达车头后再反射回来。测出光从发出到返回所用时间$T_0$，
+\begin{equation}
+2L_0 = cT_0
+\end{equation}
+从$S$来看，光从车尾传到车头的时间$T'$，与从车头返回车尾的时间$T''$，满足，
+\begin{equation}
+\left\{
+\begin{aligned}
+cT' &=& L + vT' \\
+cT'' &=& L -vT'' \\
+\end{aligned} \right.
+\end{equation}
+总的时间
+\begin{equation}
+T = T' +T'' = \frac{L}{c-v} + \frac{L}{c+v} =  \frac{2Lc}{c^2-v^2} =  \frac{2L/c}{1-v^2/c^2}
+\end{equation}
+即$S$测量车尾的钟走过的时间；
+\begin{equation}
+ \frac{T_0}{\sqrt{1-v^2/c^2} } = \frac{2L/c}{1-v^2/c^2}
+\end{equation}
+
+\begin{equation}
+L = L_0 \sqrt{1-v^2/c^2}
+\end{equation}
+\textcolor{red}{从静止观测者看，运动的尺子缩短了}；缩短的因子是
+\begin{equation}
+\sqrt{1-v^2/c^2}
+\end{equation}
+与它沿尺长方向的速率$v$有关；
+
+为了测量车高$A'D'$，地面观测者$S$用竖立的杆，在车头经过时，同时记下$A'$、$D'$在杆上的位置$A$、$D$。量出这两点的距离，就是量得的车高。
+
+放在$A$、$D$处的两个钟，若被$S$校准了，在$S'$看也是同步的。在与运动速度垂直的方向上，不同地点发生的两件事，若在$S$系是同时的，在$S'$系也是同时的。他们都看到$A'$与$A$、$D'$与$D$同时对齐；$A'D' = AD$；
+
+\textcolor{red}{垂直于运动方向的尺子长度不变}，洛伦兹收缩只发生于沿着运动的方向；
+
+
+
+事件：
+
+\section{四维时空间隔}
+两个事件$P_1(x_1,y_1,z_1,t_1)$和$P_1(x_2,y_2,z_2,t_2)$之间的四维时空间隔$s$
+\begin{equation}
+s^2 = (x_2 -x_1)^2 +(x_2 -x_1)^2 +(x_2 -x_1)^2 -c^2(t_2 -t_1)^2
+\end{equation}
+通过洛伦兹变换可以验证，它与参考系无关的不变量；
+
+时间和长度不变的观念，只是时空间隔不变性在一固定参考系中的表现；
+
+由于间隔是不变量，与参考系无关，所以$s^2$是大于、等于或小于$0$，也与参考系无关；
+
+\textcolor{red}{类空间隔}
+\begin{equation}
+s^2 > 0
+\end{equation}
+总可以找到一个参考系，在其中两个事件同时发生于空间两点；
+在这个参考系中，间隔就等于两个事件间的空间距离；
+
+\textcolor{red}{类时间隔}
+\begin{equation}
+s^2 < 0
+\end{equation}
+总可以找到一个参考系，在其中两个事件发生于空间同一个点的两个不同时刻；
+在这个参考系中，间隔就正比于两个事件的时间间隔；
+
+\textcolor{red}{类光间隔}
+\begin{equation}
+s^2 = 0
+\end{equation}
+在任何参考系中，两个事件之间是通过光信号连系的；
+
+\textcolor{red}{固有时、原时}
+
+可以把类时间隔写成
+\begin{equation}
+s^2 = -c^2 \tau^2
+\end{equation}
+$\tau$：在两个事件发生于空间同一点的参考系中这两个事件的时间间隔，也就是放在那一点的钟走过的固有时或原时。
+
+
+\begin{equation}
+\dif s^2 = -c^2 dt^2 +\dif x^2 +\dif y^2 +\dif z^2
+\end{equation}
+
+\textcolor{red}{因果性条件}
+
+由\textcolor{blue}{类空间隔}联系的两个事件，可由适当的参考系变换，把它们发生的时间先后次序颠倒过来；它们之间\textcolor{blue}{不可能存在任何因果联系}；
+
+由\textcolor{blue}{类时}和\textcolor{blue}{类光间隔}联系的两个事件，不可能用参考系变换，把它们发生的时间先后次序颠倒过来；它们之间\textcolor{blue}{允许存在因果联系}；
+
+两个事件之间存在\textcolor{blue}{因果联系}的一个必要条件：
+它们之间的四维时空间隔是\textcolor{blue}{类时}或\textcolor{blue}{类光}的，即
+\begin{equation}
+s^2 = -c^2 \tau^2 = (x_2 -x_1)^2 +(x_2 -x_1)^2 +(x_2 -x_1)^2 -c^2(t_2 -t_1)^2 \leq 0
+\end{equation}
+满足这个因果性条件的两个事件，它们之间的空间距离$\Delta r$和时间间隔$\Delta t$满足
+\begin{equation}
+\Delta r/\Delta t \leq c
+\end{equation}
+亦即可以用不大于光速的信号把它们联系起来。
+
+\section{闵可夫斯基空间}
+\begin{equation}
+x_1^2 +x_2^2 +x_3^2 +x_4^2 = x^2 +y^2 +z^2 -c^2 t^2
+\end{equation}
+
+引入
+\begin{equation}
+\omega = ict
+\end{equation}
+代替时间坐标$t$，四维时空间隔不变性
+\begin{equation}
+s^2 = {x'}^2 +{y'}^2 +{z'}^2 +{\omega'}^2 = x^2 +y^2 +z^2 +\omega^2
+\end{equation}
+
+一个事件$P(x,y,z,t)$相应于闵可夫斯基空间中的一个点，称为\textcolor{red}{时空点}或\textcolor{red}{世界点}；
+
+一个物理事件的间隔
+\begin{equation}
+s = (x^2 +y^2 +z^2 +\omega^2)^{1/2}
+\end{equation}
+是它到原点的四维距离。
+
+两个物理事件$P_1(x_1,y_1,z_1,t_1)$和$P_1(x_2,y_2,z_2,t_2)$之间的间隔$s$
+\begin{equation}
+s^2 = (x_2 -x_1)^2 +(x_2 -x_1)^2 +(x_2 -x_1)^2 +(\omega_2 -\omega_1)^2
+\end{equation}
+是它们之间的世界距离。
+
+\textcolor{red}{世界线}：一个运动物体的四维时空坐标变化在闵可夫斯基空间中划出的曲线
+
+
+四维距离有实数、虚数和$0$三种情形；
+
+根据与原点的思维距离，可以把闵可夫斯基空间分成三个区域：
+
+\textcolor{red}{类空区域}
+
+与原点的四维距离为实数；
+
+\textcolor{red}{类时区域}
+
+与原点的四维距离为虚数；
+
+\textcolor{red}{类光区域}
+
+与原点的四维距离为$0$；\\
+
+类光区域是一个以坐标原点为顶点，以时间轴$\omega$为轴线的三维圆锥面；
+
+锥面是由从坐标原点发出的光的世界线构成的，称为光锥；在光锥上的任何一个世界点与原点的间隔都是类光的，它们通过光信号联系；
+
+在光锥里的区域是类时区域，任何一个世界点与原点的间隔都是类时的；它们与原点之间有因果联系；
+
+在光锥外面的区域是类空区域，任何一个世界点与原点的间隔都是类空的；它们与原点之间没有因果联系。
+
+
+世界几何学：闵可夫斯基空间的几何学
+
+\textcolor{red}{世界空间}：
+
+包含时间轴的四维空间；
+
+洛伦兹变换应是闵可夫斯基四维空间内的正交变换；
+
+\section{洛伦兹变换、坐标变换}
+考虑两个惯性系，即静止坐标系$S$与运动坐标系$S'$。设它们在初始时刻重合，$S'$沿$x$轴匀速运动，速度为$v$。若有一事件P，它在$S$系的时空坐标为$(x,y,z,t)$，在$S'$系的时空坐标为$(x',y',z',t')$。
+
+\begin{equation}
+\left\{
+\begin{aligned}
+x' &=& \frac{x -vt}{\sqrt{1-v^2/c^2} } \\
+y' &=& y \\
+z' &=& z \\
+t' &=& \frac{t -vx/c^2 }{\sqrt{1-v^2/c^2} }
+\end{aligned} \right.
+\hspace{3em} \text{或者} \hspace{3em} 
+\left\{
+\begin{aligned}
+{x'}_1 &=& \gamma(x_1 -\beta x_0) \\
+{x'}_2 &=& x_2 \\
+{x'}_3 &=& x_3 \\
+{x'}_0 &=&\gamma(x_0 -\beta x_1)
+\end{aligned} \right.
+\end{equation}
+这里$x_0 = ct$，$x_1 = x$，$x_2 = y$，$x_3 = z$，
+\begin{equation}
+\gamma = \frac{1}{\sqrt{1-v^2/c^2} }
+\end{equation}
+
+速度$\vec{v}$为任意的一般情况
+\begin{equation}
+\color{red} \left\{
+\begin{aligned}
+\vec{x}' &=& \vec{x} +\frac{(\gamma -1)}{\beta^2} (\vec{\beta}\cdot \vec{x})\vec{\beta} -\gamma\vec{\beta}x_0 \\
+{x'}_0 &=& \gamma(x_0 -\vec{\beta}\cdot \vec{x})
+\end{aligned}
+\right.
+\end{equation}
+
+逆变换为
+\begin{equation}
+\left\{
+\begin{aligned}
+x &=& \frac{x' +vt'}{\sqrt{1-v^2/c^2} } \\
+y &=& y' \\
+z &=& z'\\
+t &=& \frac{t' +vx'/c^2 }{\sqrt{1-v^2/c^2} }
+\end{aligned} \right.
+\hspace{3em} \text{或者} \hspace{3em} 
+\left\{
+\begin{aligned}
+{x}_1 &=& \gamma({x'}_1 +\beta {x'}_0) \\
+{x}_2 &=& {x'}_2 \\
+{x}_3 &=& {x'}_3 \\
+{x}_0 &=&\gamma({x'}_0 +\beta {x'}_1)
+\end{aligned} \right.
+\end{equation}
+
+写成矩阵形式
+\begin{eqnarray*}
+\begin{pmatrix}
+x^{\prime} \\ y^{\prime}  \\ z^{\prime}  \\ t^{\prime} \\
+\end{pmatrix} = 
+\begin{pmatrix}
+\gamma ~~~& 0 ~~~& 0 ~~~& -\gamma \beta ~~~\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+-\gamma \beta & 0 & 0 & \gamma
+\end{pmatrix} + 
+\begin{pmatrix}
+x \\ y  \\ z  \\ t \\
+\end{pmatrix}
+\end{eqnarray*}
+
+以及
+\begin{eqnarray*}
+\begin{pmatrix}
+x \\ y  \\ z  \\ t \\
+\end{pmatrix} = 
+\begin{pmatrix}
+\gamma ~~~& 0 ~~~& 0 ~~~& \gamma \beta ~~~\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+\gamma \beta & 0 & 0 & \gamma
+\end{pmatrix} + 
+\begin{pmatrix}
+x^{\prime} \\ y^{\prime}  \\ z^{\prime}  \\ t^{\prime} \\
+\end{pmatrix}
+\end{eqnarray*}
+
+定义
+\begin{eqnarray}
+\nonumber \nonumber X &=& x_{\mu} = (x_1, x_2, x_3, x_4) = (x, y, z, it) \\
+\mu &=& 1, 2, 3, 4
+\end{eqnarray}
+$x_{\mu}$构成闵可夫斯基空间的四矢量，即
+\begin{equation}
+x^{\prime}_{\mu} = a_{\mu\nu} x_{\nu}
+\end{equation}
+\begin{equation*}
+(a_{\mu\nu}) = 
+\begin{pmatrix}
+\gamma ~~~~& 0 ~~~~& 0 ~~~~& i\gamma \beta ~~~~\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+-i\gamma \beta & 0 & 0 & \gamma
+\end{pmatrix}
+\end{equation*}
+$(a_{\mu\nu})$是一个\textcolor{red}{幺正矩阵}，满足\textcolor{red}{幺正性条件}
+\begin{eqnarray}
+\left\{ \begin{aligned}
+ a_{\mu\nu} a_{\mu\lambda} &=& \delta_{\nu\lambda} \\
+a_{\mu\lambda} a_{\nu\lambda} &=& \delta_{\nu\lambda} \\
+\end{aligned} \right.
+\end{eqnarray}
+若任何一组量$A_1, A_2, A_3, A_4$，在洛伦兹变换下的性质和$x_{\mu}$相同，则这四个量就构成一个四矢量$A_{\mu} = (\vec{A}, A_4) = (\vec{A}, iA_0)$，其中$\vec{A}$是空间分量，第四分量$A_4$是纯虚的，$A_0$是实的。
+
+可以证明，两个四矢量$A_{\mu}$和$B_{\mu}$的标量积
+\begin{eqnarray}
+A_{\mu} B_{\mu} = A_1 B_1 +A_2 B_2 +A_3 B_3 +A_4 B_4 = \vec{A}\cdot \vec{B} -A_0 B_0
+\end{eqnarray}
+在洛伦兹变换下是不变的，称为\textcolor{red}{洛伦兹不变量}或\textcolor{red}{洛伦兹标量}
+
+
+\section{速度变换}
+对洛伦兹变换作微分
+\begin{equation}
+\left\{
+\begin{aligned}
+\dif x' &=& \frac{\dif x -v\dif t}{\sqrt{1-v^2/c^2} } \\
+\dif y' &=& \dif y \\
+\dif z' &=& \dif z\\
+\dif t' &=& \frac{\dif t -v\dif x/c^2 }{\sqrt{1-v^2/c^2} }
+\end{aligned} \right.
+\end{equation}
+
+\begin{equation}
+\left\{
+\begin{aligned}
+{u'}_x &=& \frac{u_x -v}{1 -u_xv/c^2} \\
+{u'}_y &=& \frac{u_y}{\gamma(1 -u_xv/c^2)} \\
+{u'}_z &=& \frac{u_z}{\gamma(1 -u_xv/c^2)} \\
+\end{aligned} \right.
+\hspace{3em} \text{逆变换为,} \hspace{3em} 
+\left\{
+\begin{aligned}
+{u}_x &=& \frac{{u'}_x +v}{1 +{u'}_xv/c^2} \\
+{u}_y &=& \frac{{u'}_y}{\gamma(1 +{u'}_xv/c^2)} \\
+{u}_z &=& \frac{{u'}_z}{\gamma(1 +{u'}_xv/c^2)} \\
+\end{aligned} \right.
+\end{equation}
+
+速度$\vec{v}$为任意的一般情况
+\begin{equation}
+\color{red} \left\{
+\begin{aligned}
+{u}_{||} &=& \frac{{u'_{||}} +v}{1 +\vec{u'}\cdot \vec{v}/c^2} \\
+\vec{u}_{\perp} &=& \frac{\vec{u'}_{\perp}}{\gamma(1 +\vec{u'}\cdot \vec{v}/c^2)}
+\end{aligned} \right.
+\end{equation}
+
+
+\section{加速度变换}
+
+
+在相对论中，加速度不是不变量。
+
+
+
+
+
+\section{多普勒效应}
+由于波源或者观察者（或两者）相对介质运动而造成的观察者接收频率发生改变的现象。
+
+\subsection{非相对论情况}
+设波源S或者观察者R的运动都在波源和观察者的连线上；
+
+$v_R$：观察者相对介质的速度；以趋近波源为正；
+
+$v_S$：波源相对介质的速度；以趋近观察者为正；
+
+$u$：介质中的波速；
+
+$\nu$：波源发射频率；
+
+\subsubsection{波源静止，观察者运动}
+$v_S = 0$，$v_R \neq 0$
+
+观察者的接收频率：单位时间内通过观察者的完整的波长数；
+
+波在$1s$内相对介质行进了距离$u$，当观察者不动时，波在$1s$内相对观察者也行进了距离$u$，观察者接收到的频率为$\nu = u/\lambda$。由于观察者运动，$1s$内波相对观察者行进$u+v_R$，故观察者接收到的频率为
+\begin{equation}
+\nu' = \frac{u+v_R}{\lambda} = \left(1+\frac{v_R}{u}  \right) \frac{u}{\lambda} = \left(1+\frac{v_R}{u}  \right) \nu
+\end{equation}
+
+$v_R > 0$，$\nu' > \nu$；
+
+$v_R < 0$，$\nu' < \nu$；
+
+\subsubsection{波源运动，观察者静止}
+$v_S \neq 0$，$v_R = 0$
+
+波在$1s$内相对观察者行进的距离仍为$u$，但由于波源的运动，使波长缩短。当波源静止时，相邻两个相位相等的等相面之间的距离为$\lambda$。当波源运动时，当第一个等相面自波源发出后，该面即以速度$u$向前行进，在第二个同相位的等相面发出时，波源已向前移动了$uT$的距离，而这时第一个等相面已向前行进$uT = \lambda$的距离，结果两同相位等相面之间的距离变为$\lambda -v_S T$，即为现在的波长$\lambda'$
+\begin{equation}
+\lambda' = \lambda - v_S T
+\end{equation}
+观察者接收到的频率为
+\begin{equation}
+\nu' = \frac{u}{\lambda'} = \frac{u}{\lambda -v_S T} =  \frac{u}{\lambda(1 -v_S/u)} = \frac{1}{1-v_S/u} \nu
+\end{equation}
+
+$v_S > 0$，$\nu' > \nu$；
+
+$v_S < 0$，$\nu' < \nu$；
+
+\subsubsection{波源、观察者均运动}
+$v_S \neq 0$，$v_R \neq 0$
+
+\begin{equation}
+\nu' = \frac{u+v_R}{\lambda(1-v_S/u)} = \frac{u(1+v_R/u) }{\lambda(1-v_S/u)} =  \frac{1+v_R/u}{1-v_S/u} \nu
+\end{equation}
+
+
+\subsection{相对论情况}
+考虑一个运动辐射源，相对于观测者的速度为$v$，辐射频率为$\nu$，波长为$\lambda$。设观测方向与其运动方向成$\theta$角。
+
+\textcolor{red}{纵向多普勒效应}
+
+若地面观测者$O$在光源正前方，$\theta = 0$。光源以速度$v$朝$O$飞来，$O$观测到的波长为
+\begin{equation}
+\lambda' = (c -v) T' = \frac{(c-v)T}{\sqrt{1-v^2/c^2}}
+\end{equation}
+$T'$：地面观测者测到的周期；
+$T$：光源的固有周期；
+\begin{equation}
+ T' = \frac{T}{\sqrt{1-v^2/c^2}}
+\end{equation}
+地面观测者测到的频率为
+\begin{equation}
+\nu' = \frac{c}{\lambda'} = \frac{c\sqrt{1-v^2/c^2}}{(c-v)T} = \sqrt{\frac{1+v/c}{1-v/c}} \nu
+\end{equation}
+
+若地面观测者$O$在光源正后方，$\theta = \pi$，$v$应换成$-v$，
+\begin{equation}
+\nu' = \sqrt{\frac{1-v/c}{1+v/c}} \nu
+\end{equation}
+
+在运动光源正前方的观测者测得的频率增加，$\nu' > \nu$；
+
+在运动光源正后方的观测者测得的频率减少，$\nu' < \nu$；
+
+起作用的只是光源与观测者的相对速度，而不必区分是光源还是观测者在运动；由于光的传播不依赖与任何媒质，在两个相对运动的参考系中光速相同。
+
+\textcolor{red}{横向多普勒效应}
+
+静止观测者在与光源运动方向垂直的方向上；
+
+$\theta = \pi/2$；
+\begin{equation}
+\nu' = \nu \sqrt{1-v^2/c^2}
+\end{equation}
+在运动光源横向观测到的频率比其固有频率小，$\nu' < \nu$；
+
+地面观测者在与光源速度成$\theta$角的方向上观测到频率为
+\begin{equation}
+\nu' = \nu \frac{\sqrt{1-v^2/c^2}}{1-v\cos \theta/c}
+\end{equation}
+
+
+光波的相位不变性
+
+
+\section{四维矢量}
+The four-vector spacetime coordinate is $x^\mu = (ct, \vec{x}) = (ct, x, y, z) = (x^0, x^1, x^2, x^3)$. A four vector is defined as a set of four quantities that transform according to
+\begin{eqnarray*}
+x^{\prime 0} &=& \Gamma (x^0 -\beta x^1) ~, \\
+x^{\prime 1} &=& \Gamma (x^1 -\beta x^0) ~, \\
+x^{\prime 2} &=& x^2 ~, \\
+x^{\prime 3} &=& x^3 ~.
+\end{eqnarray*}
+
+The four-vector momentum
+\begin{equation}
+p^\mu = -mc \frac{\dif x^\mu}{\dif s} = mc\gamma(1, \vec{\beta}_{\rm par}) = mc(\gamma, \vec{p}_{\rm par})
+\end{equation}
+where $\vec{\beta}_{\rm par} = \dif \vec{x}/\dif t$ and $\vec{p}_{\rm par} = \vec{\beta}_{\rm par} \gamma$. $\dif s = -c\dif t^{\prime} = -c\dif t /\gamma$. The quantity $m$ is the invariant particle rest mass.
+
+\begin{eqnarray*}
+\gamma^{\prime} &=& \Gamma(\gamma -\beta p_x) = \Gamma \gamma(1-\beta \beta_{\rm par, x}) ~, \\
+p^{\prime}_x &=& \Gamma(p_x -\beta \gamma)  ~ {\rm or} ~ \gamma^{\prime} \beta^{\prime}_{\rm par, x} = \gamma \Gamma (\beta_{\rm par, x} -\beta) ~, \\
+p^{\prime}_y &=& p_y ~, \\
+p^{\prime}_z &=& p_z ~.
+\end{eqnarray*}
+for the particle Lorentz factor and dimensionless momentum, with the reverse transformation obtained by letting $\beta \rightarrow -\beta$ and switching primed and unprimed quantities. 
+
+\begin{equation*}
+-(m c)^2 = -\left(\frac{E}{c} \right)^2 +\left(mc p_{\rm par} \right)^2 = -(mc)^2 (\gamma^2 -\beta_{\rm par}^2 \gamma^2)
+\end{equation*}
+The x-component of dimensionless momentum can be written as $p_x = \gamma \beta_{\rm par,x} = \gamma \beta_{\rm par} \mu$, where $\theta = \arccos \mu$ is the angle between the direction of particle momentum and the $x$-axis,
+\begin{eqnarray*}
+\gamma^{\prime} = \Gamma \gamma(1-\beta \beta_{\rm par} \mu) ~, \\
+\beta^{\prime}_{\rm par} \gamma^{\prime} \mu^{\prime} = \Gamma \gamma (\beta_{\rm par} \mu -\beta)
+\end{eqnarray*}
+\begin{equation*}
+\beta^{\prime}_{\rm par} \mu^{\prime} = \frac{\beta_{\rm par} \mu -\beta}{1-\beta \beta_{\rm par} \mu}
+\end{equation*}
+For massless photons or highly relativistic particles with $\beta_{\rm par} \rightarrow 1$ and $\gamma \gg 1$, let $\gamma \rightarrow \epsilon$.
+\begin{eqnarray}
+\epsilon^{\prime} &=& \Gamma \epsilon (1-\beta \mu) ~, \\
+\mu^{\prime} &=& \frac{\mu -\beta}{1-\beta\mu} ~, \\
+\phi^{\prime} &=& \phi ~,
+\end{eqnarray}
+writing the energy in terms of cosine angle $\mu$ and azimuth angle $\phi$. The reverse transformation equations for photons and relativistic particles are
+\begin{eqnarray}
+\epsilon &=& \Gamma \epsilon^{\prime} (1+\beta \mu^{\prime}) ~, \\
+\mu &=& \frac{\mu^{\prime} +\beta}{1+\beta\mu^{\prime}} ~, \\
+\phi &=& \phi^{\prime} ~,
+\end{eqnarray}
+It can be derived for photons by considering the photon four-vector momentum $k^\mu = (\hbar/m_{\rm e}c^2)(\omega, c\vec{k})$. In dimensionless form, the four-vector momentum of a photon is $p^\mu = \epsilon(1, \hat{k}/k)$.
+
+If a photon in the bulk comoving frame is emitted at right angles to the direction of motion, then $\theta^{\prime} = \pi/2$ and $\mu^{\prime} = 0$. The cosine angle of the photon in frame $K$ is $\mu = \beta$. For highly relativistic bulk speeds, $\Gamma \gg 1$ and $\beta = \mu \approx 1 - (1/2\Gamma^2) \approx 1 - (\theta^2/2)$, so that $\theta \approx 1/\Gamma$. All photons emitted in the forward direction in $K$ are therefore beamed into a narrow range of angles $\theta \lesssim 1/\Gamma$ in $K$. This illustrates the phenomenon of relativistic beaming.
+
+\subsection{Relativistic Doppler Factor}
+The photon energy in frame $K$ is related to the photon energy in frame $K^{\prime}$ according to the relation
+\begin{equation}
+\frac{\epsilon}{\epsilon^{\prime}} = \delta_{\rm D} \equiv [\Gamma(1-\beta \mu)]^{-1}
+\end{equation}
+where \textcolor{red}{$\delta_{\rm D}$} is the \textcolor{red}{Doppler factor}. In the limit of large bulk Lorentz factors and small observing angles along the line of sight,
+\begin{equation}
+\delta_{\rm D} \longrightarrow \frac{2\Gamma}{1+\Gamma^2 \theta^2} ~.
+\end{equation}
+It is useful to derive the Doppler factor by considering an observer receiving photons emitted at an angle $\theta$ with respect to the direction of motion of frame $K^{\prime}$ in the stationary frame $K$. During time $\Delta t_\star$, as measured in stationary frame $K$, the bulk system moves a distance
+\begin{equation*}
+\Delta x =\beta c \Delta t_\star = \beta \Gamma c \Delta t^{\prime}
+\end{equation*}
+where the last expression relates the change in distance to the comoving time element using the time dilation formula. A light pulse emitted at stationary frame time $t_\star$ and location $x$ is received at observer time
+\begin{equation}
+t = t_\star +\frac{d}{c} -\frac{x\cos \theta}{c} ~,
+\end{equation}
+where $d$ is the distance of the observer from the origin of stationary frame $K$. At a later time $t_\star + \Delta t_\star$, a second pulse of light is emitted, which is received by the observer at time
+\begin{equation}
+t + \Delta t = t_\star +\Delta t_\star + \frac{d}{c} - \frac{(x+\Delta x)\cos \theta}{c}
+\end{equation}
+\begin{equation}
+\dif t = \frac{\dif x}{\beta c} (1-\beta \cos \theta) = \Gamma \dif t^{\prime} (1-\beta \mu) = \frac{\dif t^{\prime}}{\delta_{\rm D}} ~.
+\end{equation}
+$\epsilon = h\nu/m_{\rm e}c^2$ and $\nu \propto 1/\Delta t$, 
+\begin{equation}
+\frac{\dif t^{\prime}}{\dif t_\star} = \frac{\epsilon}{\epsilon^{\prime}} ~,
+\end{equation}
+and $\epsilon^{\prime} = \epsilon/\delta_{\rm D}$. 
+
+\section{习题}
+1. 在实验室中有一弯曲水管，管中水流速度为$v$，管壁上$G_1$和$G_2$两处是两块玻璃，以便从两个单色光源$S_1$和$S_2$来的光可以通过它们进入水中。已知水的折射率为$n$，静止水中的光速为$c/n$。1.) 在实验室中观测，光在$A$和$B$两段流水中的速度各是多少？2.) 在$v\ll c$时，求上述速度的近似值。
+
+解：在实验室中观测，光在$A$段水中的速度
+\begin{equation*}
+V_A = \dfrac{\dfrac{c}{n} +v}{1+\dfrac{c}{n}\times \dfrac{v}{c^2}} = \dfrac{c(c+vn)}{nc +v}
+\end{equation*}
+光在$B$段水中的速度
+\begin{equation*}
+V_A = \dfrac{\dfrac{c}{n} -v}{1+\dfrac{c}{n}\times \dfrac{-v}{c^2}} = \dfrac{c(c-vn)}{nc-v}
+\end{equation*}
+当$v \ll c$时，
+\begin{equation*}
+\frac{1}{1+\dfrac{v}{cn}} \simeq 1 -\frac{v}{cn} ,~~ \frac{1}{1-\dfrac{v}{cn}} \simeq 1 +\frac{v}{cn} 
+\end{equation*}
+因此
+\begin{eqnarray*}
+V_A &=& \frac{c}{n} +\left(1-\frac{1}{n^2}\right) v ~,\\
+V_B &=& \frac{c}{n} -\left(1-\frac{1}{n^2}\right) v
+\end{eqnarray*}
+
+2. 设$\Sigma^{\prime}(x^{\prime}, y^{\prime}, z^{\prime})$系以匀速$\vec{v} = (v, 0, 0)$相对于惯性系$\Sigma(x, y, z)$系运动，在$\Sigma(x, y, z)$系中某点发出一束光，构成的立体角元为$\dif \Omega = \sin \theta \dif \theta \dif \phi$。试求在$\Sigma^{\prime}$系中这束光构成的立体角元$\dif \Omega^{\prime}$。
+
+解：在$\Sigma$系，$S$点发出的光束构成立体角元
+\begin{equation*}
+\dif \Omega = \sin \theta \dif \theta \dif \phi
+\end{equation*}
+由于$\vec{e}_{\phi} = \vec{e}_{r}\times \vec{e}_{\theta}$垂直于$x$轴，即垂直于运动方向，不受运动影响，
+\begin{equation*}
+\textcolor{red}{\dif \phi^{\prime} = \dif \phi}
+\end{equation*}
+由四维波矢量$(\vec{k}, \dfrac{i}{c} \omega)$的变换式第一分量
+\begin{eqnarray*}
+k_1^{\prime} &=& k^{\prime} \cos \theta^{\prime} = \frac{\omega^{\prime}}{c} \cos \theta^{\prime} = a_{11} k_1 +a_{14} k_4 ~,\\
+&=& \gamma k\cos \theta +i\gamma \frac{v}{c} k_4 ~,\\
+&=& \gamma \frac{\omega}{c} \cos \theta -\gamma \frac{v}{c^2} \omega
+\end{eqnarray*}
+\begin{equation*}
+\omega^{\prime}  \cos \theta^{\prime} = \gamma \omega \left(\cos \theta -\frac{v}{c} \right)
+\end{equation*}
+第四分量
+\begin{eqnarray*}
+k_4^{\prime} &=& i\frac{\omega^{\prime}}{c} = a_{41} k_1 +a_{44} k_4 =-i \gamma \frac{v}{c} k_1 +\gamma k_4 ~,\\
+&=& -i \gamma \frac{v}{c^2} \omega \cos \theta +i\gamma \frac{\omega}{c}
+\end{eqnarray*}
+\begin{equation*}
+\textcolor{red}{\omega^{\prime} = \gamma \omega \left(1 -\frac{v}{c} \cos \theta \right)}
+\end{equation*}
+比较可得
+\begin{equation*}
+\textcolor{red}{\cos \theta^{\prime} = \dfrac{\cos \theta -\dfrac{v}{c}}{1-\dfrac{v}{c}\cos \theta} }
+\end{equation*}
+对$\theta^{\prime}$求导得
+\begin{eqnarray*}
+-\sin \theta^{\prime} \dif \theta^{\prime} &=& \frac{1}{\left(1-\dfrac{v}{c}\cos \theta \right)^2} \left[ \left(1-\frac{v}{c} \cos \theta \right) \left(-\sin \theta \dif \theta \right) -\left(\cos \theta -\frac{v}{c} \right)\frac{v}{c} \sin \theta \dif \theta \right] ~,\\
+&=& -\frac{\left(1-\dfrac{v^2}{c^2}\right)\sin \theta \dif \theta}{\left(1-\dfrac{v}{c}\cos \theta \right)^2}
+\end{eqnarray*}
+所求立体角元为
+\begin{eqnarray*}
+\textcolor{red}{\dif \Omega^{\prime}} &=& \sin \theta^{\prime} \dif \theta^{\prime} \dif \phi^{\prime} = \frac{\left(1-\dfrac{v^2}{c^2}\right)}{\left(1-\dfrac{v}{c}\cos \theta \right)^2} \sin \theta \dif \theta \dif \phi  ~,\\
+&=& \textcolor{red}{\frac{\left(1-\dfrac{v^2}{c^2}\right)}{\left(1-\dfrac{v}{c}\cos \theta \right)^2} \dif \Omega}
+\end{eqnarray*}
+
+3. 频率为$\Omega$的点光源向外发光，证明：$\omega^2 \dif \Omega$是洛伦兹不变量，$\dif \Omega$是以光源为顶点的立体角元。
+
+解：
+
+
+
+4. $1728$年，英国天文学家布拉德雷发现，由于地球绕太阳公转，星光的视方向与它的真方向略有不同，称为光行差。设某恒星同地球的连线与地球速度$v$的方向垂直试求该星的视方向与真方向之间的夹角$\alpha$。
+
+解：
+
+
+
+5. 在地球上看，某颗恒星发出波长为$\lambda = 640$ nm的红光。一宇宙飞船正向该星飞去。飞船中的宇航员观测到该星发出的是波长为$\lambda^{\prime} = 480$ nm的蓝光。设该星相对于地球的速度远小于$c$(真空中光速)，试求这飞船相对于地球的速度$v$的值。
+
+解：以地球为$\Sigma$系，飞船为$\Sigma^{\prime}$系，沿飞船到该星方向取$x$轴，在$\Sigma$系中，飞船的速度为$v$。根据四维波矢量$(\vec{k}, \dfrac{i}{c}\omega)$的变换关系，
+\begin{equation*}
+\omega^{\prime} = \gamma \omega \left(1-\frac{v}{c} \cos \theta \right)
+\end{equation*}
+狭义相对论的多普勒效应公式，$\theta$是光波矢量$\vec{k}$与$x$轴的夹角。$\theta = \pi$，
+\begin{equation*}
+\omega^{\prime} = \gamma \omega \left(1+\frac{v}{c} \right)
+\end{equation*}
+\begin{equation*}
+\frac{1}{\lambda^{\prime} } = \frac{1}{\lambda} \gamma \left(1+\frac{v}{c} \right) = \frac{1}{\lambda} \sqrt{\frac{1+\dfrac{v}{c}}{1-\dfrac{v}{c}}}
+\end{equation*}
+解得
+\begin{eqnarray*}
+v &=& c \frac{\lambda^2 -\lambda^{\prime 2}}{\lambda^2 +\lambda^{\prime 2}} = 3\times 10^8 \times \frac{640^2 -480^2}{640^2 +480^2} \\
+&=& 0.84 \times 10^8 ~~\text{m/s}
+\end{eqnarray*}
+
+
+6. 一原子静止时发光的波长为$\lambda_0$，当它以速度$\vec{v}$相对于$\Sigma$系运动时，试求在$\vec{v}$方向上，$\Sigma$系中静止观察者所观测到的波长$\lambda$。
+
+解：以相对于原子静止的参考系为$\Sigma^{\prime}$，则由$\Sigma$到$\Sigma^{\prime}$系，光的频率变换式为
+\begin{equation*}
+\omega^{\prime} = \omega \gamma  \left(1-\frac{v}{c} \cos \theta \right)
+\end{equation*}
+$\theta$为光的波矢量$\vec{k}$与速度$\vec{v}$之间的夹角。
+\begin{equation*}
+\lambda^{\prime} = \frac{\lambda}{\gamma \left(1-\dfrac{v}{c} \cos \theta \right) }
+\end{equation*}
+因$\Sigma^{\prime}$系相对于光源静止，$\lambda^{\prime} = \lambda_0$，在$\Sigma$系观测到的波长为
+\begin{equation*}
+\lambda = \lambda_0 \gamma \left(1-\dfrac{v}{c} \cos \theta \right)
+\end{equation*}
+在$v$的方向上，$\theta = 0$，所求的波长为
+\begin{equation*}
+\lambda = \lambda_0 \gamma \left(1-\dfrac{v}{c} \right) = \lambda_0 \sqrt{\frac{1-\dfrac{v}{c}}{1+\dfrac{v}{c}} }< \lambda_0
+\end{equation*}
+在$v$的逆方向上，$\theta = \pi$，
+\begin{equation*}
+\lambda = \lambda_0 \gamma \left(1+\dfrac{v}{c} \right) = \lambda_0 \sqrt{\frac{1+\dfrac{v}{c}}{1-\dfrac{v}{c}} }> \lambda_0
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

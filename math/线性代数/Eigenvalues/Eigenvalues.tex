@@ -1,0 +1,312 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newtheorem{theorem}{THEOREM}[section]
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+
+\title{Eigenvalues and Eigenvectors}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Eigenvectors and Eigenvalues}
+If $A$ is a stochastic matrix, then the steady-state vector $\vec{q}$ for $A$ satisfies the equation $A \vec{x} = \vec{x}$, i.e. $A \vec{q} = 1\cdot \vec{q}$.
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+An \textcolor{red}{eigenvector} of an $n\times n$ matrix $A$ is a nonzero vector $\vec{x}$ such that $A \vec{x} = \lambda \vec{x}$ for some scalar $\lambda$. A scalar $\lambda$ is called an \textcolor{red}{eigenvalue} of $A$ if there is a \textcolor{red}{nontrivial} solution $\vec{x}$ of $A \vec{x} = \lambda \vec{x}$; such an $\vec{x}$ is called an \textcolor{red}{eigenvector} corresponding to $\lambda$. An eigenvector must be nonzero, but an eigenvalue may be zero.
+\end{tcolorbox}
+\textcolor{red}{Although row reduction can be used to find eigenvalues, but it can not be used to find eigenvectors. An echelon form of a matrix $\mathbf{A}$ usually does not display the eigenvalues of $\mathbf{A}$.}
+
+
+$\lambda$ is an eigenvalue of $\mathbf{A}$ if and only if the equation
+\begin{equation}
+(A -\lambda \boldsymbol{I}) \vec{x} = \vec{0}
+\label{eigen_3}
+\end{equation}
+has a nontrivial solution. The set of all solutions of (\ref{eigen_3}) is just the \textcolor{red}{null space} of the matrix $A − \lambda I$.  This set is a \textcolor{red}{subspace} of $\mathbb{R}^n$ and is called the \textcolor{red}{eigenspace} of $\mathbf{A}$ corresponding to $\lambda$. The eigenspace consists of the zero vector and all the eigenvectors corresponding to $\lambda$.
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title=Theorem]
+The eigenvalues of a triangular matrix are the  \textcolor{red}{entries on its main diagonal}.
+\end{tcolorbox}
+
+	
+$0$ is an eigenvalue of $\mathbf{A}$ if and only if $\mathbf{A}$ is not invertible.
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title=Theorem]
+If $\mathbf{v}_1, \cdots , \mathbf{v}_r$ are eigenvectors that correspond to \textcolor{red}{distinct eigenvalues} $\lambda_1, \cdots , \lambda_r$ of an $n\times n$ matrix $\mathbf{A}$, then the set $\{ \mathbf{v}1, \cdots, \mathbf{v}_r \}$ is \textcolor{red}{linearly independent}.
+\end{tcolorbox}
+
+
+
+
+\section{Characteristic Equation}
+Let $\mathbf{A}$ be an $n\times n$ matrix, $U$ be any echelon form obtained from $\mathbf{A}$ by row replacements and row interchanges (without scaling), and $r$ be the number of such row interchanges. The \textcolor{red}{determinant} of $\mathbf{A}$, written as \textcolor{red}{det A}, is $(−1)^r$ times the product of the diagonal entries $u_{11}, \cdots , u_{nn}$ in $U$. If $\mathbf{A}$ is invertible, then $u_{11}, \cdots , u_{nn}$ are all \textcolor{red}{pivots} (because
+$\mathbf{A} \sim I_n$ and the $u_{ii}$ have not been scaled to 1's). Otherwise, at least unn is zero, and the product $u_{11} \cdots u_{nn}$ is zero. 
+
+
+\subsection{Determinants}
+Let $A$ be an $n\times n$ matrix, $U$ be any echelon form obtained from $A$ by row replacements and row interchanges (without scaling), and $r$ be the number of such row interchanges. Then the determinant of $A$, written as det $A$, is $(-1)^r$ times the product of the diagonal entries $u_{11}, \cdots, u_{nn}$ in $U$. If $A$ is invertible, then $u_{11}, \cdots, u_{nn}$ are all pivots (because $A \sim I_n$ and the $u_{ii}$ have not been scaled to $1$'s). Otherwise, at least $u_{nn}$ is zero, and the product $u_{11}\cdots u_{nn}$ is zero.
+\begin{equation}
+\text{det} A = 
+\left\{\begin{array}{ll}
+(-1)^r \cdot (\text{product of pvots in $U$}), ~~\text{when $A$ is invertible} \\
+0,  ~~\text{when $A$ is not invertible}
+\end{array}\right.
+\end{equation}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= The Invertible Matrix Theorem (continued)]
+Let $A$ be an $n\times n$ matrix. Then $A$ is invertible if and only if : \\
+s. The number $0$ is not an eigenvalue of $A$. \\
+t. The determinant of $A$ is not zero.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Properties of Determinants]
+Let $A$ and $B$ be an $n\times n$ matrix. \\
+a. $A$ is invertible if and only if det $A \neq 0$. \\
+b. det $A B = (\text{det} A)(\text{det} B)$. \\
+c. det $A^T =$ det $A$. \\
+d. If $A$ is triangular, then det $A$ is the product of the entries on the main diagonal of $A$. \\
+e. A row replacement operation on $A$ does not change the determinant. A row interchange changes the sign of the determinant. A row scaling also scales the determinant by the same scalar factor. 
+\end{tcolorbox}
+
+\subsection{The Characteristic Equation}
+The scalar equation det $(A - \lambda \boldsymbol{I}) = 0$ is called the \textcolor{red}{characteristic equation of $A$}.
+
+A scalar $\lambda$ is an eigenvalue of an $n\times n$ matrix $A$ if and only if $\lambda$ satisfies the characteristic equation
+\begin{equation*}
+\text{det} (A - \lambda \boldsymbol{I}) = 0 ~.
+\end{equation*}
+
+
+
+
+
+\section{Diagonalization}
+The eigenvalue-eigenvector information contained within a matrix $A$ can be displayed in a useful factorization of the form $A = PDP^{-1}$. 
+
+A square matrix $A$ is said to be diagonalizable if $A$ is similar to a diagonal matrix, that is, if $A = PDP^{-1}$ for some invertible matrix $P$ and some diagonal matrix $D$.
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= The Diagonalization Theorem]
+An $n\times n$ matrix $A$ is diagonalizable if and only if $A$ has n linearly independent eigenvectors. \\
+In fact, $A = PDP^{-1}$, with $D$ a diagonal matrix, if and only if the columns of $P$ are $n$ linearly independent eigenvectors of $A$. In this case, the diagonal entries of $D$ are eigenvalues of $A$ that correspond, respectively, to the eigenvectors in $P$.
+\end{tcolorbox}
+In other words, $A$ is diagonalizable if and only if there are enough eigenvectors to form a basis of $\mathbb R^n$. Such a basis is called an \textcolor{red}{eigenvector basis}.
+
+
+\subsection{Diagonalizing Matrices}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+An $n\times n$ matrix with n distinct eigenvalues is diagonalizable.
+\end{tcolorbox}
+
+
+\subsection{Matrices Whose Eigenvalues Are Not Distinct}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+Let $A$ be an $n\times n$ matrix whose distinct eigenvalues are $\lambda_1, \cdots, \lambda_p$. \\
+a. For $1 \leqslant k \leqslant p$, the dimension of the eigenspace for $\lambda_k$ is less than or equal to the multiplicity of the eigenvalue $\lambda_k$. \\
+b. The matrix $A$ is diagonalizable if and only if the sum of the dimensions of the distinct eigenspaces equals $n$, and this happens if and only if the dimension of the eigenspace for each $\lambda_k$ equals the multiplicity of $\lambda_k$. \\
+c. If $A$ is diagonalizable and $\mathcal B_k$ is a basis for the eigenspace corresponding to λk for each k, then the total collection of vectors in the sets $\mathcal B_1, \cdots, \mathcal B_p$ forms an eigenvector basis for $\mathbb R^n$.
+\end{tcolorbox}
+
+
+
+
+\section{Eigenvectors and Linear Transformations}
+Any linear transformation $T$ from $\mathbb R^n$ to $\mathbb R^m$ can be implemented via left-multiplication by a matrix $A$, called the standard matrix of $T$.
+
+\subsection{The Matrix of a Linear Transformation}
+Let $V$ be an $n$-dimensional vector space, $W$ an $m$-dimensional vector space, and $T$ any linear transformation from $V$ to $W$. To associate a matrix with $T$, choose (ordered) bases $\mathcal B$ and $\mathcal C$ for $V$ and $W$, respectively.
+
+
+
+
+
+\subsection{Linear Transformations from $V$ into $V$}
+
+
+
+
+\subsection{Linear Transformations on $\mathbb R^n$}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Diagonal Matrix Representation]
+Suppose $A = PDP^{-1}$, where $D$ is a diagonal $n\times n$ matrix. If $\mathcal B$ is the basis for $\mathbb R^n$ formed from the columns of $P$, then $D$ is the $\mathcal B$-matrix for the transformation $\vec{x} \mapsto A \vec{x}$.
+\end{tcolorbox}
+
+
+
+\subsection{Similarity of Matrix Representations}
+
+
+
+
+
+\section{Complex Eigenvalues}
+
+
+
+\section{Discrete Dynamical Systems}
+
+
+
+\section{Applications to Differential Equations}
+
+
+
+
+
+\section{Iterative Estimates for Eigenvalues}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

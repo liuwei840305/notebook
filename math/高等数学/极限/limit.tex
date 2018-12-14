@@ -1,0 +1,311 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{mathrsfs}      % 花体
+
+\usepackage{graphics}
+\usepackage{graphicx} 
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+\usepackage{tcolorbox}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newtheorem*{thm}{The Theorem}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\title{极限}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\section{数列}
+数列最一般的表示
+\begin{equation}
+a_1, a_2, \cdots, a_n, \cdots
+\end{equation}
+$a_n$是数列的第$n$项，称为数列的\textcolor{red}{通项}。数列常记为$\{a_n \}$。
+
+收敛数列：当$n$变得越来越大时，项$a_n$就越来越接近某一个常数$a$。
+
+设$\{a_n \}$是一个数列，$a$是一个实数。若对于任意给定的$\epsilon > 0$，存在一个$N \in \mathcal{N}^*$，使得凡是$n > N$时，都有
+\begin{equation}
+|a_n - a| < \epsilon
+\end{equation}
+就说数列$\{a_n \}$当$n$趋向无穷大时，以$a$为\textcolor{red}{极限}，记成
+\begin{equation}
+\underset{n \rightarrow \infty}\lim a_n = a ~,
+\end{equation}
+简记为$a_n \rightarrow a(n \rightarrow \infty)$。\textcolor{red}{数列$\{a_n \}$收敛于$a$}。存在极限的数列称为\textcolor{red}{收敛数列}。不收敛的数列称为\textcolor{red}{发散数列}。
+
+
+
+
+
+\section{收敛数列的性质}
+关于$a$对称的开区间$(a-\epsilon, a+\epsilon)$为$a$的\textcolor{red}{$\epsilon-$领域}。
+
+
+\textcolor{red}{数列$\{a_n \}$当$n\rightarrow \infty$时收敛于实数$a$}指：对任意的$\epsilon > 0$，总存在$N \in \mathcal{N}^*$，使得数列中除有限多项$a_1, a_2, \cdots, a_N$可能是例外，其他的项均落在$a$的$\epsilon-$领域中。
+
+\begin{theo}[]{}
+若数列$a_n$收敛，则它只有一个极限。即收敛数列的极限是唯一的。
+\end{theo}
+
+设$\{a_n \}$是一个数列。若存在一个实数$A$，使得$a_n \leqslant A$对一切$n \in \mathcal{N}^*$成立，则称$\{a_n \}$是\textcolor{red}{有上界}的，$A$是这数列的一个上界。
+
+有下界的数列
+
+若数列$\{a_n \}$既有上界，又有下界，则称它是一个\textcolor{red}{有界数列}。
+
+\begin{theo}[]{}
+收敛数列必是有界的。
+\end{theo}
+
+设$\{a_n \}$是一个数列，$k_i \in \mathcal{N}^*(i = 1, 2, 3 \cdots)$且满足$k_1 < k_2 < k_3 \cdots$，那么数列$\{a_{k_n} \}$叫做$\{a_n \}$的一个\textcolor{red}{子列}。
+
+\begin{theo}[]{}
+设收敛数列$\{a_n \}$的极限是$a$，那么$\{a_n \}$的任何子列都收敛到$a$。
+\end{theo}
+
+\begin{theo}[极限的四则运算]{}
+设$\{a_n \}$和$\{b_n \}$都是收敛数列，则$\{a_n \pm b_n \}$，$\{a_nb_n\}$也是收敛数列。若
+$\underset{n \rightarrow \infty}\lim b_n \neq 0$，
+则$\left\{\dfrac{a_n}{b_n} \right\}$也收敛，且 \\
+1. $\underset{n \rightarrow \infty}\lim (a_n \pm b_n) = \underset{n \rightarrow \infty}\lim a_n \pm \underset{n \rightarrow \infty}\lim b_n$；\\
+2. $\underset{n \rightarrow \infty}\lim a_n b_n = \underset{n \rightarrow \infty}\lim a_n \cdot \underset{n \rightarrow \infty}\lim b_n$；\\
+特别若$c$是常数，则$\underset{n \rightarrow \infty}\lim c a_n = c \underset{n \rightarrow \infty}\lim a_n$；\\
+3. $\underset{n \rightarrow \infty}\lim \dfrac{a_n}{b_n} = \dfrac{\underset{n \rightarrow \infty}\lim a_n}{\underset{n \rightarrow \infty}\lim b_n}$ (其中$\underset{n \rightarrow \infty}\lim b_n \neq 0$)。
+\end{theo}
+
+若收敛数列$\{a_n \}$的极限等于$0$，则这个数列称为\textcolor{red}{无穷小数列}，简称无穷小。
+
+\begin{theo}[]{}
+1. $\{a_n \}$为无穷小的充分必要条件是$\{|a_n| \}$是无穷小；\\
+2. 两个无穷小之和(或差)仍是无穷小；\\
+3. 设$\{a_n \}$为无穷小，$\{c_n \}$为有界数列，那么$\{c_n a_n \}$也是无穷小；\\
+4. 设$0 \leqslant a_n \leqslant b_n$，$n \in \mathcal{N}^*$，若$\{b_n\}$为无穷小，那么$\{a_n\}$也是无穷小；\\
+5. $\underset{n \rightarrow \infty}\lim a_n = a$的充分必要条件是$|a_n -a|$是无穷小。
+\end{theo}
+
+\begin{theo}[夹逼原理]{}
+设$a_n \leqslant b_n \leqslant c_n ~, ~n \in \mathcal{N}^* ~,$且$\underset{n \rightarrow \infty}\lim a_n = \underset{n \rightarrow \infty}\lim c_n = a ~,$那么$\underset{n \rightarrow \infty}\lim b_n = a$。
+\end{theo}
+
+\begin{theo}[]{}
+1. 设$\underset{n \rightarrow \infty}\lim a_n = a$，$\alpha, \beta$满足$\alpha < a < \beta$，当$n$充分大时有$a_n > \alpha$；同样，当$n$充分大时有$a_n < \beta$；\\
+2. 设$\underset{n \rightarrow \infty}\lim a_n = a$，$\underset{n \rightarrow \infty}\lim b_n = b$，且$a < b$，当$n$充分大时一定有$a_n < b_n$；\\
+3. 设$\underset{n \rightarrow \infty}\lim a_n = a$，$\underset{n \rightarrow \infty}\lim b_n = b$，且当$n$充分大时$a_n \leqslant b_n$，有$a \leqslant b$。
+\end{theo}
+
+
+\section{数列极限概念的推广}
+若数列$\{a_n \}$适合条件：对任何正数$A$，都存在$N \in \mathcal{N}^*$，使得凡是$n > N$时，都有$a_n > A$，称数列$\{a_n \}$趋向于$+\infty$。记作
+\begin{equation}
+\underset{n \rightarrow \infty}\lim a_n = +\infty
+\end{equation}
+若对于任何正数$A$，都存在$N \in \mathcal{N}^*$使得凡是$n > N$时有$a_n < -A$，称数列$\{a_n \}$趋向于$-\infty$，记作
+\begin{equation}
+\underset{n \rightarrow \infty}\lim a_n = -\infty
+\end{equation}
+
+
+
+
+
+
+\section{单调数列}
+
+
+\section{自然对数底\text{e}}
+
+
+\section{基本列和收敛定理}
+
+
+
+
+
+\section{上确界和下确界}
+
+
+
+\section{有限覆盖定理}
+
+
+
+\section{上极限和下极限}
+
+
+\section{Stolz定理}
+
+
+
+
+\section{数列极限的应用}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

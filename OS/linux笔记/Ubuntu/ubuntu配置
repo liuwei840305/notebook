@@ -1,0 +1,627 @@
+1. 安装时联网，但不要选择“下载更新”；语言选中文，地区选Shanghai。
+2. 通过软件中心编辑软件源为163，之后点击右上角齿轮图标：更新系统，重启。
+3. 用户账户里将姓名改为中文：安装时不能输入中文，期待改进！
+4. 安装附加驱动，选择“ATI/AMD专有的FGLRX图形驱动，激活，重启。
+5. 配置双显示器：运行AMD Catalyst Control Center (管理)，在“显示器管理器”页面选中外接显示器图标，从下拉菜单中选择“多显示器桌面 带显示器1”，确定，重启。
+6. 通过系统设置的“显示”项：实现在不同的显示器／双显示器之间自由切换。
+7. 打开系统设置的“语言”：安装完整的语言支持！
+8. 卸载多余的：
+sudo apt-get purge landscape-client-ui-install -y #远程控制
+sudo apt-get purge deja-dup -y #备份
+sudo apt-get purge ubuntuone* -y #Ubuntu One
+sudo apt-get purge indicator-messages -y #托盘消息图标
+sudo apt-get purge empathy* telepathy* -y #聊天
+sudo apt-get purge gwibber* -y #微博
+sudo apt-get purge thunderbird -y #邮件
+sudo apt-get purge transmission-* -y #BT
+sudo apt-get purge xul-ext-ubufox -y #Firefox的Ubuntu扩展
+sudo apt-get purge gnome-orca -y ＃屏幕阅读
+sudo apt-get purge onboard -y #屏幕键盘
+sudo apt-get purge simple-scan -y #扫描
+sudo apt-get purge totem -y #电影播放
+sudo apt-get purge pitivi -y #视频编辑
+sudo apt-get purge bluez -y #蓝牙
+sudo apt-get purge emacs23 -y #文本编辑
+9. 安装必备的：
+#重要的额外程序
+sudo apt-get install ubuntu-restricted-extras -y
+
+#压缩解压
+sudo apt-get install p7zip-full p7zip-rar unrar -y
+
+#开发
+sudo apt-get install build-essential g++-multilib mingw-w64 g++-mingw-w64 clang cmake valgrind meld autoconf astyle -y
+
+#Qt5
+sudo apt-get install "^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev libedit-dev libfontconfig1-dev -y 
+
+#版本管理
+sudo apt-get install git gitk git-gui git-svn -y
+
+#词典
+sudo apt-get install goldendict -y 
+
+#右键终端
+sudo apt-get install nautilus-open-terminal -y
+
+#电影播放
+sudo apt-get install mplayer vlc smplayer -y
+
+#视频转换
+sudo apt-get install libav-tools -y
+
+#视频编辑
+sudo apt-get install openshot -y
+
+#音频编辑
+sudo apt-get install audacity -y
+
+#FTP客户端
+sudo apt-get install filezilla -y
+
+#下载
+sudo apt-get install mldonkey-server -y
+
+#虚拟光驱
+sudo apt-get install furiusisomount -y
+
+#幼儿教育
+sudo apt-get install tuxpaint tuxmath gcompris -y
+
+#CPU频率调节
+sudo apt-get install indicator-cpufreq -y
+
+#天气
+sudo apt-get install indicator-weather -y
+My Weather Indicator
+http://ppa.launchpad.net/atareao/atareao/ubuntu/pool/main/m/my-weather-indicator/
+
+#ID3修改
+sudo apt-get install exfalso -y
+
+#温度检测
+sudo apt-get install lm-sensors -y
+
+#安装删除
+sudo apt-get install aptitude -y
+
+#LibreOffice全局菜单
+sudo apt-get install lo-menubar -y
+
+#清理孤儿包
+sudo apt-get install gtkorphan -y
+
+#局域网共享
+sudo apt-get install system-config-samba -y
+
+#64位系统跑32位程序
+sudo apt-get install ia32-libs -y
+
+#PPA清除
+sudo apt-get install ppa-purge -y 
+
+通过PPA安装Ubuntu Tweak
+sudo add-apt-repository ppa:tualatrix/next 
+sudo apt-get update  
+sudo apt-get install ubuntu-tweak 
+
+GNOME 3
+sudo apt-get install gnome-shell ubuntu-gnome-desktop 
+
+VLC
+sudo apt-get install vlc
+
+texmaker
+sudo apt-get install texmaker
+
+gsl
+http://www.gnu.org/software/gsl/
+
+nlopt
+http://ab-initio.mit.edu/wiki/index.php/NLopt
+
+常用编解码器
+sudo apt-get install gstreamer0.10-plugins-ugly gstreamer0.10-ffmpeg libxine1-ffmpeg gxine mencoder libdvdread4 totem-mozilla icedax tagtool easytag id3tool lame nautilus-script-audio-convert libmad0 mpg321 gstreamer1.0-libav
+
+sudo apt-get install libmodplug0c2 libmad0
+
+浏览器支持Flash
+sudo apt-get install flashplugin-installer 
+
+Compiz
+sudo apt-get install compiz compizconfig-settings-manager compiz-plugins 
+
+Dropbox
+
+SSH
+sudo apt-get install openssh-server 
+
+rar
+sudo apt-get install rar unrar
+
+编译环境
+sudo apt-get install build-essential g++ cmake emacs automake vim latex-full f77 g77 gfortran google-chrome tmux
+
+emacs相关
+ecb
+
+cedet
+
+cscope
+
+Gnuplot mode for Emacs
+
+比较配置文件的差异
+sudo apt-get install meld
+
+安装git，版本控制
+sudo apt-get install git libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext gnuit
+
+配置温度检测
+sudo sensors-detect
+手动启动：
+sudo modprobe coretemp
+
+从指定类型文件中查找
+find . -name '*.c' | awk '{print "grep -i -nH keyword "$1}' | /bin/bash
+find . -name '*.c' -exec grep -i -nH "keyword" {} \;
+更好的搜索方法：
+grep -i "search_string" . -r --include=*.txt
+grep "search_string" . -r --include=*.txt --include=*.cpp --include=*.h
+
+创建启动器
+gedit XXX.desktop，添加内容：
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=glGo
+Exec=schroot -c 32 -p glGo
+Terminal=false
+Icon=goa-panel
+其中，图标可在/usr/share/icons/hicolor中寻找；
+参数可根据需要修改。
+安装：
+sudo desktop-file-install XXX.desktop
+
+修正IBUS图标丢失
+gconftool --type boolean -s /desktop/ibus/panel/show_icon_on_systray true
+gconftool --type boolean -s /desktop/ibus/panel/show true
+gsettings set com.canonical.Unity.Panel systray-whitelist "['all']"
+或：
+ibus-daemon -drx
+详见：https://code.google.com/p/ibus/wiki/Ubuntu
+
+安装JRE以运行cgoban围棋在线对弈
+解压：sudo ./jre-6u31-linux-x64.bin
+拷贝：sudo mv jre1.6.0_31/ /opt/jre1.6.0
+安装：sudo update-alternatives --install /usr/bin/java java /opt/jre1.6.0/bin/java 0 --slave /usr/share/man/man1/java.1.gz java.1.gz /opt/jre1.6.0/man/man1/java.1
+配置：sudo update-alternatives --config java
+查询：update-alternatives --display java
+版本：java -version
+插件：mkdir -p ~/.mozilla/plugins/ && ln -s /opt/jre1.6.0/lib/amd64/libnpjp2.so ~/.mozilla/plugins/
+运行：padsp java -jar /opt/cgoban.jar
+
+只显示目录名
+ls -l | grep ^d
+或
+ls -d */
+
+只显示文件
+ls -l | grep ^-
+
+分别设置子目录和文件不同权限
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+
+为指定文件设置可执行权限
+find . -name 'commit-msg' -type f -exec chmod +x {} \;
+find . -name '*.sh' -type f -exec chmod +x {} \;
+
+减肥VBOX磁盘文件
+sdelete -c -z C:\
+VBoxManage modifyhd --compact WINXP.vdi
+
+MlDonkey选项设置
+buffer_writes_delay 60
+buffer_writes_threshold 10240
+buffer_writes true
+client_buffer_size 10000000
+ED2K-force_client_high_id true
+ED2K-force_high_id true
+ED2K-max_connected_servers 10
+enable_kademlia true
+max_hard_download_rate 0
+max_hard_upload_rate 20
+max_opened_connections 600
+share_scan_interval 300
+Options > Web infos，Remove掉所有项目，清空~/.mldonkey/web_infos目录后添加下面三项：
+server.met http://ed2k.im/server.met 24
+guarding.p2p http://ed2k.im/ipfilter.dat 96
+kad http://ed2k.im/nodes.dat 24
+
+使用apt-fast加速APT下载
+sudo add-apt-repository ppa:apt-fast/stable
+sudo apt-get update
+sudo apt-get install apt-fast
+
+进程相关
+pgrep XXX #查询
+pkill XXX #杀掉
+killall XXX #全杀
+
+禁止某软件包升级
+sudo echo "XXX hold" | sudo dpkg --set-selections
+
+配置Wine纯净版
+1. Dash -> 搜索wine，运行Configure Wine配置程序
+2. 激活“函数库”页面，在“新增函数库顶替”下拉框里输入“winemenubuilder.exe”，添加，编辑，停用
+3. 激活“函数库”页面，在“新增函数库顶替”下拉框里输入“winemine.exe”，添加，编辑，停用
+如果已经将int main() { return 0; }编译成main.exe，则可以执行：
+cp -f main.exe $HOME/.wine/drive_c/windows/system32/winemenubuilder.exe
+cp -f main.exe $HOME/.wine/drive_c/windows/system32/winemine.exe
+然后将第2、3两步中的停用改成原装。
+4. “驱动器”页面，添加D分区，路径指定为$HOME/qpSOFT/Wine；同时将Z分区路径修改为$HOME
+5. “关于”页面，填写Windows注册信息，姓名：loaden，单位：qpsoft
+6. 运行Winetricks程序，安装字体：corefonts，然后从XP系统拷贝simhei.ttf simsun.ttc至Fonts目录
+7. 视需要安装DLL或组件：winetricks cmd vcrun6 vcrun2003
+下载：
+http://www.winehq.org/download/ubuntu/
+https://launchpad.net/~ubuntu-wine/+archive/ppa
+
+彻底清理Wine
+删除$HOME/.local/share/applications/mimeapps.list中含有wine的条目
+删除$HOME/.wine目录
+find $HOME/.config -name '*wine*' -exec rm {} \;
+find $HOME/.local -name '*wine*' -exec rm {} \;
+find $HOME/.local -name '*wine*' -exec rm -r {} \;
+rm -rf $HOME/.local/share/icons/hicolor
+rm -f $HOME/.local/share/applications/mimeinfo.cache
+
+Wine调用批处理时字体错误处理
+err:wineconsole:WCUSER_SetFont wrong font
+err:wineconsole:WINECON_Fatal Couldn't find a decent font, aborting
+方案：
+$LANG=C
+$wineconsole cmd 或$wineconsole XXX.bat
+另一方案：
+$wine cmd
+$XXX.bat
+这样就不会存在找不到中文字体的问题了，但要支持中文：
+1. 批处理文件编码必须是GBK
+2. 行尾必须用Windows风格
+
+64位系统Wine缺少gnome-keyring-pkcs11.so的错误处理
+见：http://askubuntu.com/questions/127848/wine-cant-find-gnome-keyring-pkcs11-so
+1) Install getlibs:
+wget https://launchpad.net/~jcollins/+archiv ... a2_all.deb
+sudo dpkg -i getlibs_2.06-0ubuntu1~ppa2_all.deb
+2) Install the 32bit library:
+sudo getlibs -p gnome-keyring:i386
+3) Make the symbolic link:
+sudo mkdir /usr/lib/i386-linux-gnu/pkcs11
+sudo ln -s /usr/lib32/i386-linux-gnu/pkcs11/gnome-keyring-pkcs11.so /usr/lib/i386-linux-gnu/pkcs11/gnome-keyring-pkcs11.so
+
+64位Ubuntu系统，通过Wine模拟纯32位Windows
+打开终端，预设环境变量：
+export WINEARCH=win32
+export WINEPREFIX=$HOME/.wine32/
+winecfg
+winetricks ie6
+这样就可以解决64位Ubuntu中，Wine无法安装32位IE的错误。
+不过以后每次运行纯32位Windows中的程序，例如IE6，就需要先导出环境变量了。
+通过bash脚本可以简化操作：wine32.sh
+#!/bin/bash
+export WINEARCH=win32
+export WINEPREFIX=$HOME/.wine32/
+winefile
+在文件管理器中双击安装或运行。
+
+64位系统安装32位glGO
+1) 下载glGo-1.4.1.deb，双击使用软件中心安装，会提示软件包质量欠佳：别管它，确认即可。
+2) 安装getlibs，以获取并安装任意的32位库
+wget https://launchpad.net/~jcollins/+archiv ... a2_all.deb
+sudo dpkg -i getlibs_2.06-0ubuntu1~ppa2_all.deb
+3) 安装32位库
+sudo getlibs -p libpython2.7:i386 appmenu-gtk:i386
+sudo apt-get install ia32-libs libjpeg62:i386
+4) 软链接
+sudo ln -s /usr/lib32/libpython2.7.so.1.0 /usr/lib/libpython2.5.so.1.0
+5) 和GNUGO来一盘
+sudo apt-get install gnugo
+
+MinGW-w64静态链接
+-static-libgcc -static-libstdc++ 或 -static
+
+修正dpkg -i *.deb安装后缺少信赖
+sudo apt-get install -f
+
+获取脚本文件所在路径
+包含文件：$0
+只要路径：`dirname "$0"`ol
+
+批量文本替换
+grep "old" -rl ./ |xargs sed -i "s/old/new/g"
+grep "Objbase.h" -rl . --include=*.cpp --include=*.h |xargs sed -i "s/Objbase.h/objbase.h/g"
+或：
+sed -i "s/原字符串/新字符串/g" `grep 原字符串 -rl 所在目录
+
+64位系统中通过chroot构建32位环境
+1. 安装工具：sudo apt-get install debootstrap schroot
+2. 编辑配置：sudo editor /etc/schroot/chroot.d/32.conf,添加如下内容
+[32]
+description=Ubuntu 32Bit
+type=directory
+directory=/32
+users=loaden,okayen
+groups=users
+root-groups=root
+personality=linux32
+3. 安装系统：sudo debootstrap --arch i386 --variant=buildd precise /32 http://mirrors.163.com/ubuntu/
+4. 配置系统：sudo schroot -c 32 #以管理员权限进入系统
+a. 更新源
+# echo "deb http://mirrors.163.com/ubuntu precise main universe" > /etc/apt/sources.list
+# apt-get update
+b. 语言支持
+# locale-gen en_US.UTF-8 zh_CN.UTF-8
+c. 时区
+# dpkg-reconfigure tzdata
+d. 必备工具
+# apt-get install bash-completion nano sudo
+e. 字体
+# apt-get install ttf-wqy-*
+f. 图形界面
+# apt-get install libgtk2.0-0 libgtk-3-0 appmenu-gtk appmenu-gtk3
+# echo "export DISPLAY=:0.0" > /etc/profile.d/gui_support.sh
+g. 支持PPA源添加
+# apt-get install python-software-properties
+4. 软件安装
+a. 安装FoxReader
+$ sudo dpkg -i FoxitReader_1.1.0_i386.deb
+$ sudo apt-get install libcanberra-gtk-module
+$ schroot -c 32 -p FoxReader #运行
+b. 安装glGo
+$ sudo dpkg -i glGo-1.4.1.deb
+$ sudo apt-get install libsm6 libjpeg62 libsdl-image1.2 libsdl-ttf2.0-0 libsdl-mixer1.2 libglu1-mesa libpython2.7 gnugo
+$ sudo ln -s /usr/lib/libpython2.7.so.1.0 /usr/lib/libpython2.5.so.1.0
+$ schroot -c 32 -p glGo #运行
+5. 构建32位Qt5编译环境
+sudo apt-get install "^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev libedit-dev libfontconfig1-dev -y
+6. 安装GCC4.7
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-4.7 g++-4.7
+
+卸载多余的内核
+查询所有内核：dpkg --get-selections|grep linux
+正在使用的内核不能删除：uname -r
+删除不需要的内核：sudo apt-get remove XXX
+
+屏幕亮度
+查询最大亮度：cat /sys/class/backlight/acpi_video0/max_brightness
+sudo gedit /usr/bin/bright
+添加：
+#!/bin/bash
+pkexec /usr/lib/gnome-settings-daemon/gsd-backlight-helper --set-brightness 15
+其中--set-brightness 15中的值视需要在max_brightness的1/2和3/4之间取。
+添加可执行权限：chmod +x /usr/bin/bright
+设置：
+gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command "/usr/bin/bright"
+查看：
+cat /sys/class/backlight/acpi_video0/*brightness
+
+Ubuntu 下列签名无效： BADSIG 40976EAF437D05B5
+sudo rm -r /var/lib/apt/lists
+sudo apt-get update
+
+通过源码编译升级软件包
+0. 安装公钥：sudo apt-get install debian-keyring #开发者公钥
+1. 安装依赖：sudo apt-get build-dep XXX
+2. 下载源码：apt-get source XXX
+3. 替换源码或修改源码
+4. 重新编译：cd 源码目录 && dpkg-buildpackage -rfakeroot -uc -b
+5. 覆盖安装：sudo dpkg -i *.deb
+
+安装GCC-4.7编译器
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-fast install gcc-4.7 gcc-4.7-multilib g++-4.7 g++-4.7-multilib
+
+更新mplayer和smplayer
+sudo add-apt-repository ppa:motumedia/mplayer-daily
+sudo add-apt-repository ppa:smplayer2/daily
+sudo apt-fast install mplayer2 smplayer2
+
+命令行解压缩到指定目录
+sudo tar xvf XXX.tar.xz -C /opt
+不需要添加J选项，tar会根据压缩包名称识别压缩包格式。
+所以xvf应该可以作为万能参数了。
+
+解除文件夹及其子文件的权限
+Chmod 777 to a folder and all contents
+chmod -R 777  folder
+
+
+使用mutt，msmtp，fetchmail，procmail
+Introduction
+This page is a guide to using the email client Mutt to send, receive and read email under Ubuntu using a Gmail account as a relay. It describes POP2 over SSL rather than the increasingly popular IMAP. It has been tested and extensively used under Ubuntu Oneiric Ocelot. There are a few steps involved but if followed carefully and in sequence you will soon be using Mutt successfully with your Gmail account. If this is your first attempt at this guide I would recommend following the sequence of the page, otherwise feel free to navigate as you please!
+
+Introducing John
+To avoid confusion in editing the many configuration files involved in this setup I will describe the setup of mutt and gmail for my new friend John, who has been borrowed from this guide's big brother. John's details are as follows:
+
+Gmail Address:        john.example@gmail.com
+Gmail Password:       rover
+Computer Username:    john
+
+Please remember, Gentle Reader, to substitute your own details for John's. Hopefully this will lessen the confusion that I have unintentionally created with older versions of this page!
+
+Introducing vim
+I have been somewhat taken to task for throwing vim into this guide without too much warning, for which my apologies to all. vim is the text editor that I feel suits mutt the best but a little preparation is a good idea before launching straight into it. Download vim from the repository as follows:
+
+sudo apt-get install vim
+and once vim is installed run through the builtin tutorial by simply running:
+
+vimtutor
+It may take a little time to come to grips with this great editor but trust me it is time well spent. For those who find it all a little hard there is always nano or pico!
+
+Further setup
+Mutt does not work on its own so before getting to grips with mutt itself w will need to install and configure a few other applications:
+
+SSL Tools
+Gmail uses the POP3-over-SSL protocol to protect the transmission of username and password over the Internet. You will need to install both open SSL and a certificate pack from the repository as follows:
+
+
+sudo apt-get install openssl ca-certificates
+Later you will need to add the necessary SSL instructions to Fetchmail, but the next step is to install the software to send mail from your computer to the server: msmtp.
+
+msmtp
+msmtp is a great and wonderfully reliable way to move mail from your computer. Download it from the repository as follows:
+
+sudo apt-get install msmtp
+There is a single configuration file to be altered: $HOME/.msmtprc. It can be created and permissions set as follows:
+
+touch $HOME/.msmtprc && \
+touch $HOME/.msmtp.log && \
+chmod 0600 $HOME/.msmtprc
+Below is the required configuration for a Gmail server:
+
+account default              
+host smtp.gmail.com          
+port 587                     
+from "john.example@gmail.com"   
+tls on                       
+tls_starttls on              
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+auth on                     
+user "john.example"       
+password "rover"       
+logfile ~/.msmtp.log
+Now to setup Fetchmail:
+
+Fetchmail
+Fetchmail is great tool to download mail from Gmail. Download it from the repository as follows:
+
+sudo apt-get install fetchmail
+Once again a single configuration file is required and so you will need to create ~/.fetchmailrc as follows:
+
+vim ~/.fetchmailrc
+The following configuration allow Fetchmail to access and fetch email from Gmail, leave a copy of the mail on the Gmail server and pass the mail to Procmail on your local machine. The SSL configuration is included here as well:
+
+poll pop.gmail.com                   
+with proto POP3                      
+user "john.example@gmail.com"        
+there with password "rover"        
+is "john" here                              
+mda "/usr/bin/procmail -d %T"        
+options                                                             
+no keep                                 
+ssl                                  
+sslcertck                            
+sslcertpath /etc/ssl/certs
+All done except as a final touch, since the username and password are openly in this file,you will need to make the file readable only by the file owner. If this is not done Fetchmail will not even run:
+
+chmod 600 ~/.fetchmailrc
+Now would be a good to time to make sure you have POP forwarding enabled in your Gmail account. You will find this in: Settings - Forwarding and POP. Note also that Gmail has a little oddity in regard to the "keep" and "nokeep" command of Fetchmail. You cannot remove mail from Gmail servers via POP3 but you can choose to have your messages archived, kept or deleted once they have been downloaded via POP3. This is a Gmail setting hidden in Settings - Forwarding and POP: "When messages are accessed with POP...".
+
+Now for the mail delivery program Procmail:
+
+Procmail
+Procmail is great sorting tool for use with any mail setup. It can be easily downloaded from the repository:
+
+sudo apt-get install procmail
+So where will Procmail deliver to? Traditionally all mail goes to the location specified in the $MAIL environment variable, but in a default Ubuntu system this is often not set. Set the MAIL variable by opening ~/.bashrc as follows:
+
+vim ~/.bashrc
+and adding the following, using your own username:
+
+# Sets the Mail Environment Variable
+MAIL=/var/spool/mail/john && export MAIL
+A very simple configuration file must be created for procmail as follows:
+
+vim ~/.procmailrc
+and below is a very simple start to what can be quite a complex file:
+
+# Environment variable assignments
+PATH=/bin:/usr/bin:/usr/local/bin 
+VERBOSE=off                   # Turn on for verbose log
+MAILDIR=$HOME/Mail            # Where Procmail recipes deliver
+LOGFILE=$HOME/.procmaillog    # Keep a log for troubleshooting.
+# Recipes
+:0:
+* ^TOmutt-user
+mutt
+I include a very simple sorting recipe with the file: this one intercepts everything addressed to "mutt-user" and directs it to $HOME/Mail/mutt. This is the mutt-user mailing list which I would advise all new mutt users to join. And lets not forget to create the Mail folder:
+
+mkdir $HOME/Mail
+Now finally to Mutt.
+
+Install & Configure Mutt
+Mutt is one of the truly great pieces of software under Linux. The following command downloads Mutt from the Ubuntu repository:
+
+sudo apt-get install mutt
+Mutt is driven by a configuration file that can be created as follows:
+
+vim ~/.muttrc
+I have spent some time building this file from scratch but for you, Gentle Reader, I include here a more basic version, similar to the one I started from:
+
+#======================================================#
+# Boring details
+set realname =john
+set from = john.example@gmail.com
+set use_from = yes
+set envelope_from ="yes"
+set sendmail="/usr/bin/msmtp"
+
+# If not set in environment variables:
+set spoolfile = /var/spool/mail/john
+
+#======================================================#
+# Folders
+set folder="~/Mail"                # Mailboxes in here
+set record="+sent"                 # where to store sent messages
+set postponed="+postponed"         # where to store draft messages
+set move=no                        # Don't move mail from the spool.
+
+#======================================================#
+# Watch these mailboxes for new mail:
+mailboxes ! +Fetchmail +slrn +mutt
+set sort_browser=alpha    # Sort mailboxes by alpha(bet)
+
+#======================================================#
+# Order of headers and what to show
+hdr_order Date: From: User-Agent: X-Mailer \
+          To: Cc: Reply-To: Subject:
+ignore *
+unignore Date: From: User-Agent: X-Mailer  \
+         To: Cc: Reply-To: Subject:
+               
+#======================================================#
+# which editor do you want to use? 
+# vim of course!
+set editor="vim -c 'set tw=70 et' '+/^$' " 
+set edit_headers          # See the headers when editing
+
+#======================================================#
+# Aliases
+
+set sort_alias=alias     # sort aliases in alpha order by alias name
+
+#======================================================#
+# Odds and ends
+set markers          # mark wrapped lines of text in the pager with a +
+set smart_wrap       # Don't wrap mid-word
+set pager_context=5  # Retain 5 lines of previous page when scrolling.
+set status_on_top    # Status bar on top.
+push <show-version>  # Shows mutt version at startup
+Note: Procmail will create your mailbox in the spool, and set the appropriate permissions, when it first receives mail from fetchmail so don't worry that mutt cannot initially find this mailbox. If you wish to create the mailbox yourself the following permissions and ownership are required (taken from my own system):
+
+-rw-rw---- 1 andrew mail 0 2008-10-23 10:12 /var/spool/mail/andrew
+And finally it is reward time as you open Mutt, type ! to open a shell prompt, type fetchmail -v and start reading your mail! My parting gift is a little macro that was written for me by a generous person on the mutt-user mailing list that will actually do this for you when you simply press the key "I". Place the following in your ~/.muttrc file:
+
+macro index,pager I '<shell-escape> fetchmail -v<enter>'
+And welcome to the world of mutt!
+
+记住如果当前不是root，就要用sudo，否则没权限发不出去。
+在.msmtprc中，user "wliu840305@gmail.com"
+
+
+

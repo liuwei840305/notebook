@@ -1,0 +1,255 @@
+安装Galprop的问题
+安装Healpix
+/adata/Healpix_2.20a/src/cxx/cxxsupport/arr.h:207:92: error: ‘fill’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+arrT(tsize sz, const T &inival) : arr_ref<T>(stm.alloc(sz),sz), own(true) { fill(inival); }
+^
+compilation terminated due to -Wfatal-errors.
+
+solution: edit src/cxx/cxxsupport/arr.h line 207 and replace fill(inival); by this->fill(inival);
+
+./runtest.sh: line 16: xv: command not found
+make[1]: *** [test] Error 127
+make[1]: Leaving directory `/home/strickland/galprop/package/source/Healpix_2.20a/src/cxx'
+
+solution: Installing xv on ubuntu
+sudo bash
+cd /tmp
+wget ftp://ftp.cis.upenn.edu/pub/xv/xv-3.10a.tar.gz
+wget http://prdownloads.sourceforge.net/png-mng/xv-3.10a-jumbo-patches-20050501.tar.gz
+wget http://www.ulich.org/hints/resources/xv-3.10a-jumbo20050501-1.diff.gz
+tar xvzf xv-3.10a.tar.gz
+tar xvzf xv-3.10a-jumbo-patches-20050501.tar.gz
+gzip -d xv-3.10a-jumbo20050501-1.diff.gz
+cd xv-3.10a
+patch -p1 < ../xv-3.10a-jumbo-fix-patch-20050410.txt
+patch -p1 < ../xv-3.10a-jumbo-enh-patch-20050501.txt
+patch -p1 < ../xv-3.10a-jumbo20050501-1.diff
+apt-get install libxt-dev libc6-dev xlibs-dev libjpeg62-dev libtiff4-dev libpng12-dev
+make
+cp xv /usr/local/bin
+
+tiffio.h: No such file or directory
+solution: sudo apt-get install libtiff4-dev
+
+
+安装CCfits时报错，
+gamke
+gmake  all-recursive
+gmake[1]: Entering directory `/home/faust/CCfits'
+Making all in vs.net
+gmake[2]: Entering directory `/home/faust/CCfits/vs.net'
+gmake[2]: Nothing to be done for `all'.
+gmake[2]: Leaving directory `/home/faust/CCfits/vs.net'
+gmake[2]: Entering directory `/home/faust/CCfits'
+if /bin/sh ./libtool --tag=CXX --mode=compile g++ -DHAVE_CONFIG_H -I. -I. -I. -I./..  -I/home/faust/include  -g -O2 -Wall -ansi -MT AsciiTable.lo -MD -MP -MF ".deps/AsciiTable.Tpo" -c -o AsciiTable.lo AsciiTable.cxx; \
+	then mv -f ".deps/AsciiTable.Tpo" ".deps/AsciiTable.Plo"; else rm -f ".deps/AsciiTable.Tpo"; exit 1; fi
+./libtool: line 659: X--tag=CXX: command not found
+./libtool: line 692: libtool: ignoring unknown tag : command not found
+./libtool: line 659: X--mode=compile: command not found
+./libtool: line 809: *** Warning: inferring the mode of operation is deprecated.: command not found
+./libtool: line 810: *** Future versions of Libtool will require -mode=MODE be specified.: command not found
+./libtool: line 953: Xg++: command not found
+./libtool: line 953: X-DHAVE_CONFIG_H: command not found
+./libtool: line 953: X-I.: command not found
+./libtool: line 953: X-I.: command not found
+./libtool: line 953: X-I.: command not found
+./libtool: line 953: X-I./..: No such file or directory
+./libtool: line 953: X-I/home/faust/include: No such file or directory
+./libtool: line 953: X-g: command not found
+./libtool: line 953: X-O2: command not found
+./libtool: line 953: X-Wall: command not found
+./libtool: line 953: X-ansi: command not found
+./libtool: line 953: X-MT: command not found
+./libtool: line 953: XAsciiTable.lo: command not found
+./libtool: line 953: X-MD: command not found
+./libtool: line 953: X-MP: command not found
+./libtool: line 953: X-MF: command not found
+./libtool: line 953: X.deps/AsciiTable.Tpo: No such file or directory
+./libtool: line 953: X-c: command not found
+./libtool: line 1001: XAsciiTable.lo: command not found
+./libtool: line 1006: libtool: compile: cannot determine name of library object from `': command not found
+gmake[2]: *** [AsciiTable.lo] Error 1
+gmake[2]: Leaving directory `/home/faust/CCfits'
+gmake[1]: *** [all-recursive] Error 1
+gmake[1]: Leaving directory `/home/faust/CCfits'
+gmake: *** [all] Error 2
+解决：
+安装libtool
+或者
+export echo=echo
+或者
+[root@oscar libgdiplus-2.10.9]# pwd
+/root/libgdi/libgdiplus-2.10.9
+
+[root@oscar libgdiplus-2.10.9]# ls -la libtool
+-rwxr-xr-x 1 root root 292559 Jul  8 14:12 libtool
+
+[root@oscar libgdiplus-2.10.9]# ls -la pixman/libtool
+-rwxr-xr-x 1 root root 211592 Jul  8 14:12 pixman/libtool
+
+You can see that the two files "libtool" are different:
+
+mv pixman/libtool pixman/libtool.old
+cp libtool pixman/libtool
+
+关闭Healpix中的openmp功能
+修改src/cxx/config/config.generic_gcc中
+的
+LS_OMPFLAGS:= #-fopenmp
+
+chi2galp，chi2prop，与galprop联合编译时出现：
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(synchrotron.o): In function `master.0.bsikr3':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/synchrotron.f:279: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/synchrotron.f:279: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/synchrotron.f:279: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/synchrotron.f:284: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/synchrotron.f:284: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/synchrotron.f:284: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(WNEWTR_FUNC_aws.o): In function `set_sigma_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:64: undefined reference to `_gfortran_st_open'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:100: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:100: undefined reference to `_gfortran_transfer_character_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:100: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:102: undefined reference to `_gfortran_stop_string'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:66: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:66: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:71: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:71: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:71: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:75: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:75: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:75: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:78: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:78: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:78: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:78: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:78: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:78: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:84: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:84: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:84: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:87: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:86: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:86: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:86: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:86: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:87: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(WNEWTR_FUNC_aws.o):/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:87: more undefined references to `_gfortran_transfer_real' follow
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(WNEWTR_FUNC_aws.o): In function `set_sigma_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:87: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:92: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:92: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:92: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:94: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:94: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:94: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:94: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:94: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:94: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:97: undefined reference to `_gfortran_st_close'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(WNEWTR_FUNC_aws.o): In function `wdecay_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/WNEWTR_FUNC_aws.f:185: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o): In function `sighad_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o):/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: more undefined references to `_gfortran_transfer_real_write' follow
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o): In function `sighad_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:462: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o):/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: more undefined references to `_gfortran_transfer_real_write' follow
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o): In function `sighad_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:464: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o): In function `sigtap2_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:521: undefined reference to `_gfortran_st_open'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:528: undefined reference to `_gfortran_st_rewind'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:531: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:530: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:530: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:530: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:530: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:531: undefined reference to `_gfortran_transfer_character'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:531: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:537: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:537: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:537: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:541: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:540: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:540: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:540: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:540: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:541: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:541: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:543: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:542: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:542: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:542: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:542: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:543: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:543: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:554: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:553: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:553: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:553: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:553: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:554: undefined reference to `_gfortran_transfer_character_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:554: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:556: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:556: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:556: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:560: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:560: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:560: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:560: undefined reference to `_gfortran_transfer_integer_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:560: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o): In function `crosec_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:146: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:146: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:147: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:147: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:149: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:149: undefined reference to `_gfortran_transfer_integer'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:149: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:153: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:153: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_st_read'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_transfer_real'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o):/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: more undefined references to `_gfortran_transfer_real' follow
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/GALP/lib/libgalprop.a(crn6.o): In function `crosec_':
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:154: undefined reference to `_gfortran_st_read_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:163: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:163: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:164: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:164: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:165: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:165: undefined reference to `_gfortran_st_write_done'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:182: undefined reference to `_gfortran_st_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:182: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:182: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:182: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:182: undefined reference to `_gfortran_transfer_real_write'
+/home/faust/Research/PROGRAM/CRPropagation/GALPROP_WORKSPACE/SUJIEVERSION/MCgalp/source/crn6.f:182: undefined reference to `_gfortran_st_write_done'
+collect2: error: ld returned 1 exit status
+make: *** [test] Error 1
+解决：
+add -lgfortran to the linking sequence
+

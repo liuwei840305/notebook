@@ -1,0 +1,231 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}      % 花体
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{The Boltzmann Transport Equation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Relation Between Microscopic and Macroscopic Descriptions: Particles, the Gibbs Ensemble, and Liouville's Theorem}
+A typical system can be described in terms of a Hamiltonian function $H[(\vec{x}), (\vec{p})]$, where
+\begin{equation}
+H[(\vec{x}), (\vec{p})] = E[(\vec{x}), (\vec{p})] ~.
+\end{equation}
+In the absence of external fields, $E[(\vec{x}), (\vec{p})]$ denotes the total energy, kinetic energy, and potential energy of the system. The equations of motion for the system are given by Hamilton's equations
+\begin{align}
+& \dfrac{\dif \vec{x}_i}{\dif t} = \dot{\vec{x}}_i = \dfrac{\partial H}{\partial \vec{p}_i} ~, \\
+& \dfrac{\dif \vec{p}_i}{\dif t} = \dot{\vec{p}}_i = -\dfrac{\partial H}{\partial \vec{x}_i} ~, 
+\end{align}
+The state of the system at any time is given by a representative point in the $6N$ dimensional phase space (also called the $\Gamma$ space) defined by the mutually orthogonal vectors $\vec{x}_1, \vec{x}_2, \cdots \vec{x}_N, \vec{p}_1, \vec{p}_2, \cdots \vec{p}_N$. Thus, for a given set of initial conditions, the trajectories of a particular system can be computed. Note that the Hamiltonian does not depend on time and so the equations of motion above are invariant under time reversal.
+
+It is evident that a very large number of states of a gas corresponds to a particular macroscopic state of a gas e.g., a gas of a particular density contained in a box of fixed volume can be formed in an infinite number of ways according to the distribution of the particles in space. However, macroscopically we cannot distinguish between one representative point or another i.e., between gases existing in different states. A gas that can be described by certain macroscopic conditions refers therefore to an infinite number of states and not to a single state. Instead of considering a single system, we may consider a collection of systems that are identical in composition and macroscopic conditions but existing in different states. Such a collection of systems is called a Gibbs ensemble, and is the collection of systems that is microscopically equivalent to the system we are considering macroscopically. Each system in the ensemble can be represented by a point in phase space. As the number of systems becomes very large, the representative points become increasingly dense in phase space and we can describe their distribution in phase space by a density function. The density function is a continuous function of $\vec{x}$ and $\vec{p}$, which if normalized can be described by a probability density function $f_N(\vec{x}, \vec{p}, t)$ i.e., $f_N(\vec{x}, \vec{p}, t) \dif^{3N} \vec{p} \dif^{3N} \vec{x}$ is the number of representative points that at time $t$ are in the infinitesimal volume $\dif^{3N} \vec{p} \dif^{3N} \vec{x}$ about the point $(\vec{x}, \vec{p})$ in phase space. Although $f_N$ is a probability distribution function, it evolves in time in a completely deterministic manner, in principle though solving Hamilton's equations.
+
+An ensemble average of the macroscopic property $M(\vec{x}, \vec{p}$ can be defined by
+\begin{equation}
+\langle M(t) \rangle = \int M(\vec{x}, \vec{p}) f_N(\vec{x}, \vec{p}, t) \dif^{3N} \vec{p} \dif^{3N} \vec{x} ~,
+\end{equation}
+i.e., the expectation of the property $M(\vec{x}, \vec{p})$. Another important and basic postulate of statistical mechanics is the so-called ergodic statement, which is that the time average $\bar{M}(\vec{x}, \vec{p})$
+\begin{equation}
+\bar{M}(\vec{x}, \vec{p}) = \langle M(t) \rangle ~.
+\end{equation}
+The ergodic statement asserts that we can consider ensemble averages rather than time averages as a basis for determining macroscopic properties from the microscopic description. Thus, we need to study the properties and behavior of the probability density function $f_N$.
+
+The evolution of the pdf $f_N$ is described by Liouville's theorem. The Hamilton equations determine how each ensemble member evolves in phase space. Consider the change $\dif f_N$ in the value of $f_N$ at the point $(\vec{x}, \vec{p})$ at time $t$ in phase space which results from an arbitrary, infinitesimal change in these variables. This yields
+\begin{align}
+\dif f_N = \dfrac{\partial f_n}{\partial t} \dif t + \sum_{i=1}^N \dfrac{\partial f_n}{\partial \vec{x}_i} \cdot \dif \vec{x}_i + \sum_{i=1}^N \dfrac{\partial f_n}{\partial \vec{p}_i} \cdot \dif \vec{p}_i \\
+\rightarrow \dfrac{\dif f_N}{\dif t} = \dfrac{\partial f_N}{\partial t} + \sum_{i=1}^N \left[ \dfrac{\partial f_N}{\partial \vec{x}_i} \cdot \dot{\vec{x}}_i + \dfrac{\partial f_N}{\partial \vec{p}_i} \cdot \dot{\vec{p}}_i \right]
+\end{align}
+$\dif f_N/\dif t$ is the total change of $f_N$ along the trajectory in the neighborhood of $(\vec{x})$ and $\partial f_N /\partial t$ is the local change in $f_N$, i.e., at the point $(\vec{x})$. Liouville's Theorem is the statement
+\begin{equation}
+\dfrac{\dif f_N}{\dif t} = 0 ~.
+\end{equation}
+Liouville's theorem states that along the trajectory of any phase point, the probability density in the neighborhood of the point remains constant in time. Since Hamilton's equations have unique solutions, there can be no intersection of trajectories of separate ensemble members in phase space. Thus, an incremental volume about the point $\vec{x}$ in phase space, defined by a specified surface of points in phase space, is also invariant in time, even though it may change its shape (points from inside the volume can never cross the surface since then they would intersect with the points defining the boundary). Since both $f_N$ and the number of points inside the volume $\dif \vec{x}$ remain constant in time, the volume of $\dif \vec{x}$ is unchanged.
+
+Note that since $f_N$ is constant along a trajectory in phase space, so too is any function of $f_N$. Finally, Liouville's equation is reversible in the sense that the transformation $t \rightarrow -t$ leaves the form of the equation unaltered. Hence, if $f_N((\vec{x}(t)), (\vec{p}(t)), t)$ is a solution to Liouville's equation, then so is $f_N((\vec{x}(-t)), (\vec{p}(-t)), -t)$.
+
+\section{The Language of Fluid Turbulence}
+An example of a random function in space and time in fluid dynamics is the velocity field of a turbulent jet or flow. The macroscopic boundary conditions for the flow field may be independent of time, but the velocity at a point varies in an unpredictable manner in time. The local time-average velocity is different in different locations, as are other averages, such as the square of the velocity departures from the mean $(\vec{v}- \vec{U})^2$ - the variance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Derivation of the Boltzmann Transport Equation}
+The distribution function $f(\vec{x}, \vec{p}, t)$, which is defined 
+\begin{equation}
+f(\vec{x}, \vec{p}, t) \dif^3 \vec{x} \dif^3 \vec{p} ~,
+\end{equation}
+is the number of particles $\dif N$ in the phase space volume $(\vec{x} + \dif^3 \vec{x}, \vec{p} +\dif^3 \vec{p})$ about the point $(\vec{x}, \vec{p})$ at some time $t$. The space defined by $(\vec{x}, \vec{p})$ is a six-dimensional space in spatial volume $\vec{x}$ and momentum $\vec{p}$, and is called $\mu$-space. 
+
+
+
+\begin{equation}
+\dif^3 \vec{x} \dif^3 \vec{p} = \dif^3 \vec{x}^\prime \dif^3 \vec{p}^\prime
+\end{equation}
+since the frames $K$ and $K^\prime$ are arbitrary,  $\dif^3 \vec{x} \dif^3 \vec{p}$ is a Lorentz invariant. Since the number of particles $\dif N$ within a phase space volume element is a countable quantity and therefore invariant, the phase space density is
+\begin{equation}
+f(\vec{x}, \vec{p}, t) = \dfrac{\dif N}{\dif V} ~, \dif V \equiv \dif^3 \vec{x} \dif^3 \vec{p} ~, 
+\end{equation}
+is an invariant.
+
+
+\section{The Boltzmann Collision Operator} 
+
+
+
+
+\section{Conservation Laws, the H-Theorem, and the Maxwell-Boltzmann Distribution Function}
+
+
+
+\section{The Boltzmann Equation and the Fluid Equations}
+
+
+
+
+\section{The Relaxation Time Approximation}
+\begin{equation}
+Q(f, f)(\nu) = -\dfrac{f-f_0}{\tau} = -\nu (f-f_0) ~,
+\end{equation}
+for a \textcolor{red}{relaxation time parameter $\tau$} or \textcolor{red}{scattering frequency $\nu$}. Here, $f_0$ is the Maxwellian equilibrium distribution. The \textcolor{red}{relaxation time} or \textcolor{red}{BGK operator} must \textcolor{red}{vanish under the appropriate moments}, as with $Q(f, f)(\nu)$. The relaxation time approximation describes the rate of loss of particles $-\nu f$ due to collisions from a small element of phase space while $-\nu f_0$ represents the corresponding gain of particles as the result of collisions. The detailed dynamics and statistics of the collisions are neglected, as is the fact that the velocity after a collision is correlated with that before. The \textcolor{red}{relaxation operator is purely local and simulates the effect of close binary collisions} in which there is a \textcolor{red}{substantial change of velocity}. The collisions can be thought of as a \textcolor{red}{Poisson process}, occurring with probability $\nu \dif t$ in the time interval $[t, t+\dif t]$, and the relaxation operator establishes a Maxwellian or normal distribution in a time of the order of a few $\nu^{-1}$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

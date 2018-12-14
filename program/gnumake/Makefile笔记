@@ -1,0 +1,13 @@
+make的内嵌函数
+
+make的函数调用格式类似变量的引用，以“$”开始表示一个引用：
+   $(function arguments)
+or ${function arguments}
+
+function是make内嵌的函数名，用户自己的函数名用“call”间接调用。
+arguments是函数的参数，参数和函数名用若干空格或[tab]字符分割；多个参数用“,”分开。
+
+
+
+
+

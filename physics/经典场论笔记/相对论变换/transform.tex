@@ -1,0 +1,278 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{xcolor,amsmath}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+
+
+
+\title{Special Relativity}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\section{Invariance of Electric Charge}
+Lorentz force equation for a particle of charge $q$,
+\begin{equation}
+\frac{\dif \vec{p}}{\dif t} = q\left(\vec{E} +\frac{\vec{v}}{c} \times \vec{B} \right)
+\end{equation}
+$\vec{p}$ transforms as the space part of the $4$-vector of energy and momentum, 
+\begin{equation*}
+p^\alpha = (p_0, \vec{p}) = m (U_0, \vec{U})
+\end{equation*}
+where $p_0 = E/c$ and $U^\alpha$ is the $4$-velocity. 
+
+\section{Covariance of Electrodaynamics}
+the electric and magnetic fields are the elements of a \textcolor{red}{second-rank, antisymmetric field-strength tensor},
+\begin{equation}
+F^{\alpha \beta} = \partial^{\alpha} A^{\beta} -\partial^{\beta} A^{\alpha}
+\end{equation}
+Explicitly, the \textcolor{red}{field-strength tensor} is 
+\renewcommand{\arraystretch}{1}
+\begin{gather*}
+F^{\alpha \beta} = 
+\begin{pmatrix} 
+0 &-E_x  &-E_y &-E_z \\
+E_x &0 &-B_z &B_y \\
+E_y &B_z &0 &-B_x \\
+E_z &-B_y &B_x &0
+\end{pmatrix}
+\end{gather*}
+\renewcommand{\arraystretch}{1.5}
+the field-strength tensor with two \textcolor{red}{covariant indices}
+\renewcommand{\arraystretch}{1}
+\begin{gather*}
+F_{\alpha \beta} = \mathrm{g}_{\alpha \gamma} F^{\gamma \delta} \mathrm{g}_{\delta \beta} =
+\begin{pmatrix} 
+0 &E_x  &E_y &E_z \\
+-E_x &0 &-B_z &B_y \\
+-E_y &B_z &0 &-B_x \\
+-E_z &-B_y &B_x &0
+\end{pmatrix}
+\end{gather*}
+\renewcommand{\arraystretch}{1.5}
+The elements of $F_{\alpha \beta}$ are obtained from $F^{\alpha \beta}$ by putting $\vec{E} \rightarrow -\vec{E}$.
+
+The \textcolor{red}{dual field-strength tensor $\mathscr{F}^{\alpha \beta}$}
+\renewcommand{\arraystretch}{1}
+\begin{gather*}
+\mathscr{F}^{\alpha \beta} = \frac{1}{2} \epsilon^{\alpha\beta\gamma\delta} F_{\gamma \delta} =
+\begin{pmatrix} 
+0     & -B_x  & -B_y & -B_z \\
+B_x &      0  &  E_z & -E_y \\
+B_y & -E_z  &      0 &  E_x \\
+B_z &  E_y  & -E_x &      0
+\end{pmatrix}
+\end{gather*}
+\renewcommand{\arraystretch}{1.5}
+The elements of the dual tensor $\mathscr{F}^{\alpha \beta}$ are obtained from $F^{\alpha \beta}$ by putting $\vec{E} \rightarrow \vec{B}$ and $\vec{B} \rightarrow -\vec{E}$.
+\textcolor{red}{$\epsilon^{\alpha\beta\gamma\delta}$} is the \textcolor{red}{totally antisymmetric fourth-rank tensor}:
+\begin{equation}
+\epsilon^{\alpha\beta\gamma\delta} =
+\begin{cases}
++1 & \text{for} \alpha = 0, \beta = 1, \gamma = 2, \delta = 3, \text{and any even permutation} \\
+-1  & \text{for any odd permutation} \\
+0   & \text{if any two indices are equal}
+\end{cases}
+\end{equation}
+The nonvanishing elements all have one time and three(different) space indices and that $\epsilon_{\alpha\beta\gamma\delta} = -\epsilon^{\alpha\beta\gamma\delta}$. The tensor $\epsilon^{\alpha\beta\gamma\delta}$ is a \textcolor{red}{pseudotensor under spatial inversions}.
+ 
+Write Maxwell equations in an explicitly covariant form:
+\begin{eqnarray*}
+\nabla \cdot \vec{E} &=& 4\pi \rho ~\\
+\nabla \times \vec{B} -\frac{1}{c} \frac{\partial \vec{E}}{\partial t} &=& \frac{4\pi}{c} \vec{J}
+\end{eqnarray*}
+In terms of $F^{\alpha \beta}$ and the 4-current $J^{\alpha}$,
+\begin{equation}
+\color{red} \partial_{\alpha} F^{\alpha \beta} = \frac{4\pi}{c} J^{\beta}
+\end{equation}
+
+\begin{eqnarray*}
+\nabla \cdot \vec{B} &=& 0 ~ \\
+\nabla \times \vec{E} + \frac{1}{c} \frac{\partial \vec{B}}{\partial t} &=& 0
+\end{eqnarray*}
+{\color{red} 
+\begin{equation}
+\partial_{\alpha} \mathscr{F}^{\alpha \beta} = 0
+\end{equation} }
+or in terms of $F^{\alpha \beta}$, rather than $\mathscr{F}^{\alpha \beta}$,
+{\color{red}
+\begin{equation}
+\partial_{\alpha} F_{\beta \gamma} +\partial_{\beta} F_{\gamma \alpha} +\partial_{\gamma} F_{\alpha \beta} = 0
+\end{equation} }
+
+\section{transformation of electromagnetic fields}
+The fields $\vec{E}^{\prime}$ and $\vec{B}^{\prime}$ in one inertial frame $K^{\prime}$ can be  expressed in terms of $\vec{E}$ and $\vec{B}$ in another inertial frame $K$ according to
+\begin{equation}
+F^{\alpha \beta} = \frac{\partial x^{\prime \alpha}}{\partial x^{\gamma}}  \frac{\partial x^{\prime \beta}}{\partial x^{\delta}} F^{\gamma \delta} 
+\end{equation}
+i.e.
+\begin{equation}
+F^{\prime} = A F \tilde{A}
+\end{equation}
+$A$ is the Lorentz transformation matrix.
+
+A boost along the $x_1$ axis with speed $c\beta$ from the unprinted frame to the primed frame, the explicit equations of transformation are 
+\begin{subequations}
+\renewcommand{\theequation}{\theparentequation.\alph{equation}}
+\begin{center}
+\begin{minipage}[b]{9em}
+\begin{equation*}
+E_1^{\prime} = E_1
+\end{equation*}
+\end{minipage}\qquad
+\begin{minipage}[b]{9em}
+\begin{equation*}
+B_1^{\prime} = B_1
+\end{equation*}
+\end{minipage} \\
+\begin{minipage}[b]{9em}
+\begin{equation*}
+E_2^{\prime} = \gamma(E_2 -\beta B_3)
+\end{equation*}
+\end{minipage}\qquad
+\begin{minipage}[b]{9em}
+\begin{equation*}
+B_2^{\prime} = \gamma(B_2 +\beta E_3)
+\end{equation*}
+\end{minipage} \\
+\begin{minipage}[b]{9em}
+\begin{equation*}
+E_3^{\prime} = \gamma(E_3 +\beta B_2)
+\end{equation*}
+\end{minipage}\qquad
+\begin{minipage}[b]{9em}
+\begin{equation*}
+B_3^{\prime} = \gamma(B_3 -\beta E_2)
+\end{equation*}
+\end{minipage}
+\end{center}
+\end{subequations}
+For a general Lorentz transformation from $K$ to a system $K^{\prime}$ moving with velocity $\vec{v}$ relative to $K$, the transformation of the fields is
+{\color{red}
+\begin{eqnarray}
+\vec{E}^{\prime} &=& \gamma(\vec{E} +\vec{\beta} \times \vec{B}) -\frac{\gamma^2}{\gamma+1} \vec{\beta}(\vec{\beta} \cdot \vec{E}) ~,\\
+\vec{B}^{\prime} &=& \gamma(\vec{B} -\vec{\beta} \times \vec{E}) -\frac{\gamma^2}{\gamma+1} \vec{\beta}(\vec{\beta} \cdot \vec{B})
+\end{eqnarray} }
+$\vec{E}$ and $\vec{B}$ have no independent existence. A purely electric or magnetic field in one coordinate system will appear as a mixture of electric and magnetic fields in another coordinate frame.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,367 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+%从右倾的积分号变为竖直的积分号
+%define a new command for \rm font of int
+\DeclareSymbolFont{rmlargesymbols}{OMX}{mdbch}{m}{n}
+% or \DeclareSymbolFont{rmlargesymbols}{U}{euex}{m}{n}
+\DeclareMathSymbol{\rmintop}{\mathop}{rmlargesymbols}{82}
+\newcommand{\rmint}{\rmintop\nolimits}
+
+\title{Fourier Transform}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Integral transforms}
+The pairs of functions are related by an expression of the form
+\begin{align}
+\label{oper_equ}
+& g(x) = \int_a^b f(t) K(x, t) \dif t = \mathcal L f(t) ~, \\
+&  \mathcal L^{-1} g(x) = f(t) ~,
+\end{align}
+where $a$, $b$, and $K(x,t)$ (called the \textcolor{red}{kernel}) will be the same for all function pairs $f$ and $g$. Eq. (\ref{oper_equ}) can be interpreted as an operator equation. The function $g(x)$ is called the integral transform of $f(t)$ by the operator $\mathcal L$, with the specific transform determined by the choice of $a$, $b$, and $K(x,t)$. The operator defined by Eq. (\ref{oper_equ}) will be linear:
+\begin{align}
+& \int_a^b [f_1(t) +f_2(t)] K(x, t) \dif t = \int_a^b f_1(t) K(x, t) \dif t + \int_a^b f_2(t) K(x, t) \dif t ~, \\
+& \int_a^b c f(t) K(x, t) \dif t = c \int_a^b f(t) K(x, t) \dif t =
+\end{align}
+
+\subsection{Some Important Transforms}
+The Fourier transform
+\begin{equation}
+g(\omega) = \dfrac{1}{\sqrt{2\pi} } \int_{-\infty}^\infty f(t) e^{i\omega t} \dif t ~,
+\end{equation}
+
+The Laplace transform,
+\begin{equation}
+F(s) = \int_0^\infty e^{-st} f(t) \dif t ~,
+\end{equation}
+
+
+
+The \textcolor{red}{Hankel transform},
+\begin{equation}
+g(\alpha) = \int_0^\infty f(t) t J_n(\alpha t) \dif t ~,
+\end{equation}
+represents the continuum limit of the Bessel series. 
+
+The \textcolor{red}{Mellin transform},
+\begin{equation}
+g(\alpha) = \int_0^\infty f(t) t^{\alpha-1} \dif t ~,
+\end{equation}
+
+
+\section{Fourier transform}
+The Fourier and inverse Fourier transforms are
+\begin{align}
+& g(\omega) = \dfrac{1}{\sqrt{2\pi} } \int_{-\infty}^\infty f(t) e^{i\omega t} \dif t ~, \\
+& f(t) = \dfrac{1}{\sqrt{2\pi} } \int_{-\infty}^\infty g(\omega) e^{-i\omega t} \dif \omega ~.
+\end{align}
+
+\begin{align}
+& g_c(\omega) = \sqrt{\dfrac{2}{\pi} } \int_{0}^\infty f(t) \cos \omega t \dif t ~, \\
+& f_c(t) = \sqrt{\dfrac{2}{\pi} } \int_{0}^\infty g(\omega) \cos \omega t \dif \omega ~.
+\end{align}
+
+\begin{align}
+& g_s(\omega) = \sqrt{\dfrac{2}{\pi} } \int_{0}^\infty f(t) \sin \omega t \dif t ~, \\
+& f_s(t) = \sqrt{\dfrac{2}{\pi} } \int_{0}^\infty g(\omega) \sin \omega t \dif \omega ~.
+\end{align}
+
+
+\begin{align}
+& g(\vec{k}) = \dfrac{1}{(2\pi)^{3/2}} \int_{-\infty}^\infty f(\vec{r}) e^{i\vec{k} \cdot \vec{r} } \dif^3 r ~, \\
+& f(\vec{r}) = \dfrac{1}{(2\pi)^{3/2}} \int_{-\infty}^\infty g(\vec{k}) e^{-i\vec{k} \cdot \vec{r}} \dif^3 k ~.
+\end{align}
+
+\section{Fourier convolution theorem}
+
+
+
+\subsection{Parseval Relation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Discrete Fourier transform}
+
+
+
+
+
+
+
+
+
+
+\section{Fast Fourier Transform}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

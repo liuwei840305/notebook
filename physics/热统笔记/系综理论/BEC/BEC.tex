@@ -1,0 +1,369 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{玻色--爱因斯坦凝聚}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\cite{2013热力学} 当理想玻色气体的$n\lambda^3$等于或大于$2.612$的临界值时，会出现\textcolor{red}{玻色-爱因斯坦凝聚}。
+
+考虑由$N$个全同、近独立的玻色子组成的系统，温度为$T$、体积为$V$。设粒子的自旋为$0$。根据玻色分布给出，温度为$T$时，处在能级$e_l$上的粒子数为
+\begin{equation}
+a_l = \frac{\omega_l}{e^{\frac{\varepsilon_l -\mu}{kT}} -1}
+\end{equation}
+由于处在任一能级上的粒子数不能取负值，因此$e^{\frac{\varepsilon_l -\mu}{kT}} > 1$。设$\varepsilon_0$为离子的最低能级，则
+\begin{equation}
+\varepsilon_0 > \mu
+\end{equation}
+即理想玻色气体的化学势须低于粒子最低能级的能量。若取最低能级为能量的零点，$\varepsilon_0 = 0$，则
+\begin{equation}
+\mu < 0 ~.
+\end{equation}
+化学势$\mu$由
+\begin{equation}
+\frac{1}{V} \sum_i \frac{\omega_l}{e^{\frac{\varepsilon_l -\mu}{kT}} -1} = \frac{N}{V} = n
+\end{equation}
+确定为温度$T$、粒子数密度$n=N/V$的函数。$\varepsilon_l$和$\omega_l$都与温度无关，当粒子数密度$n$给定，温度愈低，该式确定的$\mu$值越高($|\mu|$愈小)。若将求和用积分代替，
+\begin{equation}
+\frac{2\pi}{h^3} (2m)^{3/2} \int_0^\infty \frac{\varepsilon^{1/2} \dif \varepsilon}{e^{\frac{\varepsilon -\mu}{kT}} -1} = n ~,
+\end{equation}
+该式适用于热力学极限或能级间距远小于$kT$的情形。化学势随温度的降低而升高，当温度降到某一临界温度$T_c$时，$\mu$将趋于$-0$。$e^{-\frac{\mu}{kT_c}}$趋于$1$。临界温度$T_c$由
+\begin{equation}
+\frac{2\pi}{h^3} (2m)^{3/2} \int_0^\infty \frac{\varepsilon^{1/2} \dif \varepsilon}{e^{\frac{\varepsilon}{kT}} -1} = n ~,
+\end{equation}
+令$x = \varepsilon/kT$，则
+\begin{equation}
+\frac{2\pi}{h^3} (2m kT_c)^{3/2} \int_0^\infty \frac{x^{1/2} \dif x}{e^{x} -1} = n ~,
+\end{equation}
+\begin{equation*}
+\int_0^\infty \frac{x^{1/2} \dif x}{e^{x} -1} = \frac{2.612 \sqrt{\pi}}{2} 
+\end{equation*}
+对于给定的粒子数密度$n$，临界温度$T_c$为
+\begin{equation}
+T_c = \frac{2\pi}{(2.612)^{2/3}} \frac{\hbar^2}{mk} n^{2/3} 
+\end{equation}
+温度愈低，$\mu$值越高，但在任何温度下$\mu$值必须是负的。当$T < T_c$时，$\mu$仍趋于$-0$。在$T_c$以上，$\mu$值为负的有限值时，处在能级$\varepsilon = 0$的粒子数与总粒子数相比是一个小量，用积分代替求和引起的误差是可以忽略的。
+
+在$T < T_c$时，
+\begin{equation}
+n_0(T) +\frac{2\pi}{h^3} (2m)^{3/2} \int_0^\infty \frac{\varepsilon^{1/2} \dif \varepsilon}{e^{\frac{\varepsilon}{kT}} -1} = n ~,
+\end{equation}
+$n_0(T)$是温度为$T$时，处在能级$\varepsilon = 0$的粒子数密度；第二项是处在激发能级$\varepsilon > 0$的粒子数密度$n_{\varepsilon > 0}$，已取极限$\mu \rightarrow -0$。
+
+\begin{eqnarray*}
+n_{\varepsilon > 0} = \frac{2\pi}{h^3} (2m)^{3/2} \int_0^\infty \frac{\varepsilon^{1/2} \dif \varepsilon}{e^{\frac{\varepsilon}{kT}} -1}  = \frac{2\pi}{h^3} (2m kT)^{3/2} \int_0^\infty \frac{x^{1/2} \dif x}{e^{x} -1} = n\left(\frac{T}{T_c} \right)^{3/2}
+\end{eqnarray*}
+温度为$T$时，处在最低能级$\varepsilon = 0$的粒子数密度为
+\begin{equation}
+n_0(T) = n \left[1- \left(\frac{T}{T_c} \right)^{3/2}\right]
+\end{equation}
+即，在$T_c$以下，$n_0$与$n$具有相同的量级。
+
+在绝对零度下，粒子将尽可能占据能量最低的状态。对于玻色粒子，一个量子态所能容纳的粒子数目不受限制，因此绝对零度下玻色粒子将全部处在$\varepsilon = 0$的最低能级。在$T < T_c$时，有宏观量级的粒子在$\varepsilon = 0$的能级凝聚，称为\textcolor{red}{玻色-爱因斯坦凝聚}。\textcolor{red}{$T_c$为凝聚温度，凝聚在$\varepsilon_0$的粒子集合称为玻色凝聚体}。凝聚体能量和动量为$0$，对压强没有贡献。由于凝聚体的微观状态完全确定，熵也为$0$。
+
+在$T < T_c$时，理想玻色气体的内能为处在能级$\varepsilon > 0$的粒子能量的统计平均值
+\begin{eqnarray*}
+U &=& \frac{2\pi V}{h^3} (2m)^{3/2} \int_0^\infty \frac{\varepsilon^{3/2} \dif \varepsilon}{e^{\frac{\varepsilon}{kT}} -1} \\
+&=& \frac{2\pi V}{h^3} (2m)^{3/2} (kT)^{5/2} \int_0^\infty \frac{x^{3/2} \dif x}{e^{x} -1} \\
+&=& 0.770 NkT \left(\frac{T}{T_c} \right)^{3/2}
+\end{eqnarray*}
+其中$x = \varepsilon/kT$。定容热容量为
+\begin{equation}
+C_V = \left(\frac{\partial U}{\partial T} \right)_V = \frac{5U}{2T} = 1.925 Nk \left(\frac{T}{T_c} \right)^{3/2}
+\end{equation}
+在$T < T_c$时，理想玻色气体的$C_V$与$T^{3/2}$成正比。到$T = T_c$时，$C_V$达到极大值$C_V = 1.925 Nk$，高温时应趋于经典值$\dfrac{3}{2} Nk$。在$T = T_c$的尖峰处，$C_V$连续，但$C_V$对$T$的偏导数存在突变。
+\begin{equation}
+n \left(\frac{h}{\sqrt{2\pi m k T_c} }  \right)^3 = n \lambda^3 = 2.612
+\end{equation}
+是理想玻色气体出现凝聚的临界条件。出现凝聚体的条件为
+\begin{equation}
+n \lambda^3 \geqslant 2.612
+\end{equation}
+满足上式时，原子的热波长大于原子的平均间距，量子统计关联起决定性作用。可以通过降低温度和增加气体粒子数密度的方法来实现波色凝聚。
+
+
+\cite{2007热力学与统计物理学} 强简并区，$z$接近$1$，但仍小于$1$或$e^\alpha$接近$1$但仍大于$1$($z \lesssim 1$ 或 $e^\alpha > 1$)。对于理想玻色气体，$z \geqslant 1$或$e^\alpha \leqslant$是不允许的。因为任何一个能级上的粒子数不可能是负值，由$\bar{a}_\lambda = g_\lambda/({\rm e}^{\alpha +\beta \varepsilon_\lambda} -1)$，必须有${\rm e}^{\alpha +\beta \varepsilon_\lambda} > 1$(对一切$\lambda$)。粒子平均动能的最低能级$\varepsilon_0$可能取为$0$(粒子平动动能的最低能级的量级为
+\begin{equation*}
+\varepsilon_0 \sim \dfrac{2\pi^2 \hbar^2}{mL^2} ~,
+\end{equation*}
+若取$m \sim 10^{-24}$ g，$L \sim 1$ cm，得到
+\begin{equation*}
+\varepsilon_0 \sim 10^{-30} {\rm erg} \sim 10^{-42} ~ {\rm eV} ~.
+\end{equation*}
+称它是零能量态或者零动量态。)，故${\rm e}^{\alpha} > 1$或$z = {\rm e}^{-\alpha} < 1$。理想玻色气体在强简并条件下将发生一种新的相变，称为玻色-爱因斯坦凝聚。 
+
+\begin{align}
+\label{N}
+& N = \dfrac{V}{h^3} (2\pi m kT)^{3/2} g_{3/2}(z) ~, \\
+& g_{3/2}(z) = \sum_{\lambda =1}^\infty \dfrac{z^\lambda}{\lambda^{3/2}} = z + \dfrac{1}{2^{3/2}} z^2 +\dfrac{1}{3^{3/2}} z^3 +\cdots
+\end{align}
+$g_{3/2}(z) $在$0\leqslant z \leqslant 1$的范围内都是收敛的，它随$z$的增加而单调连续的增加，在$z=1$处达到最大值$g_{3/2}(1) = \zeta \left(\dfrac{3}{2}\right) \approx 2.612$，其中$\zeta$为黎曼$\zeta$函数。当$N, V$给定时，随着温度的下降，$g_{3/2}(z) $的值增加。由于$g_{3/2}(z) $有上限，必定存在某一非零温度$T_c$，使得
+\begin{align}
+& N = \dfrac{V}{h^3} (2\pi m kT_c)^{3/2} g_{3/2}(1) ~, \\
+& T_c = \dfrac{h^2}{2\pi mk} \left[\dfrac{n}{g_{3/2}(1)} \right]^{2/3} ~.
+\end{align}
+当$T < T_c$时，
+\begin{equation}
+N > \dfrac{V}{h^3} (2\pi m kT)^{3/2} g_{3/2}(1) ~, ~(T < T_c) ~,
+\end{equation}
+表明式(\ref{N})不再成立。
+
+在计算$\ln { \Xi}$时，对子系量子态求和近似地用子相体积的积分代替。由于态密度$D(\varepsilon) \sim \varepsilon^{1/2}$，当$\varepsilon = 0$时，$D(0) = 0$。在积分中把$\varepsilon = 0$态的贡献完全丢掉了。这样做对$T \leqslant T_c$是合理的，但对$T < T_c$则不行。
+
+\begin{align}
+\nonumber \ln { \Xi} &= -\sum_\lambda g_\lambda \ln(1 -{\rm e}^{-\alpha -\beta \varepsilon_\lambda}) \\
+&= -\ln(1-{\rm e}^{-\alpha}) -\sum_{\varepsilon_\lambda \geqslant \varepsilon_1} g_\lambda \ln (1 -{\rm e}^{-\alpha -\beta \varepsilon_\lambda}) ~,
+\end{align}
+右边第一项代表粒子最低能级(即粒子的基态$\varepsilon_0 = 0$，已设$g_0 = 1$)的贡献，第二项的求和代表所有粒子激发态的贡献，$\varepsilon_1$为第一激发能级。对于宏观系统，$\dfrac{\Delta\varepsilon}{kT} \ll 1 $，仍可用对子相体积的积分来代替，
+\begin{align}
+\nonumber \ln { \Xi} &= -\ln(1-{\rm e}^{-\alpha}) - \int_{\varepsilon_1}^\infty \ln (1 -{\rm e}^{-\alpha -\beta \varepsilon}) D(\varepsilon) \dif \varepsilon ~, \\
+&= \ln(1-{\rm e}^{-\alpha}) - \int_{0}^\infty \ln (1 -{\rm e}^{-\alpha -\beta \varepsilon}) D(\varepsilon) \dif \varepsilon
+\end{align}
+由$D(\varepsilon) = 0$将第二项积分的下限改成$0$。
+
+\begin{align}
+& N = -\dfrac{\partial }{\partial \alpha} \ln { \Xi} = \dfrac{1}{{\rm e}^{\alpha} -1} + \int_0^\infty \dfrac{D(\varepsilon) \dif \varepsilon}{{\rm e}^{\alpha +\beta \varepsilon} -1} = \overline{N}_0 +\overline{N}_{\rm exc} ~, \\
+& \overline{N}_0 = \dfrac{1}{{\rm e}^{\alpha} -1} ~, \\
+& \overline{N}_{\rm exc} = \int_0^\infty \dfrac{D(\varepsilon) \dif \varepsilon}{{\rm e}^{\alpha +\beta \varepsilon} -1} ~,
+\end{align}
+$\overline{N}_0$和$\overline{N}_{\rm exc}$分别代表基态和所有激发态上占据的粒子数。由$z = {\rm e}^{-\alpha}$，
+\begin{align}
+& \overline{N}_0 = \dfrac{z}{1-z} ~, \\
+& \overline{N}_{\rm exc} = \dfrac{V}{\lambda^3_T} g_{3/2}(z) = \dfrac{V}{h^3} (2\pi m kT)^{3/2} g_{3/2}(z) ~,
+\end{align}
+
+当$T > T_c$时，尽管就单个能级，$\overline{N}_0$比任何单个激发能级上占据的粒子数都多，但由于绝大多数的粒子都占据在激发能级上，以致$\overline{N}_{\rm exc} \approx N$，与$N\sim 10^{20}$相比，$\overline{N}_0$完全可以忽略。这对$T \geqslant T_c$的一切温度都成立。所有激发态上占据的粒子数的最大值(在忽略$\overline{N}_0$后等于$N$)为
+\begin{equation}
+(\overline{N}_{\rm exc})_{\rm max} = \dfrac{V}{h^3} (2\pi m kT_c)^{3/2} g_{3/2}(1) ~. 
+\end{equation}
+当$T < T_c$时，$\overline{N}_{\rm exc} < (\overline{N}_{\rm exc})_{\rm max} $，且$\overline{N}_{\rm exc}$随$T \rightarrow 0$而趋于$0$。$\overline{N}_0$随$T \rightarrow 0$而趋于$N$。对$T < T_c$，
+\begin{align}
+& \dfrac{(\overline{N}_{\rm exc})}{N} = \left( \dfrac{T}{T_c} \right)^{3/2} ~~ (T < T_c) ~, \\
+& \overline{N}_0 = N -\overline{N}_{\rm exc}  = N \left[1 - \left( \dfrac{T}{T_c} \right)^{3/2}\right] ~.
+\end{align}
+当温度降至$T_c$以下时，将有宏观数量的粒子从激发态聚集到基态上去，这一现象称为玻色-爱因斯坦凝聚。
+
+若把凝聚到基态(零能量亦即零动量态)上的粒子看成凝聚相，而把其余处在激发态上的粒子看成与凝聚相达到平衡的``气相"，发生BEC的系统很像气-液相变。BEC与通常的气-液相变存在两点不同：\\
+1. 气-液相变中，气相与液相在实空间是分开的，分子从气相转变到液相是实空间中的凝聚，而在BEC中，粒子从激发态($\varepsilon \neq 0$，动量也不为$0$)转变到基态(零能量与零动量态)是动量空间从$p \neq 0$的态转变到$p =0$的态，是动量空间的凝聚。BEC中激发态的粒子与零动量态的粒子占据实空间中相同的区域，并不分成实空间中的两个部分。
+
+2. 通常的气-液相变必须存在分子之间的相互作用力，没有相互作用，相变是不可能的。BEC是对理想玻色气体，尽管理想气体分子之间的相互作用力可以忽略，但由于玻色子之间的量子起源的有效吸引，导致相变成为可能。这是由量子力学起源的相互作用，即统计关联。
+
+
+\begin{align}
+\nonumber \ln { \Xi} = -\ln(1-{\rm e}^{-\alpha}) + \dfrac{V}{\lambda^{3/2}_T} g_{5/2}(z) ~,
+\end{align}
+右边第一项(来自基态上的粒子的贡献)只依赖于$\alpha$，而与$V$和$\beta$均无关，故第一项对压强和内能均无贡献，即
+\begin{align}
+& p = \dfrac{1}{\beta} \dfrac{\partial }{\partial V} \ln { \Xi} =  \dfrac{1}{\beta \lambda^{3/2}_T} g_{5/2}(z) ~, \\
+& \overline{E} = -\dfrac{\partial }{\partial \beta} \ln { \Xi} = \dfrac{3}{2} k T  \dfrac{V}{\lambda^{3/2}_T} g_{5/2}(z) ~.
+\end{align}
+\begin{equation}
+\dfrac{pV}{kT} = \dfrac{\overline{E}}{\dfrac{3}{2} kT} = \dfrac{V}{\lambda^{3/2}_T} g_{5/2}(z) ~,
+\end{equation}
+占据在基态(零动量态)上的粒子，对压强和内能均无贡献。当$T < T_c$时，由于$g_{5/2}(z)$在$0 \leqslant z \leqslant 1$是连续收敛函数，而在$T < T_c$区，$z$接近于$1$，
+\begin{equation}
+\dfrac{pV}{kT} = \dfrac{\overline{E}}{\dfrac{3}{2} kT} = \dfrac{V}{h^3} (2\pi m kT)^{3/2} g_{5/2}(1) ~,
+\end{equation}
+其中$g_{5/2}(1) = \zeta \left(\dfrac{5}{2} \right) \approx 1.341$。
+\begin{align}
+& \dfrac{pV}{NkT} = \dfrac{\overline{E}}{\dfrac{3}{2} NkT} = \dfrac{g_{5/2}(1)}{g_{3/2}(1)} \left( \dfrac{T}{T_c} \right)^{3/2} ~, \\
+& C_V = \left( \dfrac{\partial \overline{E} }{\partial T} \right)_V = \dfrac{15 g_{5/2}(1)}{4 g_{3/2}(1)} Nk \left( \dfrac{T}{T_c} \right)^{3/2} ~.
+\end{align}
+随$T \rightarrow 0$，$p, \overline{E}, C_V$分别以$T^{5/2}$和$T^{3/2}$趋于$0$。理想玻色气体的$C_V$随$T$趋于$0$符合热力学第三定律。
+
+当$T \rightarrow \infty$($\lambda_T \rightarrow 0$)时，$\dfrac{C_V}{Nk} \rightarrow 1.5$，即趋于经典极限值。随着温度降低，热容将向着增大的方向偏离经典值，直到$T= T_c$达到最大值。$T < T_c$，它将随温度下降而趋于$0$。在$T= T_c$函数是一个尖点，即$C_V$对$T$的微商在$T_c$点不连续，但$C_V$本身在$T_c$点连续。
+
+\begin{align}
+& N = \dfrac{z}{1-z} + \dfrac{V}{\lambda^{3}_T} g_{3/2}(z) ~, \\
+& 1 = \dfrac{1}{N} \dfrac{z}{1-z} + \dfrac{1}{ n \lambda^{3}_T} g_{3/2}(z) ~.
+\end{align}
+当$T \rightarrow 0$，
+\begin{align}
+N = \dfrac{z}{1-z} ~, \\
+z  = \dfrac{N}{1+N} ~.
+\end{align}
+表明$T \rightarrow 0, z \rightarrow 1$，但$z$不可能恒等于$1$。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

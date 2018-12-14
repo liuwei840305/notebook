@@ -1,0 +1,261 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{黏性流体}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{黏性流体的运动方程}
+流动中能量耗散对流动的影响，这些过程是流动在热力学上不可逆的表现。它与内摩擦(黏性)和热传导有关。欧拉方程
+\begin{align*}
+& \frac{\partial (\rho v_i)}{\partial t} = -\frac{\partial \Pi_{ik} }{\partial x_k} ~, \\
+& \Pi_{ik} = p\delta_{ik} +\rho v_i v_k ~,
+\end{align*}
+$\Pi_{ik}$是动量流密度张量，它代表完全可逆的动量输运，只与流体不同部分从一处到另一处的机械运动以及流体所受压强有关。流体的黏性(内摩擦)是因为从速度大的地方向速度小的地方的另外一种附加的不可逆动量输运而出现。
+
+\begin{equation}
+\Pi_{ik} = p\delta_{ik} +\rho v_i v_k -\sigma_{ik}^\prime = \rho v_i v_k -\sigma_{ik}
+\end{equation}
+\textcolor{red}{应力张量 $\sigma_{ik}$}：
+\begin{equation}
+\sigma_{ik} = -p\delta_{ik} +\sigma_{ik}^\prime
+\end{equation}
+\textcolor{red}{黏性应力张量$\sigma_{ik}^\prime$}，代表与流体质量输运所伴随的直接动量输运无关的那部分动量流
+\begin{equation}
+\sigma_{ik}^\prime = \eta \left(\frac{\partial v_i}{\partial x_k} +\frac{\partial v_k}{\partial x_i} -\frac{2}{3} \delta_{ik} \frac{\partial v_l}{\partial x_l}\right) +\zeta \delta_{ik} \frac{\partial v_l}{\partial x_l}
+\label{viscous_tensor}
+\end{equation}
+流体中的内摩擦过程只出现在不同流体点以不同速度运动，使得流体各部分有相对运动的情况。$\sigma_{ik}^\prime$依赖于速度对坐标的导数。如果速度梯度不太大，由黏性引起的动量输运只与速度的一阶导数有关。在同样的近似下，可以认为$\sigma_{ik}^\prime$对$\dfrac{\partial v_i}{\partial x_k}$的依赖关系是线性的。$\sigma_{ik}^\prime$中应当没有与$\dfrac{\partial v_i}{\partial x_k}$无关的项，因为当$\vec{v} = \rm const.$时，$\sigma_{ik}^\prime$也应当为$0$。当全部流体作为一个整体匀速旋转时，流体中没有任何内摩擦，$\sigma_{ik}^\prime$应当为$0$。组合
+\begin{equation*}
+\frac{\partial v_i}{\partial x_k} +\frac{\partial v_k}{\partial x_i} 
+\end{equation*}
+当$\vec{v} = \vec{\Omega} \times \vec{r}$时等于$0$。\textcolor{red}{黏性系数$\eta$}和\textcolor{red}{$\zeta$}($\zeta$也称为\textcolor{red}{第二黏度})与速度无关，是压强和温度的函数，且对各项同性流体，它们是标量。式(\ref{viscous_tensor})中的组合，是为了让括号中的表达式在缩并后为$0$。二者都是正的。$\eta$称为\textcolor{red}{剪切黏度}，$\zeta$称为\textcolor{red}{体积黏度}。
+\begin{equation}
+\rho \left(\frac{\partial v_i}{\partial t} +v_k\frac{\partial v_i}{\partial x_k} \right) = -\frac{\partial p}{\partial x_i} +\frac{\partial }{\partial x_k} \left[\eta \left( \frac{\partial v_i}{\partial x_k} +\frac{\partial v_k}{\partial x_i} -\frac{2}{3} \delta_{ik} \frac{\partial v_l}{\partial x_l} \right) \right] +\frac{\partial }{\partial x_i}\left(\zeta \frac{\partial v_l}{\partial x_l}  \right) 
+\end{equation}
+\textcolor{red}{纳维-斯托克斯方程}：
+\begin{equation}
+\rho \left(\frac{\partial \vec{v} }{\partial t} + (\vec{v}\cdot \nabla) \vec{v} \right) = -\nabla p +\eta \Delta \vec{v} +\left(\zeta +\frac{\eta}{3} \right)\nabla(\nabla \cdot \vec{v})
+\label{NS_gen}
+\end{equation}
+若流体是不可压缩的，$\nabla \cdot \vec{v} = 0$，上式右边最后一项消失。在研究黏性流体时，总是认为它是不可压缩的，因而
+\begin{equation}
+\frac{\partial \vec{v} }{\partial t} + (\vec{v}\cdot \nabla) \vec{v} = -\frac{1}{\rho}\nabla p +\frac{\eta}{\rho} \Delta \vec{v} ~.
+\label{NS_incompressible}
+\end{equation}
+不可压缩流体中的应力张量为
+\begin{equation}
+\sigma_{ik} = -p\delta_{ik} +\eta \left(\frac{\partial v_i}{\partial x_k} +\frac{\partial v_k}{\partial x_i} \right) ~.
+\end{equation}
+比值
+\begin{equation}
+\color{red} \nu = \frac{\eta}{\rho} ~,
+\end{equation}
+称为\textcolor{red}{运动粘性系数}(\textcolor{red}{$\eta$}称为\textcolor{red}{动力粘性系数})。在给定的温度下，气体的动力粘性系数与压力无关，但运动粘性系数与压力成反比。对式(\ref{NS_incompressible})两边取旋度，可以消去压强，得到
+\begin{equation*}
+\frac{\partial }{\partial t} (\nabla \times \vec{v}) = \nabla \times [\vec{v} \times (\nabla \times \vec{v}) ] +\nu \Delta (\nabla \times \vec{v}) ~.
+\end{equation*}
+其中
+\begin{align*}
+& (\vec{v}\cdot \nabla) \vec{v} = \frac{1}{2} \nabla v^2 -\vec{v} \times (\nabla \times \vec{v}) ~, \\
+& \nabla \times [ (\vec{v}\cdot \nabla) \vec{v} ] = -\nabla \times [  \vec{v} \times (\nabla \times \vec{v})] ~.
+\end{align*}
+由
+\begin{equation*}
+\nabla \times (\vec{a} \times \vec{b}) = \vec{a}(\nabla \cdot \vec{b}) -\vec{b}(\nabla \cdot \vec{a}) +(\vec{b}\cdot \nabla) \vec{a} -(\vec{a}\cdot \nabla) \vec{b}
+\end{equation*}
+以及不可压缩条件，
+\begin{equation*}
+\nabla \cdot \vec{v} = 0 ~,
+\end{equation*}
+可以得到
+\begin{equation}
+\frac{\partial }{\partial t} (\nabla \times \vec{v}) +(\vec{v}\cdot \nabla)(\nabla \times \vec{v}) -[(\nabla \times \vec{v}) \cdot \nabla] \vec{v} = \nu \Delta (\nabla \times \vec{v})  ~.
+\end{equation}
+若已知速度分布，对式(\ref{NS_incompressible})两边取散度
+\begin{align*}
+& \nabla \cdot [ (\vec{v}\cdot \nabla) \vec{v} ] = -\frac{1}{\rho}\Delta p \\
+& -\rho \frac{\partial v_i}{\partial x_k} \frac{\partial v_k}{\partial x_i} = -\rho \frac{\partial^2 v_i v_k}{\partial x_i\partial x_k} = \Delta p
+\end{align*}
+不可压缩粘性流体二维流动的流函数$\psi(x, y)$满足
+\begin{equation}
+\frac{\partial }{\partial t} \Delta \psi -\frac{\partial \psi}{\partial x} \frac{\partial \Delta \psi}{\partial y} +\frac{\partial \psi}{\partial y} \frac{\partial \Delta \psi}{\partial x} -\nu \Delta \Delta \psi = 0 ~.
+\end{equation}
+粘性流体运动方程的边界条件：流体速度在静止固体表面上为$0$，即
+\begin{equation}
+\vec{v} = 0 ~.
+\end{equation}
+称为\textcolor{red}{粘附条件}或\textcolor{red}{无滑条件}。因为在固体表面与任何粘性流体之间总存在着分子引力，使紧贴固体表面的一层流体完全静止。这里要求速度的法向和切向分量都等于$0$，而理性流体运动方程的边界条件只要求$v_n = 0$(欧拉方程的解无法满足切向速度为$0$这一(与理想流体相比)额外的边界条件。)。运动物体要求速度$\vec{v}$必须等于该物体表面的速度。
+
+与流体接触的固体表面所受作用力：某面微元所受作用力即为通过该面微元的动量流，通过面微元$\dif \vec{f}$的动量流为
+\begin{equation*}
+\Pi_{ik} \dif f_k = (\rho v_i v_k -\sigma_{ik}) \dif f_k ~,
+\end{equation*}
+令$\dif f_k = n_k \dif f$，其中$\vec{n}$是表面的单位法向分量，是流体边界面上的单位外法向矢量，对固体表面是单位内法向矢量。考虑到在固体表面上$\vec{v} = 0$，单位面积表面所受作用力$\vec{P}$为
+\begin{equation}
+P_i = -\sigma_{ik} n_k = pn_i -\sigma_{ik}^\prime n_k ~.
+\end{equation}
+在确定固体表面所受作用力时，应在使相应表面微元静止的参考系中考虑。\textcolor{yellow}{作用力仅在表面静止的情况下等于动量流}。第一项是普通的流体压力，第二项是由粘性导致的作用于固体表面的摩擦力。
+
+在有不发生混合的两种液体(或者一种液体和一种气体)的分界面，分界面上的条件是两种流体的速度必须相等，且流体之间的相互作用力须大小相等，方向相反，即
+\begin{equation*}
+n_k^{(1)} \sigma_{ik}^{(1)} +n_k^{(2)} \sigma_{ik}^{(2)} = 0 ~,
+\end{equation*}
+由$\vec{n}^{(1)} = -\vec{n}^{(2)} \equiv \vec{n}$，
+\begin{equation}
+n_i \sigma_{ik}^{(1)} = n_i \sigma_{ik}^{(2)} ~.
+\end{equation}
+液体的自由面上成立的条件为
+\begin{equation}
+\sigma_{ik} n_k \equiv \sigma_{ik}^\prime n_k -p n_i = 0 ~.
+\end{equation}
+
+
+
+\section{不可压缩流体中的能量耗散}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

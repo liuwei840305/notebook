@@ -1,0 +1,1493 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{ROOT}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+root：shows the ROOT splash screen and calls root.exe \\
+root.exe：the executable that root calls, if you use a debugger such as gdb, you will need to run root.exe directly \\
+rootcint：is the utility ROOT uses to create a class dictionary for CINT \\
+rmkdepend：a modified version of makedepend that is used by the ROOT build system \\
+root-config：a script returning the needed compile flags and libraries for projects that compile and link with ROOT
+
+The behavior of a ROOT session can be configured with the options in the rootrc file. At start-up, ROOT looks for a .rootrc file in the following order：\\
+./.rootrc //local directory \\
+$\$$HOME/.rootrc //user directory \\
+$\$$ROOTSYS/etc/system.rootrc //global ROOT directory
+
+to see current settings, you can do: \\
+root[] gEnv->Print()
+
+Default Logon and Logoff Scripts: \\
+in local directory: \\
+    rootalias.C (only loaded when root starts up) \\
+    rootlogon.C (executed when root starts up) \\
+    rootlogoff.C (executed when root ends) \\
+    in $\$$HOME directory: .rootlogon.C
+
+To start ROOT, you can type root at the system prompt. This starts up CINT, the ROOT command line C/C++ interpreter, and it gives you the ROOT prompt (root[0]). \\
+• To quit ROOT, type .q at the ROOT prompt \\
+• It is possible to launch ROOT with some command line options, as shown below:
+
+> root -h \\
+Usage: root [-l] [-b] [-n] [-q] [file1.C ... fileN.C] \\
+Options: \\
+-b : run in batch mode without graphics \\
+-n : do not execute logon and logoff macros as specified in .rootrc \\
+-q : exit after processing command line script files \\
+-l : do not show the image logo (splash screen)
+
+a powerful C/C++ interpreter giving you access to all available ROOT classes, global variables, and functions via the command line. \\
+By typing C++ statements at the prompt, you can create objects, call functions, execute scripts, etc. \\
+Use up and down arrows to recall commands: $\$$HOME/.root$\_$hist \\
+Use emacs commands to navigate
+
+Root> .x demos.C 出一个菜单，选择运行示例
+
+Root> .x benchmark.C 运行后以此运行示例，显示画出的图，并给出测试结果
+
+root $<$filename.C$>$ to check the separate macro outputs
+
+Un-named Scripts: script1.C \\
+$\{$ \\
+$\#$include$<$iostream.h$>$ \\
+cout $<<$ `` Hello" $<<$ endl; \\
+float x = 3.; float y = 5.; int i = 101; \\
+cout $<<`` x = "<<x<<`` y = "<<y<<`` i = "<<i<<$ endl; \\
+$\}$ \\
+root[] .x script1.C $<$enter$>$
+ 
+Named Scripts: script2.C \\
+$\#$include $<$iostream.h$>$ \\
+int run(int j=10) $\{$ \\
+cout $<<$ `` Hello" $<<$ endl; \\
+float x = 3.; float y = 5.; int i= j; \\
+cout $<<$`` x = "$<< x <<$`` y = "$<< y <<$`` i = "$<< i <<$ endl; \\
+return 0; \\
+$\}$
+ 
+ Macro：a file that is interpreted by CINT
+ 
+\textcolor{red}{ACLic}：Automatic Compiler of Libraries for CINT
+ 
+ load code as a shared lib, 
+ root[0] .x mymacro.C+(43)
+ 
+write a C++ code file, where ROOT class can be directly used \\
+execute the C++ code file without compilation (take it as Macros) \\
+Use ACLiC to build a shared library \\
+Based on ROOT libraries to produce your own libraries or executables
+ 
+\textcolor{orange}{.L macro.C}   ~~~~\textcolor{red}{Load文件macro.C} \\
+\textcolor{orange}{.x macro.C}   ~~~~\textcolor{red}{执行文件macro.C} \\
+\textcolor{orange}{.ls}                 ~~~~\textcolor{red}{显示ROOT当前环境的所有信息} \\
+\textcolor{orange}{.! ls}               ~~~~\textcolor{red}{显示Linux系统当前目录的所有信息} \\
+注：ROOT环境中，ROOT指令都以“.”开头，系统指令都以“.!”开头
+
+可以直接在ROOT环境中运行macro文件(自动调用 cint编译器)，也可以在makefile中设置好相关参数用 g++编译得到可执行文件运行。
+
+Macro文件
+
+用花括号括起来，后缀名一般用``.C"
+
+定义数学函数
+
+\textcolor{red}{利用c++数学表达式} \\
+TF1* f1 = new TF1(``f1",``sin(x)/x",0,10); \\
+\textcolor{red}{利用TMath定义的函数} \\
+TF1 *f1 = new TF1(``f1",``TMath::DiLog(x)",0,10); \\
+\textcolor{red}{利用自定义c++数学函数} \\
+Double$\_$t myFun(x) $\{$ \\
+    return x+sqrt(x); \\
+$\}$ \\
+TF1* f1 = new TF1(``f1",``myFun",0,10); 
+
+ROOT中数学函数的使用
+
+在命令提示行下 root-lex32.C \\
+在ROOT环境下 .x ex32.C
+
+1)脚本中void函数的名字必须与文件名相同 \\
+2)ROOT环境中定义类指针之后，如TF1 *f1，之后输入``f1$\rightarrow$"，然后按一下Tab键，可以自动列出该类对象的成员函数和成员变量
+
+一个 root 文件就像 UNIX 中的一个目录，它可以包含目录和没有层次限制的目标模块。即，在可以在root文件创建不同的目录子目录， 目录中存放不同的类对象或普通数据。
+
+\textcolor{red}{TTree}：减小磁盘空间和增加读取速度方面被优化 \\
+\textcolor{red}{TNtuple}：只能存储浮点数的TTree；尽量避免使用
+
+TTree减少了每个目标模块的header，但仍保留类的名字，而每个同类的目标模块名字可以被压缩。TTree 采用了branch的体系，每个branch的读取可以与别的branch无关。可以把tree看成root文件中的子目录，branch看成子目录中的文件或者子目录。
+
+TTree适用于大量的类型相同的对象，可以存储包括类对象、数组等各种类型数据。一般情况下，tree的Branch，Leaf信息就是一个事例的完整信息。有了tree之后，可以很方便 对事例进行循环处理。TTree存储方式占用空间少，读取速度快。
+
+\textcolor{red}{TTree的定义}：
+
+构造函数：\\
+TTree(const char* name, const char* title, Int$\_$t splitlevel = 99);
+
+Branch成员函数：\\
+virtual TBranch*Branch(const char* name, void* address, const char* leaflist, Int$\_$t bufsize = 32000);
+
+
+创建TTree，并设置Branch，比如：\\
+Int$\_$t RunID; \\
+TTree *t1 = new TTree(``t1", ``test tree"); \\
+TBranch *br = t1$\rightarrow$Branch(``RunID",$\&$RunID,``RunID/I");
+
+Branch可以是单独的变量，也可以是一串变量，也可以是定长或不定长数组，也可以是C结构体，或者类对象(继承自TObject，如TH1F对象)。
+
+ 查看Tree的信息 \\
+ >root -l tree1.root 打开root文件 \\
+ root[1].ls 查看文件信息，\\
+发现TTree t1 \\
+root[2]t1->Show(0); 显示第0个event的信息 \\
+root[3]t1->GetEntries() 总事例数 \\
+root[4]t1->Scan(); \\
+root[5]t1->Print(); \\
+root[6]t1->Draw(``px");
+
+也可以 \\
+>root-l 进入root \\
+root[0]TFile *f1=new TFile(``tree1.root"); \\
+root[1]t1->Draw(``sqrt(px*px+py*py)"); \\
+root[2]TH1F *h1; \\
+root[3]t1->Draw(``px$>>$h1"); \\
+root[4]t1->Draw(``py",``px$>0$",``sames"); \\
+root[5]t1->Draw(``py",``",``sames");
+
+TChain: 分析多个root文件 \\
+TChain对象是包含相同tree的ROOT文件的列表。\\
+
+ROOT文件中的子目录 \\
+//创建root文件，创建后默认目录就是在myfile.root目录中，\\
+//实际上，root文件被当作一个目录。\\
+TFile *fname=new TFile(``myfile.root",``recreate"); \\
+//gDirectory只想当前目录，即myfile.root \\
+//可以调用mkdir函数在ROOT文件中创建一个子目录，如subdir \\
+gDirectory->mkdir(``subdir"); \\
+gDirectory->cd(``subdir"); //进入到subdir子目录 \\
+TTree *tree = new TTree(``tree",``tree in subdir"); //创建TTree \\
+..... \\
+tree->Write(); \\//将tree写到当前目录，即subdir中
+
+如果root文件中的类t3是在子目录subdir下，则可以这样定义：\\
+TChain* fChain= new TChain(``subdir/t3"); \\
+或者将子目录和类的名字全部放在Add()函数中 \\
+TChain* fChain=new TChain(); \\
+fChain->Add(``rootfiles/*.root/subdir/t3"); \\
+注意;从这里可以看出，\\
+1) ROOT文件中的目录subdir与系统的子目录rootfiles同等地位; \\
+2) ROOT文件的文件名在这里也类似于目录 \\
+3) TTree，即t3在这里也类似于目录 \\
+由此可以得到，当ROOT文件中存在多个TTree，比如t3，t4时，需要哪个就使用哪个，其它的与我们无关。
+
+
+
+
+
+直方图的归一化 \\
+void TH1::Scale(Double$\_$t c1, Option$\_$t *option)
+
+默认c1=1，把直方图每个区间的值(BinContent)乘以c1 \\
+假设 sum=h1->Integral() \\
+h1->Scale(c1)之后，\\
+h1->Integral() = c1*sum \\
+不加参数时，h1->Scale() 没有变化(默认c1=1)
+
+``归一化"后，不仅BinContent变化了，BinError也变化了
+
+归一化常用于比较两种分布，找出区别。所以，将2个直方图归一化到积分相同进行比较才直观。
+
+如果需要正确处理统计误差，需要在对ROOT脚本中 调用TH1的某个静态成员函数，即TH1::SetDefaultSumw2();
+
+void SetDefaultSumw2(Bool$\_$t sumw2 = kTRUE) //static function. When this static function is called with sumw2=kTRUE, all new histograms will automatically activate the storage of the sum of squares of errors, ie TH1::Sumw2 is automatically called.
+
+
+相加：常用于相同实验的数据叠加，增加统计量。\\
+...... \\
+root[1]TH1::SetDefaultSumw2(); \\
+root[1]TH1F *h3=new TH1F(*h1); root[2]h3->Add(h1,h2,a,b); 结果:h3的BinContent被a*h1+b*h2替换，一般a=b=1
+
+相减：常用于从实验测量的分布中扣除本底。\\
+...... \\
+root[1]TH1F *h3=new TH1F(*h1); \\
+root[2]h3->Sumw2();//也可在定义h3前TH1::SetDefaultSumw2(); \\
+root[3]h3->Add(h1,h2,a,-b); \\
+结果:h3的BinContent被a*h1+b*h2替换，一般a=-b=1
+
+误差:
+\begin{equation}
+\sigma = \sqrt{\sigma_1^2+\sigma_2^2} = \sqrt{n_1 +n_2}
+\end{equation}
+(假设h1和h2独立) 
+
+相除：常用于效率的计算。 常用于效率的计算。\\
+root[1]TH1F *h3=new TH1F(*h1); \\
+root[2]h3->Sumw2(); \\
+root[3]h3->Divide(h1,h2,a,b); \\
+root[4]h3->Divide(h1,h2,a,b);
+
+误差:
+\begin{equation}
+\sigma = \frac{n_1}{n_2} \sqrt{\frac{1}{n_1}+\frac{1}{n_2}} 
+\end{equation}
+(假设h1和h2独立) 
+
+如果h1和h2不独立
+root[4]h3->Divide(h1,h2,a,b,``B");
+\begin{equation}
+\sigma = \sqrt{\dfrac{\dfrac{n_1}{n_2} \left(1-\dfrac{n_1}{n_2}\right)}{n_2}}
+\end{equation}
+二项分布误差
+
+相乘：常用于对分布进行诸如效率等的修正。
+
+root>TH1F *h3=new TH1F(*h1); root>h3->Sumw2(); root>h3->Multiply(h1,h2,a,b);
+
+包括归一化和加减乘除在内，\\
+如果希望使用直方图的误差，都需要调用 \\
+TH1::SetDefaultSumw2(); \\
+或者，对每个直方图(如hist)调用 或者，对每个直方图(如hist)调用 \\
+hist->Sumw2();
+
+拟合直方图 \\
+将鼠标放到直方图上，右键，出现直方图操作选项，选择FitPanel，可以在FitPanel中选 作选项，选择FitPanel，可以在FitPanel中选择拟合的各个选项，比如用什么函数拟合， 择拟合的各个选项，比如用什么函数拟合，拟合的区间，等等。
+
+gStyle->SetOptFit();//设置拟合选项 \\
+拟合前往往需要给出合理的参数初值 \\
+fcn->SetParameters(500,mean,sigma);
+
+拟合后取出拟合得到的参数 \\
+Double$\_$t mypar[3]; \\
+fcn->GetParameters($\&$mypar[0]);
+
+
+MakeClass或MakeSelector自动产生分析文件和头文件
+
+root [0] TFile f("ex51.root"); \\
+root [1] .ls \\
+TFile** ex51.root \\
+TFile*  ex51.root \\
+KEY: TTree t4;1 Reconst events \\
+root [2] t4->MakeClass(); \\
+或: t4->MakeClass(“MyClass”);
+
+类的定义以及Branch地址设定、分析框架都已经自动完成。
+
+\section{ROOT Basics}
+It has an \textcolor{cyan}{interpreter for macros} (Cling) that you can run from the command line or run like applications. But it is also an \textcolor{cyan}{interactive shell} that can evaluate arbitrary statements and expressions.
+
+Launch the ROOT interactive shell with the command
+
+$>$ root
+
+The prompt should appear shortly:
+
+root [0]
+
+\subsection{Learn C++ at the ROOT prompt}
+Behind the ROOT prompt there is an interpreter based on a real compiler toolkit: LLVM. It is therefore possible to exercise many features of C++ and the standard library.
+
+\subsection{ROOT as function plotter}
+Using one of ROOT’s classes, \textcolor{red}{TF1}, allows us to display a function of one variable, $x$. \textcolor{cyan}{All ROOT classes' names} start with the letter \textcolor{red}{T}. A notable exception is RooFit. In this context all classes’ names are of the form Roo*. f1 is an \textcolor{cyan}{instance of a TF1 class}, the arguments are used in the constructor; the first one of type \textcolor{cyan}{string} is a \textcolor{cyan}{name to be entered in the internal ROOT memory management system}, the second \textcolor{cyan}{string type parameter defines the function}, here $\sin(x)/x$, and the two parameters of type double define the range of the variable x. The \textcolor{red}{Draw()} method, here without any parameters, \textcolor{cyan}{displays the function in a window} which should pop up after you typed the above two lines.
+
+Formulae in ROOT are evaluated using the class \textcolor{red}{TFormula}.
+
+If having the file slits.C on disk, type root slits.C in the shell. This will start root and make it read the “macro” slits.C, i.e. all the lines in the file will be executed one after the other.
+
+\subsection{Controlling ROOT}
+As every command you type into ROOT is usually interpreted by Cling, an \textcolor{red}{``escape character"} is needed to \textcolor{cyan}{pass commands to ROOT} directly. This character is the \textcolor{red}{dot} \textcolor{cyan}{at the beginning of a line}.
+
+\textcolor{red}{root [1]  .$<$command$>$}
+
+common commands: \\
+\textcolor{red}{quit root}, type \textcolor{red}{.q} \\
+obtain a \textcolor{red}{list of commands}, use \textcolor{red}{.?} \\
+\textcolor{red}{access the shell} of the operating system, type \textcolor{red}{.!$<$OS$\_$command$>$}; try, e.g. .!ls or .!pwd \\
+\textcolor{red}{execute a macro}, enter \textcolor{red}{.x $<$file$\_$name$>$}; in the above example, you might have used .x slits.C at the ROOT prompt \\
+\textcolor{red}{load a macro}, type \textcolor{red}{.L $<$file$\_$name$>$}; in the above example, you might instead have used the command .L slits.C followed by the function call slits();. Note that after loading a macro all functions and procedures defined therein are available at the ROOT prompt.
+\textcolor{red}{compile a macro}, type \textcolor{red}{.L $<$file$\_$name$>+$}; ROOT is able to manage for you the C++ compiler behind the scenes and to produce machine code starting from your macro. One could decide to compile a macro in order to obtain
+better performance or to get nearer to the production environment. \\
+Use \textcolor{red}{.help} at the prompt to inspect the full list
+
+\subsection{Plotting Measurements}
+To display measurements in ROOT, including errors, there exists a powerful class \textcolor{red}{TGraphErrors} with different types of constructors. 
+
+root [0] TGraphErrors gr(``ExampleData.txt"); \\
+root [1] gr.Draw(``AP");
+
+In data file, lines beginning with $\#$ are ignored.
+
+The argument of the method Draw(``AP") tells the \textcolor{red}{TGraphPainter} class to \textcolor{cyan}{show the axes and to plot markers at the $x$ and $y$ positions of the specified data points}. 
+
+
+\subsection{Histograms in ROOT}
+Frequency distributions in ROOT are handled by a set of classes derived from the histogram class \textcolor{red}{TH1}, in our case TH1F. The letter F stands for ``float", meaning that the data type float is used to store the entries in one histogram bin.
+
+root [0] TF1 efunc(``efunc",``exp([0]+[1]*x)",0.,5.); \\
+root [1] efunc.SetParameter(0,1); \\
+root [2] efunc.SetParameter(1,-1); \\
+root [3] TH1F h(``h",``example histogram",100,0.,5.); \\
+root [4] for $({\rm int}~ i=0;i<1000;i++)$ $\{$h.Fill(efunc.GetRandom());$\}$ \\
+root [5] h.Draw();
+
+In line $3$ a histogram is instantiated, with a name, a title, a certain number of bins ($100$ of them, equidistant, equally sized) in the range from $0$ to $5$. Here use pseudo-random numbers generated with the method \textcolor{red}{TF1::GetRandom} to fill this histogram with data, which in turn uses an instance of the ROOT class \textcolor{red}{TRandom} created when ROOT is started. Data is entered in the histogram at line $4$ using the method \textcolor{red}{TH1F::Fill} in a loop construct. As a result, the histogram is filled with $1000$ random numbers distributed according to the defined function. The histogram is displayed using the method \textcolor{red}{TH1F::Draw()}. The class TH1F does not contain a convenient input format from plain text files. One number per line stored in the text file “expo.dat” is read in via an input stream and filled in the histogram until end of file is reached.
+
+
+root [1] TH1F h(``h",``example histogram",100,0.,5.); \\
+root [2] ifstream inp; double x; \\
+root [3] inp.open(``expo.dat"); \\
+root [4] while (inp $\gg$ x) $\{$ h.Fill(x); $\}$ \\
+root [5] h.Draw(); \\
+root [6] inp.close();
+
+\subsection{Interactive ROOT}
+The mouse pointer changes its shape when touching objects on the plot. When the mouse is over an object, a right-click opens a pull-down menu displaying in the top line the name of the ROOT class you are dealing with, e.g. \textcolor{red}{TCanvas} for the display window itself, \textcolor{red}{TFrame} for the frame of the plot, \textcolor{red}{TAxis} for the axes, \textcolor{red}{TPaveText} for the plot name. Depending on which plot you are investigating, menus for the ROOT classes TF1, TGraphErrors or TH1F will show up when a right-click is performed on the respective graphical representations. The menu items allow direct
+access to the members of the various classes, and you can even modify them. 
+
+
+
+\subsection{ROOT Beginners’ FAQ}
+Special data types replacing the normal ones, e.g. \textcolor{red}{Double$\_$t}, \textcolor{red}{Float$\_$t} or \textcolor{red}{Int$\_$t} replacing the standard double, float or int types.
+
+The behavior of a ROOT session can be tailored with the options in the \textcolor{red}{.rootrc} file. At start-up, ROOT looks for a .rootrc file in the following order
+
+./.rootrc //local directory \\
+$\$$HOME/.rootrc //user directory \\
+$\$$ROOTSYS/etc/system.rootrc //global ROOT directory \\
+
+The parsing and interpretation of this file is handled by the ROOT class \textcolor{red}{TEnv}. The file .rootrc defines the location of two rather important files inspected at start-up: \textcolor{red}{rootalias.C} and \textcolor{red}{rootlogon.C}. They can contain code that needs to be loaded and executed at ROOT startup. \textcolor{cyan}{rootalias.C is only loaded and best used to define some often used functions. rootlogon.C contains code that will be executed at startup}: this file is extremely useful for example to pre-load a custom style for the plots created with ROOT. This is done most easily by creating a new \textcolor{red}{TStyle} object with your preferred settings, and then use the command \textcolor{red}{gROOT$\rightarrow$SetStyle(``MyStyleName");} to make this new style definition the default one. \textcolor{red}{rootlogoff.C} is called when the session is finished.
+
+Every \textcolor{cyan}{command typed at the ROOT prompt} is stored in a file \textcolor{red}{.root$\_$hist} in your home directory. ROOT uses this file to allow for navigation in the command history with the up-arrow and down-arrow keys.
+
+\subsubsection{ROOT Global Pointers}
+\textcolor{red}{All global pointers in ROOT begin with a small “g”.}
+
+\textcolor{red}{gROOT}: the gROOT variable is the entry point to the ROOT system. Technically it is an \textcolor{cyan}{instance} of the \textcolor{red}{TROOT} class. Using the gROOT pointer one has \textcolor{cyan}{access to basically every object created in a ROOT based program}. The TROOT object is essentially a container of several lists pointing to the main ROOT objects.
+
+\textcolor{red}{gStyle}: By default ROOT creates a default style that can be accessed via the gStyle pointer. This class includes
+functions to set some of the following object attributes.
+
+$-$ Canvas \\
+$-$ Pad \\
+$-$ Histogram axis \\
+$-$ Lines \\
+$-$ Fill areas \\
+$-$ Text \\
+$-$ Markers \\
+$-$ Functions \\
+$-$ Histogram Statistics and Titles \\
+$-$ etc . . .
+
+\textcolor{red}{gSystem}: An instance of a base class \textcolor{cyan}{defining a generic interface to the underlying Operating System}, in our case \textcolor{red}{TUnixSystem}.
+
+\textcolor{red}{gInterpreter}: The \textcolor{cyan}{entry point for the ROOT interpreter}. Technically \textcolor{cyan}{an abstraction level over a singleton instance of TCling}.
+
+
+\section{ROOT Macros}
+macros executed by the ROOT C++ interpreter \textcolor{red}{Cling}
+
+If you have a number of lines which you were able to execute at the ROOT prompt, they can be turned into a ROOT macro by giving them a name which corresponds to the file name without extension. The \textcolor{cyan}{general structure for a macro stored in} file \textcolor{red}{MacroName.C} is
+
+void MacroName() { \\
+$< \cdots$ \\
+your lines of C++ code \\
+$\cdots >$ \\
+}
+
+The macro is executed by typing \\
+\textcolor{red}{$>$ root MacroName.C} \\
+at the system prompt, or executed using \textcolor{red}{.x} \\
+$>$ root \\
+\textcolor{red}{root [0] .x MacroName.C} \\
+at the ROOT prompt. Or it can be \textcolor{cyan}{loaded into a ROOT session and then be executed by typing} \\
+\textcolor{red}{root [0].L MacroName.C} \\
+\textcolor{red}{root [1] MacroName();} \\
+at the ROOT prompt.
+
+\subsection{A more complete example}
+
+root macro1.C
+
+TF1 defines a function, TCanvas defines size and properties of the window used for our plot, and TLegend add a nice legend. 
+
+Line $13$ : the name of the principal function (it plays the role of the ``main" function in compiled programs) in the macro file. It has to \textcolor{cyan}{be the same as the file name without extension}.
+
+Line $24-25$ : instance of the TGraphErrors class. The constructor takes the number of points and the pointers to the arrays of $x$ values, $y$ values, $x$ errors (in this case none, represented by the NULL pointer) and $y$ errors. The second line \textcolor{cyan}{defines in one shot the title of the graph and the titles of the two axes}, \textcolor{red}{separated by a ``;"}.
+
+Line 28-30 : These three lines are rather intuitive right ? To understand better the enumerators for colors and styles see the reference for the \textcolor{red}{TColor} and \textcolor{red}{TMarker} classes.
+
+Line 33 : the canvas object that will host the drawn objects. The \textcolor{cyan}{``memory leak" is intentional, to make the object existing also out of the macro1 scope}.
+
+Line 36 : the method \textcolor{red}{DrawClone} \textcolor{cyan}{draws a clone of the object on the canvas}. It has to be a clone, to survive after the scope of macro1, and be displayed on screen after the end of the macro execution. The string option ``APE" stands for: \\
+$-$ A imposes the drawing of the Axes. \\
+$-$ P imposes the drawing of the graph’s markers. \\
+$-$ E imposes the drawing of the graph’s error bars.
+ 
+Line 39 : define a mathematical function. There are several ways to accomplish this, but in this case the constructor accepts the name of the function, the formula, and the function range.
+
+Line 41 : maquillage. Try to give a look to the line styles at your disposal visiting the documentation of the TLine class.
+
+Line 43 : fits the $f$ function to the graph, observe that the pointer is passed. It is more interesting to look at the output on the screen to see the parameters values and other crucial information that we will learn to read at the end of this guide.
+
+Line 44 : again draws the clone of the object on the canvas. The \textcolor{red}{``Same”} option \textcolor{cyan}{avoids the cancellation of the already drawn objects}, in our case, the graph. The function $f$ will be drawn using the same axis system defined by the previously drawn graph.
+
+Line 47-52 : completes the plot with a legend, represented by a \textcolor{red}{TLegend} instance. The constructor takes as parameters the lower left and upper right corners coordinates with respect to the total size of the canvas, assumed to be 1, and the legend header string. You can add to the legend the objects, previously drawn or not drawn, through the \textcolor{red}{addEntry} method. Observe how the legend is drawn at the end: looks familiar now, right ?
+
+Line 55-57 : \textcolor{cyan}{defines an arrow with a triangle on the right hand side}, a thickness of $2$ and draws it.
+
+Line 60-61 : \textcolor{cyan}{interpret a Latex string which hast its lower left corner located in the specified coordinate}. The \textcolor{red}{$\#$splitline$\{\}\{\}$} construct allows to \textcolor{cyan}{store multiple lines} in the same \textcolor{red}{TLatex} object.
+
+Line 63 : \textcolor{cyan}{save the canvas as image}. The \textcolor{cyan}{format is automatically inferred from the file extension} (it could have been eps, gif, . . . ).
+
+
+\subsection{Summary of Visual e!ects}
+The complete summary of colours is represented by the ROOT \textcolor{cyan}{``colour wheel"}. Refer to the online documentation of \textcolor{red}{TColor}. ROOT provides several graphics markers types.
+
+The class representing arrows is \textcolor{red}{TArrow}, which inherits from \textcolor{red}{TLine}. The constructors of lines and arrows always contain the coordinates of the endpoints. Arrows also foresee parameters to specify their shapes.
+
+Adding text in your plot is provided by the \textcolor{red}{TLatex} class. The objects of this class are constructed with the \textcolor{cyan}{coordinates of the bottom-left corner of the text} and a \textcolor{cyan}{string which contains the text itself}. The real twist is that ordinary Latex mathematical symbols are automatically interpreted, you just need to replace the ``$\backslash$" by a ``$\#$".
+
+If ``$\backslash$" is used as control character , then the \textcolor{red}{TMathText} interface is invoked. It provides the plain TeX syntax and allow to access character’s set like Russian and Japenese.
+
+
+\subsection{Interpretation and Compilation}
+
+\subsubsection{Compile a Macro with ACLiC}
+\textcolor{red}{ACLiC} will \textcolor{cyan}{create a compiled dynamic library for your macro}, without any effort from your side, except the insertion of the appropriate header files. To generate an object library from the macro code, from inside the interpreter type (please note the ``\textcolor{red}{$+$}"):
+
+root [1] .L macro1.C+
+
+Once this operation is accomplished, the macro symbols will be available in memory and you will be able to execute it simply by calling from inside the interpreter:
+
+root [2] macro1()
+
+\subsubsection{Compile a Macro with the Compiler}
+Include the appropriate headers in the code and then exploit the \textcolor{red}{root-config} tool for the \textcolor{cyan}{automatic settings of all the compiler flags}. root-config is \textcolor{cyan}{a script that comes with ROOT}; it \textcolor{cyan}{prints all flags and libraries needed to compile code and link it with the ROOT libraries}. In order to make the code executable stand-alone, an entry point for the operating system is needed, in C++ this is the procedure \textcolor{cyan}{int main();}. The easiest way to turn a ROOT macro code into a stand-alone application is to add the following “dressing code” at the end of the macro file. This defines the procedure main, the only purpose of which is to \textcolor{cyan}{call your macro}:
+
+int main() $\{$ \\
+ExampleMacro(); \\
+return 0; \\
+$\}$
+
+To create a stand-alone program from a macro called ExampleMacro.C, type
+
+$>$  g++ -o ExampleMacro ExampleMacro.C `root-config $--$cflags $--$libs`
+
+and execute it by typing
+
+$>$ ./ExampleMacro
+
+This procedure will, however, not give access to the ROOT graphics, as neither control of mouse or keyboard events nor access to the graphics windows of ROOT is available. If you want your stand-alone application have display graphics output and respond to mouse and keyboard, a slightly more complex piece of code can be used. A macro ExampleMacro$\_$GUI is executed by the ROOT class \textcolor{red}{TApplication}.
+
+\section{Graphs}
+
+\section{Histograms}
+ROOT supports histograms up to three dimensions. The histogram classes are split into further categories, depending on the set of possible bin values:
+
+\textcolor{red}{TH1C, TH2C and TH3C} contain one byte per bin (maximum bin content = 255) \\
+\textcolor{red}{TH1S, TH2S and TH3S} contain one short per bin (maximum bin content = 65 535) \\
+\textcolor{red}{TH1I, TH2I and TH3I} contain one integer per bin (maximum bin content = 2 147 483 647) \\
+\textcolor{red}{TH1F, TH2F and TH3F} contain one float per bin (maximum precision = 7 digits) \\
+\textcolor{red}{TH1D, TH2D and TH3D} contain one double per bin (maximum precision = 14 digits)
+
+ROOT also supports profile histograms. The inter-relation of two measured quantities X and Y can always be visualized with a two-dimensional histogram or scatter-plot. Profile histograms are used to display the mean value of Y and its RMS for each bin in X. If Y is an unknown but single-valued approximate function of X, it will have greater precision in a profile histogram than in a scatter plot.
+
+\textcolor{red}{TProfile} : one dimensional profiles \\
+\textcolor{red}{TProfile2D} : two dimensional profiles
+
+All ROOT histogram classes are derived from the base class \textcolor{red}{TH1}.
+
+\subsection{Creating Histograms}
+
+Calling the \textcolor{red}{Clone()} method of an existing histogram \\
+Making a projection from a 2-D or 3-D histogram \\
+Reading a histogram from a file
+
+// using various constructors \\
+TH1* h1 = new TH1I(``h1", ``h1 title", 100, 0.0, 4.0); \\
+TH2* h2 = new TH2F(``h2", ``h2 title", 40, 0.0, 2.0, 30, -1.5, 3.5); \\
+TH3* h3 = new TH3D(``h3", ``h3 title", 80, 0.0, 1.0, 100, -2.0, 2.0, 50, 0.0, 3.0); \\
+// cloning a histogram \\
+TH1* hc = \textcolor{red}{(TH1*)h1->Clone()}; \\
+// projecting histograms \\
+// the projections always contain double values ! \\
+TH1* hx = \textcolor{red}{h2->ProjectionX()}; // ! TH1D, not TH1F \\
+TH1* hy = h2->ProjectionY(); // ! TH1D, not TH1F
+
+\subsubsection{Constant or Variable Bin Width}
+To construct a histogram, provide the \textcolor{red}{name} and \textcolor{red}{title} of histogram and for each dimension: the \textcolor{red}{number of bins}, the \textcolor{red}{minimum $x$} (lower edge of the first bin) and the \textcolor{red}{maximum $x$} (upper edge of the last bin).
+
+TH2* h = new TH2D( \\
+/* name */ ``h2", \\
+/* title */ ``Hist with constant bin width", \\
+/* X-dimension */ 100, 0.0, 4.0, \\
+/* Y-dimension */ 200, -3.0, 1.5);
+
+When employing this constructor, you will create a histogram with constant (fixed) bin width on each axis. 
+
+To create histograms with \textcolor{red}{variable bin widths}, pass an array (single or double precision) of bin edges. When the histogram has $n$ bins, then there are $n+1$ distinct edges, so the array you pass must be of size $n+1$.
+
+const Int$\_$t NBINS = 5; \\
+Double$\_$t edges[NBINS + 1] $= \{0.0, 0.2, 0.3, 0.6, 0.8, 1.0\}$; \\
+// Bin 1 corresponds to range [0.0, 0.2] \\
+// Bin 2 corresponds to range [0.2, 0.3] etc... \\
+TH1* h = new TH1D( \\
+/* name */ ``h1",
+/* title */ ``Hist with variable bin width", \\
+/* number of bins */ NBINS, \\
+/* edge array */ edges \\
+);
+
+\textcolor{cyan}{Each histogram object contains three TAxis objects}: \textcolor{red}{fXaxis , fYaxis, and fZaxis}. The \textcolor{cyan}{bin edges are always stored internally in double precision}.
+
+Examine the actual edges / limits of the histogram bins by accessing the axis parameters.
+
+const Int$\_$t XBINS = 5; const Int$\_$t YBINS = 5; \\
+Double$\_$t xEdges[XBINS + 1] $= \{0.0, 0.2, 0.3, 0.6, 0.8, 1.0\}$; \\
+Double$\_$t yEdges[YBINS + 1] $= \{-1.0, -0.4, -0.2, 0.5, 0.7, 1.0\}$; \\
+TH2* h = new TH2D("h2", "h2", XBINS, xEdges, YBINS, yEdges); \\
+TAxis* xAxis = h->GetXaxis(); TAxis* yAxis = h->GetYaxis();
+cout $<<$ ``Third bin on Y-dimension: " $<<$ endl; // corresponds to [-0.2, 0.5] \\
+cout $<<$ ``$\backslash$tLower edge: " $<<$ yAxis->GetBinLowEdge(3) $<<$ endl; \\
+cout $<<$ ``$\backslash$tCenter: " $<<$ yAxis->GetBinCenter(3) $<<$ endl; \\
+cout $<<$ ``$\backslash$tUpper edge: " $<<$ yAxis->GetBinUpEdge(3) $<<$ endl;
+
+\subsection{Bin Numbering}
+All histogram types support fixed or variable bin sizes. 2-D histograms may have fixed size bins along X and variable size bins along Y or vice-versa.
+
+For all histogram types: \textcolor{red}{nbins , xlow , xup}
+
+Bin$\# 0$ contains the underflow. Bin$\# 1$ contains the first bin with low-edge ( xlow INCLUDED). The second to last bin (bin$\#$ nbins) contains the upper-edge (xup EXCLUDED). The Last bin (bin$\#$ nbins+1) contains the overflow. In case of 2-D or 3-D histograms, a ``global bin” number is defined. For example, assuming a 3-D histogram h with \textcolor{red}{binx, biny, binz}, the function returns a global/linear bin number. This global bin is useful to access the bin information independently of the dimension.
+
+A histogram can be re-binned via the \textcolor{red}{TH1::Rebin()} method. It returns a new histogram with the re-binned contents. If bin errors were stored, they are recomputed during the re-binning.
+
+\subsection{Filling Histograms}
+h1->Fill(x); \\
+h1->Fill(x,w); // with weight \\
+h2->Fill(x,y); \\
+h2->Fill(x,y,w); \\
+h3->Fill(x,y,z); \\
+h3->Fill(x,y,z,w);
+
+The \textcolor{red}{Fill} method computes the bin number corresponding to the given x, y or z argument and increments this bin by the given weight. The Fill() method returns the bin number for 1-D histograms or global bin number for 2-D and 3-D histograms. If \textcolor{red}{TH1::Sumw2()} has been called before filling, the sum of squares is also stored. One can increment a bin number directly by calling  \textcolor{red}{TH1::AddBinContent()}, replace the existing content via  \textcolor{red}{TH1::SetBinContent()}, and access the bin content of a given bin via  \textcolor{red}{TH1::GetBinContent()}.
+
+Double$\_$t binContent = h->GetBinContent(bin);
+
+By default, the number of bins is computed using the range of the axis. You can change this to re-bin automatically by setting the automatic re-binning option:
+h->SetBit(TH1::kCanRebin);
+
+Once this is set, the Fill() method will \textcolor{cyan}{automatically extend the axis range to accommodate the new value specified in the Fill() argument}. The used method is to double the bin size until the new value fits in the range, merging bins two by two. The \textcolor{red}{TTree::Draw()} method extensively uses this automatic binning option when drawing histograms of variables in TTree with an unknown range. The automatic binning option is supported for 1-D, 2-D and 3-D histograms. During filling, some statistics parameters are incremented to compute the mean value and root mean square with the maximum precision. In case of histograms of type TH1C, TH1S, TH2C, TH2S, TH3C, TH3S a check is made that the bin contents do not exceed the maximum positive capacity (127 or 65 535). Histograms of all types may have positive or/and negative bin contents.
+
+\subsection{Random Numbers and Histograms}
+\textcolor{red}{TH1::FillRandom()} can be used to \textcolor{cyan}{randomly fill a histogram using the contents of an existing TF1 function or another TH1 histogram} (for all dimensions).
+
+root[] TH1F h1(``h1", ``Histo from a Gaussian", 100, -3, 3); \\root[] h1.FillRandom(``gaus", 10000);
+
+\textcolor{red}{TH1::GetRandom()} can be used to \textcolor{cyan}{get a random number distributed according the contents of a histogram}. To \textcolor{cyan}{fill a histogram following the distribution in an existing histogram} you can use the second signature of TH1::FillRandom(). Next code snipped assumes that h1 is an existing histogram (TH1 ).
+
+root[] TH1F h2(``h2", ``Histo from existing histo", 100, -3, 3); \\root[] h2.FillRandom($\&$h1, 1000);
+
+The distribution contained in the histogram h1 ( TH1 ) is integrated over the channel contents. It is normalized to one. The second parameter (1000) indicates how many random numbers are generated.
+
+Getting 1 random number implies: \\Generating a random number between 0 and 1 (say r1) \\
+Find the bin in the normalized integral for r1 \\Fill histogram channel
+
+\subsection{Adding, Dividing, and Multiplying}
+
+
+\subsection{Projections}
+
+
+
+\subsection{Drawing Histograms}
+
+
+\subsection{Making a Copy of an Histogram}
+
+\subsection{Normalizing Histograms}
+
+
+\subsection{Saving/Reading Histograms to/from a File}
+
+\subsection{Miscellaneous Operations}
+
+\subsubsection{$\chi^2$ test}
+Double$\_$t TH1::Chi2Test(const TH1* h2, Option$\_$t* option = ``UU", Double$\_$t* res = 0) const 
+
+$\chi^2$ test for comparing weighted and unweighted histograms
+
+Function: Returns p-value. Other return values are specified by the 3rd parameter
+
+Parameters
+h2	the second histogram \\
+option \\
+``UU" = experiment experiment comparison (unweighted-unweighted) \\
+``UW" = experiment MC comparison (unweighted-weighted). Note that the first histogram should be unweighted \\
+``WW" = MC MC comparison (weighted-weighted) \\
+``NORM" = to be used when one or both of the histograms is scaled but the histogram originally was unweighted by default underflows and overflows are not included: \\
+``OF" = overflows included \\
+``UF" = underflows included \\
+``P" = print chi2, ndf, p$\_$value, igood \\
+``CHI2" = returns chi2 instead of p-value \\
+``CHI2/NDF" = returns $\chi^2$/ndf \\
+res	not empty - computes normalized residuals and returns them in this array
+
+Comparison of two histograms expect hypotheses that two histograms represent identical distributions. To make a decision p-value should be calculated. The \textcolor{red}{hypotheses of identity is rejected if the p-value is lower then some significance level}. Traditionally significance levels $0.1$, $0.05$ and $0.01$ are used. The comparison procedure should include an analysis of the residuals which is often helpful in identifying the bins of histograms responsible for a significant overall $\chi^2$ value. \textcolor{red}{Residuals are the difference between bin contents and expected bin contents}. Most convenient for analysis are the normalized residuals. \textcolor{red}{If hypotheses of identity are valid, normalized residuals are approximately independent and identically distributed random variables having $N(0,1)$ distribution}. Analysis of residuals expect test of above mentioned properties of residuals. Notice that indirectly the analysis of residuals increase the power of $\chi^2$ test.
+
+Consider two histograms with the same binning and the number of bins equal to $r$. Let us denote the number of events in the $i$-th bin in the first histogram as $n_i$ and as $m_i$ in the second one. The total number of events in the first and second histogram are respectively equal to:
+\begin{eqnarray*}
+N = \sum_{i=1}^r n_i ~,\\
+M = \sum_{i=1}^r m_i ~.
+\end{eqnarray*}
+The hypothesis of identity (homogeneity) is that the two histograms represent random values with identical distributions. It is equivalent that there exist $r$ constants $p_1, \cdots, p_r$, such that
+\begin{equation}
+\sum_{i=1}^r p_i = 1 ~.
+\end{equation}
+The probability of belonging to the $i$-th bin for some measured value in both experiments is equal to $p_i$. The number of events in the $i$-th bin is a random variable with a distribution approximated by a \textcolor{red}{Poisson probability distribution}
+\begin{equation}
+\frac{e^{-Np_i} (Np_i)^{n_i} }{n_i!}
+\end{equation}
+for the first histogram and with distribution
+\begin{equation}
+\frac{e^{-Mp_i} (Mp_i)^{m_i} }{m_i!}
+\end{equation}
+for the second histogram. If the hypothesis of homogeneity is valid, then the \textcolor{red}{maximum likelihood estimator of $p_i$}, $i=1, \cdots, r$, is
+\begin{equation}
+\hat{p}_i = \frac{n_i+m_i}{N+M}
+\end{equation}
+and then
+\begin{equation}
+\chi^2 = \sum_{i=1}^r \frac{(n_i -N\hat{p}_i)^2}{N\hat{p}_i} +\sum_{i=1}^r \frac{(m_i -M\hat{p}_i)^2}{M\hat{p}_i} = \frac{1}{MN} \sum_{i=1}^r \frac{(Mn_i-Nm_i)^2}{n_i+m_i}
+\end{equation}
+has approximately a $\chi^2_{(r−1)}$ distribution. The comparison procedure can include an analysis of the residuals which is often helpful in identifying the bins of histograms responsible for a significant overall $\chi^2$ value. Most convenient for analysis are the adjusted (normalized) residuals 
+\begin{equation}
+r_i = \frac{n_i -N\hat{p}_i}{\sqrt{N\hat{p}_i} \sqrt{(1-N/(N+M))(1-(n_i+m_i)/(N+M))} }
+\end{equation}
+If hypotheses of homogeneity are valid then residuals $r_i$ are approximately independent and identically distributed random variables having $N(0,1)$ distribution. The application of the $\chi^2$ test has restrictions related to the value of the expected frequencies $Np_i$, $Mp_i$, $i=1,\cdots,r$. A conservative rule formulated is that all the expectations must be $1$ or greater for both histograms. In practical cases when expected frequencies are not known the estimated expected frequencies $M\hat{p}_i$, $N\hat{p}_i$, $i=1, \cdots,r$ can be used.
+
+
+\subsubsection{Kolmogorov–Smirnov test}
+
+Double$\_$t TMath::KolmogorovTest(Int$\_$t na, const Double$\_$t* a, Int$\_$t nb, const Double$\_$t* b, Option$\_$t* 	option)	
+
+Statistical test whether two one-dimensional sets of points are compatible with coming from the same parent distribution, using the Kolmogorov test. That is, it is used to compare two \textcolor{red}{experimental distributions of unbinned data}.
+
+Input: $a$,$b$: One-dimensional arrays of length $n_a$, $n_b$, respectively. The \textcolor{red}{elements of $a$ and $b$ must be given in ascending order}. option is a character string to specify options ``D" Put out a line of ``Debug" printout ``M" Return the Maximum Kolmogorov distance instead of prob
+
+Output: The returned value \textcolor{red}{prob} is a \textcolor{red}{calculated confidence level which gives a statistical test for compatibility of $a$ and $b$}. Values of prob \textcolor{red}{close to zero} are taken as indicating a \textcolor{red}{small probability of compatibility}. For two point sets drawn randomly from the same parent distribution, the value of prob should be uniformly distributed between zero and one. in case of error the function return $-1$ If the $2$ sets have a different number of points, the minimum of the two sets is used.
+
+Method: The Kolmogorov test is used. The test statistic is the maximum deviation between the two integrated distribution functions, multiplied by the normalizing factor ${\rm rdmax}\times \sqrt{\dfrac{n_a\times n_b}{(n_a+n_b)}}$.
+
+The nuts-and-bolts of the TMath::KolmogorovTest() algorithm is a for-loop over the two sorted arrays $a$ and $b$ representing empirical distribution functions. The for-loop handles $3$ cases: when the next points to be evaluated satisfy $a>b$, $a<b$, or $a=b$:
+
+for(Int$\_$t i=0;i<na+nb;i++) $\{$ if (a[ia-1] < b[ib-1]) $\{$ rdiff -= sa; ia++; if (ia > na) $\{$ok = kTRUE; break;$\}$ $\} $else if (a[ia-1] > b[ib-1]) $\{$ rdiff += sb; ib++; if (ib > nb) $\{$ok = kTRUE; break;$\}$ $\}$ else$\{$ rdiff += sb - sa; ia++; ib++; if (ia > na)$\{$ok = kTRUE; break;$\}$ if (ib > nb) $\{$ok = kTRUE; break;$\}$ $\}$ rdmax = TMath::Max(rdmax,TMath::Abs(rdiff)); $\}$
+
+For the last case, $a=b$, the algorithm advances each array by one index in an attempt to move through the equality. However, this is incorrect when one or the other of $a$ or $b$ (or both) have a repeated value, call it $x$. For the KS statistic to be computed properly, rdiff needs to be calculated after all of the $a$ and $b$ at $x$ have been tallied (this is due to the definition of the empirical distribution function; another way to convince yourself that the old CERNLIB method is wrong is that it implies that the function defined as the difference between $a$ and $b$ is multi-valued at $x$ – besides being ugly, this would invalidate Kolmogorov's theorem).
+
+\subsection{Alphanumeric Bin Labels}
+
+
+\subsection{Histogram Stacks}
+
+
+\subsection{TH2Poly}
+
+\subsection{Profile Histograms}
+
+\subsection{Iso Surfaces}
+
+
+
+
+\subsection{3D Implicit Functions}
+
+
+\subsection{TPie}
+
+
+\subsection{The User Interface for Histograms}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Functions and Parameter Estimation}
+
+\section{File I/O and Parallel Analysis}
+
+\textcolor{red}{
+void write$\_$to$\_$file()$\{$ \\
+// Instance of our histogram \\
+TH1F h(``my$\_$histogram",``My Title;X;$\#$ of entries",100,-5,5); \\
+// Let's fill it randomly \\
+h.FillRandom(``gaus"); \\
+// Let's open a TFile \\
+TFile out$\_$file(``my$\_$rootfile.root",``RECREATE"); \\
+// Write the histogram in the file \\
+h.Write(); \\
+// Close the file \\
+out$\_$file.Close(); \\
+$\}$
+}
+
+\textcolor{red}{RECREATE} option \textcolor{cyan}{forces ROOT to create a new file even if a file with the same name exists on disk}.
+
+Use the Cling command line to access information in the file and draw the previously written histogram
+
+\textcolor{red}{
+$>$ root my$\_$rootfile.root \\
+root [0] \\
+Attaching file my$\_$rootfile.root as $\_$file0$\cdots$ \\
+root [1] $\_$file0$\rightarrow$ls() \\
+TFile** my$\_$rootfile.root \\
+TFile* my$\_$rootfile.root \\
+KEY: TH1F my$\_$histogram;1 My Title \\
+root [2] my$\_$histogram$\rightarrow$Draw() 
+}
+
+Or use a macro to carry out the job:
+\textcolor{red}{
+void read$\_$from$\_$file()$\{$ \\
+// Let's open the TFile \\
+TFile in$\_$file(``my$\_$rootfile.root"); \\
+// Get the Histogram out \\
+TH1F* h; \\
+in$\_$file.GetObject(``my$\_$histogram",h); \\
+// Draw it \\
+h$\rightarrow$Draw(); \\
+$\}$
+}
+
+\subsection{N-tuples in ROOT}
+
+\subsubsection{Storing simple N-tuples}
+\textcolor{red}{TNtuple} class is a simplified version of the \textcolor{red}{TTree} class. A ROOT TNtuple object can store rows of float entries.
+
+Open the ROOT file (cond$\_$data.root) written by the macro above in an interactive session and use a \textcolor{red}{TBrowser} to interactively inspect it
+
+root[0] TBrowser b
+
+You find the columns of your n-tuple written as leafs. Simply clicking on them you can obtain histograms of the variables!
+
+Try the following commands at the shell prompt and in the interactive ROOT shell
+
+$>$ root conductivity$\_$experiment.root \\
+Attaching file conductivity$\_$experiment.root as $\_$file0$\cdots$ \\
+root [0] cond$\_$data$\rightarrow$Draw(``Current:Potential")
+
+extend the syntax typing for example
+
+root [1] cond$\_$data$\rightarrow$Draw(``Current:Potential", ``Temperature$<270$")
+
+root [2] cond$\_$data$\rightarrow$Draw(``Current/Potential:Temperature")
+
+Here show how to navigate in such a multi-dimensional space of variables and unveil relations between variables using n-tuples.
+
+\subsubsection{Reading N-tuples}
+
+accessing the content of a n-tuple: after loading the n-tuple, its branches are assigned to variables and \textcolor{red}{GetEntry(long)} automatically fills them with the content for a specific row.
+
+\subsubsection{Storing Arbitrary N-tuples}
+Write n-tuples of arbitrary type by using ROOT’s \textcolor{red}{TBranch} class. \textcolor{red}{TNtuple::Fill()} accepts only floats
+
+The following macro creates the same n-tuple as before but the branches are booked directly. The \textcolor{red}{Fill()} function then fills the current values of the connected variables to the tree
+
+\subsubsection{Processing N-tuples Spanning over Several Files}
+
+
+\subsubsection{For the advanced user: Processing trees with a selector script}
+
+
+
+\subsubsection{For power-users: Multi-core processing with PROOF lite}
+
+
+
+\subsubsection{Optimisation Regarding N-tuples}
+
+
+
+
+
+\subsection{The Physical Layout of ROOT Files}
+A ROOT file is like a UNIX file directory. It can contain directories and objects organized in unlimited number of levels.  It also is stored in machine independent format. 
+
+\textcolor{red}{TFile constructor} describes the ROOT file which has the extension ``\textcolor{red}{.root}". To view ROOT file, we need to open it again, and to create a TBrowser object by
+
+root[] TFile f(``demo.root") \\
+root[] TBrowser browser;
+
+You can check if the file is correctly opened by:
+
+TFile f(``demo.root"); \\
+if(f.IsZombie())$\{$ \\
+cout $<<$ ``Error opening file" $<<$ endl; \\
+exit(-1); \\
+$\}$else$\{$ \\
+$\cdots$ \\
+$\}$ 
+
+Once we have the TFile object, we can call the \textcolor{red}{TFile::Map() method} to \textcolor{cyan}{view the physical layout}. The output prints the date/time, the start record address, the number of bytes in the record, the class name of the record and the compression factor.
+
+Here we see the fifteen histograms (TH1F’s) with the first one starting at byte 148. We also see \textcolor{cyan}{an entry} TFile. You may notice that the first entry starts at byte 100. \textcolor{cyan}{The first 100 bytes are taken by the file header}.
+
+\subsubsection{The File Header}
+The table shows the file header information. When fVersion is greater than 1000000, the file is a large file ($> 2$ GB) and the offsets will be 8 bytes long. The location in brackets are the location in the case of a large file.
+
+The \textcolor{cyan}{first four bytes of the file header} contain the string ``root” which identifies a file as a ROOT file. Because of this identifier, ROOT is not dependent on the “.root” extension. The \textcolor{red}{nfree} and value is the number of free records. This variable along with \textcolor{red}{FNBytesFree} keeps track of the free space in terms of records and bytes. This count also includes the deleted records, which are available again. 
+
+\subsubsection{The Top Directory Description}
+The 84 bytes after the file header contain the \textcolor{cyan}{top directory description}, including the name, the date and time it was created, and the date and time of the last modification.
+
+\subsubsection{The Histogram Records}
+The first 4 bytes of each record is an integer holding the number of bytes in this record. A negative number flags the record as deleted, and makes the space available for recycling in the next writing. The rest of bytes in the header contain all the information to identify uniquely a data block on the file. It is followed by the object data.
+
+If the key is located past the 32 bit file limit ($> 2$ GB) then some fields will be 8 bytes instead of 4 bytes (values between the brackets). There is a reference to \textcolor{red}{TKey}.
+
+\subsubsection{The Class Description List (StreamerInfo List)}
+The histogram records are followed by the \textcolor{red}{StreamerInfo} list of class descriptions. The list contains the \textcolor{cyan}{description of each class that has been written to file}.
+
+The class description is recursive, because to fully describe a class, its ancestors and object data members have to be described also. The class description list contains the description for:
+
+TH1F \\
+all classes in the TH1F inheritance tree \\
+all classes of the object data members \\
+all classes in the object data members' inheritance tree 
+
+This description is implemented by the \textcolor{red}{TStreamerInfo} class, and is often referred to as simply \textcolor{red}{StreamerInfo}. You can print a file’s StreamerInfo list with the \textcolor{red}{TFile::ShowStreamerInfo} method. 
+
+ROOT allows a class to have multiple versions, and each version has its own description in form of a StreamerInfo. 
+
+\subsubsection{The List of Keys and the List of Free Blocks}
+The last three entries on the output of TFile::Map() are the \textcolor{cyan}{list of keys}, the \textcolor{cyan}{list of free segments}, and the \textcolor{cyan}{address where the data ends}. When a file is closed, it writes a linked list of keys at the end of the file.
+
+\subsubsection{File Recovery}
+A file may become corrupted or it may be impossible to write it to disk and close it properly. If a file that has been not properly closed is opened again, it is scanned and rebuilt according to the information in the record header. The recovery algorithm reads the file and creates the saved objects in memory according to the header information. It then rebuilds the directory and file structure. If the file is opened in write mode, the recovery makes the correction on disk when the file is closed; however if the file is opened in read mode, the correction can not be written to disk. You can also explicitly invoke the recovery procedure by calling the \textcolor{red}{TFile::Recover() method}. You can recover the directory structure, but you cannot save what you recovered to the file on disk. In the following example, we interrupted and aborted the previous ROOT session, causing the file not to be closed. When we start a new session and attempt to open the file, it gives us an explanation and status on the recovery attempt. 
+
+\subsection{The Logical ROOT File: TFile and TKey}
+TFile::Map() method reads the file sequentially and prints information about each record while scanning the file. Beside supporting sequential access and hence ROOT provides random or direct access, i.e. reading a specified object at a time. To do so, \textcolor{cyan}{TFile keeps a list of TKeys}, which is essentially \textcolor{cyan}{an index to the objects in the file}. The \textcolor{red}{TKey class} describes the \textcolor{cyan}{record headers of objects} in the file. For example, we can get the list of keys and print them. To find a specific object on the file we can use the \textcolor{red}{TFile::Get() method}.
+
+The TFile::Get() finds the TKey object with name ``h9". Using the TKey info, it will import in memory the object in the file at the file address $\#3352$ (see the output from the TFile::Map above). This is done by the \textcolor{red}{Streamer method}. Since the keys are available in a \textcolor{red}{TList} of TKeys, we can iterate over the list of keys.
+
+In addition to the list of keys, TFile also keeps two other lists: \textcolor{red}{TFile::fFree} is a \textcolor{cyan}{TList of free blocks used to recycle freed up space in the file}. ROOT tries to find the best free block. \textcolor{cyan}{If a free block matches the size of the new object to be stored, the object is written in the free block and this free block is deleted from the list. If not, the first free block bigger than the object is used.} \textcolor{red}{TFile::fListHead} contains a \textcolor{cyan}{sorted list (TSortedList) of objects in memory}. 
+
+
+\subsubsection{Viewing the Logical File Contents}
+\textcolor{red}{TFile} is a descendent of \textcolor{red}{TDirectory}. We can list the contents, print the name, and create subdirectories. In a ROOT session, you are always in a directory and the directory you are in is called the current directory and is stored in the \textcolor{purple}{global variable} \textcolor{red}{gDirectory}.
+
+create a ROOT file by executing a script
+
+root[] .x $\$$ROOTSYS/tutorials/hsimple.C
+
+We open the file with the intent to update it, and list its contents.
+
+root[] TFile f (``hsimple.root",``UPDATE") \\
+root[] f.ls() \\
+TFile** hsimple.root \\ 
+TFile* hsimple.root \\
+KEY: TH1F hpx;1 This is the px distribution \\
+KEY: TH2F hpxpy;1 py vs px \\
+KEY: TProfile hprof;1 Profile of pz versus px \\
+KEY: TNtuple ntuple;1 Demo ntuple
+
+
+It shows the two lines starting with TFile followed by four lines starting with the word “KEY”. The four keys tell us
+that there are four objects on disk in this file. The syntax of the listing is:
+
+KEY$: <$class$> <$variable$>;<$cycle number$> <$title$>$
+
+For example, the first line in the list means there is an object in the file on disk, called hpx. It is of the class TH1F (one-dimensional histogram of floating numbers). The object’s title is ``This is the px distribution”. If the line starts with \textcolor{red}{OBJ}, \textcolor{cyan}{the object is in memory}. The $<$class$>$ is the name of the ROOT class (T-something). The $<$variable$>$ is the name of the object. The cycle number along with the variable name uniquely identifies the object. The $<$title$>$ is the string given in the constructor of the object as title.
+
+\subsubsection{The Current Directory}
+When you create a TFile object, it becomes the current directory. Therefore, the last file to be opened is always the
+current directory. To check your current directory you can type:
+
+root[] gDirectory$\rightarrow$pwd() \\
+Rint:/
+
+This means that the current directory is the ROOT session (Rint). When you create a file, and repeat the command the file becomes the current directory.
+
+root[] TFile f1(``AFile1.root"); \\
+root[] gDirectory$\rightarrow$pwd() \\
+AFile1.root:/
+
+If you create two files, the last becomes the current directory.
+
+root[] TFile f2(``AFile2.root"); \\
+root[] gDirectory$\rightarrow$pwd() \\
+AFile2.root:/
+
+To switch back to the first file, or to switch to any file in general, you can use the \textcolor{red}{TDirectory::cd method}.
+
+root[] f1.cd(); \\
+root[] gDirectory$\rightarrow$pwd() \\
+AFile1.root:/
+
+changes the current directory back to the first file
+
+You open the file in ``READ” mode, it still becomes the current directory. Cling also offers a shortcut for \textcolor{red}{gDirectory$\rightarrow$pwd()} and \textcolor{red}{gDirectory$\rightarrow$ls()}, you can type:
+
+root[] .pwd \\
+AFile1.root:/ \\
+root[] .ls \\
+TFile** AFile1.root \\
+TFile* AFile1.root
+
+To return to the home directory where we were before:
+
+root[] gROOT$\rightarrow$cd() \\
+(unsigned char)1 \\
+root[] gROOT$\rightarrow$pwd() \\
+Rint:/
+
+\subsubsection{Objects in Memory and Objects on Disk}
+The \textcolor{red}{TFile::ls() method} has an option to list the objects on disk (``\textcolor{red}{-d}") or the objects in memory (``\textcolor{red}{-m}"). If no option is given it lists both, first the objects in memory, then the objects on disk.
+
+root[] TFile *f = new TFile(``hsimple.root"); \\
+root[] gDirectory$\rightarrow$ls(``-m") \\
+TFile** hsimple.root \\
+TFile* hsimple.root
+
+\textcolor{pink}{This correctly states that no objects are in memory}. gDirectory is the current directory and here is equivalent to ``f", i.e.
+
+.ls(``-m") \\
+f$\rightarrow$ls(``-m")
+
+Next command lists the objects on disk in the current directory
+
+root[] gDirectory$\rightarrow$ls(``-d") \\
+TFile** hsimple.root \\
+TFile* hsimple.root \\
+KEY: TH1F hpx;1 This is the px distribution \\
+KEY: TH2F hpxpy;1 py vs px \\
+KEY: TProfile hprof;1 Profile of pz versus px \\
+KEY: TNtuple ntuple;1 Demo ntuple
+
+To \textcolor{cyan}{bring an object from disk into memory}, we have to use it or ``Get” it explicitly. When we use the object, ROOT gets it for us. Any reference to hprof will read it from the file. For example \textcolor{cyan}{drawing hprof will read it from the file and create an object in memory}. 
+
+root[] hprof$\rightarrow$Draw() \\
+$<$TCanvas::MakeDefCanvas$>:$ created default TCanvas with name c1 \\
+root[] f$\rightarrow$ls() \\
+TFile** hsimple.root \\
+TFile* hsimple.root \\
+OBJ: TProfile hprof Profile of pz versus px : 0 \\
+KEY: TH1F hpx;1 This is the px distribution \\
+KEY: TH2F hpxpy;1 py vs px \\
+KEY: TProfile hprof;1 Profile of pz versus px \\
+KEY: TNtuple ntuple;1 Demo ntuple
+
+There is a new line that starts with OBJ. An object of class \textcolor{red}{TProfile}, called hprof has been added in memory to this directory. This new hprof in memory is independent from the hprof on disk. If we make changes to the hprof in memory, they are not propagated to the hprof on disk. A new version of hprof will be saved once we call \textcolor{red}{Write}.
+
+hprof is of the class TProfile that inherits from \textcolor{red}{TH1D}, which inherits from \textcolor{red}{TH1}. TH1 is the basic histogram.
+
+$<$TCanvas::MakeDefCanvas$>:$ created default TCanvas with name c1 \\
+
+It tells us that a TCanvas was created and it named it c1. The canvas is not added to the current directory, because by default ONLY histograms and trees are added to the object list of the current directory. It was added to the list of canvases. This list can be obtained by the command gROOT$\rightarrow$GetListOfCanvases()$\rightarrow$ls(). The ls() will print the contents of the list. In our list, we have one canvas called c1. It has a \textcolor{red}{TFrame}, a \textcolor{red}{TProfile}, and a \textcolor{red}{TPaveStats}. \textcolor{red}{TEventList} objects are also added to the current directory. This list can be obtained by the command \textcolor{red}{gROOT$\rightarrow$GetListOfCanvases()$\rightarrow$ls()}. The ls() will print the contents of the list. In our list, we have one canvas called c1. It has a TFrame, a TProfile, and a TPaveStats.
+
+root[] gROOT$\rightarrow$GetListOfCanvases()$\rightarrow$ls()
+
+root[] hpx$\rightarrow$Draw() \\
+root[] f$\rightarrow$ls() \\
+TFile** hsimple.root \\
+TFile* hsimple.root \\
+OBJ: TProfile hprof Profile of pz versus px : 0 \\
+OBJ: TH1F hpx This is the px distribution : 0 \\
+KEY: TH1F hpx;1 This is the px distribution \\
+KEY: TH2F hpxpy;1 py vs px \\
+KEY: TProfile hprof;1 Profile of pz versus px \\
+KEY: TNtuple ntuple;1 Demo ntuple
+$\rightarrow$
+\textcolor{red}{TFile::ls()} \textcolor{cyan}{loops over the list of objects in memory and the list of objects on disk}. In both cases, it calls the ls() method of each object. The implementation of the ls method is specific to the class of the object, all of these objects are descendants of TObject and inherit the \textcolor{red}{TObject::ls()} implementation. The histogram classes are descendants of \textcolor{red}{TNamed} that in turn is a descent of \textcolor{red}{TObject}. In this case, TNamed::ls() is executed, and it prints the name of the class, and the name and title of the object. Each directory keeps a list of its objects in the memory. You can get this list by \textcolor{red}{TDirectory::GetList()}. To see the lists in memory contents,
+
+root[]f$\rightarrow$GetList()$\rightarrow$ls() \\
+or root[] gDirectory$\rightarrow$GetList()$\rightarrow$ls() \\
+OBJ: TProfile hprof Profile of pz versus px : 0 \\
+OBJ: TH1F hpx This is the px distribution : 0 \\
+
+\subsubsection{Saving Histograms to Disk}
+
+
+\subsubsection{Histograms and the Current Directory}
+
+
+\subsubsection{Saving Objects to Disk}
+
+
+\subsubsection{Saving Collections to Disk}
+
+
+\subsubsection{A TFile Object Going Out of Scope}
+
+
+
+\subsubsection{Retrieving Objects from Disk}
+
+
+\subsubsection{Subdirectories and Navigation}
+
+
+
+\section{Trees}
+In case you want to store large quantities of same-class objects, ROOT has designed the \textcolor{red}{TTree} and \textcolor{red}{TNtuple} classes specifically for that purpose. The TTree class is optimized to reduce disk space and enhance access speed. A TNtuple is a TTree that is limited to only hold floating-point numbers; a TTree on the other hand can hold all kind of data, such as objects or arrays in addition to all the simple types. 
+
+When using a TTree, we fill its branch buffers with leaf data and the buffers are written to disk when it is full. Each object is not written individually, but rather collected and written a bunch at a time.
+
+Since the unit to be compressed is a buffer, and the TTree contains many same-class objects, the header of the objects can be compressed. The TTree reduces the header of each object, but it still contains the class name. Using compression, the class name of each same-class object has a good chance of being compressed, since the compression algorithm recognizes the bit pattern representing the class name. Using a TTree and compression the header is reduced to about 4 bytes compared to the original 60 bytes. However, if compression is turned off, you will not see these large savings.
+
+A tree uses a hierarchy of branches, and each branch can be read independently from any other branch.
+
+\subsection{A Simple TTree}
+
+Creates one branch with the \textcolor{red}{TTree::Branch} method. The first parameter of the Branch method is the branch name. The second parameter is the address from which the first leaf is to be read. In this example it is the address of the structure staff. Once the branch is defined, the script reads the data from the ASCII file into the staff$\_$t structure and fills the tree. The ASCII file is closed, and the ROOT file is written to disk saving the tree. 
+
+\subsection{Show an Entry with TTree::Show}
+Use the \textcolor{red}{TTree::Show} method to access one entry of a tree. For example to look at the 10th entry in the staff.root tree:
+
+root[] \textcolor{orange}{TFile f(``staff.root")} \\
+root[] \textcolor{orange}{T$\rightarrow$Show(10)}
+
+\subsection{Print the Tree Structure with TTree::Print}
+
+\textcolor{red}{TTree::Print} can be used to see the tree structure meaning the number of entries, the branches and the leaves. 
+
+\subsection{Scan a Variable the Tree with TTree::Scan}
+
+\textcolor{red}{TTree::Scan} method shows all values of the list of leaves separated by a colon.
+
+root[] T$\rightarrow$Scan("Cost:Age:Children")
+
+
+\subsection{The Tree Viewer}
+The tree viewer is a quick and easy way to examine a tree. To start the tree viewer, open a file and object browser. Right click on a TTree and select \textcolor{red}{StartViewer}. You can also start the tree viewer from the command line. First load the viewer library.
+
+root[] TFile f(``staff.root") \\
+root[] \textcolor{orange}{T$\rightarrow$StartViewer()}
+
+If you want to \textcolor{cyan}{start a tree viewer without a tree}, you need to \textcolor{cyan}{load the tree player library first}:
+
+root[] \textcolor{orange}{gSystem$\rightarrow$Load(``libTreeViewer.so")} \\
+root[] \textcolor{orange}{new TTreeViewer()}
+
+tree viewer
+
+The left panel contains the list of trees and their branches. You can add more trees with the File-Open command to open the file containing the new tree, then use the context menu on the right panel, select \textcolor{red}{SetTreeName} and enter the name of the tree to add. On the right are the leaves or variables in the tree. You can double click on any leaf to a histogram it.
+
+The toolbar in the upper part can be used for user commands, changing the drawing option and the histogram name. The lower part contains three picture buttons that draw a histogram, stop the current command, and refresh the tree. The three check buttons toggle the following: \\
+Hist$-$ the histogram drawing mode; \\
+Scan$-$ enables redirecting of \textcolor{red}{TTree::Scan} command in an ASCII file; \\
+Rec$-$ enables recording of the last issued command. \\
+
+To draw more than one dimension you can drag and drop any leaf to the X,Y,Z boxes. Then push the Draw button, witch is marked with the purple icon on the bottom left.
+
+All commands can be interrupted at any time by pressing this button.
+
+The method \textcolor{red}{TTree::Refresh} is called by pressing the refresh button in TTreeViewer. It redraws the current exposed expression. Calling TTree::Refresh is useful when a tree is produced by a writer process and concurrently analyzed by one or more readers.
+
+To add a cut/weight to the histogram, enter an expression in the ``cut box". The cut box is the one with the scissor icon.
+
+Below them there are \textcolor{cyan}{two text widgets for specifying the input and output event lists}. A Tree Viewer session is made by the list of user-defined expressions and cuts, applying to a specified tree. A session can be saved using File/SaveSource menu or the SaveSource method from the context menu of the right panel. This will create a macro having as default name treeviewer.C that can be ran at any time to reproduce the session.
+
+Besides the list of user-defined expressions, a session may contain a list of RECORDS. A record can be produced in the following way: dragging leaves/expression on X/Y/Z; changing drawing options; clicking the RED button on the bottom when happy with the histogram.
+
+NOTE that just double clicking a leaf will not produce a record: the histogram must be produced when clicking the
+DRAW button on the bottom-left. The records will appear on the list of records in the bottom right of the tree viewer.
+
+Selecting a record will draw the corresponding histogram. Records can be played using the arrow buttons near to the record button. When saving the session, the list of records is being saved as well.
+
+Records have a default name corresponding to the Z: Y: X selection, but this can be changed using \textcolor{red}{SetRecordName() method} from the right panel context menu. You can \textcolor{cyan}{create a new expression} by right clicking on any of the \textcolor{red}{E() boxes}. The expression can be dragged and dropped into any of the boxes (X, Y, Z, Cut, or Scan). To scan one or more variables, drop them into the Scan box, then double click on the box. You can also redirect the result of the scan to a file by checking the Scan box on top.
+
+When the ``Rec" box is checked, the Draw and Scan commands are recorded in the history file and echoed on the
+command line. The ``Histogram" text box contains the name of the resulting histogram. By default it is htemp. You
+can type any name, if the histogram does not exist it will create one. The Option text box contains the list of Draw
+options. See ``Draw Options”. You can select the options with the Options menu. The Command box lets you enter
+any command that you could also enter on the command line. The vertical slider on the far left side can be used to
+select the minimum and maximum of an event range. The actual start and end index are shown in on the bottom in
+the status window.
+
+There is an extensive help utility accessible with the Help menu. The \textcolor{red}{IList} and \textcolor{red}{OList} are to \textcolor{cyan}{specify an input list of entry indices and a name for the output list respectively}. Both need to be of type \textcolor{red}{TList} and \textcolor{cyan}{contain integers of entry indices}. These lists are described below in the paragraph ``Error! Reference source not found.”.
+
+\subsection{Creating and Saving Trees}
+To create a TTree we use its constructor. Then we design our data layout and add the branches. \textcolor{cyan}{A tree can be created by giving a name and title}:
+$\rightarrow$
+TTree t("MyTree","Example Tree");
+
+\subsubsection{Creating a Tree from a Folder Hierarchy}
+An alternative way to create a tree and organize it is to use folders. You can build a folder structure and create a tree with branches for each of the sub-folders:
+
+TTree folder$\_$tree(``MyFolderTree",``/MyFolder")
+
+The second argument ``/MyFolder"is the top folder, and the  \textcolor{cyan}{``/" signals the TTree constructor that this is a folder not just the title}. You  \textcolor{cyan}{fill the tree by placing the data into the folder structure} and calling  \textcolor{red}{TTree::Fill}.
+
+\subsubsection{Tree and TRef Objects}
+MyTree$\rightarrow$BranchRef();
+
+This call \textcolor{cyan}{requests the construction of an optional branch supporting table of references} (\textcolor{red}{TRefTable}). This branch (\textcolor{red}{TBranchRef}) will keep all the information needed to find the branches containing referenced objects at each Tree::Fill, the branch numbers containing the referenced objects are saved in the table of references. When the Tree header is saved (via TTree::Write for example), the branch is saved, keeping the information with the pointers to the branches having referenced objects. Enabling this optional table, allow TTree::Draw to automatically load the branches needed to dereference a \textcolor{red}{TRef} (or \textcolor{red}{TRefArray}) object
+
+\subsubsection{Autosave}
+Autosave gives the option to save all branch buffers every n byte. We recommend using Autosave for large acquisitions. If the acquisition fails to complete, you can recover the file and all the contents since the last Autosave. To \textcolor{cyan}{set the number of bytes between Autosave} you can use the \textcolor{red}{TTree::SetAutosave() method}. You can also call TTree::Autosave in the acquisition loop every nentry.
+
+\subsubsection{Trees with Circular Buffers}
+void TTree::SetCircular(Long64$\_$t maxEntries);
+
+where maxEntries is the maximum number of entries to be kept in the buffers. When the number of entries exceeds this value, the first entries in the Tree are deleted and the buffers used again.
+
+\subsubsection{Size of TTree in the File}
+When writing a TTree to a file, if the file size reaches the value stored in the \textcolor{red}{TTree::GetMaxTreeSize()}, the current file is closed and a new file is created. If the original file is named ``myfile.root”, subsequent files are named
+``myfile$\_$1.root”, ``myfile$\_$2.root”, etc.
+
+Currently, the automatic change of file is restricted to the case where the tree is in the top level directory. The file should not contain sub-directories. Before switching to a new file, the tree header is written to the current file, then the current file is closed. To process the multiple files created by \textcolor{red}{ChangeFile()}, one must use a \textcolor{red}{TChain}.
+
+The new file name has a suffix ``$\_$N” where N is equal to fFileNumber+1. By default a Root session starts with fFileNumber=0. One can set fFileNumber to a different value via \textcolor{red}{TTree::SetFileNumber()}. In case a file named ``$\_$N” already exists, the function will try a file named ``$\_\_$N”, then ``$\_\_\_$N”, etc. The \textcolor{cyan}{maximum tree size} can be set via the static function \textcolor{red}{TTree::SetMaxTreeSize()}. The default value of \textcolor{red}{fgMaxTreeSize} is \textcolor{red}{1.9 GB}. If the current file contains other objects (like TH1 and TTree), these objects are automatically moved to the new file.
+
+\subsubsection{User Info Attached to a TTree Object}
+The function \textcolor{red}{TTree::GetUserInfo()} allows adding any object defined by a user to the tree that is not depending on the entry number. 
+
+tree$\rightarrow$GetUserInfo()$\rightarrow$Add(myruninfo);
+
+\subsubsection{Indexing a Tree}
+Use \textcolor{red}{TTree::BuildIndex()} to build an index table using expressions depending on the value in the leaves.
+
+tree$\rightarrow$BuildIndex(majorname, minorname);
+
+The index is built in the following way: \\
+• a pass on all entries is made like in TTree::Draw() \\
+• var1 = majorname \\
+• var2 = minorname \\
+• sel = $2^{31}$ $\times$ majorname + minorname \\
+• for each entry in the tree the sel expression is evaluated and the results array is sorted into fIndexValues
+
+Once the index is computed, using the \textcolor{red}{TTree::GetEntryWithIndex(majornumber, minornumber)}, one entry can be retrieved.
+
+// to create an index using leaves Run and Event \\
+tree.BuildIndex("Run","Event"); \\
+// to read entry corresponding to Run=1234 and Event=56789 \\
+tree.GetEntryWithIndex(1234,56789); 
+
+Note that \textcolor{red}{majorname} and \textcolor{red}{minorname} may be expressions using \textcolor{cyan}{original tree variables} e.g.: ``run-90000", ``event+3*xx"". In case an expression is specified, the equivalent expression must be computed when calling GetEntryWithIndex(). To build an index with only majorname, specify minorname="0" (default). 
+
+Once the index is built, it can be saved with the TTree object with: 
+
+\textcolor{orange}{tree.Write();} //if the file has been open in ``update" mode
+
+The most convenient place to create the index is at the end of the filling process just before saving the tree header. If a previous index was computed, it is redefined by this new call.
+
+This function can also be applied to a TChain. The return value is the number of entries in the Index (< 0 indicates failure).
+
+\subsection{Branches}
+The class for a branch is called \textcolor{red}{TBranch}. If two variables are independent, and the designer knows the variables will not be used together, they should be placed on separate branches. If, however, the variables are related, such as the coordinates of a point, it is most efficient to create one branch with both coordinates on it. \textcolor{cyan}{A variable on a TBranch is called a leaf} (\textcolor{red}{TLeaf}). Another point to keep in mind when designing trees is that \textcolor{cyan}{branches of the same TTree can be written to separate files}. \textcolor{cyan}{To add a TBranch to a TTree} we call the \textcolor{red}{method TTree::Branch()}. Note that we \textcolor{purple}{DO NOT use the TBranch constructor}.
+
+The TTree::Branch method has several signatures. The branch type differs by what is stored in it. A branch can hold an entire object, a list of simple variables, contents of a folder, contents of a TList, or an array of objects. 
+
+\subsection{Adding a Branch to Hold a List of Variables}
+If in the staff.root, the data to save is a list of simple variables, such as integers or floats, we use the following TTree::Branch signature
+
+tree$\rightarrow$Branch(``Ev$\_$Branch",$\&$event, ``temp/F:ntrack/I:nseg:nvtex:flag/i");
+
+The first parameter is the branch name. The second parameter is the address from which the first variable is to be read. 
+
+The leaf name is NOT used to pick the variable out of the structure, but is only used as the name for the leaf. The list of variables needs to be in a structure in the order described in the third parameter. This third parameter is a string describing the leaf list. Each leaf has a name and a type separated by a ``/" and it is separated from the next leaf by a ``:".
+
+$<$Variable$>/<$type$>:<$Variable$>/<$type$>$
+
+The example has two leafs: a floating-point number called temp and an integer named ntrack. 
+
+``temp/F:ntrack/I:"
+
+The type can be omitted and if no type is given, the same type as the previous variable is assumed. This leaf list has three integers called ntrack, nseg, and nvtex.
+
+``ntrack/I:nseg:nvtex"
+
+There is one more rule: when no type is given for the very first leaf, it becomes a float (F). This leaf list has three
+floats called temp, mass, and px.
+
+``temp:mass:px"
+
+The symbols used for the type are: \\
+• C: a character string terminated by the 0 character \\
+• B: an 8 bit signed integer \\
+• b: an 8 bit unsigned integer \\
+• S: a 16 bit signed integer \\
+• s: a 16 bit unsigned integer \\
+• I: a 32 bit signed integer \\
+• i: a 32 bit unsigned integer \\
+• L: a 64 bit signed integer \\
+• l: a 64 bit unsigned integer \\
+• F: a 32 bit floating point \\
+• D: a 64 bit floating point \\
+• O: [the letter `o', not a zero] a boolean (Bool$\_$t)
+
+The type is used for a byte count to decide how much space to allocate. The variable written is simply the block of bytes starting at the starting address given in the second parameter. It may or may not match the leaf list depending on whether or not the programmer is being careful when choosing the leaf address, name, and type.
+
+By default, a variable will be copied with the number of bytes specified in the type descriptor symbol. However, if the type consists of two characters, the number specifies the number of bytes to be used when copying the variable to the output buffer. The line below describes ntrack to be written as a 16-bit integer (rather than a 32-bit integer).
+
+``ntrack/I2"
+
+With this Branch method, you can also add a leaf that holds an entire array of variables. To add an array of floats use the f[n] notation when describing the leaf.
+
+Float$\_$t f[10]; \\
+tree$\rightarrow$Branch(``fBranch",f,``f[10]/F");
+
+You can also add an array of variable length:
+
+$\{$
+TFile *f = new TFile(``peter.root",``recreate"); \\
+Int$\_$t nPhot; \\
+Float$\_$t E[500]; \\
+TTree* nEmcPhotons = new TTree(``nEmcPhotons",``EMC Photons"); \\
+nEmcPhotons$\rightarrow$Branch(``nPhot",$\&$nPhot,``nPhot/I"); \\
+nEmcPhotons$\rightarrow$Branch(``E",E,``E[nPhot]/F"); \\
+$\}$
+
+\subsection{Adding a TBranch to Hold an Object}
+To write a branch to hold an event object, we need to load the definition of the Event class, which is in $\$$ROOTSYS/test/libEvent.so (if it doesn’t exist type make in $\$$ROOTSYS/test). An object can be saved in a tree if a ROOT dictionary for its class has been generated and loaded.
+
+root[] .L libEvent.so
+
+open a file and create a tree.
+
+root[] TFile *f = new TFile(``AFile.root",``RECREATE") \\
+root[] TTree *tree = new TTree(``T",``A Root Tree")
+
+We need to create a pointer to an Event object that will be used as a reference in the TTree::Branch method. Then we create a branch with the TTree::Branch method.
+
+root[] Event *event = new Event() \\
+root[] tree$\rightarrow$Branch(``EventBranch",``Event",$\&$event,32000,99)
+
+To add a branch to hold an object we use the signature above. The first parameter is the name of the branch. The second parameter is the name of the class of the object to be stored. The third parameter is the address of a pointer to the object to be stored. Note that it is an address of a pointer to the object, not just a pointer to the object. The fourth parameter is the buffer size and is by default 32000 bytes. It is the number of bytes of data for that branch to save to a buffer until it is saved to the file. The last parameter is the split-level, which is the topic of the next section. Static class members are not part of an object and thus not written with the object. You could store them separately by collecting these values in a special “status” object and write it to the file outside of the tree. If it makes sense to store them for each object, make them a regular data member.
+
+\subsubsection{Setting the Split-level}
+To split a branch means to create a sub-branch for each data member in the object. The split-level can be set to 0 to disable splitting or it can be set to a number between 1 and 99 indicating the depth of splitting.
+
+To split a branch means to create a sub-branch for each data member in the object. The split-level can be set to 0 to disable splitting or it can be set to a number between 1 and 99 indicating the depth of splitting.
+
+When the split-level is 1, an object data member is assigned a branch. If the split-level is 2, the data member objects will be split also, and a split level of 3 its data members objects, will be split. As the split-level increases so does the splitting depth. The ROOT default for the split-level is 99. This means the object will be split to the maximum.
+
+Splitting a branch can quickly generate many branches. Each branch has its own buffer in memory. In case of many branches (say more than 100), you should adjust the buffer size accordingly. A recommended buffer size is 32000 bytes if you have less than 50 branches. Around 16000 bytes if you have less than 100 branches and 4000 bytes if you have more than 500 branches. These numbers are recommended for computers with memory size ranging from 32MB to 256MB. If you have more memory, you should specify larger buffer sizes. However, in this case, do not forget that your file might be used on another machine with a smaller memory configuration.
+
+
+A split branch is faster to read, but slightly slower to write. The reading is quicker because variables of the same type
+are stored consecutively and the type does not have to be read each time. It is slower to write because of the large
+number of buffers as described above. See ``Performance Benchmarks" for performance impact of split and non-split mode.
+
+When splitting a branch, variables of different types are handled differently. Here are the rules that apply when splitting
+a branch. 
+
+• If a data member is a basic type, it becomes one branch of class TBranchElement. \\
+• A data member can be an array of basic types. In this case, one single branch is created for the array. \\
+• A data member can be a pointer to an array of basic types. The length can vary, and must be specified in the comment field of the data member in the class definition. See “Input/Output”. \\
+• Pointer data member are not split, except for pointers to a TClonesArray. The TClonesArray (pointed to) is split if the split level is greater than two. When the split level is one, the TClonesArray is not split. \\
+• If a data member is a pointer to an object, a special branch is created. The branch will be filled by calling the class Streamer function to serialize the object into the branch buffer. \\
+• If a data member is an object, the data members of this object are split into branches according to the split-level (i.e. split-level > 2). \\
+• Base classes are split when the object is split. \\
+• Abstract base classes are never split. \\
+• All STL containers are supported. \\
+• C-structure data members are not supported in split mode. \\
+• An object that is not split may be slow to browse. \\
+• A STL container that is not split will not be accessible in the browser
+
+\subsubsection{Exempt a Data Member from Splitting}
+If you are creating a branch with an object and in general you want the data members to be split, but you want to
+exempt a data member from the split. You can specify this in the comment field of the data member:
+
+class Event : public TObject $\{$
+private:
+EventHeader fEvtHdr;  // Don't split the header
+
+\subsubsection{Adding a Branch to Hold a TClonesArray}
+ROOT has two classes to manage arrays of objects. The TObjArray can manage objects of different classes, and the TClonesArray that specializes in managing objects of the same class (hence the name Clones Array). TClonesArray takes advantage of the constant size of each element when adding the elements to the array. Instead of allocating memory for each new object as it is added, it reuses the memory. Here is an example of the time a TClonesArray can save over a TObjArray. We have 100,000 events, and each has 10,000 tracks, which gives 1,000,000,000 tracks. If we use a TObjArray for the tracks, we implicitly make a call to new and a corresponding call to delete for each track. The time it takes to make a pair of new/delete calls is about 7 s (10-6). If we multiply the number of tracks by 7 s, (1,000,000,000 * 7 * 10-6) we calculate that the time allocating and freeing memory is about 2 hours. This is the chunk of time saved when a TClonesArray is used rather than a TObjArray. If you do not want to wait 2 hours for your tracks (or equivalent objects), be sure to use a TClonesArray for same-class objects arrays. Branches with TClonesArrays use the same method (TTree::Branch) as any other object described above. If splitting is specified the objects in the TClonesArray are split, not the TClonesArray itself.
+
+\subsubsection{Identical Branch Names}
+When a top-level object (say event), has two data members of the same class the sub branches end up with identical names. To distinguish the sub branch we must associate them with the master branch by including a “.” (a dot) at the end of the master branch name. This will force the name of the sub branch to be master.sub branch instead of simply sub branch. For example, a tree has two branches Trigger and MuonTrigger, each containing an object of the same class (Trigger). To identify uniquely the sub branches we add the dot:
+
+tree$\rightarrow$Branch(``Trigger.",``Trigger",$\&$b1,8000,1); \\
+tree$\rightarrow$Branch(``MuonTrigger.",``Trigger",$\&$b2,8000,1);
+
+If Trigger has three members, T1, T2, T3, the two instructions above will generate sub branches called: Trigger.T1,
+Trigger.T2, Trigger.T3, MuonTrigger.T1, MuonTrigger.T2, and MuonTrigger.T3.
+
+\subsection{Adding a Branch with a Folder}
+add a branch from a folder
+
+tree$\rightarrow$Branch(``/aFolder");
+
+This method \textcolor{cyan}{creates one branch for each element in the folder}. The method \textcolor{cyan}{returns the total number of branches created}. ``event” is a structure with one float and three integers and one unsigned integer. You should not assume that the compiler aligns the elements of a structure without gaps. To avoid alignment problems, you need to use structures with same length members. If your structure does not qualify, you need to create one branch for each element of the structure. 
+
+
+\subsection{Adding a Branch with a Collection}
+This Branch method creates one branch for each element in the collection.
+
+tree$\rightarrow$Branch(*aCollection, 8000, 99); \\
+// Int$\_$t TTree::Branch(TCollection *list, Int$\_$t bufsize, \\
+// Int$\_$t splitlevel, const char *name)
+
+The method returns the total number of branches created. Each entry in the collection becomes a top level branch if the corresponding class is not a collection. If it is a collection, the entry in the collection becomes in turn top level branches, etc. The split level is decreased by 1 every time a new collection is found. For example if list is a TObjArray*
+
+• If splitlevel = 1, one top level branch is created for each element of the TObjArray.\\
+• If splitlevel = 2, one top level branch is created for each array element. If one of the array elements is a TCollection, one top level branch will be created for each element of this collection.
+
+In case a collection element is a TClonesArray, the special Tree constructor for TClonesArray is called. The collection itself cannot be a TClonesArray. If name is given, all branch names will be prefixed with name$\_$.
+
+IMPORTANT NOTE1: This function should not be called if splitlevel$<1$. 
+
+IMPORTANT NOTE2: The branches created by this function will have names corresponding to the collection or object names. It is important to give names to collections to avoid misleading branch names or identical branch names. By default collections have a name equal to the corresponding class name, e.g. the default name of TList is ``TList”.
+
+
+
+
+
+
+\section{ROOT in Python}
+
+
+
+
+\section{Concluding Remarks}
+
+packages named \textcolor{red}{RooFit} and \textcolor{red}{RooStats} providing an advanced framework for model building, fitting and statistical analysis. The ROOT namespace \textcolor{red}{TMVA} offers multi-variate analysis tools including an artificial neural network and many other advanced tools for classification problems. The remarkable ability of ROOT to handle large data volumes was already mentioned in this guide, implemented through the class \textcolor{red}{TTree}. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,349 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Parabolic Equations}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+
+
+
+\subsection{Three Dimensional Schemes}
+Consider the partial differential equation
+\begin{equation}
+v_t = \nu \nabla^2 v +F(x,y,z,t) ~,
+\end{equation}
+and the obvious FTCS explicit scheme for approximating the solution of equation is
+\begin{equation}
+u_{jkl}^{n+1} = u_{jkl}^{n} +(r_x \delta_x^2 +r_y \delta_y^2 +r_z \delta_z^2) u_{jkl}^{n} +F_{jkl}^{n} ~.
+\end{equation}
+The difference scheme is a $\mathcal O(\Delta t) + O(\Delta x^2) + O(\Delta y^2) + O(\Delta z^2)$ order approximation of partial differential equation. And the difference scheme is conditionally stable, with stability condition $r_x+r_y+r_z \leqslant 1/2$. The three dimensional BTCS scheme
+\begin{equation}
+u_{jkl}^{n+1} -(r_x \delta_x^2 +r_y \delta_y^2 +r_z \delta_z^2) u_{jkl}^{n+1} = u_{jkl}^{n} +F_{jkl}^{n} ~.
+\end{equation}
+and the three dimensional Crank-Nicolson scheme
+\begin{equation}
+u_{jkl}^{n+1} -\dfrac{1}{2} (r_x \delta_x^2 +r_y \delta_y^2 +r_z \delta_z^2) u_{jkl}^{n+1} = u_{jkl}^{n} +\dfrac{1}{2} (r_x \delta_x^2 +r_y \delta_y^2 +r_z \delta_z^2) u_{jkl}^{n} +\dfrac{1}{2} \left( F_{jkl}^{n} +F_{jkl}^{n+1} \right)
+\end{equation}
+are both unconditionally stable schemes which are $\mathcal O(\Delta t) + O(\Delta x^2) + O(\Delta y^2) + O(\Delta z^2)$ and $\mathcal O(\Delta t^2) + O(\Delta x^2) + O(\Delta y^2) + O(\Delta z^2)$, respectively. One approach is to use three dimensional Peaceman-Rachford scheme (along with the rationalization of using $\Delta t/3$ as time steps). But the \textcolor{red}{three dimensional Peaceman-Rachford scheme is not unconditionally stable}. And the three dimensional Peaceman-Rachford scheme isonly first order accurate in time. 
+
+Factor the left hand side of equation of three dimensional Crank-Nicolson scheme
+\begin{equation}
+\left(1 - \dfrac{r_x}{2} \delta_x^2 \right) \left(1 - \dfrac{r_y}{2} \delta_y^2 \right) \left(1 - \dfrac{r_z}{2} \delta_z^2 \right) u_{jkl}^{n+1} ~,
+\end{equation}
+If add
+\begin{equation}
+\left[ \dfrac{r_x r_y}{4} \delta_x^2 \delta_y^2 +\dfrac{r_x r_z}{4} \delta_x^2 \delta_z^2 +\dfrac{r_y r_z}{4} \delta_y^2 \delta_z^2 \right] \left(u_{jkl}^{n+1} -u_{jkl}^{n} \right) -\dfrac{r_x r_y r_z}{8} \delta_x^2 \delta_y^2 \delta_z^2 \left(u_{jkl}^{n+1} +u_{jkl}^{n} \right) ~,
+\end{equation}
+to the left hand side of equation.
+\begin{align}
+\nonumber & \left(1 - \dfrac{r_x}{2} \delta_x^2 \right) \left(1 - \dfrac{r_y}{2} \delta_y^2 \right) \left(1 - \dfrac{r_z}{2} \delta_z^2 \right) u_{jkl}^{n+1}  = \\
+& \left(1+\dfrac{r_x}{2} \delta_x^2 \right) \left(1+\dfrac{r_y}{2} \delta_y^2 \right) \left(1+\dfrac{r_z}{2} \delta_z^2 \right) u_{jkl}^{n} +\dfrac{1}{2} \left( F_{jkl}^{n} +F_{jkl}^{n+1} \right) ~.
+\end{align}
+It is equivalent to
+\begin{align}
+\nonumber &\left(1-\dfrac{r_x}{2} \delta_x^2 \right) \left(1-\dfrac{r_y}{2} \delta_y^2 \right) \left(1-\dfrac{r_z}{2} \delta_z^2 \right) \left(u_{jkl}^{n+1} -u_{jkl}^{n} \right) = \\
+& \left(r_x \delta_x^2+r_y \delta_y^2+ r_z\delta_z^2 \right) u_{jkl}^{n} +\dfrac{r_x r_y r_z}{4} \delta_x^2 \delta_y^2 \delta_z^2 u_{jkl}^{n} +\dfrac{1}{2} \left( F_{jkl}^{n} +F_{jkl}^{n+1} \right) ~.
+\end{align}
+Drop the $ \delta_x^2 \delta_y^2 \delta_z^2$ term and get the following form of the Douglas-Gunn scheme
+\begin{align}
+& \left(1-\dfrac{r_x}{2} \delta_x^2 \right) \Delta u^\ast = \left(r_x \delta_x^2+r_y \delta_y^2+ r_z\delta_z^2 \right) u_{jkl}^{n} +\dfrac{1}{2} \left( F_{jkl}^{n} +F_{jkl}^{n+1} \right) ~, \\
+& \left(1-\dfrac{r_y}{2} \delta_y^2 \right) \Delta u^{\ast\ast} = \Delta u^\ast ~, \\
+& \left(1-\dfrac{r_z}{2} \delta_z^2 \right) \Delta u = \Delta u^{\ast\ast} ~, \\
+& \Delta u = u_{jkl}^{n+1} -u_{jkl}^{n}
+\end{align}
+The Douglas-Gunn scheme is accurate of order of $\mathcal O(\Delta t^2) + O(\Delta x^2) + O(\Delta y^2) + O(\Delta z^2)$. The discrete Fourier transforms of the nonhomogeneous version of equations are
+\begin{align}
+& \left(1+2 r_x \sin^2 \dfrac{\xi}{2} \right) \widehat{\Delta u^\ast} = \left(-4r_x \sin^2 \dfrac{\xi}{2} -4r_y \sin^2 \dfrac{\eta}{2} -4r_z   \sin^2 \dfrac{\zeta}{2} \right) \hat{u}^{n}  ~, \\
+& \left(1+2 r_y \sin^2 \dfrac{\eta}{2} \right) \widehat{\Delta u^{\ast\ast}} = \widehat{\Delta u^\ast} ~, \\
+& \left(1+2 r_z \sin^2 \dfrac{\zeta}{2}  \right) \widehat{\Delta u} =  \widehat{\Delta u^{\ast\ast} } ~, \\
+&  \widehat{\Delta u} =  \widehat{u}^{n+1} - \widehat{u}^{n} ~,
+\end{align}
+then
+\begin{align}
+\nonumber  \widehat{u}^{n+1} = & \left[1 -2 r_x \sin^2 \dfrac{\xi}{2} -2 r_y \sin^2 \dfrac{\eta}{2} -2 r_z \sin^2 \dfrac{\zeta}{2} +4r_x r_y \sin^2 \dfrac{\xi}{2} \sin^2 \dfrac{\eta}{2} \right. \\
+\nonumber  & \left. +4r_x r_z \sin^2 \dfrac{\xi}{2} \sin^2 \dfrac{\eta}{2} + 4r_y r_z \sin^2 \dfrac{\eta}{2} \sin^2 \dfrac{\zeta}{2} +8 r_xr_yr_z \sin^2 \dfrac{\xi}{2} \sin^2 \dfrac{\eta}{2} \sin^2 \dfrac{\zeta}{2} \right] / \\
+& \left[\left(1+2 r_x \sin^2 \dfrac{\xi}{2} \right) \left(1+2 r_y \sin^2 \dfrac{\eta}{2} \right) \left(1+2 r_z \sin^2 \dfrac{\zeta}{2} \right) \right] \widehat{u}^{n} = \rho(\xi, \eta, \zeta) \widehat{u}^{n} ~.
+\end{align}
+
+The above expression is in the general form
+\begin{equation*}
+\dfrac{1-a-b-c+d+e+f+g}{1+a+b+c+d+e+f+g} ~,
+\end{equation*}
+where $a, \cdots ,g$ are all positive and it is easy to see that
+\begin{equation*}
+-1 \leqslant \dfrac{1-a-b-c+d+e+f+g}{1+a+b+c+d+e+f+g} \leqslant 1 ~.
+\end{equation*}
+Likewise, $|\rho(\xi, \eta, \zeta)| \leqslant 1$. Hence, the Douglas-Gunn scheme is unconditionally stable. Since it is both consistent and unconditionally stable, the Douglas-Gunn scheme is convergent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

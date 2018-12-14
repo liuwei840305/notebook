@@ -1,0 +1,596 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+\usepackage{extpfeil}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+   
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{多元函数微分法}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{基本概念}
+
+二元有序实数组$(x, y)$的全体，即$\vec{R}^2 = \vec{R} \times \vec{R} = \{(x, y) | x, y \in \vec{R} \}$就表示\textcolor{red}{坐标平面}。坐标平面上具有某种性质$P$的点的集合，称为\textcolor{red}{平面点集}，记作
+\begin{equation}
+E = \{(x, y) | (x, y) \text{具有性质} P \}
+\end{equation}
+
+设$P_0(x_0, y_0)$是$xOy$平面上的一个点，$\delta$是某一正数。与点$P_0(x_0, y_0)$距离小于$\delta$的点$P(x, y)$的全体，称为点$P_0$的\textcolor{red}{$\delta$邻域}，记作$U(P_0, \delta)$，即
+\begin{equation*}
+U(P_0, \delta) = \{P |~ |P P_0| < \delta \} ~,
+\end{equation*}
+即
+\begin{equation*}
+U(P_0, \delta) = \{(x, y) | \sqrt{(x-x_0)^2 +(y-y_0)^2 }  < \delta \}
+\end{equation*}
+点$P_0$的\textcolor{red}{去心$\delta$邻域}，记作$\mathring{U}(P_0, \delta)$，即
+\begin{equation*}
+\mathring U(P_0, \delta) = \{P |~ 0 < |P P_0| < \delta \} ~.
+\end{equation*}
+任意一点$P\in \vec{R}^2$与任意一个点集$E \subset \vec{R}^2$之间的有三种关系：\\
+\textcolor{red}{内点}：若存在点$P$的某个邻域$U(P)$，使得$U(P) \subset E$，则称$P$为$E$的内点；\\
+\textcolor{red}{外点}：若存在点$P$的某个邻域$U(P)$，使得$U(P) \bigcap E = \emptyset$，则称$P$为$E$的外点；\\
+\textcolor{red}{边界点}：若点$P$的任一邻域内既含有属于$E$点，又含有不属于$E$的点，则称$P$为$E$的边界点。$E$的边界点的全体，称为$E$的边界，记作$\partial E$。
+
+$E$的内点必属于$E$，$E$的外点必不属于$E$，$E$的边界点可能属于$E$，也可能不属于$E$。
+
+\textcolor{red}{聚点}：若对于任意给定的$\delta > 0$，点$P$的去心邻域$\mathring U(P_0, \delta)$内总有$E$中的点，则称$P$是$E$的聚点。点集$E$的聚点$P$本身，可以属于$E$，也可以不属于$E$。
+
+
+\textcolor{red}{开集}：若点集$E$的点都是$E$的内点，则称$E$为开集。
+
+\textcolor{red}{闭集}：若点集$E$的边界$\partial E \subset E$，则称$E$为闭集。
+
+\textcolor{red}{连通集}：若点集$E$内任何两点，都可用折线联结起来，且该折线上的点都属于$E$，则称$E$为连通集。
+
+
+\textcolor{red}{区域}(开区域)：连通的开集称为区域或开区域。
+
+\textcolor{red}{闭区域}：开区域连同它的边界一起构成的点集称为闭区域。
+
+\textcolor{red}{有界集}：对于平面点集$E$，若存在某一正数$r$，使得
+\begin{equation*}
+E \subset U(O, r) ~,
+\end{equation*}
+其中$O$是坐标原点，则称$E$为有界集。
+
+\textcolor{red}{无界集}：一个集合如果不是有界集，就称这集合为无界集。
+
+设$n$为取定的一个正整数，用$\vec{R}^n$表示$n$元有序实数组$(x_1, x_2, \cdots, x_n)$的全体所构成的集合，即
+\begin{equation*}
+\vec{R}^n = \vec{R} \times \vec{R} \times \cdots \times \vec{R} = \{(x_1, x_2, \cdots, x_n) | x_i \in \vec{R}, i = 1, 2, \cdots, n \} ~.
+\end{equation*}
+$\vec{R}^n$中的元素$(x_1, x_2, \cdots, x_n)$也可以用单个字母$\vec{x}$表示，即$\vec{x} = (x_1, x_2, \cdots, x_n)$。当所有的$x_i(i =1, 2, \cdots, n)$都为零时，称这样的元素为$\vec{R}^n$中的零元，记为$\vec{0}$或$O$。
+
+设$\vec{x} = (x_1, x_2, \cdots, x_n), \vec{y} = (y_1, y_2, \cdots, y_n)$为$\vec{R}^n$中任意两个元素，$\lambda \in \vec{R}$，规定
+\begin{align*}
+& \vec{x} + \vec{y} = (x_1 +y_1, x_2 +y_2, \cdots, x_n +y_n) ~, \\
+& \lambda \vec{x} =  (\lambda x_1, \lambda  x_2, \cdots, \lambda x_n) ~.
+\end{align*}
+定义了线性运算的集合$\vec{R}^n$称为\textcolor{red}{$n$维空间}。
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= 定义]
+设$D$是$\vec{R}^2$的一个非空子集，称映射$f : D \rightarrow \vec{R}$为定义在$D$上的二元函数，记为
+\begin{equation*}
+z = f(x, y) ~, (x, y) \in D
+\end{equation*}
+或
+\begin{equation*}
+z = f(P) ~, P \in D
+\end{equation*}
+其中点集$D$称为该函数的\textcolor{red}{定义域}，$x, y$称为\textcolor{red}{自变量}，$z$称为\textcolor{red}{因变量}。
+\end{tcolorbox}
+
+
+
+
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= 定义]
+设二元函数$f(P) = f(x, y)$的定义域为$D$，$P_0(x_0, y_0)$是$D$的聚点。若存在常数$A$，对于任意给定的正数$\varepsilon$，总存在正数$\delta$，使得当点$P(x, y) \in D \bigcap \mathring{U}(P_0, \delta)$时，都有
+\begin{equation*}
+|f(P) - A| = |f(x, y) - A | < \varepsilon ~,
+\end{equation*}
+成立，那么就称常数$A$为函数$f(x, y)$当$(x, y) \rightarrow (x_0, y_0)$时的极限，记作
+\begin{equation*}
+\lim_{(x,y) \rightarrow (x_0, y_0)} f(x, y) = A  ~~\text{或者}  ~~ f(x, y) \rightarrow A( (x, y) \rightarrow (x_0, y_0) ) ~,
+\end{equation*}
+也记作
+\begin{equation*}
+\lim_{P \rightarrow P_0} f(P) = A  ~~\text{或者}  ~~ f(P) \rightarrow A( P \rightarrow P_0 ) ~.
+\end{equation*}
+\end{tcolorbox}
+二元函数的极限也叫做二重极限。二重极限的存在，是指$P(x, y)$以任何方式趋于$P_0(x_0, y_0)$时，$f(x, y)$都无限接近于$A$。若$P(x, y)$以某一特殊方式，如沿着一条定直线或定曲线趋于$P_0(x_0, y_0)$时，即使$f(x, y)$无限接近于某一确定值，还是不能由此断定函数极限的存在。但反过来，若当$P(x, y)$以不同方式趋于$P_0(x_0, y_0)$时，$f(x, y)$趋于不同的值，可以断定函数的极限不存在。
+
+
+
+\section{偏导数}
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= 定义]
+设函数$z = f(x, y)$在点$(x_0, y_0)$的某一领域内有定义，当$y$固定在$y_0$而$x$在$x_0$处有增量$\delta x$时，相应的函数有增量
+\begin{equation*}
+f(x_0 +\Delta x, y_0) - f(x_0, y_0) ~,
+\end{equation*}
+若
+\begin{equation*}
+\lim_{\Delta x \rightarrow 0} \dfrac{f(x_0 +\Delta x, y_0) - f(x_0, y_0)}{\Delta x} ~,
+\end{equation*}
+存在，则称此极限为函数$z=f(x,y)$在点$(x_0, y_0)$处对$x$的偏导数，记作
+\begin{equation*}
+\dfrac{\partial z}{\partial x} \Bigg|_{x=x_0, y=y_0} ~, \dfrac{\partial f}{\partial x} \Bigg|_{x=x_0, y=y_0} ~, z_x \Big|_{x=x_0, y=y_0} ~, f_x (x=x_0, y=y_0) ~.
+\end{equation*}
+函数$z = f(x, y)$在点$(x_0, y_0)$处对$y$的偏导数定义为
+\begin{equation}
+\lim_{\Delta y \rightarrow 0} \dfrac{f(x_0, y_0 +\Delta y) - f(x_0, y_0)}{\Delta y} ~,
+\end{equation}
+记作
+\begin{equation*}
+\dfrac{\partial z}{\partial y} \Bigg|_{x=x_0, y=y_0} ~, \dfrac{\partial f}{\partial y} \Bigg|_{x=x_0, y=y_0} ~, z_y \Big|_{x=x_0, y=y_0} ~, f_y (x=x_0, y=y_0) ~.
+\end{equation*}
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= 定理]
+若函数$z = f(x, y)$的两个二阶混合偏导数$\dfrac{\partial^2 z}{\partial y \partial x}$以及$\dfrac{\partial^2 z}{\partial x \partial y}$在区域$D$内连续，那么该区域内这两个二阶混合偏导数必相等。  
+\end{tcolorbox}
+二阶混合偏导数在连续的条件下与求导的次序无关。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{全微分}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{多元复合函数的求导}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{隐函数的求导}
+
+
+
+
+
+
+
+
+
+
+\section{多元函数微分学的几何应用}
+
+
+
+
+
+
+
+
+
+
+
+\section{方向导数与梯度}
+偏导数反映的是函数沿坐标轴方向的变化率。
+
+设$l$是$xOy$平面上以$P_0(x_0, y_0)$为始点的一条射线，$\vec{e}_l = (\cos \alpha, \cos \beta)$是与$l$同方向的单位向量。射线$l$的参数方程为
+\begin{align*}
+& x = x_0 + t \cos \alpha ~, (t \geqslant 0 )\\
+& y = y_0 +t \cos \beta ~, 
+\end{align*}
+设函数$z = f(x, y)$在点$P_0(x_0, y_0)$的某个邻域$U(P_0)$内有定义，$P(x_0 +t \cos \alpha, y_0 +t \cos \beta)$为$l$上另一点，且$P \in U(P_0)$。若\textcolor{blue}{函数增量}$f(x_0 +t\cos \alpha, y_0 +t \cos \beta) - f(x_0, y_0)$与\textcolor{blue}{$P$到$P_0$的距离}$|PP_0| = t$的比值
+\begin{equation*}
+\dfrac{f(x_0 +t\cos \alpha, y_0 +t \cos \beta) - f(x_0, y_0)}{t}
+\end{equation*}
+当$P$沿着$l$趋于$P_0$(即$t \rightarrow 0^+$)时的极限存在，称此极限为函数$f(x, y)$在点$P_0$沿方向$l$的\textcolor{red}{方向导数}，记作$\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)}$，即
+\begin{equation}
+\dfrac{\partial f}{\partial l} \Bigg|_{x_0, y_0} = \lim_{t \rightarrow 0^+} \dfrac{f(x_0 +t\cos \alpha, y_0 +t \cos \beta) - f(x_0, y_0)}{t}
+\end{equation}
+\textcolor{orange}{方向导数$\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)}$就是函数$f(x, y)$在点$P_0(x_0, y_0)$处沿方向$l$的变化率}。若函数$f(x, y)$在点$P_0(x_0, y_0)$的偏导数存在，$\vec{e}_l = \vec{i} = (1, 0)$，则
+\begin{equation*}
+\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} = \lim_{t \rightarrow 0^+} \dfrac{f(x_0 +t, y_0) - f(x_0, y_0)}{t} = f_x(x_0, y_0) ~,
+\end{equation*}
+若$\vec{e}_l = \vec{j} = (0, 1)$，则
+\begin{equation*}
+\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} = \lim_{t \rightarrow 0^+} \dfrac{f(x_0, y_0 +t) - f(x_0, y_0)}{t} = f_y(x_0, y_0) ~,
+\end{equation*}
+反之，\textcolor{yellow}{若$\vec{e}_l = \vec{i}, \dfrac{\partial z}{\partial l} \Bigg|_{(x_0, y_0)}$存在，则$\dfrac{\partial z}{\partial x} \Bigg|_{(x_0, y_0)}$未必存在。}
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title= 定理]
+如果函数$f(x,y)$在点$P_0(x_0, y_0)$可微分，那么函数在该点沿任一方向$l$的方向导数存在，且有
+\begin{equation}
+\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} = f_x (x_0, y_0) \cos \alpha +f_y (x_0, y_0) \cos \beta ~,
+\end{equation}
+其中$\cos \alpha, \cos \beta$是方向$l$的方向余弦。
+\end{tcolorbox}
+
+
+
+设函数$f(x, y)$在平面区域$D$内具有一阶连续偏导数，则对于每一点$P_0(x_0, y_0) \in D$，都可定出一个向量
+\begin{equation}
+f_x(x_0, y_0) \vec{i} +f_y(x_0, y_0) \vec{j} ~,
+\end{equation}
+这向量称为函数$f(x, y)$在点$P_0(x_0, y_0)$的\textcolor{red}{梯度}，记作$\textbf{grad} f(x_0, y_0)$或$\nabla f(x_0, y_0)$，即
+\begin{equation}
+\textbf{grad} f(x_0, y_0) = \nabla f(x_0, y_0) = f_x(x_0, y_0) \vec{i} +f_y(x_0, y_0) \vec{j} ~.
+\end{equation}
+其中$\nabla = \dfrac{\partial }{\partial x} \vec{i} +\dfrac{\partial }{\partial y} \vec{j} $称为(二维的)向量微分算子或Nabla算子，$\nabla f = \dfrac{\partial f}{\partial x} \vec{i} +\dfrac{\partial f}{\partial y} \vec{j}$。
+
+
+若函数$f(x, y)$在点$P_0(x_0, y_0)$可微分，$\vec{e}_l = (\cos \alpha, \cos \beta)$是与方向$l$同向的单位向量，则
+\begin{align}
+\nonumber \color{red} \dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} &= \color{red} f_x (x_0, y_0) \cos \alpha +f_y (x_0, y_0) \cos \beta \\
+&= \color{red} \textbf{grad} f(x_0, y_0) \cdot \vec{e}_l = |\textbf{grad} f(x_0, y_0) | \cos \theta ~,
+\end{align}
+其中$\theta = (\textbf{grad} f(x_0, y_0), \vec{e}_l)$。
+
+当$\theta = 0$，即方向$\vec{e}_l$与梯度$\textbf{grad} f(x_0, y_0)$的方向相同时，函数$f(x, y)$增加最快。函数在这个方向的方向导数达到最大值，即为梯度$\textbf{grad} f(x_0, y_0)$的模，即
+\begin{equation}
+\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} = |\textbf{grad} f(x_0, y_0) | ~.
+\end{equation}
+
+当$\theta =\pi$，即方向$\vec{e}_l$与梯度$\textbf{grad} f(x_0, y_0)$的方向相反时，函数$f(x, y)$减少最快。函数在这个方向的方向导数达到最小值，即
+\begin{equation}
+\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} = -|\textbf{grad} f(x_0, y_0) | ~.
+\end{equation}
+
+
+当$\theta = \dfrac{\pi}{2}$，即方向$\vec{e}_l$与梯度$\textbf{grad} f(x_0, y_0)$的方向正交时，函数的变化率为$0$，即
+\begin{equation}
+\dfrac{\partial f}{\partial l} \Bigg|_{(x_0, y_0)} = 0 ~.
+\end{equation}
+
+
+
+
+\subsection{Directional Derivatives and the Gradient Vector}
+\cite{stewart2015calculus}  If $z = f(x, y)$, then the partial derivatives $f_x$ and $f_y$ are defined as
+\begin{align}
+& f_x(x_0, y_0) = \underset{h \rightarrow 0}\lim \dfrac{f(x_0 +h, y_0) -f(x_0, y_0)}{h} \\
+& f_y(x_0, y_0) = \underset{h \rightarrow 0}\lim \dfrac{f(x_0, y_0+h) -f(x_0, y_0)}{h} 
+\end{align}
+and represent the rates of change of $z$ in the $x$- and $y$-directions, that is, in the directions of the unit vectors $\vec{i}$ and $\vec{j}$.
+
+Suppose that we now wish to find the rate of change of $z$ at $(x_0, y_0$ in the direction of an arbitrary unit vector $\vec{u} = \langle a, b\rangle$. Consider the surface $S$ with the equation $z = f(x, y)$ (the graph of $f$ ) and we let $z_0 = f(x_0, y_0)$. Then the point $P(x_0, y_0, z_0$ lies on $S$. The vertical plane that passes through $P$ in the direction of $\vec{u}$ intersects $S$ in a curve $C$. The slope of the tangent line $T$ to $C$ at the point $P$ is the rate of change of $z$ in the direction of $\vec{u}$.
+
+If $Q(x, y, z)$ is another point on $C$ and $P^\prime$, $Q^\prime$ are the projections of $P, Q$ onto the $xy$-plane, then the vector $\myvec{P^{\prime}Q^{\prime}}$ is parallel to $\vec{u}$ and so
+\begin{equation*}
+\myvec{P^{\prime}Q^{\prime}} = h\vec{u} = \langle ha, hb\rangle
+\end{equation*}
+for some scalar $h$. Therefore $x-x_0 = ha$, $y-y_0 = hb$, so $x = x_0 +ha$, $y =y_0 +hb$, and 
+\begin{equation*}
+\dfrac{\Delta z}{h} = \dfrac{z -z_0}{h} = \dfrac{f(x_0 +h a, y_0 +h b) -f(x_0, y_0)}{h}
+\end{equation*}
+If we take the limit as $h \rightarrow 0$, we obtain the rate of change of $z$ (with respect to distance) in the direction of $\vec{u}$, which is called the directional derivative of $f$ in the direction of $\vec{u}$.
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+The \textcolor{red}{directional derivative} of $f$ at $(x_0, y_0)$ in the direction of a unit vector $\vec{u} = \langle a, b\rangle$ is
+\begin{equation*}
+D_{\vec{u}} f(x_0, y_0) = \underset{h \rightarrow 0}\lim \dfrac{f(x_0 +h a, y_0 +h b) -f(x_0, y_0)}{h}
+\end{equation*}
+if this limit exists.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+If $f$ is a differentiable function of $x$ and $y$, then $f$ has a directional derivative in the direction of any unit vector $\vec{u} = \langle a, b\rangle$ and
+\begin{equation*}
+D_{\vec{u}} f(x, y) = f_x(x, y) a +f_y(x, y) b
+\end{equation*}
+if this limit exists.
+\end{tcolorbox}
+If the unit vector $\vec{u}$ makes an angle $\theta$ with the positive $x$-axis, then we can write $\vec{u} = \langle \cos \theta, \sin \theta$ and it becomes
+\begin{equation}
+D_{\vec{u}} f(x, y) = f_x(x, y) \cos \theta +f_y(x, y) \sin \theta ~.
+\end{equation}
+
+
+The directional derivative of a differentiable function can be written as the dot product of two vectors:
+\begin{align*}
+D_{\vec{u}} f(x, y) &= f_x(x, y) a +f_y(x, y) b \\
+&= \langle f_x(x,y), f_y(x,y)\rangle \cdot \langle a, b\rangle \\
+&=  \langle f_x(x,y), f_y(x,y)\rangle \cdot \vec{u} ~.
+\end{align*}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+If $f$ is a function of two variables $x$ and $y$, then the \textcolor{red}{gradient} of $f$ is the vector function $\nabla f$ defined by
+\begin{equation*}
+\nabla f = \langle f_x(x,y), f_y(x,y)\rangle = \dfrac{\partial f}{\partial x} \vec{i} +\dfrac{\partial f}{\partial y} \vec{j} ~.
+\end{equation*}
+\end{tcolorbox}
+
+\begin{equation}
+D_{\vec{u}} f(x, y) = \nabla f (x,y) \cdot \vec{u} ~.
+\end{equation}
+This expresses the directional derivative in the direction of a unit vector $\vec{u}$ as the scalar projection of the gradient vector onto $\vec{u}$.
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+The directional derivative of $f$ at $(x_0, y_0, z_0)$ in the direction of a unit vector $\vec{u} = \langle a, b, c\rangle$ is
+\begin{equation*}
+D_{\vec{u}} f(x_0, y_0, z_0) =  \underset{h \rightarrow 0}\lim \dfrac{f(x_0 +h a, y_0 +h b, z_0 +hc) -f(x_0, y_0, z_0)}{h} ~.
+\end{equation*}
+if this limit exists.
+\end{tcolorbox}
+
+\begin{equation}
+D_{\vec{u}} f(\vec{x}_0) = \underset{h \rightarrow 0}\lim \dfrac{f(\vec{x}_0 +h \vec{u}) -f(\vec{x}_0)}{h} ~.
+\end{equation}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+Suppose $f$ is a differentiable function of two or three variables. The maximum value of the directional derivative $D_{\vec{u}} f(\vec{x})$ is $|\nabla f (\vec{x})|$ and it occurs when $\vec{u}$ has the same direction as the gradient vector $\nabla f(\vec{x})$.
+\end{tcolorbox}
+
+\section{多元函数的极值}
+
+\subsection{多元函数的极值及最大值、最小值}
+
+
+
+
+
+
+
+\subsection{条件极值 ~~ 拉格朗日乘数法}
+对于函数的自变量，除了限制在函数的定义域内外，无其他条件，称为\textcolor{blue}{无条件极值}。
+
+对自变量有附加条件的极值称为\textcolor{blue}{条件极值}。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{二元函数的泰勒公式}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{最小二乘法}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

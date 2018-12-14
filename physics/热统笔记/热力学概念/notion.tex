@@ -1,0 +1,315 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{热力学基本概念}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+热力学系统：宏观物体，亦即由大量微观粒子所组成的；
+
+外界：可以对系统发生影响的外部环境；
+
+绝热壁：不允许它两边的物体发生任何形式的热交换；
+
+导热壁：
+
+刚性壁：不允许物体发生位移；用刚性壁包围的固体不可能发生形变；外界对物体不可能作机械功；
+
+热接触：两边的物体彼此处于热接触；由刚性、导热壁分开的两个物体，彼此只允许发生传热，而不允许发生力的或电磁的相互作用，也不可能发生物质交换；
+
+\textcolor{red}{孤立系}：如果系统由绝热且刚性的壁与环境分开，系统不会受到外界的任何影响，即不可能发生任何能量与物质交换；
+
+\textcolor{red}{闭系}：系统与外界不发生物质交换；允许系统与外界有能量交换（通过做功与传热）；
+
+\textcolor{red}{开系}：粒子数可变的系统；
+
+\section{平衡态}
+
+在没有外界影响的条件下，物体各部分的性质长时间内不发生任何变化的状态；
+
+Note：\\
+1) 若把平衡态简单定义为“物体各部分的性质长时间内不发生任何变化的状态”是不充分的；非平衡定态或稳恒态：不随时间变化的非平衡态；\\
+2) “没有外界影响”：物体与外界之间没有宏观的能量与物质交换；
+
+动态平衡：平衡态只是宏观性质不随时间变化，微观上分子仍在不停地运动；存在涨落；
+
+弛豫时间：在一定的条件下，初始不处于平衡态的系统，经过一段时间，必将趋近于平衡态；\\
+Note：“一定条件”：1) 孤立系；2) 不变的外界条件；
+
+热源、热库：恒定温度的外界；与物体发生有限数量的热量交换对热库的影响可以忽略；\\
+物体处于恒定压强的外界环境中；\\
+系统与大粒子源或粒子库接触\\
+趋于平衡是依靠粒子间的相互作用实现的；
+
+\textcolor{red}{状态变量}：宏观变量；系统平衡态由状态变量描写；
+
+均匀系：一个物体各部分性质完全相同；单相系；
+
+非均匀系：各部分性质不相同；复相系；每一个均匀部分称为一个相；
+
+\textcolor{red}{广延量}：与系统的总质量成正比；可加性；摩尔数，体积，内能，熵，$\dots$
+
+\textcolor{red}{强度量}：代表物质的内在性质；不可加；具有局域的性质；与总质量无关；压强，温度，密度，内能密度，熵密度，$\dots$
+
+\textcolor{red}{局域平衡近似}：描写非平衡态；将系统分成许多小块，每一块宏观上足够小，微观上足够大；每一小块近似地看成是均匀的；强度变量是坐标$\myvec{r}$和时间$t$的函数；
+
+准静态绝热过程
+
+\subsection{绝热膨胀}
+
+
+\subsection{节流过程、Joule--Thomson效应}
+
+
+
+\section{态函数}
+
+\subsection{温度}
+
+可以直接测量；常用作状态变量；
+
+
+\subsection{内能}
+
+\subsection{热容}
+\textcolor{red}{热量}是在过程中传递的一种能量，是\textcolor{red}{与过程有关}的。一个系统在某一过程中温度升高$1$ K所吸收的热量，称为系统在该过程的热容量。以$\Delta Q$表示系统在某一过程中温度升高$\Delta T$所吸收的热量，则系统在该过程的热容量为
+\begin{equation}
+C = \underset{\Delta T \rightarrow 0}\lim \frac{\Delta Q}{\Delta T}
+\end{equation}
+热容量的单位为焦耳每开尔文$J\cdot K^{-1}$。系统在某一过程中的热容量不仅取决于物质的固有特性，且与系统的质量成正比，是一个广延量。
+
+摩尔热容量$C_m$：$1$ mol 物质的热容量。摩尔热容量除与过程有关外，只与物质的固有属性有关，是一个强度量。
+
+系统的热容量$C$与摩尔热容量$C_m$的关系为$C = n C_m$，$n$为系统的物质的量。单位质量的物质在某一过程的热容量称为物质在该过程的\textcolor{red}{比热容}。
+
+\subsubsection{等容过程}
+系统的体积不变，外界对系统不做功，$W = 0$，所以$Q = \Delta U$，定容热容
+\begin{equation}
+C_V = \underset{\Delta T \rightarrow 0}\lim \left(\frac{\Delta Q}{\Delta T} \right)_V = \underset{\Delta T \rightarrow 0}\lim \left(\frac{\Delta U}{\Delta T} \right)_V = \left(\frac{\partial U}{\partial T} \right)_V
+\end{equation}
+$\left(\dfrac{\partial U}{\partial T} \right)_V$表示体积不变的情况下内能随温度的变化率。
+
+一般的简单系统，$U$是$T$、$V$的函数，$C_V$也是$T$、$V$的函数。
+
+\subsubsection{等压过程}
+外界对系统作功为$W = -p\Delta V$，$Q = \Delta U +p\Delta V$
+\begin{eqnarray}
+\nonumber C_p &=& \underset{\Delta T \rightarrow 0}\lim \left(\frac{\Delta Q}{\Delta T} \right)_p \\
+\nonumber &=& \underset{\Delta T \rightarrow 0}\lim \left(\frac{\Delta U +p\Delta V}{\Delta T} \right)_p \\
+&=& \left(\frac{\partial U}{\partial T} \right)_p +p\left(\frac{\partial V}{\partial T} \right)_p
+\end{eqnarray}
+等压过程中焓的变化为
+\begin{equation}
+\Delta H= \Delta U +p\Delta V
+\end{equation}
+即是等压过程中系统从外界吸收的热量。定压热容
+\begin{equation}
+C_p =  \left(\frac{\partial H}{\partial T} \right)_p
+\end{equation}
+
+一般的简单系统，$C_p$是$T$、$p$的函数。
+
+\subsection{焓}
+状态函数
+\begin{equation}
+H = U +pV
+\end{equation}
+
+
+
+\subsection{吉布斯函数}
+
+\subsection{自由能}
+
+
+
+\section{物态方程}
+\begin{equation}
+T = f(p, V)
+\end{equation}
+或者
+\begin{equation}
+p = p(T, V)
+\end{equation}
+或者
+\begin{equation}
+V = V(p, T)
+\end{equation}
+或者
+\begin{equation}
+g(p, V, T) = 0
+\end{equation}
+
+\textcolor{red}{膨胀系数$\alpha$} \\
+压强不变时，体积随温度的相对变化率；
+\begin{equation}
+\alpha \equiv \frac{1}{V} \left( \frac{\partial V}{\partial T} \right)_p
+\end{equation}
+
+\textcolor{red}{压强系数$\beta$} \\
+体积不变时，压强随温度的相对变化率；
+\begin{equation}
+\beta \equiv \frac{1}{p} \left( \frac{\partial p}{\partial T} \right)_V
+\end{equation}
+
+\textcolor{red}{等温压缩系数}(简称：\textcolor{red}{压缩系数}) \textcolor{red}{$\beta$} \\
+温度不变时，体积随压强的相对变化率；
+\begin{equation}
+\kappa_T \equiv -\frac{1}{V} \left( \frac{\partial V}{\partial p} \right)_T
+\end{equation}
+
+\begin{equation}
+\alpha = \kappa_T \beta p
+\end{equation}
+可以由
+\begin{equation}
+\color{red} \left( \frac{\partial V}{\partial T} \right)_p  \left( \frac{\partial T}{\partial p} \right)_V \left( \frac{\partial p}{\partial V} \right)_T = -1
+\end{equation}
+导出。
+
+\subsection{理想气体}
+它是实际气体在压强$p\rightarrow 0$时的极限；\\
+可以作为实际气体在温度不太低、密度足够稀薄时的近似；
+\begin{equation}
+pV = NRT
+\end{equation}
+$N$: 气体的摩尔数，\\
+$T$:气体温标，\\
+$R = 8.3145$ J/(mol  K):摩尔气体常数
+
+\subsection{范德瓦耳斯气体}
+考虑到分子之间的相互作用引起的修正
+\begin{equation}
+\left( p+\frac{N^2 a}{V^2} \right) (V -Nb) = NRT
+\end{equation}
+$N^2 a/V^2$: 分子之间的吸引力引起的修正；\\
+$Nb$: 分子之间的排斥力引起的修正；
+若气体密度足够低，使$N^2 a/V^2$和$Nb$可以忽略时，范德瓦耳斯方程回到理想气体方程。
+
+\subsection{昂尼斯方程}
+按压强的级数展开作为实际气体的物态方程；
+\begin{equation}
+pV = NRT\{1 +A_2 p + A_3 p^2 +A_4 p^3 + \dots  \}
+\end{equation}
+$A_2, A_3, A_4, \dots$都是温度的函数，分别称为第二、第三、第四、$\dots$位力系数。
+
+按体积的负幂次展开
+\begin{equation}
+pV = NRT\left \{1 +\frac{B_2}{V} + \frac{B_3}{V^2} +\frac{B_4}{V^3} + \dots \right \}
+\end{equation}
+$B_2, B_3, B_4, \dots$都是温度的函数，分别称为第二、第三、第四、$\dots$位力系数。
+
+\subsection{流体和各项同性固体}
+
+
+\subsection{顺磁固体}
+顺磁物质在没有外加磁场时，不表现出磁性；\\
+当外加磁场$\myvec{\mathscr{H}}$时，才表现出磁性。 \\
+对各项同性顺磁固体，其磁化强度$\myvec{\mathscr{M}}$（即单位体积的总磁矩）的方向与$\myvec{\mathscr{H}}$相同，可取为标量$\mathscr{M}$和$\mathscr{H}$。\\
+描写顺磁固体的平衡态的独立状态变量：$(T, V,  \mathscr{H})$ \\
+顺磁固体的物态方程遵从居里定律，即
+\begin{equation}
+\mathscr{M} = \frac{C}{T} \mathscr{H}
+\end{equation}
+$C$:与物质有关的正常数；\\
+居里定律只有在$\mathscr{H}/T$的比值很小时(弱场与高温)下才适用。
+
+\overrightharp{A}
+
+
+
+
+
+
+
+
+
+
+\end{document}

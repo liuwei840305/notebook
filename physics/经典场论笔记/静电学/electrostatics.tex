@@ -1,0 +1,367 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{静电学}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Electrostatics}
+\subsection{Coulomb's law}
+The electric field $\vec{E}$ can be defined as the force per unit charge acting at a given point, 
+\begin{equation}
+\vec{F} = q \vec{E} ~,
+\end{equation}
+which is a vector function of position.
+
+If $\vec{F}$ is the force on a point charge $q_1$, located at $\vec{x}_1$, due to another point charge $q_2$, located at $\vec{x}_2$, then
+\begin{equation}
+\vec{F} = k q_1 q_2 \frac{\vec{x}_1 -\vec{x}_2}{|\vec{x}_1 -\vec{x}_2|^3}
+\end{equation}
+
+The electric field at the point $\vec{x}$ due to a point charge $q_1$ at the point $\vec{x}_1$ is
+\begin{equation}
+\vec{E}(\vec{x}) = k q_1 \frac{\vec{x} -\vec{x}_1}{|\vec{x} -\vec{x}_1|^3}
+\end{equation}
+where $k = (4\pi \epsilon_0)^{-1} = 10^{-7} c^2$. $\epsilon_0 \approx 8.854 \times 10^{-12}$ F/m is the permittivity of free space.
+
+The electric field at $\vec{x}$ due to a system of point charges $q_i$, located at $\vec{x}_i, i = 1, 2, \cdots, n$, as the vector sum 
+\begin{eqnarray*}
+\vec{E}(\vec{x}) &=& \frac{1}{4\pi \epsilon_0} \sum_{i=1}^n q_i \frac{\vec{x} -\vec{x}_i}{|\vec{x} -\vec{x}_i|^3} ~, \\
+&=& \frac{1}{4\pi \epsilon_0} \int \rho(\vec{x}^\prime) \frac{\vec{x} -\vec{x}^\prime}{|\vec{x} -\vec{x}^\prime|^3} \dif^3 x^\prime
+\end{eqnarray*}
+where $\dif^3 x^\prime = \dif x^\prime \dif y^\prime \dif z^\prime$ is a three-dimensional volume element at $\vec{x}^\prime$.
+
+
+\subsection{Gauss's Law}
+\begin{eqnarray}
+\oint_S \vec{E} \cdot \vec{n} \dif a = \frac{1}{\epsilon_0} \sum_i q_i
+\end{eqnarray}
+where the sum is over only those charges inside the surface $S$. For a continuous charge density $\rho(\vec{x}^\prime)$, 
+\begin{equation}
+\oint_S \vec{E} \cdot \vec{n} \dif a = \frac{1}{\epsilon_0} \int_V \rho(\vec{x}^\prime) \dif^3 x^\prime
+\end{equation}
+where $V$ is the volume enclosed by $S$.
+
+\begin{equation}
+\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}
+\end{equation}
+
+
+\begin{equation}
+\nabla \times \vec{E} = 0
+\end{equation}
+
+
+\textcolor{red}{电偶极矩}
+
+
+\section{Boundary-Value Problems}
+\subsection{Method of Images}
+The method of images concerns itself with the problem of one or more point charges in the presence of boundary surfaces. Under favorable conditions it is possible to infer from the geometry of the situation that a small number of suitably placed charges of appropriate magnitudes, external to the region of interest, can simulate the required boundary conditions. These charges are called image charges and the replacement of the actual problem with boundaries by an enlarged region with image charges but not boundaries is called the method of images. The image charges must be external to the volume of interest, since their potentials must be solutions of the Laplace equation inside the volume.
+
+
+\section{Multipoles, Electrostatics of Macroscopic Media, Dielectrics}
+\subsection{Multipole expansion}
+A localized distribution of charge is described by the charge density $\rho(\vec{x}^\prime)$, which is nonvanishing only inside a sphere of radius $R$ around some origin. The potential outside the sphere can be written as an expansion in spherical harmonics:
+\begin{equation}
+\Phi(\vec{x}) = \frac{1}{4\pi \epsilon_0} \sum_{l=0}^\infty \sum_{m=-l}^l \frac{4\pi}{2l+1} q_{lm} \frac{Y_{lm}(\theta, \phi)}{r^{l+1}}
+\label{multi_expan}
+\end{equation}
+Equ. (\ref{multi_expan}) is called a \textcolor{red}{multipole expansion}. The problem to be solved is the determination of the constants $q_{lm}$ in terms of the properties of the charge density $\rho(\vec{x}^\prime)$. The solution is obtained from the integral for the potential:
+\begin{equation*}
+\Phi(\vec{x}) = \frac{1}{4\pi \epsilon_0} \int \frac{\rho(\vec{x}^\prime)}{|\vec{x} -\vec{x}^\prime|} \dif^3 x^\prime
+\end{equation*}
+with the expansion for $1/|\vec{x} -\vec{x}^\prime|$:
+\begin{equation*}
+\frac{1}{|\vec{x} -\vec{x}^\prime|} = 4\pi \sum_{l=0}^\infty \sum_{m=-l}^l \frac{1}{2l+1} \frac{r^l_<}{r^{l+1}_>} Y^\ast_{lm} (\theta^\prime, \phi^\prime) Y_{lm} (\theta, \phi) 
+\end{equation*}
+The potential outside the charge distribution, i.e. $r_< = r^\prime$ and $r_> = r$, 
+\begin{equation}
+\Phi(\vec{x}) = \frac{1}{\epsilon_0} \sum_{l=0}^\infty \sum_{m=-l}^l \frac{1}{2l+1} \left[\int Y^\ast_{lm} (\theta^\prime, \phi^\prime) r^{\prime l} \rho(\vec{x}^\prime) \dif^3 x^\prime \right] \frac{Y_{lm}(\theta, \phi)}{r^{l+1}}
+\end{equation}
+The coefficients are called \textcolor{red}{multipole moments}:
+\begin{equation}
+q_{lm} = \int Y^\ast_{lm} (\theta^\prime, \phi^\prime) r^{\prime l} \rho(\vec{x}^\prime) \dif^3 x^\prime
+\end{equation}
+\begin{eqnarray*}
+q_{00} &=& \frac{1}{\sqrt{4\pi}} \int \rho(\vec{x}^\prime) \dif^3 x^\prime = \frac{1}{\sqrt{4\pi}} q ~, \\
+q_{11} &=& -\sqrt{\frac{3}{8\pi}} \int (x^\prime -i y^\prime)\rho(\vec{x}^\prime) \dif^3 x^\prime = -\sqrt{\frac{3}{8\pi}} (p_x -ip_y) ~, \\
+q_{10} &=& \sqrt{\frac{3}{4\pi}} \int z^\prime \rho(\vec{x}^\prime) \dif^3 x^\prime = \sqrt{\frac{3}{4\pi}} p_z ~, \\
+q_{22} &=& \frac{1}{4}\sqrt{\frac{15}{2\pi}} \int (x^\prime -i y^\prime)^2 \rho(\vec{x}^\prime) \dif^3 x^\prime = \frac{1}{12} \sqrt{\frac{15}{2\pi}} (Q_{11} -2iQ_{12} -Q_{22}) ~, \\
+q_{21} &=& -\sqrt{\frac{15}{8\pi}} \int z^\prime(x^\prime -i y^\prime)\rho(\vec{x}^\prime) \dif^3 x^\prime = -\frac{1}{3}\sqrt{\frac{15}{8\pi}} (Q_{13} -iQ_{23}) ~, \\
+q_{20} &=& \frac{1}{2}\sqrt{\frac{5}{4\pi}} \int (3z^{\prime 2} - r^{\prime 2})\rho(\vec{x}^\prime) \dif^3 x^\prime = \frac{1}{2}\sqrt{\frac{5}{4\pi}} Q_{33} ~, 
+\end{eqnarray*}
+
+For a real charge density, the moments with $m < 0$ are related through
+\begin{equation}
+q_{l,-m} = (-1)^m q^\ast_{lm}
+\end{equation}
+$q$ is the total charge, or monopole moment, $\vec{p}$ is the electric dipole moment:
+\begin{equation}
+\vec{p} = \int \vec{x}^\prime \rho(\vec{x}^\prime) \dif^3 x^\prime
+\end{equation}
+and $Q_{ij}$ is the traceless quadrupole moment tensor:
+\begin{equation}
+Q_{ij} = \int (3x^\prime_i x^\prime_j - r^{\prime 2} \delta_{ij}) \rho(\vec{x}^\prime) \dif^3 x^\prime
+\end{equation}
+The $l$-th multipole coefficients [$(2l+1)$ in number] are linear combinations of the corresponding multipoles expressed in rectangular coordinates. The expansion of $\Phi(\vec{x})$ in rectangular coordinates
+\begin{equation}
+\Phi(\vec{x}) = \frac{1}{4\pi \epsilon_0}  \left[\frac{q}{r} +\frac{\vec{p}\cdot\vec{x}}{r^3} + \frac{1}{2} \sum_{i,j} Q_{ij} \frac{x_i x_j}{r^5} +\cdots \right]
+\end{equation}
+by direct Taylor series expansion of $1/|\vec{x} -\vec{x}^\prime|$. The electric field components for a given multipole can be expressed in terms of spherical coordinates. The negative gradient of a term in Equ. (\ref{multi_expan}) with definite$l$, $m$ has spherical components:
+\begin{eqnarray*}
+E_r &=& \frac{(l+1)}{(2l+1)\epsilon_0} q_{lm} \frac{Y_{lm}(\theta, \phi)}{r^{l+2}} ~, \\
+E_\theta &=& -\frac{1}{(2l+1)\epsilon_0} q_{lm} \frac{1}{r^{l+2}} \frac{\partial}{\partial \theta} Y_{lm}(\theta, \phi)~, \\
+E_\phi &=& -\frac{1}{(2l+1)\epsilon_0} q_{lm} \frac{1}{r^{l+2}} \frac{im}{\sin \theta} Y_{lm}(\theta, \phi) ~,\\
+\end{eqnarray*}
+$\partial Y_{lm}/\partial \theta$ and $Y_{lm}/\sin \theta$ can be expressed as linear combinations of other $Y_{lm}$'s. For a dipole $\vec{p}$ along the $z$ axis, the fields reduce to
+\begin{eqnarray*}
+E_r &=& \frac{2p\cos \theta}{4\pi \epsilon_0 r^3} ~, \\
+E_\theta &=& \frac{p \sin \theta}{4\pi \epsilon_0 r^3} ~, \\
+E_\phi &=& 0 ~.
+\end{eqnarray*}
+For the field at a point $\vec{x}$ due to a dipole $\vec{p}$ at the point $\vec{x}_0$ is 
+\begin{equation}
+\vec{E}(\vec{x}) = \frac{3\vec{n}(\vec{p}\cdot \vec{n}) -\vec{p}}{4\pi \epsilon_0 |\vec{x} -\vec{x}_0|^3}
+\end{equation}
+where $\vec{n}$ is a unit vector directed from $\vec{x}_0$ to $\vec{x}$. 
+
+
+The dipole field is written as 
+\begin{equation}
+\vec{E}(\vec{x}) = \frac{1}{4\pi \epsilon_0} \left[ \frac{3\vec{n}(\vec{p}\cdot \vec{n}) -\vec{p}}{|\vec{x} -\vec{x}_0|^3} -\frac{4\pi}{3} \vec{p} \delta(\vec{x} -\vec{x}_0) \right]
+\end{equation}
+The added delta function does not contribute to the field away from the site of the dipole. The electric dipole field and its magnetic dipole counterpart, when handled carefully, can be employed as if the dipoles were idealized point dipoles, the delta function terms carrying the essential information about the actually finite distributions of the charge and current.
+
+\subsection{Multipole expansion of the energy of a charge distribution in an external field}
+If a localized charge distribution described by $\rho(\vec{x})$ is placed in an \textcolor{red}{external potential $\Phi(\vec{x})$}, the \textcolor{red}{electrostatic energy of the system} is
+\begin{equation}
+W = \int \rho(\vec{x}) \Phi(\vec{x}) \dif^3 x
+\end{equation}
+If the potential $\Phi$ is slowly varying over the region where $\rho(\vec{x})$ is non-negligible, it can be expanded in a Taylor series around a suitably chosen origin
+\begin{equation}
+\Phi(\vec{x}) = \Phi(0) +\vec{x}\cdot \nabla\Phi(0) +\frac{1}{2} \sum_i \sum_j x_i x_j \frac{\partial^2 \Phi}{\partial x_i \partial x_j}(0) +\cdots
+\end{equation}
+Utilizing the definition of the electric filed $\vec{E} = -\nabla \Phi$,
+\begin{equation*}
+\Phi(\vec{x}) = \Phi(0) -\vec{x}\cdot \vec{E}(0) -\frac{1}{2} \sum_i \sum_j x_i x_j \frac{\partial E_j}{\partial x_i}(0) +\cdots
+\end{equation*}
+Since $\nabla \cdot \vec{E} = 0$ for the external field, subtract
+\begin{equation*}
+\frac{1}{6} r^2 \nabla\cdot \vec{E}(0) ~,
+\end{equation*}
+from the last term to obtain
+\begin{equation}
+\Phi(\vec{x}) = \Phi(0) -\vec{x}\cdot \vec{E}(0) -\frac{1}{6} \sum_i \sum_j (3x_i x_j -r^2 \delta_{ij}) \frac{\partial E_j}{\partial x_i}(0) +\cdots
+\end{equation}
+The energy takes the form:
+\begin{equation}
+W = q\Phi(0) -\vec{p}\cdot \vec{E}(0)  -\frac{1}{6} \sum_i \sum_j Q_{ij} \frac{\partial E_j}{\partial x_i}(0) +\cdots
+\end{equation}
+This expression shows the characteristic way in which the various multipoles interact with an external field- the charge with the potential, the dipole with the electric field, the quadrupole with the field gradient, and so on.
+
+The interaction energy between two dipoles $\vec{p}_1$ and $\vec{p}_2$ is
+\begin{equation}
+W_{12} = \frac{\vec{p}_1\cdot \vec{p}_2 -3(\vec{n}\cdot \vec{p}_1)(\vec{n}\cdot \vec{p}_2)}{4\pi \epsilon_0|\vec{x}_1 -\vec{x}_2|^3}
+\end{equation}
+where $\vec{n}$ is a unit vector in the direction $(\vec{x}_1 -\vec{x}_2)$ and it is assumed that $\vec{x}_1 \neq \vec{x}_2$. The dipole-dipole interaction is attractive or repulsive, depending on the orientation of the dipoles. For fixed orientation and separation of the dipoles, the value of the interaction, averaged over the relative positions of the dipoles, is zero. If the moments are generally parallel, attraction(repulsion) occurs when the moments are oriented more or less parallel (perpendicular) to the line joining their centers. For antiparallel moments the reverse is true. The extreme values of the potential energy are equal in magnitude.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

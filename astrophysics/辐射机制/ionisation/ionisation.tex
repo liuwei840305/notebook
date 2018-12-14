@@ -1,0 +1,185 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{enumerate}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Ionisation losses}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+When high energy particles pass through a solid, liquid or gas, they can cause considerable wreckage to the constituent atoms, molecules and nuclei, including:
+\begin{itemize}
+\item[1)] the \textcolor{red}{ionisation} and \textcolor{red}{excitation} of the \textcolor{red}{atoms and molecules} of the material. In the process of ionisation, electrons are torn off atoms by the electrostatic forces between the charged high energy particle and the electrons. This is not only a source of \textcolor{red}{ionisation} but also a source of \textcolor{red}{heating of the material} because of the \textcolor{red}{transfer of kinetic energy to the electrons};
+\item[2)] the \textcolor{red}{destruction of crystal structures and molecular chains};
+\item[3)] \textcolor{red}{nuclear interactions} between the high energy particles and the nuclei of the atoms of the material.
+\end{itemize}
+
+\section{non-relativistic treatment}
+Consider the collision of a \textcolor{red}{high energy proton or nucleus} with a \textcolor{red}{stationary electron}. Only a very small fraction of the kinetic energy of the high energy particle is transferred to the electron as can be appreciated from the case of a head-on collision of a high energy particle of mass $M$ and velocity $v$ with an electron of mass $m_{\rm e}$. Taking the particles to
+be solid spheres, the maximum velocity acquired by the electron in a non-relativistic collision is $[2M/(M + m_{\rm e})]v$. $m_{\rm e}  \ll M$, this is approximately $2v$. The loss of kinetic energy of the high energy particle is less than $m_{\rm e} (2v)^2/2 = 2m_{\rm e}v^2$ and its fractional kinetic energy loss is less than $m_{\rm e} (2v)^2/(Mv^2) = 4m_{\rm e}/M$. $M \gg m_{\rm e}$, the fractional loss of energy per collision is very small. 
+
+The electrons of the medium receive a small momentum impulse through the electrostatic attraction or repulsion of the high energy particle.
+
+High energy particle is assumed to move so fast that its trajectory is undeviated and the electron remains stationary during the interaction.
+
+The charge of the high energy particle is $ze$ and its mass $M$; \textcolor{red}{collision parameter $b$}, is the distance of closest approach of the particle to the electron. The \emph{total momentum impulse} given to the electron in this encounter is $\int F \dif t$. By symmetry, the forces parallel to the line of flight of the high energy particle cancel out and only work out the component of force perpendicular to the line of flight.
+\begin{eqnarray}
+\nonumber F_{\perp} &=& \frac{ze^2}{4\pi \epsilon_0 r^2} \sin \theta ~,\\
+\nonumber \dif t &=& \frac{\dif x}{v}
+\end{eqnarray}
+The \textcolor{red}{momentum impulse} is 
+\begin{eqnarray*}
+\int_{-\infty}^{\infty} F \dif t &=& -\int_{0}^{\pi} \frac{ze^2}{4\pi \epsilon_0 b^2} \sin^2 \theta \frac{b\sin \theta}{v\sin^2 \theta} \dif \theta ~, \\
+&=& -\frac{ze^2}{4\pi \epsilon_0 b v} \int_{0}^{\pi} \sin \theta \dif \theta ~, \\
+&=& \frac{ze^2}{2\pi \epsilon_0 b v}
+\end{eqnarray*}
+The \textcolor{red}{kinetic energy transferred to the electron} is
+\begin{equation}
+\frac{p^2}{2m_{\rm e}} = \textcolor{red}{\frac{z^2 e^4}{8\pi^2 \epsilon^2_0 b^2 v^2 m_{\rm e}} }
+\end{equation}
+i.e. \textcolor{red}{energy loss by high energy particle}.
+
+\subsection{average energy loss per unit path length}
+The number of encounters with collision parameters in the range $b$ to $b + \dif b$ and integrate over collision parameters. 
+
+The total energy loss of the high energy particle, $-\dif E$, in length $\dif x$ is number of electrons in volume $2\pi b ~\dif b ~\dif  x~ \times$ energy loss per interaction:
+\begin{eqnarray}
+\nonumber -\left(\frac{\dif E}{\dif x} \right) &=& \frac{z^2 e^4 N_{\rm e} }{8\pi^2 \epsilon^2_0 v^2 m_{\rm e}} \times \int_{b_{\rm min}}^{b_{\rm max}} \frac{2\pi b}{b^2} \dif b ~,\\
+&=& \frac{z^2 e^4 N_{\rm e} }{4\pi \epsilon^2_0 v^2 m_{\rm e}} \ln \left(\frac{b_{\rm max}}{b_{\rm min}} \right)
+\end{eqnarray}
+$N_{\rm e}$ is the number density, or concentration, of electrons. The closer the encounter, the greater the momentum impulse, $p \propto b^{-2}$. However, there are more electrons at large distances ($\propto b \dif b$).  
+
+
+
+\section{The relativistic case}
+
+\subsection{The relativistic transformation of an inverse square law Coulomb field}
+
+
+\subsection{Relativistic ionisation losses}
+
+
+\subsection{Relativistic collision between a high energy particle and a stationary electron}
+The momentum four-vectors of the high energy particle and the electron in the laboratory frame of reference are
+\begin{eqnarray*}
+&&{\rm high ~energy ~particle} ~~ [\gamma M, \gamma M \vec{v}] = [\gamma M, \gamma M v, 0, 0] \\
+&&{\rm electron} ~~ [m_{\rm e}, 0, 0, 0]
+\end{eqnarray*}
+Transform both four-vectors into a frame of reference moving at velocity $V_{\rm F}$, for which the Lorentz factor is $\gamma_{\rm F} = (1 − V_{\rm F}^2/c^2)^{-1/2}$ and $V_{\rm F} \parallel \vec{v}$. The relativistic three-momenta are:
+\begin{eqnarray*}
+&&{\rm high ~energy ~particle} ~~ (\gamma M v)^{\prime} = \gamma_{\rm F}\gamma M (v- V_{\rm F}) \\
+&&{\rm electron} ~~ p^{\prime}_{\rm e} = \gamma_{\rm F}(0-V_{\rm F} m_{\rm e})
+\end{eqnarray*}
+In the centre of momentum frame $(\gamma Mv)^{\prime} + p^{\prime}_{\rm e}  = 0$, 
+\begin{equation}
+V_{\rm F} = \frac{\gamma M v}{m_{\rm e} +\gamma M}
+\end{equation}
+In this frame of reference, the relativistic three-momentum of the electron is $-\gamma_{\rm F}V_{\rm F} m_{\rm e}$, that is, the particle is travelling in the negative $x^{\prime}$-direction. The \textcolor{red}{maximum energy exchange} is obtained if the electron is sent back along the positive $x^{\prime}$-direction following the collision. Since the collision is elastic, its three-momentum is $+\gamma_{\rm F}V_{\rm F} m_{\rm e}$ and the zeroth component of the four-vector, the \textcolor{red}{total energy, is unchanged in the centre of momentum frame of reference}. Next transform the four-momentum $[\gamma_{\rm F} m_{\rm e}, \gamma_{\rm F} V_{\rm F} m_{\rm e}, 0, 0]$ back into the laboratory frame of reference. Transforming the zeroth component of the momentum four-vector using the inverse Lorentz transformation,
+\begin{equation*}
+(\gamma m_{\rm e})_{\rm in ~S} = \gamma_{\rm F}^2 m_{\rm e} \left(1 +\frac{V_{\rm F}^2}{c^2} \right)
+\end{equation*}
+The total energy in S is $\gamma_{\rm F}^2 m_{\rm e} c^2(1 + V_{\rm F}^2/c^2)$ and maximum kinetic energy of the electron is
+\begin{equation}
+\gamma_{\rm F}^2 m_{\rm e} c^2 \left(1 +\frac{V_{\rm F}^2}{c^2} \right) -m_{\rm e} c^2 = 2\frac{V_{\rm F}^2}{c^2} \gamma_{\rm F}^2 m_{\rm e} c^2
+\end{equation}
+$m_{\rm e} \ll \gamma M$, hence $V_{\rm F} \approx v, \gamma_{\rm F} \approx \gamma$. In the \textcolor{red}{ultra-relativistic limit}, the \textcolor{red}{maximum energy transfer to the electron} is
+\begin{equation*}
+E_{\rm max} = 2\gamma^2 m_{\rm e} v^2
+\end{equation*}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

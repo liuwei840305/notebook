@@ -1,0 +1,279 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+
+\title{TENSOR AND DIFFERENTIAL FORMS}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+An isotropic distribution of mass would be a spherical distribution. No matter what direction one looks, the distribution looks the same. We had been discussed in the Friedmann's cosmological model of the universe. A simpler model is a spherical ball. However, an ellipsoidal distribution is slightly non-isotropic. In general, the distribution of matter can be described using the inertia tensor, a $3\times 3$ matrix
+\begin{equation*}
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+I_{xx} & I_{xy} & I_{xz} \\
+I_{yx} & I_{yy} & I_{yz} \\
+I_{zx} & I_{zy} & I_{zz} 
+\end{pmatrix}
+\end{equation*}
+The entries are the moments of inertia about the origin for a continuous distribution of mass:
+\begin{align*}
+& I_{xx} = \int y^2 +z^2 \dif m ~, ~~~I_{xy} = I_{yx} = -\int xy \dif m ~,\\
+& I_{yy} = \int x^2 +z^2 \dif m ~, ~~~I_{yz} = I_{zy} = -\int yz \dif m ~,\\
+& I_{zz} = \int x^2 +y^2 \dif m ~, ~~~I_{zx} = I_{xz} = -\int xz \dif m ~, 
+\end{align*}
+The total angular momentum is $\vec{L} = I \vec{\Omega}$, where $\vec{\Omega}$ is a column vector of the components of angular velocity. The components of the moment of inertia can be written more compactly using index notation as
+\begin{equation*}
+I_{ij} = \int (r^2 \delta_{ij} -x_i x_j) \rho \dif V ~.
+\end{equation*}
+Under a rotation of the coordinate system, the angular momentum equation becomes $\vec{L}^\prime = I^\prime \vec{\Omega}^\prime$. The relation to the original quantities is 
+\begin{align*}
+& \vec{L}^\prime = I^\prime \vec{\Omega}^\prime ~, \\
+& \hat{R}_\theta \vec{L} = I^\prime \hat{R}_\theta \vec{\Omega} ~, \\
+& \vec{L} =  \hat{R}^{-1}_\theta I^\prime \hat{R}_\theta \vec{\Omega} ~.
+\end{align*}
+The moment of inertia changes under a transformation,
+\begin{equation*}
+I = \hat{R}^{-1}_\theta I^\prime \hat{R}_\theta ~. 
+\end{equation*}
+If the resulting matrix is diagonal, the moment of inertia tensor have been diagonalized,
+\begin{equation*}
+I = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+I_{x} & 0 & 0 \\
+0 & I_{y} & 0 \\
+0 & 0 & I_{z} 
+\end{pmatrix}
+\end{equation*}
+The diagonal entries are called the principal moments of inertia.
+
+\section{Tensor Analysis}
+\subsection{Covariant and Contravariant Tensors}
+\cite{arfken} The rotational transformation of a vector $\vec{A} = A_1\vec{\hat{e}}_1 + A_2\vec{\hat{e}}_2 +A_3\vec{\hat{e}}_3$ from the Cartesian system defined by $\vec{\hat{e}}_i (i = 1, 2, 3)$ into a rotated coordinate system defined by $\vec{\hat{e}}^\prime_i$, with the same vector $\vec{A}$ then represented as $\vec{A}^\prime = A^\prime_1\vec{\hat{e}}^\prime_1 + A^\prime_2\vec{\hat{e}}^\prime_2 + A^\prime_3\vec{\hat{e}}^\prime_3$. The components of $\vec{A}$ and $\vec{A}^\prime$ are related by
+\begin{equation}
+A^\prime_i = \sum_j (\vec{\hat{e}}^\prime_i \cdot \vec{\hat{e}}^\prime_j) A_j ~,
+\end{equation}
+where the coefficients $(\vec{\hat{e}}^\prime_i \cdot \vec{\hat{e}}^\prime_j)$ are the projections of $\vec{\hat{e}}^\prime_i$ in the $\vec{\hat{e}}^\prime_j$ directions. Because the $\vec{\hat{e}}_i$ and the $\vec{\hat{e}}_j$ are linearly related,
+\begin{equation}
+A^\prime_i = \sum_j \dfrac{\partial x_i^\prime}{\partial x_j} A_j ~.
+\label{cotrava}
+\end{equation}
+The gradient of a scalar $\varphi$ has in the unrotated Cartesian coordinates the components $(\nabla \varphi)_j = \dfrac{\partial \varphi}{\partial x_j} \vec{\hat{e}}_j$, i.e. in a rotated system
+\begin{equation}
+(\nabla \varphi)^\prime_i \equiv \dfrac{\partial \varphi}{\partial x_i^\prime} = \sum_j \dfrac{\partial x_j}{\partial x^\prime_i} \dfrac{\partial \varphi}{\partial x_j} ~,
+\label{cova}
+\end{equation}
+Quantities transforming according to Eq. (\ref{cotrava}) are called \textcolor{red}{contravariant vectors}, while those transforming according to Eq. (\ref{cova}) are termed \textcolor{red}{covariant vectors}. 
+
+\begin{align}
+& (A^\prime)^i = \sum_j \dfrac{\partial (x^\prime)^i}{\partial x^j} A^j  ~~, \text{$\vec{A}$ a contravariant vector} \\
+& A^\prime_i = \sum_j \dfrac{\partial x^j}{\partial (x^\prime)^i} A^j  ~~, \text{$\vec{A}$ a covariant vector} 
+\end{align}
+
+\subsection{Tensors of Rank $2$}
+Define contravariant, mixed, and covariant tensors of rank 2 by the following equations for their components under coordinate transformations:
+\begin{align}
+(A^\prime)^{ij} = \sum_{kl} \dfrac{\partial (x^\prime)^i}{\partial x^k} \dfrac{\partial (x^\prime)^j}{\partial x^l} A^{kl} ~, \\ 
+(B^\prime)^{i}_j = \sum_{kl} \dfrac{\partial (x^\prime)^i}{\partial x^k} \dfrac{\partial x^l}{\partial (x^\prime)^j} B^{k}_l ~, \\ 
+(C^\prime)_{ij} = \sum_{kl} \dfrac{\partial x^k}{\partial (x^\prime)^i} \dfrac{\partial x^l}{\partial (x^\prime)^j} C_{kl} ~, 
+\end{align}
+The second-rank tensor $A$ (with components $A^{kl}$) may be represented by writing out its components in a square array
+\begin{equation}
+A = 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+A^{11} & A^{12} & A^{13} \\
+A^{21} & A^{22} & A^{23} \\
+A^{31} & A^{32} & A^{33}
+\end{pmatrix}
+\end{equation}
+For $A$, it takes the form
+\begin{align}
+& \color{red} (A^\prime)^{ij} = \sum_{kl} S_{ik} A^{kl} (S^T)_{lj}, \\
+& \color{red} A^\prime = S A S^T ~,
+\end{align}
+which is known as a \textcolor{red}{similarity transformation}. 
+
+
+
+
+
+\subsection{Isotropic Tensors}
+
+
+
+
+\subsection{Contraction}
+
+
+
+
+
+\subsection{Direct Product}
+
+
+
+
+\subsection{Inverse Transformation}
+
+
+
+
+
+
+
+\subsection{Quotient Rule}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

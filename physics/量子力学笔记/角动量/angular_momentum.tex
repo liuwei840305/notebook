@@ -1,0 +1,622 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Angular momentum}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{binney2013physics} The angular-momentum operators $J_i$ can be introduced as the generators of rotations. They form a \textcolor{yellow}{pseudovector}, so $J^2 = \sum_i J_i^2$ is a scalar. By considering the effect of rotations on vectors and scalars, the $J_i$ commute with all scalar operators, including $J^2$, and the commutator of $J_i$ with a component of a vector operator is given by 
+\begin{equation}
+[J_i, v_j] = i \sum_k \epsilon_{ijk} v_k ~.
+\end{equation}
+$J_i$ do not commute with one another, but satisfy $[J_i, J_j] = i \sum_k \epsilon_{ijk} J_k$.
+
+When the Hamiltonian is invariant under rotations about some axis $\vec{\hat{\alpha}}$, and the \textcolor{yellow}{system starts in an eigenstate of the corresponding angular-momentum operator $\vec{\hat{\alpha}} \cdot \vec{J}$}, it will subsequently \textcolor{yellow}{remain in that eigenstate}. Consequently, the corresponding \textcolor{yellow}{eigenvalue is a conserved quantity}. In classical mechanics dynamical symmetry about some axis implies that the component of angular momentum about that axis is conserved, so it is plausible that the \textcolor{yellow}{conserved eigenvalue is a measure of angular momentum}. How the orientation of a system is encoded in the amplitudes for it to be found in different eigenstates of appropriate angular-momentum operators.
+
+\section{Eigenvalues of $J_z$ and $J^2$}
+\cite{binney2013physics} Since no two components of $\vec{J}$ commute, we cannot find a complete set of simultaneous eigenkets of two components of $\vec{J}$. We can, however, find a complete set of mutual eigenkets of $J^2$ and one component of $\vec{J}$ because $[J^2, J_i] = 0$. Orient the coordinates so that the chosen component of $\vec{J}$ is $J_z$. Label a ket which is simultaneously an eigenstate of $J^2$ and $J_z$ as $|\beta, m\rangle$, where
+\begin{equation}
+J^2 |\beta, m \rangle  = \beta  |\beta, m \rangle ~, ~~~ J_z |\beta, m \rangle = m |\beta, m \rangle ~.
+\end{equation}
+Define 
+\begin{equation}
+J_\pm = J_x \pm i J_y ~.
+\end{equation}
+These objects clearly commute with $J^2$, while their commutation relations with $J_z$ are
+\begin{align}
+[J_+, J_z] = [J_x, J_z] +i[J_y, J_z] = -iJ_y -J_x  = -J_+ ~, \\
+[J_-, J_z] = [J_x, J_z] -i[J_y, J_z] = -iJ_y +J_x  = J_- ~.
+\end{align}
+Since $J_\pm$ commutes with $J^2$, the kets $J_\pm |\beta, m\rangle$ are eigenkets of $J^2$ with eigenvalue $\beta$. Operating with $J_z$ on these kets 
+\begin{align}
+J_z J_+ |\beta, m\rangle = (J_+ J_z +[J_z, J_+]) |\beta, m\rangle = (m+1) J_+ |\beta, m\rangle ~, \\
+J_z J_- |\beta, m\rangle = (J_- J_z +[J_z, J_-]) |\beta, m\rangle = (m-1) J_- |\beta, m\rangle ~.
+\end{align}
+Thus, $J_+ |\beta, m\rangle$ and $J_- |\beta, m\rangle$ are also members of the complete set of states that are eigenstates of both $J^2$ and $J_z$, but their eigenvalues with respect to $J_z$ differ from that of $|\beta, m\rangle$ by $\pm 1$. 
+\begin{equation}
+J_\pm |\beta, m\rangle = \alpha_\pm |\beta, m\pm 1\rangle ~,
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Spin and orbital angular momentum}
+\cite{binney2013physics} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Physics of spin}
+\cite{binney2013physics} The wavefunction of a particle with non-zero spin $s$ has $2s+1$ components $\psi_m(\vec{x})$, the $m$-th component giving the amplitude to be found at $\vec{x}$ in the spin state $|s, m\rangle$. The spin operators $S_i$ act on these multi-component wavefunctions by matrix multiplication.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Orbital angular-momentum eigenfunctions}
+\cite{binney2013physics} In the position representation, the $L_i$ become differential operators.
+\begin{equation}
+L_z = \dfrac{1}{\hbar} (xp_y - yp_x) = -i \left(x \dfrac{\partial }{\partial y} -y \dfrac{\partial }{\partial x}  \right) ~.
+\end{equation}
+Let $(r, \theta, \phi)$ be standard spherical polar coordinates. The chain rule states that
+\begin{equation}
+
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+\section{Three-dimensional harmonic oscillator}
+\cite{binney2013physics} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Addition of angular momenta}
+\cite{binney2013physics} Imagine two gyros in a box and the first gyro has total angular-momentum quantum number $j_1$, while the second gyro has total quantum number $j_2$, $j_1 \geqslant j_2$. A ket describing the state of the first gyro is of the
+form
+\begin{equation}
+|\psi_1 \rangle  = \sum_{m = -j_1}^{j_1} c_m |j_1, m \rangle ~,
+\end{equation}
+while the state of the second is
+\begin{equation}
+|\psi_2 \rangle  = \sum_{m = -j_2}^{j_2} d_m |j_2, m \rangle ~,
+\end{equation}
+and the state of the box is
+\begin{equation}
+|\psi \rangle = |\psi_1 \rangle |\psi_2 \rangle  ~.
+\end{equation}
+The coefficients $c_m$ and $d_m$ are the amplitudes to find the individual gyros in particular orientations with respect to the $z$-axis.
+
+The operators of interest are the operators $J_i^2, J_{iz}$ and $J_{i \pm}$ of the $i$-th gyro and the corresponding operators of the box. The operators $J_z$ and $J_\pm$ for the box are simply sums of the corresponding operators for the gyros
+\begin{equation}
+J_z = J_{1z} +J_{2z} ~, ~~~~ J_\pm = j_{1\pm} +J_{2\pm} ~.
+\end{equation}
+Operators belonging to different systems always commute, so $[J_{1i}, J_{2j}] = 0$ for any values of $i, j$. The operator for the square of the box's angular momentum is
+\begin{equation}
+J^2 = (\vec{J}_1 +\vec{J}_2)^2 = J_1^2 +J_2^2 +2\vec{J}_1\cdot \vec{J}_2 ~.
+\end{equation}
+\begin{equation}
+J_{1+}J_{2-} = (J_{1x} +iJ_{1y} )(J_{2x} -iJ_{2y} ) = (J_{1x}J_{2x} +J_{1y}J_{2y} ) +i(J_{1y}J_{2x}  - J_{1x}J_{2y} ) ~.
+\end{equation}
+\begin{equation}
+J_{1+}J_{2-} +J_{1-}J_{2+} +2J_{1z}J_{2z} = 2 \vec{J}_1\cdot \vec{J}_2 ~.
+\end{equation}
+\begin{equation}
+J^2 = J_1^2 +J_2^2 + J_{1+}J_{2-} +J_{1-}J_{2+} +2J_{1z}J_{2z} ~.
+\end{equation}
+While the total angular momenta of the individual gyros are fixed, that of the box is variable because it depends on the mutual orientation of the two gyros: if the latter are parallel, the squared angular momentum in the box might be expected to have quantum number $j_1 + j_2$, while if they are antiparallel, the box’s angular momentum might be expected to have quantum number $j_1 - j_2$.
+\begin{align}
+\nonumber J^2 |j_1, j_1 \rangle |j_2, j_2 \rangle &= (J_1^2 +J_2^2 +J_{1+}J_{2-} +J_{1-}J_{2+} +2 J_{1z} J_{2z}) |j_1, j_1 \rangle |j_2, j_2 \rangle \\
+\nonumber &= \{j_1(j_1 +1) +j_2(j_2 +1) +2j_1 j_2 \} |j_1, j_1 \rangle |j_2, j_2 \rangle ~, \\
+&= (j_1+j_2)(j_1+j_2 +1)  |j_1, j_1 \rangle |j_2, j_2 \rangle ~.
+\end{align}
+where $J_{i+} |j_i, j_i \rangle = 0$. The expression in curly brackets in equation equals $j(j+1)$ with $j = j_1 +j_2$. Hence $|j_1, j_1\rangle |j_2, j_2 \rangle$ satisfies both the defining equations of the state $|j_1 + j_2, j_1 + j_2 \rangle$ and 
+\begin{equation}
+|j_1 + j_2, j_1 + j_2 \rangle =  |j_1, j_1 \rangle |j_2, j_2 \rangle ~.
+\end{equation}
+\begin{align}
+J_-  |j, j \rangle &= (J_{1-} +J_{2-} )  |j_1, j_1 \rangle |j_2, j_2 \rangle ~, \\
+&= \sqrt{j(j+1) -j(j-1)} |j, j-1 \rangle = \sqrt{2 j} |j, j-1 \rangle ~.
+\end{align}
+\begin{align}
+\nonumber &\sqrt{j_1(j_1+1) -j_1(j_1-1)} |j_1, j_1-1 \rangle |j_2, j_2 \rangle +\sqrt{j_2(j_2+1) -j_2(j_2-1)} |j_1, j_1 \rangle |j_2, j_2 -1 \rangle \\
+&= \sqrt{2j_1} |j_1, j_1-1 \rangle |j_2, j_2 \rangle +\sqrt{2j_2} |j_1, j_1 \rangle |j_2, j_2 -1 \rangle  ~.
+\end{align}
+\begin{equation}
+|j, j-1 \rangle = \sqrt{\dfrac{j_1}{j} } |j_1, j_1-1 \rangle |j_2, j_2 \rangle  + \sqrt{\dfrac{j_2}{j} }  |j_1, j_1 \rangle |j_2, j_2 -1 \rangle ~.
+\end{equation}
+
+
+The numbers
+\begin{equation}
+C(j,m; j_1, j_2, m_1, m_2) \equiv \langle j,m| j_1, m_1\rangle | j_2, m_2\rangle ~,
+\end{equation}
+re called \textcolor{red}{\bf Clebsch-Gordan coefficients}. They have a simple physical interpretation: $C(j, m; j_1, j_2, m_1, m_2)$ is the amplitude that, on opening the box when it's in a state of well-defined angular momentum, we will find the first and second gyros to be oriented with amounts $m_1$ and $m_2$ of their spins parallel to the $z$-axis. 
+
+
+
+\cite{greiner1994quantum} Consider the case of two angular momenta $\vec{\hat{J}}_1$ and $\vec{\hat{J}}_2$ which are combined to form a total angular momentum $\vec{\hat{J}}$,
+\begin{equation*}
+\vec{\hat{J}} = \vec{\hat{J}}_1 +\vec{\hat{J}}_2 ~.
+\end{equation*}
+The sum of angular momentum operators obeys the same commutation relations as the individual angular momentum operators. Let $\psi_{j_1,m_1}$ and $\psi_{j_2,m_2}$ be the orthonormal set of eigenfunctions of the operators $\vec{\hat{J}}_1,  \hat{J}_{1z}$ and $\vec{\hat{J}}_2,  \hat{J}_{2z}$, respectively. 
+\begin{align*}
+& \vec{\hat{J}}_1^2 \psi_{j_1,m_1}^{(1)} = j_1 (j_1+1) \psi_{j_1,m_1}^{(1)} ~,  ~~~ \vec{\hat{J}}_2^2 \psi_{j_2,m_2}^{(2)} = j_2 (j_2+1) \psi_{j_2,m_2}^{(2)} ~, \\
+& \hat{J}_{1z} \psi_{j_1,m_1}^{(1)} = m_1 \psi_{j_1,m_1}^{(1)} ~, ~~~ \hat{J}_{2z} \psi_{j_2,m_2}^{(2)} = m_2 \psi_{j_2,m_2}^{(2)} ~.
+\end{align*}
+The arguments $\vec{r}_1, t_1$ and $\vec{r}_2, t_2$ are here abbreviated by ``$1$" and ``$2$", respectively. However, these will generally be omitted in the following unless necessary for clearer understanding.
+
+This way of coupling the angular momentum also arises in the theory of many-body problems, e.g. the two-electron problem, in which the single electrons can be described by the wave function $\psi_{j_1,m_1}(1)$ and $\psi_{j_1,m_1}(2)$. The total wave
+function of the two-electron system is then given by $\psi_{j,m}(1,2)$, with a total angular momentum of j and its $2$-component $m$. But also in the two-electron problem there is a coupling between spin and orbital angular momentum to a total angular momentum and we have to use the technique which will be introduced now.
+
+The eigenfunctions of the total angular momentum operators $\vec{\hat{J}}_2$ and $\hat{J}_z$ are denoted by $\psi_{j,m}(1,2)$. As Iong as there is no coupling between the two systems, the angular momenta $\vec{\hat{J}}_1, \vec{\hat{J}}_2$ and $\vec{\hat{J}}$ are fixed. The wave function $\psi$ separates into $\psi(1)$ and $\psi(2)$, and we can write $\psi_{jm}$ as a product of $\psi_{j_1 m_1} \times \psi_{j_2 m_2}$. If there is any coupling, $\psi_{jm}$ can always be described as a linear combination of products $\psi_{j_1 m_1} \times \psi_{j_2 m_2}$. We write the coefficients in the form $(j_1 j_2 j |m_1m_2m)$ in order to show the dependence on the various quantum numbers. These coefficients are called \textcolor{red}{\bf Clebsch-Gordan coefficients}.
+
+The total wave function is
+\begin{equation}
+\psi_{jm} (1,2) = \sum_{m_1m_2} (j_1 j_2 j |m_1m_2m) \psi_{j_1 m_1}^{(1)} \psi_{j_2 m_2}^{(2)}  ~.
+\label{eq:total_wavefunc}
+\end{equation}
+If there is coupling between the angular momenta, then $\psi_{j_1 m_1}$ and $\psi_{j_2 m_2}$ are no longer good eigenfunctions (which means that $m_1$ and $m_2$ are not conserved quantum numbers), since the constituent momenta are precessing around the total angular momentum. This is already expressed in the sum over $m_1$ and $m_2$ in (\ref{eq:total_wavefunc}). The relation (\ref{eq:total_wavefunc}) gives a transformation of the Hilbert space, spanned by the orthonormal vectors $\psi_{j_1 m_1}$ and $\psi_{j_2 m_2}$, to the new orthonormal basis set $\psi_{j m}$ of the same subspace. The total product space is invariant, but can be further decomposed, whereas the invariant subspaces, spanned by $\psi_{j m}$ for a fixed $j$, cannot be decomposed. We decompose, mathematically speaking, the representation of the rotation group generated by the product space into its irreducible parts. 
+
+If $\psi_{j m}$ denotes an eigenfunction of the operators $\vec{\hat{J}}^2$ and $\hat{J}_z$, then conditions for the evaluation of the coefficients $(j_1 j_2 j | m_1 m_2 m)$ can be found, and we write
+\begin{align*}
+\hat{J}_z \psi_{j m} &= (\hat{J}_{1z} + \hat{J}_{2z}) \sum_{m_1, m_2} (j_1 j_2 j | m_1 m_2 m) \psi_{j_1 m_1} \psi_{j_2 m_2} \\
+&= \sum_{m_1, m_2} (m_1 +  m_2 ) (j_1 j_2 j | m_1 m_2 m) \psi_{j_1 m_1} \psi_{j_2 m_2}  ~,
+\end{align*}
+and in the same way
+\begin{equation}
+\hat{J}_z \psi_{j m} = m \psi_{j m} \sum_{m_1, m_2} m (j_1 j_2 j | m_1 m_2 m) \psi_{j_1 m_1} \psi_{j_2 m_2} ~.
+\end{equation}
+The $m_1$ sum is performed over all values $- j_1 \leqslant m_1 \leqslant  j_1$, and analogously in the $m_2$ case over the interval $- j_2 \leqslant m_2 \leqslant  j_2$. By identifying the above relations, because of linear independence, the condition
+\begin{equation}
+(m-m_1 -m_2)( j_1 j_2 j|m_1 m_2 m ) = 0 ~.
+\end{equation}
+It follows that the Clebsch-Gordan coefficient vanishes if $m \neq m_1 + m_2$. This means that the double sum reduces to a single sum, since either the coefficient vanishes, or $m_2$ can be determined by $m_2 = m - m_1$. Equation becomes
+\begin{equation}
+ \psi_{j m} = \sum_{m_1} ( j_1 j_2 j|m_1 m_2 m ) \psi_{j_1, m_1} \psi_{j_2, m- m_1} ~.
+\end{equation}
+The conservation of angular momentum (more precisely: of the projection of the angular momentum on the quantization direction) is expressed by the relation $m_1 + m_2 = m$. In the next step we want to calculate the possible values of the quantum number $j$ defined by
+\begin{equation}
+\vec{\hat{J}}^2 \psi_{jm} = j(j+1)  \psi_{jm} ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Evaluation of Clebsch-Gordan Coefficients}
+\cite{greiner1994quantum} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Recursion Relations for Clebsch-Gordan Coefficients}
+\cite{greiner1994quantum} The operator of total angular momentum is
+\begin{equation*}
+\vec{\hat{J}} = \vec{\hat{J}}_1 +\vec{\hat{J}}_2 ~,
+\end{equation*}
+with its spherical components
+\begin{align*}
+\hat{J}_\pm &= \hat{J}_{1\pm} +\hat{J}_{2\pm} = \hat{J}_x \pm i \hat{J}_y = (\hat{J}_{1x} +\hat{J}_{2x}) \pm i (\hat{J}_{1y} +\hat{J}_{2y}) ~, \\
+\hat{J}_0 &= \hat{J}_{10} +\hat{J}_{20} = \hat{J}_z = (\hat{J}_{1z} +\hat{J}_{2z} ) ~.
+\end{align*}
+\begin{align*}
+\hat{J}_+ |jm\rangle &= (\hat{J}_{1+} +\hat{J}_{2+}) |jm\rangle = (\hat{J}_{1+} +\hat{J}_{2+}) |m_1 m_2\rangle \langle m_1 m_2 |jm\rangle \\
+&= [\hat{J}_{1+} |m_1 m_2\rangle + \hat{J}_{2+}|m_1 m_2\rangle ] \langle m_1 m_2 |jm\rangle
+\end{align*}
+\begin{align*}
+& [j(j + 1) - m(m + 1)]^{1/2} |j,m + 1\rangle = \{ [j_1 (j_1 + 1) - m_1 (m_1 + 1)]^{1/2} | m_1 +1, m_2 \rangle \\
+&+ [j_2(j_2 + 1) - m_2(m_2 + 1)]^{1/2} |m_1, m_2 + 1 \rangle \} \times \langle m_1 m_2 | jm \rangle ~.
+\end{align*}
+\begin{align*}
+ & [j(j + 1) - m(m + 1)]^{1/2} |m_1 m_2\rangle \langle m_1 m_2 |j,m + 1\rangle  \\
+ &= [j_1 (j_1 + 1) - m^\prime_1 (m^\prime_2 - 1)]^{1/2} | m^\prime_1 , m_2 \rangle \langle m^\prime_1 -1, m_2 | jm \rangle \\
+ &+ [j_2 (j_2 + 1) - m^\prime_2 (m^\prime_2 - 1)]^{1/2} | m_1 , m^\prime_2 \rangle \langle m_1 , m^\prime_2 -1 | jm \rangle  ~.
+\end{align*}
+Here we have introduced $m^\prime_1 = m_1 + 1$ in the first term on the rhs, and in the second term $m^\prime_2 = m_2 + 1$. The sum goes,just as before, over $m^\prime_1$ from $- j_1$ to $j_1$, and over $m^\prime_2$ from $- j_2$ to $j_2$, the reason being the vanishing factor in front of the terms with $m_1 = j_1$ and $m_2 = j_2$. Thus the terms with $m^\prime_1 = j_1 + 1$ and $m^\prime_2 = j_2 + 1$ do not contribute. 
+
+The terms with $m^\prime_1 = - j_1$ and $m^\prime_2 = -j_2$ belong to the null vectors $|-j_1 -1, m_2 \rangle$ and $|m_1, -j_2 -1 \rangle$ and, therefore, do not contribute to the result. Since $m^\prime_1$and $m^\prime_2$ are summation indices, they can be renamed $m_1$ for $m^\prime_1$ and $m_2$ for $m^\prime_2$.
+\begin{align*}
+& [j(j + 1) - m(m + 1)]^{1/2} | m_1 m_2 \rangle \langle m_1 m_2| j m + 1 \rangle \\
+&= [j_1 (j_1 + 1) - m_1(m_1 - 1)]^{1/2} |m_1 m_2\rangle \langle m_1 - 1, m_2 | jm\rangle \\
+&+ [j_2 (j_2 + 1) - m_2(m_2 - 1)]^{1/2} \langle m_1, m_2 - 1| jm \rangle ~,
+\end{align*}
+is obtained, Here $m_1$ and $m_2$ are fixed numbers and not summation indices. Repeating this procedure with $j_-$ gives the analogous result
+\begin{align*}
+& [j(j + 1) - m(m + 1)]^{1/2} \langle m_1 m_2| j m - 1 \rangle \\
+&= [j_1 (j_1 + 1) - m_1(m_1 - 1)]^{1/2} \langle m_1 + 1, m_2 | jm\rangle \\
+&+ [j_2 (j_2 + 1) - m_2(m_2 - 1)]^{1/2} \langle m_1, m_2 + 1| jm \rangle ~,
+\end{align*}
+This recursion relation allows us to derive the Clebsch-Gordan coefficients for the same total angular momenta $j$, having same $j_1$ and $j_2$ but different $m$.
+
+
+
+
+
+
+
+
+
+
+
+\section{Explicit Calculation of Clebsch-Gordan Coefficients}
+\cite{greiner1994quantum} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Irreducible Representations of the Rotation Group}
+\cite{greiner1994quantum} Angular momentum is a conserved quantity in central potentials, i.e. its eigenvalues can be used to classify the states. The commutation relations of the angular momentum operators represent the Lie algebra of SO(3).
+
+Angular momentum is classically defined by the relation
+\begin{equation}
+\vec{L} = \vec{r} \times \vec{p} ~.
+\end{equation}
+If replacing the momentum variable by the operator
+\begin{equation}
+\hat{\vec{p}} = -i\hbar \nabla ~,
+\end{equation}
+the commutation relations is
+\begin{equation}
+[ \hat{L}_x,  \hat{L}_y] = i\hbar \hat{L}_z ~,
+\label{eq:commu_rela}
+\end{equation}
+for the components of the angular momentum operator. If the total angular momentum $\vec{L}$ is the sum of angular momenta $\vec{L}^{(n)}$ of single systems (particles, spin, orbital angular momentum, etc.), the commutation relation holds for the sum as well. With
+\begin{equation}
+\vec{L} = \sum_n \vec{L}^{(n)} ~, ~~ [ \hat{L}_i^{(m)},  \hat{L}_j^{(n)}] = i\hbar \varepsilon_{ijk} \hat{L}_k^{(n)} \delta_{nm} ~,
+\end{equation}
+\begin{equation}
+[ \hat{L}_x,  \hat{L}_y] = \left[\sum_n \hat{L}_x^{(n)}, \sum_m \hat{L}_y^{(n)} \right] = \sum_n [\hat{L}_x^{(n)}, \hat{L}_y^{(n)} ] = \sum_n i\hbar \hat{L}_z^{(n)} = i\hbar \hat{L}_z ~.
+\end{equation}
+The angular momentum operators belonging to different systems commute, as they act in different spaces, i.e. they act on
+different coordinates. As the commutation relation (\ref{eq:commu_rela}) holds generally, define:
+
+\textit{Any vector operator $\vec{\hat{J}}$, whose components are observables and satisfy the commutation relation (\ref{eq:commu_rela}), is called an angular momentum operator.}
+
+Based only upon the commutation relation [the Lie algebra of SO(3)] we can infer several fundamental properties of the angular momentum operator and its eigenfunctions.
+
+The square of the angular momentum commutes with all components, that is
+\begin{equation}
+[\vec{\hat{J}}, \vec{\hat{J}}^2] = 0 ~, ~~~  \vec{\hat{J}}^2 =  \hat{J}^2_x + \hat{J}^2_y +\hat{J}^2_z
+\label{eq:J_J2}
+\end{equation}
+From (\ref{eq:J_J2}) we may deduce that one component of the angular momentum and its total square can be measured simultaneously, i.e. they have a common eigenfunction.
+
+To obtain the spectrum of these operators it is appropriate to use the following Hermitian conjugate operators:
+\begin{equation}
+\hat{J}_+ = \hat{J}_x +i \hat{J}_y ~, ~~~ \hat{J}_- = \hat{J}_x -i \hat{J}_y ~.
+\end{equation}
+These operators, which are not Hermitian, are called \textcolor{red}{\bf step operators} or \textcolor{red}{\bf shift operators}.
+
+From relation (\ref{eq:J_J2}), 
+\begin{equation}
+[\hat{J}_+ , \vec{\hat{J}}^2] = [\hat{J}_-,  \vec{\hat{J}}^2] = 0 ~.
+\end{equation}
+The three operators $\hat{J}_+, \hat{J}_-, \hat{J}_z$ determine the vector operator j entirely and are more convenient for algebraic transformations than the operators $\hat{J}_x, \hat{J}_y, \hat{J}_z$.
+
+
+
+\section{Matrix Representations of Angular Momentum Operators}
+\cite{greiner1994quantum} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

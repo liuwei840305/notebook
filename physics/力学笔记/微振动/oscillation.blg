@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: oscillation.aux
+The style file: unsrt_update.bst
+Database file #1: ref.bib
+Warning--empty author and editor in 2007理论物理学教程
+You've used 1 entry,
+            1814 wiz_defined-function locations,
+            451 strings with 3624 characters,
+and the built_in function-call counts, 145 in all, are:
+= -- 10
+> -- 1
+< -- 0
++ -- 1
+- -- 0
+* -- 8
+:= -- 23
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 2
+duplicate$ -- 11
+empty$ -- 20
+format.name$ -- 0
+if$ -- 32
+int.to.chr$ -- 0
+int.to.str$ -- 1
+missing$ -- 1
+newline$ -- 7
+num.names$ -- 0
+pop$ -- 7
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 3
+stack$ -- 0
+substring$ -- 0
+swap$ -- 1
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 0
+width$ -- 2
+write$ -- 10
+(There was 1 warning)

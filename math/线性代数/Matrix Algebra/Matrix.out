@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Matrix Operations}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Sums and Scalar Multiples}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Matrix Multiplication}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Properties of Matrix Multiplication}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Powers of a Matrix}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{The Transpose of a Matrix}{section.1}% 6
+\BOOKMARK [1][-]{section.2}{The Inverse of a Matrix}{}% 7
+\BOOKMARK [2][-]{subsection.2.1}{Elementary Matrices}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.2}{An Algorithm for Finding A-1}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.3}{Another View of Matrix Inversion}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Characterizations of Invertible Matrices}{}% 11
+\BOOKMARK [1][-]{section.4}{Partitioned Matrices}{}% 12
+\BOOKMARK [1][-]{section.5}{Matrix Factorizations}{}% 13
+\BOOKMARK [1][-]{section.6}{The Leontief Input\205Output Model}{}% 14
+\BOOKMARK [1][-]{section.7}{Applications to Computer Graphics}{}% 15
+\BOOKMARK [1][-]{section.8}{Subspaces of Rn}{}% 16
+\BOOKMARK [1][-]{section.9}{Dimension and Rank}{}% 17

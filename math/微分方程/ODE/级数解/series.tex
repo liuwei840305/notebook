@@ -1,0 +1,388 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Power Series Solutions}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+
+
+
+\section{Power Series Solutions and Special Functions}
+
+
+
+
+\subsection{Hermite Polynomials and Quantum Mechanics}
+
+
+
+
+
+
+
+
+\section{Fourier Series and Orthogonal Functions}
+
+
+
+
+
+
+
+
+
+\subsection{Eigenvalues, Eigenfunctions, and the Vibrating String}
+Seeking a nontrivial solution $y(x)$ of the equation
+\begin{equation}
+y^{\prime\prime} +\lambda y = 0 ~,
+\label{eq:eigen_prob}
+\end{equation}
+that satisfies the \textcolor{red}{boundary conditions}
+\begin{equation}
+y(0) = 0 ~, y(\pi) = 0 ~.
+\label{eq:eigen_bound}
+\end{equation}
+The parameter \textcolor{orange}{$\lambda$} in (\ref{eq:eigen_prob}) is \textcolor{orange}{free to assume any real value whatever}, and part of our task is to \textcolor{red}{discover the $\lambda$'s for which the problem can be solved}. In our previous work we have considered only \textcolor{red}{initial value problems}, in which the solution of a second order equation is sought that \textcolor{blue}{satisfies two conditions at a single value of the independent variable}. Here we have an entirely different situation, for we wish to \textcolor{blue}{satisfy one condition at each of two distinct values of $x$}. Problems of this kind are called \textcolor{red}{boundary value problems}. 
+
+If $\lambda$ is negative, only the trivial solution of (\ref{eq:eigen_prob}) can satisfy (\ref{eq:eigen_bound}); and if $\lambda = 0$, then the general solution of (\ref{eq:eigen_prob}) is $y(x)=c_1 x+ c_2$, and we have the same conclusion. We are thus restricted to the case in which $\lambda$ is positive, where the general solution of (\ref{eq:eigen_prob}) is
+\begin{equation*}
+y(x) = c_1 \sin \sqrt{\lambda} x + c_2 \cos \sqrt{\lambda} x  ~,
+\end{equation*}
+and since $y(0)$ must be $0$, this reduces to
+\begin{equation}
+y(x) = c_1 \sin \sqrt{\lambda} x ~.
+\end{equation}
+For the second boundary condition $y(\pi)=0$ to be satisfied, it is clear that $\sqrt{\pi}$ must equal $n\pi$ for some positive integer $n$, so $\lambda =n^2$. In other words, $\lambda$ must equal one of the numbers $1, 4, 9, \cdots$. These \textcolor{red}{values of $\lambda$} are called the \textcolor{red}{eigenvalues} of the problem, and \textcolor{red}{corresponding solutions}
+\begin{equation}
+\sin x ~, \sin 2x ~, \sin 3x ~, \cdots 
+\label{eq:eigenfunc}
+\end{equation}
+are called \textcolor{red}{eigenfunctions}. The \textcolor{yellow}{eigenvalues are uniquely determined by the problem}, but that the \textcolor{yellow}{eigenfunctions are not}; \textcolor{blue}{for any nonzero constant multiples of (\ref{eq:eigenfunc})}, say ~$a_1 \sin x, ~a_2 \sin 2x, ~a_3 \sin 3x, ~\cdots,$ will serve just as well and \textcolor{blue}{are also eigenfunctions}.  The eigenvalues form an increasing sequence of positive numbers that
+approaches $\infty$; and the $n$-th eigenfunction, $\sin nx$, vanishes at the endpoints of the interval $[0, \pi]$ and has exactly $n - 1$ zeros inside this interval.
+
+
+
+
+
+
+
+
+
+
+\begin{equation}
+a^2 \dfrac{\partial^2 y}{\partial x^2} = \dfrac{\partial^2 y}{\partial t^2} ~,
+\label{eq:wave_equ}
+\end{equation}
+with $a = \sqrt{T/m}$. It is called the one-dimensional wave equation. $y(x,t)$ satisfies the boundary conditions
+\begin{align}
+y(0, t) = 0 ~, \label{eq:wave_boud_1} \\
+y(\pi, t) = 0 ~, \label{eq:wave_boud_2}
+\end{align}
+and the initial conditions
+\begin{equation}
+\dfrac{\partial y}{\partial t}\Big|_{t=0} = 0 ~,
+\label{eq:wave_init_1}
+\end{equation}
+and
+\begin{equation}
+y(x,0) = f(x) ~.
+\label{eq:wave_init_2}
+\end{equation}
+Conditions (\ref{eq:wave_boud_1}) and (\ref{eq:wave_boud_2}) express the assumption that the ends of the string are permanently fixed at the points $x= 0$ and $x=\pi$ and (\ref{eq:wave_init_1}) and (\ref{eq:wave_init_2}) assert that the string is motionless when it is released and that $y=f(x)$ is its shape at that moment.
+
+\textcolor{red}{separation of variables} : $y(x,t) = u(x) v(t) ~,$ which are factorable into a product of functions each of which depends on only one of the independent variables.  
+\begin{align}
+\nonumber a^2 u^{\prime \prime}(x) v(t) &= u(x) v^{\prime \prime}(t) ~, \\
+\dfrac{u^{\prime \prime}(x) }{u(x)} &= \dfrac{1}{a^2} \dfrac{v^{\prime \prime}(t)}{v(t)} ~.
+\label{eq:sov}
+\end{align}
+Since the left side is a function only of $x$ and the right side is a function only of $t$, equation (\ref{eq:sov}) can hold only if both sides are constant. If we denote this constant by $-\lambda$, then (\ref{eq:sov}) splits into two ordinary differential equations for $u(x)$ and $v(t)$:
+\begin{align}
+u^{\prime \prime} +\lambda u = 0 ~, \label{eq:sov_x} \\
+v^{\prime \prime} +\lambda a^2 v = 0 ~. \label{eq:sov_t}
+\end{align}
+It is possible to satisfy (\ref{eq:wave_boud_1}) and (\ref{eq:wave_boud_2}) by solving (\ref{eq:sov_x}) with the boundary conditions $u(0)=u(\pi)=0$. This problem has a nontrivial solution if and only if $\lambda= n^2$ for some positive integer $n$, and that corresponding solutions (the eigenfunctions) are 
+\begin{equation}
+u_n(x) = \sin nx ~.
+\end{equation}
+For these $\lambda$'s (the eigenvalues) the general solution of (\ref{eq:sov_t}) is
+\begin{equation}
+v(t) = c_1 \sin nat +c_2 \cos nat ~,
+\end{equation}
+and impose $v^\prime(0)=0$, so that (\ref{eq:wave_init_1}) is satisfied, then $c_1 =0$ and 
+\begin{equation}
+v_n(t) = \cos nat ~.
+\end{equation}
+\begin{equation*}
+y_n(x,t) =\sin nx \cos nat ~.
+\end{equation*}
+Each of these functions, for $n = 1, 2, \cdots,$ satisfies equation (\ref{eq:wave_equ}) and conditions (\ref{eq:wave_boud_1}), (\ref{eq:wave_boud_2}), and (\ref{eq:wave_init_1}); and the same is true for any finite
+sum of constant multiples of the $y_n$
+\begin{equation}
+b_1 \sin x \cos at +b_2 \sin 2x \cos 2at +\cdots +b_n \sin nx \cos nat ~.
+\end{equation}
+If proceeding formally --- that is, ignoring all questions of convergence, term-by-term differentiability, and the like --- then any infinite series of the form
+\begin{equation}
+\color{orange} y(x,t) = \sum_{n=1}^\infty b_n \sin nx \cos nat = b_1 \sin x \cos at +b_2 \sin 2x \cos 2at +\cdots +b_n \sin nx \cos nat + \cdots ~,
+\label{eq:wave_sol}
+\end{equation}
+is also a solution that satisfies (\ref{eq:wave_boud_1}), (\ref{eq:wave_boud_2}), and (\ref{eq:wave_init_1}). For $t =0$ (\ref{eq:wave_init_2}) should yield the initial shape of the string
+\begin{equation}
+\color{orange} f(x) = b_1 \sin x+b_2 \sin 2x  +\cdots +b_n \sin nx + \cdots ~.
+\label{eq:init_shape}
+\end{equation}
+The expressions of the form (\ref{eq:init_shape}) are valid for very wide classes of functions $f(x)$ that vanish at $0$ and $\pi$. 
+
+The eigenfunctions $u_m(x)$ and $u_n(x)$ satisfy the equations
+\begin{align*}
+u^{\prime \prime}_m = -m^2 u_m ~, \\
+u^{\prime \prime}_n = -n^2 u_n ~.
+\end{align*}
+If the first equation is multiplied by $u_n$ and the second by $u_m$, then the difference of the resulting equations is
+\begin{align}
+\nonumber u_n u^{\prime \prime}_m - u_m u^{\prime \prime}_n = (n^2 -m^2) u_m u_n ~, \\
+(u_n u^{\prime}_m - u_m u^{\prime}_n)^\prime = (n^2 -m^2) u_m u_n ~.
+\end{align}
+On integrating both sides from $0$ to $\pi$ and using the fact that $u_m(x)= \sin mx$ and $u_n(x)= \sin nx$ both vanish at $0$ and $\pi$,
+\begin{align}
+\nonumber (n^2 -m^2) \int_0^\pi u_m(x) u_n(x) \dif x = [u_n u^{\prime}_m - u_m u^{\prime}_n]_0^\pi = 0 ~, \\
+\int_0^\pi \sin mx \sin nx \dif x = 0 ~, ~{\rm when} ~ m\neq n ~.
+\label{eq:sin_orthogonal}
+\end{align}
+Multiplying (\ref{eq:init_shape}) through by $\sin nx$ and integrating the result term by term from $0$ to $\pi$. When these operations are carried out, (\ref{eq:sin_orthogonal}) produces a wholesale disappearance of terms, leaving only
+\begin{align}
+\nonumber \int_0^\pi f(x) \sin nx \dif x = b_n \int_0^\pi \sin^2 nx \dif x ~, \\
+b_n = \dfrac{2}{\pi} \int_0^\pi f(x) \sin nx \dif x ~.
+\label{eq:b_n}
+\end{align}
+\textcolor{violet}{$b_n$} are called the \textcolor{violet}{Fourier coefficients of $f(x)$}. With these coefficients, (\ref{eq:init_shape}) is the \textcolor{violet}{Fourier sine series of $f(x)$} or the \textcolor{violet}{eigenfunction expansion of $f(x)$ in terms of the eigenfunctions $\sin nx$}, and (\ref{eq:wave_sol}) is called \textcolor{violet}{Bernoulli's solution of the wave equation}.
+
+The function $f(x)$ under consideration is defined on the interval $[0,\pi]$ and vanishes at the endpoints. Suppose that \textcolor{blue}{$f(x)$ is continuous on the entire interval}, and also that \textcolor{blue}{its derivative is continuous with the possible exception of a finite number of jump discontinuities}, where the \textcolor{blue}{derivative approaches finite but different limits from the left and from the right}. In geometric language, the graph of such a function is \textcolor{blue}{a continuous curve with the property that the direction of the tangent changes continuously as it moves along the curve, except possibly at a finite number of ``corners" where its direction changes abruptly}. Under these hypotheses the expansion (\ref{eq:init_shape}) is valid; that is, if the $b_n$ are defined by (\ref{eq:b_n}), then the \textcolor{blue}{series on the right converges at every point to the value of the function at that point}. The need for a carefully constructed theory can be seen from the fact that \textcolor{yellow}{if $f(x)$ is merely assumed to be continuous, and nothing is said about its derivative, then it is known to be possible for the series on the right of (\ref{eq:init_shape}) to diverge at some points}.\footnote{\textcolor{yellow}{There even exists a continuous function whose Fourier series diverges at every rational point in $[0,\pi]$}.}
+
+Considers the possibility of eigenfunction expansions like (18) for other boundary value problems. If putting aside the
+issue of the validity of such expansions, the main problem becomes that of showing in other cases that we have an adequate supply of suitable building materials, i.e., a sequence of eigenvalues with corresponding eigenfunctions that satisfy some condition similar to (20).
+
+Consider the vibrating string: the string is nonhomogeneous, its density $m = m(x)$ may vary from point to point. In this situation, (\ref{eq:wave_equ}) is replaced by
+\begin{equation}
+\dfrac{\partial^2 y}{\partial x^2} = \dfrac{m(x)}{T} \dfrac{\partial^2 y}{\partial t^2} ~.
+\label{eq:vibrating_string_m(x)}
+\end{equation}
+Equ. (\ref{eq:vibrating_string_m(x)}) becomes 
+\begin{equation*}
+\dfrac{u^{\prime \prime}(x) }{m(x) u(x)} = \dfrac{1}{T} \dfrac{v^{\prime \prime}(t)}{v(t)} ~,
+\end{equation*}
+and we are led to the following boundary value problem:
+\begin{align}
+u^{\prime \prime} +\lambda m(x) u =0 ~, \\
+u(0) = u(\pi) = 0 ~.
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Some Special Functions of Mathematical Physics}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Laplace Transforms}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

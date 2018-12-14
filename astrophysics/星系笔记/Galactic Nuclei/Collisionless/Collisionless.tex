@@ -1,0 +1,236 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+
+\title{Collisionless Equilibria}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2013degn.book.....M} It is often useful to approximate galactic nuclei as \textcolor{orange}{steady-state systems} in which the gravitational potential is a smooth and continuous function of the position. This approximation is valid if two conditions are met. First, the \textcolor{orange}{nucleus must be much older than the orbital period of a star}, so that processes like  \textcolor{cyan}{phase mixing} have had sufficient time to \textcolor{cyan}{distribute stars uniformly around their orbits}. The period of a circular orbit of radius $r$ around the center of a spherical galaxy containing a supermassive black hole (SBH) is
+\begin{eqnarray}
+\nonumber P &=& \frac{2\pi r}{v_c} \\
+&\approx& 2.96\times 10^5 \left(\frac{M}{10^8 M_\odot} \right)^{-1/2} \left(\frac{r}{10 ~{\rm pc}} \right)^{3/2} (1 -f)^{-1/2} ~{\rm yr}
+\end{eqnarray}
+where $f(r)$ is the fraction of the total mass within $r$ that is due to stars. At a radius $r = r_m$, i.e. the gravitational influence radius, the enclosed stellar mass is twice the mass of the SBH and $(1-f)^{1/2} = 0.58$. Any nucleus that is more than a few hundred million years old is likely to satisfy this condition at all $r \lesssim r_m$. Second, if the effects of \textcolor{blue}{close encounters between stars are to be ignored}, the \textcolor{red}{nuclear relaxation time}, defined as the \textcolor{orange}{time for encounters between stars to change orbital energies and angular momenta}, must be \textcolor{cyan}{longer than other timescales of interest}. (The timescale for physical collisions to occur between stars is generally much longer than the relaxation time.) A definition for the relaxation time is
+\begin{eqnarray}
+\nonumber T_r &=& \frac{0.34 \sigma^3}{G^2 m_\star \rho \ln \Lambda} \\ 
+&\approx& 0.95 \times 10^{10}  \left(\frac{\sigma}{200 ~{\rm km ~s^{-1}} } \right)^{3} \left(\frac{\rho}{10^6 M_\odot ~{\rm pc}^{-3} } \right)^{-1} \left(\frac{m_\star}{M_\odot} \right)^{-1} \left(\frac{\ln \Lambda}{15} \right)^{-1} ~{\rm yr}
+\end{eqnarray}
+where $\rho$ is the stellar density, $\sigma$ is the one-dimensional velocity dispersion of the stars, $m_\star$ is the mass of a single star, and $\ln \Lambda$, the ``Coulomb logarithm", is a ``fudge factor" that corrects for the divergent total perturbing force that would be expected in an infinite homogeneous medium. Within the SBH’s sphere of influence,
+\begin{equation}
+\ln \Lambda \approx \ln \left(\frac{M}{m_\star} \right) \approx \ln (N_h) ~,
+\end{equation}
+with $N_h \equiv \dfrac{M}{m_\star}$ the \textcolor{cyan}{number of stars whose mass equals $M$}. For $m_\star = M_\odot$ and $M = (0.1,1,10) \times 10^8 M_\odot$, $\ln \Lambda \approx (15, 18, 20)$. Even in nuclei that are older than one relaxation time, the stellar distribution at any given moment must satisfy the equations describing a collisionless steady state.
+
+\textcolor{orange}{collisionless nuclei}, \textcolor{orange}{$T_r(r_m) \gtrsim 10^{10}$ yr}, \\
+\textcolor{orange}{collisional nuclei}, \textcolor{orange}{$T_r(r_m) \lesssim 10^{10}$ yr}.
+
+The \textcolor{blue}{morphology and dynamical state of a collisionless nucleus is constrained only by the requirement that the stellar phase-space density satisfy Jeans’s theorem, that is, that $f$ be constant along orbits}. This weak condition is consistent with a wide variety of possible equilibrium configurations, including nonaxisymmetric nuclei, and nuclei in which the majority of orbits are chaotic. In a nucleus with $T_r(r_m) \lesssim 10^{10}$ yr, on the other hand, the stellar distribution will have had time to evolve to a more strongly constrained, collisionally relaxed steady state.
+
+The collisionless dynamics are relevant to the estimation of SBH mass, particularly in galaxies where $M$ is inferred from the observed motions of stars. The mass estimation is significantly hampered by our current inability to resolve structure and kinematics on scales much smaller than $r_h$ or $r_m$ in galaxies beyond the Local Group. As a result, estimates of $M$ can be highly uncertain, or even degenerate.
+
+
+\section{ORBITS, INTEGRALS, AND STEADY STATES}
+Consider a nucleus that contains distributed matter in the form of stars, stellar remnants, dark matter, etc., and possibly also a massive black hole. Assume that the granularity in the distributed component is sufficiently small that the gravitational potential $\Phi(\vec{x}, t)$ can be approximated as a smoothly varying function of position and time.
+
+Define the distribution function of the stars, $f(\vec{x}, \vec{v}, t)$, such that the number of stars at time $t$ within the phase-space volume element $\dif \vec{x} \dif \vec{v}$, centered at $(\vec{x}, \vec{v})$, is $f(\vec{x}, \vec{v}, t) \dif \vec{x} \dif \vec{v}$. $f$ is the density of stars in phase space. If the stellar trajectories are smooth and continuous, $f$ obeys a continuity equation, i.e. \textcolor{blue}{collisionless Boltzmann equation} :
+\begin{equation}
+\frac{D f}{D t} = \frac{\partial f}{\partial t} +\sum_i v_i \frac{\partial f}{\partial x_i} +\sum_i a_i \frac{\partial f}{\partial v_i} = 0
+\end{equation}
+where $a_i$ is the acceleration in the $i$th coordinate direction. It states simply that the \textcolor{red}{phase-space density is conserved following the flow}.
+\begin{equation}
+\color{red} \frac{\partial f}{\partial t} +\vec{v} \cdot\nabla f -\nabla \Phi\cdot \nabla_{\vec{v}} f = 0
+\end{equation}
+where $\vec{a} = -\nabla \Phi$.
+In a  \textcolor{red}{steady state $(\dfrac{\partial f}{\partial t} = 0)$}, the \textcolor{red}{phase-space density is the same, at all times, at any phase-space point}. The equation means the value of $f$ is ``carried along" with the flow, a steady state demands that $f$ have the same value, at any given time, at every point along a trajectory. The condition $\dfrac{\partial f}{\partial t} = 0$ is therefore equivalent to that $f$ is constant along trajectories. A steady state also implies $\dfrac{\partial \Phi}{\partial t} = 0$. Hence these trajectories are just the orbits defined by the time- independent potential $\Phi(\vec{x})$.
+
+That $f$ be constant along orbits does not imply anything special about the character of the motion in the potential $\Phi(x)$. At one extreme, the motion could be essentially random, with every trajectory moving chaotically over the phase-space volume enclosed by an energy surface  $\Phi(\vec{x}) \leqslant E_0$. A steady state would demand a constant $f = f_0(E_0)$ within every such region. At the other extreme, orbits could behave very regularly, remaining confined to small parts of the energy surface for all times. In this case, a steady-state $f$ could have a different value in each distinct piece of the energy surface.
+
+\textcolor{red}{Regular or integrable motion} is defined as motion that respects at least $N_{\rm dof}$ isolating integrals of the motion, where $N_{\rm dof}$ is the number of degrees of freedom (d.o.f.) of the motion--- here $N_{\rm dof} = 3$, the number of spatial dimensions. \textcolor{yellow}{An integral of motion is any function $I(\vec{x}, \vec{v})$ of the phase-space coordinates that is constant along an orbit}. \textcolor{yellow}{Isolating integrals are those that---in some transformed coordinate system $I(\vec{p}, \vec{q})$---make the Hamiltonian independent of one of the ``velocity" coordinates $p_i$, so that $\dfrac{\dif q_i}{\dif t} = \frac{\partial H}{\partial p_i} = f(q_i)$ can be solved by quadratures}. Each additional isolating integral reduces by one the dimensionality of the phase-space volume traversed by an orbit.
+
+\textcolor{yellow}{Isolating integrals} are often associated with \textcolor{yellow}{symmetries in the potential}. The following three classes of potential exhibit a high degree of symmetry, and the motion in them always respects at least one isolating integral in addition to the energy:
+
+\textcolor{blue}{Kepler potential}, $\Phi(r) = \dfrac{-GM}{r}$. This is the (Newtonian) potential of a point mass $M$ fixed at the origin. All trajectories respect \textcolor{blue}{five isolating integrals}, which can be identified with the classical, or Keplerian, orbital elements. In configuration space, bound orbits $(E < 0)$ take the form of ellipses with one focus at the origin.
+
+\textcolor{blue}{Spherical potentials}, $\Phi(\vec{x}) = \Phi(r)$. There are \textcolor{blue}{four isolating integrals} : the energy and the three components of the angular momentum. Expressing these per unit mass,
+\begin{equation}
+E = \frac{v^2}{2} +\Phi(r), ~\vec{L} =\vec{x} \times \vec{v} ~. 
+\end{equation}
+An orbit defined by a given $(E, \vec{L})$ is restricted to a planar annulus in configuration space.
+
+\textcolor{blue}{Axisymmetric potentials}, $\Phi(\vec{x}) =  \Phi(\varpi, z)$ where $\varpi^2 = x^2 + y^2$ and the
+symmetry axis is parallel to $z$. There are \textcolor{blue}{two isolating integrals for every orbit} : the energy and the component $L_z$ of the angular momentum parallel to the $z$-axis. Orbits in axisymmetric potentials often exhibit a third integral; in configuration space, such orbits typically resemble tori that surround the $z$-axis. Low-$L_z$ orbits may lack a third integral, particularly if the central force is steeply rising. Such orbits are still approximately toroidal in shape due to the conservation of $L_z$.
+
+
+\subsection{Action-angle variables}
+Regular orbit---orbits that respect three or more isolating integrals---are \textcolor{cyan}{quasiperiodic} or \textcolor{cyan}{conditionally periodic}: the dependence of the coordinates and velocities on time can be expressed as
+\begin{eqnarray}
+\vec{x}(t) &=& \sum_{k=1}^\infty \vec{X}_k \exp [i(l_k \nu_1 + m_k \nu_2 +n_k \nu_3) t] ~, \\
+\vec{v}(t) &=& \sum_{k=1}^\infty \vec{V}_k \exp [i(l_k \nu_1 + m_k \nu_2 +n_k \nu_3) t] ~,
+\end{eqnarray}
+with $\{l_k, m_k, n_k\}$ integers. The Fourier transform of $\vec{x}(t)$ or $\vec{v}(t)$ for a regular orbit will consist of a set of spikes at discrete frequencies $ν_k = l_k \nu_1 + m_k \nu_2 + n_k \nu_3$ that are linear combinations of the fundamental frequencies $\{\nu_1, \nu_2, \nu_3\}$ for that orbit. Each regular orbit has its own set of fundamental frequencies, and in general, the three $\nu_i$ for a given orbit are distinct.
+
+From Hamilton-Jacobi theory, quasiperiodic motion is always derivable from a Hamiltonian that is ``cyclic in"---that is, independent of---the coordinate variables, $w_i$, if the latter are defined in a particular way. For this special choice of the $w_i$, Hamilton’s equations imply motion that is: the coordinate variables increase linearly with time, and the conjugate momentum variables are conserved. The special set of canonically conjugate variables for which the motion has this simple representation is called the \textcolor{red}{action-angle variables}. The action (i.e., momentum) variables are written as $J_i$ , and the angle (i.e., coordinate) variables as $\theta_i$. In terms of $\{J_i , \theta_i \}$, the equations of motion are
+\begin{eqnarray}
+J_i &=& {\rm const.} \\
+\theta_i &=& \nu_i t+\theta^0_i, ~\nu_i = \frac{\partial H}{\partial J_i}, ~i = 1, 2, \cdots, N.
+\end{eqnarray}
+
+
+
+
+
+\subsubsection{Iterative approaches}
+
+\subsection{Jeans's theorem}
+If all orbits in a galaxy respected three isolating integrals, the condition for a steady state---that $f$ be constant along trajectories---would become
+\begin{equation}
+f = f(J_1, J_2, J_3) ~,
+\end{equation}
+or
+\begin{equation}
+f = f(E, I_2, I_3) ~,
+\end{equation}
+where $\{I_2, I_3\}$ are the isolating integrals in addition to the energy. 
+\begin{theo}[Jean's theorem]{}
+The phase-space density of a stationary stellar system with a globally integrable potential can be expressed in terms of the isolating integrals in that potential.
+\end{theo}
+
+If not all orbits are regular, steady states are still possible (think of a steady-state gas in which all the trajectories are chaotic), but Jeans's theorem must be cast into a more general form:
+\begin{theo}[Jean's theorem]{}
+The phase-space density of a stationary stellar system is constant within every well-connected region.
+\end{theo}
+A well-connected region is one that cannot be decomposed into two finite regions such that all trajectories lie, for all time, in either one or the other. Invariant tori are such regions, but so are the more complex parts of phase space associated with stochastic trajectories.
+
+\subsection{Mixing}
+Jeans's theorem is often assumed to be satisfied in any stellar system that is many crossing times old. 
+
+\textcolor{red}{phase mixing} : points that lie on different, but nearby, tori gradually move apart, due to the (generally) different orbital frequencies associated with different tori. After many revolutions, the density of points in such a filament, averaged over a small but finite phase-space volume (i.e., a volume that intersects different tori)—the coarse-grained phase-space density---will be independent of position on the torus, even though the fine-grained $f$ never reaches a steady state.
+
+For stochastic trajectories, their extreme sensitivity to initial conditions implies a stronger sort of mixing, \textcolor{red}{chaotic mixing}, in which a small patch of phase space evolves so as to uniformly cover, at a later time, a much larger region. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

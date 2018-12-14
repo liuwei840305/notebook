@@ -1,0 +1,640 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{量子力学的表象与表示}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{幺正变换和反幺正变换}
+对于任意两个波函数$\varphi(\vec{r}), \psi(\vec{r})$，定义标积
+\begin{equation}
+(\varphi, \psi) = \int \varphi^\ast(\vec{r}) \psi(\vec{r}) \dif v
+\end{equation}
+当微观粒子处在状态$\psi(\vec{r})$时，找到粒子处在状态$\varphi(\vec{r})$的概率幅。定义\textcolor{red}{幺正算符}：对任意两个波函数$\varphi(\vec{r}), \psi(\vec{r})$，若算符$\widehat{U}$恒使下式成立
+\begin{equation}
+(\widehat{U}\varphi, \widehat{U}\psi) = (\varphi, \psi)
+\end{equation}
+且有逆算符$\widehat{U}^{-1}$存在，使得$\widehat{U}^{-1} \widehat{U} = \widehat{U} \widehat{U}^{-1} = I$，称这个算符$\widehat{U}$为幺正算符。
+
+根据任一算符$\widehat{A}$的Hermite算符$\widehat{A}^\dagger$的定义：$\widehat{A}^\dagger$在任意$\varphi(\vec{r}), \psi(\vec{r})$中的矩阵元恒由下式左边决定：
+\begin{equation}
+(\varphi, \widehat{A} \psi) = (\widehat{A}^\dagger \varphi, \psi) 
+\end{equation}
+算符$\widehat{U}$为幺正算符的充要条件是
+\begin{align}
+& \widehat{U} \widehat{U}^\dagger = \widehat{U}^\dagger \widehat{U} = I \\
+\text{或者}~ & \widehat{U}^\dagger = \widehat{U}^{-1}
+\end{align}
+
+1. 幺正算符的逆算符是幺正算符。
+
+
+
+2. 两个幺正算符的乘积仍是幺正算符。
+
+3. 若一个幺正算符$\widehat{U}$和单位算符$I$相差一无穷小，这个幺正算符被称为无穷小幺正算符。
+\begin{equation}
+\widehat{U} = 1 - i \varepsilon \widehat{F}
+\end{equation}
+$\varepsilon$是一无穷小实数。$\widehat{U}$的逆算符为
+\begin{equation}
+\widehat{U}^{-1} = 1+i \varepsilon \widehat{F}^\dagger
+\end{equation}
+利用$\widehat{U}$的幺正性，
+\begin{align*}
+\widehat{U}^\dagger \widehat{U} &= (1+i \varepsilon \widehat{F}^\dagger) (1 - i \varepsilon \widehat{F}) = 1+i \varepsilon(\widehat{F}^\dagger - \widehat{F}) = 1 \\
+\widehat{F}^\dagger &= \widehat{F}
+\end{align*}
+$ \widehat{F}$常称为幺正算符$\widehat{U}$的生成元。用Hermite算符$\widehat{\Omega}$构造出一个幺正算符$\widehat{U}$
+\begin{equation}
+\widehat{U} = \sum_{n=0}^\infty \dfrac{1}{n!} (i\alpha)^n \widehat{\Omega} \equiv e^{i \alpha \widehat{\Omega}}
+\end{equation}
+$\alpha$为任意实数。
+
+\section{表象的概念}
+任一量子系统的波函数集合总能用相互对易的一组力学量算符的本征值来区分和标记。若这组算符数目选少了就出现态的分类不彻底，波函数标记不明确的现象，即会出现量子态对(未被选入的)某个力学量本征值的简并。能够对一个量子系统全部状态进行彻底(不出现简并)地分类标记的最少数目力学量算符，称为这个量子系统的\textcolor{red}{完备力学量组}。通常选用该系统的守恒力学量作为完备力学量组中各力学量，即常用好量子数对态进行分类。
+
+
+每选择一组展开基矢，态空间便有了一种描述方式，就说成是选取了一种表象。将一个矢量方程向某组基矢投影，便意味着进入了相应的(由该组基矢所代表的)表象。
+
+表象的改变意味着状态空间中基矢的改变。表象变换是一种幺正变换，选用不同基矢去描述同一体系，得到的全部物理结论都应当相同。
+
+通常选取的基矢都是正交归一的：离散可数无穷的情况归一化为$\delta_{ij}$，连续不可数无穷的情况归一化为$\delta$函数。
+
+作为基矢的态矢集合必须是完备的。
+
+\subsection{坐标表象}
+选取了坐标算符的本征态集合$\{|\vec{r}^\prime \rangle, \forall \vec{r}^\prime\}$作为态矢空间的展开基矢。取定了这组基矢便取定了坐标表象，任意矢量或矢量方程向这组基矢投影便是进入了这个表象。坐标表象的完备性条件是
+\begin{equation}
+\int |\vec{r}^\prime \rangle \dif \vec{r}^\prime \langle \vec{r}^\prime | = I
+\end{equation}
+任一态矢$|A \rangle$的展开式为
+\begin{equation}
+|A \rangle = \int \dif \vec{r}^\prime |\vec{r}^\prime \rangle  \langle \vec{r}^\prime | \cdot |A\rangle = \int \varphi_A(\vec{r}^\prime) |\vec{r}^\prime \rangle \dif \vec{r}^\prime
+\end{equation}
+
+
+\begin{equation}
+\varphi_A(\vec{r}) = \int \varphi_A(\vec{r}^\prime) \langle \vec{r} | \vec{r}^\prime \rangle \dif \vec{r}^\prime =  \int \varphi_A(\vec{r}^\prime) \delta(\vec{r} -\vec{r}^\prime) \dif \vec{r}^\prime
+\end{equation}
+
+
+
+坐标表象的基矢不随时间变化
+\begin{align*}
+& \langle \vec{r}| i\hbar \dfrac{\partial |\psi(t) \rangle}{\partial t} = i\hbar \dfrac{\partial}{\partial t} \langle \vec{r} |\psi(t) \rangle = i\hbar \dfrac{\partial \psi(\vec{r}, t)}{\partial t} \\
+& \langle \vec{r} | \left\{\dfrac{\vec{\hat{p}}^2}{2m} +V(\vec{\hat{r}}) \right\}  |\psi(t) \rangle = \left\{\dfrac{1}{2m} \left(-i\hbar \dfrac{\partial}{\partial \vec{r}} \right)^2 +V\left(\vec{r} \right) \right\} (\langle \vec{r} |\psi(t) \rangle = \psi(\vec{r}, t) )
+\end{align*}
+坐标表象下的Schr\"odinger方程。
+
+在坐标表象中也可对任意矩阵元进行计算。
+\begin{equation}
+\langle \vec{r}^\prime | \dfrac{\vec{\hat{p}}^2}{2m} | \vec{r}^{\prime \prime} \rangle = \dfrac{1}{2m} \left\{-i\hbar \dfrac{\partial}{\partial \vec{r}^\prime} \right\}^2 \langle \vec{r}^\prime | \vec{r}^{\prime \prime} \rangle = -\dfrac{\hbar^2}{2m} \Delta^\prime \delta(\vec{r}^\prime - \vec{r}^{\prime\prime})
+\end{equation}
+
+坐标表象也常称为Schr\"odinger表象。在这种表述下的量子力学常被称为波动力学。
+
+\subsection{动量表象}
+选取了动量算符的本征态集合$\{|\vec{p}^\prime \rangle, \forall \vec{p}^\prime\}$作为态矢空间的展开基矢。任意矢量或矢量方程向这组基矢投影(若多因子乘积情况还须插入动量表象的完备性条件)，便是进入了动量表象。动量表象的完备性条件是
+\begin{equation}
+\int |\vec{p}^\prime \rangle \dif \vec{p}^\prime \langle \vec{p}^\prime |  = I
+\end{equation}
+任一态矢$|A \rangle$的展开式为
+\begin{equation}
+|A \rangle = \int \dif \vec{p}^\prime |\vec{p}^\prime \rangle  \langle \vec{p}^\prime | \cdot |A\rangle = \int \varphi_A(\vec{p}^\prime) |\vec{p}^\prime \rangle \dif \vec{p}^\prime
+\end{equation}
+
+\begin{equation}
+\varphi_A(\vec{r}) = \int \varphi_A(\vec{p}^\prime) \dfrac{e^{i\vec{p}^\prime \cdot \vec{r}/\hbar}}{(2\pi \hbar)^{3/2}} \dif \vec{p}^\prime
+\end{equation}
+将任意态的波函数用动量本征态的波函数展开，得到的系数集合便是该态的动量波函数。
+
+\begin{equation}
+\varphi_A(\vec{p}) = \int \varphi_A(\vec{p}^\prime) \delta(\vec{p} -\vec{p}^\prime) \dif \vec{p}^\prime
+\end{equation}
+动量表象的基矢不随时间变化
+\begin{align}
+\nonumber & \langle \vec{p} | i\hbar \dfrac{\partial |\psi(t) \rangle}{\partial t}  = i\hbar \dfrac{\partial \langle \vec{p} |\psi(t) \rangle}{\partial t} = i\hbar \dfrac{\partial \psi(\vec{p}, t) }{\partial t} \\
+\nonumber & \langle \vec{p} | \left\{\dfrac{\vec{\hat{p}}^2}{2m} +V(\vec{\hat{r}}) \right\}  |\psi(t) \rangle = \left\{\dfrac{\vec{p}^2}{2m} +V\left(i\hbar \dfrac{\partial}{\partial \vec{p}} \right) \right\} (\langle \vec{p} | \psi(t) \rangle =  \psi(\vec{p}, t) ) \\
+& i\hbar \dfrac{\partial \psi(\vec{p}, t)}{\partial t} = \left\{\dfrac{\vec{p}^2}{2m} + V\left(i\hbar \dfrac{\partial}{\partial \vec{p}} \right) \right\} \psi(\vec{p}, t)
+\end{align}
+动量表象中的Schr\"odinger方程，方程的自变数为$(\vec{p}, t)$。
+
+
+\subsection{能量表象}
+此表象通常取相互对易的三个算符$(H, L^2, L_z)$的共同本征态$\{|nlm \rangle, \forall nlm \}$作为展开基矢。基矢编号$(nlm)$通常是离散的，完备性条件为
+\begin{equation}
+\sum_{nlm} |nlm \rangle \langle nlm | = I ~.
+\end{equation}
+
+
+
+选取能量表象描述这个量子系统，由于基矢通常是离散的，状态用一组可数的复常数作成列向量来描述，而力学量算符相应地变成Hermite矩阵。这些矩阵是无限维的。若只涉及某个给定能量数值下的状态的子空间(即部分状态)，设此时独立状态总数为$n$个，则任一状态可表示为一个$n$分量的列矢量，而(作用在这些列矢量上并改变它们的)任一力学量算符成为$n\times n$阶的Hermite矩阵。能量表象也常称为Heisenberg表象。在这种表述下的量子力学常被称为矩阵力学。
+
+
+
+
+
+
+
+
+
+
+\section{量子力学的路径积分表示}
+态矢的时间演化算符$U(t; t_0)$
+\begin{equation}
+|\psi(t) \rangle = U(t; t_0) |\psi(t_0) \rangle
+\end{equation}
+$U(t; t_0)$的物理意义是将系统$t_0$时刻的态矢演化为$t$时刻的态矢。这种演化由系统的Hamilton量所决定，是一种动力学演化。若系统Hamilton量$H$不显含$t$，从Schr\"odinger方程可得
+\begin{align}
+& |\psi(t) \rangle = e^{-\dfrac{i(t-t_0)H}{\hbar}} |\psi(t_0) \rangle \\
+& U(t; t_0) = e^{-\dfrac{i(t-t_0)H}{\hbar}}
+\end{align}
+
+
+
+
+
+
+
+
+
+
+\section{Fock空间与相干态及相干态表象}
+\subsection{谐振子的Fock空间表示}
+对坐标算符$x$和动量算符$p$进行算符变换，引入两个新的无量纲算符
+\begin{align}
+a = \dfrac{1}{\sqrt{2m\hbar \omega}} (m\omega x +ip) \\
+a^\dagger = \dfrac{1}{\sqrt{2m\hbar \omega}} (m\omega x -ip) 
+\end{align}
+\begin{align}
+& x  = \sqrt{\dfrac{\hbar}{2m\omega}} (a^\dagger +a) \\
+& p  = i\sqrt{\dfrac{m \hbar \omega}{2}} (a^\dagger -a)
+\end{align}
+由于$x$和$p$都是Hermite的，$a$和$a^\dagger$互为Hermite共轭，即$(a)^\dagger = a^\dagger$和$(a^\dagger)^\dagger = a$。
+\begin{equation}
+[a, a^\dagger] = 1
+\end{equation}
+这是Bose子对易关系，$(a, a^\dagger)$是一对Bose子算符。
+\begin{equation}
+H = \dfrac{p^2}{2m} +\dfrac{1}{2}m\omega^2 x^2 = \left(a^\dagger a +\dfrac{1}{2} \right) \hbar \omega
+\end{equation}
+\textcolor{red}{$a^\dagger a \equiv N$}，称为\textcolor{red}{粒子数算符}。谐振子的定态Schr\"odinger方程为
+\begin{equation}
+H\psi_n(x) = \left( n +\dfrac{1}{2}\right) \hbar \omega \psi_n(x) \rightarrow a^\dagger a \psi_n(x) = n \psi_n(x)
+\end{equation}
+利用Hermite多项式$H_n\left(\xi = \sqrt{\dfrac{m\omega}{\hbar}} x \right)$的性质，
+\begin{align}
+\nonumber a^\dagger \psi_n(x) &= \dfrac{1}{\sqrt{2}} \left(\xi -\dfrac{\dif}{\dif \xi} \right) N_n {\rm e}^{-\xi^2/2} H_n(\xi) \\
+\nonumber &= \dfrac{N_n}{\sqrt{2}} (2\xi H_n(\xi) -2nH_{n-1}(\xi)) {\rm e}^{-\xi^2/2} \\
+&= \sqrt{n+1} \psi_{n+1}(x)
+\end{align}
+\begin{equation}
+a \psi_{n}(x) = \sqrt{n} \psi_{n-1}(x) ~~ (\text{当} n = 0 \text{时}, a \psi_{0}(x) = 0)
+\end{equation}
+谐振子第$n$能级的态矢记为$|n\rangle$，即
+\begin{equation*}
+\langle x | n\rangle = \psi_n(x)
+\end{equation*}
+
+\begin{align}
+& a^\dagger a | n\rangle = n | n\rangle ~, ~~ (n = 0, 1, 2, \cdots) \\
+& a^\dagger| n\rangle = \sqrt{n+1} | n+1\rangle \\
+& a | n \rangle = \sqrt{n} | n-1\rangle \\
+& a | 0 \rangle = 0
+\end{align}
+有Bose子对易关系，
+\begin{align}
+& [a, N] = a ~, \\
+& [a^\dagger, N] = -a^\dagger
+\end{align}
+若将量子谐振子的$\hbar \omega$看作是一个``粒子"，可以认为$a$是这个``粒子"的湮灭算符(它将湮灭真空态---量子谐振子的基态)，$a^\dagger$是其产生算符，而$a^\dagger a$是``粒子"数算符。这两个算符常被推广用于静止质量不为$0$粒子的情况。由于非相对论量子力学只考虑粒子数守恒的情况，在任何Hamilton量中，两者将以乘积的形式出现，表达跃迁过程，而非真正的粒子吸收或产生过程。
+\begin{equation}
+|n\rangle = \dfrac{(a^\dagger)^n}{\sqrt{n!}} |0\rangle ~, ~~ (n = 0, 1, 2, \cdots)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{相干态}
+相干态的引入，是使得坐标算符和Hamilton量算符在态的平均的意义上完全等同于对应的经典运动。只对位势函数具有不超过坐标的二阶幂次的形式，可以有解。在谐振子的某些叠加态里可以找到这种态：这种类型的量子力学运动，在经过态平均之后，将完全等同于对应势中的经典运动。
+
+在Fock空间中，
+\begin{equation}
+|z\rangle = {\rm e}^{za^\dagger -z^\ast a} |0 \rangle  = {\rm e}^{-\dfrac{1}{2}|z|^2} {\rm e}^{za^\dagger} |0 \rangle
+\end{equation}
+$z = \alpha +i\beta$为任意复常数。$|z\rangle$随时间的演化为
+\begin{equation*}
+|z(t) \rangle = {\rm e}^{-iHt/\hbar} |z \rangle
+\end{equation*}
+
+\begin{equation}
+a |z \rangle = a{\rm e}^{-\dfrac{1}{2}|z|^2} {\rm e}^{za^\dagger} |0 \rangle = {\rm e}^{-\dfrac{1}{2}|z|^2} (a+z)  |0 \rangle = z |z \rangle
+\end{equation}
+相干态$|z\rangle$是湮灭算符$a$的本征态。由于$a$不是Hermite的，其本征值不能总是实数。
+
+\begin{equation}
+|z \rangle = {\rm e}^{-\dfrac{1}{2}|z|^2} \sum_{n=0}^\infty \dfrac{z^n}{\sqrt{n!}} |n\rangle
+\end{equation}
+\textcolor{red}{相干态是各种粒子数本征态的一种相干叠加}。叠加系数的模方是平均值为$|z|^2$的Poisson分布$P(n; |z|^2) = {\rm e}^{-|z|^2} |z|^{2n} / n!$ 。
+
+
+
+这里相干态具有最小不确定性，即此类态中位置和动量的均方偏差$\Delta x$和$\Delta p$满足
+\begin{equation}
+\Delta x \cdot \Delta p = \dfrac{\hbar}{2} ~.
+\end{equation}
+
+
+
+
+
+
+\subsection{相干态表象}
+相干态$|z\rangle$中复参数$z$的变化区域是$z$的全平面。与全部$z$值相对应的相干态全体是完备的，即有完备性条件
+\begin{equation}
+\int \dfrac{\dif^2 z}{\pi} |z\rangle \langle z| = I
+\end{equation}
+$z = \alpha +i\beta, \dif^2 z = \dif \alpha \dif \beta$，积分对整个复$z$平面进行。
+
+
+
+任何物理态可以用相干态的全体来展开。相干态的全体集合构成了相干态表象。
+
+作为相干态表象的基矢---相干态虽然各自都归一，但彼此并不正交。彼此不正交但总体却完备的态矢集合常称为超完备的。
+
+1. 它是态矢$| l \rangle$的集合$\{| l \rangle \}$，这些态矢$| l \rangle$关于标号参量$l$是强连续函数；\\
+2. 存在正测度$\delta l$使得完备性关系成立，
+\begin{equation}
+\int | l \rangle \langle l | \delta l = I
+\end{equation}
+坐标表象$\{|x\rangle \}$的标号参量$x$(它是坐标算符的本征值)本身虽然是强连续的，但坐标表象并不是相干态表象。坐标本征态$\{|x\rangle \}$只能归一化到$\delta$函数，不能说态矢$\{|x\rangle \}$关于标号参量$x$是强连续的。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\cite{1986qmv1.book.....C} 表象的定义
+
+选择一种表象就是在态空间$\mathscr{E}$中选择一个分立的或连续的正交归一基。在选定的基中，矢量和算符都是用数来表示的：对于矢量，这些数就是它的分量；对于算符，这些数就是它的矩阵元。表象的选择是任意的。
+
+
+正交归一关系式
+
+
+
+
+
+
+
+
+\section{Representation Theory}
+\cite{2000greiner} The state of a particle is completely described by the normalized wave function $\psi(\vec{r}, t)$. In the Schr\"odinger equation, 
+\begin{equation}
+\left(\dfrac{\vec{\hat{p}}^2}{2m} +V(\vec{r}) \right)\psi(\vec{r}, t) = i\hbar \dfrac{\partial }{\partial t} \psi(\vec{r}, t)
+\end{equation}
+which gives the evolution in time of the state. The momentum operator is
+\begin{equation}
+\vec{\hat{p}} = -i\hbar \nabla ~.
+\end{equation}
+This representation $\psi(\vec{r}, t)$ of a particle state is called the coordinate representation. Because of Heisenberg's uncertainty principle, the momentum $\vec{p}$ of a particle is not exactly known if its position $\vec{r}$ is fixed. The average momentum is 
+\begin{equation}
+\langle \vec{\hat{p}} \rangle = \int \psi^\ast(\vec{r}, t) (-i\hbar \nabla) \psi(\vec{r}, t) \dif V ~.
+\end{equation}
+
+
+\section{Representation of Operators}
+
+
+
+
+
+
+
+
+
+
+\section{The Eigenvalue Problem}
+If the operator $\hat{A}$ is given in the representation of its eigenfunctions, the diagonal elements of the corresponding matrix $A_{mn}$ are just its eigenvalues. Next develop methods for finding eigenvalues and eigenfunctions of the operator $\hat{A}$ if it is not given in its eigenrepresentation. 
+
+The eigenfunctions $\psi_a$ of $\hat{A}$ fulfill the equation
+\begin{equation}
+\hat{A} \psi_a(x) = a \psi_a (x) ~.
+\end{equation}
+Expand them in terms of function $\varphi_n$ which are not eigenfunctions of $\hat{A}$:
+\begin{align}
+& \hat{A} \psi_a(x) = \sum c_n^a \varphi_n(x) ~. \\
+& \hat{A} \sum c_n^a \varphi_n = a \sum c_n^a \varphi_n ~.
+\end{align}
+After multiplying by $\varphi^\ast_k$ and integrating, 
+\begin{equation}
+\sum_n c_n^a A_{kn} = a c_k^a ~,
+\end{equation}
+where
+\begin{equation}
+A_{kn} = \int \varphi^\ast_k \hat{A} \varphi_n \dif V ~.
+\end{equation}
+Assume $A_{kn}$ is given and the eigenvalues $a$ and the eigenvectors $\{a_n^a \}$ for the given matrix ($A_{kn}$) are to be computed. If we know both, the eigenvalue problem is solved in any representation, since with $\{c_n^a \}$, we can construct the eigenfunctions of $\hat{A}$, i.e. $\psi_a(x)$, in $x$ representation, too. To find the $c_n^a$, 
+\begin{equation}
+\sum_n (A_{kn} -a \delta_{kn}) c_n^a = 0 ~.
+\label{matrix_equ}
+\end{equation}
+It represents an infinite homogeneous system of equations for the coefficients $c_n^a$. Such a system has a nontrivial solution if the determinant of the coefficients vanishes, i.e.
+\begin{equation}
+{\rm det} ~(A_{kn} - a\delta_{kn}) = 0 ~.
+\end{equation}
+Consider secular determinants of $N$th degree
+\begin{equation}
+D_N(a) = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+A_{11} -a  & A_{12}    & \cdots & a_{1N} \\
+A_{21}      & A_{22}-a & \cdots & a_{2N} \\
+\vdots       & \vdots     & \vdots  & \vdots \\
+A_{N1}     & A_{N2}   & \cdots  & A_{NN}-a
+\end{pmatrix}
+= 0 ~.
+\end{equation}
+This is a truncation of the expansion at certain value $n = N$. We check for convergence by increasing the parameter $N$. The equation $D_N(a) = 0$ is of $N$th degree and yields $N$ solutions for $a$. These solutions 
+\begin{equation}
+a_1^{(N)}, a_2^{(N)}, \cdots a_N^{(N)}
+\end{equation}
+are all real, because $D_N(a)$ is the determinant of a Hermite matrix(the operator $\hat{A}$ is assumed to be Hermite, as all operators associated with observables should be).
+
+Evaluate each eigenvalue $a_i$ for a sequence of increasing determinants $D_N$ and get a sequence of solutions 
+\begin{equation}
+a_i^{(1)}, a_i^{(2)}, \cdots a_i^{(N)} \rightarrow a_i ~.
+\end{equation}
+The matrix elements $A_{kn}$ measure the correlation between the states $\varphi_k$ and $\varphi_n$. In the case $n \gg k$, this connection will be negligible(for example, highly excited state hardly disturb the ground state). Then the $A_{kn}$ usually get very small and contribute only very little to the first roots of the secular determinant.
+
+Insert each of the so-calculated $a_i$ into (\ref{matrix_equ}) and obtain the coefficients $c_n(a_i)$ and the eigenfunctions
+\begin{equation}
+\psi_{a_i} = \sum_n c_n(a_i) \varphi_n(x) ~.
+\end{equation}
+When the spectra and matrices of the operators are continues, we get an integral instead of a sum and this equation becomes a \textcolor{red}{Fredholm integral equation} of the second kind:
+\begin{equation}
+\int A(\xi^\prime, \xi) c(\xi) \dif \xi = a c(\xi^\prime) ~.
+\end{equation}
+They appear in the spontaneous vacuum decay(quantum electrodynamics) and decay of bound states into several continua.
+
+
+\section{Unitary Transformations}
+
+
+
+
+
+
+
+
+
+\section{The $S$ Matrix}
+The \textcolor{red}{temporal evolution of a system} can be described as \textcolor{red}{a series of unitary transformation}. The operator of this time-evolution transformation is denoted by $\hat{S}$. THe corresponding matrix is the \textcolor{red}{$S$ matrix(scattering matrix)}. 
+
+
+
+
+
+
+
+
+
+
+\section{The Schr\"odinger Equation in Matrix Form}
+
+
+
+
+
+\section{The Schr\"odinger Representation}
+In the previous description of the dynamical evolution of a physical system, we use \textcolor{red}{time-dependent state functions $\psi(\vec{r}, t)$}. The physical quantities, at least the not explicitly time-dependent ones, are described by \textcolor{red}{time-independent operators}. This type of description is called the \textcolor{red}{Schr\"odinger representation(Schr\"odinger picture)}.
+
+
+\section{The Heisenberg Representation}
+In the \textcolor{red}{Heisenberg representation(Heisenberg picture)}, the wave functions are time independent and the dynamical evolution is described by time-dependent operators.
+
+The two representations are completely equivalent in describing a system. The transition from one representation to another one is given by a unitary time-dependent transformation. 
+
+To explain the different types of representation(which are sometimes also called ``pictures"), look at a matrix element of an operator $\widehat{L}$
+\begin{equation}
+L_{mn} = \int \psi_m^\ast(\vec{r}, t) \widehat{L} \psi_n(\vec{r}, t) \dif V ~.
+\label{Lmn_sh}
+\end{equation}
+For the wave function, we write in energy representation, 
+\begin{equation}
+\psi_m(\vec{r}, t) = \psi_m(\vec{r}) \exp \left(-\dfrac{i}{\hbar} E_m t \right) ~.
+\end{equation}
+The time dependence of the stationary state is given by an exponential factor. 
+\begin{align}
+\nonumber L_{mn}(t) &= \int \psi_m^\ast(\vec{r}) \exp \left(\dfrac{i}{\hbar} E_m t \right) \widehat{L} \psi_n(\vec{r}) \exp \left(-\dfrac{i}{\hbar} E_n t \right) \dif V \\
+\nonumber &= \int \psi_m^\ast(\vec{r}) \widehat{L} \exp \left(\dfrac{i}{\hbar} (E_m -E_n) t \right) \psi_n(\vec{r}) \dif V \\
+L_{mn} &= \int \psi_m^\ast(\vec{r}) \widehat{L}_{\rm H}(t) \psi_n(\vec{r}) \dif V ~.
+\label{Lmn_hei}
+\end{align}
+The matrix element has not changed during the manipulations. The equations (\ref{Lmn_sh}) and (\ref{Lmn_hei}) differ only in that the time dependence is in one case in the wave function $\psi(\vec{r}, t)$, in the other case in the operator $\hat{L}_{\rm H}(t)$. The operator in the Heisenberg representation is 
+\begin{equation}
+\widehat{L} \rightarrow \widehat{L}_{\rm H} = \widehat{L} \exp \left(\dfrac{i}{\hbar} (E_m -E_n) t \right) ~.
+\end{equation}
+This is true if the operator is not explicitly time dependent. In the general case we can describe the transition from Schr\"odinger to Heisenberg picture by a unitary transformation. With the operator
+\begin{equation}
+\color{red} \widehat{S} = \exp \left(-\dfrac{i}{\hbar} \hat{H} t \right) ~,
+\end{equation}
+\begin{equation}
+\psi_{\rm H}(\vec{r}) = \widehat{S}^{-1} \psi_{\rm S}(\vec{r}, t)  ~,
+\end{equation}
+for the wave function, and for the operators
+\begin{equation}
+L_{\rm H}(t) = \widehat{S}^{-1}(t) L_{\rm S} \widehat{S} ~,
+\end{equation}
+where the index H stands for Heisenberg and S for Schr\"odinger. 
+
+
+
+\section{The Interaction Representation}
+If we have a system whose Hamiltonian splits into an $\widehat{H}_0$ part and into an additional interaction $\widehat{V}$, 
+\begin{equation}
+\widehat{H} = \widehat{H}_0 +\widehat{V} ~,
+\end{equation}
+we describe it by the so-called \textcolor{red}{interaction representation}(or interaction picture). In this description, both the state functions and the operators are times dependent. It follows from the unitary transformation
+\begin{equation}
+\widehat{S}_I = \exp \left(\dfrac{i}{\hbar} \widehat{H}_0 t \right)
+\end{equation}
+in the Schr\"odinger representation. The wave function is
+\begin{equation}
+\Psi_I(\vec{r}, t) = \widehat{S}_I^{-1} \Psi_S(\vec{r}, t) ~.
+\end{equation}
+The operator in the interaction picture is obtained as
+\begin{equation}
+\widehat{L}_I(t) = \widehat{S}_I^{-1} \widehat{L}_S \widehat{S}_I ~.
+\end{equation}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

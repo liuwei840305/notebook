@@ -1,0 +1,247 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amssymb}
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}        % 改变章节标题格式
+\usepackage{moresize}    % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}   % 首段缩进
+\usepackage{booktabs}    % 使用\multicolumn
+\usepackage{multirow}     % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}       % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}    %矢量符号
+\usepackage{xcolor}        % 高亮
+
+
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+
+
+\title{大数定律及中心极限定理}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{大数定律}
+\subsection{契比雪夫定理的特殊情况}
+
+设随机变量$X_1, X_2, \cdots, X_n, \cdots$相互独立，且具有相同的数学期望和方差：$E(X_k) = \mu, D(X_k) = \sigma^2 (k = 1, 2, \cdots)$。作前$n$个随机变量的算术平均
+\begin{equation}
+\bar{X} = \frac{1}{n} \sum_{k=1}^n X_k ,
+\end{equation}
+则对于任意正数$\varepsilon$，有
+\begin{equation}
+\lim_{n\rightarrow \infty} P\{|\bar{X} -\mu| < \varepsilon \} = \lim_{n\rightarrow \infty} P\left \{\bigg|\frac{1}{n} \sum_{k=1}^n X_k -\mu \bigg| < \varepsilon \right \} = 1
+\end{equation}
+
+
+设$Y_1, Y_2, \cdots, Y_n, \cdots$是一个随机变量序列，$a$是一个常数。若对任意正数$\varepsilon$，有
+\begin{equation}
+\lim_{n\rightarrow \infty} P\{|Y_n -a| < \varepsilon \}  = 1,
+\end{equation}
+称序列$Y_1, Y_2, \cdots, Y_n, \cdots$\textcolor{red}{依概率收敛于}$a$。记为
+\begin{equation}
+Y_n \stackrel{P}{\longrightarrow} a.
+\end{equation}
+
+设$X_n \stackrel{P}{\longrightarrow} a, Y_n \stackrel{P}{\longrightarrow} b$，又设函数$g(x,y)$在点$(a,b)$连续，则
+\begin{equation}
+g(X_n, Y_n) \stackrel{P}{\longrightarrow} g(a, b).
+\end{equation}
+
+定理一：
+
+设随机变量$X_1, X_2, \cdots, X_n, \cdots$相互独立，且具有相同的数学期望和方差：$E(X_k) = \mu, D(X_k) = \sigma^2 (k = 1, 2, \cdots)$。则序列
+\begin{equation}
+\bar{X} = \frac{1}{n} \sum_{k=1}^n X_k
+\end{equation}
+依概率收敛于$\mu$，即$\bar{X} \stackrel{P}{\longrightarrow} \mu$。
+
+
+\subsection{伯努利大数定理}
+
+设$n_A$是$n$次独立重复试验中事件$A$发生的次数，$p$是事件$A$在每次试验 中发生的概率，则对于任意正数$\varepsilon > 0$，有
+\begin{equation}
+\lim_{n\rightarrow \infty} P\left \{\bigg|\frac{n_A}{n}  -p \bigg| < \varepsilon \right \} = 1
+\end{equation}
+或
+\begin{equation}
+\lim_{n\rightarrow \infty} P\left \{\bigg|\frac{n_A}{n}  -p \bigg| \geqslant \varepsilon \right \} = 0
+\end{equation}
+伯努利大数定理表明事件发生的频率$n_A/n$依概率收敛于事件的概率$p$。频率的稳定性；当试验次数很大时，可以用事件发生的频率来代替事件的概率；
+
+\subsection{辛钦定理}
+设随机变量$X_1, X_2, \cdots, X_n, \cdots$相互独立，服从同一分布，且具有数学期望$E(X_k) = \mu (k = 1, 2, \cdots)$，则对于任意正数$\varepsilon$，有
+\begin{equation}
+\lim_{n\rightarrow \infty} P\left \{\bigg|\frac{1}{n} \sum_{k=1}^n X_k -\mu \bigg| < \varepsilon \right \} = 1
+\end{equation}
+
+
+
+\section{中心极限定理}
+\subsection{独立同分布的中心极限定理}
+设随机变量$X_1, X_2, \cdots, X_n, \cdots$相互独立，服从同一分布，且具有数学期望和方差：$E(X_k) = \mu, D(X_k) = \sigma^2 > 0 (k = 1, 2, \cdots)$，则随机变量之和$\sum\limits_{k=1}^n X_k$的标准化变量：
+\begin{equation}
+Y_n = \frac{\sum\limits_{k=1}^n X_k -E\left(\sum\limits_{k=1}^n X_k \right)}{\sqrt{D\left(\sum\limits_{k=1}^n X_k \right)}} = \frac{\sum\limits_{k=1}^n X_k - n\mu}{\sqrt{n} \sigma}
+\end{equation}
+的分布函数$F_n(x)$对于任意$x$满足
+\begin{eqnarray}
+\nonumber \lim_{n\rightarrow \infty} F_n(x) &=& \lim_{n\rightarrow \infty} P\left\{\frac{\sum\limits_{k=1}^n X_k - n\mu}{\sqrt{n} \sigma} \leqslant x \right\} \\
+&=& \int_{-\infty}^x \frac{1}{\sqrt{2\pi}} e^{-t^2/2} \dif t = \Phi(x) 
+\end{eqnarray}
+
+
+\subsection{李雅普诺夫(Liapunov)定理}
+设随机变量$X_1, X_2, \cdots, X_n, \cdots$相互独立，它们具有数学期望和方差：
+\begin{eqnarray}
+\nonumber E(X_k) &=& \mu_k, D(X_k) = \sigma_k^2 > 0 ~k = 1, 2, \cdots
+\end{eqnarray}
+记
+\begin{equation}
+\nonumber B_n^2 = \sum_{k=1}^n \sigma_k^2 
+\end{equation}
+若存在正数$\delta$，使得当$n\rightarrow\infty$时，
+\begin{equation}
+\frac{1}{B_n^{2+\delta}} \sum_{k=1}^n E\{|X_k -\mu_k|^{2+\delta}  \} \rightarrow 0,
+\end{equation}
+则随机变量之和$\sum\limits_{k=1}^n X_k$的标准化变量：
+\begin{equation}
+Z_n = \frac{\sum\limits_{k=1}^n X_k -E\left(\sum\limits_{k=1}^n X_k \right)}{\sqrt{D\left(\sum\limits_{k=1}^n X_k \right)}} = \frac{\sum\limits_{k=1}^n X_k - \sum\limits_{k=1}^n \mu_k}{B_n}
+\end{equation}
+的分布函数$F_n(x)$对于任意$x$，满足
+\begin{eqnarray}
+\nonumber \lim_{n\rightarrow \infty} F_n(x) &=& \lim_{n\rightarrow \infty} P\left\{\frac{\sum\limits_{k=1}^n X_k - \sum\limits_{k=1}^n \mu_k}{B_n} \leqslant x \right\} \\
+&=& \int_{-\infty}^x \frac{1}{\sqrt{2\pi}} e^{-t^2/2} \dif t = \Phi(x)
+\end{eqnarray}
+
+在定理的条件下，随机变量
+\begin{equation}
+Z_n = \frac{\sum\limits_{k=1}^n X_k - \sum\limits_{k=1}^n \mu_k}{B_n}
+\end{equation}
+当$n$很大时，近似地服从正态分布$N(0, 1)$。由此，当$n$很大时，$\sum\limits_{k=1}^n X_k = B_n Z_n +\sum\limits_{k=1}^n \mu_k$近似地服从正态分布$N\left(\sum\limits_{k=1}^n \mu_k, B_n^2 \right)$。
+
+
+无论各个随机变量$X_k (k =1, 2, \cdots)$服从什么分布，只有满足定理的条件，那么它们的和$\sum\limits_{k=1}^n X_k$当$n$很大时，就近似地服从正态分布。
+
+
+\subsection{棣莫弗—拉普拉斯(De Moivre—Laplace)定理}
+设随机变量$\eta_n (n=1, 2, \cdots)$服从参数为$n, p (0 < p < 1)$的二项分布，则对于任意$x$，有
+\begin{equation}
+\lim_{n\rightarrow \infty} P\left\{\frac{\eta_n - n p}{\sqrt{np(1-p)}} \leqslant x \right\} =  \int_{-\infty}^x \frac{1}{\sqrt{2\pi}} e^{-t^2/2} \dif t = \Phi(x)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

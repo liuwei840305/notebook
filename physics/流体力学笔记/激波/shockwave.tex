@@ -1,0 +1,679 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{激波}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+在\textcolor{red}{流体速度接近或超过声速}时，流体的\textcolor{red}{可压缩性}变得非常重要。
+
+\textcolor{red}{气体动力学}一般涉及\textcolor{red}{非常大的雷诺数}。由气体动理学，\textcolor{red}{气体的运动粘性系数$\nu$}是\textcolor{red}{分子平均自由程$l$}与\textcolor{red}{分子热运动平均速度}的乘积同一个量级，而\textcolor{red}{分子热运动平均速度}与声速$c$是同一个量级，所以$\nu \sim cl$。若气体动力学的特征速度与声速量级相当或更大，则雷诺数$R \sim Lu/\nu \sim L/l$，即$R$由特征长度$L$与平均自由程$l$之比确定，这个比值通常是很大的\footnote{不考虑物体在很稀薄的气体中运动的问题，此时分子的平均自由程与物体的尺度相当，须用气体动理学研究}。当\textcolor{red}{$R$非常大}时，粘性总是只在\textcolor{red}{很狭窄的区域内}才对气体运动有重要影响。今后，将把气体看作理想气体。
+
+气体的性质取决于是\textcolor{red}{亚声速}还是\textcolor{red}{超声速}，即取决于\textcolor{red}{流速小于声速还是大于声速}。
+
+研究超声速气流的另一种特性，它与\textcolor{red}{气体中小扰动的传播方式}有关。
+
+若作定常运动的气体在任意一点受到轻微的扰动，扰动的影响以声速(相对于气体本身)沿气体传播。相对于固定坐标系，扰动的传播速度由两部分叠加而成：1. 扰动被气流以速度$\vec{v}$“带走”；2. 扰动相对于气体，沿任何方向$\vec{n}$都以速度$c$传播。假设具有恒定速度$\vec{v}$的均匀气流，设气体在某点$O$(空间中的静止点)受到小扰动。扰动从点$O$传播出去的速度$\vec{v}+c\vec{n}$在不同的单位矢量$\vec{n}$方向上有不同的值。从点$O$引矢量$\vec{v}$，并以其端点为球心作半径为$c$的球面，即得到传播速度的所有可能值。从点$O$到该球面上各点的矢量即给出扰动的传播速度的可能的大小和方向。若$v < c$，则$\vec{v}+c\vec{n}$在空间中可以有任意方向，即在亚声速流动中，从任何一点出发的扰动终将到底气体中的每一点。若$v > c$，$\vec{v}+c\vec{n}$只能位于以$O$为顶点的圆锥内，该圆锥与以矢量$\vec{v}$的端点为球心的球面相切。设圆锥顶角为$2\alpha$，则
+\begin{equation}
+\sin \alpha  = \frac{c}{v}
+\end{equation}
+在超声速气流中，从任意一点出发的扰动只能在一个圆锥之内向下游传播，比值$c/v$越小，圆锥顶角越小。点$O$的扰动完全不影响该圆锥以外的流动。$\alpha$为\textcolor{red}{马赫角}，\textcolor{red}{马赫数}：
+\begin{equation}
+M = \frac{v}{c}
+\end{equation}
+来自一个给定点的扰动所达到的区域的边界面称为\textcolor{red}{马赫面}或\textcolor{red}{特征面}。
+
+在任意定常流动下，马赫面在整个流动区域已不是圆锥面。但马赫面与通过该曲面上任意一点的流线之间的夹角等于马赫角。在不同点，马赫角随速度$v$和$c$的变化而逐点变化。在高速气流中，不同位置的声速是不同的，它随热力学量一起变化，即声速是热力学量的函数。作为坐标函数的声速，又称为\textcolor{red}{当地声速}。
+
+若亚声速气流遇到任何障碍物，障碍物的存在将影响到包括上游和下游在内的整个流动空间，只有在离障碍物无穷远的地方，影响才渐近地趋于$0$；超声速气流是“盲目地”碰到障碍物的，障碍物的影响只延及下游\footnote{在障碍物前形成激波，这个区域要稍微扩大些}，而整个上游区域，气流如同不存在障碍物时一样。
+
+在平面定常气流中，特征面可用流动平面内的\textcolor{red}{特征曲线}(或\textcolor{red}{特征线})代替。通过这个平面内任意一点$O$有两条特征线，它们与通过该点流线的夹角为马赫角。特征线的下游分支$OA$和$OB$，称为由点$O$发出的分支，其围成的流动区域$AOB$，是从点$O$发出的扰动所能影响到的区域。分支$B^{\prime}O$和$A^{\prime}O$，称为到达点$O$的分支，其之间的区域$A^{\prime}OB^{\prime}$，是能够影响$O$点流动的区域。
+
+特征线是一些满足几何声学条件的声线，而扰动就沿着这些声线传播。
+
+气体的熵(在定压下)和气体涡量的扰动不以声速传播，这些扰动一旦出现，相对于气体是不动的；而相对于固定坐标系，它们则以对应于每一点的气体速度随气体一起运动。对熵，这是理想气体中守恒定律的结果
+\begin{equation}
+\frac{\dif s}{\dif t} \equiv \frac{\partial s}{\partial t} +\vec{v}\cdot \nabla s = 0
+\end{equation}
+气体中任意给定的体元运动时，其熵保持不变，即每个$s$随着它所属的点一起运动。涡量的情况，可由环量守恒得到。
+
+对熵值和涡量的小扰动而言，特征线就是流线。相对于气体本身，扰动传播有一最大速度(声速)。
+
+\section{气体的定常流动}
+由伯努利方程，可以得出关于气体绝热定常流动的一般性结果。对于定常流动，沿每条流线，伯努利方程为
+\begin{equation}
+\omega + \frac{1}{2} v^2 = \text{Const}
+\end{equation}
+若是势流，对每条流线，即对流体中的每一点，常数均相同。若在某条流线是，有一点的气体速度为$0$，则
+\begin{equation}
+\omega + \frac{1}{2} v^2 = \omega_0
+\end{equation}
+$\omega_0$是$v = 0$点的焓值。定常流动，熵的守恒方程为
+\begin{equation*}
+\vec{v} \cdot \nabla s = v \dfrac{\partial s}{\partial l} = 0
+\end{equation*}
+沿着每一条流线，$s$为常数。
+\begin{equation*}
+s  = s_0
+\end{equation*}
+在焓$w$较小的那些点上，速度$v$较大。$w$最小的点，其速度值最大。等熵时，$\dif w = \dif p/\rho$，由于$\rho > 0$，$\dif w$和$\dif p$同号，$w$和$p$按相同趋势变化。沿一条流线，当压力减小时，速度增加，反之亦然。
+
+在绝热流动下，压力和焓的最小可能值，在绝对温度$T=0$时得到，对应的压力$p = 0$。取$T=0$时$w$的值为能量的零点，即$T=0$，$w=0$。速度的最大可能值(在$v=0$处的诸热力学量之值都给定的情况下)为
+\begin{equation}
+v_{\rm max} = \sqrt{2w_0} ~.
+\end{equation}
+当气体定常地流向真空时，可以达到这个速度。(在温度急剧降低时，气体凝结并形成二相的``雾”，但这对上述结果没有本质的影响。)
+
+考虑质量通量密度$j = \rho v$沿流线的变化：由欧拉方程$(\vec{v} \cdot \nabla) \vec{v} = -\dfrac{1}{\rho} \nabla p$，沿一条流线微分$\dif v$和$\dif p$的关系式为
+\begin{equation*}
+v \dif v = -\dfrac{\dif p}{\rho} ~,
+\end{equation*}
+令$\dif p = c^2 \dif \rho$，
+\begin{equation}
+\dfrac{\dif \rho }{\dif v} = -\dfrac{\rho v}{c^2} ~,
+\end{equation}
+代入$\dif(\rho v) = \rho \dif v + v \dif \rho$，
+\begin{equation}
+\dfrac{\dif(\rho v)}{\dif v} = \rho \left(1- \dfrac{v^2}{c^2} \right) ~.
+\end{equation}
+只要流动保持是亚声速，则当速度沿着流线增加时，质量通量密度也增加。但在超声速范围内，质量通量密度随着速度的增加而减少，当$v = v_{\rm max}$时，它和$\rho$一同变为$0$。亚声速流动中，流线沿着速度增加的方向靠拢，而在超声速流动中，流线沿速度增加的方向散开。
+
+在气体速度等于当地声速的那一点上，通量$j$达到最大值$j_\ast$：
+\begin{equation}
+j_\ast = \rho_\ast c_\ast ~.
+\end{equation}
+速度$v_\ast = c_\ast$称为\textcolor{red}{临界速度}。对于任意气体，
+\begin{align}
+& s_\ast = s_0 ~, \\
+& w_\ast +\dfrac{1}{2} c_\ast^2 = w_0 ~,
+\end{align}
+
+只要$M = \dfrac{v}{c} < 1$，$v/c_\ast < 1$。若$M > 1$，则$v/c_\ast > 1$。因而比值$M_\ast = \dfrac{v}{c_\ast}$可用作类似于$M$的判据。
+
+理想气体热力学之间的关系式，假定理想气体的比热与温度无关。
+理想气体的状态方程为
+\begin{equation}
+pV = p/\rho = RT/\mu ~,
+\end{equation}
+$R = 8.314\times 10^7 ~ {\rm erg/deg ~mol}$是气体常数，$\mu$是气体的分子量。 理想气体中的声速为
+\begin{equation}
+c^2 = \dfrac{\gamma RT}{\mu} = \dfrac{\gamma p}{\rho} ~,
+\end{equation}
+$\gamma = \dfrac{c_p}{c_v} > 1$为比热之比。在常温下，对于单原子气体，$\gamma = \dfrac{5}{3}$，而双原子气体，$\gamma = \dfrac{7}{3}$。
+
+理想气体的内能为
+\begin{equation}
+\epsilon = c_v T = \dfrac{pV}{(\gamma-1)} = \dfrac{c^2}{\gamma(\gamma-1)} ~.
+\end{equation}
+焓为
+\begin{equation}
+w = c_p T = \dfrac{\gamma pV}{(\gamma-1)} = \dfrac{c^2}{(\gamma-1)} ~.
+\end{equation}
+由$c_p  - c_v = \dfrac{R}{\mu}$，气体的熵为
+\begin{equation}
+s = c_v \ln \left(\dfrac{p}{\rho^\gamma} \right) = c_p \ln \left(\dfrac{p^{1/\gamma} }{\rho} \right) ~.
+\end{equation}
+
+定常流动的最大速度为
+\begin{equation}
+v_{\rm max} = c_0 \sqrt{\dfrac{2}{(\gamma -1)} } ~.
+\end{equation}
+对于临界速度，
+\begin{equation}
+\dfrac{c_\ast}{\gamma-1} +\dfrac{1}{2} c_\ast^2 = w_0 = \dfrac{c_0^2}{\gamma-1} ~,
+\end{equation}
+\begin{equation}
+c_\ast = c_0 \sqrt{\dfrac{2}{(\gamma +1)} } 
+\end{equation}
+
+把焓的表达式代入伯努利方程，得出流线上任一点的温度和速度的关系式。压力和密度的关系式由泊松绝热方程
+\begin{align}
+& \rho = \rho_0 \left( \dfrac{T}{T_0} \right)^{1/(\gamma-1)} ~, \\
+& p = p_0 \left( \dfrac{\rho }{\rho_0} \right)^{\gamma}  ~.
+\end{align}
+直接求得。
+
+\begin{align}
+& T = T_0 \left[ 1 - \dfrac{1}{2} (\gamma -1) \dfrac{v^2}{c_0^2} \right] = T_0 \left(1 - \dfrac{\gamma-1}{\gamma+1} \dfrac{v^2}{c_\ast^2} \right) ~, \\
+& \rho = \rho_0 \left[ 1 - \dfrac{1}{2} (\gamma -1) \dfrac{v^2}{c_0^2} \right]^{1/(\gamma-1)} = \rho_0 \left(1 - \dfrac{\gamma-1}{\gamma+1} \dfrac{v^2}{c_\ast^2} \right)^{1/(\gamma-1)} ~, \\
+& p = p_0 \left[ 1 - \dfrac{1}{2} (\gamma -1) \dfrac{v^2}{c_0^2} \right]^{\gamma/(\gamma-1)} = p_0 \left(1 - \dfrac{\gamma-1}{\gamma+1} \dfrac{v^2}{c_\ast^2} \right)^{\gamma/(\gamma-1)}
+\end{align}
+
+\begin{equation}
+v^2 = \dfrac{2\gamma}{\gamma-1} \dfrac{p_0}{\rho_0} \left[1 -\left(\dfrac{p}{p_0} \right)^{(\gamma-1)/\gamma} \right] = \dfrac{2\gamma}{\gamma-1} \dfrac{p_0}{\rho_0} \left[1 -\left(\dfrac{\rho}{\rho_0} \right)^{(\gamma-1)} \right] 
+\end{equation}
+
+声速$c$与速度$v$的关系：
+\begin{equation}
+c^2 = c_0^2 - \dfrac{\gamma-1}{2} v^2 = \dfrac{\gamma+1}{2} c_\ast^2 - \dfrac{\gamma-1}{2} v^2 ~.
+\end{equation}
+
+马赫数$M$和$M_\ast$的关系：
+\begin{equation}
+M_\ast^2 = \dfrac{\gamma+1}{\gamma -1+2/M^2} ~,
+\end{equation}
+当$M$从$0$变到$\infty$时，$M_\ast^2$从$0$变到$\dfrac{\gamma+1}{\gamma-1}$。
+
+令$v = c_\ast$，得到临界温度、压力和密度
+\begin{align}
+& T_\ast = \dfrac{2}{\gamma+1} T_0 ~, \\
+& p_\ast = p_0 \left(\dfrac{2}{\gamma+1} \right)^{\gamma/(\gamma-1)} ~, \\
+& \rho_\ast = \rho_0 \left(\dfrac{2}{\gamma+1} \right)^{1/(\gamma-1)}  ~.
+\end{align}
+上述结果只适用于不出现激波的流动。若有激波，；当流线穿过激波时，气体的熵增加。但即使有激波，伯努利方程仍然有效，因为在穿过间断面时，$w + \dfrac{1}{2} v^2$是不变的。
+
+
+\section{间断面}
+气流中的间断发生在一个或几个面上，穿过这种面时，有关的量变化不连续，这样的面称为\textcolor{red}{间断面}。在非定常气流中，间断面一般是不固定的。这些面的运动速度与气流本身的速度无关。运动的气体质点可以穿过间断面。
+
+间断面上必须满足一定的边界条件。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{激波绝热关系式}
+气体速度的切向分量是连续的。取如下坐标系：所考虑的面元在该坐标系中静止，且激波两侧气体速度的切向分量为$0$。(静止激波称为\textcolor{red}{压缩间断}，若激波垂直于流动方向，称为\textcolor{red}{正激波}，否则称为\textcolor{red}{斜激波}。)将法向分量$v_x$简写为$v$，
+\begin{align}
+& \rho_1 v_1 = \rho_2 v_2 \equiv  j ~, \\
+& p_1 +\rho_1 v_1^2 = p_2 +\rho_2 v_2^2 ~, \\
+& w_1 +\dfrac{1}{2} v_1^2 = w_2 +\dfrac{1}{2} v_2^2 ~,
+\end{align}
+$j$表示间断面上的质量通量密度，把$j$取为正，且气流由$1$侧流向$2$侧，即把激波运动所进入的那一侧气体称为气体$1$，而把留在激波后的气体称为气体$2$。激波对着气体$1$的一侧称为\textcolor{red}{激波前沿}，对着气体$2$的一侧称为\textcolor{red}{激波后沿}。
+
+由$V_1 = 1/\rho_1$，$V_2 = 1/\rho_2$，可得
+\begin{align}
+& v_1 = j V_1 ~, ~~ v_2 = j V_2 ~,
+\end{align}
+
+\begin{equation}
+p_1 + j^2 V_1 = p_2 +j^2 V_2, 
+\end{equation}
+或者
+\begin{equation}
+j^2 = \dfrac{(p_2 -p_1)}{(V_1 -V_2)} ~,
+\end{equation}
+因为$J^2 > 0$，$p_2 > p_1, V_1 > V_2$；或者$p_2 < p_1, V_1 < V_2$，但是实际只能出现一种情况。
+\begin{align}
+\nonumber v_1 -v_2 & = j(V_1 -V_2) ~, \\
+& = \sqrt{(p_2 -p_1)(V_1-V_2)}  ~.
+\end{align}
+
+\begin{equation}
+w_1^2 +\dfrac{1}{2} j^2 V_1^2 = w_2^2 +\dfrac{1}{2} j^2 V_2^2 ~,
+\end{equation}
+
+\begin{equation}
+w_1 -w_2 + \dfrac{1}{2} (V_1 +V_2)(p_2 -p_1) = 0 ~.
+\end{equation}
+若用$\epsilon +pV$代替$w$，$\epsilon$是内能，则
+\begin{equation}
+\epsilon_1 -\epsilon_2 + \dfrac{1}{2} (V_1 -V_2)(p_1 +p_2) = 0 ~.
+\end{equation}
+称为\textcolor{red}{激波绝热关系式}或\textcolor{red}{雨贡尼奥绝热关系式}。
+
+熵在激波面上是间断的。根据熵增加定律，在运动过程中，气体的熵只能增加。因而气体在穿过激波后，它的熵$s_2$必定超过初始熵$s_1$，即
+\begin{equation}
+s_2 > s_1 ~.
+\end{equation}
+这个条件对激波中各个量的变化情形起重要的制约作用。
+
+在可以把整个空间都看作是理想流体运动(黏性系数和热导率为零)的那些流动中，激波的存在导致熵的增加。熵的增加意味着运动是不可逆的，间断面是理想流体运动中能量耗散的一种结构。当物体在理想流体中以这种方式而引起激波时，就不再出现达朗伯佯谬，而是存在阻力。
+
+激波中熵增加的真正机制是由于在很薄的实际激波层中出现耗散过程。耗散量完全由用于激波层两侧的质量、能量和动量守恒律确定。激波层的厚度正好可以给出这些守恒律所要求的熵的增加。激波中熵的增加，对运动还有另一个重要影响，即即使激波前面是势流，激波后面一般也是有旋的。
+
+\section{弱激波}
+考虑每个量的间断值都很小的激波，即\textcolor{red}{弱激波}。
+
+\begin{align*}
+w_2 -w_1 = \left(\dfrac{\partial w}{\partial s_1} \right)_p (s_2-s_1) +\left(\dfrac{\partial w}{\partial p_1} \right)_s (p_2-p_1) +\dfrac{1}{2} \left(\dfrac{\partial^2 w}{\partial p_1^2} \right)_s (p_2 -p_1)^2 +\dfrac{1}{6} \left(\dfrac{\partial^3 w}{\partial p_1^3} \right)_s (p_2 -p_1)^3
+\end{align*}
+由$\dif w = T \dif s + V\dif p$, 
+\begin{align*}
+\left(\dfrac{\partial w}{\partial s} \right)_p = T ~, \\
+\left(\dfrac{\partial w}{\partial p} \right)_p = V ~. 
+\end{align*}
+
+\begin{equation*}
+w_2 -w_1 = T_1 (s_2 - s_1) +V_1 (p_2 - p_1) +\dfrac{1}{2} \left(\dfrac{\partial V}{\partial p_1} \right)_s (p_2 -p_1)^2 +\dfrac{1}{6} \left(\dfrac{\partial^2 V}{\partial p_1^2} \right)_s (p_2 -p_1)^3
+\end{equation*}
+
+
+
+\begin{equation*}
+V_2 -V_1 = \left(\dfrac{\partial V}{\partial p_1} \right)_s (p_2 -p_1) +\dfrac{1}{2} \left(\dfrac{\partial^2 V}{\partial p_1^2} \right)_s (p_2 -p_1)^2
+\end{equation*}
+
+\begin{equation*}
+s_2 -s_1 = \dfrac{1}{12 T_1}  \left(\dfrac{\partial^2 V}{\partial p_1^2} \right)_s (p_2 -p_1)^3 ~.
+\end{equation*}
+相对于压力间断，弱激波中熵的间断是三阶小量。
+
+
+压缩系数$-\left( \dfrac{\partial V}{\partial p} \right)_s$都是随着压力的增加而减小的，即二阶导数
+\begin{equation}
+\left(\dfrac{\partial^2 V}{\partial p^2} \right)_s > 0 ~.
+\end{equation}
+这不是热力学关系式，且不能以热力学为依据而导出。对于理想气体，则
+\begin{equation*}
+\left(\dfrac{\partial^2 V}{\partial p^2} \right)_s = \dfrac{\gamma+1}{\gamma^2} \dfrac{V}{p^2} ~.
+\end{equation*}
+
+
+
+
+
+
+
+
+\section{激波中诸物理量变化的方向}
+设导数$\left( \dfrac{\partial^2 V}{\partial p^2} \right)_s$为正，可以证明：对弱激波，熵增加的条件$(s_2 > s_1)$必然指
+\begin{align}
+& p_2 > p_1 ~, \\
+& v_1 > c_1, ~~ v_2 < c_2 ~.
+\end{align}
+若$ p_2 > p_1$，则
+\begin{equation}
+V_1 > V_2 ~,
+\end{equation}
+又因为
+\begin{equation*}
+\dfrac{v_1}{V_1} = \dfrac{v_2}{V_2} = j ~,
+\end{equation*}
+故
+\begin{equation}
+v_1 > v_2 ~.
+\end{equation}
+以上不等式对于任意强度的激波都成立($\left( \dfrac{\partial^2 V}{\partial p^2} \right)_s$为正)。因此\textcolor{red}{气体穿过激波时受到压缩，压力和密度增加}。(若把坐标系换一下，使气体$1$(在激波前面)在该坐标系中静止，而激波是运动的，则不等式$v_1 > v_2$意味着激波后面的气体与激波本身都朝相同的方向运动(速度为$v_1 - v_2$))。激波绝热曲线只有上半分支(点$1$上方)才有实际意义，而对应于下半分支各点的激波是不能存在的。因为激波相对于它前面的气体以速度$v_1 > c_1$运动，由激波发出的扰动绝不可能进入到气体$1$中去。换言之，激波的存在，对它前面的气体状态没有影响。
+
+
+
+
+
+
+\section{理想气体中的激波}
+理想气体中的焓$w = \gamma pV /(\gamma-1)$，
+\begin{equation}
+\dfrac{V_2}{V_1} = \dfrac{(\gamma+1)p_1 +(\gamma-1)p_2}{(\gamma-1)p_1 +(\gamma+1)p_2} ~.
+\end{equation}
+
+\begin{equation}
+\dfrac{T_2}{T_1} = \dfrac{p_2}{p_1} \dfrac{(\gamma+1)p_1 +(\gamma-1)p_2}{(\gamma-1)p_1 +(\gamma+1)p_2} ~.
+\end{equation}
+
+\begin{equation}
+j^2 = \dfrac{(\gamma-1)p_1 + (\gamma+1)p_2}{2V_1}
+\end{equation}
+激波相对于其前后气体的传播速度分别为
+\begin{align}
+& v_1^2 = \dfrac{V_1}{2} [(\gamma-1)p_1 + (\gamma+1)p_2] ~, \\
+& v_2^2 = \dfrac{V_1}{2} \dfrac{[\gamma+1)p_1 + (\gamma-1)p_2]^2}{(\gamma-1)p_1 + (\gamma+1)p_2}  ~.
+\end{align}
+强激波情况下，$p_2 \gg g_1$，
+\begin{align}
+& \dfrac{V_2}{V_1} = \dfrac{\rho_1}{\rho_2} = \dfrac{\gamma -1}{\gamma +1} ~, \\
+& \dfrac{T_2}{T_1} =  \dfrac{\gamma -1}{\gamma +1} \cdot \dfrac{p_2}{p_1}
+\end{align}
+比值$\dfrac{T_2}{T_1}$随$\dfrac{p_2}{p_1}$一起增至无穷大，即，激波中的温度间断与压力间断类似，可达任意大的值。但密度比趋向于常数极限。
+
+用马赫数$M_1 = \dfrac{v_1}{c_1}$表示激波两侧密度、压力和温度的比值：
+\begin{align}
+ \dfrac{\rho_2}{\rho_1} =  \dfrac{v_1}{v_2} = \dfrac{(\gamma+1)M_1^2}{(\gamma-1)M_1^2 +2} ~,
+\end{align}
+
+\begin{align}
+ \dfrac{p_2}{p_1} =  \dfrac{2\gamma}{\gamma +1} M_1^2 - \dfrac{\gamma-1}{\gamma+1} ~,
+\end{align}
+
+
+\begin{align}
+ \dfrac{T_2}{T_1} =  \dfrac{[2\gamma M_1^2 - (\gamma -1)][(\gamma -1)M_1^2 +2]}{(\gamma+1)^2M_1} ~,
+\end{align}
+
+
+马赫数$M_2$用马赫数$M_1$表示为
+\begin{equation}
+M_2^2 = \dfrac{2 +(\gamma-1)M_1^2 }{2\gamma M_1^2 -(\gamma-1)} ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+\section{斜激波}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{equation}
+v_{2y}^2 = (v_1 -v_{2x})^2 \dfrac{v_1 v_{2x} -c_\ast^2}{\dfrac{2}{\gamma+1} v_1^2 -v_1 v_{2x} +c_\ast^2} ~.
+\end{equation}
+方程称为\textcolor{red}{激波极线方程}。
+
+
+
+
+
+\section{激波的厚度}
+间断值较小的激波是有限厚度的过渡层，其厚度随间断值的增加而减小。若间断值不是小量，则变化非常急剧，厚度失去了意义。
+
+\begin{equation}
+\rho v \equiv j = \text{常数}
+\end{equation}
+$\sigma_{xx}^\prime = \left(\dfrac{4}{3} \eta +\zeta \right) \dfrac{\dif v}{\dif x}$，
+\begin{equation*}
+p + \rho v^2- \left(\dfrac{4}{3} \eta +\zeta \right) \dfrac{\dif v}{\dif x} = \text{常数} ~.
+\end{equation*}
+用比容$V$代替速度$v = j V$，$j = \text{常数}$，$\dfrac{\dif v}{\dif x} = j \dfrac{\dif V}{\dif x}$，
+\begin{equation*}
+p + j^2 V - \left(\dfrac{4}{3} \eta +\zeta \right) j \dfrac{\dif V}{\dif x} = \text{常数} ~.
+\end{equation*}
+
+
+\begin{equation*}
+p - p_1 + j^2 (V -V_1) - \left(\dfrac{4}{3} \eta +\zeta \right) j \dfrac{\dif V}{\dif x} = 0 ~.
+\end{equation*}
+由导热引起的能量通量密度是$-\kappa \dfrac{\dif T}{\dif x}$。
+\begin{equation*}
+\rho v \left(w + \dfrac{1}{2} v^2 \right) -\left(\dfrac{4}{3} \eta +\zeta \right) v \dfrac{\dif v}{\dif x} -\kappa \dfrac{\dif T}{\dif x} = \text{常数} ~.
+\end{equation*}
+令$v = j V$，
+\begin{equation}
+w +\dfrac{1}{2} j^2 V^2 - j \left(\dfrac{4}{3} \eta +\zeta \right) V\dfrac{\dif V}{\dif x} - \dfrac{\kappa}{j} \dfrac{\dif T}{\dif x} = w_1 +\dfrac{1}{2} j^2 V_1 ~.
+\end{equation}
+
+\begin{equation*}
+V -V_1 =  \left(\dfrac{\partial V}{\partial p}\right)_s (p-p_1) +\dfrac{1}{2}  \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p-p_1)^2 + \left(\dfrac{\partial V}{\partial s}\right)_p (s-s_1)
+\end{equation*}
+所有系数的值都是在过渡层外面取的($p = p_1, s = s_1$)。
+\begin{align}
+\left[1 +\left(\dfrac{\partial V}{\partial p}\right)_s j^2 \right] (p-p_1) +\dfrac{1}{2} j^2 \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p-p_1)^2 + \left(\dfrac{\partial V}{\partial s}\right)_p (s-s_1) j^2 = \left(\dfrac{4}{3} \eta +\zeta \right) j \dfrac{\dif V}{\dif x} ~.
+\end{align}
+\begin{equation*}
+\dfrac{\dif V}{\dif x} = \left(\dfrac{\partial V}{\partial p}\right)_s \dfrac{\dif p}{\dif x} + \left(\dfrac{\partial V}{\partial s}\right)_p \dfrac{\dif s}{\dif x} ~.
+\end{equation*}
+相对于压力间断$p_2 - p_1$，熵的总间断值$s_2 -s_1$是三阶量，而$s_2 -s_1$只是$p_2 - p_1$的二阶量。过渡层中压力从$p_1$单调地变到$p_2$，而熵并非单调变化，它在过渡层中有个极大值。
+
+\begin{equation}
+\left[1 +\left(\dfrac{\partial V}{\partial p}\right)_s j^2 \right] (p-p_1) + \dfrac{1}{2} j^2 \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p-p_1)^2 + \left(\dfrac{\partial V}{\partial s}\right)_p (s-s_1) =  \left(\dfrac{4}{3} \eta +\zeta \right) \left(\dfrac{\partial V}{\partial p}\right)_s \dfrac{\dif p}{\dif x} j ~.
+\end{equation}
+
+\begin{align*}
+& (w-w_1) -\dfrac{1}{2}(p-p_1)(V+V_1) - \dfrac{1}{2} j \left(\dfrac{4}{3} \eta +\zeta \right) (V-V_1) \dfrac{\dif V}{\dif x} -\dfrac{\kappa}{j} \dfrac{\dif T}{\dif x} = 0 ~, \\
+& (w-w_1) -\dfrac{1}{2}(p-p_1)(V+V_1) -\dfrac{\kappa}{j} \dfrac{\dif T}{\dif x} = 0 ~.
+\end{align*}
+
+\begin{equation}
+\dfrac{\dif T}{\dif x} = \left(\dfrac{\partial T}{\partial p}\right)_s \dfrac{\dif p}{\dif x} + \left(\dfrac{\partial T}{\partial s}\right)_p \dfrac{\dif s}{\dif x} \approx \left(\dfrac{\partial T}{\partial p}\right)_s \dfrac{\dif p}{\dif x}  
+\end{equation}
+
+\begin{equation}
+T(s-s_1) = \dfrac{\kappa}{j} \left(\dfrac{\partial T}{\partial p}\right)_s \dfrac{\dif p}{\dif x}
+\end{equation}
+
+\begin{align*}
+& \dfrac{1}{2} j^2 \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p-p_1)^2 + \left[1 +\left(\dfrac{\partial V}{\partial p}\right)_s j^2 \right](p-p_1) \\
+&= \left[-\dfrac{\kappa}{T} \left(\dfrac{\partial V}{\partial s}\right)_p  \left(\dfrac{\partial T}{\partial p}\right)_s +\left(\dfrac{4}{3} \eta +\zeta \right)  \left(\dfrac{\partial V}{\partial p}\right)_s \right]  \dfrac{\dif p}{\dif x} j
+\end{align*}
+
+\begin{align*}
+& \dfrac{1}{2} \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p-p_1)(p-p_2) \\
+&= -\dfrac{V^3}{c^3} \left[\left(\dfrac{4}{3} \eta +\zeta \right) +\dfrac{\kappa}{T}  \left(\dfrac{\partial T}{\partial p}\right)_s \left(\dfrac{\partial V}{\partial s}\right)_p c^2 \rho^2 \right] \dfrac{\dif p}{\dif x} ~. 
+\end{align*}
+
+\begin{equation}
+\dfrac{\dif p}{\dif x} = -\dfrac{1}{4V^2 a} \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p-p_1)(p-p_2) ~.
+\end{equation}
+积分后得到
+\begin{align*}
+x &= -\dfrac{4V^2 a}{\left(\dfrac{\partial^2 V}{\partial p^2}\right)_s} \int \dfrac{\dif p}{(p-p_1)(p-p_2)} \\
+&= \dfrac{4V^2 a}{\dfrac{1}{2} (p_2-p_1) \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s} \rm{arctgh} \dfrac{p-\dfrac{1}{2} (p_2-p_1) }{\dfrac{1}{2} (p_2-p_1)} +\text{常数}
+\end{align*}
+令常数为$0$，得到
+\begin{equation}
+p - \dfrac{1}{2} (p_2+p_1) = \dfrac{1}{2} (p_2-p_1) \rm{tgh} \left( \dfrac{x}{\delta} \right) ~,
+\end{equation}
+其中
+\begin{equation}
+\delta = \dfrac{8aV^2}{(p_2-p_1) \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s}
+\end{equation}
+$p_1$和$p_2$是激波两边远距离处的压力。点$x=0$对应于压力的中间值$\dfrac{1}{2}(p_1 +p_2)$。当$x\rightarrow \pm \infty$时，压力渐近地趋于$p_1$和$p_2$。从$p_1$到$p_2$的全部变化，几乎都发生在$\delta$量级的距离上，$\delta$称为激波的厚度。激波越强，即压力间断值越大，这个厚度就愈小。
+
+穿过间断面熵的变化为
+\begin{equation}
+s -s_1 = \dfrac{\kappa}{16 c a VT} \left(\dfrac{\partial T}{\partial p}\right)_s \left(\dfrac{\partial^2 V}{\partial p^2}\right)_s (p_2 -p_1)^2 \dfrac{1}{\cosh^2 \dfrac{x}{\delta}}
+\end{equation}
+熵不是单调变化的，而是在激波里面$x=0$处有个最大值。在$x=pm \infty$时，$s =s_1$。因为熵的总变化量$s_2 -s_1$是$p_2 -p_1$的三阶量，而这里的$s-s_1$是二阶的。
+
+
+\begin{equation}
+\delta \sim l ~>
+\end{equation}
+强激波的厚度与气体分子平均自由程的量级是相同的(强激波致使温度显著增加，而$l$代表激波中气体的某种平衡温度下的平均自由程)。但在宏观气体动力学中，气体是当作连续介质处理的，平均自由程必须取为$0$。因此严格来说，不能单用气体动力学来研究强激波的内部结构。
+
+由于气体中存在比较缓慢的弛豫过程(缓慢的化学反应，分子不同的自由度之间缓慢的能量迁移等)，使得激波厚度显著增加。
+
+
+\section{等温间断面}
+上节假设粘性系数和热导率具有相同的量级。但是$\chi \gg \nu$的情形也可能存在。若温度足够高，则存在着由物质的平衡热辐射所传递的附加能量。辐射对粘性的影响(即动量传递)要小得多，所以$\nu$与$\chi$相比是个小量。
+
+略去粘性项，
+\begin{align}
+& p +j^2 V = p_1 + j^2 V_1 ~, \\
+& \dfrac{\kappa}{j} \dfrac{\dif T}{\dif x} = w +\dfrac{1}{2} j^2 V^2 - w_1 -\dfrac{1}{2} j^2 V_1^2 ~.
+\end{align}
+只有在过渡层的边界上才为$0$。因为激波后面的温度一定高于激波前面的温度，在过渡层内处处都有
+\begin{equation}
+\dfrac{\dif T}{\dif x} > 0 ~,
+\end{equation}
+即温度是单调递增的。
+
+此层内所有的量都是单变量，即坐标$x$的函数，因而这些量互为函数关系。
+\begin{equation*}
+\left(\dfrac{\partial p}{\partial T}\right)_V \dfrac{\dif T}{\dif V} + \left(\dfrac{\partial p}{\partial V}\right)_T + j^2 = 0 ~.
+\end{equation*}
+气体中，$\left(\dfrac{\partial p}{\partial T}\right)_V$总是正的，所以$\dfrac{\dif T}{\dif V}$的符号与两项之和$\left(\dfrac{\partial p}{\partial V}\right)_T + j^2$的符号相反。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{弱间断面}
+虽然$\rho, p, \vec{v}$保持连续，但不是坐标的常规函数。如在面上，$\rho, p, \vec{v}$等对空间坐标的一阶导数可以是不连续的，或这些导数可以变成无穷大，或者它们的更高阶导数有上述性质。这样的面为\textcolor{red}{弱间断面}。强间断面(激波和切向间断面)中，$\rho, p, \vec{v}$等量本身是间断的。
+
+弱间断面相对于(间断面两边的)气体以声速传播。
+
+对激波而言，已修匀滑了的函数与真正函数之差通常不是小量。若激波上的间断值足够小，上面的论据仍然可用。这样的激波以声速传播。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+在运动气体状态的各种扰动中，(定压下的)熵的扰动和涡量的扰动相对于气体是不动的，因而并不以声速传播。熵和涡量具有弱间断的那些曲面相对于气体是静止的，而相对于固定坐标系，则随着气体一起移动。这样的间断面称为\textcolor{red}{切向弱间断面}。它们顺着流线伸展，在这点上，它们与切向强间断面的完全类似的。
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

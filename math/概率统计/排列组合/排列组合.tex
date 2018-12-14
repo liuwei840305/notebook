@@ -1,0 +1,310 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amssymb}
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}        % 改变章节标题格式
+\usepackage{moresize}    % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}   % 首段缩进
+\usepackage{booktabs}    % 使用\multicolumn
+\usepackage{multirow}     % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}       % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}    %矢量符号
+\usepackage{xcolor}        % 高亮
+
+
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+
+
+\title{排列组合}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section[Section Title]{计数基本法则\footnote{参考自\cite{GVK330306553}} }
+有两个试验，其中试验$1$有$m$种可能发生的结果，对应于试验$1$的每一个结果，试验$2$有$n$种可能发生的结果，则对这两个试验，一共有$mn$种可能结果。
+
+推广：
+
+一共有$r$个试验，第一个试验有$n_1$种可能结果；对于第一个试验的每一种试验结果，第二个试验有$n_2$种可能结果；对应于头两个试验的每一种试验结果，第三个试验有$n_3$种可能结果；$\ldots$那么，这$r$个试验一共有$n_1 \cdot n_2 \cdots n_r$种可能结果。
+
+\textcolor{red}{乘法法则}：
+
+假设必须依次完成$k$个动作。若完成第一个动作有$n_1$种方法，完成第二个动作有$n_2$种方法，完成第三个动作有$n_3$种方法，以此类推，完成第$k$个动作有$n_k$种方法，那么一起完成全部$k$个动作有$n_1 \cdot n_2 \cdot n_3 \cdot \cdots \cdot n_k$种方法。
+
+
+
+\section{排列}
+permutation
+
+假设有$n$个元素，一共有$n(n-1)(n-2)\cdots 3\cdot 2 \cdot 1 = n!$种不同的排列方式。
+
+$n$个元素，若其中$n_1$个元素彼此相同，另$n_2$个彼此相同，$\cdots$，$n_r$个也彼此相同，那么一共有
+\begin{equation}
+\frac{n!}{n_1 ! n_2 ! \cdots n_r !}
+\end{equation}
+种排列方式。
+
+\textcolor{red}{有序集}：
+
+来自于$n$个元素的一个集合称为有序的，若这个集合的每一个元素与从$1$到$n$的某个数(元素的号码)相对应，且不同的元素对应着不同的数。有序集被认为是不同的，若它们的元素，或者元素的次序有差别。
+
+\textcolor{red}{给定集合的排列}：
+
+从同一个集合可以得到仅区别于元素次序不同的有序集。这些有序集称为这个集合的排列。$n$个元素的集合，其排列个数等于
+\begin{equation}
+P_n = n!
+\end{equation}
+
+\textcolor{red}{从$n$个元素取$k$个元素的排列}：
+
+$n$个元素的集合中的$k$个元素的有序子集称为从$n$个元素取$k$个元素的排列。从$n$个元素中取$k$个元素，排列的个数等于
+\begin{equation}
+A_n^k = k! \cdot C_n^k = n(n-1)\cdots (n-k+1).
+\end{equation}
+
+
+
+\section{组合}
+从$n$个元素中取$r$个，一共有多少种取法？
+
+若考虑顺序，从$n$个元素中选择$r$个组成一组一共有$n(n-1)\cdots(n-r+1)$种方式，而每个含$r$个元素的小组都被重复计算了共$r!$次，所以能组成不同的组的数目为
+\begin{equation}
+\frac{n(n-1)\cdots(n-r+1)}{r!} = \frac{n!}{(n-r)!r!}
+\end{equation}
+
+对$r \leqslant n$，定义
+\begin{equation}
+\binom n r = \frac{n!}{(n-r)! r!}
+\end{equation}
+表示从$n$个元素中一次取$r$个的可能组合数；从$n$个元素中一次取$r$个元素的可能取法的数目，如果不考虑抽取顺序的话。
+
+$0!$定义为$1$，因此，
+\begin{equation}
+\binom n 0 = \binom n n = 1
+\end{equation}
+当$i < 0$或$i > n$时，也认为
+\begin{equation}
+\binom n i = 0.
+\end{equation}
+
+\textcolor{red}{从$n$个元素取$k$个元素的组合}：
+
+假设集合$A$有$n$个元素，那么含有$k$个元素的$A$的子集的个数为
+\begin{equation}
+C_n^k = \frac{n!}{k! (n-k)!}
+\end{equation}
+
+集合$A = \{a_1, a_2, \cdots, a_n\}$的$k$个元素的子集称为从$n$个元素$\{a_1, a_2, \cdots, a_n\}$中取$k$个元素的组合。
+
+\section{二项式定理}
+\begin{equation}
+(x+y)^n = \sum_{k=0}^n \binom n k x^k y^{n-k}
+\end{equation}
+\begin{equation}
+\binom n k
+\end{equation}
+称为\textcolor{red}{二项式系数}。
+
+恒等式：
+\begin{equation}
+\binom{n}{r} = \binom{n-1}{r-1} +\binom{n-1}{r}, ~1 \leqslant r \leqslant n
+\end{equation}
+
+
+
+
+
+\section{多项式定理}
+\begin{equation}
+(x_1 +x_2 +\cdots +x_r)^n = \sum_{\substack{(n_1,\cdots,n_r): \\n_1+\cdots+n_r=n} } \binom{n}{n_1, n_2, \cdots, n_r}  x_1^{n_1} x_2^{n_2}\cdots x_r^{n_r}
+\end{equation}
+求和号对一切满足$n_1 +n_2 +\cdots +n_r = n$的所有非负整向量$(n_1, n_2, \cdots, n_r)$求和。
+\begin{equation}
+\binom{n}{n_1, n_2, \cdots, n_r} 
+\end{equation}
+称为\textcolor{red}{多项式系数}。
+
+
+有$n$个不同的元素，分成$r$组，每组分别有$n_1, n_2, \cdots, n_r$个元素，其中
+\begin{equation}
+\sum_{i=1}^{r} n_i = n, 
+\end{equation}
+一共有多少种分法？
+\begin{eqnarray}
+\nonumber && \binom{n}{n_1} \binom{n -n_1}{n_2} \cdots \binom{n-n_1-n_2-\cdots -n_{r-1}}{n_r} \\
+\nonumber &=& \frac{n!}{(n-n_1)!n_1!}\cdot \frac{(n-n_1)!}{(n-n_1-n_2)!n_2!}\cdots \frac{(n-n_1-n_2-\cdots -n_{r-1})!}{0!n_r!} \\
+&=& \frac{n!}{n_1! n_2!\cdots n_r!}
+\end{eqnarray}
+
+若$n_1+n_2+\cdots+n_r = n$，定义
+\begin{equation}
+\binom{n}{n_1, n_2, \cdots, n_r} = \frac{n!}{n_1! n_2!\cdots n_r!}
+\end{equation}
+表示$n$个不同的元素分成大小分别为$n_1, n_2, \cdots, n_r$的$r$组的方法数。
+
+\textcolor{red}{$n$个元素的集合划分为$m$组的方法个数}：
+
+设$k_1, k_2, \cdots, k_m$是非负整数，且$k_1 +k_2+\cdots +k_m = n$。使得$n$各元素的集合$A$成为分别含有$k_1, \cdots, k_m$个元素的集合$B_1, \cdots, B_m$的并的方法个数等于
+\begin{equation}
+C_n(k_1, k_2, \cdots, k_m) = \frac{n!}{k_1!k_2!\cdots k_m!} .
+\end{equation}
+
+\textcolor{red}{重复排列}：
+
+若$n$个元素共有$k$种类型，第一种类型有$k_1$个元素，第二种类型有$k_2$个元素，$\cdots$，第$m$种类型有$k_m$个元素。则$n$个元素的各种不同排列的个数等于
+\begin{equation}
+C_n(k_1, k_2, \cdots, k_m) = \frac{n!}{k_1!k_2!\cdots k_m!} .
+\end{equation}
+
+\textcolor{red}{集合的直积}：
+
+设有$k$个集合$A_1, A_2, \cdots, A_k$。所有形如$(a_1, a_2, \cdots, a_k)$，其中$a_1 \in A_1, a_2 \in A_2, \cdots, a_k \in A_k$的元素构成的集合叫做集合$A_1, A_2, \cdots, A_k$的直积，并记成$A_1\times A_2\times \cdots \times A_k$。
+
+\textcolor{red}{集合直积的元素的个数}：
+
+设$N(A)$表示集合$A$的元素个数，那么$N(A_1\times A_2\times \cdots \times A_k) = N(A_1)\cdot N(A_2) \cdots N(A_k)$。
+
+\section{方程的整数解个数}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

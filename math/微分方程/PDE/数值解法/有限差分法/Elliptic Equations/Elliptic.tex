@@ -1,0 +1,197 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Elliptic Equations}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+\section{Residual Correction Methods}
+To solve equation 
+\begin{equation}
+\vec{A}  \vec{u} = \vec{f} ~, 
+\label{matrix_equ}
+\end{equation}
+where the variables are ordered in lexicographical order,
+\begin{equation*}
+\vec{u} = [u_{11}u_{21}\cdots u_{M_x-11} u_{12} \cdots u_{M_x-1}u_{M_y-1} ]^T
+\end{equation*}
+Let $\vec{w}$ denote an approximation to $\vec{u}$, the solution of equation, and denote the \textcolor{red}{algebraic error} by $\vec{e} = \vec{u} - \vec{w}$ and the \textcolor{red}{residual error} by $\vec{r} = \vec{f}- \vec{A}\vec{w}$. At different times, measure both the algebraic and residual errors with respect to either the sup-norm or the $\ell_2$ norm defined on $R^L$, where $L = (M_x- 1)(M_y- 1)$.
+\begin{equation}
+\vec{A}  \vec{e} = \vec{A} (\vec{u} - \vec{w}) = \vec{f} - \vec{A} \vec{w} = \vec{r} ~.
+\end{equation}
+The \textcolor{red}{correction equation} is
+\begin{equation}
+\vec{u} = \vec{w} +\vec{e} = \vec{w} + \vec{A}^{-1} \vec{r} ~.
+\end{equation}
+The residual correction method is to approximate $\vec{A}^{-1}$ and define the iteration
+\begin{equation}
+\vec{w}_{k+1} = \vec{w}_k +\vec{B} \vec{r}_k ~,
+\label{iter_sche}
+\end{equation}
+where $\vec{w}_k = \vec{f}- \vec{A} \vec{w}_k$ and $B$ is some approximation to $A^{-1}$. \\
+If $\vec{B} = \vec{I}$, it is the \textcolor{red}{Richardson iterative scheme},
+\begin{equation}
+\vec{w}_{k+1} = \vec{w}_k +  \vec{r}_k ~.
+\end{equation}
+Decompose the matrix $\vec{A}$ into $\vec{A} = \vec{L} +\vec{D} +\vec{U}$ where $\vec{L}$ is the lower triangular matrix consisting of the elements of $\vec{A}$ below the diagonal, $\vec{D}$ is a diagonal matrix consisting of the diagonal of $\vec{A}$, and $\vec{U}$ is an upper triangular matrix consisting of the elements of $\vec{A}$ above the diagonal. If $\vec{B} = \vec{D}^{-1}$, it is \textcolor{red}{Jacobi relaxation scheme}; if $\vec{B} = (\vec{L} +\vec{D})^{-1}$, it is \textcolor{red}{Gauss-Seidel relaxation scheme}; if $\vec{B} = \omega(\vec{I} +\omega\vec{D}^{-1}\vec{L})^{-1} \vec{D}^{-1} = \omega (\vec{D} +\omega \vec{L})^{-1}$, it is \textcolor{red}{successive overrelaxation scheme}, where $\omega$ is a free parameter; if $\vec{B} = \omega(2-\omega)(\vec{D} +\omega\vec{U})^{-1}\vec{D}(\vec{D} +\omega \vec{L})^{-1}$, it is \textcolor{red}{symmetric successive overrelaxation scheme}, where $\omega$ is a free parameter.
+
+\subsection{Analysis of Residual Correction Schemes}
+The approach that is used often to obtain an approximate solution to equation (\ref{matrix_equ}) is to choose an initial guess, $\vec{w}_0$, and use the iterative scheme (\ref{iter_sche}). The sequence $\{\vec{w}_k\}$ will not converge to the solution of equation (\ref{matrix_equ}) for all choices of $\vec{B}$ and $\vec{w}_0$.
+
+
+
+
+
+
+\section{Elliptic Difference Equations: Neumann Boundary Conditions}
+
+
+
+
+
+
+
+\section{Multigrid}
+The method of multigrid is to eliminate the high frequency components of the error quickly on a fine grid. To accomplish this, the high frequency components of the error will have to correspond to the smallest eigenvalues of the iteration matrix. Then transfer the problem to a coarser grid where high frequency components of the error correspond to some of the lower frequency errors on the previous grid. Eliminate these high frequency components of the error on this coarse grid quickly. This process is repeated on yet coarser grids, and the result is finally transferred back to the fine grid. The savings in computational costs are due to both the fact that we are eliminating the errors quickly on the appropriate grid and the fact that the coarse grids are cheaper to work on.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

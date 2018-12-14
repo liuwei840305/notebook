@@ -1,0 +1,334 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+
+\title{Matrix Algebra}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Matrix Operations}
+
+The diagonal entries in an $m\times n$ matrix $A= [a_{ij}]$ are $a_{11}, a_{22}, a_{33}, \cdots$, and they form the main diagonal of $A$. A diagonal matrix is a square matrix whose nondiagonal entries are zero. An example is the $n\times n$ identity matrix, $I_n$. An $m\times n$ matrix whose entries are all zero is a zero matrix and is written as $0$. The size of a zero matrix is usually clear from the context.
+
+\subsection{Sums and Scalar Multiples}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+Let $A, B, and C$ be matrices of the same size, and let $r$ and $s$ be scalars. 
+\begin{align}
+& a. A+B = B+A ~, ~~ & d. r(A+B) = rA +rB \\
+& b. (A+B) +C =A +(B +C) ~, ~~ & e. (r +s)A = rA +sA \\
+& c. A+0 = A ~, ~~ & f. r(sA)=(rs)A
+\end{align}
+\end{tcolorbox}
+
+\subsection{Matrix Multiplication}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+If $A$ is an $m\times n$ matrix, and if $B$ is an $n\times p$ matrix with columns $\vec{b}_1, \cdots, \vec{b}_p$, then the product $AB$ is the $m\times p$ matrix whose columns are $A\vec{b}_1, \cdots, A\vec{b}_p$. That is, 
+\begin{equation*}
+AB = A [\vec{b}_1, \vec{b}_2, \cdots, \vec{b}_p] = [A\vec{b}_1 A\vec{b}_2 \cdots A\vec{b}_p]
+\end{equation*}
+\end{tcolorbox}
+
+Multiplication of matrices corresponds to composition of linear transformations.
+
+Each column of $AB$ is a linear combination of the columns of $A$ using weights from the corresponding column of $B$.
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ROW-COLUMN RULE FOR COMPUTING $AB$]
+If the product $AB$ is defined, then the entry in row $i$ and column $j$ of $AB$ is the sum of the products of corresponding entries from row $i$ of $A$ and column $j$ of $B$. If $(AB)_{ij}$ denotes the $(i, j)$-entry in $AB$, and if $A$ is an $m\times n$ matrix, then
+\begin{equation*}
+(AB)_{ij} = a_{i1} b_{1j} + a_{i2} b_{2j} +\cdots +a_{in}b_{nj} ~.
+\end{equation*}
+\end{tcolorbox}
+
+\subsection{Properties of Matrix Multiplication}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+Let $A$ be an $m\times n$ matrix, and let $B$ and $C$ have sizes for which the indicated sums and products are defined.
+\begin{align*}
+& a. ~A(BC) = (AB)C ~~~ \text{(associative law of multiplication)} \\
+& b. ~A(B + C) = AB + AC ~~~ \text{(left distributive law)} \\
+& c. ~(B + C)A = BA + CA ~~~ \text{(right distributive law)} \\
+& d. ~r(AB) = (rA)B = A(rB) ~\text{for any scalar r} \\
+& e. ~I_m A = A = A I_n ~~~\text{(identity for matrix multiplication)}
+\end{align*}
+\end{tcolorbox}
+
+
+\subsection{Powers of a Matrix}
+
+
+
+\subsection{The Transpose of a Matrix}
+Given an $m\times n$ matrix $A$, the \textcolor{red}{transpose} of $A$ is the $n\times m$ matrix, denoted by $A^T$, whose columns are formed from the corresponding rows of $A$.
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+Let $A$ and $B$ denote matrices whose sizes are appropriate for the following sums and products.
+\begin{align*}
+& a. ~(A^T)^T = A \\
+& b. ~(A+B)^T = A^T +B^T \\
+& c. ~\text{For any scalar} r, (rA)^T = rA^T \\
+& d. ~(AB)^T =B^T A^T 
+\end{align*}
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The Inverse of a Matrix}
+An $n\times n$ matrix $A$ is said to be invertible if there is an $n\times n$ matrix $C$ such that
+\begin{equation*}
+C A = I ~\text{and} ~ A C = I
+\end{equation*}
+where $I = I_n$, the $n\times n$ identity matrix. $C$ is called an inverse of $A$, denoted by $A^{-1}$, then
+\begin{equation*}
+A^{-1} A = A A^{-1} = I ~.
+\end{equation*}
+A matrix that is \textcolor{blue}{not invertible} is sometimes called a \textcolor{red}{singular matrix}, and an \textcolor{blue}{invertible matrix} is called a \textcolor{red}{nonsingular matrix}.
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+Let $A= \renewcommand{\arraystretch}{0.7} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$. If $ad -bc \neq 0$, then $A$ is invertible and 
+\begin{equation*}
+A^{-1} = \dfrac{1}{ad-bc} 
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+d & -b \\
+-c & a
+\end{pmatrix}
+\end{equation*}
+If $ad - bc = 0$, then $A$ is not invertible.
+\end{tcolorbox}
+The quantity $ad - bc$ is called the \textcolor{red}{determinant of $A$}, i.e.
+\begin{equation*}
+\text{det} A = ad -bc ~.
+\end{equation*}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+If $A$ is an invertible $n\times n$ matrix, then for each $\vec{b}$ in $\mathbb R^n$, the equation $A\vec{x} = \vec{b}$ has the unique solution $\vec{x} = A^{-1} \vec{b}$.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+a. ~If $A$ is an invertible matrix, then $A^{-1}$ is invertible and 
+\begin{equation*}
+(A^{-1})^{-1} = A
+\end{equation*}
+b. If $A$ and $B$ are $n\times n$ invertible matrices, then so is $AB$, and the inverse of $AB$ is the product of the inverses of $A$ and $B$ in the reverse order. That is,
+\begin{equation*}
+(AB)^{-1} = B^{-1} A^{-1}
+\end{equation*}
+c. If $A$ is an invertible matrix, then so is $A^T$, and the inverse of $A^T$ is the transpose of $A^{-1}$. That is,
+\begin{equation*}
+(A^T )^{-1} = (A^{-1})^T
+\end{equation*}
+\end{tcolorbox}
+
+The \textcolor{orange}{product of $n\times n$ invertible matrices is invertible}, and the \textcolor{orange}{inverse is the product of their inverses in the reverse order}.
+
+
+
+\subsection{Elementary Matrices}
+An \textcolor{red}{elementary matrix} is one that is obtained by \textcolor{red}{performing a single elementary row operation on an identity matrix}.
+
+
+If an elementary row operation is performed on an $m\times n$ matrix $A$, the resulting matrix can be written as $EA$, where the $m\times m$ matrix $E$ is created by performing the same row operation on $I_m$.
+
+
+
+Each elementary matrix $E$ is invertible. The inverse of $E$ is the elementary matrix of the same type that transforms $E$ back into $I$.
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+An $n\times n$ matrix $A$ is invertible if and only if $A$ is row equivalent to $I_n$, and in this case, any sequence of elementary row operations that reduces $A$ to $I_n$ also transforms $I_n$ into $A^{-1}$.
+\end{tcolorbox}
+
+
+\subsection{An Algorithm for Finding $A^{-1}$}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ALGORITHM FOR FINDING $A^{-1}$]
+Row reduce the augmented matrix $[ A~ I]$. If $A$ is row equivalent to $I$, then $[A ~I]$ is row equivalent to $[I A^{-1}]$. Otherwise, $A$ does not have an inverse.
+\end{tcolorbox}
+
+
+\subsection{Another View of Matrix Inversion}
+
+
+
+\section{Characterizations of Invertible Matrices}
+
+
+
+\section{Partitioned Matrices}
+
+
+
+
+
+
+\section{Matrix Factorizations}
+
+
+
+
+
+
+\section{The Leontief Input–Output Model}
+
+
+
+
+\section{Applications to Computer Graphics}
+
+
+
+
+\section{Subspaces of $\mathbb R^n$}
+
+
+
+
+
+\section{Dimension and Rank}
+
+
+
+
+\end{document}

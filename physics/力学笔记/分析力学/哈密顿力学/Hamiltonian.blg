@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Hamiltonian.aux
+The style file: unsrt_update.bst
+Database file #1: ref.bib
+Warning--empty author and editor in 2007理论物理学教程
+Warning--empty publisher in Thornton
+Warning--empty publisher in 2002clme.book.....G
+You've used 5 entries,
+            1814 wiz_defined-function locations,
+            473 strings with 4153 characters,
+and the built_in function-call counts, 821 in all, are:
+= -- 67
+> -- 31
+< -- 0
++ -- 15
+- -- 7
+* -- 34
+:= -- 126
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 1
+chr.to.int$ -- 0
+cite$ -- 8
+duplicate$ -- 51
+empty$ -- 96
+format.name$ -- 7
+if$ -- 192
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 9
+newline$ -- 27
+num.names$ -- 4
+pop$ -- 37
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 15
+stack$ -- 0
+substring$ -- 0
+swap$ -- 5
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 4
+width$ -- 6
+write$ -- 50
+(There were 3 warnings)

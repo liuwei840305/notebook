@@ -1,0 +1,518 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+\usepackage{leftidx}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{平稳随机过程}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{平稳随机过程的概念}
+若对于任意的$n(= 1, 2, \cdots)$，$t_1, t_2, \cdots, t_n \in T$和任意实数$h$，当$t_1 +h, t_2 +h, \cdots, t_n +h \in T$时，$n$维随机变量
+\begin{equation}
+(X(t_1), X(t_2), \cdots, X(t_n)~)
+\end{equation}
+和
+\begin{equation}
+(X(t_1+h), X(t_2+h), \cdots, X(t_n+h)~)
+\end{equation}
+具有相同的分布函数，则称随机过程$\{X(t), t\in T\}$具有平稳性，称此过程为\textcolor{red}{平稳随机过程}、\textcolor{red}{平稳过程}；\textcolor{red}{严平稳过程}、\textcolor{red}{狭义平稳过程}；
+
+过程的统计特征性不随时间的推移而变化；
+
+若前后的环境和主要条件都不随时间的推移而变化，一般就认为是平稳的；
+
+当定义在离散参数集上时，也称为\textcolor{red}{平稳随机序列}、\textcolor{red}{平稳时间序列}；
+
+\textcolor{blue}{非平稳过程}：一般，随机过程处于过渡阶段时总是非平稳的；
+
+设平稳过程$X(t)$的均值函数$E[X(t)]$存在，则均值函数$\mu_X$、均方值函数$\Psi^2_X$和方差函数$\sigma^2_X$均为常数；
+
+若自相关函数$R_X(t_1, t_2) = E[X(t_1)\cdot X(t_2)]$存在，二维随机变量$(X(t_1), X(t_2) )$与$(X(0), X(t_2-t_1) )$同分布，
+\begin{equation}
+E[X(t_1)X(t_2)] = E[X(0)X(t_2-t_1)] 
+\end{equation}
+
+$R_X(t_1,t_2) = R_X(t_2-t_1)$，或者$R_X(t,t+\tau) = E[X(t)X(t+\tau)]  = R_X(\tau)$
+
+平稳过程的自相关函数仅是时间差$\tau = t_2-t_1$的单变量函数；
+
+协方差函数
+\begin{equation}
+C_X(\tau) = E\{[X(t)-\mu_X][X(t+\tau)-\mu_X] \} = R_X(\tau) -\mu_X^2
+\end{equation}
+令$\tau = 0$，则
+\begin{equation}
+\sigma_X^2 = C_X(0) = R_X(0) -\mu_X^2
+\end{equation}
+
+给定二阶矩过程$\{X(t), t \in T\}$，若对任意$t, t+\tau \in T$，
+\begin{eqnarray}
+\nonumber E[X(t)] = \mu_X(\text{常数}), \\
+E[X(t)X(t+\tau)] = R_X(\tau), 
+\end{eqnarray}
+称$\{X(t), t \in T\}$为\textcolor{red}{宽平稳过程}、\textcolor{red}{广义平稳过程}；
+
+正态过程的概率密度由均值函数和自相关函数完全确定，若均值函数和自相关函数不随时间变化，则概率密度不随时间变化，宽平稳正态过程也必定是严平稳的；
+
+考虑两个平稳过程$X(t)$和$Y(t)$，若它们的互相关函数也只是时间差的单变量函数，$R_{XY}(\tau)$，即
+\begin{equation}
+R_{XY}(t, t+\tau) = E[X(t)Y(t+\tau)] = R_{XY}(\tau)
+\end{equation}
+称$X(t)$和$Y(t)$是\textcolor{red}{平稳相关}的，或这两个过程是\textcolor{red}{联合(宽)平稳}的；
+
+\section{各态历经性}
+根据实验记录确定平稳过程的均值和自相关函数的理论依据、方法
+
+给定二阶矩过程$\{X(t), t \in T\}$，若它的每一个样本函数在$[a, b] \subset T$上的积分都存在，就说随机过程$X(t)$在$[a, b]$上的积分存在，记为
+\begin{equation}
+Y = \int_a^b X(t) \dif t
+\end{equation}
+
+在某些情况下，对于随机过程的所有样本函数，在$[a, b]$上的积分未必全都存在；引入均方意义下的积分，即考虑$[a, b]$内的一组分点：
+\begin{equation}
+a = t_0 < t_1 < t_2 < \cdots < t_n = b, 
+\end{equation}
+且记
+\begin{equation}
+\Delta t_i = t_i -t_{i-1}, ~ t_{i-1} \leq \tau_i \leq t_i, ~ i = 1, 2, \cdots, n
+\end{equation}
+若有满足
+\begin{equation}
+\lim_{\max \Delta t_i \rightarrow 0} E\{[Y -\sum_{i=1}^n X(\tau_i) \Delta t_i]^2 \} = 0
+\end{equation}
+的随机变量$Y$存在，就称$Y$为$X(t)$在$[a, b]$上的\textcolor{red}{均方积分}；
+
+设$X_1, X_2, \cdots, X_n, \cdots$是一随机变量序列，若存在随机变量$X_0$，使
+\begin{equation}
+\lim_{n\rightarrow \infty} E\{[X_n -X_0]^2\} = 0
+\end{equation}
+则称$X_0$是$X_n$的均方极限，记为${\rm l.i.m.} X_n = X_0$
+
+
+二阶矩过程$X(t)$在$[a, b]$上均方积分存在的充分条件是自相关函数的二重积分，即
+\begin{equation}
+\int_a^b \int_a^b R_X(s, t) \dif s \dif t
+\end{equation}
+存在，且此时还成立有
+\begin{equation}
+E[Y] = \int_a^b E[X(t)] \dif t
+\end{equation}
+过程$X(t)$的积分均值等于过程的均值函数的积分；
+
+\textcolor{red}{时间均值函数}
+\begin{equation}
+\left\langle X(t) \right\rangle = \lim_{T\rightarrow +\infty} \frac{1}{2T} \int_{-T}^{T} X(t) \dif t
+\end{equation}
+
+\textcolor{red}{时间相关函数}
+\begin{equation}
+\left\langle X(t) X(t+\tau) \right\rangle = \lim_{T\rightarrow +\infty} \frac{1}{2T} \int_{-T}^{T} X(t) X(t+\tau)  \dif t
+\end{equation}
+
+设$X(t)$是一平稳过程，
+1. 若
+\begin{equation}
+\left\langle X(t) \right\rangle = E[X(t)] = \mu_X
+\end{equation}
+以概率$1$成立，则称过程$X(t)$的\textcolor{red}{均值具有各态历经性}。
+2. 若对任意实数$\tau$，
+\begin{equation}
+\left\langle X(t) X(t+\tau) \right\rangle = E[X(t)X(t+\tau)] = R_X(\tau)
+\end{equation}
+以概率$1$成立，则称过程$X(t)$的\textcolor{red}{自相关函数具有各态历经性}。
+当$\tau = 0$时，称\textcolor{red}{均方值具有各态历经性}。
+3. 若$X(t)$的均值和自相关函数都具有各态历经性，则称$X(t)$是(宽)\textcolor{red}{各态历经过程}，或者是\textcolor{red}{各态历经}的；
+
+“以概率$1$成立”，对$X(t)$的所有样本函数；
+
+\textcolor{red}{遍历性}，\textcolor{red}{ergodicity}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 均值各态历经定理]
+平稳过程$X(t)$的均值具有各态历经性的充要条件是
+\begin{equation}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{2T} \left( 1-\dfrac{\tau}{2T} \right) [R_X(\tau) - \mu_X^2 ] \dif \tau = 0 ~.
+\label{eq:aver}
+\end{equation}
+\end{tcolorbox}
+
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 推论]
+在$\lim\limits_{\tau \rightarrow +\infty} R_X(\tau)$存在条件下，若$\lim\limits_{\tau \rightarrow +\infty} R_X(\tau) = \mu_X^2$，则(\ref{eq:aver})成立，均值具有各态历经性；若$\lim\limits_{\tau \rightarrow +\infty} R_X(\tau) \neq \mu_X^2$，则(\ref{eq:aver})不成立，均值不具有各态历经性。
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 自相关函数各态历经定理]
+平稳过程$X(t)$的自相关函数$R_X(\tau)$具有各态历经性的充要条件是
+\begin{equation}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{2T} \left(1 -\dfrac{\tau_1}{T} \right)  [B(\tau_1) - R_X^2(\tau) ] \dif \tau_1 = 0 ~,
+\label{eq:autocorrela}
+\end{equation}
+其中$B(\tau_1) = E[X(t) X(t+\tau) X(t+\tau_1) X(t+\tau+\tau_1)]$. 
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理三]
+\begin{equation*}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{T} X(t) \dif t = E[X(t)] = \mu_X ~,
+\end{equation*}
+以概率$1$成立的充要条件是
+\begin{equation}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{T} \left(1 -\dfrac{\tau}{T} \right)  [R_X(\tau) - \mu_X^2 ] \dif \tau = 0 ~.
+\label{eq:aver}
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理四]
+\begin{equation*}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{T} X(t)X(t+\tau) \dif t = E[X(t)X(t+\tau)] = R_X(\tau) ~,
+\end{equation*}
+以概率$1$成立的充要条件是
+\begin{equation}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{T} \left(1 -\dfrac{\tau_1}{T} \right)  [B(\tau_1) - R_X^2(\tau) ] \dif \tau_1 = 0 ~.
+\label{eq:autocorrela_}
+\end{equation}
+\end{tcolorbox}
+
+各态历经定理从理论上给出了如下保证：一个平稳过程$X(t)$，若$0<t< +\infty$，只要它满足条件(\ref{eq:aver})和(\ref{eq:autocorrela_})，便可以根据“以概率$1$成立”的含义，从一次试验所得到的样本数$x(t)$来确定出该过程的均值和自相关函数，即
+\begin{equation}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{T} x(t) \dif t = \mu_X ~,
+\end{equation}
+和
+\begin{equation}
+\lim_{T\rightarrow +\infty} \dfrac{1}{T} \int_0^{T} x(t)x(t+\tau) \dif t = R_X(\tau) ~.
+\end{equation}
+
+若试验记录$x(t)$只在时间区间$[0,T]$上给出，则相应于()和()式有以下无偏估计式：
+\begin{align}
+\mu_X &\approx \hat{\mu}_X = \dfrac{1}{T} \int_0^T x(t) \dif t ~, \\
+R_X(\tau) &\approx \hat{R}_X(\tau) = \dfrac{1}{T -\tau} \int_0^{T-\tau} x(t) x(t+\tau) \dif t  = \dfrac{1}{T -\tau} \int_\tau^{T} x(t) x(t-\tau) \dif t ~, ~~ 0 \leqslant \tau < T ~.
+\end{align}
+
+
+
+
+
+
+各态历经定理的条件是比较宽的，工程中碰到的大多数平稳过程都能够满足。不过，要验证它们是否成立却是十分困难的。实践中，通常先假定所研究的平稳过程具有各态历经性，并从这个假定出发，对由此而产生的各种资料进行分析处理，看所得的结论是否与实际相符。若不符，则要修改假设。
+
+
+
+
+\section{相关函数的性质}
+
+\section{平稳随机过程的功率谱密度}
+
+利用傅里叶变换确立平稳过程的频率结构-功率谱密度；
+
+设有时间函数$x(t), -\infty < t < +\infty$，假如$x(t)$满足\textcolor{blue}{狄利克雷(Dirichlet)条件}，且\textcolor{blue}{绝对可积}，即
+\begin{equation}
+\int_{-\infty}^{+\infty} |x(t)| \dif t < +\infty,
+\end{equation}
+那么$x(t)$的傅里叶变换存在，或者说具有频谱
+\begin{equation}
+F_x(\omega) = \int_{-\infty}^{+\infty} x(t) e^{-i\omega t} \dif t
+\end{equation}
+其逆变换
+\begin{equation}
+x(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} F_x(\omega) e^{i\omega t} \dif \omega
+\end{equation}
+$ F_x(-\omega)$一般是复数量，其共轭函数
+\begin{equation}
+F^*_x(\omega) = F_x(-\omega) ~.
+\end{equation}
+\textcolor{red}{Parseval等式}
+\begin{equation}
+\int_{-\infty}^{+\infty} x^2(t) \dif t = \frac{1}{2\pi} \int_{-\infty}^{+\infty} |F_x(\omega)|^2 \dif \omega
+\end{equation}
+左边：$x(t)$在$(-\infty, +\infty)$上的总能量；\\
+右边：$|F_x(\omega)|^2$，$x(t)$的能谱密度；\\
+Parseval等式可以理解为总能量的谱表示式。
+
+假定$x(t)$在$(-\infty, +\infty)$上的平均功率，即
+\begin{equation}
+\lim_{T\rightarrow +\infty} \frac{1}{2T} \int_{-T}^{+T} x^2(t) \dif t 
+\end{equation}
+是存在的；
+
+由给定的$x(t)$构造一个截尾函数
+\begin{equation}
+x_T(t) = \left\{
+\begin{aligned}
+x(t),  & & |t| \leqslant T, \\
+0,  & & |t| > T.
+\end{aligned}
+\right.
+\end{equation}
+
+$x_T(t)$的傅里叶变换
+\begin{equation}
+F_x(\omega, T) = \int_{-\infty}^{+\infty} x_T(t) e^{-i\omega t} \dif t = \int_{-T}^{T} x(t) e^{-i\omega t} \dif t ~,
+\end{equation}
+它的Parseval等式
+\begin{equation}
+\int_{-\infty}^{+\infty} x^2_T(t) \dif t = \frac{1}{2\pi} \int_{-\infty}^{+\infty} |F_x(\omega, T)|^2 \dif \omega ~.
+\end{equation}
+两边除以$2T$，
+\begin{equation}
+\frac{1}{2T}\int_{-T}^{+T} x^2(t) \dif t = \frac{1}{4\pi T} \int_{-\infty}^{+\infty} |F_x(\omega, T)|^2 \dif \omega
+\end{equation}
+令$T\rightarrow +\infty$，$x(t)$在$(-\infty, +\infty)$上的\textcolor{red}{平均功率}即可表示为
+\begin{equation}
+\lim_{T\rightarrow +\infty} \frac{1}{2T}\int_{-\infty}^{+\infty} x^2(t) \dif t = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \lim_{T\rightarrow +\infty} \frac{1}{2T} |F_x(\omega, T)|^2 \dif \omega
+\label{eq:aver_power}
+\end{equation}
+相应于能谱密度，右端被积式称作函数$x(t)$的\textcolor{red}{平均功率谱密度}、\textcolor{red}{功率谱密度}，记为
+\begin{equation}
+\color{red} S_x(\omega) = \lim_{T\rightarrow +\infty} \frac{1}{2T} |F_x(\omega, T)|^2
+\end{equation}
+(\ref{eq:aver_power})式的右端就是平均功率的谱表示式。
+
+
+
+\subsection{平稳过程}
+$X(t), -\infty < t < +\infty$
+\begin{align}
+F_X(\omega, T) &= \int_{-T}^{T} X(t) e^{-i\omega t} \dif t  ~, \\
+\frac{1}{2T}\int_{-T}^{+T} X^2(t) \dif t &= \frac{1}{4\pi T} \int_{-\infty}^{+\infty} |F_X(\omega, T)|^2 \dif \omega ~.
+\end{align}
+两式的积分都是随机的。上式左端的均值的极限，即
+\begin{equation}
+\lim_{T\rightarrow +\infty} E\left \{ \frac{1}{2T}\int_{-T}^{+T} X^2(t) \dif t \right \}
+\end{equation}
+定义为\textcolor{red}{平稳过程$X(t)$的平均功率}；
+
+交换积分与均值的顺序，且平稳过程的均方值是常数；
+\begin{equation}
+\Psi^2_X = \lim_{T\rightarrow +\infty} E\left \{ \frac{1}{2T}\int_{-T}^{T} X^2(t) \dif t \right \} = \lim_{T\rightarrow +\infty} \frac{1}{2T} \int_{-T}^{T} E[X^2(t)] \dif t
+\end{equation}
+平稳过程的平均功率$=$该过程的均方值或$R_X(0)$。交换运算顺序后，
+\begin{equation}
+\Psi^2_X = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \lim_{T\rightarrow +\infty} \frac{1}{2T} E\{ |F_x(\omega, T)|^2 \} \dif \omega = \color{red} \frac{1}{2\pi} \int_{-\infty}^{+\infty} S_{X}(\omega) \dif \omega ~.
+\end{equation}
+此为\textcolor{red}{平稳过程$X(t)$的平均功率的谱表示式}，$X(t)$的平均功率关于频率的分布。\textcolor{red}{平稳过程的功率谱密度}
+\begin{equation}
+\color{red} S_{X}(\omega) = \lim_{T\rightarrow +\infty} \frac{1}{2T} E\{ |F_x(\omega, T)|^2 \} ~,
+\end{equation}
+也称\textcolor{red}{自谱密度}、\textcolor{red}{谱密度}\footnote{平稳过程的总能量为无限，能谱密度也不存在。}，他是从频率这个角度描述$X(t)$的统计规律的最主要的数字特征。
+
+若已知平稳过程$X(t)$的谱密度，在任何特定频率范围$(\omega_1, \omega_2)$内的谱密度对平均功率的贡献为
+\begin{equation}
+\leftidx{_{(\omega_1\cdot \omega_2)}^{} }{\Psi}{^2_X} = \frac{1}{2\pi} \int_{\omega_1}^{\omega_2} S_{X}(\omega) \dif \omega
+\end{equation}
+也称双边谱密度；
+
+在$[0, +\infty)$上的平稳过程$X(t)$，定义单边谱密度
+\begin{equation}
+G_X(\omega) = \left\{
+\begin{aligned}
+2\lim_{T\rightarrow +\infty} \frac{1}{T} E\{ |F_x(\omega, T)|^2 \}, & & \omega \geq 0 \\
+0, & & \omega < 0
+\end{aligned}
+\right.
+\end{equation}
+
+单边谱密度和双边谱密度的关系
+\begin{equation}
+G_X(\omega) = \left\{
+\begin{aligned}
+2S_X(\omega), & & \omega \geq 0 \\
+0, &  & \omega < 0
+\end{aligned}
+\right.
+\end{equation}
+
+
+$S_X(\omega)$是$\omega$的实的、非负的偶函数；
+
+\textcolor{red}{维纳-辛钦(Wiener-Khinchin)公式}：$S_X(\omega)$和自相关函数$R_X(\tau)$是一傅里叶变换对，即
+\begin{eqnarray}
+\nonumber S_X(\omega) &=& \int_{-\infty}^{+\infty}  R_X(\tau) e^{-i\omega \tau} \dif \tau \\
+R_X(\tau) &=& \frac{1}{2\pi}  \int_{-\infty}^{+\infty}  S_X(\omega) e^{i\omega \tau} \dif \omega
+\end{eqnarray}
+\textcolor{red}{平稳过程}在\textcolor{red}{自相关函数绝对可积}的条件下，\textcolor{blue}{谱密度$S_X(\omega)$}和\textcolor{blue}{自相关函数$R_X(\tau)$}是\textcolor{red}{傅里叶变换对}。
+
+令$\tau = 0$，
+\begin{equation}
+R_X(\tau) = \frac{1}{2\pi}  \int_{-\infty}^{+\infty}  S_X(\omega) \dif \omega
+\end{equation}
+
+有理谱密度的一般形式
+\begin{equation}
+S_X(\omega) = S_0 \dfrac{\omega^{2n} +a_{2n-2} \omega^{2n-2} +\cdots + a_0}{\omega^{2m} +b_{2m-2} \omega^{2m-2} +\cdots + b_0} ~,
+\end{equation}
+式中$S_0 > 0$，要求均方值有限，$m > n$，且分母应无实数根。
+
+
+当自相关函数$R_X(\tau) = 1$时，谱密度$S_X(\omega) = 2\pi \delta(\omega)$。正弦函数的自相关函数$R_X(\tau) = a\cos \omega_0 \tau$的谱密度为
+\begin{equation}
+S_X(\omega) = a\pi [\delta(\omega -\omega_0) +\delta(\omega +\omega_0) ] ~.
+\end{equation}
+
+
+
+\subsection{白噪声}
+均值为零而谱密度为正常数，即
+\begin{equation*}
+S_X(\omega) = S_0, ~~ -\infty < \omega < +\infty (S_0 > 0)
+\end{equation*}
+的平稳过程$X(t)$，称为\textcolor{red}{白噪声过程}，简称\textcolor{red}{白噪声}。白噪声的自相关函数为
+\begin{equation*}
+R_X(\tau) = \dfrac{1}{2\pi} \int_{-\infty}^\infty S_X(\omega) {\rm e}^{i\omega \tau} \dif \omega = \dfrac{S_0}{2\pi} \int_{-\infty}^\infty {\rm e}^{i\omega \tau} \dif \omega = S_0 \delta(\tau) ~.
+\end{equation*}
+白噪声也可以定义为均值为零、自相关函数为$\delta$函数的随机过程，且这个过程在$t_1 \neq t_2$时，$X(t_1)$和$X(t_2)$是不相关的。
+
+带限白噪声，其谱密度仅在某些有限频率范围内取异于零的常数。低通白噪声，
+\begin{equation*}
+S_X(\omega) = \left\{\begin{array}{ll}
+S_0, & |\omega| \leqslant \omega_1,\\
+0 , & |\omega| > \omega_1 ,
+\end{array}\right.
+\end{equation*}
+相应的自相关函数为
+\begin{align*}
+R_X(\tau) &= \dfrac{1}{2\pi} \int_{-\infty}^\infty S_X(\omega) {\rm e}^{i\omega \tau} \dif \omega =  \dfrac{1}{2\pi} \int_{-\omega_1}^{\omega_1} S_0 {\rm e}^{i\omega \tau} \dif \omega \\
+&=  \left\{\begin{array}{ll}
+\dfrac{S_0 \omega_1}{\pi}, & \tau = 0,\\
+\dfrac{S_0}{2\pi} \dfrac{{\rm e}^{i\omega \tau}}{i\tau} \Bigg|_{-\omega_1}^{\omega_1} = \dfrac{S_0 \omega_1}{\pi} \left[\dfrac{\sin(\omega_1 \tau)}{\omega_1 \tau}  \right], & \tau \neq 0 ,
+\end{array}\right.
+\end{align*}
+当$\tau =\dfrac{k\pi}{\omega_1}, k = \pm 1, \pm 2, \cdots, \cdots$时，$R_X(\tau) = 0$。低通白噪声$X(t)$在$t_2-t_1 = \dfrac{k\pi}{\omega_1}$时，$X(t_1)$和$X(t_2)$是不相关的。
+
+
+\subsection{互谱密度及其性质}
+设$X(t)$和$Y(t)$是两个平稳相关的随机过程，定义
+\begin{equation}
+S_{XY} (\omega) = \underset{T\rightarrow +\infty}\lim \dfrac{1}{2T} E\{F_X(-\omega, T) F_Y(\omega, T)\} ~,
+\end{equation}
+为平稳过程$X(t)$和$Y(t)$的\textcolor{red}{互谱密度}。互谱密度不再是$\omega$的实的、正的偶函数，\\
+1. $S_{XY} (\omega) = S^\ast_{YX}(\omega) $，即$S_{XY} (\omega)$和$S_{YX} (\omega)$互为共轭函数。\\
+2. 在互相关函数$R_{XY}(\tau)$绝对可积的条件下，维纳-辛钦公式
+\begin{align}
+S_{XY}(\omega) = \int_{-\infty}^\infty R_{XY}(\tau) {\rm e}^{-i\omega \tau} \dif \tau ~, \\
+R_{XY}(\tau) = \dfrac{1}{2\pi} \int_{-\infty}^\infty S_{XY}(\omega) {\rm e}^{i\omega \tau} \dif \omega ~.
+\end{align}
+3. ${\rm Re}[S_{XY}(\omega)]$和${\rm Re}[S_{YX}(\omega)]$是$\omega$的偶函数，${\rm Im}[S_{XY}(\omega)]$和${\rm Im}[S_{YX}(\omega)]$是$\omega$的奇函数。\\
+4. 互谱密度和自谱密度之间有不等式
+\begin{equation*}
+|S_{XY}(\omega)|^2 \leqslant S_{X}(\omega) S_{Y}(\omega) ~.
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

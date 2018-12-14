@@ -1,0 +1,1 @@
+pygmentize -l bash -f latex -F tokenmerge -P style=default -P commandprefix=PYGdefault -o "scons.out.pyg" "scons.pyg" 

@@ -1,0 +1,251 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\newcommand*{\mysqrt}[4]{\sqrt[\leftroot{#1}\uproot{#2}#3]{#4}}
+
+\title{解析开拓}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{解析开拓的概念与方法}
+\subsection{解析开拓的概念}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设函数$f(z)$在集合$E$上有定义。若存在区域$D \supset E$及区域$D$上的解析函数$F(z)$，使得在集合$E$上有$F(z) = f(z)$，则称函数$F(z)$是$f(z)$从$E$开拓到$D$的解析函数，简称$F(z)$是$f(z)$的\textcolor{red}{解析开拓}。
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+设平面上的区域$D_1$与$D_2$有一个公共部分$d$，函数$f_1(z)$在$D_1$解析；函数$f_2(z)$在$D_2$解析，且在$d = D_1\cap D_2$上$f_1 = f_2$，则函数
+\begin{equation}
+F(z) = \begin{cases}
+f_1(z) ~, & z \in D_1\setminus d ~, \\
+f_2(z) ~, & z \in D_2\setminus d ~, \\ 
+f_1(z) = f_2(z) ~, &z \in d
+\end{cases}
+\end{equation}
+是区域$D = D_1 +D_2$上的单值解析函数。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+设区域$D_1$与$D_2$有公共边界$\Gamma_{12}$，它是一条逐段光滑曲线。设函数$f_1(z)$在$D_1$解析，在$D_1+\Gamma_{12}$上连续；函数$f_2(z)$在$D_2$内解析，在$D_2 +\Gamma_{12}$上连续，且满足$f_1(z) = f_2(z), z \in \Gamma_{12}$，则函数
+\begin{equation}
+F(z) = \begin{cases}
+f_1(z) ~, & z \in D_1 ~, \\
+f_1(z) = f_2(z) ~, & z \in \Gamma_{12} ~, \\ 
+f_2(z) ~, &z \in D_2
+\end{cases}
+\end{equation}
+是区域$D = D_1 +\Gamma_{12} +D_2$上的单值解析函数。
+\end{tcolorbox}
+
+
+
+
+\subsection{解析开拓的具体方法}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 黎曼-施瓦茨对称定理]
+设区域$D_1$在上半平面上，它有一段边界$\Gamma_1$在实轴上，函数$f_1(z)$在$D_1$内解析，在$D_1 +\Gamma_{1}$上连续，且在$\Gamma_1$取实数值，则可以构成一个区域$D_2$，它与$D_1$关于实轴对称，函数$f_2(z)$:
+\begin{equation}
+f_2(z) = \overline{f_1(\bar{z})} ~, ~~ z \in D_2 + \Gamma_1 ~,
+\end{equation}
+在$D_2$解析，在$D_2 +\Gamma_{1}$上连续，$f_2(z) = f_1(z), z \in \Gamma_1$，且函数
+\begin{equation}
+F(z) = \begin{cases}
+f_1(z) ~, & z \in D_1 ~, \\
+f_1(z) = f_2(z) ~, & z \in \Gamma_{1} ~, \\ 
+f_2(z) ~, &z \in D_2
+\end{cases}
+\end{equation}
+就是区域$D = D_1 +\Gamma_{1} +D_2$上的单值解析函数。
+\end{tcolorbox}
+
+
+
+幂级数开拓法：设函数$f_1(z)$在区域$D_1$解析，$z_0 \in D$，$z_0$到$D$的边界$\partial D$的距离为
+\begin{equation*}
+\rho(z_0) = \underset{z \in \partial D}{\rm min} |z-z_0| ~,
+\end{equation*}
+
+
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设函数$f(z)$在区域$D$内解析。对于区域$D$的边界$\partial D$上的任意点$z_0$。若存在一个在$z=z_0$的领域$|z-z_0| < \rho$上的解析函数$\varphi_{z_0}(z)$，它在区域$(|z-z_0| < \rho) \cap D$上取值等于$f(z)$，则称$z_0$是函数$f(z)$的\textcolor{red}{正则点}；若这样的解析函数$\varphi_{z_0}(z)$保存在，则称$z_0$是函数$f(z)$的\textcolor{red}{奇点}。
+\end{tcolorbox}
+
+
+对于区域内点，若函数$f(z)$在$z=z_0$解析，则称$z_0$是它的正则点。若$z_0$是$f(z)$的孤立奇点，则当$z_0$是可去奇点时，它就可以看做是正则点；若$z_0$是极点或本性奇点时，则$z_0$是奇点。
+
+
+对于在圆内的解析函数，有幂级数开拓的定理
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设函数$f(z)$在圆$|z-z_0| < \rho$，$z_1 \in |z-z_0| < \rho$，
+\begin{equation}
+f(z) = \sum\limits_{n=0}^\infty \dfrac{f^{(n)}(z_1)}{n!} (z-z_1)^n ~.
+\end{equation}
+要使该幂级数的收敛半径$R > \rho - |z_1 -z_0|$的充要条件是点$z_2 = z_0 + \rho e^{i {\rm arg}(z_1 -z_0)}$是正则点。
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 推论]
+要使点$z_2 = z_0 + \rho e^{i {\rm arg}(z_1 -z_0)}$是奇点的充要条件是
+\begin{equation}
+R = \dfrac{1}{\underset{n \rightarrow \infty}\lim \sqrt[\leftroot{-2}\uproot{10}n]{\dfrac{|f^{(n)} (z_1) |}{n!}} }  = \rho - |z_1 -z_0| ~.
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设幂级数
+\begin{equation}
+\sum\limits_{n=0}^\infty a_n(z-z_0)^n = f(z) ~, ~~ |z-z_0| < \rho
+\end{equation}
+的收敛半径是$\rho$，则函数$f(z)$在收敛圆$|z-z_0| = \rho$上必有奇点。
+\end{tcolorbox}
+
+
+
+
+\section{完全解析函数与黎曼曲面}
+
+
+
+
+
+
+
+\section{利用多值函数进行积分计算}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,22 @@
+\BOOKMARK [2][-]{subsection.0.1}{A Simple TTree}{}% 1
+\BOOKMARK [2][-]{subsection.0.2}{Show an Entry with TTree::Show}{}% 2
+\BOOKMARK [2][-]{subsection.0.3}{Print the Tree Structure with TTree::Print}{}% 3
+\BOOKMARK [2][-]{subsection.0.4}{Scan a Variable the Tree with TTree::Scan}{}% 4
+\BOOKMARK [2][-]{subsection.0.5}{The Tree Viewer}{}% 5
+\BOOKMARK [2][-]{subsection.0.6}{Creating and Saving Trees}{}% 6
+\BOOKMARK [3][-]{subsubsection.0.6.1}{Creating a Tree from a Folder Hierarchy}{subsection.0.6}% 7
+\BOOKMARK [3][-]{subsubsection.0.6.2}{Tree and TRef Objects}{subsection.0.6}% 8
+\BOOKMARK [3][-]{subsubsection.0.6.3}{Autosave}{subsection.0.6}% 9
+\BOOKMARK [3][-]{subsubsection.0.6.4}{Trees with Circular Buffers}{subsection.0.6}% 10
+\BOOKMARK [3][-]{subsubsection.0.6.5}{Size of TTree in the File}{subsection.0.6}% 11
+\BOOKMARK [3][-]{subsubsection.0.6.6}{User Info Attached to a TTree Object}{subsection.0.6}% 12
+\BOOKMARK [3][-]{subsubsection.0.6.7}{Indexing a Tree}{subsection.0.6}% 13
+\BOOKMARK [2][-]{subsection.0.7}{Branches}{}% 14
+\BOOKMARK [2][-]{subsection.0.8}{Adding a Branch to Hold a List of Variables}{}% 15
+\BOOKMARK [2][-]{subsection.0.9}{Adding a TBranch to Hold an Object}{}% 16
+\BOOKMARK [3][-]{subsubsection.0.9.1}{Setting the Split-level}{subsection.0.9}% 17
+\BOOKMARK [3][-]{subsubsection.0.9.2}{Exempt a Data Member from Splitting}{subsection.0.9}% 18
+\BOOKMARK [3][-]{subsubsection.0.9.3}{Adding a Branch to Hold a TClonesArray}{subsection.0.9}% 19
+\BOOKMARK [3][-]{subsubsection.0.9.4}{Identical Branch Names}{subsection.0.9}% 20
+\BOOKMARK [2][-]{subsection.0.10}{Adding a Branch with a Folder}{}% 21
+\BOOKMARK [2][-]{subsection.0.11}{Adding a Branch with a Collection}{}% 22

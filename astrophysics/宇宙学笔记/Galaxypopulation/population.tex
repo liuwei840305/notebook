@@ -1,0 +1,134 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Statistical Properties of the Galaxy Population}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\cite{2010gfe..book.....M} The distribution of the galaxy population can be described formally by a multivariate distribution function, $\phi$, defined by
+\begin{equation}
+\dif n = \phi(G_1, G_2, \cdots) \dif G_1 \dif G_2 \cdots ~,
+\end{equation}
+where the $G_i (i = 1, 2, \cdots)$ each stand for a specific property of galaxies, such as luminosity, size, color, etc, and $\dif n$ is the number density of galaxies with properties $G_1, G_2, \cdots$  in the ranges $G_1 \pm \dif G_1/2, G_2 \pm \dif G_2/2, \cdots$, respectively.  Observational data are usually sufficient only to determine the marginal distribution functions of a few quantities. Galaxies are believed to form and reside in extended dark matter halos, and the properties of the galaxy population are therefore related to the cosmological density field through the properties of the dark matter halo population.
+
+A dark matter halo at a given redshift can be characterized by such as mass, concentration, shape, angular momentum, formation history, and environment. We denote these halo quantities, including the redshift at which a halo is identified, collectively by $\mathscr{H}$. $\mathscr{G} = {G_1,G_2, \cdots}$ denotes collectively the quantities that characterize the properties of a galaxy, such as luminosity, morphology, color, etc. The connection between halos and galaxies can formally be described by a
+conditional distribution function, $P(\mathscr{G}|\mathscr{H})$, which gives the probability of finding a galaxy with property $\mathscr{G}$ in a halo with property $\mathscr{H}$. The distribution function of the galaxy population with respect to $\mathscr{G}$ is
+\begin{equation}
+P(\mathscr{G}) = \int P(\mathscr{G}|\mathscr{H}) P(\mathscr{H}) \dif \mathscr{H}
+\end{equation}
+where $P(\mathscr{H})$ is the distribution function of dark matter halos with respect to $\mathscr{H}$. 
+
+When describing the properties of the galaxy population, it is useful to separate galaxies into two categories: central and satellite galaxies. The central galaxy in a halo is the one residing at (or near) the bottom of the halo potential well, while all other galaxies within the halo are satellite galaxies. The central galaxy is usually the most massive one among all member galaxies, although there are exceptions, especially in massive clusters where there are often two or more dominating galaxies of comparable masses. They are expected to have undergone different evolutionary processes. Based on the current theory of galaxy formation, the gas that cools inside a dark matter halo accumulates at the center of the halo’s potential well. Furthermore, galaxy mergers are more likely to occur near the bottom of the halo potential well, as the orbits of satellite galaxies decay due to dynamical friction. Hence, central galaxies may continue to grow due to the accretion of cooling gas and/or the accretion of satellite galaxies. A satellite galaxy, on the other hand, is subjected to various environmental effects, such as ram-pressure stripping, tidal stripping and strangulation, that can strip its associated gas reservoir, thereby suppressing the formation of new stars. In addition, satellite galaxies are also subjected to various interactions with the host halo and other galaxies in the halo, which can cause them to undergo a morphological transformation. Note that mergers among satellites are expected to be rare.
+
+Central and satellite galaxies are also different in their relationships with dark matter halos. The centrals, which form and reside near the centers of their host halos, are expected to be closely related to the formation histories of their hosts. On the other hand, satellites are believed to be associated with subhalos, and so their properties may be more related to the formation histories of the subhalo population. subhalos are themselves independent halos before merging into bigger ones. Hence, a satellite itself is a central galaxy before its halo becomes a subhalo. We may link the properties of satellite galaxies to those of its host halo via the relation,
+\begin{equation}
+P_s(\mathscr{G}|\mathscr{H}) = \int \int P(\mathscr{G}|\mathscr{G}_a) P_c(\mathscr{G}_a|\mathscr{H}_a) P(\mathscr{H}_a|\mathscr{H}) \dif \mathscr{H}_a \dif \mathscr{G}_a ~,
+\end{equation}
+where $\mathscr{H}_a$ denotes the property of a subhalo at the time of accretion, i.e. when it first became a subhalo, and $\mathscr{G}$ denotes the property of a satellite galaxy at the time when it first became a satellite. $P(\mathscr{H}_a|\mathscr{H})$ is the probability of finding a subhalo with property $\mathscr{H}_a$ at the time of accretion in a halo with property $\mathscr{H}$, $P_c(\mathscr{G}_a|\mathscr{H}_a)$ is the probability to form a central galaxy of property $\mathscr{G}_a$ in a halo of property $\mathscr{H}_a$, and $P(\mathscr{G}|\mathscr{G}_a)$ is the probability for a central galaxy of property $\mathscr{G}_a$ to be transformed into a satellite galaxy of property $\mathscr{G}$.
+
+The properties of the galaxy population depend on the properties of the halo and subhalo populations, as represented by the distribution functions, $P(\mathscr{H})$ and $P(\mathscr{H}_a|\mathscr{H})$. The properties of the galaxy population depend on how individual galaxies form in the centers of dark matter halos, as indicated by the conditional distribution function, $P_c(\mathscr{G}|\mathscr{H})$. The properties of the galaxy population also depend on how galaxies are transformed by environmental effects in dark matter halos, which is indicated by $P(\mathscr{G}|\mathscr{G}_a)$. Note that the description here is based on dark matter halos; any environmental effects on superhalo scales can be taken into account by including in the halo property, $\mathscr{H}$, a set of quantities that describes the large-scale environment of dark matter halos.
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

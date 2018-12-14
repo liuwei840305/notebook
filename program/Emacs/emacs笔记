@@ -1,0 +1,195 @@
+emacs的自动补齐（智能感应）
+Emacs 自带的hippie-expand (参考的是王垠的)
+hippie-expand是 Emacs 自带的功能,
+把M-/ 绑定到 hippie-expand，在.emacs文件中加入
+
+;;绑定按键   
+(global-set-key [(meta ?/)] 'hippie-expand)
+
+hippie-expand 的补全方式。它是一个优先列表， hippie-expand 会优先使用表最前面的函数来补全。通常的设置是：
+(setq hippie-expand-try-functions-list 
+      '(try-expand-dabbrev
+	try-expand-dabbrev-visible
+	try-expand-dabbrev-all-buffers
+	try-expand-dabbrev-from-kill
+	try-complete-file-name-partially
+	try-complete-file-name
+	try-expand-all-abbrevs
+	try-expand-list
+	try-expand-line
+	try-complete-lisp-symbol-partially
+	try-complete-lisp-symbol))
+
+首先使用当前的buffer补全，如果找不到，就到别的可见的窗口里寻找，
+如果还找不到，那么到所有打开的buffer去找，如果还……那么到kill-ring里，
+到文件名，到简称列表里，到list，…… 当前使用的匹配方式会在 echo 区域
+显示.
+
+ecb下，改变左边窗口的大小
+1) M-x(esc x) customize-option
+2) enter 
+3) Customize variables: ecb-layout-window-sizes
+
+emacs+etags阅读代码
+etags用于生成TAGS文件来提供emacs快速浏览C/C++源代码，它的最大作用就是能够快速跳转到函数定义、宏定义、数据结构定义、全局变量定 义等。
+etags是一个索引源代码的工具。etags分为两个部分：可执行程序etags，由lib-src/etags.c编译而来，用于扫描源代码，生成TAGS文件；etags.el是Emacs的一部分，它使用TAGS文件来完成定位、查找等各项工作。
+
+生成TAGS文件
+etags常常和find命令一同使用来生成TAGS文件
+第一种
+etags src/*.[hc] lib-src/*.[hc] lib/*.[hc] lisp/*.el lisp/*/*.el
+或者$find . -name "*.[chCH]" -print | etags -
+将以c、h、C、H为后缀的文件纳入统计，建立etags列表，生成文件的默认名称为TAGS。
+
+第二种
+生成多个TAGS文件，然后使用--include生成一个主文件
+$ for dir in src lib-src lib; do \
+    pushed $dir; \
+    etags *.[hc] -o TAGS.sub; \
+    INCLUDES="$INCLUDES --include $PWD/TAGS.sub"; \
+    popd \
+  done
+
+$ for dir in lisp lisp/*; do \
+    pushd $dir; \
+    etags *.[hc] -o TAGS.sub; \
+    INCLUDES="$INCLUDES --include $PWD/TAGS.sub"; \
+    popd \
+  done
+
+$ etags -o TAGS $INCLUDES
+推荐使用第一种方式生成TAGS文件，第二种方式的体验较差。
+首先是find-tag命令，使用第一种方式生成的TAGS文件能够更快定位，而第二种方式则需要更多次地用C-u M-.查找。
+其次是list-tags命令，第一种方式可以正常工作，而第二种则完全不能工作，因为list-tags只查找在主TAGS文件里引用的那些文件，然而这个TAGS里只有include指令，没有引用任何源文件，因此甚至没法完成输入
+
+
+使用TAGS文件
+在Emacs里运行M-x visit-tags-table RET，然后输入TAGS文件路径即可。
+Emacs将这个文件放在一个buffer里面，并将major mode设置为tags-table-mode。在使用过程中，我们并不会直接使用这个buffer，而是通过一系列命令（比如find-tag）间接使用它。
+
+M-x visit-tags-table 将上一步中生成的TAGS文件与emacs关联。
+
+如果我们希望切换到另一个项目的TAGS文件，比如从Emacs切换到gcc，那么只需要再次调用M-x visit-tags-table并读入gcc相关的TAGS文件即可。
+
+.emacs中加入这样的语句：
+(setq tags-file-name /usr/src/linux/TAGS")
+这样emacs就会自动读取这个tags文件的内容。
+
+
+常用命令
+M-visit-tags-table：选择生成TAGS文件，
+M-tags-reset-tags-tables：重新设置tag table
+M-. 当将光标移到某个函数上时，键入此命令可以跳到此函数的一个tag处，如函数定义。
+C-u M-.  键入这个命令，将会查找函数的下一个tag
+M-*     键入这个命令，会返回函数的上一个tag处
+M-TAB  自动补齐函数名
+
+
+需要注意的是，在第二次（以及之后）调用visit-tags-table的时候，会被询问：
+Keep current list of tags tables also? (y or n)
+这时需要回答n。之后Emacs会显示一条信息：
+Starting a new list of tags tables
+这时我们再使用任何etags命令，就只操作在gcc的TAGS文件上，Emacs的TAGS文件不会参与任何操作。如果想切换回Emacs的TAGS文件，只需调用select-tags-table，然后按照提示在相应TAGS文件上按t键即可。
+
+那我们如果回答y会如何呢？在这种情况下，Emacs的TAGS文件和gcc的TAGS文件会同时参与etags命令。具体的影响可能有以下几种：
+
+tag数量增大，使得etags命令执行时间变长，响应迟钝；
+如果两个TAGS文件里面有类似或相同的tag，则会严重影响使用体验；
+因此，如果没有特殊的需求，最好不要合并不同项目的TAGS文件。
+
+TAGS文件（tags-file-name）
+初始值为用户创建的TAGS文件，如："/home/liang/src/gcc/4.6.1/TAGS"。如果是用上述第二种方式创建的，在使用过程中tags-file-name的值可能会发生改变，它指向当前正在访问的TAGS文件。
+文件集合（tags-table-list）
+在回答 “Keep current list of tags tables also?” 时选择y而合并了不同项目的TAGS文件而形成的集合，如：("/home/liang/project/emacs/trunk/TAGS" "/home/liang/src/gcc/4.6.1/TAGS")
+集合的集合（tags-table-set-list）
+在回答 “Keep current list of tags tables also?” 时选择n，而将之前的文件集合搁置，重新组建新的文件集合，这些文件的集合放在一起，就是集合的集合。从数据结构上来说，它就是tags-table-list可能取值的集合。如：(("/home/liang/project/emacs/trunk/TAGS" "/home/liang/src/gcc/4.6.1/TAGS")
+("/home/liang/project/go/go/src/TAGS")
+("/home/liang/src/gcc/4.6.1/TAGS"))
+
+
+emacs 安装包
+M-x(alt x) list-package
+
+emacs+cedet+ecb IDE环境
+cedet以自动安装
+error: ECB 2.40 - Error: ECB can only be used with cedet [1.0pre6, 1.0.9]! Please install it and restart Emacs!
+表示ecb-2.40不支持cedet-1.1，此时，需要修改一下ecb插件目录下的"ecb-upgrade.el"，用文本编辑器打开该文件，将
+(defconst ecb-required-cedet-version-max '(1 0 4 9))
+修改为
+(defconst ecb-required-cedet-version-max '(1 1 4 9))
+并且将该文件中的1169-1180之间的代码注释掉，不让他进行版本检查：
+   ;; check if vedet-version is correct
+   ;;      (when (or (not (boundp 'cedet-version))
+   ;;                (ecb-package-version-list<
+   ;;                 (ecb-package-version-str2list cedet-version)
+   ;;                ecb-required-cedet-version-min)
+   ;;                (ecb-package-version-list<
+   ;;                 ecb-required-cedet-version-max
+   ;;                 (ecb-package-version-str2list cedet-version)))
+   ;;        (setq version-error (concat "cedet ["
+   ;;                                    cedet-required-version-str-min
+   ;;                                    ", "
+   ;;                                    cedet-required-version-str-max
+   ;;                                    "]")))
+
+
+ECB 2.40下File error: Cannot open load file, semantic-ctxt
+(semantic-mode)
+(add-to-list 'load-path
+  "~/.emacs.d/plugins/ecb-2.40")
+(require 'ecb)
+When I run Emacs, I get an Error message on statrup:
+File error: Cannot open load file, semantic-ctxt
+solution:
+(require 'semantic/analyze)
+(provide 'semantic-analyze)
+(provide 'semantic-ctxt)
+(provide 'semanticdb)
+(provide 'semanticdb-find)
+(provide 'semanticdb-mode)
+(provide 'semantic-load)
+
+(add-to-list 'load-path "~/ecb-2.40")
+(require 'ecb)
+
+Warning (initialization): Your `load-path' seems to contain
+your `.emacs.d' directory: ~/.emacs.d/
+This is likely to cause problems...
+Consider using a subdirectory instead, e.g.: /home/adriean/.emacs.d/lisp
+solution:
+It's there for a good reason: ~/.emacs.d shouldn't be in your load-path.
+
+This is because Emacs writes files to this directory, and therefore it's possible (there are existing cases) for those files to conflict with the names of elisp libraries. If you have this directory in your load path, and you have such a name clash, then Emacs will attempt to load the wrong file if that library is required.
+
+Emacs 的包管理功能
+Emacs 24.2.1 自动带了这个包管理的功能，不过默认搜索的网站上包比较少，需要手工加一些，具体方法就是把下面这段代码加入到 .emacs 文件里，再重启 Emacs。
+
+(require 'package)
+(add-to-list 'package-archives'
+  ("elpa" . "http://tromey.com/elpa/") t)
+(add-to-list 'package-archives' 
+  ("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives'
+  ("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+执行：
+
+M-x package-list-packages
+稍等几十秒，就会把这些网站支持的包列出来了，用上下键移动光标到你选择好的包前面，输入“i”，再输入“x”，回车就可以把你选好的包安装到 ~/.emacs.d/ 目录下了。
+
+补充：还有一种一次性安装的办法，就是打开 Emacs，然后进入 *scratch* 缓冲区，把这些代码拷贝进去：
+
+(let ((buffer (url-retrieve-synchronously
+	       "http://tromey.com/elpa/package-install.el")))
+  (save-excursion
+    (set-buffer buffer)
+    (goto-char (point-min))
+    (re-search-forward "^$" nil 'move)
+    (eval-region (point) (point-max))
+    (kill-buffer (current-buffer))))
+接着执行 C-j 就可以得到一样的结果，后面的选择、安装操作跟第一种方法一样。
+
+
+TeX Input Method
+M-x set-input-method
+entering TeX

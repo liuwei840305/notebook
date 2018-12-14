@@ -1,0 +1,201 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Synchrotron}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\section{Non-relativistic gyroradiation and cyclotron radiation}
+
+
+\textcolor{red}{critical angular frequency $\omega_{\rm c} = 3c\gamma^3/2a$}, $x = \omega/\omega_{\rm c} = \nu/\nu_{\rm c}$. $a$ is the radius of curvature of the electron’s spiral orbit. At any instant, the plane of the electron’s orbit is inclined at a pitch angle $\alpha$ to the magnetic field. With respect to the guiding centre of the electron’s trajectory, the radius of curvature is \textcolor{red}{$a = v/(\omega_{\rm r} \sin \alpha)$} and 
+\begin{equation}
+\textcolor{red}{\omega_{\rm c} = 2\pi \nu_{\rm c} = \frac{3}{2} \left(\frac{c}{v} \right) \gamma^3 \omega_{\rm r} \sin \alpha}
+\end{equation}
+when $v \rightarrow c$ and rewriting the expression in terms of the non-relativistic gyrofrequency $\nu_{\rm g} = eB/2\pi m_{\rm e} = 28$ GHz T$^{-1}$
+\begin{equation}
+\nu_{\rm c} = \frac{3}{2} \gamma^2 \nu_{\rm g} \sin \alpha
+\end{equation}
+The emissivities of the electron in the two polarisations are
+\begin{eqnarray}
+j_{\perp}(\omega) &=& \frac{I_{\perp}(\omega)}{T_{\rm r}} = \frac{\sqrt{3} e^3 B \sin \alpha}{16 \pi^2 \epsilon_0 c m_{\rm e}} [F(x) +G(x)], \\
+j_{\parallel}(\omega) &=& \frac{I_{\parallel}(\omega)}{T_{\rm r}} = \frac{\sqrt{3} e^3 B \sin \alpha}{16 \pi^2 \epsilon_0 c m_{\rm e}} [F(x) -G(x)]
+\end{eqnarray}
+The total emissivity of a single electron by synchrotron radiation is the sum of $j_{\perp}(\omega)$ and
+$j_{\parallel}(\omega)$:
+\begin{equation}
+j(\omega) = j_{\perp}(\omega) + j_{\parallel}(\omega) = \frac{\sqrt{3} e^3 B \sin \alpha}{8 \pi^2 \epsilon_0 c m_{\rm e}} F(x) , 
+\end{equation}
+the spectral emissivity of a single electron by synchrotron radiation in the ultrarelativistic limit. The spectrum has a \textcolor{red}{broad maximum, $\Delta \nu/\nu \sim 1$}, \textcolor{red}{centred roughly at the frequency $\nu \approx \nu_{\rm c}$} – the maximum of the emission spectrum in fact has value \textcolor{red}{$\nu_{\rm max} = 0.29\nu_{\rm c}$}. The spectrum is smooth and continuous.
+
+
+
+\section{The synchrotron radiation of a power-law distribution of electron energies}
+\subsection{physical arguments}
+The spectrum of synchrotron radiation is quite sharply peaked near the critical frequency $\nu_c$,  much narrower than the breadth of the power-law electron energy spectrum. Assumed that an electron of energy $E$ radiates away its energy at the critical frequency $\nu_c$,
+\begin{equation}
+\nu \approx \nu_c \approx \gamma^2 \nu_{\rm g} = \left(\frac{E}{m_{\rm e}c^2} \right)^2 \nu_{\rm g}; ~~ \nu_{\rm g} = \frac{eB}{2\pi m_{\rm e}}
+\end{equation}
+Then the energy radiated in the frequency range $\nu$ to $\nu+\dif \nu$ can be attributed to electrons with energies in the range $E$ to $E + \dif E$
+\begin{equation}
+J(\nu) \dif \nu = \left(-\frac{\dif E}{\dif t} \right) N(E) \dif E
+\end{equation}
+where
+\begin{eqnarray*}
+E &=& \gamma m_{\rm e} c^2 = \left(\frac{\nu}{\nu_{\rm g}} \right)^{1/2} m_{\rm e} c^2 , \\
+\dif E &=& \frac{m_{\rm e} c^2}{2 \nu_{\rm g}^{1/2}} \nu^{-1/2} \dif \nu , \\
+-\frac{\dif E}{\dif t} &=& \frac{4}{3} \sigma_{\rm T} c \left(\frac{E}{m_{\rm e} c^2} \right)^2 \frac{B^2}{2\mu_0} , \\
+N(E) \dif E &=& \kappa E^{-p} \dif E
+\end{eqnarray*}
+the emissivity is expressed in terms of $\kappa$, $B$, $\nu$ and fundamental constants:
+\begin{equation}
+J(\nu) = (\text{constants})~ \kappa B^{(p+1)/2} \nu^{-(p-1)/2} 
+\end{equation}
+The emitted spectrum, written as \textcolor{red}{$J(\nu) \propto \nu^{-a}$}, where \textcolor{red}{$a = (p-1)/2$} is known as the \textcolor{red}{spectral index}, is determined by the \textcolor{red}{slope of the electron energy spectrum $p$}, rather than by the shape of the emission spectrum of a single electron. The emissivity also depends upon \textcolor{red}{$\kappa B^{(p+1)/2} \propto \kappa B^{a+1}$}.
+
+\subsection{full analysis}
+Consider a power-law distribution of electron energies at a fixed pitch angle $\alpha$. To integrate the contributions of electrons of different energies to the intensity at angular frequency $\omega$, or equivalently, at fixed $x = \omega/\omega_{\rm c}$.
+
+
+\section{Energy flux}
+For synchrotron radiation the energy flux at an energy is given by \cite{2009A&A...497...17V}
+\begin{equation}
+\Phi(\epsilon) = \frac{\sqrt{3} B e^3}{h mc^2} \int p^2 F(p) K(\epsilon/\epsilon_c) \dif p
+\end{equation}
+where $\epsilon_c = h\nu_c$ is the energy of critical frequency $\nu_c = 3eBp^2/(4\pi m^3 c^3)$ and $K(\epsilon/\epsilon_c)$ is the emission produced by the single electron of momentum $p$, charge $e$ and mass $m$. For the exact expression for the kernel function $K(\epsilon/\epsilon_c)$ in the case of a turbulent magnetic field one can refers to \cite{1986A&A...164L..16C}; or it can be approximated by the analytical expression in \cite{2007A&A...465..695Z} to several percent accuracy, i.e.
+\begin{equation}
+K(\epsilon/\epsilon_c) = \frac{1.81~ {\rm e}^{-\epsilon/\epsilon_c}}{\sqrt{(\epsilon/\epsilon_c)^{-2/3} +(3.62/\pi)^2}} 
+\end{equation}
+
+\section{Energy loss rate}
+In a uniform magnetic field, a high energy electron moves in a spiral path at a constant pitch angle $\alpha$. Its velocity along the field lines is constant whilst it gyrates about the magnetic field direction at the relativistic gyrofrequency $\nu_{\rm g} = eB/2\pi \gamma m_{\rm e} = 28 \gamma^{-1}$ GHz $T^{-1}$, where $\gamma$ is the Lorentz factor of the electron $\gamma = (1-v^2/c^2)^{-1/2}$. The radiation loss rate of a charged particle $q$ with accelerations $a_{\perp}$ and $a_{\parallel}$ as measured in the laboratory frame of reference is
+\begin{equation}
+-\left(\frac{\dif E}{\dif t} \right)_{\rm rad} = \frac{q^2 \gamma^4}{6\pi \epsilon_0 c^3} [|a_{\perp}|^2 +\gamma^2 |a_{\parallel}|^2]
+\end{equation}
+The acceleration is always perpendicular to the velocity vector of the particle, i.e. $a_{\perp} = evB \sin \alpha/\gamma m_{\rm e}$ and $a_{\parallel} = 0$. The total radiation loss rate of the electron is
+\begin{eqnarray}
+\nonumber -\left(\frac{\dif E}{\dif t} \right)_{\rm rad} &=& \frac{\gamma^4 e^2}{6\pi \epsilon_0 c^3} |a_{\perp}|^2 \\
+\nonumber &=& \frac{\gamma^4 e^2}{6\pi \epsilon_0 c^3} \frac{e^2 v^2 B^2 \sin^2 \alpha}{\gamma^2 m^2_{\rm e}} \\
+&=& \frac{e^4 B^2}{6\pi \epsilon_0 m^2_{\rm e} c} \frac{v^2}{c^2} \gamma^2 \sin^2 \alpha 
+\end{eqnarray}
+
+\subsection{Derivation 2}
+In the instantaneous rest frame of the electron, the acceleration of the particle is small and therefore in that frame we can use the non-relativistic expression for the radiation rate. 
+
+The pitch angle distribution is likely to be randomised either by irregularities in the magnetic field distribution or by streaming instabilities. As a result, the distribution of pitch angles for a population of high energy electrons is expected to be isotropic. During its lifetime, any high energy electron is also randomly scattered in pitch angle. Averaging over an \textcolor{red}{isotropic distribution of pitch angles} $p(\alpha) \dif \alpha = 1/2 \sin \alpha \dif \alpha$, the \textcolor{red}{average energy loss rate},
+\begin{eqnarray}
+ -\left(\frac{\dif E}{\dif t} \right)_{\rm rad} = 2\sigma_{\rm T} c U_{\rm mag} \gamma^2 \frac{v^2}{c^2} \frac{1}{2} \int_0^{\pi} \sin^3 \alpha \dif \alpha = \textcolor{red}{\frac{4}{3} \sigma_{\rm T} c U_{\rm mag} \frac{v^2}{c^2} \gamma^2}
+\end{eqnarray}
+
+
+The synchrotron energy loss rate of a single electron in a large-scale random magnetic field of
+constant strength $B$ is
+\begin{equation}
+|\dot{\gamma}|_{\rm S} = \frac{4\sigma_{\rm T} c}{3m_{\rm e} c^2} U_{\rm B} \gamma^2
+\end{equation}
+$U_{\rm B} = B^2/8\pi = 0.22 ~b_3^2$ eV cm$^{-3}$, where $B = 3 b_3 ~\mu$G.
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

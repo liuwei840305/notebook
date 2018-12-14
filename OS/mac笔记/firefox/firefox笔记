@@ -1,0 +1,134 @@
+Firefox浏览器不支持自定义快捷键，所以一些定义好的快捷键就要牢牢记住了，这些Firefox浏览器快捷键可以让你浏览更高效！下面的Firefox浏览器快捷键大全来自于mozilla官方网站。
+
+Firefox浏览器快捷键大全
+
+导航
+
+命令 	                快捷键
+后退 	                Alt+←
+                        Backspace
+前进 	                Alt+→
+                        Shift+Backspace
+主页 	                Alt+Home
+打开文件 	        Ctrl+O
+重新载入 	        F5
+                        Ctrl+R
+重新载入（跳过缓存） 	Ctrl+F5
+                        Ctrl+Shift+R
+停止 	Esc
+
+当前页
+命令               	快捷键
+至页底 	        End
+至页首 	        Home
+移动到下一帧 	        F6
+移动到上一帧 	        Shift+F6
+  	 
+页面源代码 	        Ctrl+U
+打印 	                Ctrl+P
+页面另存为 	        Ctrl+S
+放大 	                Ctrl++
+缩小            	Ctrl+-
+重置缩放 	        Ctrl+0
+
+编辑
+命令               	快捷键
+复制 	                Ctrl+C
+剪切 	                Ctrl+X
+删除 	                Delete
+粘贴 	                Ctrl+V
+重做 	                Ctrl+Y
+全选 	                Ctrl+A
+撤销 	                Ctrl+Z
+
+搜索
+命令             	快捷键
+查找 	                Ctrl+F
+再次查找 	        F3
+                        Ctrl+G
+查找上一个 	        Shift+F3
+                        Ctrl+Shift+G
+输入并查找链接 	‘
+输入并查找文本 	/
+什么是搜索栏 	        Ctrl+K
+                        Ctrl+E
+
+窗口和标签页
+也可查阅标签式浏览
+命令               	快捷键
+关闭标签页 	        Ctrl+W
+                        Ctrl+F4
+关闭窗口 	        Ctrl+Shift+W
+                        Alt+F4
+将当前标签页左移 	Ctrl+←
+                        Ctrl+↑
+将当前标签页右移 	Ctrl+→
+                        Ctrl+↓
+将当前标签页左移到最前面 	Ctrl+Home
+将当前标签页右移到最后面 	Ctrl+End
+新建标签页 	        Ctrl+T
+新建窗口 	        Ctrl+N
+下一标签页 	        Ctrl+Tab
+                        Ctrl+Page Down
+在新标签页打开地址 	Alt+Enter 	- 适用于地址栏和搜索栏
+上一标签页 	        Ctrl+Shift+Tab
+                        Ctrl+Page Up 	 
+撤销关闭标签页 	Ctrl+Shift+T 	 
+撤销关闭窗口        	Ctrl+Shift+N 	 
+选择标签页（1到8） 	Ctrl+(1到8) 	 
+选择最后一个标签页 	Ctrl+9 	 
+查看标签组        	Ctrl+Shift+E 	 
+
+历史
+命令            	快捷键 
+历史侧栏 	        Ctrl+H
+我的足迹窗口（历史） 	Ctrl + Shift + H
+
+书签
+命令             	快捷键
+将全部标签页加为书签 	Ctrl+Shift+D
+将此页加为书签 	Ctrl+D
+书签侧栏 	        Ctrl+B
+                        Ctrl+I
+我的足迹窗口（书签） 	Ctrl+Shift+B
+
+工具
+命令            	快捷键 
+下载 	                Ctrl + J
+附加组件 	        Ctrl + Shift + A
+错误控制台 	        Ctrl + Shift + J
+网络控制台            	Ctrl + Shift + K
+切换隐私浏览       	Ctrl + Shift + P
+清除最近历史纪录 	Ctrl + Shift + Del
+
+其他
+命令             	快捷键 
+自动补完.net地址 	Shift+Enter
+自动补完.org地址 	Ctrl+Shift+Enter
+删除选定的自动完成条目 Del
+切换全屏 	        F11
+  	 
+切换菜单栏（当隐藏时） Alt
+                        F10
+显示/隐藏附加组件栏 	Ctrl + /
+光标键浏览 	        F7
+光标定位到地址栏 	Alt+D
+                        F6
+                        Ctrl+L
+选择或管理搜索引擎 	Alt+↑
+                        Alt+↓
+                        F4 	- 当焦点位于搜索栏时
+
+媒体快捷键（仅适用于Ogg和WebM视频）
+命令            	快捷键 
+切换播放/暂停 	Space
+降低音量 	↓
+提高音量 	↑
+静音 	        Ctrl+↓
+取消静音 	Ctrl+↑
+回跳15秒 	←
+回跳10 % 	Ctrl+←
+前跳15秒 	→
+前跳10 % 	Ctrl+→
+跳至开始 	Home
+跳至结束 	End

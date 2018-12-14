@@ -1,0 +1,406 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Vibrating Systems}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Vibrations of Coupled Mass Points}
+\cite{greiner2009classical} Consider the free vibration of two mass points, fixed to two walls by springs of equal spring constant. The two mass points shall have equal masses. The displacements from the rest positions are denoted by $x_1$ and $x_2$, respectively. We consider only vibrations along the line connecting the mass points. When displacing the mass $1$ from the rest position, there acts the force $-kx_1$ by the spring fixed to the wall, and the force $+k(x_2 - x_1)$ by the spring connecting the two mass points. 
+\begin{align}
+& m\ddot{x}_1 = -k x_1 +k(x_2 -x_1) ~, \\
+& m\ddot{x}_2 = -k x_2 +k(x_2 -x_1) ~.
+\end{align}
+The frequencies that are equal for all particles are called \textcolor{red}{eigenfrequencies}. The related \textcolor{red}{vibrational states} are called \textcolor{red}{eigen-} or \textcolor{red}{normal vibrations}. These definitions are correspondingly generalized for a $N$-particle system. We use the ansatz
+\begin{align}
+& x_1 = A_1 \cos \omega t ~, \\
+& x_2 = A_2 \cos \omega t ~, 
+\end{align}
+i.e., both particles shall vibrate with the same frequency $\omega$. 
+\begin{align}
+& A_1(-m\omega^2 +2k) -A_2 k = 0 ~, \\
+& -A_1k +A_2(-m\omega^2 +2k) = 0 ~.
+\end{align}
+The system of equations has nontrivial solutions for the amplitudes only if the determinant of coefficients $D$ vanishes:
+\begin{equation*}
+D = \renewcommand{\arraystretch}{0.7}
+\begin{vmatrix}
+-m\omega^2 +2k & -k \\
+-k & -m\omega^2 +2k \\
+\end{vmatrix} = (-m\omega^2 +2k)^2 -k^2 = 0 ~.
+\end{equation*}
+An equation for determining the frequencies is
+\begin{equation*}
+\omega^4 -4\dfrac{k}{m} \omega^2 +3 \dfrac{k^2}{m^2} = 0 ~.
+\end{equation*}
+The positive solutions of the equation are the frequencies
+\begin{align*}
+& \omega_1 = \sqrt{\dfrac{3k}{m}} ~, \\
+& \omega_2 = \sqrt{\dfrac{k}{m}} ~. 
+\end{align*}
+These frequencies are called \textcolor{red}{eigenfrequencies} of the system. The corresponding vibrations are called \textcolor{red}{eigenvibrations} or \textcolor{red}{normal vibrations}. 
+\begin{align}
+& A_1 = -A_2 ~\text{for} ~\omega_1 = \sqrt{\dfrac{3k}{m}} ~, \\
+& A_1 = A_2  ~\text{for} ~\omega_2 = \sqrt{\dfrac{k}{m}} ~. 
+\end{align}
+The two mass points vibrate in-phase with the lower frequency $\omega_2$, and with the higher frequency $\omega_1$ against each other. The number of normal vibrations equals the number of coordinates (degrees of freedom) which are necessary for a complete description of the system. This leads to a determinant of rank $N$ for $\omega^2$, and therefore in general to $N$ normal frequencies.
+
+The general motion of the mass points corresponds to a superposition of the normal modes with different phase and amplitude. 
+\begin{align}
+& x_1 (t) = C_1 \cos(\omega_1 t +\varphi_1) +C_2 \cos(\omega_2 t +\varphi_2) ~, \\
+& x_2 (t) = -C_1 \cos(\omega_1 t +\varphi_1) +C_2 \cos(\omega_2 t +\varphi_2) ~. 
+\end{align}
+Here, we already utilized the result that $x_1$ and $x_2$ have opposite-equal amplitudes for a pure $\omega_1$-vibration, and equal amplitudes for pure $\omega_2$-vibrations. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The Vibrating String}
+\cite{greiner2009classical} 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Coupled Oscillations}
+\cite{Thornton} 
+
+
+
+
+\subsection{Two Coupled Harmonic Oscillators}
+
+
+\subsection{Weak Coupling}
+
+
+\subsection{General Problem of Coupled Oscillations}
+Consider a conservative system described in terms of a set of generalized coordinates $q_k$ and the time $t$. If the system has $n$ degrees of freedom, $k = 1, 2, \cdots, n$. Specify that a configuration of stable equilibrium exists for the system and that at equilibrium the generalized coordinates have values $q_{k0}$. In such a configuration, Lagrange's equations are satisfied by
+\begin{equation*}
+q_k = q_{k0} ~, ~\dot{q}_k = 0 ~, ~\ddot{q}_k = 0 ~, ~ k = 1, 2, \cdots, n
+\end{equation*}
+Every nonzero term of the form $\dfrac{\dif }{\dif t} \dfrac{\partial L}{\partial \dot{q}_k}$ must contain at least either $\dot{q}_k$ or $\ddot{q}_k$, so all such terms vanish at equilibrium. From Lagrange's equation, 
+\begin{equation}
+\dfrac{\partial L}{\partial q_k} \Bigg|_0 = \dfrac{\partial T}{\partial q_k} \Bigg|_0 - \dfrac{\partial U}{\partial q_k} \Bigg|_0 = 0
+\end{equation}
+where $0$ designates the quantity is evaluated at equilibrium. 
+
+We assume that the equations connecting the generalized coordinates and the regular coordinates do not explicitly contain the time, that is,
+\begin{align}
+x_{\alpha, i} = x_{\alpha, i}(q_j) ~\text{or}~ q_j = q_j( x_{\alpha, i})
+\end{align}
+The kinetic energy is a homogeneous quadratic function of the generalized velocities
+\begin{equation}
+T = \dfrac{1}{2} \sum_{j,k} m_{jk} \dot{q}_j \dot{q}_k 
+\end{equation}
+\begin{align}
+& \dfrac{\partial T}{\partial q_k} \Bigg|_0 = 0 ~, ~~ k = 1, 2, \cdots, n \\
+& \dfrac{\partial U}{\partial q_k} \Bigg|_0 = 0 ~, ~~ k = 1, 2, \cdots, n 
+\end{align}
+
+
+
+
+
+
+
+
+
+The equations of motion are
+\begin{equation}
+\sum_j (A_{jk} q_j +m_{jk} \ddot{q}_j) = 0 ~.
+\end{equation}
+This is a set of $n$ second-order linear homogeneous differential equations with constant coefficients. 
+
+The equations of motion become
+\begin{equation}
+\sum_j (A_{jk} - \omega^2 m_{jk}) a_j = 0 ~. 
+\label{equ_mo2}
+\end{equation}
+where the common factor $\exp [i (\omega t-\delta)]$ has been canceled. This is a set of $n$ linear, homogeneous, algebraic equations that the $a_j$ must satisfy. For a nontrivial solution to exist, the determinant of the coefficients must vanish:
+\begin{align}
+& |A_{jk} - \omega^2 m_{jk}| = 0 ~. \\
+& \renewcommand{\arraystretch}{0.7}
+\begin{vmatrix}
+A_{11}-\omega^2 m_{11} & A_{12}-\omega^2 m_{12} & A_{13}-\omega^2 m_{13} \\
+A_{12}-\omega^2 m_{12} & A_{22}-\omega^2 m_{22} & A_{23}-\omega^2 m_{23} \\
+A_{13}-\omega^2 m_{13} & A_{23}-\omega^2 m_{23} & A_{33}-\omega^2 m_{33} \\
+\vdots & \vdots & \vdots
+\end{vmatrix} = 0
+\end{align}
+where the symmetry of the $A_{jk}$ and $m_{jk}$ has been explicitly included.
+
+The equation represented by this determinant is called the characteristic equation or secular equation of the system and is an equation of degree $n$ in $\omega^2$. There are in general $n$ roots we may label $\omega_r^2$. The $\omega_r$ are called the characteristic frequencies or eigenfrequencies of the system. (In some situations, two or more of the $\omega_r$ can be equal. This is the phenomenon of degeneracy.) Each of the roots of the characteristic equation may be substituted into Equ. (\ref{equ_mo2}) to determine the ratios $a_1:a_2:a_3\cdots:a_n$ for each value of $\omega_r$. Because there are $n$ values of $\omega_r$, we can construct $n$ sets of ratios of the $a_j$. Each of the sets defines the components of $n$-dimensional vector $\vec{a}_r$, called an eigenvector of the system. $\vec{a}_r$ is the eigenvector associated with the eigenfrequency $\omega_r$. Designate by $a_{jr}$ the $j$th component of the $r$-th eigenvector.
+
+The principle of superposition applies for the differential equation, write the general solution for $q_j$ as a linear combination of the solutions for each of the $n$ values of $r$
+\begin{equation}
+q_j(t) = \sum_r a_{jr} e^{i(\omega_r t-\delta_r)}
+\end{equation}
+Because it is only the real part of $q_j(t)$ that is physically meaningful,
+\begin{equation}
+q_j(t) = \textbf{Re}\sum_r a_{jr} e^{i(\omega_r t-\delta_r)} = \sum_r a_{jr} \cos(\omega_r t-\delta_r)
+\end{equation}
+The motion of the coordinate $q_j$ is compound of motions with each of the $n$ values of the frequencies $\omega_r$. The $q_j$ are not the normal coordinates.
+
+
+
+
+
+\subsection{Orthogonality of the Eigenvectors}
+
+
+
+
+
+\subsection{Normal Coordinates}
+
+
+
+
+
+\subsection{Molecular Vibrations}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Three Linearly Coupled Plane Pendula}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{The Loaded String}
+Consider an elastic string(or a spring) on which a number of identical particles are placed at regular intervals. The ends of the string are constrained to remain stationary. Let the mass of each of the $n$ particles be $m$, and let the spacing between particle at equilibrium be $d$. The length of the string is $L = (n+1)d$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

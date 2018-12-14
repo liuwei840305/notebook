@@ -1,0 +1,649 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Angular Momentum}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{ANGULAR MOMENTUM COUPLING}
+\cite{arfken} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{SPHERICAL TENSORS}
+\cite{arfken} The \textcolor{blue}{rotations} could be characterized by the \textcolor{blue}{$3 \times 3$ unitary transformation matrices} that \textcolor{blue}{transform a set of coordinates (their basis) into the new set corresponding to the rotation}. These matrices could be viewed as second-rank tensors, but because they are restricted to \textcolor{orange}{rotational transformations}, they are also known as \textcolor{red}{spherical tensors}.
+
+Consider spherical tensors that transform more general sets of objects under rotation, and in particular those spherical tensors that have spherical harmonics as bases. The new spherical tensors will then have dimensions other than $3 \times 3$. They must exist at all the sizes that correspond to sets of angular momentum eigenfunctions. Because \textcolor{yellow}{a set of angular momentum eigenfunctions of a given $J$ cannot be decomposed into subsets that transform only among themselves under rotation}, the spherical tensors are called \textcolor{red}{irreducible}. 
+
+For general angular momentum eigenfunctions $|L, M\rangle$, which we assume are representable in $3$-D space as spherical harmonics or objects built from them by angular momentum coupling, the following defining equation for the spherical tensor describes the effect of a coordinate rotation $\mathfrak R$ on $|L, M\rangle$:
+\begin{equation}
+\color{yellow} {\mathfrak R} |L, M\rangle = \sum_{M^\prime} D^L_{M^\prime M} (\mathfrak R) |L, M\rangle ~.
+\end{equation}
+If the $|L, M\rangle$ are actually spherical harmonics (and not more complicated objects that resulted from angular momentum coupling), it can also be written as
+\begin{equation}
+\color{yellow} Y_l^m (\mathfrak R \Omega) = \sum_{m^\prime} D^l_{m^\prime m}(\mathfrak R) Y_l^{m^\prime} ( \Omega) ~.
+\label{eq:spherical_tensor}
+\end{equation}
+Because we do not need to become embroiled in the details of the action of ${\mathfrak R}$ on the coordinates, we have simply replaced $(\theta, \varphi)$ by the generic symbol $\Omega$ and have written ${\mathfrak R} \Omega$ to indicate the coordinates $(\theta^\prime, \varphi^\prime)$ that describe the point that was labeled $(\theta, \varphi)$ in the unrotated system. For any \textcolor{blue}{given $l$}, \textcolor{blue}{$D^l_{m^\prime m}(\mathfrak R)$} can be regarded as \textcolor{blue}{an element of a square matrix of dimension $2l+1$} with rows and columns labeled by indices $m^\prime$ and $m$ whose ranges are $(-l, \cdots, +l)$, not the more customary sequence starting from $1$. \textcolor{blue}{$D^l_{m^\prime m}(\mathfrak R)$ are unitary}, since they describe a transformation between two orthonormal sets. They are called \textcolor{red}{Wigner matrices}.
+
+\subsection{Addition Theorem}
+\cite{arfken} Equation (\ref{eq:spherical_tensor}) can be used to establish important rotational invariance properties. Consider $A$ defined as
+\begin{equation}
+A = \sum_m Y_l^m(\Omega_1)^\ast Y_l^m(\Omega_2) ~,
+\end{equation}
+where $\Omega_1$ and $\Omega_2$ are two \textcolor{blue}{unrelated sets of angular coordinates}. Apply a rotation $\mathfrak R$ to the coordinate system, denoting the result $\mathfrak R A$, and evaluating the right-hand side
+\begin{align}
+\nonumber \mathfrak R A &= \sum_m \left(\sum_\mu D^l_{\mu m}(\mathfrak R) Y_l^\mu(\Omega_1) \right)^\ast \left(\sum_\nu D^l_{\nu m}(\mathfrak R) Y_l^\nu(\Omega_2) \right) ~, \\
+\nonumber &= \sum_{\mu \nu} \left(\sum_m D^l_{\mu m}(\mathfrak R)^\ast D^l_{\nu m}(\mathfrak R) \right) Y_l^\mu(\Omega_1)^\ast Y_l^\nu(\Omega_2)  ~, \\
+\nonumber &= \sum_{\mu \nu} \left(\sum_m \left[ D^l(\mathfrak R)^{-1} \right]_{m \mu } \left[ D^l(\mathfrak R) \right]_{\nu m} \right) Y_l^\mu(\Omega_1)^\ast Y_l^\nu(\Omega_2) ~, \\
+\nonumber &= \sum_{\mu \nu} \delta_{\mu \nu} Y_l^\mu(\Omega_1)^\ast Y_l^\nu(\Omega_2) ~, \\
+&= \sum_{\mu} Y_l^\mu(\Omega_1)^\ast Y_l^\mu(\Omega_2) = A ~.
+\end{align}
+where $D$ is unitary to change $D^\ast$ to the transpose of $D^{-1}$. \textcolor{red}{$A$ is rotationally invariant}, and is the starting point for an explanation of  \textcolor{yellow}{why a totally occupied atomic subshell (particles occupying all $m$ values for a given $l$) leads to a spherically symmetric overall distribution}.
+
+Rotate the coordinates to place $\Omega_1$ in the polar direction (so now $\theta_1 = 0$), and the $\theta$ value of $\Omega_2$ in the rotated coordinates will be equal to the angle $\chi$ between the $\Omega_1$ and $\Omega_2$ directions, which is not affected by a coordinate rotation. In this new set of coordinates, $Y_l^m(\Omega_1)$ is $Y_l^m(0,\varphi)$ and is given
+\begin{equation}
+Y_l^m(\Omega_1) = \sqrt{\dfrac{2l+1}{4\pi} }\delta_{m0}  ~.
+\end{equation}
+
+
+Because $m = 0$, this $Y$ does not actually depend on $\varphi_2$, and has the unambiguous value,
+\begin{equation}
+Y_l^0(\chi, \varphi_2) = \sqrt{\dfrac{2l+1}{4\pi} } P_l(\cos \chi)  ~.
+\end{equation}
+\begin{equation}
+A = \dfrac{2l+1}{4\pi} P_l(\cos \chi) ~,
+\end{equation}
+which, because of the rotational invariance, remains true whether or not the coordinate system was rotated. The spherical harmonic addition theorem is
+\begin{equation}
+P_l(\cos \chi) = \dfrac{4\pi}{2l+1} \sum_m Y_l^m(\Omega_1)^\ast Y_l^m(\Omega_2) ~,
+\end{equation}
+where $\chi$ is the angle between the directions $\Omega_1$ and $\Omega_2$.
+
+for $l = 1$, for which $P_l(\cos \chi) = \cos \chi$, writing $\Omega_i \equiv \theta_i, \varphi_i$, and evaluating all the spherical harmonics
+\begin{align}
+\nonumber \cos \chi &= \dfrac{1}{2} \left(\sin \theta_1 {\rm e}^{-i\varphi_1} \right)^\ast \left(\sin \theta_2 {\rm e}^{-i\varphi_2} \right) +\cos \theta_1 \cos \theta_2 +\dfrac{1}{2} \left(-\sin \theta_1 {\rm e}^{i\varphi_1} \right)^\ast \left(-\sin \theta_2 {\rm e}^{i\varphi_2} \right) \\
+\nonumber &= \cos \theta_1 \cos \theta_2 +\dfrac{1}{2} \sin \theta_1 \sin \theta_2 \left({\rm e}^{i(\varphi_1-\varphi_2)}+{\rm e}^{i(\varphi_2-\varphi_1)} \right)
+\end{align}
+This reduces to the standard formula for the angle $\chi$ between directions $(\theta_1, \varphi_1)$ and $(\theta_2, \varphi_2)$:
+\begin{equation}
+\cos \chi = \cos \theta_1 \cos \theta_2 +\sin \theta_1 \sin \theta_2 \cos(\varphi_2 -\varphi_1) ~.
+\end{equation}
+
+\subsection{Spherical Wave Expansion}
+The spherical wave expansion is
+\begin{align}
+{\rm e}^{i\vec{k}\cdot \vec{r}} &= 4\pi \sum_{l=0}^\infty \sum_{m=-l}^{l} i^l j_l(kr) Y_l^m(\Omega_k)^\ast Y_l^m(\Omega_r) \\
+&= 4\pi \sum_{l=0}^\infty \sum_{m=-l}^{l} i^l j_l(kr) Y_l^m(\Omega_k) Y_l^m(\Omega_r)^\ast ~.
+\end{align}
+Here $k$ and $r$ are the magnitudes of $\vec{k}$ and $\vec{r}$, and $\Omega_k$, $\Omega_r$ denote their respective angular coordinates. The two forms shown are equivalent because a change in the sign of $m$ changes each harmonic to its complex conjugate (possibly with both harmonics undergoing a sign change). The quantity $j_l(kr)$ is a spherical Bessel function. It expresses the plane wave as a series of spherical waves. This conversion is useful in scattering problems in which a plane wave, incident upon a scattering center, produces outgoing spherical waves with different spherical-harmonic (called \textcolor{red}{partial-wave}) components.
+
+Write $\vec{k}\cdot \vec{r}$ as $kr \cos \chi$, where $\chi$ is the angle between $\vec{k}$ and $\vec{r}$, and then expand $\exp(ikr \cos \chi)$ as a series of Legendre polynomials:
+\begin{equation}
+{\rm e}^{ikr \cos \chi} = \sum_{l=0}^\infty c_l P_l (\cos \chi) ~,
+\end{equation}
+with the coefficients $c_l$ given by
+\begin{align}
+c_l &= \dfrac{2l+1}{2} \int_{-1}^1 {\rm e}^{ikrt} P_l(t) \dif t ~, \\
+&= (2l+1) i^l j_l(kr) ~.
+\end{align}
+where
+\begin{equation}
+j_l(x) = \dfrac{i^{-l}}{2} \int_{-1}^1 {\rm e}^{ixt} P_l(t) \dif t ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Laplace Spherical Harmonic Expansion}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{General Multipoles}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Integrals of Three Spherical Harmonics}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{VECTOR SPHERICAL HARMONICS}
+\cite{arfken} A set of unit vectors can be thought of as a spherical tensor of rank $1$ and can be discussed in terms of the angular momentum formalism.
+
+\subsection{A Spherical Tensor}
+Consider vectors in $3$-D space, of the form $\vec{u} = u_x \vec{\hat{e}}_x + u_y \vec{\hat{e}}_y + u_z \vec{\hat{e}}_z$. We will permit the $u_j$ to be complex, and use the complex scalar product $\langle \vec{u}|\vec{u}\rangle^{1/2}$ as a measure of the magnitude of $\vec{u}$. If we restrict the vectors $\vec{u}$ to be of unit length, they satisfy the conditions necessary to be identified as spherical tensors of rank $1$.
+
+introduce operators $K_i$ defined by the following matrices:
+\begin{equation}
+K_1 = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & -i \\
+0 & i & 0
+\end{pmatrix} ~, 
+K_2 = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+0 & 0 & i \\
+0 & 0 & 0 \\
+-i & 0 & 0
+\end{pmatrix} ~, 
+K_3 = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+0 & -i & 0 \\
+i & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix} ~, 
+\end{equation}
+these matrices \textcolor{red}{satisfy the angular momentum commutation rules}, and describe the result of applying the angular momentum operator $\vec{L} = \vec{r} \times \vec{p}$, where $\vec{p} = -i \nabla$, to the basis $x, y, z$. 
+\begin{equation}
+\vec{K}^2 = K_1^2 +K_2^2 +K_3^2 = 2 \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} ~,
+\end{equation}
+showing that all members of the basis are eigenvectors of $\vec{K}^2$, with eigenvalue $2$, which is $k(k + 1)$ with $k = 1$. All members of our basis have one unit of some abstract sort of angular momentum (often referred to as spin), and we can obtain a set of eigenvectors with values of an index $m$ that can have values $+1$, $0$, and $-1$. By diagonalizing the matrix $K_3$, its eigenvectors are
+\begin{equation}
+\vec{k}_1 = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+-1/\sqrt{2} \\
+-i/\sqrt{2} \\
+0
+\end{pmatrix} ~, 
+\vec{k}_0 = \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+0 \\
+0 \\
+1
+\end{pmatrix} ~, 
+\vec{k}_{-1} = \begin{pmatrix}
+1/\sqrt{2} \\
+-i/\sqrt{2} \\
+0
+\end{pmatrix} ~, 
+\end{equation}
+While in principle the signs of these eigenvectors are arbitrary, they have been chosen here to agree with the Condon-Shortley phase convention.
+
+
+\subsection{Vector Coupling}
+\cite{arfken} The vector spherical harmonics are now defined as the quantities that result from the coupling of ordinary spherical harmonics and the vectors $ \vec{\rm e}_m$ to form states of definite $J$ (the resultant of the orbital angular momentum of the spherical harmonic and the one unit possessed by the $ \vec{\rm e}_m$). It is customary to label the vector spherical harmonics to show both the $L$ value from the ordinary (scalar) harmonic and the $M$ value (the eigenvalue of $J_z$). The vector spherical harmonic will have three indices: $J$, $L$, and $M$. From the general formula for angular-momentum coupling,
+\begin{equation}
+\vec{Y}_{JLM}(\theta, \varphi) = \sum_{m m^\prime} C(L, 1, J|m m^\prime M) Y^m_L(\theta, \varphi)  \vec{\hat{\rm e}}_{m^\prime} ~.
+\end{equation}
+Remember that $M$ is $M_J$, not the $m$ value of $Y_L^m$, and that $\vec{\hat{e}}_{m^\prime}$ are the angular momentum eigenfunctions. 
+
+Because it couples an angular momentum $L$ with one of magnitude $k = 1$, the $L$ values in a vector spherical harmonic of given $J$ are restricted to $J + 1$, $J$, and $J -1$, a condition enforced by the values of the Clebsch-Gordan coefficients. Moreover, because the Clebsch-Gordan coefficients describe a unitary transformation, the obvious orthogonality of the states in the $m, m^\prime$ basis ($Y_l^m \vec{\hat{\rm e}}_{m^\prime}$) will cause the vector spherical harmonics also to be orthonormal
+\begin{equation}
+\int \vec{Y}_{JLM}(\theta, \varphi) \cdot \vec{Y}_{J^\prime L^\prime M^\prime}(\theta, \varphi) \dif \Omega = \delta_{JJ^\prime} \delta_{LL^\prime} \delta_{MM^\prime} ~.
+\end{equation}
+\begin{equation}
+Y_L^m(\theta, \varphi) \vec{\hat{\rm e}}_{m^\prime} = \sum_{JM} C(L, 1, J|m m^\prime M)\vec{Y}_{JLM}
+\end{equation}
+
+\begin{equation}
+\vec{\hat{r}} Y_L^M(\theta, \varphi) = -\left[\dfrac{L+1}{2L+1} \right]^{1/2} Y_{L, L+1, M} + \left[\dfrac{L}{2L+1} \right]^{1/2} Y_{L, L-1, M} ~.
+\end{equation}
+
+
+
+
+
+
+\section{Spherical harmonics}
+\subsection{The irreducible representations of the rotation group}
+\cite{2008cmb..book.....D} For a function $\Psi$ on the sphere we define its transformation under rotations $R \in SO(3)$ by
+\begin{equation}
+[\mathcal U(R) \Psi](\vec{n}) \equiv \Psi(R^{-1} \vec{n}) ~~ \forall \vec{n} \in \mathbb{S}^2
+\end{equation}
+This is clearly a unitary representation of the rotation group on $\mathcal L^2 (\mathbb{S}^2)$, i.e. the Hilbert space of square integrable functions on the sphere.
+
+The one-parameter subgroup of rotations around a given axis $\vec{e}$ is
+\begin{equation}
+R(\vec{e}, \alpha) \vec{n} = \cos \alpha \vec{n} +[1-\cos \alpha] (\vec{e} \cdot \vec{n}) \vec{e} +\sin \alpha \vec{e} \wedge \vec{n} ~. 
+\end{equation}
+Its generator is defined by
+\begin{equation}
+\Omega(\vec{e}) \vec{n} = \dfrac{\dif }{\dif \alpha} R(\vec{e}, \alpha) \vec{n} \Bigg|_{\alpha = 0} ~.
+\end{equation}
+\begin{equation}
+\Omega(\vec{e})_{ij} = \vec{e}_k I_{ij}^k ~, ~~ \text{where} ~~ I_{ij}^k = -\epsilon_{ijk} ~.
+\end{equation}
+The generator of ${\mathcal U}(R(\vec{e}, \alpha))$ is the angular momentum in direction $\vec{e}$;
+\begin{equation}
+ \dfrac{\dif }{\dif \alpha} {\mathcal U}(R(\vec{e}, \alpha) ) \Bigg|_{\alpha = 0} \equiv {\mathcal U}_\ast (I^j) \vec{e}_j = \dfrac{i}{\hbar} L^j \vec{e}_j ~,
+\end{equation}
+with
+\begin{equation}
+\vec{L} = -i\hbar \vec{x} \wedge \nabla ~.
+\end{equation}
+In spherical coordinates $(r, \theta, \varphi)$ one finds
+\begin{equation}
+\vec{L} = i\hbar \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+\sin \varphi \cot \theta \partial_\varphi +\cos \varphi \partial_\theta \\
+\cos \varphi \cot \theta \partial_\varphi -\sin \varphi \partial_\theta \\
+-\partial_\varphi
+\end{pmatrix} ~, 
+\end{equation}
+The matrices $I_k$ and the operators $L_k$ satisfy the commutation relation
+\begin{align}
+& [I_j , I_k] = \epsilon_{jkl} I_l ~, \\
+& [L_j, L_k] = + i \hbar \epsilon_{jkl} L_l ~.
+\end{align}
+Introducing also $L_\pm  = L_1 \pm L_2$ and $\vec{L}^2 = L^2_1 + L^2_2 + L^2_3$ one finds the commutation relations
+\begin{align}
+& [\vec{L}^2, L_j] = 0 = [\vec{L}^2, L_\pm] ~, \\
+& [L_3, L_\pm] = \pm \hbar L_\pm ~, \\
+& L_\pm L_\mp = \vec{L}^2 -L_3^2 \pm \hbar L_3 ~.
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{The Clebsch-Gordan decomposition}
+\cite{2008cmb..book.....D} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Spherical harmonics of spin-$0$}
+\cite{2008cmb..book.....D} The spherical harmonics are functions on the sphere. For a unit vector $\vec{n}$ defined by its polar angles $(\theta, \varphi)$ the spherical harmonics are given by
+\begin{equation}
+Y_{lm}(\vec{n}) = (-1)^m \sqrt{\dfrac{2l+1}{4\pi} \dfrac{(l-m)!}{(l+m)!} } e^{im\varphi} P_{lm}(\mu) ~, ~~ \mu = \cos \theta ~.
+\end{equation}
+From the parity transformation properties and the orthogonality of the associated Legendre functions, $Y_{l-m} = (-1)^m \bar{Y}_{lm}$ and 
+\begin{equation}
+\int Y_{lm}(\vec{n}) \bar{Y}_{l^\prime m^\prime}(\vec{n}) \dif \Omega_{\vec{n}} = \delta_{ll^\prime} \delta_{mm^\prime} ~.
+\end{equation}
+the spherical harmonics $(Y_{lm})^l_{m=-l}$ carry the representation $D^{(l)}$.
+
+$L_3 = -i\hbar \partial_\varphi$. Therefore, the set of functions $f_{lm}$ which forms a canonical basis for the representation $D^{(l)}$ must be of the form $f_{lm} = \exp (im \varphi) g_{lm}(\mu)$ ~.
+\begin{equation}
+\vec{L}^2 = L_1^2+ L_2^2 +L_3^2 = -\hbar^2 \left[\dfrac{1}{\sin \theta} \partial_\theta \sin \theta \partial_\theta +\dfrac{1}{\sin^2 \theta} \partial_\varphi^2 \right] = -\hbar^2 \Delta ~,
+\end{equation}
+where $\Delta$ denotes the Laplacian on the $2$-sphere. For $f_{lm} = \exp (im\varphi) g_{lm}(\mu)$,
+\begin{equation}
+\Delta f_{lm} = \left[(1-\mu^2) \dfrac{\dif^2}{\dif \mu^2} - 2\mu \dfrac{\dif }{\dif \mu} - \dfrac{m^2}{1-\mu^2}  \right] g_{lm}(\mu) \exp (im\varphi) ~.
+\end{equation}
+With $\vec{L}^2 = \hbar^2 l(l + 1)$ it follows that $g_{lm} (\mu)$ satisfies the differential equation of the associated Legendre function, hence $g_{lm} = c_{lm} P_{lm} (\mu)$. The constants $c_{lm}$ are chosen to normalize the functions $f_{lm}$. Furthermore, since $f_{lm}$ and $f_{l^\prime m^\prime}$ are eigenfunctions with different eigenvalues for some hermitian operator ($L_3$ if $m \neq m^\prime$ and $\vec{L}^2$ if $l \neq l^\prime$) they are certainly orthogonal. The functions $f_{lm}$ are proportional to the spherical harmonics and obey the same normalization condition, i.e., they are the spherical harmonics $Y_{lm}$.
+
+We can relate the spherical harmonic $Y_{lm}(\vec{n})$ to the matrix element $D^{(l)}_{m0}(R)$, where $R$ is a rotation which turns $\vec{e}_z$ into $\vec{n}$. To do this we observe that the spherical harmonics of order $l$ form an orthonormal basis for the $(2l + 1)$-dimensional space of functions on the sphere which transform with the representation $D^{(l)}$ under rotation. Let $f$ be such a function and $(f_m)$ be its coefficients in the basis $Y_{lm}$.
+\begin{equation}
+f(\vec{n}) = \sum_m f_m Y_{lm} (\vec{n})  ~.
+\end{equation}
+Under a rotation, the vector ($f_m$) transform with $D^{(l)}_{m_1 m_2}$ so that 
+\begin{equation}
+f(R^{-1} \vec{n}) = \sum_{m_1} \left(\sum_{m_2} D^{(l)}_{m_1 m_2} (R) f_{m_2}  \right) Y_{lm_1} (\vec{n}) ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Spherical harmonics of spin $s^1$}
+\cite{2008cmb..book.....D} Consider tensor fields on the sphere. We can express their components in terms of the standard `real' orthonormal basis, $\vec{e}_1 = \vec{e}_\theta = \partial_\theta$, $\vec{e}_2 = \vec{e}_\varphi = \dfrac{1}{\sin \theta} \partial_\varphi$ or in terms of the helicity basis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,161 @@
+Chapter 2.  Building and Installing Geant4
+
+2.1.  Building and Installing on Unix Platforms
+
+Unpack the Geant4 source package geant4.10.03.tar.gz to a location of your choice. For illustration only, this guide will assume it's been unpacked in a directory named /path/to, so that the Geant4 source package sits in a subdirectory
+
+    /path/to/geant4.10.03
+  
+We refer to this directory as the source directory. The next step is to create a directory in which to configure and run the build and store the build products. This directory should not be the same as, or inside, the source directory. In this guide, we create this build directory alongside our source directory:
+
+    $ cd /path/to
+    $ mkdir geant4.10.3-build
+    $ ls
+    geant4.10.03  geant4.10.3-build
+  
+To configure the build, change into the build directory and run CMake:
+
+    $ cd /path/to/geant4.10.3-build
+    $ cmake -DCMAKE_INSTALL_PREFIX=/path/to/geant4.10.3-install /path/to/geant4.10.03
+  
+Here, the CMake Variable CMAKE_INSTALL_PREFIX is used to set the install directory, the directory under which the Geant4 libraries, headers and support files will be installed. It must be supplied as an absolute path. The second argument to CMake is the path to the source directory. In this example, we have used the absolute path to the source directory, but you can also use the relative path from your build directory to your source directory.
+
+Additional arguments may be passed to CMake to activate optional components of Geant4, such as visualization drivers, or tune the build and install parameters. See Section 2.3 for details of these options. If you run CMake and decide afterwards you want to activate additional options, simply rerun CMake in the build directory, passing it the extra options plus the build directory. For example, after running CMake as above, you may wish to activate the installation of Geant4's datasets, so you would run
+
+    $ cd /path/to/geant4.10.3-build
+    $ cmake -DGEANT4_INSTALL_DATA=ON .
+  
+On executing the CMake command, it will run to configure the build and generate Unix Makefiles to perform the actual build. CMake has the capability to generate buildscripts for other tools, such as Eclipse and Xcode, but please note that we do not support user installs of Geant4 with these tools. On Linux, you will see output similar to:
+
+    $ cmake -DCMAKE_INSTALL_PREFIX=/path/to/geant4.10.3-install /path/to/geant4.10.03
+    -- The C compiler identification is GNU 4.9.2
+    -- The CXX compiler identification is GNU 4.9.2
+    -- Check for working C compiler: /usr/bin/gcc-4.9
+    -- Check for working C compiler: /usr/bin/gcc-4.9 -- works
+    -- Detecting C compiler ABI info
+    -- Detecting C compiler ABI info - done
+    -- Detecting C compile features
+    -- Detecting C compile features - done
+    -- Check for working CXX compiler: /usr/bin/g++-4.9
+    -- Check for working CXX compiler: /usr/bin/g++-4.9 -- works
+    -- Detecting CXX compiler ABI info
+    -- Detecting CXX compiler ABI info - done
+    -- Detecting CXX compile features
+    -- Detecting CXX compile features - done
+    -- Found EXPAT: /usr/lib64/libexpat.so (found version "2.0.1")
+    -- Looking for sys/types.h
+    -- Looking for sys/types.h - found
+    -- Looking for stdint.h
+    -- Looking for stdint.h - found
+    -- Looking for stddef.h
+    -- Looking for stddef.h - found
+    -- Check size of off64_t
+    -- Check size of off64_t - done
+    -- Looking for fseeko
+    -- Looking for fseeko - found
+    -- Looking for unistd.h
+    -- Looking for unistd.h - found
+    -- Pre-configuring dataset G4NDL (4.5)
+    -- Pre-configuring dataset G4EMLOW (6.50)
+    -- Pre-configuring dataset PhotonEvaporation (4.2)
+    -- Pre-configuring dataset RadioactiveDecay (5.1)
+    -- Pre-configuring dataset G4NEUTRONXS (1.4)
+    -- Pre-configuring dataset G4PII (1.3)
+    -- Pre-configuring dataset RealSurface (1.0)
+    -- Pre-configuring dataset G4SAIDDATA (1.1)
+    -- Pre-configuring dataset G4ABLA (3.0)
+    -- Pre-configuring dataset G4ENSDFSTATE (2.1)
+      *WARNING*
+      Geant4 has been pre-configured to look for datasets
+      in the directory:
+
+      /path/to/geant4.10.3-install/share/Geant4-10.3.0/data
+
+      but the following datasets are NOT present on disk at
+      that location:
+
+      G4NDL (4.5)
+      G4EMLOW (6.50)
+      PhotonEvaporation (4.2)
+      RadioactiveDecay (5.1)
+      G4NEUTRONXS (1.4)
+      G4PII (1.3)
+      RealSurface (1.0)
+      G4SAIDDATA (1.1)
+      G4ABLA (3.0)
+      G4ENSDFSTATE (2.1)
+
+      If you want to have these datasets installed automatically
+      simply re-run cmake and set the GEANT4_INSTALL_DATA
+      variable to ON. This will configure the build to download
+      and install these datasets for you. For example, on the
+      command line, do:
+
+      cmake -DGEANT4_INSTALL_DATA=ON <otherargs>
+
+      The variable can also be toggled in ccmake or cmake-gui.
+      If you're running on a Windows system, this is the best
+      solution as CMake will unpack the datasets for you
+      without any further software being required
+
+      Alternatively, you can install these datasets manually
+      now or after you have installed Geant4. To do this,
+      download the following files:
+
+      http://geant4.cern.ch/support/source/G4NDL.4.5.tar.gz
+      http://geant4.cern.ch/support/source/G4EMLOW.6.50.tar.gz
+      http://geant4.cern.ch/support/source/G4PhotonEvaporation.4.2.tar.gz
+      http://geant4.cern.ch/support/source/G4RadioactiveDecay.5.1.tar.gz
+      http://geant4.cern.ch/support/source/G4NEUTRONXS.1.4.tar.gz
+      http://geant4.cern.ch/support/source/G4PII.1.3.tar.gz
+      http://geant4.cern.ch/support/source/RealSurface.1.0.tar.gz
+      http://geant4.cern.ch/support/source/G4SAIDDATA.1.1.tar.gz
+      http://geant4.cern.ch/support/source/G4ABLA.3.0.tar.gz
+      http://geant4.cern.ch/support/source/G4ENSDFSTATE.2.1.tar.gz
+
+      and unpack them under the directory:
+
+      /path/to/geant4.10.3-install/share/Geant4-10.3.0/data
+
+      As we supply the datasets packed in gzipped tar files,
+      you will need the 'tar' utility to unpack them.
+
+      Nota bene: Missing datasets will not affect or break
+      compilation and installation of the Geant4
+      libraries.
+
+    -- The following Geant4 features are enabled:
+    GEANT4_BUILD_CXXSTD: Compiling against C++ Standard '11'
+    GEANT4_USE_SYSTEM_EXPAT: Using system EXPAT library
+
+    -- Configuring done
+    -- Generating done
+    -- Build files have been written to: /path/to/geant4.10.3-build
+  
+On OS X, the output will have slight differences, but the last three lines at least should be the same. These indicate a successful configuration.
+
+The warning message about datasets is simply an advisory. Due to the size of the datasets, Geant4 will try and reuse any datasets it can find under the data installation prefix, in our example case /path/to/geant4.10.3-install/share/Geant4-10.3.0/data. If any datasets are not found here, it will pre-configure the setup scripts for using Geant4 (described in Section 3.1 and Section 3.2) to point to this location and emit the message to advise you on the steps you need to take to manually install the datasets at a time of your convenience.
+
+Datasets are not required to be present to build Geant4, but may be required to run your application, depending on the physics models you use. If you wish to download and install the datasets automatically as part of your build of Geant4, simply add the option -DGEANT4_INSTALL_DATA=ON to the arguments passed to CMake. Note that this requires a working network connection and will download around 0.5GB of data. If you already have the datasets present on your system, you can point Geant4 to their location. See the GEANT4_INSTALL_DATADIR option described Section 2.3.1 for more details.
+
+If you see any errors at this point, carefully check the error messages output by CMake, and check your install of CMake and C++ compiler first. The default configuration of Geant4 is very simple, and provided CMake and the compiler are installed correctly, you should not see errors.
+
+After the configuration has run, CMake will have generated Unix Makefiles for building Geant4. To run the build, simply execute make in the build directory:
+
+    $ make -jN
+  
+where N is the number of parallel jobs you require (e.g. if your machine has a dual core processor, you could set N to 2).
+
+The build will now run, and will output information on the progress of the build and current operations. If you need more output to help resolve issues or simply for information, run make as
+
+    $ make -jN VERBOSE=1
+  
+Once the build has completed, you can install Geant4 to the directory you specified earlier in CMAKE_INSTALL_PREFIX by running
+
+    $ make install
+  
+in the build directory. The libraries, headers and resource files are installed under your chosen install prefix in a standard Unix-style hierarchy of directories, described below in Section 3.1. If you are performing a staged install for packaging or deployment, the CMake generated Makefiles support the DESTDIR variable for copying to a temporary location. To uninstall Geant4 you can run
+
+    $ make uninstall
+  
+which will remove all installed files but not any installed directories.

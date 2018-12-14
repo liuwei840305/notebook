@@ -1,0 +1,237 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{狭义相对论——动力学}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{相对论能动量}
+粒子的\textcolor{red}{动量}
+\begin{equation}
+\vec{p} = \gamma m \vec{u} = \frac{m\vec{u}}{\sqrt{1-\frac{u^2}{c^2}}}
+\end{equation}
+粒子的\textcolor{red}{能量} 
+\begin{equation}
+E = \gamma m c^2 = \frac{m c^2}{\sqrt{1-\frac{u^2}{c^2}}}
+\end{equation}
+粒子的\textcolor{red}{静能}
+\begin{equation}
+E = m c^2
+\end{equation}
+粒子的\textcolor{red}{动能}
+\begin{equation}
+T = E - mc^2
+\end{equation}
+\begin{equation}
+E^2 = p^2 c^2 +m^2 c^4
+\end{equation}
+从任何小于$c$的有限速率增加到或者超过光速是不可能的；若粒子生来就具有大于光速的速率，并不破坏这一说法；
+
+一个自由粒子的能量、动量与速度的关系：
+\begin{equation}
+\vec{u} = \frac{c^2 \vec{p}}{E}
+\end{equation}
+
+\section{能动量四维矢量的洛伦兹变换}
+the Lorentz transformation for momentum and energy
+\begin{eqnarray}
+\nonumber p^{\prime}_x &=& \gamma(p_x -vE/c^2) ~, \\
+\nonumber p^{\prime}_y &=& p_y ~, \\
+\nonumber p^{\prime}_z &=& p_z ~, \\
+E^{\prime} &=& \gamma(E -vp_x)
+\end{eqnarray}
+the inverse transformation is
+\begin{eqnarray}
+\nonumber p_x &=& \gamma(p^{\prime}_x +vE^{\prime}/c^2) ~, \\
+\nonumber p_y &=& p^{\prime}_y ~, \\
+\nonumber p_z &=& p^{\prime}_z ~, \\
+E &=& \gamma(E^{\prime} +vp^{\prime}_x) 
+\end{eqnarray}
+
+洛伦兹不变式
+\begin{equation}
+E^2 -\vec{p}^2 c^2 = {E^{\prime}}^2 -\vec{p}^2 c^2 = {\rm Const.}
+\end{equation}
+若系统为单一粒子，其静质量为$m_0$，将$x^{\prime}, y^{\prime}, z^{\prime}$系统固定在$m_0$上，即$m_0$粒子在$x^{\prime}, y^{\prime}, z^{\prime}$系内是静止的，其动量$\vec{p}^{\prime} = 0$，则不变式的常量为$m_0^2$
+\begin{equation}
+E^2 -\vec{p}^2 c^2 = {E^{\prime}}^2 = m_0^2
+\end{equation}
+对于多粒子系统，其总能量和总动量组成四矢量，在彼此间无相互作用时，洛伦兹不变式为
+\begin{eqnarray}
+\left(\sum_i E_i  \right)^2 -\left(\sum_i \vec{p}_i  \right)^2 = {\rm Const.}
+\end{eqnarray}
+在质心系统中，$\sum_i \vec{p}_i^* = 0$，此常量等于$E_{\rm cm}^2 = {E^*}^2 = S$。\textcolor{red}{在一般情况下，此常量并不等于系统的总质量$M_0$}。但若这个多粒子系统是\textcolor{red}{由单一母粒子$M_0$衰变产生的}，则这一常量等于\textcolor{red}{母粒子总静止能量的平方$M_0^2$}，$M_0$称为这个\textcolor{red}{多粒子系统的不变质量}。
+
+
+\section{分布函数的变换}
+
+
+\section{碰撞的相对论运动学}
+把质心系适当地推广为洛伦兹参照系，在该参照系内，所有粒子的总的空间线动量对于$0$；这样一个洛伦兹参照系总是能够找到的，因为一个质点系的总四维动量矢量是类时的；
+
+总的四维动量
+\begin{equation}
+P_{\mu} = \sum_r p_{r\mu}
+\end{equation}
+\begin{eqnarray}
+\nonumber P_{\mu} P_{\mu} = \sum_{r,s} p_{r\mu} p_{s\mu} &=& -\sum_{r} m_r^2 c^2 + \sum_{r \neq s} p_{r\mu} p_{s\mu} ~, \\
+&=& -\sum_{r} m_r^2 c^2 + \sum_{r \neq s} m_r m_s \gamma_r \gamma_s (c^2 -\vec{v}_r \cdot \vec{v}_s)
+\end{eqnarray}
+由于实物粒子的速度始终小于$c$，所以$P_{\mu}$的平方始终是负值；一定会有某种洛伦兹坐标系，它保证被变换矢量$P_{\mu}$的空间分量全部为$0$，这种坐标系称为\textcolor{red}{动量中心系}，或者不太严格地称为\textcolor{red}{质心系}，“C-O-M”系；
+
+碰撞前后总的四维动量矢量守恒；意味着空间线动量的守恒和总能量(包括静止质能)的守恒；变换到动量中心系和起始于动量中心系的洛伦兹变换；同时构成一些在所有洛伦兹系统内都有相同数值的洛伦兹不变量(世量标量)；
+
+考虑由两个粒子引起的反应，它产生出另一组质量为$m_r (r = 3, 4, 5, \cdots)$的粒子，在“C-O-M”系内，变换后的总动量$P^{\prime}_{\mu}$具有零值空间分量以及一个第四分量$iT^{\prime}/c$。把“C-O-M”系看作是质量为$M=T^{\prime}/c^2$的复合粒子的固有系统或静止系统；$P_{\mu}$量值的平方在所有洛伦兹系统内必定是不变量(并在反应中守恒)。因此
+\begin{equation}
+P_{\mu} P_{\mu} = P^{\prime}_{\mu}P^{\prime}_{\mu} = -\frac{{E^{\prime}}^2}{c^2} = -M^2 c^2
+\end{equation}
+对原有粒子，
+\begin{equation}
+P_{\mu} P_{\mu} = -(m_1^2 +m_2^2) c^2 + 2p_{1\mu} p_{2\mu}
+\end{equation}
+在“C-O-M”系内的能量或等效质量$M$，可依据入射粒子表达成
+\begin{equation}
+{E^{\prime}}^2 \equiv M^2 c^4 = (m_1^2 +m_2^2) c^4 +2(E_1 E_2 -c^2 \vec{p}_1 \cdot \vec{p}_2 )
+\end{equation}
+假设有一个粒子，如粒子2，在实验室系下是静止的，则$\vec{p}_2 = 0$和$T_2 = m_2 c^2$，C-O-M能量为
+\begin{equation}
+{E^{\prime}}^2 \equiv M^2 c^4 = (m_1^2 +m_2^2) c^4 +2m_2 c^2 E_1 =  (m_1^2 +m_2^2)^2 c^4 +2m_2 c^2 T_1
+\end{equation}
+C-O-M系内的有效能量仅随入射动能缓慢增加，甚至在运动动能远大于静止质能的“超相对论”区域内，$E^{\prime}$也仅按$T_1$的平方根增加；
+
+在C-O-M系中适用的小数量入射能量按比例增加的效应，是用阈能表示的；有可能引起反应(除了弹性散射)的最低能量是反应物静止在C-O-M系内时的能量。任何有限动能都要求一个较高的$E^{\prime}$，或者说要求一个较高的入射能量；反应后，C-O-M系内的总的四维动量$P_{\mu}^{\prime \prime}$，它在阈值处的量值决定于
+\begin{equation}
+P_{\mu}^{\prime \prime} P_{\mu}^{\prime \prime} = -c^4 \left(\sum_r m_r \right)^2 
+\end{equation}
+对于静止靶，阈值处入射运动能量决定于
+\begin{equation}
+\frac{T_1}{m_1 c^2} = \frac{\left(\sum\limits_r m_r \right)^2 -(m_1 +m_2)^2}{2m_1 m_2}
+\end{equation}
+若反应的$Q$定义为
+\begin{equation}
+Q  = \sum_r m_r -(m_1 +m_2)
+\end{equation}
+则
+\begin{equation}
+\frac{T_1}{m_1 c^2} = \frac{Q^2 +2Q(m_1 +m_2)}{2m_1 m_2}
+\end{equation}
+
+实验室系内反应产物在阈值处的能量；C-O-M系是质量$M$的静止系统，它的$P^{\prime}_4 = i M c$，在任何其它系统中，四维矢量的第四分量是$P_4 = i M c \gamma$，但在实验室系内则为
+\begin{equation}
+P_4 = \frac{i}{c} (E_1 +E_2) = \frac{i}{c} (E_1 +m_2 c^2)
+\end{equation}
+后一式只对静止靶粒子成立；因此，C-O-M系统相对于实验室系的运动应使
+\begin{equation}
+\gamma = \frac{E_1 +m_2 c^2}{Mc^2}
+\end{equation}
+但在阈值处，所有的反应产物在C-O-M系内都是静止的，因此$M = \sum\limits_r m_r$，这时有
+\begin{equation}
+\gamma = \frac{T_1 +(m_1 +M_2) c^2}{\sum\limits_r m_r c^2}   ~~~~~\text{阈值}
+\end{equation}
+在实验室系内，第$s$个反应产物的动能是
+\begin{equation}
+T_s = m_s c^2 (\gamma -1)
+\end{equation}
+
+
+
+
+\section{粒子间的弹性碰撞}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

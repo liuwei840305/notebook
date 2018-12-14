@@ -1,0 +1,505 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{graphicx} 
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+\usepackage{tcolorbox}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newtheorem*{thm}{The Theorem}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\title{常数项无穷级数}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{引言}
+设给定某一无穷序列
+\begin{equation}
+a_1, a_2, a_3, \cdots, a_n, \cdots
+\label{1}
+\end{equation}
+\begin{equation}
+a_1 + a_2+ a_3+ \cdots+ a_n+ \cdots
+\label{2}
+\end{equation}
+叫做\textcolor{red}{无穷级数}，(\ref{1})中各数叫做\textcolor{red}{级数的项}，常把(\ref{2})写作
+\begin{equation}
+\sum\limits_{n=1}^{\infty} a_n
+\end{equation}
+
+依次把级数的各项加起来，作和
+\begin{equation}
+A_1 = a_1, ~A_2 = a_1 +a_2, ~A_3 = a_1 +a_2 +a_3, \cdots, A_n = a_1 +a_2 +a_3+\cdots +a_n, \cdots
+\end{equation}
+叫做级数的\textcolor{red}{部分和}(或\textcolor{red}{段})。
+
+若级数(\ref{2})的部分和$A_n$当$n\rightarrow \infty$时具有有限或无穷(但有确定的正负号)极限$A$：
+\begin{equation}
+A = \lim A_n
+\end{equation}
+那么这个极限就叫做级数的和，并写
+\begin{equation*}
+A = a_1 +a_2 +\cdots +a_n +\cdots = \sum\limits_{n=1}^{\infty} a_n
+\end{equation*}
+若级数具有\textcolor{red}{有限和}，叫做\textcolor{red}{收敛的}，相反的情况(和等于$\pm \infty$，或根本没有和)，叫做\textcolor{red}{发散的}。
+
+
+若在级数(\ref{2})中弃去前$m$个项，得到
+\begin{equation*}
+a_{m+1} +a_{m+2} +\cdots +a_{m+k} +\cdots = \sum\limits_{n=m+1}^{\infty} a_n
+\label{residue}
+\end{equation*}
+即级数(\ref{2})第$m$项后的余式。
+
+1. 若级数(\ref{2})收敛，则它的任何一个余式(\ref{residue})也收敛；反之，从余式(\ref{residue})的收敛性可推出原来的级数(\ref{2})的收敛性。
+
+弃去级数前有限个项或在级数前加进若干新的项，并不影响级数的性质。
+
+2. 若级数(\ref{2})收敛，则它的第$m$项后的余式的和$\alpha_m$随着$m$的增大而趋于$0$。
+
+
+
+无穷级数
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} a_n = a_1 + a_2+ a_3+ \cdots+ a_n+ \cdots
+\end{equation*}
+的前$n$项的和
+\begin{equation*}
+S_n = a_1 + \cdots+ a_n
+\end{equation*}
+称为级数的第$n$个\textcolor{red}{部分和}。若部分和构成的数列$\{S_n \}$有有限的极限$S$，就说级数是收敛的，其和为$S$，记作
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} a_n = S ~,
+\end{equation*}
+若数列$\{S_n \}$没有有限的极限，就说级数是发散的。
+
+
+\section{正项级数的收敛性}
+设级数
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} a_n = a_1 + a_2+ a_3+ \cdots+ a_n+ \cdots
+\end{equation*}
+是\textcolor{red}{正项级数}，即$a_n \geqslant 0 (n = 1, 2, 3, \cdots)$。由于
+\begin{equation*}
+A_{n+1} = A_n +a_{n+1} \geqslant A_n ~,
+\end{equation*}
+即序列$A_n$是递增的。
+
+\begin{theo}[]{}
+正项级数恒有和；若级数的部分和上有界，这个和是有限的(级数是收敛的)；在相反情形下，这个和就是无穷的(级数是发散的)。
+\end{theo}
+
+\subsection{级数比较定理}
+\begin{theo}[]{}
+设给定二正项级数
+\begin{equation}
+\sum\limits_{n=1}^{\infty} a_n = a_1 + a_2+ a_3+ \cdots+ a_n+ \cdots
+\label{A}
+\end{equation}
+\begin{equation}
+\sum\limits_{n=1}^{\infty} b_n = b_1 + b_2+ b_3+ \cdots+ b_n+ \cdots
+\label{B}
+\end{equation}
+若至少从某处开始(对于$n > N$)，不等式$a_n \leqslant b_n$成立，则从级数(\ref{B})的收敛性可推得级数(\ref{A})的收敛性；或者从级数(\ref{A})的发散性推知级数(\ref{B})的发散性。
+\end{theo}
+
+
+\begin{theo}[]{}
+若极限
+\begin{equation*}
+\lim \frac{a_n}{b_n} = K ~~(0 \leqslant K \leqslant +\infty)
+\end{equation*}
+存在，则从级数(\ref{B})的收敛性，当$K < +\infty$时，可推得级数(\ref{A})的收敛性，而从级数(\ref{B})的发散性，当$K > 0$时，可推得级数(\ref{A})的发散性。(当$0 < K < +\infty$，二级数同时收敛或同时发散。)
+\end{theo}
+
+
+\begin{theo}[]{}
+若至少从某处开始(对于$n > N$)，不等式
+\begin{equation*}
+\frac{a_{n+1}}{a_n} \leqslant \frac{b_{n+1}}{b_n}
+\end{equation*}
+成立，则从级数(\ref{B})的收敛性可推得级数(\ref{A})的收敛性，或者从级数(\ref{A})的发散性推知级数(\ref{B})的发散性。
+\end{theo}
+
+
+
+
+
+\subsection{判别法}
+把给定级数
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} a_n = a_1 + a_2+ a_3+ \cdots+ a_n+ \cdots
+\end{equation*}
+跟不同的已知为收敛或发散的标准级数比较。
+
+\begin{theo}[柯西判别法]{}
+对级数(\ref{A})作序列
+\begin{equation*}
+\mathcal{C}_n = \sqrt[n]{a_n}
+\end{equation*}
+若当$n$充分大时，不等式
+\begin{equation*}
+\mathcal{C}_n \leqslant q
+\end{equation*}
+成立，其中$q$是小于$1$的常数，则级数收敛；若从某处开始，
+\begin{equation*}
+\mathcal{C}_n \geqslant 1 ~,
+\end{equation*}
+则级数发散。
+\end{theo}
+
+\begin{theo}[柯西判别法的极限形式]{}
+假定序列$\mathcal{C}_n$具有极限(有限或无穷的)：
+\begin{equation*}
+\lim \mathcal{C}_n = \mathcal{C} ~.
+\end{equation*}
+当$\mathcal{C} < 1$时级数收敛，当$\mathcal{C} > 1$时级数发散。
+\end{theo}
+在$\mathcal{C} = 1$的情形下，不能判断出级数是否收敛。
+序列$\mathcal{C}_n$叫做\textcolor{red}{柯西序列}。
+
+\begin{theo}[达朗贝尔判别法]{}
+对于级数(\ref{A})的序列
+\begin{equation*}
+\mathcal{D}_n = \frac{a_{n+1}}{a_n} ~.
+\end{equation*}
+若当$n$充分大时，不等式$\mathcal{D}_n \leqslant q$成立，其中$q$是小于$1$的常数，则级数收敛；
+若从某处开始，$\mathcal{D}_n \geqslant 1$，则级数发散。
+\end{theo}
+
+\begin{theo}[达朗贝尔判别法的极限形式]{}
+假定序列$\mathcal{D}_n$具有极限(有限或无穷的)：
+\begin{equation*}
+\lim \mathcal{D}_n = \mathcal{D} ~.
+\end{equation*}
+当$\mathcal{D} < 1$时级数收敛，当$\mathcal{D} > 1$时级数发散。
+\end{theo}
+在$\mathcal{D} = 1$的情形下，不能判断出级数是否收敛。
+序列$\mathcal{D}_n$叫做\textcolor{red}{达朗贝尔序列}。
+
+拉阿伯判别法把给定级数(\ref{A})与收敛的调和级数
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} \frac{1}{n^s} = 1 +\frac{1}{2^s} +\frac{1}{3^s} +\cdots +\frac{1}{n^s} +\cdots ~~(s > 1)
+\end{equation*}
+以及发散的调和级数
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} \frac{1}{n} = 1 +\frac{1}{2} +\frac{1}{3} +\cdots +\frac{1}{n} +\cdots 
+\end{equation*}
+相比较而得到。
+
+\begin{theo}[拉阿伯判别法]{}
+拉阿伯序列
+\begin{equation*}
+\mathcal{R}_n = n\left(\frac{a_n}{a_{n+1}} -1 \right)
+\end{equation*}
+若$n$充分大时，不等式$\mathcal{R}_n \geqslant r$成立，其中$r$是大于$1$的常数，则级数收敛；
+若从某处开始，$\mathcal{R}_n \leqslant 1$，则级数发散。
+\end{theo}
+
+\begin{theo}[拉阿伯判别法的极限形式]{}
+假定序列$\mathcal{R}_n$具有极限(有限或无穷的)：
+\begin{equation*}
+\lim \mathcal{R}_n = \mathcal{R} ~.
+\end{equation*}
+当$\mathcal{R} > 1$时级数收敛，当$\mathcal{R} < 1$时级数发散。
+\end{theo}
+
+\begin{theo}[库默尔判别法]{}
+设$c_1, c_2, \cdots, c_n, \cdots$是使级数
+\begin{equation*}
+\sum\limits_{n=1}^{\infty} \frac{1}{c_n} 
+\end{equation*}
+发散的一个正数序列。对所考虑的级数(\ref{A})做序列
+\begin{equation*}
+\mathcal{K}_n = c_n \cdot \frac{a_{n}}{a_{n+1}} - c_{n+1}
+\end{equation*}
+若对于$n > N$，不等式$\mathcal{K}_n \geqslant \delta$成立，其中$\delta$是一个正常数，则级数收敛；
+若对于$n > N$，$\mathcal{K}_n \leqslant 0$，则级数发散。
+\end{theo}
+
+\begin{theo}[库默尔判别法的极限形式]{}
+假定序列$\mathcal{K}_n$具有极限(有限或无穷的)：
+\begin{equation*}
+\lim \mathcal{K}_n = \mathcal{K} ~.
+\end{equation*}
+当$\mathcal{K} > 0$时级数收敛，当$\mathcal{K} < 0$时级数发散。
+\end{theo}
+
+
+\begin{theo}[贝特朗判别法]{}
+\begin{equation*}
+\mathcal{B}_n = \ln n\left[n\left(\frac{a_n}{a_{n+1}} -1 \right) -1 \right] = \ln n\cdot (\mathcal{R}_n-1)
+\end{equation*}
+
+假定序列$\mathcal{B}_n$具有极限(有限或无穷的)：
+\begin{equation*}
+\lim \mathcal{B}_n = \mathcal{B} ~.
+\end{equation*}
+当$\mathcal{B} > 1$时级数收敛，当$\mathcal{B} < 1$时级数发散。
+\end{theo}
+
+
+\begin{theo}[高斯判别法]{}
+对于级数(\ref{A})，比值$\dfrac{a_n}{a_{n+1}}$可以表示成下面的形状：
+\begin{equation*}
+\dfrac{a_n}{a_{n+1}} = \lambda + \frac{\mu}{n} + \frac{\theta_n}{n^2} ~,
+\end{equation*}
+其中$\lambda$与$\mu$是常数，而$\theta_n$是有界的量：$|\theta_n| \leqslant L$；
+若$\lambda > 1$或$\lambda = 1, \mu > 1$，级数收敛；
+若$\lambda < 1$或$\lambda = 1, \mu \leqslant 1$，级数发散。
+\end{theo}
+
+
+\subsection{麦克劳林-柯西积分判别法}
+设级数具有下面的形式
+\begin{equation}
+\sum\limits_{n=1}^{\infty} a_n \equiv \sum\limits_{n=1}^{\infty} f(n)
+\label{integ_me}
+\end{equation}
+其中$f(n)$是当$x=n$时对于$x\geqslant 1$所确定的某一函数$f(x)$的值；假定这个函数是连续的，正的单调递减函数。
+
+\begin{theo}[积分判别法]{}
+级数(\ref{integ_me})的收敛或发散，决定于函数
+\begin{equation*}
+F(x) = \int f(x) \dif x
+\end{equation*}
+当$x\rightarrow +\infty$时是否具有有限或无穷的极限。
+\end{theo}
+
+\begin{theo}[叶尔马科夫判别法]{}
+假定函数$f(x)$当$x>1$时是连续、正的单调减函数。若对充分大的$x$($x \geqslant x_0$)，不等式
+\begin{equation*}
+\frac{f(e^x)\cdot e^x}{f(x)} \leqslant q < 1 ~,
+\end{equation*}
+成立，则级数收敛；若($x \geqslant x_0$)
+\begin{equation*}
+\frac{f(e^x)\cdot e^x}{f(x)} \geqslant 1 ~,
+\end{equation*}
+则级数发散。
+\end{theo}
+
+\section{任意级数的收敛性}
+级数
+\begin{equation}
+\sum\limits_{n=1}^{\infty} a_n = a_1 +a_2 +\cdots +a_n +\cdots
+\label{se:1}
+\end{equation}
+的收敛性可化归级数的部分和组成的序列
+\begin{equation}
+A_1, A_2, A_3, \cdots, A_n, \cdots, A_{n+m}, \cdots
+\end{equation}
+的收敛性。由排列在序列中取的两个序号$n$和$n^{\prime}$，令$n^{\prime} = n+m$，其中$m$是任意一个自然数。记
+\begin{equation*}
+A_{n+m} -A_n = a_{n+1} +a_{n+2} +\cdots +a_{n+m} ~,
+\end{equation*}
+为使级数(\ref{se:1})收敛，必须且只需对任意数$\epsilon > 0$相应地有这样的数$N$，使得当$n > N$时，对不论怎样的$m =1, 2, 3, \cdots$，不等式
+\begin{equation*}
+|a_{n+1} +a_{n+2} +\cdots +a_{n+m}| < \epsilon
+\end{equation*}
+成立。即\textcolor{red}{级数的充分靠后的任意个数接连的项之和应该任意小}。
+
+若级数收敛，取$m=1$，便得到
+\begin{equation*}
+|a_{n+1}| < \epsilon ~(n > N) ~,
+\end{equation*}
+即$a_{n+1} \rightarrow 0$或$a_{n} \rightarrow 0$，便得到级数收敛的必要条件。
+
+\begin{theo}[]{}
+设给定项的符号任意出现的级数(\ref{se:1})。若由这个级数的项的绝对值所组成的级数
+\begin{equation}
+\sum\limits_{n=1}^{\infty} |a_n| = |a_1| +|a_2| +\cdots +|a_n| +\cdots
+\label{se:2}
+\end{equation}
+收敛，则给定级数也收敛。
+\end{theo}
+
+给定级数的和等于由级数的所有正项组成的级数的和减去由级数所有负项的绝对值组成的级数的和之差。
+
+若级数(\ref{se:1})和它的绝对值级数(\ref{se:2})同时收敛，则称级数(\ref{se:1})\textcolor{red}{绝对收敛}。
+
+级数(\ref{se:1})收敛而级数(\ref{se:2})不收敛，级数(\ref{se:1})叫做\textcolor{red}{非绝对收敛级数}。
+
+\begin{theo}[达朗贝尔判别法]{}
+设对于序列$\mathcal{D}^*_n = \dfrac{|a_{n+1}|}{|a_n|}$存在一个确定的极限
+\begin{equation*}
+\mathcal{D}^* = \lim \mathcal{D}^*_n
+\end{equation*}
+则当$\mathcal{D}^* < 1$时给定级数(\ref{se:1})绝对收敛，而当$\mathcal{D}^* > 1$时级数(\ref{se:1})发散。
+\end{theo}
+
+
+\subsection{幂级数}
+\begin{equation}
+\sum\limits_{n=0}^{\infty} a_n x^n = a_0 +a_1 x +a_2 x^2 +\cdots +a_n x^n +\cdots
+\label{pow-se}
+\end{equation}
+
+\begin{theo}[]{}
+若对异于$0$的值$x=\bar{x}$级数(\ref{pow-se})收敛，则对满足不等式$|x| < |\bar{x}|$的任何一个$x$值，级数(\ref{pow-se})绝对收敛。
+\end{theo}
+
+
+
+\subsection{交错级数}
+
+\section{收敛级数的性质}
+
+
+\section{累级数和二重级数}
+
+\section{发散级数的求和}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

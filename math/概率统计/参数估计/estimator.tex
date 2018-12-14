@@ -1,0 +1,284 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+\usepackage{ulem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{参数估计}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+统计推断的基本问题分成两大类：估计问题和假设检验问题。这里讨论总体参数的点估计和区间估计。
+
+\section{点估计}
+设总体$X$的分布函数的形式已知，但它的一个或多个参数未知，\textcolor{red}{借助总体$X$的一个样本来估计总体未知参数的值}的问题称为\textcolor{red}{参数的点估计问题}。
+
+
+点估计问题的一般提法：设总体$X$的分布函数$F(x;\theta)$的形式为已知，$\theta$是待估参数。$X_1, X_2, \cdots, X_n$是$X$的一个样本，$x_1, x_2, \cdots, x_n$是相应的一个样本值。构造一个适当的统计量$\hat{\theta}(X_1, X_2, \cdots, X_n)$，用它的观察值$\hat{\theta}(x_1, x_2, \cdots, x_n)$作为未知参数$\theta$的近似值。称\textcolor{red}{$\hat{\theta}(X_1, X_2, \cdots, X_n)$}为$\theta$的\textcolor{red}{估计量}，\textcolor{red}{$\hat{\theta}(x_1, x_2, \cdots, x_n)$}为$\theta$的\textcolor{red}{估计值}。
+
+\subsection{矩估计法}
+设$X$为连续分布随机变量，其概率密度为$f(x;\theta_1,\theta_2,\cdots,\theta_k)$，或$X$为离散型随机变量，其分布规律为$P\{X=x\}=p(x;\theta_1,\theta_2,\cdots,\theta_k)$，其中$\theta_1,\theta_2,\cdots,\theta_k$为待估参数，$X_1, X_2, \cdots, X_n$是来自$X$的样本。假设总体$X$的前$k$阶矩
+\begin{equation*}
+\mu_l = E(X^l) = \int_{-\infty}^\infty x^l f(x;\theta_1,\theta_2,\cdots,\theta_k) \dif x ~, ~ l = 1, 2, \cdots, k
+\end{equation*}
+或
+\begin{equation*}
+\mu_l = E(X^l) = \sum_{x\in R_X} x^l p(x;\theta_1,\theta_2,\cdots,\theta_k) ~, ~ l = 1, 2, \cdots, k
+\end{equation*}
+存在，其中$R_X$是$X$可能取值的范围。基于样本矩
+\begin{equation*}
+A_l = \frac{1}{n}\sum_{i=1}^n X_i^l
+\end{equation*}
+依概率收敛于相应的总体矩$\mu_l (l = 1, 2, \cdots, k)$，样本矩的连续函数依概率收敛于相应的总体矩的连续函数，用样本矩作为相应的总体矩的估计量，以样本矩的连续函数作为相应的总体矩的连续函数的估计量。这种方法称为\textcolor{red}{矩估计法}。设
+\begin{eqnarray*}
+\left\{
+\begin{aligned}
+\mu_1 & = & \mu_1(\theta_1,\theta_2,\cdots,\theta_k) \\
+\mu_2 & = & \mu_2(\theta_1,\theta_2,\cdots,\theta_k) \\
+\vdots \\
+\mu_k & = & \mu_k(\theta_1,\theta_2,\cdots,\theta_k)
+\end{aligned}
+\right.
+\end{eqnarray*}
+这是一个包含$k$个未知参数$\theta_1,\theta_2,\cdots,\theta_k$的联立方程组，可以从中解出$\theta_1,\theta_2,\cdots,\theta_k$，得到
+\begin{eqnarray*}
+\left\{
+\begin{aligned}
+\theta_1 & = & \theta_1(\mu_1,\mu_2,\cdots,\mu_k) \\
+\theta_2 & = & \theta_2(\mu_1,\mu_2,\cdots,\mu_k) \\
+\vdots \\
+\theta_k & = & \theta_k(\mu_1,\mu_2,\cdots,\mu_k)
+\end{aligned}
+\right.
+\end{eqnarray*}
+以$A_i$分别代替$\mu_i, i = 1, 2, \cdots, k$，得到以
+\begin{equation*}
+\hat{\theta}_i = \theta_i(A_1, A_2, \cdots, A_k) ~, ~ i = 1, 2, \cdots, k ~,
+\end{equation*}
+分别作为$\theta_i, i = 1, 2, \cdots, k$的估计量，称为\textcolor{red}{矩估计量}。\textcolor{red}{矩估计量的观察值}称为\textcolor{red}{矩估计值}。
+
+\subsection{最大似然估计法}
+若总体$X$属离散型，其分布律$P\{X=x\} = p(x;\theta), \theta \in \Theta$的形式为已知，$\theta$为待估参数，$\Theta$是$\theta$的可能取值的范围。设$X_1, X_2, \cdots, X_n$是来自$X$的样本，则$X_1, X_2, \cdots, X_n$的联合分布律为
+\begin{equation*}
+\prod_{i=1}^n p(x_i;\theta) ~.
+\end{equation*}
+设$x_1, x_2, \cdots, x_n$是相应于样本$X_1, X_2, \cdots, X_n$的一个样本值。样本$X_1, X_2, \cdots, X_n$取到观察值$x_1, x_2, \cdots, x_n$的概率，即事件$\{X_1 = x_1, X_2 = x_2, \cdots, X_n = x_n\}$发生的概率为
+\begin{equation}
+\color{red} L(\theta) = L(x_1, x_2, \cdots, x_n;\theta) = \prod_{i=1}^n p(x_i;\theta) ~, ~\theta \in \Theta ~.
+\end{equation}
+这一概率随$\theta$的取值而变化，$L(\theta)$称为样本的\textcolor{red}{似然函数}($x_1, x_2, \cdots, x_n$是已知的样本值，是常数)。
+
+现已经取到样本值$x_1, x_2, \cdots, x_n$，表明取到这一样本值的概率$L(\theta)$比较大。我们不会考虑那些不能使样本$x_1, x_2, \cdots, x_n$出现的$\theta\in \Theta$作为$\theta$的估计。若已知当$\theta=\theta_0 \in \Theta$时使$L(\theta)$取很大值，而$\Theta$中的其他$\theta$的值使$L(\theta)$取很小值，认为取$\theta_0$作为未知参数$\theta$的估计值。最大似然估计法就是固定样本观察值$x_1, x_2, \cdots, x_n$，在$\theta$取值的可能范围$\Theta$内挑选使似然函数$L(x_1, x_2, \cdots, x_n;\theta)$达到最大的参数值$\hat{\theta}$，作为参数$\theta$的估计值。即取$\hat{\theta}$使
+\begin{equation}
+L(x_1, x_2, \cdots, x_n;\hat{\theta}) = \underset{\theta\in \Theta}{\rm max} L(x_1, x_2, \cdots, x_n;\theta) ~.
+\end{equation}
+得到的$\hat{\theta}$与样本值$x_1, x_2, \cdots, x_n$有关，记为\textcolor{red}{$\hat{\theta}(x_1, x_2, \cdots, x_n)$}，称为参数$\theta$的\textcolor{red}{最大似然估计}，相应的统计量\textcolor{red}{$\hat{\theta}(X_1, X_2, \cdots, X_n)$}称为参数$\theta$的\textcolor{red}{最大似然估计量}。
+
+若总体$X$属连续型，其概率密度$f(x;\theta), \theta\in \Theta$的形式已知，$\theta$为待估参数，$\Theta$是$\theta$的可能取值的范围。设$X_1, X_2, \cdots, X_n$是来自$X$的样本，则$X_1, X_2, \cdots, X_n$的联合密度为
+\begin{equation*}
+\prod_{i=1}^n f(x_i;\theta) ~.
+\end{equation*}
+设$x_1, x_2, \cdots, x_n$是相应于样本$X_1, X_2, \cdots, X_n$的一个样本值，则随机点$(X_1, X_2, \cdots, X_n)$落在点$(x_1, x_2, \cdots, x_n)$的领域(边长分别为$\dif x_1, \dif x_2, \cdots, \dif x_n$的$n$维立方体)内的概率近似为
+\begin{equation}
+\prod_{i=1}^n f(x_i;\theta) \dif x_i ~.
+\end{equation}
+取$\theta$的估计值$\hat{\theta}$使以上概率取到最大值，但因子$\prod_{i=1}^n \dif x_i$不随$\theta$而变，考虑函数
+\begin{equation}
+L(\theta) = L(x_1,x_2,\cdots,x_n;\theta) = \prod_{i=1}^n f(x_i;\theta)
+\end{equation}
+的最大值。$L(\theta)$称为样本的似然函数。若
+\begin{equation}
+L(x_1, x_2, \cdots, x_n;\hat{\theta}) = \underset{\theta\in \Theta}{\rm max} L(x_1, x_2, \cdots, x_n;\theta) ~,
+\end{equation}
+则称\textcolor{red}{$\hat{\theta}(x_1, x_2, \cdots, x_n)$}为$\theta$的\textcolor{red}{最大似然估计值}，称\textcolor{red}{$\hat{\theta}(X_1, X_2, \cdots, X_n)$}为$\theta$的\textcolor{red}{最大似然估计量}。
+
+$\hat{\theta}$可以从方程
+\begin{equation}
+\color{red} \frac{\dif}{\dif \theta} L(\theta) = 0 
+\end{equation}
+或者对数似然方程
+\begin{equation}
+\color{red} \frac{\dif}{\dif \theta} \ln L(\theta) = 0 
+\end{equation}
+解得。
+
+
+[实验的数学处理] 寻找未知参数的适当估计值叫做\textcolor{red}{点估计}。若$x_1, x_2, \cdots, x_N$是观测值分布$p(x;\theta)$的随机样本，把$(x_1, x_2, \cdots, x_N)$的联合概率(密度)函数叫做\textcolor{red}{样本的似然函数}，记为$L(\vec{x}|\theta)=L(x_1, x_2, \cdots, x_N|\theta)$。似然函数值为$N$次测量得到观测值$(x_1, x_2, \cdots, x_N)$的概率(密度)。似然函数值为各个观测值的概率(密度)之积，即
+\begin{align}
+\nonumber L(\vec{x}|\theta) &\equiv p(x_1, x_2, \cdots, x_N; \theta) \\
+& = \prod_{i=1}^N p(x_i; \theta) = \prod_{i=1}^N p(x = x_i; \theta)
+\end{align}
+对于一组确定的观测结果$\vec{x} = (x_1, x_2, \cdots, x_N)$，似然函数$L(\vec{x}|\theta)$的数值是参数$\theta$的函数。最大似然法就是选择使观测结果具有最大概率(密度)的参数值作为未知参数的估计值。
+
+若估计值$\hat{\theta}$使似然函数值最大，
+\begin{equation}
+L(\vec{x}|\theta)|_{\theta=\hat{\theta}} = \rm max ~,
+\end{equation}
+称$\hat{\theta}$为参数$\theta$的\textcolor{red}{最大似然估计值}。最大似然估计值是样本的函数
+\begin{equation}
+\hat{\theta} = \hat{\theta}(\vec{x}) = \hat{\theta}(x_1, x_2, \cdots, x_N) ~,
+\end{equation}
+统计量$\hat{\theta}(\vec{x})$就是参数$\theta$的\textcolor{red}{最大似然估计量}。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{基于截尾样本的最大似然估计}
+
+
+\section{估计量的评选标准}
+
+
+\section{区间估计}
+
+
+
+\section{正态总体均值与方差的区间估计}
+
+
+\section{$(0-1)$分布参数的区间估计}
+
+
+\section{单侧置信区间}
+对于给定值$\alpha (0<\alpha<1)$，若由样本$X_1, X_2, \cdots, X_n$确定的统计量$\uline{\theta} = \uline{\theta}(X_1, X_2, \cdots, X_n)$，对于任意$\theta \in \Theta$满足
+\begin{equation}
+\color{red} P\{ \theta > \uline{\theta}\} \geqslant 1-\alpha ~,
+\end{equation}
+称\textcolor{red}{随机区间$(\uline{\theta}, \infty)$是$\theta$的置信水平为$1-\alpha$}的\textcolor{red}{单侧置信区间}，\textcolor{red}{$\uline{\theta}$}称为\textcolor{red}{$\theta$的置信水平为$1-\alpha$}的\textcolor{red}{单侧置信下限}。
+
+若统计量$\overline{\theta} = \overline{\theta}(X_1, X_2, \cdots, X_n)$，对于任意$\theta \in \Theta$满足
+\begin{equation}
+\color{red} P\{ \theta < \overline{\theta}\} \geqslant 1-\alpha ~,
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

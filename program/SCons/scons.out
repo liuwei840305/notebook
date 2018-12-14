@@ -1,0 +1,71 @@
+\BOOKMARK [1][-]{section.1}{Building and Installing SCons}{}% 1
+\BOOKMARK [1][-]{section.2}{Simple Build}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Building Object Files}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Simple Java Builds}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Cleaning Up After a Build}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{The SConstruct File}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Less Simple Things to Do With Builds}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Specifying the Name of the Target \(Output\) File}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Compiling Multiple Source Files}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Making a list of files with Glob}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Specifying Single Files Vs. Lists of Files}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.5}{Making Lists of Files Easier to Read}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.6}{Keyword Arguments}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.7}{Compiling Multiple Programs}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.8}{Sharing Source Files Between Multiple Programs}{section.3}% 15
+\BOOKMARK [1][-]{section.4}{Building and Linking with Libraries}{}% 16
+\BOOKMARK [2][-]{subsection.4.1}{Building Libraries}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.2}{Linking with Libraries}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.3}{Finding Libraries: the \044LIBPATH Construction Variable}{section.4}% 19
+\BOOKMARK [1][-]{section.5}{Node Objects}{}% 20
+\BOOKMARK [2][-]{subsection.5.1}{Builder Methods Return Lists of Target Nodes}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.2}{Explicitly Creating File and Directory Nodes}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.3}{Printing Node File Names}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.4}{Using a Node's File Name as a String}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.5}{GetBuildPath: Getting the Path From a Node or String}{section.5}% 25
+\BOOKMARK [1][-]{section.6}{Dependencies}{}% 26
+\BOOKMARK [2][-]{subsection.6.1}{Deciding When an Input File Has Changed: the Decider Function}{section.6}% 27
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Using MD5 Signatures to Decide if a File Has Changed}{subsection.6.1}% 28
+\BOOKMARK [3][-]{subsubsection.6.1.2}{Using Time Stamps to Decide If a File Has Changed}{subsection.6.1}% 29
+\BOOKMARK [3][-]{subsubsection.6.1.3}{Deciding If a File Has Changed Using Both MD Sig- natures and Time Stamps}{subsection.6.1}% 30
+\BOOKMARK [3][-]{subsubsection.6.1.4}{Writing Your Own Custom Decider Function}{subsection.6.1}% 31
+\BOOKMARK [3][-]{subsubsection.6.1.5}{Mixing Different Ways of Deciding If a File Has Changed}{subsection.6.1}% 32
+\BOOKMARK [2][-]{subsection.6.2}{Older Functions for Deciding When an Input File Has Changed}{section.6}% 33
+\BOOKMARK [3][-]{subsubsection.6.2.1}{The SourceSignatures Function}{subsection.6.2}% 34
+\BOOKMARK [3][-]{subsubsection.6.2.2}{The TargetSignatures Function}{subsection.6.2}% 35
+\BOOKMARK [2][-]{subsection.6.3}{Implicit Dependencies: The \044CPPPATH Construction Variable}{section.6}% 36
+\BOOKMARK [2][-]{subsection.6.4}{Caching Implicit Dependencies}{section.6}% 37
+\BOOKMARK [3][-]{subsubsection.6.4.1}{The \205implicit-deps-changed Option}{subsection.6.4}% 38
+\BOOKMARK [3][-]{subsubsection.6.4.2}{The \205implicit-deps-unchanged Option}{subsection.6.4}% 39
+\BOOKMARK [2][-]{subsection.6.5}{Explicit Dependencies: the Depends Function}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.6}{Dependencies From External Files: the ParseDepends Function}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.7}{Ignoring Dependencies: the Ignore Function}{section.6}% 42
+\BOOKMARK [2][-]{subsection.6.8}{Order-Only Dependencies: the Requires Function}{section.6}% 43
+\BOOKMARK [2][-]{subsection.6.9}{The AlwaysBuild Function}{section.6}% 44
+\BOOKMARK [1][-]{section.7}{Environments}{}% 45
+\BOOKMARK [2][-]{subsection.7.1}{Using Values From the External Environment}{section.7}% 46
+\BOOKMARK [2][-]{subsection.7.2}{Construction Environments}{section.7}% 47
+\BOOKMARK [3][-]{subsubsection.7.2.1}{Creating a Construction Environment: the Environment Function}{subsection.7.2}% 48
+\BOOKMARK [3][-]{subsubsection.7.2.2}{Fetching Values From a Construction Environment}{subsection.7.2}% 49
+\BOOKMARK [3][-]{subsubsection.7.2.3}{Expanding Values From a Construction Environment: the subst Method}{subsection.7.2}% 50
+\BOOKMARK [3][-]{subsubsection.7.2.4}{Handling Problems With Value Expansion}{subsection.7.2}% 51
+\BOOKMARK [1][-]{section.8}{Automatically Putting Command-line Options into their Construction Variables}{}% 52
+\BOOKMARK [2][-]{subsection.8.1}{Merging Options into the Environment: the MergeFlags Function}{section.8}% 53
+\BOOKMARK [2][-]{subsection.8.2}{Separating Compile Arguments into their Variables: the ParseFlags Function}{section.8}% 54
+\BOOKMARK [2][-]{subsection.8.3}{Finding Installed Library Information: the ParseConfig Function}{section.8}% 55
+\BOOKMARK [1][-]{section.9}{Controlling Build Output}{}% 56
+\BOOKMARK [1][-]{section.10}{Controlling a Build From the Command Line}{}% 57
+\BOOKMARK [1][-]{section.11}{Installing Files in Other Directories: the Install Builder}{}% 58
+\BOOKMARK [1][-]{section.12}{Platform-Independent File System Manipulation}{}% 59
+\BOOKMARK [1][-]{section.13}{Controlling Removal of Targets}{}% 60
+\BOOKMARK [1][-]{section.14}{Hierarchical Builds}{}% 61
+\BOOKMARK [1][-]{section.15}{Separating Source and Build Directories}{}% 62
+\BOOKMARK [1][-]{section.16}{Variant Builds}{}% 63
+\BOOKMARK [1][-]{section.17}{Internationalization and localization with gettext}{}% 64
+\BOOKMARK [1][-]{section.18}{Writing Your Own Builders}{}% 65
+\BOOKMARK [1][-]{section.19}{Not Writing a Builder: the Command Builder}{}% 66
+\BOOKMARK [1][-]{section.20}{Pseudo-Builders: the AddMethod function}{}% 67
+\BOOKMARK [1][-]{section.21}{Writing Scanners}{}% 68
+\BOOKMARK [1][-]{section.22}{Building From Code Repositories}{}% 69
+\BOOKMARK [1][-]{section.23}{Multi-Platform Configuration \(Autoconf Functionality\)}{}% 70
+\BOOKMARK [2][-]{subsection.23.1}{Configure Contexts}{section.23}% 71

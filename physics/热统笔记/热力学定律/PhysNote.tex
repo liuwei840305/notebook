@@ -1,0 +1,761 @@
+% filename: PhysNote.tex
+% description: This file can be included in other files to alter the style of the resulting document and to enable certain features and macros.  See PhysNoteDesc.pdf (or PhysNoteDesc.tex) for a complete description.
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% Notes to Self %%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+%\NeedsTeXFormat{LaTeX2e}
+%\ProvidesPackage{PhysNote} ?
+%\ProvidesClass{PhysNote} ?
+% style file provision?
+
+%  TRY MANUAL SIZING in the appropriate macros:
+%  \left  \right  (-1,default)
+%  w/o adjusting  (0)
+%  \bigl  \bigr   (1)
+%  \Bigl  \Bigr   (2)
+%  \biggl \biggr  (3)
+%  \Biggl \Biggr  (4)
+
+% Font webpage: http://ctan.tug.org/tex-archive/info/Free_Math_Font_Survey/survey.html#sec:Creation
+% I want better fonts... look around for information...
+% I tried using these fonts, but they didn't change the look of the document... look to see if I have them ``in the standard path''...
+%(from http://web.mit.edu/olh/Latex/ess-latex.html)
+%Font Families
+%For the PostScript fonts, there are LaTeX class options that work as follows:
+%  documentclass[11pt,times]{article}
+%This line specifies Times Roman as the font family (it also specifies 11pt as the base size and article as the document style). The following PostScript families are currently available, in the standard path or in the SIPB locker:
+% avantgarde      Avant-Garde
+% bookman         Bookman
+% chancery        Zapf Chancery
+% helvetica       Helvetica
+% lucida          Lucida
+% newcen          New Century Schoolbook
+% palatino        Palatino
+% souvenir        Souvenir
+% times           Times
+
+% Fonts: http://brneurosci.org/linuxsetup30.html
+% Fonts: http://www.cl.cam.ac.uk/~rf10/pstex/index.htm
+% Fonts: http://xpt.sourceforge.net/techdocs/language/latex/latex33-LaTeXAndTrueTypeFont/ar01s07.html
+% Fonts: http://www.panix.com/~elflord/unix/latex/no-bs.html
+% Font Catalogue: http://www.tug.dk/FontCatalogue/allfonts.html
+% Fonts and TeX: http://www.tug.org/fonts/
+% /usr/share/texmf-texlive/fonts/tfm/
+
+%\fontencoding{T1}
+%%\fontfamily{pplr8g}
+%\fontfamily{garamond}
+%\fontseries{m}
+%\fontshape{it}
+%\fontsize{12}{15}
+%\selectfont
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% End of Notes to Self %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some useful notes
+% \! equals (approximately?) \mkern-3mu
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \pagestyle{empty} % Removes page numbers
+% \renewcommand{\labelenumi}{(\alph{enumi})} % Use letters for enumerate
+
+\usepackage{ifthen} % enables the use of \ifthenelse{}{}{} etc.
+\usepackage[dvips,pdftex,hmargin=0.75in,top=0.75in,bottom=0.5in,footskip=0.5in,includefoot]{geometry} % Sets margins and page size
+\usepackage{multicol} % Allows for multiple columns in array or tabular environments
+\usepackage{graphicx} % Allows for eps images
+\usepackage{amsmath} % AMS Math Package
+\usepackage{amsthm} % Theorem Formatting
+\usepackage{amssymb} % Math symbols such as \boldsymbol
+\usepackage{mathrsfs} % Ralph Smith Formal Script (rsfs) for Lagrangian densities, etc. (/mathscr{})
+\usepackage{verbatim} % Allows display of almost any sequence of symbols, printed in typewriter font
+\usepackage[obeyspaces,spaces]{url} % Same as verbatim but allows line breaks and spaces
+\usepackage{accents} % Allows stacking of accents and under-accenting, along with shifting accents to match letter slanting
+\usepackage{tensind} % Fixes tensor index positioning and makes tensor code more compact
+  \tensordelimiter{?}
+\usepackage[noams,squaren,Gray]{SIunits} % Standardizes quantity and SI unit spacing
+\usepackage{cancel} % Allows crossing out of text or mathematical terms and arrows pointing to values taken in math mode
+\usepackage{ulem} % Provides single, double, and wavy underlining, strike out, and hash out
+
+%    \usepackage{bbold} % Font package that provides blackboard bold upper-case and lower-case Latin letters, upper-case Greek letters, numbers, and punctuation  (bbold does not work for font size 11pt, since only the following exist: bbold5, bbold6, bbold7, bbold8, bbold9, bbold10, bbold12, and bbold17)  (Supposedly, it should also produce blackboard bold lower-case Greek letters, but I could not figure out how to make them appear.)
+%    \usepackage[cspex,bbgreekl]{mathbbol} % Font package that provides blackboard bold upper-case and lower-case Latin and Greek letters, numbers, parentheses, and angled and square brackets (mathbbol does not work for font size 11pt, since only the following exist: bbold5, bbold6, bbold7, bbold8, bbold9, bbold10, bbold12, and bbold17)
+
+\delimitershortfall-1sp % Make nested braces grow.
+
+
+
+
+% REDEFINING \maketitle, ADDING \subtitle variable, and CHANGING \today macro:
+% ===============================================================================
+\makeatletter % Need for anything that contains an @ command
+
+ %\newcommand{\@subtitle}[1]{} % This worked earlier, as an ``initialization'' of \@subtitle
+ % Defining and initializing the subtitle variable:
+ \newcommand{\subtitle}[1]{\def\@subtitle{#1}}  % gdef seems to work too, as opposed to def
+ \subtitle{}
+
+ % Properly clearing the global variables and commands (convention to prevent confusion with symbols defined at other scopes)
+ \global\let\@title\@empty
+ \global\let\@subtitle\@empty
+ \global\let\@author\@empty
+ %\global\let\@today\@empty
+ %\global\let\@date\@today
+
+ % Redefining the \today macro to change the default order of year, month, and day
+ %\renewcommand{\today}{\number\year \space\monthname[\month] \number\day}
+
+\renewcommand{\maketitle}{ % Redefine maketitle to conserve space, include subtitle, and center properly in all cases
+  \begingroup
+  \begin{center}
+     \ifx\@title\@empty
+	\relax
+     \else
+	\Large \textbf{\@title} \\
+     \fi
+     \ifx\@subtitle\@empty
+	\relax
+     \else
+	\vspace{3pt} \Large \@subtitle \\
+     \fi
+     \ifx\@author\@empty
+	\ifx\@date\@empty
+	   \relax
+	   \vspace{10pt}
+	\else
+	   \vspace{7pt} \large \@date \\
+	   \vspace{10pt}
+	\fi
+     \else
+	\ifx\@date\@empty
+	   \vspace{7pt} \large \@author \\
+	   \vspace{10pt}
+	\else
+	   \vspace{7pt} \large \@author \hspace{20pt} \@date \\
+	   \vspace{10pt}
+	\fi
+     \fi
+  \end{center}
+  \endgroup
+  \vspace{-25pt}
+ \setcounter{footnote}{0}
+}
+
+\makeatother % End of region containing @ commands
+% ===============================================================================
+
+
+
+
+
+
+% ========================
+%          MACROS
+% ========================
+
+
+
+% Scientific Notation and Units
+% =============================
+
+
+% scientific notation without units
+\providecommand{\sn}[2]{ {#1} \mkern-1.5mu\times\mkern-3mu 10^{#2} }
+% scientific notation with units
+\providecommand{\snu}[3]{ \unit{\sn{#1}{#2}}{#3} }
+
+
+
+
+% Points, Vectors, Coordinates, Operators and Transforms
+% =============================
+
+
+% complex number
+\let\caccent=\c
+\renewcommand{\c}[1]{\underaccent{\tilde}{#1}} % use an under-tilde for complex notation
+% Fourier transform
+\newcommand{\ft}[1]{\tilde{#1}}
+
+
+% vector and point notation
+%--------------------------
+\newcommand{\pt}[1]{\boldsymbol{#1}} % for points in a mathematical space (e.g., maniold)
+\let\vaccent=\v % rename built-in command \v{} as \vaccent{}
+\renewcommand{\v}[1]{\mathbf{#1}} % for vectors
+\newcommand{\gv}[1]{\boldsymbol{#1}} % for vectors of Greek letters
+% Why are we using mbox when we could use boldsymbol?
+%\newcommand{\uv}[1]{\hat{\mathbf{#1}}} % for unit vectors
+\newcommand{\uv}[1]{\mathbf{\hat{#1}}} % for unit vectors  (This makes the caret/circumflex bold.)
+%\newcommand{\guv}[1]{\hat{\boldsymbol{#1}}} % for Greek unit vectors
+\newcommand{\guv}[1]{\boldsymbol{\hat{#1}}} % for Greek unit vectors  (This makes the caret/circumflex bold.)
+\newcommand{\op}[1]{\hat{#1}} % for operators
+\newcommand{\co}[1]{\hat{\c{#1}}} % for complex operators
+\newcommand{\vo}[1]{\hat{\v{#1}}} % for vector operators
+\newcommand{\gvo}[1]{\hat{\gv{#1}}} % for greek vector operators
+\newcommand{\cv}[1]{\c{\v{#1}}} % for complex vectors
+\newcommand{\ftc}[1]{\ft{\c{#1}}} % for Fourier transforms of complex functions
+\newcommand{\ftv}[1]{\ft{\v{#1}}} % for Fourier transforms of vector functions
+\newcommand{\ftcv}[1]{\ft{\cv{#1}}} % for Fourier transforms of complex vector functions
+\newcommand{\fv}[1]{\underline{#1}} % for four-vectors
+
+% produce (#2) = (#,#,#,#,...) (a point in some arbitrary dimensional space):
+\newcommand{\acoord}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left( #2 \right)}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	( #2 )}{
+	\text{INVALID OPTION FOR \verb|\acoord|}}}
+}
+% produce <#2> = <#,#,#,#,...> (a vector in some arbitrary dimensional vector space):
+\newcommand{\avector}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left< #2 \right>}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\langle #2 \rangle}{
+	\text{INVALID OPTION FOR \verb|\avector|}}}
+}
+
+% produce (#1,#2,#3) (a point in some (t)hree-coordinate space) (with coordinate map/system #1: (#2,#3,#4)^#1):
+\newcommand{\tcoord}[4][]{\mathinner{\left( #2 , #3 , #4 \right)^{#1}}}
+% produce vertical (#1,#2,#3) (a point in some (t)hree-coordinate space):
+\newcommand{\vtcoord}[3]{\left( \begin{array}{c} #1 \\ #2 \\ #3 \\ \end{array} \right)}
+% produce (#1,#2,#3)_d (a point in (De)cartesian coordinate space):
+\newcommand{\dcoord}[4][]{\mathinner{\left( #2 , #3 , #4 \right)_\t{d}^{#1}}}
+% produce (#1,#2,#3)_c (a point in cylindrical coordinate space):
+\newcommand{\ccoord}[4][]{\mathinner{\left( #2 , #3 , #4 \right)_\t{c}^{#1}}}
+% produce (#1,#2,#3)_s (a point in spherical coordinate space):
+\newcommand{\scoord}[4][]{\mathinner{\left( #2 , #3 , #4 \right)_\t{s}^{#1}}}
+
+% produce <#1,#2,#3> (a (t)hree-vector in some 3-D vector space) (with coordinate map/system #1: (#2,#3,#4)^#1):
+\newcommand{\tvector}[4][]{\mathinner{\left< #2 , #3 , #4 \right>^{#1}}}
+% produce vertical <#1,#2,#3> (a (t)hree-vector in some 3-D vector space) (with coordinate map/system #1: (#2,#3,#4)^#1):
+\newcommand{\vtvector}[3]{\left< \begin{array}{c} #1 \\ #2 \\ #3 \\ \end{array} \right>}
+% produce <#1,#2,#3>_d (a vector in (De)cartesian coordinate space):
+\newcommand{\dvector}[4][]{\mathinner{\left< #2 , #3 , #4 \right>_\t{d}^{#1}}}
+% produce <#1,#2,#3>_c (a vector in cylindrical coordinate space):
+\newcommand{\cvector}[4][]{\mathinner{\left< #2 , #3 , #4 \right>_\t{c}^{#1}}}
+% produce <#1,#2,#3>_s (a vector in spherical coordinate space):
+\newcommand{\svector}[4][]{\mathinner{\left< #2 , #3 , #4 \right>_\t{s}^{#1}}}
+
+% produce (#1,#2,#3,#4) (a point in some (f)our-coordinate space):
+\newcommand{\fcoord}[4]{\mathinner{\left( #1, #2 , #3 , #4 \right)}}
+% produce vertical (#1,#2,#3,#4) (a point in some (f)our-coordinate space):
+\newcommand{\vfcoord}[4]{\left( \begin{array}{c} #1 \\ #2 \\ #3 \\ #4 \\ \end{array} \right)}
+% produce <#1,#2,#3,#4> (a (f)our-vector in some 4-D vector space):
+\newcommand{\fvector}[4]{\mathinner{\left< #1, #2 , #3 , #4 \right>}}
+% produce vertical <#1,#2,#3,#4> (a (f)our-vector in some 4-D vector space):
+\newcommand{\vfvector}[4]{\left\langle \begin{array}{c} #1 \\ #2 \\ #3 \\ #4 \\ \end{array} \right\rangle}
+
+
+
+
+% Inner Product, Norm, Absolute Value, and Average
+% =============================
+
+
+% inner product (or scalar product)
+\newcommand{\ip}[3][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left< #2, #3 \right>}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\langle #2, #3 \rangle}{
+	\text{INVALID OPTION FOR \verb|\ip|}}}
+}
+% norm
+\newcommand{\norm}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left\lVert #2 \right\rVert}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\lVert #2 \rVert}{
+	\text{INVALID OPTION FOR \verb|\norm|}}}
+}
+% absolute value
+\newcommand{\abs}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left\lvert {#2} \right\rvert}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\lvert {#2} \rvert}{
+	\text{INVALID OPTION FOR \verb|\abs|}}}
+}
+% average or expectation value
+\newcommand{\avg}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left< {#2} \right>}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\langle {#2} \rangle}{
+	\text{INVALID OPTION FOR \verb|\abs|}}}
+}
+
+
+
+
+% Differentials
+% =============================
+
+
+% differentials
+%--------------
+\let\underdot=\d % rename existing command \d{} as \underdot{}
+% differential operator (upright (or "upface") d)
+\renewcommand{\d}{\mathrm{d}}
+% ``inexact'' differential operator (upright (or "upface") d)
+\newcommand{\dbar}{\d\mkern-7.5mu\mathchar'26}
+% derivative operator (upright (or "upface") D) for more general derivatives
+\newcommand{\D}{\mathrm{D}}
+% functional differential operator
+\newcommand{\fD}{\mathcal{D}}
+% shorthand for \partial
+ % Using a subscript yeilds a shorthand notation for any partial derivative where the subscript indicates what variable the derivative is respecting
+ % also for ease of writing the ``vector derivative'' and the ``covector derivative'' in relativity
+\providecommand{\p}{\partial}
+
+
+
+% Derivatives
+% =============================
+
+
+% ordinary derivative
+% The first argument denotes the function and the second argument denotes the variable with respect to which the derivative is taken.  The optional argument denotes the order of differentiation.  The style (text style/display style) is determined automatically.
+\providecommand{\od}[3][]{
+\ifinner
+\tfrac{\d^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+\else
+\dfrac{\d^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+\fi
+}
+% text, display, and ``slash'' style for ordinary derivatives manually enforced
+\providecommand{\tod}[3][]{\mathinner{
+\tfrac{\d^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\dod}[3][]{\mathinner{
+\dfrac{\d^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\sod}[3][]{\mathinner{
+{\d^{#1}#2}/{\d^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+
+
+
+% partial derivative
+% Similar to ordinary derivative.
+\providecommand{\pd}[3][]{
+\ifinner
+\tfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}}
+\else
+\dfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}}
+\fi
+}
+% text, display, and ``slash'' style for partial derivatives manually enforced
+\providecommand{\tpd}[3][]{\mathinner{
+\tfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\dpd}[3][]{\mathinner{
+\dfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\spd}[3][]{\mathinner{
+{\p^{#1}#2}/{\p^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+
+
+% partial derivative (with) constant (variables listed)
+% explicitly showing the variable(s) being held constant (for thermodynamic partial derivative)
+\providecommand{\pdc}[4][]{
+\ifinner
+\left( \tfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}} \right)_{\!#4}\mkern-1mu
+\else
+\left( \dfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}} \right)_{\!#4}\mkern-1mu
+\fi
+}
+% text, display, and ``slash'' style for partial derivatives manually enforced
+\providecommand{\tpdc}[4][]{\mathinner{
+\left( \tfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}} \right)_{\!#4}\mkern-1mu
+}}
+\providecommand{\dpdc}[4][]{\mathinner{
+\left( \dfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{{#3}^{#1}}} \right)_{\!#4}\mkern-1mu
+}}
+\providecommand{\spdc}[4][]{\mathinner{
+( {\p^{#1}#2}/{\p^{\vphantom{#1}}{{#3}^{#1}}} )_{#4}
+}}
+
+
+% mixed (partial) derivative
+% \md{5}{f}{x}{2}{y}{3}
+\providecommand{\md}[6]{
+\ifinner
+\tfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\p^{\vphantom{#1}}{#5^{#6}}}
+\else
+\dfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\p^{\vphantom{#1}}{#5^{#6}}}
+\fi
+}
+% text, display, and ``slash'' style for mixed partial derivatives manually enforced
+\providecommand{\tmd}[6]{\mathinner{
+\tfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\p^{\vphantom{#1}}{#5^{#6}}}
+}}
+\providecommand{\dmd}[6]{\mathinner{
+\dfrac{\p^{#1}#2}{\p^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\p^{\vphantom{#1}}{#5^{#6}}}
+}}
+\providecommand{\smd}[6]{\mathinner{
+\p^{#1}#2 / \p{#3^{#4}}\mkern1.5mu\p{#5^{#6}}
+}}
+
+
+% directional derivative
+\providecommand{\dd}[4][]{
+\ifinner
+\tfrac{{\p_{#4}}^{#1}#2}{{\p_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+\else
+\dfrac{{\p_{#4}}^{#1}#2}{{\p_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+\fi
+}
+% text, display, and ``slash'' style for directional derivatives manually enforced
+\providecommand{\tdd}[4][]{\mathinner{
+\tfrac{{\p_{#4}}^{#1}#2}{{\p_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\ddd}[4][]{\mathinner{
+\dfrac{{\p_{#4}}^{#1}#2}{{\p_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\sdd}[4][]{\mathinner{
+{\p_{#4}}^{#1}#2 / {\p_{#4}}^{\vphantom{#1}}{{#3}^{#1}}
+}}
+
+
+
+% functional derivative
+\providecommand{\fd}[3][]{
+\ifinner
+\tfrac{\delta^{#1}#2}{\delta^{\vphantom{#1}}{{#3}^{#1}}}
+\else
+\dfrac{\delta{^{#1}}#2}{\delta^{\vphantom{#1}}{{#3}^{#1}}}
+\fi
+}
+% text, display, and ``slash'' style for functional derivatives manually enforced
+\providecommand{\tfd}[3][]{\mathinner{
+\tfrac{\delta^{#1}#2}{\delta^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\dfd}[3][]{\mathinner{
+\dfrac{\delta{^{#1}}#2}{\delta^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\sfd}[3][]{\mathinner{
+\delta^{#1}#2 / \delta^{\vphantom{#1}}{{#3}^{#1}}
+}}
+
+
+% mixed functional derivative
+\providecommand{\mfd}[6]{
+\ifinner
+\tfrac{\delta^{#1}#2}{\delta^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\delta^{\vphantom{#1}}{#5^{#6}}}
+\else
+\dfrac{\delta^{#1}#2}{\delta^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\delta^{\vphantom{#1}}{#5^{#6}}}
+\fi
+}
+% text, display, and ``slash'' style for mixed partial derivatives manually enforced
+\providecommand{\tmfd}[6]{\mathinner{
+\tfrac{\delta^{#1}#2}{\delta^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\delta^{\vphantom{#1}}{#5^{#6}}}
+}}
+\providecommand{\dmfd}[6]{\mathinner{
+\dfrac{\delta^{#1}#2}{\delta^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\delta^{\vphantom{#1}}{#5^{#6}}}
+}}
+\providecommand{\smfd}[6]{\mathinner{
+\delta^{#1}#2 / \delta^{\vphantom{#1}}{#3^{#4}}\mkern1.5mu\delta^{\vphantom{#1}}{#5^{#6}}
+}}
+
+
+
+% functional directional derivative
+\providecommand{\fdd}[4][]{
+\ifinner
+\tfrac{{\delta_{#4}}{^{#1}}#2}{{\delta_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+\else
+\dfrac{{\delta_{#4}}{^{#1}}#2}{{\delta_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+\fi
+}
+% text, display, and ``slash'' style for functional directional derivatives manually enforced
+\providecommand{\tfdd}[4][]{\mathinner{
+\tfrac{{\delta_{#4}}{^{#1}}#2}{{\delta_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\dfdd}[4][]{\mathinner{
+\dfrac{{\delta_{#4}}{^{#1}}#2}{{\delta_{#4}}^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\sfdd}[4][]{\mathinner{
+{\delta_{#4}}{^{#1}}#2 / {\delta_{#4}}^{\vphantom{#1}}{{#3}^{#1}}
+}}
+
+
+
+% covariant directional derivative
+% Similar to ordinary derivative.
+\providecommand{\cdd}[3][]{
+\ifinner
+\tfrac{\D^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+\else
+\dfrac{\D^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+\fi
+}
+% text, display, and ``slash'' style for covariant directional derivatives manually enforced
+\providecommand{\tcdd}[3][]{\mathinner{
+\tfrac{\D^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\dcdd}[3][]{\mathinner{
+\dfrac{\D^{#1}#2}{\d^{\vphantom{#1}}{{#3}^{#1}}}
+}}
+\providecommand{\scdd}[3][]{\mathinner{
+\D^{#1}#2 / \d^{\vphantom{#1}}{{#3}^{#1}}
+}}
+
+
+
+% gradient
+\newcommand{\grad}[1][]{\gv{\nabla}_{\mkern-4mu{#1}\mkern3mu}}
+%\newcommand{\grad}{\gv{\nabla}}
+%\newcommand{\grad}[2][]{\gv{\nabla}\!_{#1} {#2}}
+
+% divergence
+\let\divsymb=\div % rename built-in command \div as \divsymb
+% I copied the code I found here http://xelatex.blogspot.com/2008/03/newcommand-with-optional-argument.html
+% to make this work.  (I want the spacing to be nice whether or not there is a subscript.)
+\makeatletter
+\long\def\tlist@if@empty@nTF #1{%
+ \expandafter\ifx\expandafter\\\detokenize{#1}\\%
+ \expandafter\@firstoftwo
+ \else
+ \expandafter\@secondoftwo
+ \fi
+}
+\renewcommand{\div}[2][]{\gv{\nabla}\tlist@if@empty@nTF{#1}{}{_{\mkern-4mu{#1}\mkern-2mu}} \mkern-1mu\cdot\mkern-0.5mu #2}
+%\renewcommand{\div}[2][]{\gv{\nabla}_{\mkern-4mu{#1}\mkern3mu}\mkern-1mu\cdot\mkern-0.5mu #2}
+\makeatother
+\newcommand{\divold}[1]{\gv{\nabla}\mkern-1mu\cdot\mkern1mu #1}
+
+% curl
+\newcommand{\curl}[2][]{\gv{\nabla}_{\mkern-4mu{#1}\mkern3mu}\mkern-3.5mu\times\mkern-2mu #2}
+\newcommand{\curlold}[1]{\gv{\nabla}\mkern-3.5mu\times\mkern-2mu #1}
+
+
+
+% Dirac and Feynman Notation
+% =============================
+
+
+% Dirac ket |#2>
+\newcommand{\ket}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left| #2 \right>}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	| #2 \rangle}{
+	\text{INVALID OPTION FOR \verb|\ket|}}}
+}
+% Dirac bra <#2|
+\newcommand{\bra}[2][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\left< #2 \right|}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\langle #2 |}{
+	\text{INVALID OPTION FOR \verb|\bra|}}}
+}
+% I'm not exactly sure what layermath does, but the result looks nice when used with braket below.
+\newcommand\layermath[1]{
+  \mathchoice
+  {\hbox{$\displaystyle      #1 \mathsurround=0pt$}}
+  {\hbox{$\textstyle         #1 \mathsurround=0pt$}}
+  {\hbox{$\scriptstyle       #1 \mathsurround=0pt$}}
+  {\hbox{$\scriptscriptstyle #1 \mathsurround=0pt$}}
+}
+% Dirac ``braket'' inner product <#2|#3>
+\newcommand{\braket}[3][-1]{\mathinner{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\layermath{
+	\mathopen{\left< #2 \vphantom{#3} \right|}
+	\left. #3 \vphantom{#2} \right>
+	\nulldelimiterspace=0pt}}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\langle #2 | #3 \rangle}{
+	\text{INVALID OPTION FOR \verb|\braket|}}}
+}}
+% Dirac ``ketbra'' projection operator |#2><#3|
+\newcommand{\ketbra}[3][-1]{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\mathord{\left| #2 \vphantom{#3} \right>}
+	\mathord{\left< #3 \vphantom{#2} \right|}}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	| #2 \rangle \langle #3 |}{
+	\text{INVALID OPTION FOR \verb|\ketbra|}}}
+}
+% Dirac matrix element <#2|#3|#4>
+\newcommand{\matrixel}[4][-1]{\mathinner{
+  \ifthenelse{\equal{#1}{-1}}{ % automatic sizing
+	\mathopen{\left< #2 \vphantom{#3#4} \right|}
+	#3
+	\mathclose{\left| #4 \vphantom{#2#3} \right>}}{
+  \ifthenelse{\equal{#1}{0}}{ % compact sizing
+	\langle #2 | #3 | #4 \rangle}{
+	\text{INVALID OPTION FOR \verb|\matrixel|}}
+  }
+}}
+% ``reduced'' Dirac matrix element <#2||#3||#4>
+\newcommand{\redmatel}[4][-1]{\mathinner{
+  \ifthenelse{\equal{#1}{-1}}{
+	\mathopen{\left< #2 \vphantom{#3#4} \right|}
+	\left| #3 \vphantom{#2#4} \right|
+	\mathclose{\left| #4 \vphantom{#2#3} \right>}}{
+  \ifthenelse{\equal{#1}{0}}{
+	\langle #2 || #3 || #4 \rangle}{
+	\text{INVALID OPTION FOR \verb|\redmatel|}}}
+}}
+
+
+% slash notation
+\providecommand{\s}[1]{\cancel{#1}}
+
+
+
+% Trigonometrics
+% =============================
+
+\let\SS=\S % rename existing section symbol command \S as \SS
+% sine function shorthand
+\renewcommand{\S}{\mathrm{S}}
+% cosine function shorthand
+\newcommand{\C}{\mathrm{C}}
+% tangent function shorthand
+\providecommand{\T}{\mathrm{T}}
+
+% arcsin2(x,y)
+\newcommand{\asint}[2]{\text{arcsin2}\left(#1, #2\right)}
+% arccos2(x,y)
+\newcommand{\acost}[2]{\text{arccos2}\left(#1, #2\right)}
+% arctan2(x,y)
+\newcommand{\atant}[2]{\text{arctan2}\left(#1, #2\right)}
+
+% Arcsin2(x,y)
+\newcommand{\Asint}[2]{\text{Arcsin2}\left(#1, #2\right)}
+% Arccos2(x,y)
+\newcommand{\Acost}[2]{\text{Arccos2}\left(#1, #2\right)}
+% Arctan2(x,y)
+\newcommand{\Atant}[2]{\text{Arctan2}\left(#1, #2\right)}
+
+
+
+
+% Miscellaneous: Equation Labelling, Text in Mathmode, and Blackboard Bold
+% =============================
+
+
+%labelled equals signs
+\let\baraccent=\= % rename built-in command \= as \baraccent
+\renewcommand{\=}[1]{\stackrel{#1}{=}} % for putting labels above the "=" sign
+% \newcommand{\=tb}[2]{\mathop{=}^{#1}_{#2}} % for putting labels above and below the "=" sign
+% \newcommand{\rellist}[5]{{\displaystyle \mathop{#1}^{\t{#2}#3}_{\t{#4}#5}}} % for putting labels above and below a relation sign
+
+% shorthand for \text{}
+\let\taccent=\t % rename built-in command \t{} as \taccent{}
+\renewcommand{\t}[1]{\text{#1}} % shorter code to get roman style text (math subscripts, in particular)
+
+% shorthad for \mathbb{}
+\providecommand{\bb}[1]{\mathbb{#1}}
+
+
+
+
+% Space Management
+% =============================
+
+
+% create compact or ``squished'' lists with sublists:
+\newcommand{\squishlist}{
+   \begin{list}{$\bullet$}
+    { \setlength{\itemsep}{0pt}      \setlength{\parsep}{3pt}
+      \setlength{\topsep}{3pt}       \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{1.5em} \setlength{\labelwidth}{1em}
+      \setlength{\labelsep}{0.5em} } }
+\newcommand{\squishlisti}{
+   \begin{list}{$-$}
+    { \setlength{\itemsep}{0pt}      \setlength{\parsep}{3pt}
+      \setlength{\topsep}{3pt}       \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{1.5em} \setlength{\labelwidth}{1em}
+      \setlength{\labelsep}{0.5em} } }
+\newcommand{\squishlistii}{
+   \begin{list}{$*$}
+    { \setlength{\itemsep}{0pt}      \setlength{\parsep}{3pt}
+      \setlength{\topsep}{3pt}       \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{1.5em} \setlength{\labelwidth}{1em}
+      \setlength{\labelsep}{0.5em} } }
+\newcommand{\squishlistiii}{
+   \begin{list}{$\cdot$}
+    { \setlength{\itemsep}{0pt}      \setlength{\parsep}{3pt}
+      \setlength{\topsep}{3pt}       \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{1.5em} \setlength{\labelwidth}{1em}
+      \setlength{\labelsep}{0.5em} } }
+\newcommand{\squishend}{
+    \end{list}  }
+
+
+% spacing for equation arrays
+\let\super=\sp % rename existing superscript command \sp{} as \super{}
+\renewcommand{\sp}{\hspace{7pt}}
+
+
+% struts for spacing in tabulars/tables and paragraphs
+\newcommand{\tstrut}{\rule{0pt}{2.5ex}}
+\newcommand{\bstrut}{\rule[-1ex]{0pt}{0pt}}
+\newcommand{\Tstrut}{\rule{0pt}{2.9ex}}
+\newcommand{\Bstrut}{\rule[-1.4ex]{0pt}{0pt}}
+\newcommand{\pstrut}{\rule[-1.8ex]{0pt}{0pt}} % gives ~same spacing as \par in enumerate environment
+  %  THIS ONE IS NOT YET LISTED IN PhysNoteDesc, AND IS ONLY USED IN THE CompExamRewrites...
+
+
+
+
+
+% Trial and error code for before and inside \maketitle redefinition, etc.
+%=========================================================================
+
+%BEFORE
+%\usepackage{datetime}
+%\newdateformat{properdate}{\THEYEAR \monthname{\THEMONTH} \THEDAY}
+%\renewcommand{\today}{\THEYEAR \monthname[\THEMONTH] \THEDAY}
+%\renewcommand{\today}{\number\year \space\number\month \space\number\day}
+%\renewcommand{\today}{\number\THEYEAR \number\THEMONTH \number\THEDAY}
+
+
+%$INSIDE
+%\DeclareRobustCommand*{\today}{\number\year \space\monthname[\month] \number\day}
+
+ %\global\let\title\relax
+ %\global\let\subtitle\relax
+ %\global\let\author\relax
+
+% \let\subtitle\relax
+% \let\@subtitle\relax
+
+ %\gdef\@date{\today}
+
+ %\let\date=\date@
+ %\global\let\date=\date@
+ %\global\let\@date
+ %\global\let\@date\@empty
+ %\global\let\@date\@empty\@today
+ %\global\let\@date\@empty\today
+ %\global\let\@date\empty\@today
+ %\global\let\@date\empty\today
+ %\global\let\date\empty\today
+ %\global\let\@date\@today
+ %\global\let\@date\today
+ %\global\let\date\@today
+ %\global\let\date\today
+ %\global\let\date\relax
+
+%\global\let\@date\@empty
+%\global\let\date\relax
+
+ %\global\let\@maketitle\@empty
+ %%\global\let\maketitle\@empty
+ %%\global\let\maketitle\relax
+ %%\global\let\@maketitle\relax

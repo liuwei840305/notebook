@@ -1,0 +1,275 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Ideal Bose Systems}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+While the intermolecular interactions are still negligible, the effects of quantum statistics (which arise from the indistinguishability of the particles) assume an increasingly important role. The temperature $T$ and the particle density $n$ of the system no longer conform to the criterion
+\begin{equation}
+n \lambda^3 \equiv \frac{nh^3}{(2\pi m kT)^{3/2}} \ll 1 ~,
+\end{equation}
+where $\lambda\{\equiv h/(2\pi mkT)^{1/2} \}$ is the \textcolor{red}{mean thermal wavelength} or \textcolor{red}{thermal deBroglie wavelength} of the particles. In the limit $n \lambda^3 \rightarrow 0$, all physical properties go over smoothly to their classical counterparts. For small, but not negligible, values of $n \lambda^3$, the various quantities pertaining to the system can be expanded as power series in this parameter; from these expansions one obtains the first glimpse of the manner in which departure from classical behavior sets in. When $n \lambda^3$ becomes of the order of unity, the behavior of the system becomes significantly different from the classical one and is characterized by quantum effects. 
+
+A system is more likely to display quantum behavior when it is at a relatively low temperature and/or has a relatively high density of particles.(It is the ratio $n/T^{3/2}$, rather than the quantities $n$ and $T$ separately, that determines the degree of degeneracy in a given system.) Moreover, the smaller the particle mass the larger the quantum effects.
+
+\section{Thermodynamic behavior of an ideal Bose gas}
+For an ideal Bose gas
+\begin{equation}
+\frac{PV}{kT} \equiv \ln \mathit{Q} = -\sum_{\varepsilon} \ln (1-z e^{-\beta \varepsilon})
+\end{equation}
+and 
+\begin{equation}
+N \equiv \sum_\varepsilon \langle n_{\varepsilon} \rangle = \sum_\varepsilon \frac{1}{z^{-1} e^{\beta \varepsilon} -1} ~,
+\end{equation}
+where $\beta = 1/kT$, while $z$ is the fugacity of the gas which is related to the chemical potential $\mu$ through 
+\begin{equation}
+z \equiv \exp(\mu/kT) ~.
+\end{equation}
+$z e^{-\beta \varepsilon}$, for all $\varepsilon$, is less than unity. For large $V$, the spectrum of the single-particle states is almost a continuous one, the above summations may be replaced by integrations. The nonrelativistic density of states $a(\varepsilon)$ in the neighborhood of a given energy $\varepsilon$ is
+\begin{equation}
+a(\varepsilon) \dif \varepsilon = (2\pi V/h^3)(2m)^{3/2} \varepsilon^{1/2} \dif \varepsilon ~,
+\end{equation}
+in which it gives a weight zero to the energy level $\varepsilon = 0$. But in a quantum-mechanical treatment we must give a statistical weight unity to each nondegenerate single-particle state in the system. We has to take this particular state out of the sum.
+\begin{equation}
+\frac{P}{kT} = -\frac{2\pi}{h^3} (2m)^{3/2} \int\limits_0^\infty \varepsilon^{1/2} \ln(1-z e^{-\beta \varepsilon}) \dif \varepsilon -\frac{1}{V} \ln(1-z)
+\end{equation}
+and
+\begin{equation}
+\frac{N}{V} = \frac{2\pi}{h^3} (2m)^{3/2} \int\limits_0^\infty \frac{\varepsilon^{1/2} \dif \varepsilon}{z^{-1} e^{\beta \varepsilon} -1} +\frac{1}{V}\frac{z}{1-z}
+\end{equation}
+For $z \ll 1$, which is not far removed from the classical limit, each of the last terms in above equations is of order $1/N$ and can be negligible. As $z$ increases and assumes values close to unity, $z/(1- z)V$, which is identically equal to $N_0/V$ ($N_0$ being the number of particles in the ground state $\varepsilon = 0$), can well become a significant fraction of the quantity $N/V$. This accumulation of a macroscopic fraction of the particles into a single state $\varepsilon = 0$ leads to the phenomenon of \textcolor{red}{Bose-Einstein condensation}. Since $z/(1-z) = N_0$, $z = N_0/(N_0+1)$ and \textcolor{blue}{$\left\{-\dfrac{\ln(1-z)}{V} \right\}$} is equal to $\left\{-\dfrac{\ln(N_0+1)}{V} \right\}$, which is at most $O(N^{-1} \ln N)$. This term is \textcolor{blue}{negligible for all values of $z$}.
+\begin{equation}
+\frac{PV}{kT} = -\frac{2\pi (2mkT)^{3/2}}{h^3} \int\limits_0^\infty x^{1/2} \ln(1-z e^{-x}) \dif x = \frac{g_{5/2}(z)}{\lambda^3} 
+\end{equation}
+and
+\begin{equation}
+\frac{N-N_0}{V} = \frac{2\pi (2mkT)^{3/2}}{h^3} \int\limits_0^\infty \frac{x^{1/2} \dif x}{z^{-1} e^x -1} = \frac{g_{3/2}(z)}{\lambda^3}
+\end{equation}
+where $x = \beta \varepsilon$ and $\lambda = h/(2\pi mkT)^{1/2}$. \textcolor{red}{$g_\nu (z)$} are \textcolor{red}{Bose-Einstein functions}: 
+\begin{equation}
+\color{red} g_\nu (z) = \frac{1}{\Gamma(\nu)} \int\limits_0^\infty \frac{x^{\nu-1} \dif x}{z^{-1} e^x -1} = z +\frac{z^2}{2^\nu} +\frac{z^3}{3^\nu} +\cdots ~,
+\label{BEf}
+\end{equation}
+On elimination of $z$, we would get the equation of state of the system.
+
+The \textcolor{cyan}{internal energy} of this system is 
+\begin{eqnarray}
+\nonumber U &\equiv& -\left(\frac{\partial \ln \mathit{Q}}{\partial \beta}  \right)_{z, V} = kT^2 \left\{\frac{\partial }{\partial T} \left(\frac{PV}{k T} \right) \right\}_{z,V}  \\
+&=& kT^2V g_{5/2}(z) \left\{\frac{\dif }{\dif T} \left(\frac{1}{\lambda^3} \right) \right\} = \frac{3}{2} kT \frac{V}{\lambda^3} g_{5/2}(z)
+\end{eqnarray}
+where $\lambda \propto T^{-1/2}$. 
+\begin{equation}
+P = \frac{2U}{3V}
+\end{equation}
+For small values of $z$, we can use expansion (\ref{BEf}) and neglect $N_0$ in comparison with $N$. The equation of state takes the form of the \textcolor{blue}{virial expansion},
+\begin{equation}
+\frac{PV}{NkT} = \sum_{l=1}^\infty a_l \left(\frac{\lambda^3}{\nu}  \right)^{l-1}
+\end{equation}
+where $\nu (\equiv 1/n)$ is the volume per particle. The coefficients $a_l$ are referred to as the \textcolor{blue}{virial coefficients} of the system,
+\begin{eqnarray}
+\begin{split}
+a_1 &=& 1 ~,\\
+a_2 &=& -\frac{1}{4\sqrt{2}} = -0.17678 ~,\\
+a_3 &=& -\left(\frac{2}{9\sqrt{3}} -\frac{1}{8}\right) = -0.00330 ~, \\
+a_4 &=& -\left(\frac{3}{32} +\frac{5}{32\sqrt{2} } -\frac{1}{2\sqrt{6} }\right) = -0.00011 ~,
+\end{split}
+\end{eqnarray}
+For the \textcolor{cyan}{specific heat} of the gas,
+\begin{eqnarray}
+\nonumber \frac{C_V}{Nk} &=& \frac{1}{Nk} \left(\frac{\partial U}{\partial T} \right)_{N, V} = \frac{3}{2} \left\{\frac{\partial }{\partial T} \left(\frac{PV}{Nk} \right) \right\}_\nu \\
+\nonumber &=& \frac{3}{2} \sum_{l=1}^\infty \frac{5-3l}{2} a_l \left(\frac{\lambda^3}{\nu}  \right)^{l-1} \\
+&=& \frac{3}{2} \left[1+0.0884 \left(\frac{\lambda^3}{\nu}  \right) +0.0066 \left(\frac{\lambda^3}{\nu}  \right)^2 + 0.0004\left(\frac{\lambda^3}{\nu}  \right)^3 +\cdots \right]
+\end{eqnarray}
+As $T \rightarrow \infty$ (and hence $\lambda \rightarrow 0$), both the pressure and the specific heat of the gas approach their classical values, namely $nkT$ and $3 Nk/2$, respectively. At finite, but large, temperatures the specific heat of the gas is larger than its limiting value; in other words, the $(C_V, T)$-curve has a negative slope at high temperatures. As $T \rightarrow 0$, the specific heat must go to zero. Consequently, it must pass through a maximum somewhere. This maximum is in the nature of a cusp that appears at a critical temperature $T_c$; the derivative of the specific heat is found to be discontinuous at this temperature.
+
+As the temperature of the system falls and  $\lambda^3/\nu$ grows, value of $z$ is now obtained from
+\begin{equation}
+N_e = V \frac{(2\pi mkT)^{2/2}}{h^3} g_{3/2}(z) ~,
+\label{N_e}
+\end{equation}
+where $N_e$ is the number of particles in the excited states $(\varepsilon \neq 0)$. Unless $z$ gets extremely close to unity, $N_e \simeq N^3$. For $0 \leqslant z \leqslant 1$, the function $g_{3/2}(z)$ increases monotonically with $z$ and is bounded. Its largest value is
+\begin{equation}
+g_{3/2}(1) = 1 +\frac{1}{2^{3/2}} +\frac{1}{3^{3/2}} +\cdots \equiv \zeta\left(\frac{3}{2}\right) \simeq 2.612 ~.
+\end{equation}
+for all $z$ of interest,
+\begin{equation}
+g_{3/2}(z) \leqslant \zeta\left(\frac{3}{2}\right) ~.
+\end{equation}
+For given $V$ and $T$, the total (equilibrium) number of particles in all the excited states taken together is also bounded, 
+\begin{equation}
+N_e \leqslant V\frac{(2\pi mkT)^{3/2}}{h^3} \zeta\left(\frac{3}{2}\right) ~.
+\end{equation}
+As long as the actual number of particles in the system is less than this limiting value, everything is well and good. Practically all the particles in the system are distributed over the excited states and the precise value of $z$ is determined by equation (\ref{N_e}), with $N_e \simeq N$.
+
+If the actual number of particles exceeds this limiting value, then it is natural that the excited states will receive as many of them as they can hold, namely
+\begin{equation}
+N_e = V\frac{(2\pi mkT)^{2/2}}{h^3} \zeta\left(\frac{3}{2}\right) ~.
+\end{equation}
+while the rest will be pushed en masse into the ground state $\varepsilon = 0$ (whose capacity, under all circumstances, is essentially unlimited):
+\begin{equation}
+N_0 = N-\left\{V\frac{(2\pi mkT)^{2/2}}{h^3} \zeta\left(\frac{3}{2}\right) \right\}
+\end{equation}
+\begin{equation}
+z = \frac{N_0}{N_0+1} \simeq 1-\frac{1}{N_0}
+\end{equation}
+which, for all practical purposes, is unity.
+
+Bose–Einstein condensation : a macroscopically large number of particles accumulate in a single quantum state ($\varepsilon = 0$). It takes place at best in the momentum space and not in the coordinate space
+
+The condition for the onset of Bose–Einstein condensation is
+\begin{equation}
+N > VT^{3/2}\frac{(2\pi mk)^{3/2}}{h^3} \zeta\left(\frac{3}{2}\right) 
+\end{equation}
+or, if we hold $N$ and $V$ constant and vary $T$
+\begin{equation}
+T < T_c = \dfrac{h^2}{2\pi mk} \left(\frac{N}{V\zeta\left(\dfrac{3}{2}\right) } \right)^{2/3}
+\end{equation}
+$T_c$ denotes a characteristic temperature that depends on the particle mass $m$ and the particle density $N/V$ in the system. For $T < T_c$, the system may be looked on as a mixture of two “phases”: \\
+(i) a normal phase, consisting of $N_e \{= N(T/T_c)^{3/2}\}$ particles distributed over the excited states $(\varepsilon \neq 0)$, and \\(ii) a condensed phase, consisting of $N_0 \{=(N-N_e)\}$ particles accumulated in the ground state $(\varepsilon = 0)$.
+
+
+
+\section{Bose-Einstein condensation in ultracold atomic gases}
+
+
+
+\section{Thermodynamics of the black body radiation}
+Consider a radiation cavity of volume $V$ at temperature $T$. This system can be looked on from two, practically identical but conceptually different, points of view: \\
+(i) as an assembly of harmonic oscillators with quantized energies $(n_s+\dfrac{1}{2})\hbar \omega_s$, where$n_s = 0, 1, 2, \cdots$, and $\omega_s$ is the (angular) frequency of an oscillator, or \\(ii) as a gas of identical and indistinguishable quanta-the so-called photons-the energy of a photon (corresponding to the frequency $\omega_s$ of the radiation mode) being $\hbar \omega_s$.
+
+The first point of view include here \textcolor{orange}{zero-point energy of the oscillator}; The oscillators, being \textcolor{cyan}{distinguishable from one another} (by the very values of $\omega_s$), would obey \textcolor{cyan}{Maxwell-Boltzmann statistics}; however, the expression for the \textcolor{cyan}{single-oscillator partition function $Q_1(V, T)$ would be different from the classical expression because now the energies accessible to the oscillator are discrete}, rather than continuous. The expectation value of the energy of a Planck oscillator offrequency $\omega_s$ is  
+\begin{equation}
+\langle \varepsilon_s \rangle = \frac{\hbar \omega_s}{e^{\hbar \omega_s/kT} -1}
+\end{equation}
+excluding the zero-point term $\dfrac{\hbar \omega_s}{2}$. The number of normal modes of vibration per unit volume of the cavity in the frequency range $(\omega, \omega + \dif \omega)$ is given by the Rayleigh expression
+\begin{equation}
+2\cdot 4\pi \left(\frac{1}{\lambda} \right)^2 \dif \left(\frac{1}{\lambda} \right) = \frac{\omega^2 \dif \omega}{\pi^2 c^3} ~,
+\end{equation}
+where the factor $2$ is to take into account the duplicity of the transverse modes.(the longitudinal modes play no role in the case of radiation.) The energy density associated with the frequency range $(\omega, \omega + \dif \omega)$ is
+\begin{equation}
+u(\omega) \dif \omega = \frac{\hbar}{\pi^2 c^3} \frac{ \omega^3\dif \omega}{e^{\hbar \omega_s/kT} -1} ~,
+\end{equation}
+which is Planck’s formula for the distribution of energy over the blackbody spectrum. Integrating over all values of $\omega$, we obtain the total energy density in the cavity.
+
+The statistics of the energy levels is indeed Boltzmannian. The mean values of $n_s$ and $\varepsilon_s$ is
+\begin{eqnarray}
+\langle n_s \rangle &=& \frac{\sum\limits_{n_s=0}^\infty n_s e^{-n_s \hbar \omega_s/kT}  }{\sum\limits_{n_s=0}^\infty e^{-n_s \hbar \omega_s/kT}} \\
+&=& \frac{1}{e^{\hbar \omega_s/kT} -1}
+\end{eqnarray}
+and hence
+\begin{equation}
+\langle \varepsilon_s \rangle = \hbar \omega_s \langle n_s \rangle =  \frac{\hbar \omega_s}{e^{\hbar \omega_s/kT} -1} ~,
+\end{equation}
+To obtain the number of photon states with momenta lying between $\hbar \omega/c$ and $\hbar (\omega+\dif \omega)$/c, use the connection between this number and the “volume of the relevant region of the phase space”, then
+\begin{equation}
+g(\omega) \dif \omega \approx \frac{2V}{h^3} \left\{4\pi \left(\frac{\hbar \omega}{c} \right)^2 \left(\frac{\hbar \dif \omega}{c} \right) \right\} = \frac{V\omega^2 \dif \omega}{\pi^2 c^3} ~.
+\end{equation}
+Here the factor $2$ is regarded as the two states of polarization of the photon spin.
+
+During the process of distributing photons over the various energy levels, the photons are indistinguishable. Since the total number of photons in any given volume was indefinite, the constraint of a fixed N was no longer present. The Lagrange multiplier $\alpha$ did not enter into the discussion and the final formula for $\langle n_s \rangle$ is
+\begin{equation}
+\langle n_s \rangle = \frac{1}{e^{\varepsilon/kT} -1} ~.
+\end{equation}
+
+There is a complete correspondence between two methods - ``an oscillator in the eigenstate $n_s$, with energy $\left(n_s + \dfrac{1}{2}\right)\hbar \omega_s$" corresponds to ``the occupation of the energy level $\hbar \omega_s$ by $n_s$ photons", ``the average energy $\langle \varepsilon_s \rangle$ of an oscillator" corresponds to ``the mean occupation number $n_s$ of the corresponding energy level".
+
+
+\section{The field of sound waves}
+
+
+\section{Inertial density of the sound field}
+
+\section{Elementary excitations in liquid helium II}
+
+\end{document}

@@ -1,0 +1,176 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Pair Production}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2012agn..book.....B} When the energy of a photon exceeds the sum of rest mass energy of a particle and its anti-particle, pair production can take place. The lowest mass particle pair which can be produced in this manner is the electron–positron pair. Other possible products are muon and anti-muon, or a tau and an anti-tau. The $e^-/e^+$ pair production requires a high-energy photon with $E > 2m_e c^2 = 1022$ keV. It must \textcolor{red}{occur in the vicinity of a massive particle}, for example an ion, electron, or positron in order to conserve momentum. Photon energy in excess of the rest mass energy of the two particles will be carried away as kinetic energy. As the photon carried a momentum, this momentum will have to be conserved and so some momentum will be imparted to the nearby particle. The \textcolor{red}{cross-section} for this process depends on the \textcolor{red}{particle's mass}. With an interaction of the type $\gamma + e^{\pm} \rightarrow e^{\pm} +e^- +e^+$, the cross-section for a photon with energy $E$
+\begin{align}
+\sigma_{e^\pm \gamma}(E) = \dfrac{3}{8\pi} \alpha \sigma_T 
+\left\{
+\begin{aligned}
+\dfrac{\sqrt{\pi}}{324} \left(\dfrac{E}{m_e c^2} -4 \right)^2 ~, ~& ~ {\rm for}~ \dfrac{E}{m_e c^2} -4 \ll 1 \\
+\dfrac{28}{9} \ln \dfrac{2E}{m_e c^2} -\dfrac{218}{27} ~, ~& ~{\rm for}~ \dfrac{E}{m_e c^2} \gg 4 
+\end{aligned}
+\right.
+\end{align}
+If a nucleus is involved, that is, if we look at a pair production process following $\gamma + Z \rightarrow Z +e^- +e^+$, the cross-section turns out to be
+\begin{align}
+\sigma_{Z \gamma}(E) = \dfrac{3}{8\pi} \alpha \sigma_T Z^2
+\left\{
+\begin{aligned}
+\dfrac{\sqrt{2 \pi}}{3} \left(\dfrac{E}{m_e c^2} -2 \right)^2 ~, ~& ~ {\rm for}~ \dfrac{E}{m_e c^2} -2 \ll 1 \\
+\dfrac{28}{9} \ln \dfrac{2E}{m_e c^2} -\dfrac{218}{27} ~, ~& ~{\rm for}~ \dfrac{E}{m_e c^2} \gg 2 
+\end{aligned}
+\right.
+\end{align}
+For large photon energies ($E \gg 4m_e c^2$) the cross-section is the same and scales only with the square of the charge of the particles $Z^2$. Pair production involving two charged particles can also take place. But the cross-sections are lower by another factor of $\sim \alpha$, and thus do not contribute significantly here.
+
+Another possibility for producing an $e^-/e^+$ pair involves the \textcolor{red}{interaction of two photons}. This purely quantum mechanical process is the inverse of the pair annihilation process. The photon–photon interaction turns out to be important in the study of a subclass of AGN which emit high-energy gamma rays. It introduces a mechanism for high-energy photons in the TeV range emitted by these AGN to be effectively \textcolor{red}{"absorbed" by low-energy photons}, such as those characteristic of the extragalactic background light, which peaks at infrared wavelengths.
+
+In order for the photon–photon interaction to be able to produce an $e^-/e^+$ pair, the energy has to be large enough and the relative directions of the motion of the photons has to be considered. Assuming that two photons travel along direction
+vectors $\vec{u}_1$ and $\vec{u}_2$, respectively, pair production is possible when the product of the photon energies \textcolor{red}{$E_1 \cdot E_2$} fulfills the following requirement:
+\begin{align}
+E_1 \cdot E_2 \geqslant \dfrac{2(m_e c^2)^2}{1-\vec{u}_1 \cdot \vec{u}_2} ~.
+\end{align}
+The product of the photon energies has to fulfill this condition for pair production to be possible, and not the sum. Thus, \textcolor{red}{pair production is impossible if the two photons travel in the same direction}, and the \textcolor{red}{efficiency is largest for a head-on collision}. 
+
+Assuming a relative angle $\theta$, the term $\vec{u}_1 \cdot \vec{u}_2 = \cos \theta$. Assuming an isotropic distribution of photon directions, we can assume an average value of $\bar{\theta} = 90^\circ$. In this case, the frequencies $\nu_1$ and $\nu_2$ of the two photons have to fulfill the condition that \textcolor{red}{$\nu_2 \geqslant 3 \times 10^{40}$ Hz$^2 \nu_1^{-1}$}. In addition to the photon energy threshold necessary to allow pair production, the cross-section for photon–photon interaction is critically \textcolor{red}{energy-dependent}. The cross-section starts as \textcolor{red}{$\sigma = 0$ at the minimum energy}. It reaches its \textcolor{red}{maximum at twice the minimum energy value}, that is, at a frequency \textcolor{red}{$\nu_2 = 6 \times 10^{40}$ Hz$^2 \nu_1^{-1}$}, where the cross-section is $\sigma \simeq 0.2 \sigma_T$ with $\sigma_T$ being the Thomson cross-section. When expressed in terms of photon energies, the \textcolor{red}{maximum cross-section} appears when \textcolor{red}{$E_1 \cdot E_2 \simeq (1 ~\rm MeV)^2$}. Thus, for photon-photon pair production most likely "partners" are two photons at MeV energies, or a GeV photon scattering with a keV photon, a TeV photon on a eV (i.e., optical) photon, and so forth.
+
+\section{Electron-positron pair production}
+\cite{2011hea..book.....L} If the photon has energy greater than $2 m_{\rm e} c^2$, pair production can take place in the field of the nucleus. Pair production cannot take place in free space because momentum and energy cannot be conserved simultaneously. 
+
+\section{Pairs}
+\cite{2013LNP...873.....G} In the presence of energetic particles and photons one has to wonder about the possibility that there are collisions between them. One result of these collisions is the production of $\rm e^\pm$. If we have a photon–photon collision, then the original photons might disappear, so that this process becomes an important absorption process.
+
+The importance of this process came initially from the realization that the \textcolor{red}{virial temperature of protons}, in the vicinity of black holes, can be very large. As an estimate, the kinetic energy of a proton at $3$ Schwarzschild radii is
+\begin{align}
+E_{\rm kin} = \dfrac{GM m_p}{R} \simeq 150 \left(\dfrac{3R_S}{R} \right) \rm MeV ~,
+\end{align}
+particles can be very energetic in accreting systems. Protons can efficiently give their energy to electrons, that will emit this energy. This would keep the protons much cooler than the above value.
+
+Active Galactic Nuclei (AGNs) vary quickly (with a variability timescale $t_{\rm var}$). By the causality argument they cannot be larger than $R \sim ct_{\rm var}$. Therefore their emitting regions must be small, and yet produce a huge luminosities. Densities are thus very large, and the collisions between particles, between particles and photons, and between photons must be probable. 
+
+Pair processes allows to pose robust and important limits on the physics of all compact objects.
+
+\section{Thermal Pairs}
+Consider particles characterized by a Maxwellian distribution and a temperature $T$. Since we are dealing with the production of $\rm e^\pm$, it is convenient to measure all energies in units of $m_{\rm e} c^2$ ($= 511$ keV). Define
+\begin{align}
+& \Theta = \dfrac{kT}{m_{\rm e} c^2} ~, x = \dfrac{h\nu}{m_{\rm e} c^2} \\
+& n_\pm = \text{ number density of positrons (+) and electrons (-) } \\
+& n_\gamma = \text{ number density of photons } \\
+& \dot{n}_\pm = \text{ production rate of pairs } \\
+& \dot{n}_A = \text{ rate of annihilation of pairs } \\
+& \dot{n}_{\rm esc} = \text{ rate of escape of leptons }
+\end{align}
+The process that can produce $e^\pm$ are:
+\begin{align}
+& \gamma \gamma \rightarrow e^+ e^- ~: ~ \dot{n}_+ = r_{\rm e}^2 c n_{\gamma\gamma}^2 F_{\gamma\gamma} \\
+& \gamma p \rightarrow e^+ e^- p : \dot{n}_+ = \alpha_F r_{\rm e}^2 c n_\gamma n_{\rm p} F_{\rm \gamma p} \\
+& \gamma e \rightarrow e^+ e^- e : \dot{n}_+ = \alpha_F r_{\rm e}^2 c n_\gamma n_{\rm e} F_{\rm \gamma e} \\
+& e e \rightarrow e^+ e^- e e : \dot{n}_+ = \alpha_F^2 r_{\rm e}^2 c (n_+ + n_-)^2 F_{\rm e e} \\
+& e p \rightarrow e^+ e^- e p : \dot{n}_+ = \alpha_F^2 r_{\rm e}^2 c (n_+ + n_-) n_{\rm p} F_{\rm e p}
+\end{align}
+while the processes that annihilate pairs or that correspond to the escape of pairs and electrons are:
+\begin{align}
+& e^+ e^- \rightarrow \gamma \gamma : \dot{n}_A = 2r_{\rm e}^2 c n_+ n_- F_A \\
+& \text{ Escape } : \dot{n}_{\rm esc} = r_{\rm e}^2 c (n_+ +n_-)^2 F_{\rm esc} \\
+\end{align}
+The $F$-factors are averages of the energy dependent part of the cross sections over the Maxwellian distribution. They are dimensionless. The geometrical part of the cross section is always of the form of $\alpha_F^a r_{\rm e}^2: \alpha_F = 1/137$ is the fine structure constant, and $r_{\rm e}$ is the classical electron radius. For photon-photon interaction, $a = 0$, for particle-photon $a = 1$, for particle-particle $a = 2$. Consider that pair production processes have an energy threshold: there must be enough energy to produce a pair. But, when dealing with a Maxwellian distribution, one has particles (even if a few) at all energies, so the process can occur even if $\Theta \ll 1$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,271 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newtheorem{theorem}{THEOREM}[section]
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{The Geometry of Vector Spaces}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+\section{Null Spaces, Column Spaces, and Linear Transformations}
+The subspaces of $\mathbb{R}^n$ usually arise in one of two ways: (1) as the set of all solutions to a system of homogeneous linear equations or (2) as the set of all linear combinations of certain specified vectors.
+
+
+
+\subsection{The Null Space of a Matrix}
+The set of $\vec{x}$ that satisfy $A \vec{x} = \vec{0}$ is called the \textcolor{red}{null space} of the matrix $A$.
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+The null space of an $m\times n$ matrix $A$, written as \textcolor{red}{Nul $A$}, is the set of all solutions to the homogeneous equation $A \vec{x} = \vec{0}$. In set notation, \\
+Nul A = $\{\vec{x} : \vec{x} ~\text{is in} ~\mathbb{R}^n ~\text{and} ~A \vec{x} = \vec{0}\}$
+\end{tcolorbox}
+A more dynamic description of Nul $A$ is the set of all $\vec{x}$ in $\mathbb{R}^n$ that are mapped into the zero vector of $\mathbb{R}^m$ via the linear transformation $\vec{x} \mapsto A\vec{x}$. 
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+The null space of an $m\times n$ matrix $A$ is a subspace of $\mathbb{R}^n$. Equivalently, the set of all solutions to a system $A\vec{x} = \vec{0}$ of $m$ homogeneous linear equations in $n$ unknowns is a subspace of $\mathbb{R}^n$.
+\end{tcolorbox}
+
+\subsection{An Explicit Description of Nul $A$}
+There is no obvious relation between vectors in Nul $A$ and the entries in $A$. Nul $A$ is defined implicitly, because it is defined by a condition that must be checked. No explicit list or description of the elements in Nul $A$ is given. However, solving
+the equation $A \vec{x} = \vec{0}$ amounts to producing an explicit description of Nul $A$.
+
+
+
+When Nul $A$ contains nonzero vectors, the number of vectors in the spanning set for Nul $A$ equals the number of free variables in the equation $A \vec{x} = \vec{0}$.
+
+
+
+\subsection{The Column Space of a Matrix}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+The column space of an $m\times n$ matrix $A$, written as Col $A$, is the set of all linear
+combinations of the columns of A. If $A = [\vec{a}_1 \cdots \vec{a}_n]$, then \\
+Col $A$ = Span $\{\vec{a}_1 \cdots \vec{a}_n \}$
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+The column space of an $m\times n$ matrix $A$ is a subspace of $\mathbb{R}^m$.
+\end{tcolorbox}
+
+\subsection{The Contrast Between Nul $A$ and Col $A$}
+
+
+
+
+
+\subsection{Kernel and Range of a Linear Transformation}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+A linear transformation $T$ from a vector space $V$ into a vector space $W$ is a rule that assigns to each vector $\vec{x}$ in $V$ a unique vector $T(\vec{x})$ in $W$, such that \\
+(i) $T(\vec{u} + \vec{v}) = T(\vec{u}) +T(\vec{v})$ for all $\vec{u}, \vec{v} in \vec{V}$, and \\
+(ii) $T(c\vec{u}) = cT(\vec{u})$ for all $\vec{u}$ in $V$ and all scalars $c$.
+\end{tcolorbox}
+The kernel (or null space) of such a $T$ is the set of all $\vec{u}$ in $V$ such that $T(u) = 0$ (the zero vector in $W$). The range of T is the set of all vectors in $W$ of the form $T(x)$ for some $\vec{x}$ in $V$. If $T$ happens to arise as a matrix transformation-say, $T(\vec{x}) = A\vec{x}$ for some matrix $A$-then the kernel and the range of $T$ are just the null space and the column space of $A$.
+
+The kernel of $T$ is a subspace of $V$.
+
+
+\section{Linearly Independent Sets; Bases}
+
+
+
+
+
+
+
+\section{Coordinate Systems}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= The Unique Representation Theorem]
+Let $\mathcal B = \{\vec{b}_1, \cdots, \vec{b}_n\}$ be a basis for a vector space $V$. Then for each $\vec{x}$ in $V$, there exists a unique set of scalars $c_1, \cdots, c_n$ such that
+\begin{equation}
+\vec{x} = c_1 \vec{b}_1 + \cdots + c_n \vec{b}_n ~.
+\end{equation}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Definition]
+Suppose $\mathcal B = \{\vec{b}_1, \cdots, \vec{b}_n\}$ is a basis for $V$ and $\vec{x}$ is in $V$. The coordinates of $\vec{x}$
+relative to the basis $\mathcal B$ (or the  $\mathcal B$-coordinates of $\vec{x}$) are the weights $c_1, \cdots, c_n$
+such that $\vec{x} = c_1 \vec{b}_1 + \cdots + c_n \vec{b}_n$.
+\end{tcolorbox}
+
+
+\subsection{A Graphical Interpretation of Coordinates}
+
+
+
+
+
+\section{The Dimension of a Vector Space}
+
+
+
+\section{Rank}
+
+
+
+\section{Change of Basis}
+
+
+\section{Applications to Difference Equations}
+
+
+
+\section{Applications to Markov Chains}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

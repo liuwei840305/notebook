@@ -1,0 +1,222 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+%从右倾的积分号变为竖直的积分号
+%define a new command for \rm font of int
+\DeclareSymbolFont{rmlargesymbols}{OMX}{mdbch}{m}{n}
+% or \DeclareSymbolFont{rmlargesymbols}{U}{euex}{m}{n}
+\DeclareMathSymbol{\rmintop}{\mathop}{rmlargesymbols}{82}
+\newcommand{\rmint}{\rmintop\nolimits}
+
+\title{CHEBYSHEV POLYNOMIALS}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\cite{riley2006mathematical}
+The Chebyshev equation
+\begin{equation}
+(1-x^2) y^{\prime \prime} -xy^\prime +n^2 y = 0 ~,
+\end{equation}
+can be converted to an equation of Sturm-Liouville form by multiplying by the integrating factor $(1 - x^2)^{-1/2}$.
+\begin{equation}
+\left[(1-x^2)^{1/2} y^\prime \right]^\prime +n^2 (1 - x^2)^{-1/2} y = 0 ~.
+\end{equation}
+The solutions, the Chebyshev polynomials $T_n(x)$, are given by a Rodrigues' formula:
+\begin{equation}
+T_n(x) = \dfrac{(-2)^n n! (1-x^2)^{1/2}}{(2n)!} \dfrac{\dif^n }{\dif x^n} (1-x^2)^{n-1/2} ~.
+\end{equation}
+Their orthogonality over the range $-1 \leqslant x \leqslant 1$ and their normalisation are given by
+\begin{equation}
+\int_{-1}^1 (1-x^2)^{-1/2} T_m(x) T_n(x) \dif x = 
+\left\{
+\begin{array}{ll}
+      0     & \text{for}~ ~m \neq n ~, \\
+      \pi/2 & \text{for} ~~n = m \neq 0 ~, \\
+      \pi    & \text{for} ~~n = m = 0 ~, \\
+\end{array} 
+\right.
+\end{equation}
+and their generating function is
+\begin{equation}
+G(x, h) = \dfrac{1-xh}{1 -2xh +h^2} = \sum_{n=0}^\infty T_n (x) h^2 ~.
+\end{equation}
+
+
+
+\cite{arfken} The generating function for the Legendre polynomials can be generalized to
+\begin{equation}
+\dfrac{1}{(1-2xt+t^2)^\alpha} = \sum_{n=0}^\infty C^{(\alpha)}_n (x) t^n ~,
+\end{equation}
+where the coefficients $C^{(\alpha)}_n(x)$ are known as the \textcolor{red}{ultraspherical polynomials} (also called \textcolor{red}{Gegenbauer polynomials}). For $\alpha = 1/2$, we recover the Legendre polynomials. The special cases $\alpha = 0$ and $\alpha = 1$ yield two types of Chebyshev polynomials. The primary importance of the Chebyshev polynomials is in numerical analysis.
+
+\section{Type I Polynomials}
+With $\alpha = 1$, $C^{(1)}_n(x)$ is written as $U_n(x)$, 
+
+
+
+
+
+\section{Type II Polynomials}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

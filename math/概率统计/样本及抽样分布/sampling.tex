@@ -1,0 +1,306 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{color}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{样品及抽样分布}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{随机样本}
+\textcolor{red}{总体}：
+
+试验的全部可能观察值；
+
+\textcolor{red}{个体}：
+
+每一个可能的观察值；
+
+\textcolor{red}{容量}：
+
+总体中所包含的个体的数量；
+
+总体中的每一个个体是随机试验的一个观察值，它是某一随机变量$X$的值；一个总体对应于一个随机变量；
+
+通过从总体中抽取一部分个体，根据获得的数据对总体分布得出推断；被抽出的部分个体，叫总体的一个样本；
+
+从总体中抽取一个个体，即对总体$X$进行一次观察并记录结果；在相同条件下，对总体$X$进行$n$次重复的、独立的观察；将$n$次观察结果按试验的次序记为$X_1, X_2, \cdots, X_n$。由于$X_1, X_2, \cdots, X_n$是对随机变量$X$观察的结果，且各次观察是在相同条件下独立进行的，则$X_1, X_2, \cdots, X_n$是相互独立的，且都是与$X$具有相同分布的随机变量$\Longrightarrow$$X_1, X_2, \cdots, X_n$称为来自总体$X$的一个简单随机样本，$n$：样本的容量；$n$次观察得到一组实数$x_1, x_2, \cdots, x_n$，依次是随机变量$X_1, X_2, \cdots, X_n$的观察值，称为样本值；
+
+\textcolor{red}{简单随机样本}：
+
+设$X$是具有分布函数$F$的随机变量，若$X_1, X_2, \cdots, X_n$是具有同一分布函数$F$的、相互独立的随机变量，称$X_1, X_2, \cdots, X_n$为从分布函数$F$(或总体$F$、总体$X$)得到的容量为$n$的简单随机样本，简称\textcolor{red}{样本}；
+
+\textcolor{red}{样本值}：
+
+观察值$x_1, x_2, \cdots, x_n$；$X$的$n$个独立的观察值；\\
+
+若$X_1, X_2, \cdots, X_n$为$F$的一个样本，则$X_1, X_2, \cdots, X_n$相互独立，且它们的分布函数都是$F$，则$(X_1, X_2, \cdots, X_n)$的分布函数：
+\begin{equation}
+F^*(x_1, x_2, \cdots, x_n) = \prod_{i=1}^{n} F(x_i)
+\end{equation}
+若$X$具有概率密度$f$，则$(X_1, X_2, \cdots, X_n)$的概率密度：
+\begin{equation}
+f^*(x_1, x_2, \cdots, x_n) = \prod_{i=1}^{n} f(x_i)
+\end{equation}
+
+\section{抽样分布}
+\textcolor{red}{统计量}：
+
+设$X_1, X_2, \cdots, X_n$是来自总体$X$的一个样本，\textcolor{red}{$g(X_1, X_2, \cdots, X_n)$}是$X_1, X_2, \cdots, X_n$的函数，若$g$中不含未知参数，则称$g(X_1, X_2, \cdots, X_n)$是一统计量；
+
+因为$X_1, X_2, \cdots, X_n$是随机变量，而统计量$g(X_1, X_2, \cdots, X_n)$是随机变量的函数，因此也是一随机变量。设$x_1, x_2, \cdots, x_n$是相应于样本$X_1, X_2, \cdots, X_n$的样本值，称\textcolor{red}{$g(x_1, x_2, \cdots, x_n)$}是$g(X_1, X_2, \cdots, X_n)$的\textcolor{red}{观察值}。
+
+\textcolor{red}{样本平均值}：
+\begin{equation}
+\overline{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\end{equation}
+
+\textcolor{red}{样本方差}：
+\begin{equation}
+S^2 = \textcolor{blue}{\frac{1}{n-1}} \sum_{i=1}^{n} (X_i - \overline{X})^2 = \textcolor{blue}{\frac{1}{n-1}} \left( \sum_{i=1}^{n} X_i^2 - n \overline{X}^2  \right)
+\end{equation}
+
+\textcolor{red}{样本标准差}：
+\begin{equation}
+S = \sqrt{S^2} = \sqrt{ \textcolor{blue}{\frac{1}{n-1}} \sum_{i=1}^{n} (X_i - \overline{X})^2 }
+\end{equation}
+
+\textcolor{red}{样本$k$阶(原点)矩}
+\begin{equation}
+A_k = \frac{1}{n} \sum_{i=1}^{n} X_i^k, ~~k = 1,2,\cdots
+\end{equation}
+
+\textcolor{red}{样本$k$阶中心矩}
+\begin{equation}
+B_k = \frac{1}{n} \sum_{i=1}^{n} (X_i-\overline{X})^k, ~~k = 1,2,\cdots
+\end{equation}
+
+其观察值：
+\begin{equation}
+\overline{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\end{equation}
+
+\begin{equation}
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \overline{x})^2 = \frac{1}{n-1} \left( \sum_{i=1}^{n} x_i^2 - n \overline{x}^2  \right)
+\end{equation}
+
+\begin{equation}
+s = \sqrt{ \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \overline{x})^2 }
+\end{equation}
+
+\begin{equation}
+a_k = \frac{1}{n} \sum_{i=1}^{n} x_i^k, ~~k = 1,2,\cdots
+\end{equation}
+
+\begin{equation}
+b_k = \frac{1}{n} \sum_{i=1}^{n} (x_i-\overline{x})^k, ~~k = 1,2,\cdots
+\end{equation}
+
+若总体$X$的$k$阶矩$E(X^k) \stackrel{\text{记成}}\longrightarrow \mu_k$存在，则当$n\rightarrow \infty$时，$A_k \stackrel{P}\longrightarrow \mu_k, k =1 ,2, \cdots$。由于$X_1, X_2, \cdots, X_n$独立且与$X$同分布，所以$X_1, X_2, \cdots, X_n$独立且与$X^k$同分布。故有
+\begin{equation*}
+E(X^k_1) = E(X^k_2) = \cdots = E(X^k_n) = \mu_k
+\end{equation*}
+由辛钦定理可知
+\begin{equation*}
+A_k = \frac{1}{n} \sum_{i=1}^k X_i^k \stackrel{P}\longrightarrow \mu_k, k =1 ,2, \cdots ~.
+\end{equation*}
+由依概率收敛的序列的性质，
+\begin{equation}
+g(A_1, A_2, \cdots, A_k) \stackrel{P}\longrightarrow g(\mu_1, \mu_2, \cdots, \mu_k) ~.
+\end{equation}
+其中$g$为连续函数。这是\textcolor{purple}{矩估计法的理论依据}。
+
+\textcolor{red}{经验分布函数}
+
+\textcolor{cyan}{与总体分布函数$F(x)$相应的统计量}；
+
+设$X_1, X_2, \cdots, X_n$是总体$F$的一个样本，用\textcolor{cyan}{$S(x), -\infty < x < \infty$}表示$X_1, X_2, \cdots, X_n$中\textcolor{cyan}{不大于$x$的随机变量的个数}。定义经验分布函数$F_n(x)$为
+\begin{equation}
+\color{red} F_n(x) = \frac{1}{n} S(x),~ -\infty < x < \infty ~.
+\end{equation}
+
+经验分布函数$F_n(x)$的观察值
+\begin{eqnarray*}
+F_n(x) = \left\{
+\begin{aligned}
+0,&& x < x_{(1)} ~,\\
+\dfrac{k}{n},&& x_{(k)} \leqslant x <   x_{(k+1)} ~, \\
+1,&& x \geqslant x_{(n)} ~.
+\end{aligned}
+\right.
+\end{eqnarray*}
+对于任一实数$x$，当$x\rightarrow \infty$时，$F_n(x)$以概率$1$一致收敛于分布函数$F(x)$，即
+\begin{equation*}
+P\{\underset{n\rightarrow \infty}\lim~ \underset{-\infty < x < \infty}{\rm sup} |F_n(x) -F(x)| = 0 \} = 1 ~.
+\end{equation*}
+因此对于任一实数$x$，当$n$充分大时，经验分布函数的任一观察值$F_n(x)$与总体分布函数$F(x)$只有微小的差别，可当作$F(x)$来使用。
+
+\textcolor{red}{抽样分布}：
+
+统计量的分布；\\
+使用统计量进行统计推断时需要知道它的分布；\\
+当总体的分布函数已知，抽样分布是确定的；
+
+以下是来自正态总体的统计量分布 \\
+\subsection{$\chi^2$分布}
+
+设$X_1, X_2, \cdots, X_n$是来自总体$N(0,1)$的样本，称统计量
+\begin{equation}
+\color{red} \chi^2 = X_1^2 + X_1^2 +\cdots + X_n^2 
+\end{equation}
+服从自由度为$n$的$\chi^2$分布，记为\textcolor{red}{$\chi^2 \sim \chi^2(n)$}。
+自由度：独立变量的个数；
+
+$\chi^2(n)$分布的概率密度函数：
+\begin{equation}
+\color{red} f(y) = \left\{
+\begin{aligned}
+&\frac{1}{2^{n/2} \Gamma(n/2)} y^{n/2-1} e^{-y/2},& y> 0 \\
+&0,& 
+\end{aligned}
+\right.
+\end{equation}
+
+
+
+\subsection{$t$分布}
+也称\textcolor{red}{学生氏分布}
+
+设$X \sim N(0,1)$，$Y\sim \chi^2(n)$，且$X$，$Y$独立，称随机变量
+\begin{equation}
+\color{red} t = \frac{X}{\sqrt{Y/n}}
+\end{equation}
+服从自由度为$n$的$t$分布，记为\textcolor{red}{$t \sim t(n)$}。
+
+$t(n)$分布的概率密度函数：
+\begin{equation}
+\color{red} h(t) = \frac{\Gamma[(n+1)/2]}{\sqrt{\pi n}~\Gamma(n/2)} \left(1+ \frac{t^2}{n} \right)^{-(n+1)/2}, ~~ -\infty < t < \infty
+\end{equation}
+
+\subsection{$F$分布}
+
+设$U\sim \chi^2(n_1)$，$V\sim \chi^2(n_2)$，且$U$、$V$独立，称随机变量
+\begin{equation}
+\color{red} F = \frac{U/n_1}{V/n_2}
+\end{equation}
+服从自由度为$(n_1,n_2)$的$F$分布，记为\textcolor{red}{$F \sim F(n_1,n_2)$}。
+
+$F$分布的概率密度函数：
+\begin{equation}
+\psi(y) = \left\{
+\begin{aligned}
+&\frac{\Gamma[(n_1 +n_2)/2] (n_1/n_2)^{n_1/2} y^{n_1/2-1}}{\Gamma(n_1/2) \Gamma(n_2/2) [1+(n_1y/n_2)]^{(n_1+n_2)/2}},& y> 0 \\
+&0,& 
+\end{aligned}
+\right.
+\end{equation}
+
+\section{直方图和箱线图}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

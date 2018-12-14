@@ -1,0 +1,1225 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}      % 花体
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Instabilities}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+The \textcolor{red}{importance of stability analysis increases with the number of degrees of freedom of the system}. In a system with one degree of freedom, its energy will be a function of only one parameter and equilibria will generically correspond to energy maxima or minima, so that the number of stable equilibria corresponds to a fraction 1/2 of the total. In a system with two degrees of freedom, the energy becomes a surface in the two-parameter space and there will be four possible extrema, namely an absolute maximum (a mountain top), an absolute minimum (a valley) and two saddle points (two mountain passes). These latter states are unstable since only for a subset of perturbations along a particular direction will the system return to the saddle-equilibrium, while any noise will lead to instability. Over four possible equilibrium configurations, only one is stable.
+
+One might be tempted to generalize assuming that for \textcolor{red}{a system with $n$ degrees of freedom only a fraction $1/2^n$ of the total number of equilibria is stable}, a conjecture for which there is no proof. Nonetheless it is a reasonable intuition that in a system with a very large number of degrees of freedom, such as a fluid or a plasma, most equilibrium configurations might be unstable, making stability analysis a requirement.
+
+
+
+\section{Linear Stability of Ideal MHD Equilibria}
+The ideal MHD equations are
+\begin{align*}
+& \frac{\partial \rho}{\partial t} + \nabla\cdot (\rho \vec{U}) = 0 ~, \\
+& \rho \frac{\dif \vec{U}}{\dif t} = \rho\left(\frac{\partial \vec{U}}{\partial t} + (\vec{U}\cdot \nabla) \vec{U} \right) = -\nabla P +\frac{(\nabla \times \vec{B}) \times \vec{B} }{4\pi} + \vec{f} ~, \\
+& \frac{\dif (P \rho^{-\gamma} )}{\dif t} = 0 ~, \\
+& \frac{\partial \vec{B}}{\partial t} = \nabla \times (\vec{U}\times \vec{B}) 
+\end{align*}
+In the assumption of small perturbations, expand any physical variable $h$ as
+\begin{equation*}
+h = h_0 +\epsilon h_1 ~~{\rm and}~~ \epsilon \ll 1 ~,
+\end{equation*}
+where $h_0$ represents the equilibrium value and $\epsilon h_1$ the perturbation. In the unperturbed state for static equilibria, the velocity vanishes and consequently $\vec{U} = \epsilon \vec{U}_1$ is a first order quantity.
+
+Zeroth order :
+\begin{align*}
+& \frac{\partial \rho_0}{\partial t} = \frac{\partial \vec{B}_0}{\partial t} = 0 ~, \\
+& P_0 \rho_0^{-\gamma}  = {\rm const.} ~, \\
+& 0= -\nabla P_0 +\frac{(\nabla \times \vec{B}_0) \times \vec{B}_0 }{4\pi} + \vec{f}_0 ~.\\
+\end{align*}
+
+First order :
+\begin{align*}
+& \frac{\partial \rho_1}{\partial t} +(\vec{U}\cdot \nabla)\rho_0 +\rho_0(\nabla \cdot \vec{U}) = 0 ~, \\
+& \rho_0 \frac{\partial \vec{U}}{\partial t} = -\nabla P_1 +\frac{(\nabla \times \vec{B}_0) \times \vec{B}_1 +(\nabla \times \vec{B}_1) \times \vec{B}_0}{4\pi} + \vec{f}_1 ~,\\
+& \rho_0^{-\gamma} \frac{\dif P_1}{\dif t} -\gamma P_0  \rho_0^{-\gamma-1} \frac{\dif \rho_1}{\dif t} = 0 ~, \rightarrow \frac{\dif P_1}{\dif t} -\dfrac{\gamma P_0}{\rho_0} \frac{\dif \rho_1}{\dif t} = 0 ~, \rightarrow \frac{\dif P_1}{\dif t} -c_s^2 \frac{\dif \rho_1}{\dif t} = 0 ~, \\
+& \frac{\partial \vec{B}_1}{\partial t} = \nabla \times (\vec{U} \times \vec{B}_0) ~.
+\end{align*}
+The \textcolor{red}{sound speed $c_s$} is
+\begin{equation}
+\color{red} c_s^2 = \dfrac{\partial P_0}{\partial \rho_0} = \frac{\gamma P_0}{\rho_0} ~,
+\end{equation}
+\begin{align}
+\nonumber \frac{\partial P_1}{\partial t} +c_s^2(\vec{U}\cdot \nabla)\rho_0 +c_s^2 (\nabla \cdot \vec{U}) \rho_0 = 0 ~, \\
+\frac{\partial P_1}{\partial t} +(\vec{U}\cdot \nabla)P_0 +c_s^2 (\nabla \cdot \vec{U}) \rho_0 = 0 ~,
+\end{align}
+
+The linearized MHD equations can be simplified by introducing the concept of lagrangian displacement , $\vec{\xi}$, and by properly choosing initial conditions. The \textcolor{purple}{instantaneous position of a fluid element} may be characterized by:
+\begin{equation*}
+\vec{r}(t) = \vec{r}_0 +\vec{\xi}(\vec{r}_0, t) ~,
+\end{equation*}
+where, due to the linearization, $\vec{\xi}$ may also be taken to be a small, first order, quantity. 
+\begin{equation*}
+\vec{U} = \frac{\dif \vec{r}}{\dif t} = \frac{\dif \vec{\xi}}{\dif t} = \frac{\partial \vec{\xi}}{\partial t} +(\vec{U}\cdot \nabla) \vec{\xi} \simeq \frac{\partial \vec{\xi}}{\partial t} ~.
+\end{equation*}
+Then 
+\begin{equation*}
+\frac{\partial }{\partial t} (\rho_1 +\nabla \cdot(\rho_0 \vec{\xi} )) = 0 ~,
+\end{equation*}
+or upon integration in time
+\begin{equation*}
+\rho_1 +\nabla \cdot(\rho_0 \vec{\xi} ) = {\rm const.}
+\end{equation*}
+The initial conditions have been chosen so that all perturbed quantities except $\dot{\vec{\xi}}(\vec{r}_0, 0)$ vanish everywhere at $t = 0$. Thus
+\begin{align}
+& \rho_1 = -(\vec{\xi}\cdot \nabla)\rho_0 -\rho_0(\nabla \cdot \vec{\xi}) ~, \\
+& P_1 = -(\vec{\xi}\cdot \nabla)P_0 -\rho_0c_s^2(\nabla \cdot \vec{\xi}) ~, \\
+& \vec{B}_1 = \nabla \times (\vec{\xi} \times \vec{B}_0) ~, \\
+& \rho_0  \frac{\partial^2 \vec{\xi}}{\partial t^2} = \vec{F}(\vec{\xi}) ~,
+\end{align}
+where the ``force per unit volume", $\vec{F}(\vec{\xi})$ is
+\begin{equation}
+\vec{F}(\vec{\xi}) = -\nabla P_1 +\frac{1}{4\pi}\left[(\nabla \times \vec{B}_0) \times \vec{B}_1 +(\nabla \times \vec{B}_1) \times \vec{B}_0 \right] +\vec{f}_1 ~,
+\end{equation}
+It describes the temporal evolution of displacements from the equilibrium position under the action of the force $\vec{F}(\vec{\xi})$. $\vec{F}(\vec{\xi})$ is a second order differential operator $[\nabla \times \vec{B}_1 = \nabla \times  \nabla \times (\vec{\xi} \times \vec{B}_0)]$ involving only spatial coordinates, which may be written formally as an operator $\hat{\mathcal F}_{\vec{r}}$ acting on $[\vec{\xi}(\vec{r}, t)]$
+\begin{equation*}
+\vec{F}(\vec{\xi}) = \hat{F}_{\vec{r}}[\vec{\xi}(\vec{r}, t)] ~.
+\end{equation*}
+Since the equilibrium may have spatial gradients but does not depend explicitly on time, it is useful to carry out the Fourier transform with respect to time of $\vec{\xi}(\vec{r}, t)$.
+\begin{align}
+& \tilde{\vec{\xi}}(\vec{r}, \omega) = \frac{1}{2\pi} \int_{-\infty}^\infty \vec{\xi}(\vec{r}, t) e^{i\omega t} \dif t ~, \\
+& \vec{\xi}(\vec{r}, t) = \int_{-\infty}^\infty \tilde{\vec{\xi}}(\vec{r}, \omega)  e^{-i\omega t} \dif \omega ~, \\
+& \delta(\omega^\prime -\omega) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{-i(\omega^\prime-\omega) t} \dif t 
+\end{align}
+The equation of motion becomes
+\begin{equation*}
+-\int_{-\infty}^\infty \rho_0 \omega^2 \tilde{\vec{\xi}}(\vec{r}, \omega) e^{-i\omega t} \dif \omega = \int_{-\infty}^\infty \hat{F}_{\vec{r}}[\tilde{\vec{\xi}}(\vec{r}, \omega)] e^{-i\omega t} \dif \omega ~.
+\end{equation*}
+Because the coefficients of the unknown function $\vec{\xi}$ and its derivatives are functions of the equilibrium quantities, which by definition are time-independent, thus
+\begin{equation}
+-\rho_0 \int_{-\infty}^\infty \omega^2 \tilde{\vec{\xi}}(\vec{r}, \omega) e^{-i\omega t} \dif \omega = \hat{F}_{\vec{r}}\left[ \int_{-\infty}^\infty \tilde{\vec{\xi}}(\vec{r}, \omega) e^{-i\omega t} \dif \omega \right] ~.
+\end{equation}
+Multiplying both members by $e^{i\omega^\prime t}$ and integrate over $\dif t$,
+\begin{equation}
+-\rho_0 \omega^{\prime 2} \tilde{\vec{\xi}}(\vec{r}, \omega^\prime ) = \hat{F}_{\vec{r}}[\tilde{\vec{\xi}}(\vec{r}, \omega^\prime)] ~.
+\end{equation}
+This becomes an eigenvalue equation, the eigenvalues being here represented by $-\rho_0 \omega^{\prime 2}$. Once this equation has been solved, the unknown function $\vec{\xi}(\vec{r}, t)$ can be obtained by the simple application of the inverse Fourier transform.
+
+
+The Fourier transform can be applied also to those spatial coordinates, ignorable coordinates, that do not appear explicitly in the coefficients of the equations, i.e. in the unperturbed quantities. This happens when the equilibrium state exhibits some symmetry property. Let $\vec{s}$ be the set of ignorable coordinates, $\vec{r}^\prime$ the set of the remaining coordinates and $\vec{k}$ a vector with non vanishing components only in the directions of the ignorable coordinates. The Fourier representation of $\vec{\xi}(\vec{r}, t)$ is
+\begin{equation}
+\vec{\xi}(\vec{r}, t) = \vec{\xi}(\vec{r}^\prime, \vec{s}, t) = \iint \tilde{\vec{\xi}}(\vec{r}^\prime, \vec{k}, t) e^{i(\vec{k}\cdot \vec{s} -\omega t)} \dif \omega \dif \vec{k} ~.
+\end{equation}
+\begin{align*}
+\frac{\partial }{\partial t} \rightarrow -i \omega ~, \nabla \rightarrow i\vec{k} ~,
+\end{align*}
+In the \textcolor{red}{absence of dissipative terms the operator $\hat{F}_{\vec{r}}$ is a hermitian or self-adjoint operator}, which implies that the \textcolor{red}{eigenvalues are real}. Thus, in \textcolor{red}{ideal MHD, $\omega^2$ is a real number}. If \textcolor{red}{$\omega^2$ is positive}, \textcolor{red}{$\omega$ must be real} and \textcolor{red}{$\vec{\xi}$}, whose components are proportional to $e^{-i\omega t}$ represents an \textcolor{red}{oscillation around the equilibrium position}. A \textcolor{red}{negative $\omega^2$} however implies a \textcolor{red}{purely imaginary $\omega$}, with consequent \textcolor{red}{growth of perturbation amplitudes} and therefore instability. Therefore, the stability of an equilibrium will be completely determined by the \textcolor{red}{sign of $\omega^2$}.
+
+\section{Instabilities in the Presence of Gravity}
+$\vec{f} = \rho \vec{g}$, where $\vec{g}$ is the local value of the gravitational acceleration. Assume that the plasma contribution to the mass of the system is small, i.e. the plasma is not self-gravitating but is rather immersed in the gravitational potential of a more extended mass. $\vec{g}$ will be considered an external field, independent of the plasma perturbations. In the linearization process, where $\vec{g}_1 = 0$
+\begin{equation}
+\vec{F}(\vec{\xi}) = -\nabla P_1 + \frac{1}{4\pi} \left[(\nabla \times \vec{B}_0)\times \vec{B}_1 +(\nabla \times \vec{B}_1) \times \vec{B}_0 \right] + \rho_1 \vec{g} 
+\end{equation}
+Also assume that the plasma perturbations are incompressible and that $\vec{g}$ and $\vec{B}_0$ are constant. Because incompressible perturbations can be viewed as a subset of all possible perturbations, if a system is unstable to such modes it will also be unstable more generally. Choose our system of reference with $\vec{g}$ directed along the negative $z$-axis. In this frame, the equilibrium equation, $\nabla P_0 = \rho_0 \vec{g}$, implies that both $P_0$ and $\rho_0$ are functions of $z$ only and that
+\begin{equation*}
+P^{\prime}_0 \equiv \frac{\dif P_0(z)}{\dif z} = -\rho_0(z) g
+\end{equation*}
+
+\begin{equation*}
+\vec{\xi}(\vec{r}, \omega) = \int \tilde{\vec{\xi}}(z, , \omega)  e^{i k x} \dif k ~.
+\end{equation*}
+The vectors $\vec{k} = [k, 0, 0]$ and $\vec{g}$ define the coordinate plane $(x, z)$. In the reference system $[x,y,z]$, the vector $\vec{B}_0$ can have any orientation, but we can safely put $B_{0z} =0$, since it is easy to realize that a (constant) $B_{0z}$ has no influence on the linear stability of the system. Assume that $\vec{B}_0$ lies in the $(x, y)$ plane, $\vec{B}_0 = [B_{0x}, B_{0y}, 0]$. 
+
+\begin{equation}
+-\omega^2 \rho_0 \vec{\xi} = \nabla(\vec{\xi} \cdot \nabla P_0) -\vec{g}(\vec{\xi} \cdot \nabla \rho_0) +\frac{1}{4\pi} \left\{\nabla \times [\nabla \times (\vec{\xi} \times \vec{B}_0)] \right\} \times \vec{B}_0 ~,
+\end{equation}
+
+\begin{equation}
+\frac{1}{4\pi} \left\{\nabla \times [\nabla \times (\vec{\xi} \times \vec{B}_0)] \right\} \times \vec{B}_0 = \frac{1}{4\pi} \left\{ \nabla[\nabla \cdot (\vec{\xi} \times \vec{B}_0)] -\nabla^2 (\vec{\xi} \times \vec{B}_0) \right\} \times \vec{B}_0
+\end{equation}
+
+\begin{equation*}
+B_{0x}^2 (-k^2 \xi_z +\xi_z^{\prime\prime} ) \vec{e}_z ~,
+\end{equation*}
+where primes indicate derivatives with $z$.
+
+\begin{equation}
+-\omega^2 \rho_0 \vec{\xi} = \nabla(\xi_z P_0^\prime) -\vec{g}(\xi_z \rho_0^\prime) +(B_{0x}^2/4\pi) (-k^2 \xi_z +\xi_z^{\prime\prime} ) \vec{e}_z 
+\end{equation}
+
+\begin{align}
+& -\omega^2 \rho_0 \xi_x = ik (\xi_z P_0^\prime) ~, \\
+& -\omega^2 \rho_0 \xi_z = (\xi_z P_0^\prime)^\prime +(B_{0x}^2/4\pi) (-k^2 \xi_z +\xi_z^{\prime\prime} ) +g(\rho_0^\prime \xi_z) ~.
+\end{align}
+
+\begin{equation}
+ik\xi_x +\xi_z^\prime = 0 ~.
+\end{equation}
+
+\begin{align}
+\nonumber \omega^2 \left[(\rho_0 \xi_z^\prime)^\prime -\rho_0 k^2 \xi_z \right] &= \frac{B_{0x}^2 k^2}{4\pi} (\xi_z^{\prime\prime} -k^2 \xi_z) +k^2 g(\rho_0^\prime \xi_z) \\
+&= \frac{(\vec{k} \cdot \vec{B}_0)^2}{4\pi} (\xi_z^{\prime\prime} -k^2 \xi_z) +k^2 g(\rho_0^\prime \xi_z) ~.
+\end{align}
+
+\subsection{Rayleigh-Taylor Instability}
+when the equilibrium magnetic field vanishes
+
+\begin{equation*}
+\omega^2 \left[\int_{-\infty}^\infty [\rho_0 \xi_z^\prime]^\prime  \xi_z \dif z - k^2 \int_{-\infty}^\infty \rho_0 \xi_z^2 \dif z   \right] = k^2 g \int_{-\infty}^\infty \rho_0^\prime \xi_z^2  \dif z ~.
+\end{equation*}
+
+\begin{equation}
+\omega^2 = -k^2 g \frac{\int_{-\infty}^\infty \rho_0^\prime \xi_z^2  \dif z}{\int_{-\infty}^\infty \rho_0[\xi_z^{\prime 2}  + k^2 \xi_z^2 ] \dif z}
+\end{equation}
+
+
+
+\begin{align}
+\nonumber \int_{-\infty}^\infty [\xi_z^{\prime 2}  + k^2 \xi_z^2 ] \dif z &= \rho_2 \int_{-\infty}^{0_{-}}  [\xi_z^{\prime 2}  + k^2 \xi_z^2 ] \dif z +\rho_1 \int^{\infty}_{0_{+}}  [\xi_z^{\prime 2}  + k^2 \xi_z^2 ] \dif z \\
+\nonumber &= 2(\rho_1 +\rho_2 )k^2 \int^{\infty}_{0_{+}} e^{-2kz} \dif z \\
+&= k(\rho_1 +\rho_2 ) \xi_z^2(0) ~,
+\end{align}
+
+\begin{equation}
+\omega^2 = -kg \frac{\rho_1 -\rho_2}{\rho_1 +\rho_2} ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Kruskal-Shafranov Instability:$\vec{B}_0 \neq 0$}
+While plasma density and pressure are connected directly via the equation of state, the magnetic field only modifies the pressure, but not the density.
+
+
+\begin{equation*}
+\frac{\dif (P +B^2/8\pi)}{\dif z} = -\rho g ~.
+\end{equation*}
+
+
+The magnetic field is called to tend to be buoyant.
+
+
+\begin{equation*}
+\left[\omega^2 \rho_0 - \frac{(\vec{k} \cdot \vec{B}_0)^2}{4\pi}  \right](\xi_z^{\prime\prime} -k^2 \xi_z) = 0 ~,
+\end{equation*}
+
+\begin{equation*}
+\xi_z^{\prime \prime} = k^2 \xi_z ~,
+\end{equation*}
+
+
+\begin{equation}
+\omega^2 \int_{-\infty}^\infty \rho_0 [\xi_z^{\prime 2}  + k^2 \xi_z^2 ] \dif z = -k^2 g(\rho_1 -\rho_2) \xi_z(0)^2 +\frac{(\vec{k} \cdot \vec{B}_0)^2}{4\pi} \int_{-\infty}^\infty [\xi_z^{\prime 2}  + k^2 \xi_z^2 ] \dif z ~.
+\end{equation}
+
+\begin{equation}
+\omega^2 = -|\vec{k}| g \frac{\rho_1 -\rho_2}{\rho_1 +\rho_2} + 2\frac{(\vec{k} \cdot \vec{B}_0)^2}{4\pi(\rho_1 +\rho_2)} ~,
+\end{equation}
+
+\begin{equation*}
+\omega^2 = \frac{(\vec{k} \cdot \vec{B}_0)^2}{4\pi \rho_0} ~,
+\end{equation*}
+
+
+
+\begin{equation*}
+\lambda = \frac{2\pi}{|\vec{k}|} < \frac{B_0^2}{g\Delta \rho} \cos^2 \theta ~,
+\end{equation*}
+
+
+
+\begin{equation*}
+\omega^2 = -|\vec{k}| g + \frac{(\vec{k} \cdot \vec{B}_0)^2}{4\pi \rho_1} ~,
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Parker Instability}
+
+\begin{equation*}
+\frac{\dif}{\dif z} \left(P_0 +\frac{B_0^2}{8\pi} \right) = -\rho(z) g ~,
+\end{equation*}
+
+Assume that the interstellar gas is isothermal, 
+\begin{equation*}
+P_0 = \frac{k_B T_0}{\overline{m} } \rho_0 = c_0^2 \rho_0 ~,
+\end{equation*}
+
+\begin{equation}
+\frac{B_0^2}{8\pi} = \alpha P_0 = \alpha c_0^2 \rho_0 ~, ~~ \alpha = {\rm const.} 
+\end{equation}
+where the Alfv\'en speed, $c_a^2 = B_0^2/(4\pi \rho_0)$ is assumed to be constant. The solution of the equilibrium equation is
+\begin{equation*}
+\rho_0(z) = \rho_0(0) \exp \left(-\frac{z}{H} \right) ~,
+\end{equation*}
+where $H$ is the scale height,
+\begin{equation}
+H = \frac{c_0^2 (1+\alpha)}{g} ~.
+\end{equation}
+
+\begin{equation}
+B_0(z) = B_0(0) \exp \left(-\frac{z}{2H} \right) ~.
+\end{equation}
+
+\begin{equation}
+\frac{1}{\rho_0} \dfrac{\dif \rho_0}{\dif z} = \frac{1}{P_0} \dfrac{\dif P_0}{\dif z} = \frac{2}{B_0} \dfrac{\dif B_0}{\dif z} = -\frac{1}{H} ~.
+\end{equation}
+
+\begin{align}
+\vec{A}_1 (y,z,t) &= a(z) e^{i(ky-\omega t)} \vec{e}_x ~, \\
+\vec{B}_1 (y,z,t) &= \vec{b}(z) e^{i(ky-\omega t)}  ~.
+\end{align}
+Since
+\begin{equation}
+B_{1y} = \frac{\partial A_{1x}}{\partial z} ~, ~~ B_{1z} = \frac{\partial A_{1x}}{\partial y} ~,
+\end{equation}
+\begin{equation}
+b_y = \frac{\dif a}{\dif z} \equiv a^\prime(z) ~, ~~ b_z = -ika ~.
+\end{equation}
+
+\begin{equation*}
+\nabla \times (\vec{A}_1 -\vec{\xi} \times \vec{B}_0) = 0 ~.
+\end{equation*}
+
+\begin{equation*}
+\vec{A}_1 = \vec{\xi} \times \vec{B}_0 ~,
+\end{equation*}
+
+\begin{equation}
+\xi_z = -\frac{a}{B_0} ~, ~~ \xi^\prime(z) = -\frac{1}{B_0} \left(a^\prime +\frac{a}{2H} \right) ~.
+\end{equation}
+
+\begin{equation*}
+\rho_1 = -\frac{\rho_0}{H} \frac{a}{B_0} -\rho_0 i k\xi_y + \frac{\rho_0}{B_0} \left(a^\prime +\frac{a}{2H} \right) = \frac{\rho_0}{B_0} \left(a^\prime -\frac{a}{2H} \right) -\rho_0 i k \xi_y ~.
+\end{equation*}
+
+\begin{equation*}
+P_1 = \frac{\rho_0 c_0^2}{B_0} \left[\gamma a^\prime +\left(\frac{\gamma}{2} -1 \right) \frac{a}{H}\right] -\gamma \rho_0 c_0^2 (ik\xi_y) ~.
+\end{equation*}
+
+\begin{align*}
+\vec{F}(\vec{\xi}) &= -\nabla P_1 + \frac{1}{4\pi} \left[(\nabla \times \vec{B}_0)\times \vec{B}_1 + (\nabla \times \vec{B}_1)\times \vec{B}_0\right] +\rho_1 \vec{g} \\
+&= -\nabla \left( P_1 +\frac{\vec{B}_0\cdot \vec{b}}{8\pi} \right) + \frac{1}{4\pi}\left[(\vec{B}_0\cdot \nabla)\vec{b} +(\vec{b}\cdot \nabla)\vec{B}_0 \right] +\rho_1 \vec{g} ~.
+\end{align*}
+
+\begin{equation*}
+\omega^2 \rho_0 \xi_y = ik P_1 -ik \frac{B_0}{8\pi} \frac{a}{H} ~.
+\end{equation*}
+
+\begin{equation}
+\Omega^2 \xi_y = i \frac{kc_0^2}{B_0} \left[\gamma a^\prime +\left(\frac{\gamma}{2} -1 -\alpha\right) \frac{a}{H} \right] ~,
+\end{equation}
+
+\begin{equation*}
+\Omega^2 = \omega^2 -\gamma k^2 c_0^2 ~.
+\end{equation*}
+
+\begin{align*}
+& \Omega^2 \rho_1 = \frac{\rho_0}{B_0} \left\{\omega^2 a^\prime -\left[\frac{\omega^2}{2} +(1-\alpha-\gamma) k^2 c_0^2 \right] \frac{a}{H} \right\} ~, \\
+& \Omega^2 P_1 = \frac{\rho_0 c_0^2}{B_0} \left\{\gamma \omega^2 a^\prime +\left[\left( \frac{\gamma}{2} -1 \right)\omega^2 -\alpha\gamma k^2 c_0^2 \right] \frac{a}{H} \right\} ~.
+\end{align*}
+
+\begin{equation*}
+\omega^2 \rho_0( \Omega^2 \xi_z) = \left[\left(\Omega^2 P_1 \right) +\frac{B_0}{4\pi} \Omega^2 a^\prime - \right]^\prime -\frac{B_0}{4\pi} k^2 \Omega^2 a + \frac{(1+\alpha) c_0^2}{H} (\Omega^2 \rho_1) ~.
+\end{equation*}
+
+\begin{equation}
+a^{\prime\prime}(z) = k^2 \frac{N}{D} a(z) ~,
+\end{equation}
+where
+\begin{align}
+& N = \left(\frac{\omega}{kc_0} \right)^4 -(\gamma +2\alpha)\left(1+\frac{1}{4k^2 H^2} \right) \left(\frac{\omega}{kc_0} \right)^2 +2\alpha \gamma -\frac{(1+\alpha)(1+\alpha-\gamma) -\alpha \gamma/2}{k^2 H^2} ~, \\
+& D = 2\alpha \gamma -(\gamma +2\alpha)\left(\frac{\omega}{kc_0} \right)^2
+\end{align}
+
+\begin{equation}
+a(z) = (\epsilon \bar{b} H ) \sin K z ~,
+\end{equation}
+where
+\begin{equation*}
+K^2 = k^2 \Big|\frac{N}{D} \Big| ~,
+\end{equation*}
+
+\begin{equation*}
+\nu^2 = -\left(\frac{\omega}{k c_0} \right)^2 = \frac{1}{\tau^2 k^2 c^2_0} = \left(\frac{H}{c_0 \tau} \right)^2 \left(\frac{1}{k H} \right)^2 
+\end{equation*}
+Since $\dfrac{H}{c_0}$ represents the transit time over the scale height for a sound wave, $n = \dfrac{H}{c_0\tau}$ is the growth rate of the instability measured in units of the inverse of that transit time. For the unstable solutions,
+\begin{equation*}
+D = 2\alpha \gamma +(\gamma +2\alpha) \nu^2 > 0 ~,
+\end{equation*}
+and the boundary conditions reduce to the requirement that $N < 0$. If $x = \dfrac{1}{k^2H^2}$, unstable solutions exist when
+\begin{equation}
+N(x, n^2) = qx^2 -rx +2\alpha \gamma < 0 ~,
+\end{equation}
+with
+\begin{align*}
+& q = \frac{n^2(4n^2 +2\alpha +\gamma)}{4} ~,\\
+& r = \Delta -n^2(2\alpha +\gamma) ~, \\
+& \Delta = (1+\alpha)(1+\alpha-\gamma) -\frac{\alpha \gamma}{2} = (1+\alpha)^2 -\gamma(1+\frac{3\alpha}{2}) ~.
+\end{align*}
+
+\begin{equation}
+x = \frac{(r \pm \sqrt{r^2 -8\alpha \gamma q} )}{2q} ~,
+\end{equation}
+which requires 
+\begin{equation*}
+r^2 > 8\alpha \gamma q ~.
+\end{equation*}
+
+\begin{equation}
+n^4 -2\lambda n^2 +\mu^2 > 0 ~,
+\end{equation}
+with
+\begin{align*}
+& \lambda = \frac{(2\alpha+\gamma)(\Delta +\alpha\gamma)}{(\gamma -2\alpha)^2} ~, \\
+& \mu = \frac{\Delta}{\gamma -2\alpha} ~.
+\end{align*}
+
+\begin{equation}
+n_{\rm max}^2 = \lambda -\sqrt{\lambda^2 -\mu^2}  ~.
+\end{equation}
+
+\begin{equation}
+n_{\rm max}^2 \simeq \frac{\mu^2}{2\lambda}   ~.
+\end{equation}
+
+\begin{equation}
+n_{\rm max}^2 \simeq \frac{\Delta}{[2(\gamma+2\alpha)(\Delta+\alpha\gamma)]^{1/2} }  ~.
+\end{equation}
+
+\begin{equation}
+N(x_{\rm max}, n_{\rm max} ) = 0~~~ \rightarrow ~~~ K = 0 ~.
+\end{equation}
+
+\begin{equation}
+\gamma -1 < \frac{\alpha(\alpha+1/2)}{1+3\alpha/2} ~.
+\end{equation}
+
+The minimum growth time is
+\begin{equation*}
+\tau_{\rm min} = \frac{H}{c_0 n_{\rm max} } \simeq \frac{c_0}{g} \frac{1+\alpha}{n_{\rm max}} ~.
+\end{equation*}
+
+\begin{equation*}
+c_0 = \frac{B_0}{ \sqrt{8\pi \rho_0 \alpha} } = \frac{c_a}{\sqrt{2\alpha} } ~,
+\end{equation*}
+
+\begin{equation}
+\tau_{\rm min} = \frac{c_a}{g} \frac{(1+\alpha)}{\alpha} \left[\frac{2(2\alpha+3)}{(2\alpha+1)} \right]^{1/2} ~.
+\end{equation}
+
+\begin{equation*}
+K^2 = \frac{k^2 s^2}{4} \left[1- \frac{4}{s^2}\left(1+\frac{4}{x} \right) -\frac{4x}{s^4}  \right] ~,
+\end{equation*}
+where
+\begin{equation}
+s = \frac{\tau}{H/c_a} ~, ~~~ x = \frac{1}{k^2 H^2} ~.
+\end{equation}
+
+\begin{align*}
+\vec{A}_1 &= [\epsilon \bar{b} H \exp(t/\tau) {\rm Re}(\exp^{iky}) \sin K z] \vec{e}_x \\
+&=  [\epsilon \bar{b} H \exp(t/\tau) \cos ky  \sin K z] \vec{e}_x 
+\end{align*}
+
+\begin{align*}
+& B_y(y, z, t) = B_0(z) +\epsilon \bar{b} H K \exp(t/\tau) \cos ky  \cos K z ~, \\
+& B_z(y, z, t) = \epsilon \bar{b} H k \exp(t/\tau) \sin ky  \sin K z ~.
+\end{align*}
+
+\begin{equation*}
+\frac{\dif z}{\dif y} = \frac{B_z}{B_y} = \frac{\epsilon \bar{b} H k \exp(t/\tau) \sin ky  \sin K z}{B_0(z) +\epsilon \bar{b} H K \exp(t/\tau) \cos ky  \cos K z} \simeq \frac{\epsilon \bar{b} H k \exp(t/\tau) \sin ky  \sin K z}{B_0(z)} 
+\end{equation*}
+
+\begin{equation*}
+\int_{z_0}^z  \frac{B_0(z)}{\sin Kz} \dif z = \epsilon \bar{b} H k \exp \left[\dfrac{t}{\tau} \right] \int_0^y \sin ky \dif y = \epsilon \bar{b} H \exp \left[\dfrac{t}{\tau}\right] (1 -\cos ky) ~.
+\end{equation*}
+
+\begin{equation*}
+z- z_0 \simeq \epsilon H \exp \left[\dfrac{t}{\tau} \right] (\sin Kz_0)(1- \cos ky) ~, 
+\end{equation*}
+
+\begin{equation*}
+\xi_z = -\frac{A_1}{B_0} = -\epsilon H \exp \left[\dfrac{t}{\tau} \right] \cos ky \sin K z_0 ~,
+\end{equation*}
+
+\begin{align*}
+\xi_y &= \epsilon k c_a^2 \tau^2 \exp(t/\tau) \sin K z_0 [{\rm Re}(i \exp^{iky})] ~, \\
+&= -\epsilon (k c_a \tau)^2 \exp(t/\tau) \sin K z_0 \sin ky ~, \\
+&= -\epsilon H (s^2 k H)  \exp(t/\tau) \sin K z_0 \sin ky  ~.
+\end{align*}
+
+\begin{equation}
+\rho_1 \simeq -\rho_0 \frac{\partial \xi_y}{\partial y} = \epsilon H (s k H)^2  \exp(t/\tau) \sin K z_0 \cos ky
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The observations show that the interstellar gas is not uniformly distributed, but tends to condensate into clouds, denser than the surrounding medium. If the magnetic field is absent, the formation of stable gravitationally induced condensations is only possible if their mass is larger than the Jeans mass (The formation of a stable condensation requires that the gravitational force be dominant over the pressure).
+\begin{equation}
+M > M_J = \left(\frac{3}{4\pi} \right)^{1/2} \frac{c_0^3}{G^{3/2} \rho^{1/2} }
+\end{equation}
+
+\begin{equation*}
+\vec{v} = \frac{c}{e_0} \frac{m\vec{g} \times \vec{B}_0}{B_0^2} ~,
+\end{equation*}
+This motion gives rise to an electric current flowing along the cylinder. The current density will be given by
+\begin{equation*}
+J = en_0 (v_p -v_e) = cn_0 \frac{g}{B_0} (m_p +m_e) \simeq c\frac{g}{B_0} n_0 m_p
+\end{equation*}
+
+\begin{equation*}
+I = S J = c\frac{g}{B_0} \frac{m_0}{\ell} \equiv c\frac{g}{B_0} m
+\end{equation*}
+where $m$ is the mass of the cylinder per unit length. The currents flowing in the cylinders are all mutually parallel and therefore two cylinders placed at a distance d will attract each other with a force (per unit length) given by
+\begin{equation*}
+\mathcal F_B = \frac{2I^2}{c^2 d} = \frac{2}{B^2_0} \frac{m^2 g^2}{d} ~.
+\end{equation*}
+The gravitational force per unit length between the same two cylinders is
+\begin{equation*}
+\mathcal F_G = \pi \frac{G m^2}{d} ~.
+\end{equation*}
+The ratio 
+\begin{equation}
+\frac{\mathcal F_B}{\mathcal F_G} = \frac{2}{\pi} \frac{g^2}{G B_0^2} ~,
+\end{equation}
+can be larger than unity in the region where the galactic magnetic field is weak and the gravitational field is strong.
+
+
+
+\subsection{Instabilities in the Presence of Plasma Flows: Kelvin-Helmholtz Instability}
+The preceding Sections assume that the unperturbed state was a static one, namely that the velocity was vanishing at the zeroth-order $\vec{U}_0 = 0$.
+
+Mass motions are present in the unperturbed state. In laminar motion, the different layers do not move with the same speed. 
+
+Viscosity play a role in the system dynamics, since its action tends to reduce velocity differences between different fluid layers. In the following, however, we shall concentrate only on ideal plasmas, thus neglecting all viscous effects as well as any other effects that may modify the system’s dynamics (for instance, those connected with surface tension). The Kelvin-Helmholtz instability is developed in a system of superposed fluids where a velocity gradient is present in the direction normal to the flow. If the velocity stratification is parallel to the direction of gravity, the Kelvin-Helmholtz instability can be thought of as a generalization of the Rayleigh-Taylor instability to a dynamical case.
+
+The unperturbed state is characterized by:
+\begin{align*}
+& \rho_0 = \rho_+ ~~(z > 0) ; ~~ \rho_0 = \rho_- ~~(z < 0) \\
+& \vec{U}_0 = U_+ \vec{e}_x ~~(z > 0) ; ~~ \vec{U}_0 = U_- \vec{e}_x ~~(z < 0)
+\end{align*}
+
+The only relevant equation at zeroth-order is the momentum equation, 
+\begin{equation*}
+0 = -\nabla P_0 +\rho_0 \vec{g} ~.
+\end{equation*}
+$\vec{u}$ and $\rho_1$ be the velocity and density perturbations, respectively. If the perturbed quantities are assumed to be proportional to $\exp[i (kx -\omega t)]$, 
+
+Continuity equation
+\begin{equation*}
+-i\omega \rho_1 +\nabla\cdot (\rho_0 \vec{u} +\rho_1 \vec{U}_0) = \rho_0^\prime u_z +ik U_0 \rho_1 ~,
+\end{equation*}
+Define $\Omega$ as
+\begin{equation*}
+\Omega = \omega -kU_0 ~,
+\end{equation*}
+\begin{equation*}
+\rho_1 = i \frac{\rho_0^\prime}{\Omega} u_z ~.
+\end{equation*}
+Momentum equation
+\begin{align*}
+& -i\rho_0 \Omega \vec{u} +\rho_0 U_0^\prime u_z \vec{e}_x = -\nabla P_1 ~, \\
+& -i\rho_0 \Omega u_x +\rho_0 U_0^\prime u_z = -ikP_1 ~, \\
+& -i\rho_0 \Omega u_z = -P_1^\prime -\rho_1 g
+\end{align*}
+The incompressibility condition is
+\begin{equation*}
+iku_x +u_z^\prime = 0 ~,
+\end{equation*}
+\begin{equation*}
+u_z = \frac{\dif \zeta}{\dif t} = \frac{\partial \zeta}{\partial t} +(\vec{U}_0 \cdot \nabla) \zeta = -i\Omega \zeta ~,
+\end{equation*}
+where $\zeta$ represents the vertical deformation of the plane $z = 0$. Since $\zeta$ is a continuous quantity, $\dfrac{u_z}{\Omega}$ is a continuous function across the separating surface.
+
+\begin{equation}
+k^2 \rho_0 \Omega u_z -[\rho_0 (\Omega u_z^\prime +U_0^\prime k u_z)]^\prime = gk^2 \rho_0^\prime \dfrac{u_z}{\Omega} ~.
+\end{equation}
+
+\begin{equation*}
+\int_{-\epsilon}^\epsilon \rho_0 \Omega u_z \dif z = \int_{-\epsilon}^0 \rho_0 \Omega u_z \dif z +\int_{0}^\epsilon \rho_0 \Omega u_z \dif z
+\end{equation*}
+But $\rho_0 \Omega$ is a constant quantity in each of the two integrals which implies
+\begin{equation}
+ \rho_0 \Omega  \int_{-\epsilon}^0 u_z \dif z = [\rho_0 \Omega \langle u_z \rangle] \epsilon  \rightarrow 0 ~~\text{for} ~~ \epsilon  \rightarrow 0 ~,
+\end{equation}
+where $\langle u_z \rangle$ is an average value of $u_z$ in the integration interval. Define $\Delta_0$ as $\Delta_0(f) = f(\epsilon) - f(-\epsilon)$, 
+\begin{equation*}
+\Delta_0 [\rho_0 (\Omega u_z^\prime +U_0^\prime k u_z)] = -gk^2 \Delta_0(\rho_0) \dfrac{u_z}{\Omega} ~,
+\end{equation*}
+Since $U_0^\prime = 0$ in each of the two half-spaces, $\Delta_0 (U_0^\prime k u_z) = 0$.
+\begin{equation}
+\Delta_0 [\rho_0 (\Omega u_z^\prime ] = -gk^2 \Delta_0(\rho_0) \dfrac{u_z}{\Omega} ~.
+\end{equation}
+
+\begin{equation*}
+u_z^{\prime\prime} -k^2 u_z = 0 ~,
+\end{equation*}
+its solutions, convergent in $z = \pm \infty$, can be written
+\begin{align*}
+& u_z = A \Omega  e^{kz} ~~ (z < 0) ~, \\
+& u_z = A \Omega  e^{-kz} ~~ (z > 0) ~, 
+\end{align*}
+
+\begin{equation}
+\rho_+(\omega -kU_+)^2 +(\omega -kU_-)^2 = g k(\rho_- -\rho_+) ~.
+\end{equation}
+$\rho_- >\rho_+$ ensures that in the absence of flows the system is Rayleigh-Taylor stable. Define $\alpha$ is
+\begin{align*}
+& \alpha_+ = \dfrac{\rho_+}{\rho_+  +\rho_-} ~, \\
+& \alpha_- = \dfrac{\rho_-}{\rho_+  +\rho_-} ~, \\
+& \alpha_+ +\alpha_- = 1 ~,
+\end{align*}
+
+\begin{equation}
+\omega^2 -2k(\alpha_+ U_+ +\alpha_- U_-) \omega +k^2 (\alpha_+ U^2_+ + \alpha_- U^2_-) - gk(\alpha_- -\alpha_+) = 0 ~.
+\end{equation}
+If the discriminant of this equation is negative, ω has a non-vanishing imaginary part and the solution is therefore unstable. The instability condition can be written as
+\begin{equation*}
+gk(\alpha_- -\alpha_+) -k^2 \alpha_+ \alpha_-(U_- -U_+)^2 < 0 ~.
+\end{equation*}
+
+\begin{equation*}
+k > \dfrac{g(\alpha_- -\alpha_+)}{\alpha_+ \alpha_-(U_- -U_+)^2} ~.
+\end{equation*}
+To have an instability, there is no need of strong velocity gradients. Whatever the value of $U_- - U_+$ might be, even very small, sufficiently large values of $k$ always exist, i.e. sufficiently small wavelengths, that make the system unstable.
+
+
+Assume a magnetic field, $\vec{B}_0 = B_0 \vec{e}_x$, is present in both fluids in the unperturbed state. And assume that the field is constant everywhere. The momentum equation is
+\begin{equation*}
+-i \rho_0 \Omega \vec{u} +\rho_0 U_0^\prime u_z \vec{e}_x = -\nabla \left[P_1 +\dfrac{\vec{B}_0\cdot \vec{b}}{4\pi} \right] +\dfrac{(\vec{B}_0\cdot \nabla) \vec{b}}{4\pi} ~.
+\end{equation*}
+
+\begin{align*}
+& -i \rho_0 \Omega u_x = -ik \Pi +i\dfrac{B_0}{4\pi} b_x ~, \\
+& -i \rho_0 \Omega u_z = -\Pi^\prime +i\dfrac{B_0}{4\pi} b_z -\rho_1 g ~,
+\end{align*}
+where $\Pi$ is defined as
+\begin{equation*}
+\Pi = P_1 +\dfrac{\vec{B}_0\cdot \vec{b}}{4\pi} ~.
+\end{equation*}
+The induction equation can be written as:
+\begin{equation*}
+-i \Omega \vec{b} = ik \dfrac{B_0}{4\pi} \vec{u} ~.
+\end{equation*}
+The conditions $\nabla \cdot \vec{b} = 0$ and $\nabla \cdot \vec{u} = 0$, i.e. $ikb_x +b_z^\prime = 0$ and $iku_x +u_z^\prime = 0$, can be used to eliminate from the equations the quantities $u_x$ and $b_x$ and to write the $z$-component of the induction equation as:
+\begin{equation}
+\Omega b_z = -k B_0 u_z ~.
+\end{equation}
+The component of the momentum equation becomes
+\begin{align}
+& \left(\rho_0 \Omega -\dfrac{k^2 B_0^2}{4\pi \Omega} \right) u_z^\prime = -i k^2 \Pi ~, \\
+& \left(\rho_0 \Omega^2 -\dfrac{k^2 B_0^2}{4\pi} -g \rho_0^\prime \right) \left(\dfrac{u_z}{\Omega} \right) = -i \Pi^\prime ~,
+\end{align}
+
+\begin{equation}
+\left\{\left(\rho_0 \Omega^2 -\dfrac{k^2 B_0^2}{4\pi} \right) \left(\dfrac{u_z^\prime}{\Omega} \right) \right\}^\prime = k^2 \left(\rho_0 \Omega^2 -\dfrac{k^2 B_0^2}{4\pi} -g \rho_0^\prime \right) \left(\dfrac{u_z}{\Omega} \right) 
+\end{equation}
+Integrate between $-\epsilon$ and $+\epsilon$, and
+\begin{equation}
+\Delta_0 \left[\left(\rho_0 \Omega^2 -\dfrac{k^2 B_0^2}{4\pi} \right) \left(\dfrac{u_z^\prime}{\Omega} \right) \right] = -k^2 g \Delta_0 (\rho_0) \left(\dfrac{u_z}{\Omega} \right) ~.
+\end{equation}
+In each of the two half-spaces $z > 0$ and $z < 0$, $u_z$ satisfies
+\begin{align*}
+& u^{\prime\prime}_z -k^2 u_z = 0 ~, \\
+& u_z = A \Omega e^{kz} ~~(z < 0) ~, \\
+& u_z = A \Omega e^{-kz} ~~(z > 0) ~, 
+\end{align*}
+\begin{equation*}
+\rho_+(\omega -kU_+)^2 +\rho_- (\omega -kU_-)^2 = g k(\rho_- -\rho_+)  + \dfrac{k^2 B_0^2}{2\pi} ~,
+\end{equation*}
+
+
+\begin{equation}
+\omega^2 -2k(\alpha_+ U_+ +\alpha_- U_-) \omega +k^2 (\alpha_+ U^2_+ + \alpha_- U^2_-) - gk(\alpha_- -\alpha_+) -\dfrac{k^2 B_0^2}{2\pi(\rho_- +\rho_+)}= 0
+\end{equation}
+The instability condition is
+\begin{equation*}
+gk(\alpha_- -\alpha_+) -k^2 \alpha_+ \alpha_-(U_- -U_+)^2 +\dfrac{k^2 B_0^2}{2\pi(\rho_- +\rho_+)} < 0 ~.
+\end{equation*}
+If
+\begin{equation*}
+\dfrac{B_0^2}{2\pi(\rho_- +\rho_+)} \geqslant \alpha_+ \alpha_-(U_- -U_+)^2 ~,
+\end{equation*}
+the Kelvin-Helmholtz instability cannot develop.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Instabilities in Cylindrical Geometry}
+
+\subsection{Instability of a Plasma Column}
+A plasma column of radius $a$ and infinite length with no gravity effects. All quantities will depend only on the coordinate $r$, the distance from the axis of the cylinder. The only non-vanishing components of magnetic field will be $B_\theta$ and $B_{0z}$. Equation $\nabla \cdot \vec{B} = 0$ implies
+\begin{equation}
+\frac{1}{r} \frac{\partial (rB_r) }{\partial r} = 0 ~\rightarrow ~ B_r = \dfrac{\text{const.}}{r} = 0 ~,
+\end{equation}
+
+\begin{equation*}
+0 = -\nabla \left(P_0 +\dfrac{B_0^2}{8\pi} \right) +\frac{(\vec{B}_0 \cdot \nabla)\vec{B}_0}{4\pi} ~,
+\end{equation*}
+in cylindrical geometry reduces to the $r$-component only:
+\begin{equation}
+\frac{\dif}{\dif r} \left[P_0 +\dfrac{B_{0\theta}^2+B_{0z}^2}{8\pi} \right] +\dfrac{B_{0\theta}^2}{4\pi r} = 0 ~,
+\end{equation}
+If $\tilde{\vec{B}}$ is the magnetic field in the vacuum zone external to the plasma column, the boundary conditions at the surface of the plasma column are
+\begin{align}
+& [\vec{n}\cdot \vec{B} ]_{S-} = [\vec{n}\cdot \tilde{\vec{B}} ]_{S+} = 0 ~, \\
+& \left[P +\dfrac{B^2}{8\pi} \right]_{S-} = \left[\dfrac{\tilde{B}^2}{8\pi} \right]_{S+} ~,
+\end{align}
+
+\begin{equation}
+\vec{n} \times \left[\vec{E} +\dfrac{\vec{U} \times \vec{B} }{c} \right]_{S-} = \vec{n} \times \left[\tilde{\vec{E}} +\dfrac{\vec{U} \times \tilde{\vec{B}} }{c} \right]_{S+} ~,
+\end{equation}
+where $\tilde{\vec{E}}$ is the electric field in the vacuum region.
+
+\begin{equation*}
+J_\theta = J_\theta(r) \delta(r-a) = -\dfrac{c}{4\pi} \frac{\dif B_{0z} }{\dif r} ~,
+\end{equation*}
+
+\begin{align*}
+\int_{a-\epsilon}^{a+\epsilon} J_\theta(r) \delta(r-a) \dif r = J_\theta(a) &= -\dfrac{c}{4\pi} \int_{a-\epsilon}^{a+\epsilon}  \frac{\dif B_{0z} }{\dif r}  \dif r \\
+&= -\dfrac{c}{4\pi} [B_{0z}(a+\epsilon) -B_{0z}(a-\epsilon)] = -\dfrac{c}{4\pi} [\tilde{\vec{B}}_z(a) -B_0] ~.
+\end{align*}
+
+\begin{equation*}
+J_z = J_z(r) \delta(r-a) = \dfrac{c}{4\pi}  \dfrac{1}{r} \frac{\dif (r B_{\theta}) }{\dif r} ~,
+\end{equation*}
+
+\begin{equation*}
+J_z(a) = \dfrac{c}{4\pi} [B_{\theta}(a+\epsilon) -B_{\theta}(a-\epsilon)] = \tilde{\vec{B}}_{\theta}(a) ~,
+\end{equation*}
+
+The momentum equation is
+\begin{equation*}
+\rho_0 \dfrac{\partial^2 \vec{\xi}}{\partial t^2 }  = \vec{F}(\vec{\xi}) ~,
+\end{equation*}
+with
+\begin{equation*}
+\vec{F}(\vec{\xi}) = -\nabla P_1 +\dfrac{1}{4\pi} [(\nabla \times \vec{B}_0) \times \vec{B}_1 +(\nabla \times \vec{B}_1) \times \vec{B}_0] ~,
+\end{equation*}
+
+\begin{align}
+& P_1 = -\rho_0 c^2_s (\nabla \cdot \vec{\xi} ) ~, \\
+& B_1 = \nabla \times (\xi \times \vec{B}_0) ~. 
+\end{align}
+
+\begin{equation}
+\rho_0 \dfrac{\partial^2 \vec{\xi}}{\partial t^2 }  = \gamma P_0\nabla(\nabla \cdot \vec{\xi}) +\dfrac{1}{4\pi} (\nabla \times \vec{B}_1) \times \vec{B}_0 ~.
+\end{equation}
+
+\begin{equation*}
+\vec{\xi} \equiv [\xi_r(r) , \xi_\theta(r), \xi_z(r)] e^{i(m\theta +kz)} e^{-i\omega t}
+\end{equation*}
+
+\begin{equation}
+\vec{B}_1 = ikB_0 \xi_r \vec{e}_r +ikB_0 \xi_\theta \vec{e}_\theta +B_0[ik\xi_z -(\nabla \cdot \vec{\xi})] \vec{e}_z ~.
+\end{equation}
+In cylindrical coordinates, 
+\begin{equation*}
+\nabla \cdot \vec{\xi} = \dfrac{\dif (r\xi_r)}{r\dif r} +ik\xi_z = f(r) +ik\xi_z ~,
+\end{equation*}
+where
+\begin{equation*}
+f(r) = \dfrac{\dif (r\xi_r)}{r\dif r} ~.
+\end{equation*}
+
+\begin{align*}
+& -\omega^2 \rho_0 \xi_r = \gamma P_0 \dfrac{\dif }{\dif r} [f(r) +ik\xi_z] +\dfrac{B_0^2}{4\pi}  \left(\dfrac{\dif f}{\dif r} -k^2 \xi_r\right) ~, \\
+& -\omega^2 \rho_0 \xi_\theta = -\dfrac{k^2 B_0^2}{4\pi} \xi_\theta ~, \\
+& -\omega^2 \rho_0 \xi_z = ik\gamma P_0[f(r) +ik\xi_z]
+\end{align*}
+Since
+\begin{align*}
+& c_s^2 = \gamma \dfrac{P_0}{\rho_0} ~, \\
+& c_a^2 = \dfrac{B_0^2}{4\pi \rho_0}  ~,
+\end{align*}
+\begin{align}
+& (k^2 c_a^2 -\omega^2)\xi_r = (c_s^2 +c_a^2) \dfrac{\dif f}{\dif r} +ikc_s^2 \dfrac{\dif \xi_z}{\dif r} ~, \\
+& (k^2 c_a^2 -\omega^2)\xi_\theta = 0 ~, \\
+& (k^2 c_s^2 -\omega^2)\xi_z = ikc_s^2 f ~.
+\end{align}
+
+\begin{equation}
+\dfrac{\dif^2 \xi_z}{\dif r^2} +\dfrac{\dif \xi_z}{r\dif r} -K^2 \xi_z = 0 ~,
+\end{equation}
+with
+\begin{equation}
+K^2 = \dfrac{(k^2 c_a^2 -\omega^2)(k^2 c_s^2 -\omega^2)}{(k^2 c_s^2 c_a^2 -\omega^2)(c_s^2 +c_a^2)} = k^2 \left[1 +\dfrac{(\omega/k)^4}{c_s^2 c_a^2 -(\omega/k)^2(c_s^2 +c_a^2)}  \right]
+\end{equation}
+This is the well known equation for the Bessel functions of zero order. 
+
+
+\begin{equation}
+\xi_z = I_0 (Kr) ~,
+\end{equation}
+
+\begin{equation*}
+\xi_r = \dfrac{K}{ik} \left[\dfrac{c_s^2(k^2 c_a^2 -\omega)^2 -\omega^2 c_a^2}{c_s^2(k^2 c_a^2 -\omega^2)}  \right] I^\prime_0 (Kr) ~,
+\end{equation*}
+
+\begin{equation*}
+f(\vec{r}, t) = f_0(\vec{r}, t) +f_1(\vec{r}, t) \simeq f_0(\vec{r}_0) +\vec{\xi} \cdot \nabla f_0(\vec{r}_0, t) +f_1(\vec{r}_0, t) ~.
+\end{equation*}
+
+
+
+\begin{equation*}
+P_1 +\dfrac{\vec{B}_0 \cdot \vec{B}_1}{4\pi} = \dfrac{\vec{\tilde{B}}_0 \cdot \vec{\tilde{B}}_1}{4\pi} +(\vec{\xi} \cdot \nabla) \dfrac{\vec{\tilde{B}}_0^2}{8\pi} ~.
+\end{equation*}
+
+
+\begin{equation*}
+ \vec{\tilde{E}} = -\dfrac{1}{c} \dfrac{\partial \vec{\tilde{A}}}{\partial t} ~,
+\end{equation*}
+and $\vec{\tilde{A}}$ is a first-order quantity. The total magnetic field in vacuum is
+\begin{equation*}
+ \vec{\tilde{B}} = \vec{\tilde{B}}_0 +\vec{\tilde{B}}_1 = \vec{\tilde{B}}_0 +\nabla \times \vec{\tilde{A}}
+\end{equation*}
+
+\begin{equation}
+\vec{n}_0 \times \dfrac{\partial \vec{A}}{\partial t} = \vec{n}_0 \times \left(\dfrac{\partial \vec{\xi}}{\partial t} \times \vec{\tilde{B}}_0 \right) ~.
+\end{equation}
+
+\begin{equation}
+\vec{n}_0 \times \vec{A} = \vec{n}_0 \times (\vec{\xi} \times \vec{\tilde{B}}_0) = (\vec{n}_0 \cdot \vec{\tilde{B}}_0) \vec{\xi} -(\vec{n}_0 \cdot \vec{\xi} )\vec{\tilde{B}}_0 = -(\vec{n}_0 \cdot \vec{\xi}) \vec{\tilde{B}}_0 ~,
+\end{equation}
+
+
+\begin{equation*}
+-\gamma P_0(\nabla \cdot \vec{\xi}) +\dfrac{1}{4\pi} \vec{B}_0\cdot [\vec{B}_1 +(\vec{\xi} \cdot \nabla)\vec{B}_0] =\dfrac{1}{4\pi}  \vec{\tilde{B}}_0 \cdot [\vec{\tilde{B}}_1 +(\vec{\xi} \cdot \nabla)\vec{\tilde{B}}_0] ~,
+\end{equation*}
+
+
+\begin{equation*}
+P_0 +\dfrac{B_0^2}{8\pi} = \dfrac{\tilde{B}_0^2}{8\pi} ~.
+\end{equation*}
+
+
+\begin{equation*}
+B_{1z} = -\dfrac{B_0}{r} \dfrac{\dif (r\xi_r)}{\dif r} ~,
+\end{equation*}
+
+ 
+\begin{equation}
+-\gamma P_0 (\nabla \cdot \vec{\xi}) -\dfrac{B_0^2}{4\pi r} \dfrac{\dif (r\xi_r)}{\dif r} = \dfrac{1}{4\pi} \vec{\tilde{B}}_0\cdot \left[\nabla \times \vec{\tilde{A}} +\xi_r \dfrac{\dif \vec{\tilde{B}}_0}{\dif r} \right]
+\end{equation}
+
+
+\begin{equation*}
+\vec{\tilde{A}} = q(r) \vec{e}_r + \xi_r \tilde{B}_0 \vec{e}_z ~,
+\end{equation*}
+where $q(r)$ is an arbitrary function.
+\begin{equation}
+\vec{\tilde{B}}_1 = \nabla \times \vec{\tilde{A}} = \left[\dfrac{\partial q}{\partial z}  -\dfrac{\partial (\xi_r \tilde{B}_0)}{\partial r} \right] \vec{e}_\theta ~.
+\end{equation}
+
+
+Since $\nabla \times \vec{\tilde{B}}_1 = 0$ (the vacuum is current-free), 
+\begin{equation*}
+\nabla \times (\nabla \times \vec{\tilde{A}}) = \left[- \dfrac{\partial^2 q}{\partial z^2} \right] \vec{e}_r +\left[- \dfrac{\partial^2 q}{\partial r\partial z} -\dfrac{\partial^2 (\xi_r \tilde{B}_0)}{\partial r^2} \right] \vec{e}_z = 0 ~.
+\end{equation*}
+
+
+\begin{align*}
+& \dfrac{\partial q}{\partial z} = g(r) ~, \\
+& \dfrac{\partial q}{\partial z} -\dfrac{\partial (\xi_r \tilde{B}_0)}{\partial r} = h(z) ~,
+\end{align*}
+where $g$ and $h$ are arbitrary functions of their arguments. Combining the two equations,
+\begin{equation*}
+g(r) -\dfrac{\partial (\xi_r \tilde{B}_0)}{\partial r} = h(z) ~.
+\end{equation*}
+
+
+\begin{equation*}
+\dfrac{\gamma \omega^2 P_0}{ikc^2_s} \xi_z -\dfrac{B_0^2(k^2 c_s^2 -\omega^2)}{4\pi ik c_s^2} \xi_r = -\dfrac{ \tilde{B}_0^2}{4\pi r} \xi_r ~,
+\end{equation*}
+
+
+
+\begin{equation*}
+[c_s^2\omega^2 -c_a^2(k^2 c_s^2 -\omega^2) ]I_0(Ka) = -\dfrac{ \tilde{B}_0^2}{B_0^2} c_a^2 \dfrac{K I_0^\prime(Ka)}{a I_0(Ka)}
+\end{equation*}
+
+\begin{equation}
+\omega^2 = k^2 c_a^2 -\dfrac{ \tilde{c}_a^2}{a^2} \left[\dfrac{KaI_0^\prime(Ka)}{I_0(Ka)} \right] ~,
+\end{equation}
+
+
+\begin{equation*}
+B_0^2 < \dfrac{\tilde{B}^2}{(ka)^2} \left[\dfrac{KaI_0^\prime(Ka)}{I_0(Ka)} \right] ~.
+\end{equation*}
+
+\begin{equation*}
+B_0^2 < \tilde{B}^2 ~.
+\end{equation*}
+
+
+\begin{equation*}
+(ka)^2 > \left[\dfrac{KaI_0^\prime(Ka)}{I_0(Ka)} \right] ~,
+\end{equation*}
+
+\subsection{The Confinement of Solar Coronal Loops}
+\begin{equation*}
+\nabla \times \vec{B}_e = \alpha \vec{B}_e ~, ~~\alpha = \text{const.} 
+\end{equation*}
+\begin{equation*}
+\nabla P = \frac{\vec{J}\times \vec{B}}{c} = \frac{(\nabla \times \vec{B}) \times \vec{B} }{4\pi} ~.
+\end{equation*}
+The current density is divided as $\vec{J} = \vec{J}_\parallel + \vec{J}_\perp$ where $\vec{J}_\parallel$ and $\vec{J}_\perp$ are the components parallel and perpendicular to $\vec{B}$, respectively, and observe that only the $\vec{J}_\perp$ component enters the equilibrium equation.
+\begin{equation*}
+\vec{J}_\parallel = \frac{4\pi}{c} \lambda \vec{B} ~.
+\end{equation*}
+$\lambda$ is in general a function of $r$ and $t$, but in the following it is considered to be a constant. In cylindrical coordinates, the equilibrium equation
+\begin{equation}
+B_{0z} B_{0z}^\prime +B_{\theta} B_{\theta}^\prime +\frac{B_\theta^2}{r} = -4\pi P^\prime ~,
+\end{equation}
+where the prime indicates the derivative with respect to $r$.
+\begin{equation*}
+\vec{B} \cdot (\nabla \times \vec{B}) = \frac{c}{4\pi}  \vec{B} \cdot \vec{J}_\parallel = \lambda B^2 ~,
+\end{equation*}
+\begin{equation}
+B_{0z} B_{\theta}^\prime -B_{\theta}B_{0z}^\prime +\frac{ B_{0z} B_{\theta}}{r} = \lambda (B_{\theta}^2 +B_{0z}^2) ~.
+\end{equation}
+Introduce 
+\begin{equation*}
+\omega(r) = \frac{B_{\theta}(r)}{B_{0z}(r)} ~,
+\end{equation*}
+\begin{equation}
+\omega^\prime +\frac{\omega}{r} -\lambda \omega^2 = \lambda ~,
+\end{equation}
+which is called the \textcolor{red}{Riccati equation}. Define an auxiliary function $u$ connected to $\omega$ by the relation
+\begin{equation*}
+\omega = -\frac{u^\prime}{\lambda u} ~,
+\end{equation*}
+then
+\begin{equation*}
+u^{\prime\prime} +\frac{u}{r} +\lambda^2 u = 0 ~,
+\end{equation*}
+namely the Bessel equation, whose general solution, not diverging in $r = 0$, is $u = C_1 J_0(\lambda r)$, $C_1$ being an arbitrary constant. The general solution for $\omega(r)$ is
+\begin{equation*}
+\omega(r) = \dfrac{J_1(\lambda r)}{J_0(\lambda r) } ~,
+\end{equation*}
+\begin{align}
+& B_{\theta}(r) = B_{0}(r) J_1(\lambda r) ~, \\
+& B_{0z}(r) = B_{0}(r) J_0(\lambda r) ~,
+\end{align}
+
+\begin{equation}
+\dfrac{\dif B^2_0(r) }{\dif r} = -8\pi \dfrac{\dif P/\dif r}{J_0^2(\lambda r) +J_1^2(\lambda r)} ~,
+\end{equation}
+
+\begin{align*}
+& B_0(a) J_0(\lambda a) = C_2 J_0(\alpha a) +C_3 Y_0(\lambda a) ~, \\
+& B_0(a) J_1(\lambda a) = C_2 J_1(\alpha a) +C_3 Y_1(\lambda a) ~, \\
+& \dfrac{\lambda}{\alpha} B_0(a) J_1(\lambda a) = C_2 J_1(\alpha a) +C_3 Y_1(\lambda a) ~, 
+\end{align*}
+
+\begin{equation*}
+[B_0(a) -C_2] J_0(\alpha a) = C_3 Y_0(\alpha a)
+\end{equation*}
+$C_2 = B_0(a)$ and $C_3 = 0$.
+\begin{align}
+& B_{\theta}(r) = B_0(r) J_1(\alpha a) ~, \\
+& B_{0z}(r) = B_0(r) J_0(\alpha a) ~,
+\end{align}
+
+\begin{align}
+& B_0^2(r) = B_0^2(a) +8\pi \int_r^a \dfrac{P^\prime(s) \dif s}{J_0^2(\alpha s) +J_1^2(\alpha s)} ~~ (r < a) ~, \\
+& B_0(r) =B_0(a)  ~~ (r\geqslant a) ~.
+\end{align}
+
+\begin{equation}
+\dfrac{\dif P}{\dif r} \geqslant -r \dfrac{B^2_z(r)}{32\pi} \left[\dfrac{\dif }{\dif r} \ln\left(\dfrac{B_\theta(r)}{rB_{0z}(r)}  \right) \right]^2  ~.
+\end{equation}
+
+
+
+
+\subsection{The Magnetorotational Instability (MRI)}
+Transport of angular momentum is fundamental in the formation and evolution of accretion disks, one of the natural steps in the process of gravitational collapse. The rotating, accreting gas can become sufficiently hot as to become at least partially ionized (either heated by the process of accretion itself or by an outside radiation source) and must therefore be considered a plasma. In order for such a plasma to continue to fall towards the accretion center some form of viscosity must be present, which allows the removal of the angular momentum of the falling accreting gas, otherwise the accretion itself would stall due to the centrifugal barrier coming from the conservation of angular momentum. However, accreting plasma is usually so rarified that collisions may be completely neglected, so that the collisional viscosity can not be considered a viable mechanism for accretion. A possible solution to this problem may come from instabilities naturally developing in a rotating plasma. The Rayleigh instability : a fluid rotating around an axis is unstable if its specific angular momentum decreases with distance from the rotation access. 
+
+\begin{equation}
+\frac{1}{\rho } \frac{\partial P}{\partial r} = \frac{U^2(r)}{r} ~.
+\end{equation}
+In the new position $r^\prime$ angular momentum conservation for the fluid element leads it to reach a new velocity $U^{\prime 2} = r^2 U^2/r^{\prime 2}$ around the axis
+
+\begin{equation}
+\left[ \frac{1}{\rho } \frac{\partial P}{\partial r} \right]_{r^\prime} = \frac{U^2(r^\prime)}{r^\prime} > \frac{U^{\prime 2} }{r^\prime} = \frac{r^2 U^2}{r^{\prime 3}} ~,
+\end{equation}
+
+\begin{align}
+& -i \omega \rho_0 u_r - 2\rho_0 \Omega u_\theta = -i k_r \bar{P}_1  + \frac{ik_z B b_r}{4\pi} ~, \\
+& -i \omega \rho_0 u_\theta +\rho_0 \left( 2\Omega +r \frac{\partial \Omega}{\partial r} \right) u_r = \frac{ik_z B b_\theta}{4\pi} ~, \\
+& -i \omega \rho_0 u_z = -ik+z \bar{P}_1 ~, \\
+& \omega b_r = -k_z B u_r ~, \\
+& \omega b_\theta = -k_z B u_\theta +i b_r r \frac{\partial \Omega}{\partial r}
+\end{align}
+
+\begin{equation*}
+\frac{1}{r}  \frac{\partial (r u_r) }{\partial r} +  \frac{\partial u_z}{\partial z} = 0 ~.
+\end{equation*}
+
+\begin{align}
+&  -i \omega \rho_0 u_r - 2\rho_0 \Omega u_\theta = \frac{ik_z B b_r}{4\pi} ~,\\
+& -i \omega \rho_0 u_\theta +\rho_0 \frac{\kappa^2}{2\Omega} u_r = \frac{ik_z B b_\theta}{4\pi} ~,\\
+& \omega b_r = -k_z B u_r ~, \\
+& \omega b_\theta = -k_z B u_\theta +i b_r r \frac{\partial \Omega}{\partial r}
+\end{align}
+
+\begin{equation*}
+2\Omega +r \frac{\partial \Omega}{\partial r} = \frac{\kappa^2}{2\Omega} ~,
+\end{equation*}
+Introduce the epicyclic frequency
+\begin{equation}
+\kappa^2 = 4 \Omega^2 + \frac{\partial \Omega^2}{\partial \ln r}
+\end{equation}
+
+\begin{equation}
+\omega^4 -\left[\kappa^2 +2(k_z c_a)^2 \right]\omega^2 +(k_z c_a)^2 \left[(k_z c_a)^2 + \frac{\partial \Omega^2}{\partial \ln r} \right] = 0 ~.
+\end{equation}
+
+\begin{align}
+& \frac{\partial \Omega(r)}{\partial r} < 0 ~, \\
+& (k_z c_a)^2 < -r \frac{\partial \Omega^2(r)}{\partial  r}
+\end{align}
+
+\begin{equation*}
+|\omega_m| = \frac{1}{2} \frac{\partial \Omega^2(r)}{\partial \ln r} ~.
+\end{equation*}
+The nonlinear evolution of the instability can lead to developed magnetohydro- dynamic turbulence and a consequent effective viscosity in accretion disks.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

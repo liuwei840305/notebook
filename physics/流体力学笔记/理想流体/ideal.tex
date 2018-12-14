@@ -1,0 +1,860 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{理想流体}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{连续性方程}
+利用一些函数来描述运动流体的状态，流体的速度分布$\vec{v} = \vec{v}(x, y, z, t)$和任何两个热力学量的分布。根据任意两个热力学量和物质的状态方程即可确定所有的热力学量。运动流体的状态取决于五个量：速度$\vec{v}$的三个分量以及诸如压强$p$和密度$\rho$的两个热力学量。所有这些量一般是坐标$x, y, z$和时间$t$的函数。$\vec{v}(x, y, z, t)$是在时刻$t$在空间的任何给定点$x, y, z$的流体速度，即它是空间固定点的流体速度，而不是随时间在空间中移动的特定流体微元的速度。封闭的流体动力学方程组应当包含五个方程。对于理想流体，这些方程是连续性方程、欧拉方程和绝热方程。
+
+考虑空间的某一个区域$V_0$，该区域内的流体质量为$\int \rho \dif V$。单位时间内流过区域表面微元$\dif \vec{f}$的流体质量是$\rho \vec{v}\cdot \dif \vec{f}$，其中$\dif \vec{f}$指向表面微元的法线方向，大小等于表面微元的面积。规定$\dif \vec{f}$指向外法线方向。若流体流出该区域，则$\rho \vec{v}\cdot \dif \vec{f}$为正，若流体流入该区域，则表达式为负。单位时间内流出区域$V_0$的流体总质量为
+\begin{equation*}
+\oint \rho \vec{v}\cdot \dif \vec{f} ~,
+\end{equation*}
+区域$V_0$中流体质量的减少为
+\begin{equation}
+-\frac{\partial}{\partial t} \int \rho \dif V
+\end{equation}
+于是
+\begin{align*}
+\frac{\partial}{\partial t} \int \rho \dif V = -\oint \rho \vec{v} \cdot \dif \vec{f} \\
+\int \left( \frac{\partial \rho}{\partial t}  + \nabla \cdot (\rho \vec{v}) \right) \dif V = 0
+\end{align*}
+其中用到了
+\begin{equation*}
+\oint \rho \vec{v} \cdot \dif \vec{f} = \int  \nabla \cdot (\rho \vec{v}) \dif V ~.
+\end{equation*}
+该等式对任何区域都成立，被积函数应当为$0$，即得到\textcolor{red}{连续性方程}
+\begin{equation}
+\color{red} \frac{\partial \rho}{\partial t}  + \nabla \cdot (\rho \vec{v}) = 0 ~.
+\label{continuity}
+\end{equation}
+\textcolor{red}{质量流密度}为
+\begin{equation}
+\color{red} \vec{j} = \rho \vec{v} ~,
+\end{equation}
+其方向与流动方向一致，大小等于单位时间内流过与速度垂直的单位面积的流体质量。
+
+
+\section{欧拉方程}
+从流体中划分出某个区域，作用在这部分流体上的合力等于该区域边界上的积分
+\begin{equation}
+-\oint p \dif \vec{f} = -\int \nabla p \dif V ~.
+\end{equation}
+即任何流体微元$\dif V$都受到周围流体对它的作用力$-\nabla p \dif V$。单位体积流体上的作用力为$-\nabla p$。作用于流体的力可分为\textcolor{orange}{质量力}和\textcolor{orange}{面力}。质量力是按照质量分布的长程力，质量力密度指单位质量流体所受的质量力。面力是按面积分布的力(如与流体表面相接触的物质对该表面上的流体的作用力)，\textcolor{red}{单位面积上的面力称为应力}。在理想流体下，面微元$\dif \vec{f}$上的面力(从矢量$\dif \vec{f}$所指的那一侧物质作用在该面微元上的力)为$-p \dif \vec{f}$。这里只考虑面力。
+
+流体微元的运动方程为
+\begin{equation*}
+\rho \frac{\dif \vec{v}}{\dif t} = -\nabla p
+\end{equation*}
+$\dfrac{\dif \vec{v}}{\dif t}$并不代表空间固定点的流体速度变化，而是代表一个在空间中运动的给定的流体微元的速度变化。一个给定的流体微元在$\dif t$时间内的速度变化$\dif \vec{v}$由两部分组成：1.该空间固定点的流体速度在$\dif t$时间内的变化，即
+\begin{equation*}
+ \frac{\partial \vec{v}}{\partial t} \dif t ~,
+\end{equation*}
+2.(在同一瞬时)相距$\dif \vec{r}$的两点的流体速度之差，$\dif \vec{r}$是给定流体微元在$\dif t$时间内的位移，即
+\begin{equation*}
+\dif x \frac{\partial \vec{v}}{\partial x} +\dif y \frac{\partial \vec{v}}{\partial y} +\dif z \frac{\partial \vec{v}}{\partial z} = (\dif \vec{r} \cdot \nabla) \vec{v} ~.
+\end{equation*}
+因此
+\begin{align*}
+& \dif \vec{v} =  \frac{\partial \vec{v}}{\partial t} \dif t +(\dif \vec{r} \cdot \nabla) \vec{v} \\
+& \frac{\dif \vec{v}}{\dif t} = \frac{\partial \vec{v}}{\partial t} +(\vec{v} \cdot \nabla) \vec{v}
+\end{align*}
+于是得到\textcolor{red}{欧拉方程}：
+\begin{equation}
+\color{red} \frac{\partial \vec{v}}{\partial t} +(\vec{v} \cdot \nabla) \vec{v} = -\frac{1}{\rho} \nabla \rho ~.
+\end{equation}
+若流体处于重力场中，单位面积的任何流体还受到力$\rho \vec{g}$，则方程变为
+\begin{equation}
+\color{red} \frac{\partial \vec{v}}{\partial t} +(\vec{v} \cdot \nabla) \vec{v} = -\frac{1}{\rho} \nabla \rho + \vec{g}
+\end{equation}
+
+流体各部分之间(以及流体与相邻物体之间)没有热交换，运动是绝热的，且任何一部分流体的运动都是绝热的。把理想流体的运动看作绝热运动。当流体在空间中作绝热运动，每一部分流体的熵在运动过程中保持不变。用$s$表示单位质量流体的熵，则绝热运动条件表示为
+\begin{equation}
+\color{red} \frac{\dif s}{\dif t} = 0 ~.
+\end{equation}
+这里用对时间的全导数(即\textcolor{red}{物质导数})表示给定的一部分流体的熵变化率，也可以写为
+\begin{equation*}
+\frac{\partial s}{\partial t} +\vec{v} \cdot \nabla s = 0
+\end{equation*}
+表示理想流体绝热运动条件的一般方程。利用连续性方程(\ref{continuity})，可以写为熵的连续性方程，
+\begin{align}
+\color{red} \frac{\partial (\rho s)}{\partial t} + \nabla\cdot ( \rho s\vec{v}) = 0 ~,
+\end{align}
+\textcolor{red}{$\rho s\vec{v}$}称为\textcolor{red}{熵流密度}。
+
+若流体质量熵在初始时刻处处相同，则在此后的流动中，质量熵仍然处处相同且不随时间变化。此时绝热方程为
+\begin{equation}
+\color{red} s  = {\rm const.}
+\end{equation}
+这样的流动称为\textcolor{red}{等熵流}。由热力学关系式
+\begin{align*}
+\dif w &= T\dif s +V\dif p \\
+&= V\dif p \\
+&= \dfrac{1}{\rho} \dif p \\
+\nabla w &= \dfrac{1}{\rho}\nabla p
+\end{align*}
+\textcolor{red}{$w$}是流体的\textcolor{red}{质量焓}，$V = \dfrac{1}{\rho}$是质量体积，$T$是温度。这里假设等熵流$s  = {\rm const.}$。
+\begin{equation}
+\color{red} \frac{\partial \vec{v}}{\partial t} +(\vec{v} \cdot \nabla) \vec{v} = -\nabla w ~.
+\end{equation}
+由
+\begin{equation*}
+\frac{\nabla v^2}{2} = \vec{v} \times (\nabla \times \vec{v}) +(\vec{v} \cdot \nabla) \vec{v} ~,
+\end{equation*}
+\begin{equation*}
+\frac{\partial \vec{v}}{\partial t} -\vec{v} \times (\nabla \times \vec{v}) = -\nabla \left( w +\frac{v^2}{2} \right)
+\end{equation*}
+两边取旋度，得到
+\begin{equation}
+\frac{\partial (\nabla \times \vec{v})}{\partial t} = \nabla \times(\vec{v} \times (\nabla \times \vec{v}) )
+\end{equation}
+
+理想流体的边界条件为流体不能穿透固定壁面，即固定壁面上的流体法向速度分量等于零：
+\begin{equation}
+v_n = 0
+\end{equation}
+在运动壁面时，$v_n$为壁面速度的相应分量。两种互不混合的流体之间的边界上的边界条件：1.两种流体的压强在分界面上相等，2.两种流体在分界面上的法向速度分量相等(且该法向速度分量等于分界面本身的法向移动速度)。
+
+
+
+\section{能量通量}
+选取空间中任何一个静止的体微元，其体积能为
+\begin{equation*}
+\frac{\rho v^2}{2} + \rho \epsilon ~.
+\end{equation*}
+\begin{align*}
+\frac{\partial }{\partial t} \left(\frac{\rho v^2}{2} \right) 
+&= \frac{v^2}{2} \frac{\partial \rho}{\partial t} +\rho \vec{v} \cdot \frac{\partial \vec{v} }{\partial t} \\
+&= -\frac{v^2}{2} \nabla\cdot (\rho \vec{v}) -\vec{v} \cdot \nabla p -\rho \vec{v} \cdot (\vec{v} \cdot \nabla) \vec{v} \\
+&= -\frac{v^2}{2} \nabla\cdot (\rho \vec{v}) -\vec{v} \cdot \nabla p -(\rho \vec{v} \cdot \nabla) \frac{v^2}{2} \\
+&= -\frac{v^2}{2} \nabla\cdot (\rho \vec{v}) -\rho \vec{v} \cdot \nabla \left(w +\frac{v^2}{2} \right) +\rho T\vec{v}\cdot \nabla s
+\end{align*}
+由于$\dif w = T\dif s +\dfrac{\dif p}{\rho}$，$- \nabla p = \rho T  \nabla s - \rho\nabla w$。
+
+\begin{align*}
+\frac{\partial (\rho \epsilon)}{\partial t} &= \epsilon \frac{\partial \rho}{\partial t} +\rho \frac{\partial \epsilon}{\partial t} \\
+&= -\epsilon\nabla \cdot (\rho \vec{v}) +\rho \left( T\frac{\partial s}{\partial t} +\dfrac{P}{\rho^2} \frac{\partial \rho}{\partial t} \right) \\
+&= -\epsilon\nabla \cdot (\rho \vec{v}) -\dfrac{P}{\rho^2} \nabla \cdot (\rho \vec{v}) +\rho  T\frac{\partial s}{\partial t} \\
+&= -w \nabla \cdot (\rho \vec{v}) -\rho  T\frac{\partial s}{\partial t}
+\end{align*}
+其中用到了$\dif \epsilon = T\dif s +\dfrac{P}{\rho^2} \dif \rho$。
+
+\begin{align*}
+\frac{\partial }{\partial t} \left(\frac{\rho v^2}{2} + \rho \epsilon \right) &= -\left(w + \frac{v^2}{2} \right) \nabla \cdot (\rho \vec{v}) -(\rho \vec{v}\cdot \nabla) \left(w + \frac{v^2}{2} \right) \\
+&= -\nabla \cdot \left[\rho \vec{v} \left(w + \frac{v^2}{2} \right) \right]
+\end{align*}
+
+\begin{align*}
+\frac{\partial }{\partial t} \int \left(\frac{\rho v^2}{2} + \rho \epsilon \right) \dif V &= -\int \nabla \cdot \left[\rho \vec{v} \left(w + \frac{v^2}{2} \right) \right] \dif V \\
+&= -\oint \left(w + \frac{v^2}{2} \right) \rho \vec{v} \cdot \dif \vec{f} \\
+&= -\oint \left(\epsilon + \frac{v^2}{2} \right) \rho \vec{v} \cdot \dif \vec{f} -\oint p\vec{v} \cdot \dif \vec{f} 
+\end{align*}
+等式左边为某个给定空间区域中的流体能量在单位时间内的变化，右边的曲面积分是单位时间内流出该区域的流体的能量。右边第一项是(单位时间内)直接由流体携带着通过曲面的能量(动能和内能)，第二项是压力(在单位时间内)对曲面以内的流体所做的功。
+\textcolor{red}{能流密度矢量}：
+\begin{equation}
+\color{red} \rho \vec{v} \left(w + \frac{v^2}{2} \right)
+\end{equation}
+大小为单位时间内通过垂直于速度方向的单位面积的能量。单位质量的任何流体在其运动过程中所携带的能量为
+$\color{red} w + \dfrac{v^2}{2}$。
+
+
+\section{动量通量}
+单位体积流体的动量为$\rho \vec{v}$，
+\begin{align*}
+\frac{\partial (\rho v_i)}{\partial t} &= \rho \frac{\partial v_i}{\partial t} +\frac{\partial \rho}{\partial t} v_i \\
+&= -\rho v_k \frac{\partial v_i}{\partial x_k} -\frac{\partial p}{\partial x_i} -v_i \frac{\partial (\rho v_k)}{\partial x_k} \\
+&= -\frac{\partial p}{\partial x_i} -\frac{\partial (\rho v_iv_k)}{\partial x_k} \\
+&= -\delta_{ik}\frac{\partial p}{\partial x_k} -\frac{\partial (\rho v_iv_k)}{\partial x_k} \\
+&= -\frac{\partial \Pi_{ik}}{\partial x_k}
+\end{align*}
+\begin{align*}
+\frac{\partial }{\partial t} \int \rho v_i \dif V &= -\int \frac{\partial \Pi_{ik}}{\partial x_k} \dif V \\
+&= -\oint \Pi_{ik} \dif f_k
+\end{align*}
+左边是区域内第$i$个动量分量在单位时间内的变化，右边的曲面积分为单位时间内通过区域边界流出的相应的动量分量。$\dif f_k = n_k \dif f$($\dif f$是面微元的面积，$\vec{n}$是它的单位外法向矢量)。$\Pi_{ik} \dif f_k$是流过面微元$\dif \vec{f}$的第$i$个动量分量，$\Pi_{ik} n_k$是通过单位面积的动量流的第$i$个分量，
+\begin{align*}
+\Pi_{ik} n_k &= (p\delta_{ik} +\rho v_iv_k) n_k \\
+&= pn_i +\rho v_i v_k n_k \\
+&= p\vec{n} +\rho \vec{v} (\vec{v} \cdot \vec{n})
+\end{align*}
+\textcolor{red}{动量流密度张量}：
+\begin{align}
+\color{red} \Pi_{ik} = p\delta_{ik} +\rho v_iv_k ~,
+\end{align}
+\textcolor{red}{单位时间内通过垂直于$x_k$轴的单位面积的动量流的第$i$个分量}。
+
+\section{流体静力学}
+
+
+\section{伯努利方程}
+定常流：流体所占区域的任何一点的速度不随时间变化，也即$\vec{v}$只是坐标的函数，因此
+\begin{equation*}
+\frac{\partial \vec{v}}{\partial t} = 0 ~.
+\end{equation*}
+流体方程变为
+\begin{equation}
+\frac{1}{2} \nabla v^2 -\vec{v} \times (\nabla \times \vec{v}) = -\nabla w
+\end{equation}
+
+
+\section{速度环量守恒}
+沿一条封闭曲线的积分
+\begin{equation}
+\color{red} \Gamma = \oint \vec{v} \cdot \dif \vec{l} ~,
+\end{equation}
+称为沿该曲线的\textcolor{red}{速度环量}。封闭曲线的微元$\dif \vec{l}$可以写为该微元两端点径矢$\vec{r}$之差$\delta \vec{r}$，即速度环量可以写为
+\begin{equation}
+\oint \vec{v} \cdot \dif \vec{r} ~,
+\end{equation}
+
+考虑某时刻在流体中选定的一条封闭曲线。把它看做物质线，即认为它是由位于该曲线的流体点组成。这些流体点随着时间的推移发生移动，整条物质线也随之移动。计算沿运动的物质线的速度环量的变化，不是沿空间中的静止曲线的速度环量的变化。速度环量对时间的全导数为
+\begin{align*}
+\frac{\dif }{\dif t} \oint \vec{v} \cdot \delta \vec{r} &= \oint \frac{\dif \vec{v}}{\dif t} \cdot \delta \vec{r} +\oint \vec{v} \cdot \frac{\dif \delta \vec{r}}{\dif t} \left(= \delta \frac{\dif \vec{r}}{\dif t} = \delta \vec{v}\right)\\
+&=  \oint \frac{\dif \vec{v}}{\dif t} \cdot \delta \vec{r} +\oint \frac{\delta v^2}{2}
+\end{align*}
+这里用$\delta$表示对坐标的微分，用$\dif$表示对时间的微分。不仅速度是变化的，封闭曲线本身也是变化的。由于全微分在一条封闭曲线上的积分等于零，上式第二个积分为$0$。第一个积分由斯托克斯公式可得，
+\begin{align*}
+\oint \frac{\dif \vec{v}}{\dif t} \cdot \delta \vec{r} &= \int \nabla \times \frac{\dif \vec{v}}{\dif t} \cdot \delta \vec{f} \\ 
+&= \int \nabla \times (-\nabla w) \cdot \delta \vec{f} \\
+&= 0 ~.
+\end{align*}
+这里利用了
+\begin{equation*}
+ \frac{\dif \vec{v}}{\dif t} = -\nabla w ~.
+\end{equation*}
+\begin{equation}
+\frac{\dif }{\dif t} \oint \vec{v} \cdot \dif \vec{l}  = 0
+\end{equation}
+或
+\begin{equation}
+\oint \vec{v} \cdot \dif \vec{l} = {\rm const.}
+\end{equation}
+该结果在均匀重力场中仍有效，因为$\nabla \times \vec{g} \equiv 0$。
+\textcolor{red}{汤姆孙定理}或\textcolor{red}{速度环量守恒定律}：在理想流体中，沿一条封闭物质线的速度环量不随时间变化。其中包含了等熵流的假设。对于非等熵流，该定律不成立。从数学观点看，对于等熵流，方程$s(p, \rho) = {\rm const.}$使得在$p$和$\rho$之间必须存在单值关系。此时$-\dfrac{\nabla p}{\rho}$可以写为某个函数的梯度。
+
+对于无穷小封闭物质线$\delta C$，
+\begin{equation}
+\oint \vec{v} \cdot \dif \vec{l} = \int (\nabla \times \vec{v}) \cdot \dif \vec{f} \approx \delta \vec{f} \cdot (\nabla \times \vec{v}) = {\rm const.}
+\end{equation}
+该式表明\textcolor{orange}{涡量与运动流体一起移动}。(在汤姆孙定理下，涡线和涡面(即涡量的矢量线和矢量面)是保持的，即组成涡线或涡面的流体点在任意时刻仍然组成涡线和涡面。)$\dif \vec{f}$是张于封闭物质线$\delta C$的物质面微元。$\nabla \times \vec{v}$称为流动在给定点的涡量，$\dfrac{\nabla \times \vec{v}}{2}$为流体微元的瞬时角速度。
+
+\section{势流}
+\textcolor{red}{势流}(\textcolor{red}{无旋流})：在整个空间内\textcolor{red}{$\nabla \times \vec{v} = 0$}的流动。
+
+\textcolor{red}{有旋流}：速度旋度不为零的流动。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{不可压缩流体}
+不可压缩流：密度在全部流动区域中处处相同，且在全部流动过程中保持不变。换言之流体不发生显著的压缩和膨胀。密度是常量，
+\begin{equation}
+\rho = {\rm const}.
+\end{equation}
+连续性方程和欧拉方程分别为
+\begin{align}
+& \nabla \cdot \vec{v}  = 0 \\
+& \frac{\partial \vec{v}}{\partial t} +(\vec{v} \cdot \nabla)\vec{v} = -\nabla \left(\frac{p}{\rho} \right) +\vec{g} 
+\end{align}
+
+
+
+
+
+\section{重力波}
+在重力场中处于平衡的液体自由面是一平面。若在某种外来扰动的作用下，表面的某一点离开其平衡位置，液体内将发生运动。该运动将以波的形式沿整个表面传播。由于它们起因于重力场的作用，称为\textcolor{red}{重力波}。重力波主要表现在液体表面，也影响到液体内部。但随着深度越来越大，其影响也越来越小。
+
+考虑运动流体质点的速度很小，欧拉方程中的$(\vec{v} \cdot \nabla) \vec{v}$与$\dfrac{\partial \vec{v}}{\partial t}$相比可以略去。在和波动中流体质点振动周期$\tau$的量级相当的时间间隔内，质点移动了和波幅$a$的量级相当的距离。其速度的量级为$a/\tau$。在$\tau$量级的时间间隔内，以及在沿着波传播方向的$\lambda$量级距离内($\lambda$是波长)，速度将显著地发生变化。速度的时间导数为$v/\tau$量级，空间导数为$v/\lambda$量级。
+\begin{equation*}
+(\vec{v} \cdot \nabla) \vec{v} \ll \dfrac{\partial \vec{v}}{\partial t} ~,
+\end{equation*}
+等价于
+\begin{equation*}
+ \dfrac{1}{\lambda} \left( \dfrac{a}{\tau} \right)^2 \ll  \dfrac{a}{\tau} \cdot  \dfrac{1}{\tau}~,
+\end{equation*}
+
+
+
+
+
+
+
+
+
+\section{The Governing Equations of Fluid Mechanics}
+\subsection{Elementary Concepts}
+\cite{2001imhd.book.....D} There are three very broad sub-divisions in fluid mechanics and fluid flows. The first relates to the issue of when a fluid may be treated as inviscid, and when the finite viscosity possessed by all fluids (water, air, liquid metals) must be taken into account. Viscosity and shear stresses are of great importance close to solid surfaces (within so-called boundary layers) but often less important at a large distance from a surface. There is the sub-division between laminar (organised) flow and turbulent (chaotic) flow. In general, low speed or very viscous flows are stable to small perturbations and so remain laminar, while high speed or almost inviscid flows are unstable to the slightest perturbation and rapidly develop a chaotic component of motion. The final subdivi-sion is between irrotational (sometimes called potential) flow and rotational flow. (irrotational flow means $\nabla \times \vec{u} = 0$.) Turbulent flows and boundary layers are always rotational. Sometimes, however, under very particular conditions, an external flow may be approximately irrotational. 
+
+For a steady flow, i.e. the velocity field $\vec{u}$, is a function of $\vec{x}$ but not of $t$. It follows that the speed of the fluid at any one point in space is steady, the flow pattern does not change with time, and the streamlines (the analogue of $\vec{B}$-lines) represent particle trajectories for individual fluid 'lumps'. Consider a particular streamline, $C$, and focus attention on a particular fluid blob as it moves along the streamline. Let $s$ be a curvilinear coordinate measured along $C$, and $V(s)$ be the speed $|\vec{u}|$. Since the streamline represents a particle trajectory, 
+\begin{equation}
+{\rm acceleration ~ of ~ lump} = V \frac{\dif V}{\dif s} \hat{\vec{e}}_t -\frac{V^2}{R} \hat{\vec{e}}_n ~,
+\end{equation}
+where $R$ is the radius of curvature of the streamline, and $\hat{\vec{e}}_t$, $\hat{\vec{e}}_n$ represent unit vectors tangential and normal to the streamline. In general the acceleration of a typical fluid element is of order $|\vec{u}|^2/\ell$, where $\ell$ is a
+characteristic length scale of the flow pattern.
+
+The fluid layers slide over each other due to the fact that $u_x$ is a function of $y$. One measure of this rate of sliding is the angular distortion rate, $\dif \gamma/\dif t$, of an initially rectangular element. Newton's law of viscosity says that a shear stress, $\tau$, is required to cause the relative sliding of the fluid layers. Moreover it states that $\tau$ is directly proportional to $\dfrac{\dif \gamma}{\dif t}: \tau = \mu \left(\dfrac{\dif \gamma}{\dif t} \right)$. The coefficient of proportionality is termed the absolute viscosity. However, it is clear from the diagram that $\dif \gamma/\dif t = \partial u/\partial y$, and it is usually rewritten as
+\begin{align}
+& \tau = \rho \nu \frac{\partial u_x}{\partial y} ~,\\
+& \nu = \dfrac{\mu}{\rho} ~,
+\end{align}
+where $\nu$ is called the kinematic viscosity. The choice of kinematic viscosity rather than absolute viscosity is arbitrary.
+
+In a more general two-dimensional flow, $\vec{u}(x, y) = (u_x, u_y, 0)$, it turns out that $\gamma$, and hence $\dif \gamma/\dif t$, has two components, one arising from the rotation of vertical material lines, and one arising from the rotation of horizontal material lines. Thus in two dimensions, Newton's law of viscosity becomes
+\begin{equation}
+\tau_{xy} = \rho \nu \left(\frac{\partial u_x}{\partial y} +\frac{\partial u_y}{\partial x} \right) ~.
+\end{equation}
+The shear stresses are important not just because they cause fluid elements to distort, but because an imbalance in shear stress can give rise to a net force on individual fluid elements. 
+
+\subsection{The Navier-Stokes equation}
+The Navier-Stokes equation is a statement about the changes in linear momentum of a small element of fluid as it progresses through a flow field. Let $p$ be the pressure, $\tau_{ij}$ the viscous stresses acting on the fluid, and $\nu$ the kinematic viscosity. Then Newton's second law applied to a small blob of fluid of volume $\delta V$ yields
+\begin{equation}
+\rho \delta V \frac{D \vec{u}}{D t} = -(\nabla P)\delta V +\frac{\partial \tau_{ij}}{\partial x_j} \delta V ~,
+\end{equation}
+i.e. the mass of the element, $\rho \delta V$, times its acceleration, $D \vec{u}/D t$, equals the net pressure force acting on the surface of the fluid blob,
+\begin{equation}
+\oint -P \dif S = \int -\nabla P \dif V = -\nabla P  \delta V ~,
+\end{equation}
+plus the net force arising from the viscous stress, $\tau_{ij}$.
+
+Take the fluid to be incompressible so that the conservation of mass, expressed as $\nabla \cdot (\rho \vec{u}) = -\partial \rho/\partial t$, reduces to the so-called continuity equation
+\begin{equation}
+\nabla \cdot \vec{u} = 0 ~,
+\end{equation}
+Take the fluid to be Newtonian, so that the viscous stresses are given by the constitutive law
+\begin{equation}
+\tau_{ij} = \rho \nu \left(\frac{\partial u_i}{\partial x_j} +\frac{\partial u_j}{\partial x_i} \right) ~,
+\end{equation}
+where $\nu$ is the kinematic viscosity of the fluid. The conventional form of the Navier-Stokes equation is
+\begin{align}
+& \frac{D \vec{u}}{D t} = -\nabla (P/\rho) +\nu \nabla^2 \vec{u} ~, \\
+& \frac{\partial \vec{u}}{\partial t} +(\vec{u}\cdot \nabla)\vec{u} = -\nabla (P/\rho) +\nu \nabla^2 \vec{u} ~,
+\end{align}
+The boundary condition on $\vec{u}$ is that $\vec{u} = 0$ on any stationary, solid surface, i.e. the fluid 'sticks' to any solid surface. This is the 'no-slip' condition. $\dfrac{D (\cdot )}{D t}$ represents the convective derivative. It is the rate of change of a quantity associated with a given element of fluid. $\dfrac{\partial (\cdot)}{\partial t}$ is the rate of change of a quantity at a fixed point in space. In steady flows (i.e. flows in which $\dfrac{\partial (\cdot)}{\partial t} = 0$), the streamlines represent particle trajectories and the acceleration of a fluid element is $(\vec{u}\cdot \nabla)\vec{u}$. Rewrite $(\vec{u}\cdot \nabla)\vec{u}$ in terms of curvilinear coordinates attached to a streamline,
+\begin{equation}
+(\vec{u}\cdot \nabla)\vec{u} = V\frac{\partial V}{\partial s} \hat{\vec{e}}_t -\frac{V^2}{R} \hat{\vec{e}}_n ~,
+\end{equation}
+where $V = |\vec{u}|, \hat{\vec{e}}_t and \hat{\vec{e}}_n$ are unit vectors in the tangential and principle normal directions, $s$ is a streamwise coordinate, and $R$ is the local radius of curvature of the streamline. The first expression on the right is the rate of change of speed, $\dfrac{D V}{D t}$, while the second is the centripetal acceleration, which is directed toward the centre of curvature of the streamline and is associated with the change in direction of the velocity of a particle.
+
+\subsection{Vorticity, Angular Momentum}
+The vorticity field is defined by
+\begin{equation}
+\vec{\omega} = \nabla \times \vec{u} ~.
+\end{equation}
+Consider a small element of fluid in a two-dimensional flow $\vec{u}(x, y) = (u_x, u_y, 0), \vec{\omega} = (0, 0, \omega_z)$. Suppose that, at some instant, the element is circular (a disk) with radius $r$. Let $\vec{u}_0$ be the linear velocity of the centre of the element and $\Omega$ be its mean angular velocity, defined as the average rate of rotation of two mutually perpendicular material lines embedded in the element.
+\begin{equation}
+\omega_z \pi r^2 = \int (\nabla \times \vec{u}) \cdot \dif \vec{S} = \oint \vec{u}\cdot \dif \vec{l}  = (\Omega r)2\pi r~.
+\end{equation}
+\begin{equation}
+\omega_z = 2\Omega ~.
+\end{equation}
+The anti-clockwise rotation rate of a short line element, $\dif x$, orientated parallel to the $x$-axis is $\dfrac{\partial u_y}{\partial x}$, while the rotation rate of a line element, $\dif y$, parallel to the $y$-axis is $-\dfrac{\partial u_x}{\partial y}$ giving $\Omega = \left(\dfrac{\partial u_y}{\partial x} - \dfrac{\partial u_x}{\partial y} \right)/2 = \omega_z/2$. The vorticity at a particular location is twice the average angular velocity of a blob of fluid passing through that point. $\omega$ is a measure of the local rotation, or spin, of a fluid element. $\Omega$ has nothing at all to do with the global rotation of a fluid. Rectilinear flows may possess vorticity, while flows with circular streamlines need not. Consider the rectilinear shear flow $\vec{u}(y) = (\gamma y, 0, 0), \gamma = ~$constant. The streamlines are straight and parallel yet the fluid elements rotate at a rate $\omega/2 = -\gamma/2$. This is because vertical line elements, $\dif y$, move faster at the top of the element than at the bottom, so they continually rotate towards the horizontal. Conversely, we can have global rotation of a flow without local rotation of the fluid elements. One example is the so-called free vortex $\vec{u}(r) = (0, k/r, 0)$ in $(r, \theta, z)$ coordinates. Here $k$ is a constant. It is that $\omega = 0$ in such a vortex.
+
+Consider the angular momentum, $\vec{H}$, of a small material element that is instantaneously spherical,
+\begin{equation}
+\vec{H} =  \frac{I \omega}{2} ~,
+\end{equation}
+where $I$ is the moment of inertia of the blob. This angular momentum will change at a rate determined by the tangential surface stresses alone. The pressure has no influence on $\vec{H}$ at the instant at which the element is spherical since the pressure forces all point radially inward. Therefore, at one particular instant in time, 
+\begin{align}
+& \dfrac{D \vec{H}}{D t} = \nu \vec{T}  ~, \\
+& I \dfrac{D \vec{\omega}}{D t} = -\vec{\omega} \dfrac{D I}{D t} + 2\nu  \vec{T}
+\end{align}
+where $\nu \vec{T}$ denotes the viscous torque acting on the sphere. The terms on the right arise from the change in the moment of inertia of a fluid element and the viscous torque, respectively. In cases where viscous stresses are negligible (i.e. outside boundary layers),
+\begin{equation}
+\dfrac{D (I\vec{\omega})}{D t} = 0 ~.
+\end{equation}
+In infinite domains, 
+\begin{equation}
+\vec{u} = \frac{1}{4\pi} \int \frac{\vec{\omega}(\vec{x}^\prime) \times \vec{r} }{r^3} \dif^3 \vec{x}^\prime, ~~ \vec{r} = \vec{x} - \vec{x}^\prime ~,
+\end{equation}
+analogy of the Biot-Savart law. 
+
+\subsection{Advection and Diffusion of Vorticity}
+\begin{align}
+\nonumber & \frac{\partial \vec{u}}{\partial t} +(\vec{u}\cdot \nabla)\vec{u} = -\nabla (P/\rho) +\nu \nabla^2 \vec{u} ~, \\
+& \frac{\partial \vec{u}}{\partial t} = \vec{u}\times \vec{\omega} -\nabla(P/\rho +u^2/2) +\nu \nabla^2 \vec{u} ~,
+\end{align}
+where
+\begin{equation*}
+\nabla(u^2/2) = (\vec{u}\cdot \nabla)\vec{u} +\vec{u}\times (\nabla \times \vec{u}) =  (\vec{u}\cdot \nabla)\vec{u} +\vec{u} \times \vec{\omega}  ~.
+\end{equation*}
+In steady, inviscid flows, 
+\begin{equation}
+\vec{u} \cdot \nabla \left(\frac{P}{\rho} + \frac{u^2}{2} \right) = 0 ~,
+\end{equation}
+i.e. $C = P/\rho +u^2/2$ is constant along a streamline. This is Bernoulli's theorem, $C$ being Bernoulli's function.
+
+\begin{equation}
+\frac{\partial \vec{\omega}}{\partial t} = \nabla \times [\vec{u}\times \vec{\omega}] +\nu \nabla^2 \vec{\omega}
+\end{equation}
+Since $\vec{u}$ and $\vec{\omega}$ are both solenoidal,
+\begin{equation*}
+\nabla \times [\vec{u}\times \vec{\omega}] = (\vec{\omega} \cdot \nabla) \vec{u} -(\vec{u} \cdot \nabla) \vec{\omega}  ~,
+\end{equation*}
+then
+\begin{equation}
+\frac{D \vec{\omega}}{D t} = (\vec{\omega} \cdot \nabla) \vec{u}+\nu \nabla^2 \vec{\omega} ~.
+\end{equation}
+The rate of rotation of a fluid blob may increase or decrease due to changes in its moment of inertia, or change because it is spun up or slowed down by viscous stresses. For two-dimensional flows, in which $\vec{u}(x, y) = (u_x, u_y, 0)$ and $\vec{\omega}(x, y) = (0, 0, \omega_z)$, the equation becomes
+\begin{equation}
+\frac{D \omega_z}{D t} = \nu \nabla^2 \omega_z ~.
+\end{equation}
+
+
+
+\subsection{Kelvin's Theorem, Helmholtz's Laws and Helicity}
+Since $\nabla \cdot \vec{\omega} = 0$, 
+\begin{equation}
+\oint \vec{\omega} \cdot \dif \vec{S} = 0 ~.
+\end{equation}
+The flux of vorticity, $\Phi = \int \vec{\omega} \cdot \dif \vec{S}$, is constant along the length of a vortex tube since no flux crosses the side of the tube. The \textcolor{red}{circulation $\Gamma$} is defined as the \textcolor{red}{closed line integral of $\vec{u}$},
+\begin{equation}
+\Gamma = \oint_C \vec{u} \cdot \dif \vec{l} ~.
+\end{equation}
+If the path $C$ is taken as lying on the surface of a vortex tube, and passing once around it, Stoke's theorem tells us that $\Gamma  = \Phi$.  $\Gamma$ is sometimes called the strength of the vortex tube. 
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Kelvin's theorem]
+ if $C_m(t)$ is a closed curve that always consists of the same fluid particles (a material curve), then the circulation
+\begin{equation}
+\Gamma = \oint_{C_m(t)} \vec{u} \cdot \dif \vec{l} ~
+\end{equation}
+is independent of time.
+\end{tcolorbox}
+This theorem does not hold true if $C$ is fixed in space; $C_m$ must be a material curve moving with the fluid. Nor does it apply if the fluid is subject to a rotational body force, $\vec{F}$, such as $\vec{J}\times \vec{B}$, or for that matter if viscous forces are significant at any point on $C_m$.
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Helmholtz's laws]
+(i) the fluid elements that lie on a vortex line at some initial instant continue to lie on that vortex line for all time, i.e. the vortex lines are frozen into the fluid; \\
+(ii) the flux of vorticity
+\begin{equation}
+\Phi = \int \vec{\omega} \cdot \dif \vec{S}
+\end{equation}
+is the same at all cross sections of a vortex tube and is independent of time.
+\end{tcolorbox}
+
+Helmholtz's first law, which states that vortex tubes are frozen into an inviscid fluid, has profound consequences for inviscid vortex dynamics. If there exist two interlinked vortex tubes, then as those tubes are swept around they remain linked in the same manner, and the strength of each tube remains constant. Thus the tubes appear to be indestructible and their relative topology is pre- served forever. 
+
+The \textcolor{red}{helicity} is defined as
+\begin{equation*}
+h = \int_{V_m} \vec{u} \cdot \vec{\omega} \dif V ~,
+\end{equation*}
+where  $V_\omega$ is a material volume (a volume composed always of the same fluid elements) for which $\vec{\omega} \cdot \dif \vec{S} = 0$.
+\begin{equation}
+\frac{D (\vec{u}\cdot \vec{\omega}) }{D t} = \frac{D \vec{u} }{D t} \cdot \vec{\omega} + \frac{D \vec{\omega} }{D t} \cdot \vec{u} = -\nabla \left(\frac{P}{\rho} \right) \cdot \vec{\omega} +(\vec{\omega} \cdot \nabla \vec{u}) \cdot \vec{u}
+\end{equation}
+Since $\vec{\omega}$ is solenoidal, 
+\begin{equation}
+\frac{D (\vec{u}\cdot \vec{\omega}) }{D t} = \nabla \cdot \left[ \left(\frac{u^2}{2} -\frac{P}{\rho} \right)\vec{\omega} \right]
+\end{equation}
+Consider an element of fluid of volume $\delta V$. The fluid is incompressible and so $D(\delta V)Dt = 0$. It follows that
+\begin{equation}
+\frac{D [(\vec{u}\cdot \vec{\omega})\delta V] }{D t} = \nabla \cdot \left[ \left(\frac{u^2}{2} -\frac{P}{\rho} \right)\vec{\omega} \right] \delta V
+\end{equation}
+
+\begin{equation}
+\frac{\dif }{\dif t} \int_{V_m} (\vec{u}\cdot \vec{\omega}) \dif V= \oint_{S_m} \left[ \left(\frac{u^2}{2} -\frac{P}{\rho} \right)\vec{\omega} \right] \cdot \dif \vec{S} = 0 ~.
+\end{equation}
+i.e. the helicity, $h$, is conserved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{The Prandtl-Batchelor Theorem}
+ A laminar motion with high Reynolds number and closed streamlines must have uniform vorticity.
+
+Consider a two-dimensional flow which is steady and has a high Reynolds number. Suppose that the streamlines are closed. Introduce the \textcolor{red}{streamfunction $\psi$}. The velocity and vorticity are, in terms of $\psi$,
+\begin{align*}
+& \vec{u} = \left(\frac{\partial \psi}{\partial y}, -\frac{\partial \psi}{\partial x} \right) ~, \\
+& \omega = -\nabla^2 \psi
+\end{align*}
+In two-dimensions, the steady vorticity equation becomes
+\begin{equation}
+(\vec{u} \cdot \nabla) \omega = \nu \nabla^2  \omega 
+\end{equation}
+take the limit $\nu \rightarrow 0$, 
+\begin{equation}
+(\vec{u} \cdot \nabla) \omega = 0
+\end{equation}
+The vorticity is constant along the streamlines and so is a function only of $\psi, \omega = \omega (\psi)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Boundary Layers, Reynolds Stresses and Turbulence Models}
+
+
+
+
+
+
+Suppose a turbulent flow in which $\vec{u}$ and $p$ consist of a time-averaged component plus a fluctuating part
+\begin{align}
+& \vec{u} = \bar{\vec{u} } +\vec{u}^\prime ~, \\
+& P = \bar{P} +P^\prime 
+\end{align}
+The $x$-component of the time- averaged equation of motion is
+\begin{align*}
+(\bar{\vec{u}} \cdot \nabla) \bar{u}_x = &-\frac{\partial }{\partial x} \left(\frac{P}{\rho} \right) +\frac{\partial }{\partial x} \left[2\nu \frac{\partial \bar{u}_x}{\partial x}  \right] +\frac{\partial }{\partial y} \left[\nu \left(\frac{\partial \bar{u}_x}{\partial y} +\frac{\partial \bar{u}_y}{\partial x} \right) \right] \\
+& +\frac{\partial }{\partial z} \left[\nu \left(\frac{\partial \bar{u}_x}{\partial z} +\frac{\partial \bar{u}_z}{\partial x} \right) \right] +\frac{\partial [-\overline{u_x^\prime u_x^\prime} ]}{\partial x} +\frac{\partial [-\overline{u_x^\prime u_y^\prime} ]}{\partial y} +\frac{\partial [-\overline{u_x^\prime u_z^\prime} ]}{\partial z}
+\end{align*}
+the overbar represents time-averaging. The laminar stresses, from Newton's law of viscosity, are given by
+\begin{align*}
+& \sigma_x = 2\rho \nu \frac{\partial u_x}{\partial x} ~, \\
+& \tau_{xy} = \rho \nu \left[\frac{\partial u_x}{\partial y} +\frac{\partial u_y}{\partial x} \right] ~, \\
+& \tau_{xz} = \rho \nu \left[\frac{\partial u_x}{\partial z} +\frac{\partial u_z}{\partial x} \right] 
+\end{align*}
+The turbulence seems to have produced additional stresses, which are called \textcolor{red}{Reynolds stresses}.
+\begin{align*}
+& \sigma_x = -\rho \overline{u_x^\prime u_x^\prime} ~, \\
+& \tau_{xy} = -\rho \overline{u_x^\prime u_y^\prime} ~, \\
+& \tau_{xz} = -\rho \overline{u_x^\prime u_z^\prime}
+\end{align*}
+Rewrite the $x$-component of the time-averaged equation
+\begin{equation*}
+(\bar{\vec{u}} \cdot \nabla) \bar{u}_x = -\frac{\partial }{\partial x} \left(\frac{P}{\rho} \right) +\nu \nabla^2 \bar{u}_x +\frac{\partial [-\overline{u_x^\prime u_i^\prime} ]}{\partial x_i}
+\end{equation*}
+A turbulence model provides a means of estimating the Reynolds stresses.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{The $\alpha$-effect}
+Suppose a highly conducting, turbulent fluid in which $\vec{u} = \vec{u}_0 + \vec{v}$ and $\vec{B} = \vec{B}_0 + \vec{b}$ where $\vec{u}_0$ and $\vec{B}_0$ are steady or slowly varying and $\bar{\vec{v}} = 0$, $\bar{\vec{b}} = 0$. The averaged induction equation is
+\begin{equation*}
+\frac{\partial \vec{B}_0}{\partial t} = \nabla \times (\vec{u}_0 \times \vec{B}_0) +\lambda \nabla^2 \vec{B}_0 +\nabla \times \overline{(\vec{v}\times \vec{b})}
+\end{equation*}
+
+The 'turbulent' induction equation
+\begin{equation*}
+\frac{\partial \vec{B}_0}{\partial t} = \nabla \times (\vec{u}_0 \times \vec{B}_0) +\alpha \nabla \times \vec{B}_0  +\lambda \nabla^2 \vec{B}_0 ~,
+\end{equation*}
+in which the new term, called the $\alpha$-effect, can give rise to the self-excited generation of a magnetic field.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Ekman Pumping in Rotating Flows}
+Ekman pumping occurs whenever there is differential rotation between a viscous fluid and a solid surface. Consider Karman's solution for laminar flow near the surface of a rotating disk. Suppose we have an infinite disk rotating in an otherwise still liquid. A boundary layer will develop on the disk due to viscous coupling, and Karman found an exact solution for this boundary layer. Suppose that the disc rotates with angular velocity $\Omega$. Expect a boundary layer thickness to scale as $\delta \sim \left(\dfrac{\nu}{\Omega} \right)^{1/2}$. Karman's solution is
+\begin{align*}
+& u_r = \Omega r F(\eta) ~, \\
+& u_\theta = \Omega r G(\eta) ~, \\
+& u_z = \Omega \hat{\delta} H(\eta)
+\end{align*}
+where $\hat{\delta} = \left(\dfrac{\nu}{\Omega} \right)^{1/2}$ and $\eta = \dfrac{z}{\hat{\delta}} $. Substituted into the radial and azimuthal components of the Navier-Stokes equation and the equation of continuity, 
+\begin{align*}
+& F^2 +F^\prime H -G^2 = F^{\prime\prime} ~, \\
+& 2F G +H G^\prime = G^{\prime\prime} ~, \\
+& 2F +H^\prime = 0
+\end{align*}
+The boundary conditions is
+\begin{align*}
+& z = 0 : F = 0 ~, G = I ~, H = 0 \\
+& z \rightarrow \infty : F = 0 ~, G = 0
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

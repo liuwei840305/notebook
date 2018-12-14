@@ -1,0 +1,282 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage{mathrsfs}      % 花体
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Blast-Wave Physics}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{FIREBALLS AND RELATIVISTIC BLAST WAVES}
+\cite{2009herb.book.....D} Consider an explosion that takes place in a uniform circumburst medium (CBM) with density $n_0$. Suppose that the event releases energy at a fixed rate over a timescale $\Delta_0/c$, where $\Delta_0$ is a characteristic size scale of the engine that releases the energy. 
+
+The apparent isotropic equivalent $\gamma$-ray energy $E_0$ released by
+a GRB explosion can exceed $\sim 10^{54}$ ergs, with apparent isotropic powers $\gtrsim 10^{51}$ ergs s${^-1}$. In comparison, the rest mass energy of a Solar mass of material is $\simeq 2\times 10^{54}$ ergs, and the bolometric luminosity of the universe is $\sim 10^{54}$ ergs s${^-1}$.
+
+
+\subsection{Blast-Wave Deceleration}
+The blast-wave deceleration occurs when the relativistic blast-wave shell from an explosive event sweeps up CBM material at an external shock. The accumulation of swept-up material causes the shell to decelerate. For a uniform spherically symmetric CBM, the mass of swept-up material at radius $x$ is $M_{\rm sw} = 4\pi \mu_0 m_p n_0 x^3/3$, where $n_0$ is the proton density and $\mu_0$ is a factor accounting for the metallicity of the CBM.
+
+The blast wave will start to undergo significant deceleration when an amount of energy comparable to the initial energy $E_0$ in the blast wave is swept up. Looked at from the comoving frame, each proton from the CBM carries with it an amount of energy $\Gamma_0 m_p c^2$ when captured by the blast wave. After capture and isotropization, the amount of energy carried by the blast
+wave from this swept-up proton is $\Gamma_0^2 m_p c^2$ as measured in the stationary frame. The condition $\Gamma_0^2 M_{sw} c^2 = E_0$ gives the deceleration radius
+\begin{align}
+x_d \equiv \left(\dfrac{3E_0}{4\pi \Gamma_0^2 m_p c^2 n_0} \right)^{1/3} \simeq 2.6 \times 10^{16} \left(\dfrac{E_{52}}{\Gamma_{300}^2 n_0} \right)^{1/3} ~\rm cm ~,
+\end{align}
+where $E_0 = E_{52}/10^{52}$ ergs is the total explosion energy including rest mass energy, $\Gamma_{300} = \Gamma_0/300$, and $n_0$ is the CBM proton density in units of cm$^{-3}$.
+
+Differential time elements in the stationary (starred), comoving (primed), and observer (unscripted) reference frames satisfy the relations
+\begin{align}
+\dif x = \beta c \dif t_{\ast} = \beta \Gamma c \dif t^\prime = \beta c \dfrac{\dif t}{(1+z)(1-\beta \mu)} ~,
+\end{align}
+where $\theta = \arccos \mu$ is the angle between the direction of outflow and the observer, and $\dif t = (1+z)\dif t^\prime/\delta_D$. 
+\begin{align}
+\dif t = \dfrac{(1+z)}{c} \dif x (\beta^{-1} -\mu) \simeq \dfrac{(1+z) \dif x}{\Gamma^2 c} ~.
+\end{align}
+The final term in this expression applies to relativistic flows ($\Gamma \gg 1$) observed at $\theta \simeq 1/\Gamma$, assuming that the average emitting region is located at cosine angle $\mu \simeq \beta$ to the line of sight.
+
+The \textcolor{red}{deceleration time as measured by an observer} is
+\begin{align}
+\nonumber t_d &\equiv (1+z) \dfrac{x_d}{\beta_0 \Gamma_0^2 c} \\ 
+&= (1+z) \left(\dfrac{3E_0}{4\pi n_0 m_p c^5 \Gamma_0^8} \right)^{1/3} \simeq \dfrac{9.6(1+z)}{\beta_0} \left(\dfrac{E_{52}}{\Gamma_{300}^8 n_0} \right)^{1/3}  ~\rm s ~,
+\end{align}
+where $z$ is the redshift of the source, and the factor $\beta_0^{-1} = 1/\sqrt{1 -\Gamma_0^{-2}}$ generalizes the original result for mildly relativistic and nonrelativistic supernova explosions. The Sedov radius, giving the distance traveled in a uniform CBM when the shell sweeps up an amount of mass energy comparable to the explosion energy, is given by
+\begin{align}
+\ell_S &= \left(\dfrac{3E_0}{4\pi m_p c^2 n_0} \right)^{1/3} = \Gamma_0^{2/3} x_d \\
+&\simeq 1.2 \times 10^{18} \left(\dfrac{E_{52}}{n_0} \right)^{1/3} ~{\rm cm} \simeq 6.6 \times 10^{18} \left(\dfrac{\mathcal E_\odot}{n_0} \right)^{1/3} ~\rm cm ~,
+\end{align}
+The final term is written in units of $\mathcal E_\odot = E_0/M_\odot c^2$, where $M_\odot$ is the mass of the Sun. For relativistic explosions, $\ell_S$ refers to the radius where the blast wave slows to mildly relativistic speeds, i.e., $\Gamma \sim 2$. The Sedov radius of a SN that ejects a $10 M_\odot$ envelope can reach several pc or more.
+
+
+\subsection{Blast-Wave Equation of Motion}
+The equation describing the momentum $P = \beta \gamma$ of the relativistic blast wave, which changes as a consequence of the blast wave sweeping up material from the surrounding medium and radiating internal energy, is derived.
+
+Applying momentum conservation for the explosion and swept-up mass $m(x)$ gives
+\begin{align}
+\nonumber P\left[M_0 +\int_0^x \dif \tilde{x} \left(\dfrac{\dif m(\tilde{x})}{\dif \tilde{x}} \right) \Gamma(\tilde{x}) \right] & \simeq \beta \Gamma [M_0 +m(x) \Gamma(x)] \\
+& \simeq \beta \Gamma [M_0 +kx^3 \Gamma] \simeq \rm const ~,
+\end{align}
+giving the asymptotes $\Gamma \propto x^{-3/2}$ when $\Gamma_0 \gg \Gamma \gg 1$ and $\beta \propto x^{-3}$ when $\Gamma -1 \ll 1$. For the radiative solution,
+\begin{align}
+\nonumber P\left[M_0 +\int_0^x \dif \tilde{x} \left(\dfrac{\dif m(\tilde{x})}{\dif \tilde{x}} \right) \right] & \simeq \beta \Gamma [M_0 +m(x) ] \\
+& \simeq \beta \Gamma [M_0 +kx^3 ] \simeq \rm const ~,
+\end{align}
+giving the asymptotes $\Gamma \propto x^{-3}$ when $\Gamma_0 \gg \Gamma \gg 1$ and $\beta \propto x^{-3}$ when $\Gamma -1 \ll 1$.
+
+The limits for the adiabatic solution would seem to be obtained through total energy conservation from
+\begin{align}
+\Gamma \left[M_0 +\int_0^x \dif \tilde{x} \Gamma(\tilde{x}) \left(\dfrac{\dif m(\tilde{x})}{\dif \tilde{x}} \right) \right] \simeq \Gamma [M_0 +\Gamma m(x) ] \simeq \Gamma(M_0 +kx^3 \Gamma) \simeq \rm const ~.
+\end{align}
+This gives the correct relativistic asymptote $\Gamma \propto x^{-3/2}$ when $\Gamma_0 \gg \Gamma \gg 1$, but implies that $\beta \propto x^{-3}$ when $\Gamma -1 \ll 1$. The change in internal energy due to adiabatic losses becomes important in the nonrelativistic regime so that this estimate is not valid there.
+
+
+
+
+
+
+
+
+
+\section{RELATIVISTIC SHOCK HYDRODYNAMICS}
+\cite{2009herb.book.....D} Assume idealized shock structures. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{BEAMING BREAKS AND JETS}
+\cite{2009herb.book.....D} An observer will receive most emission from those portions of a GRB blast wave that are within an angle $\sim 1/\Gamma$ to the direction to the observer. As the blast wave decelerates by sweeping up material from the CBM, a break in the light curve will occur when the jet opening half angle $\theta_j$ becomes smaller than $1/\Gamma$. This is due to a change from a spherical blast-wave geometry to a geometry defined by a localized emission region. Assuming that the blast wave
+decelerates adiabatically in a uniform surrounding medium, the condition $\theta_j \simeq 1/\Gamma = \Gamma_0^{-1} (x_{\rm br}/x_d)^{3/2} = \Gamma_0^{-1} (t_{\rm br}/t_d)^{3/8}$ implies
+\begin{align}
+t_{\rm br} \approx 45(1+z) \left(\dfrac{E_{52}}{n_0} \right)^{1/3} \theta_j^{8/3} ~ \rm days ~,
+\end{align}
+from which the jet angle
+\begin{align}
+\theta_j \approx 0.1 \left[\dfrac{t_{\rm br}(d)}{(1+z)} \right]^{3/8} \left(\dfrac{n_0}{E_{52}} \right)^{1/8}
+\end{align}
+can be derived. The beaming angle is only weakly dependent on $n_0$ and $E_0$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{SYNCHROTRON SELF-COMPTON RADIATION}
+\cite{2009herb.book.....D} Electrons cool in the comoving fluid frame by synchrotron and Compton losses. The Compton $y$-parameter
+\begin{align}
+y_C \equiv \dfrac{L_C}{L_{\rm syn}} \simeq \dfrac{U_{\rm syn}}{U_B} ~,
+\end{align}
+gives the ratio of the (synchrotron-self) Compton and synchrotron powers, and the final expression holds for scattering in the Thomson regime.
+
+The total internal energy $U = U_e + U_p + U_B + U_{\rm ph}$ in the shocked fluid shell is found in the form of nonthermal electron and protons/ions, magnetic field, and photons. The electron energy $U_e = \epsilon_e U$, and the magnetic field energy $U_B = \epsilon_B U$. The photon energy
+\begin{align}
+U_{\rm ph} = U_{\rm syn} +U_C = \eta_e \epsilon_e U = \dfrac{\eta_e \epsilon_e U_B}{\epsilon_B} ~,
+\end{align}
+and $\eta_e$ is the radiative efficiency to convert nonthermal electron energy into radiation. In the fast cooling regime, $\gamma_c < \gamma_{\rm min}$, and $\eta_e \simeq 1$. In the slowcooling regime, only electrons with $\gamma > \gamma_c$ cool efficiently. The fractional energy in electrons that stongly cool is $\sim (\gamma_{\rm min}/\gamma_c)^{p-2}$, so
+\begin{align}
+\eta_e = {\rm min} \left[1, \left(\dfrac{\gamma_{\rm min}}{\gamma_c} \right)^{p-2} \right] ~.
+\end{align}
+\begin{align}
+\dfrac{U_{\rm syn}}{U_B} +\dfrac{U_C}{U_{\rm syn}} \dfrac{U_{\rm syn}}{U_B} = y_C +y_C^2 = \dfrac{\eta_{e} \epsilon_e}{\epsilon_B}
+\end{align}
+\begin{align}
+y_C \equiv \dfrac{L_C}{L_{\rm syn}} = \dfrac{-1+\sqrt{1+4\eta_e \epsilon_e/\epsilon_B}}{2} \rightarrow \left\{
+\begin{aligned}
+& \eta_e \epsilon_e/\epsilon_B, & \eta_e \epsilon_e/\epsilon_B \ll 1 ~, \\
+& \sqrt{\eta_e \epsilon_e/\epsilon_B}, & \eta_e \epsilon_e/\epsilon_B \gg 1 ~. \\
+\end{aligned}
+\right.
+\end{align}
+The inclusion of a Compton component in blast-wave afterglow modeling can be used to derive analytic and numerical spectra and light curves. A standard approximation to treat the Compton component analytically is to use the Thomson cross section truncated for scattering in the Klein-Nishina regime. 
+
+
+
+
+\section{THEORY OF THE PROMPT PHASE}
+\cite{2009herb.book.....D} The prompt phase of long-duration GRBs, when they are most luminous, lasts from seconds to minutes at $\sim$ 100 keV-MeV energies, as long as $90$ minutes at $\geqslant 100$ MeV energies, and up to $\sim 10^5$ after the start of a burst for keV X-ray flares found with Swift. 
+
+In the \textcolor{red}{internal shock} model, an active central engine ejects \textcolor{red}{waves of relativistic plasma} that \textcolor{red}{overtake and collide to form shocks}. The shocks accelerate nonthermal particles that radiate high-energy photons. By contrast, in the \textcolor{red}{external shock} model, \textcolor{red}{a single relativistic wave of particles interacts with inhomogeneities in the surrounding medium} to accelerate particles that radiate the prompt $\gamma$-rays.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

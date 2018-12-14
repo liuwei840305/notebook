@@ -1,0 +1,523 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\title{非平衡态统计理论}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2007热力学与统计物理学} 非平衡态统计理论有两个方面：\\
+第一，研究非平衡态的物性，包括：(1) 研究各种(能量、动量、电荷、自旋、粒子等的)输运过程的性质，计算输运系数；(2) 研究弛豫过程的速率(或弛豫率)；(3) 系统在随时间变化的电磁场作用下的动态响应率；(4) 非平衡相变与相变动力学；等等。
+
+第二，理解热力学第二定律关于热现象过程的不可逆性。
+
+\section{气体分子运动论}
+
+平均自由程
+
+
+
+\section{The Bogoliubov-Born-Green-Kirkwood-Yvon hierarchy}
+\cite{2007spp..book.....K} 
+
+
+\section{玻尔兹曼方程的弛豫时间近似}
+\cite{2013热力学} 当气体分子的平均热波长远小于分子间的平均距离，
+\begin{equation}
+\frac{h}{\sqrt{2\pi m kT}} \left(\frac{N}{V} \right)^{1/3}  \ll 1 ~,
+\end{equation}
+可将分子看作经典粒子。
+
+\begin{equation}
+f(\vec{r}, \vec{v}, t) \dif \tau \dif \omega
+\end{equation}
+表示在$t$时刻位于体积元$\dif \tau = \dif x \dif y \dif z$和速度间隔$\dif \omega = \dif v_x \dif v_y \dif v_z$内的分子数。经过$\dif t$时间后，在时刻$t+\dif t$，位于同一体积元$\dif \tau$和速度间隔$\dif \omega$内分子数为
+\begin{equation}
+f(\vec{r}, \vec{v}, t+\dif t) \dif \tau \dif \omega
+\end{equation}
+取$\dif t$足够小，上式作泰勒展开，
+\begin{equation}
+\left[f(\vec{r}, \vec{v}, t) +\frac{\partial f}{\partial t} \dif t \right] \dif \tau \dif \omega
+\end{equation}
+两式相减得在$\dif t$时间内，$\dif \tau \dif \omega$内分子数的增加为
+\begin{equation}
+\frac{\partial f}{\partial t} \dif t \dif \tau \dif \omega
+\end{equation}
+$\dfrac{\partial f}{\partial t} $表示分布函数随时间的变化率。分布函数随时间的变化有两个原因：1.) 分子的运动，分子具有速度使其位置随时间而改变，当存在外场时，分子具有的加速度使分子的速度随时间而改变，二者使$\dif \tau \dif \omega$内的分子数发生改变；2.) 分子间相互碰撞引起分子速度的改变，使$\dif \tau \dif \omega$内的分子数发生改变。
+
+在$\dif t$时间内通过$x$平面中的面积$\dif A = \dif y \dif z \dif v_x \dif v_y \dif v_z$进入$\dif \tau \dif \omega$内的分子数为以$\dif A$为底，以$\dot{x} \dif t$为高的柱体内的分子数
+\begin{equation*}
+(f \dot{x})_x \dif t \dif A
+\end{equation*}
+在$\dif t$时间内通过$x +\dif x$平面而走出$\dif \tau \dif \omega$的分子数为
+\begin{equation*}
+(f \dot{x})_{x+\dif x} \dif t \dif A = \left[(f \dot{x})_x +\frac{\partial (f \dot{x})}{\partial x} \dif x\right] \dif t \dif A
+\end{equation*}
+两式相减，得到通过一对平面$x$和$x +\dif x$进入$\dif \tau \dif \omega$的净分子数为
+\begin{equation*}
+-\frac{\partial (f \dot{x})}{\partial x} \dif x \dif t \dif A = -\frac{\partial (f \dot{x})}{\partial x} \dif t \dif \tau \dif \omega
+\end{equation*}
+类似，在$\dif t$时间内通过一对平面$v_x$和$v_x +\dif v_x$进入$\dif \tau \dif \omega$的净分子数为
+\begin{equation*}
+-\frac{\partial (f \dot{v}_x)}{\partial v_x} \dif t \dif \tau \dif \omega
+\end{equation*}
+在$\dif t$时间内，通过六对平面进入$\dif \tau \dif \omega$的净分子数为
+\begin{eqnarray*}
+-\left[\frac{\partial (f  v_x)}{\partial x} +\frac{\partial (f  v_y)}{\partial y} +\frac{\partial (f  v_z)}{\partial z} +\frac{\partial (f \dot{v}_x)}{\partial v_x} +\frac{\partial (f \dot{v}_y)}{\partial v_y} +\frac{\partial (f \dot{v}_z)}{\partial v_z}  \right] \dif t \dif \tau \dif \omega
+\end{eqnarray*}
+在$\dif t$时间内，由于运动引起的$\dif \tau \dif \omega$内的分子数变化。
+
+由于分子坐标$\vec{r}$和速度$\vec{v}$是相互独立的变量，
+\begin{eqnarray*}
+\frac{\partial v_x}{\partial x} = \frac{\partial v_y}{\partial y} = \frac{\partial v_z}{\partial z} = 0
+\end{eqnarray*}
+设作用于一个分子的外力为$\vec{F} = (m\vec{X}, m\vec{Y}, m\vec{Z})$，$m$是分子的质量，
+\begin{equation}
+\dot{v}_x = X, ~\dot{v}_y = Y, ~\dot{v}_z = Z ~.
+\end{equation}
+假设$\vec{F}$满足条件
+\begin{equation}
+\frac{\partial X}{\partial v_x} + \frac{\partial Y}{\partial v_y} + \frac{\partial Z}{\partial v_z} = 0
+\end{equation}
+于是方程简化为
+\begin{eqnarray*}
+-\left[v_x\frac{\partial f}{\partial x} +v_y \frac{\partial f}{\partial y} +v_z \frac{\partial f}{\partial z} +X \frac{\partial f}{\partial v_x} +Y \frac{\partial f}{\partial v_y} +Z \frac{\partial f}{\partial v_z}  \right] \dif t \dif \tau \dif \omega
+\end{eqnarray*}
+也即由运动引起的分布函数的变化率为
+\begin{eqnarray*}
+-\left[v_x\frac{\partial f}{\partial x} +v_y \frac{\partial f}{\partial y} +v_z \frac{\partial f}{\partial z} +X \frac{\partial f}{\partial v_x} +Y \frac{\partial f}{\partial v_y} +Z \frac{\partial f}{\partial v_z}  \right] 
+\end{eqnarray*}
+假设平衡状态下分子遵从麦克斯韦-玻尔兹曼分布，则局域平衡的分布函数仍为
+\begin{equation}
+f^{(0)}= n \left(\frac{m}{2\pi k T} \right)^{3/2} \exp \left[-\frac{m[\vec{v} -\vec{v}_0]^2}{2k T} \right] ~,
+\end{equation}
+其中$n, T, \vec{v}_0$是坐标$\vec{r}$和时间$t$的缓变函数。分布函数$f$与局域平衡的分布函数$f^{(0)}$存在偏离$f-f^{(0)}$时，分子碰撞将使偏离迅速减小。假设分子碰撞引起偏离的碰撞变化率与偏离成正比，
+\begin{equation}
+\left[\frac{\partial (f-f^{(0)} )}{\partial t} \right]_c = -\frac{f-f^{(0)} }{\tau_0}
+\end{equation}
+积分得到
+\begin{equation}
+f(t) -f^{(0)} = [f(0) -f^{(0)}] e^{-t/\tau_0}
+\end{equation}
+碰撞使分布函数对局域平衡分布函数的偏离经时间$\tau_0$后减少为初始偏离的$e^{-1}$。
+
+$\tau_0$: 局域平衡的弛豫时间，一般是$v$的函数。假设$\tau_0$为常量：$\bar{\tau}_0$，它与分子在两次连续碰撞之间所经历的平均自由时间具有相同的量级。
+
+\textcolor{red}{玻尔兹曼方程的弛豫时间近似}
+\begin{equation}
+\color{red} \frac{\partial f}{\partial t} + v_x\frac{\partial f}{\partial x} +v_y \frac{\partial f}{\partial y} +v_z \frac{\partial f}{\partial z} +X \frac{\partial f}{\partial v_x} +Y \frac{\partial f}{\partial v_y} +Z \frac{\partial f}{\partial v_z} = -\frac{f-f^{(0)} }{\tau_0}
+\end{equation}
+对于定常的状态，$\frac{\partial f}{\partial t} = 0$，
+\begin{equation}
+v_x\frac{\partial f}{\partial x} +v_y \frac{\partial f}{\partial y} +v_z \frac{\partial f}{\partial z} +X \frac{\partial f}{\partial v_x} +Y \frac{\partial f}{\partial v_y} +Z \frac{\partial f}{\partial v_z} = -\frac{f-f^{(0)} }{\tau_0}
+\end{equation}
+
+
+\section{气体的粘滞现象}
+\cite{2013热力学} 
+
+
+
+
+
+
+\section{金属的电导率}
+\cite{2013热力学} 
+
+\section{Boltzmann积分微分方程}
+\cite{2013热力学} 对分布函数的碰撞变化率采用弛豫时间近似，得到的是分布函数$f$的线性方程，在结果中含有弛豫时间$\tau_0$。假设分子是弹性刚球，球的大小和形状在碰撞时不发生变化，在碰撞时两球的相互作用力在两球球心的联线上。该模型叫做\textcolor{red}{弹性钢球模型}。另一个常用的模型是\textcolor{red}{力心点模型}。这两个模型只能考虑平动能在分子之间的交换，不能考虑平动能与转动能和振动能的交换，只适用于单原子分子气体或者假设碰撞中分子内部状态不发生改变。
+
+假设气体是稀薄的，三个或三个以上的分子同时碰在一起的概率很小，只考虑两个分子的碰撞。设两个分子的质量分别为$m_1$和$m_2$，直径分别为$d_1$和$d_2$，碰前的速度分别为$\vec{v}_1(v_{1x}, v_{1y}, v_{1z})$和$\vec{v}_2(v_{2x}, v_{2y}, v_{2z})$，碰后的速度为$\vec{v}^\prime_1(v^\prime_{1x}, v^\prime_{1y}, v^\prime_{1z})$和$\vec{v}^\prime_2(v^\prime_{2x}, v^\prime_{2y}, v^\prime_{2z})$。因为碰撞是弹性的，碰撞前后的动量和动能守恒，
+\begin{align}
+& m_1 \vec{v}_1 +m_2 \vec{v}_2 = m_1 \vec{v}^\prime_1 +m_2 \vec{v}^\prime_2 ~, \\
+& \dfrac{1}{2} m_1 v_1^2 +\dfrac{1}{2} m_2 v_2^2 = \dfrac{1}{2} m_1 v_1^{\prime 2} +\dfrac{1}{2} m_2 v_2^{\prime 2} ~.
+\end{align}
+碰后速度包含两个任意数，这两个任意数的物理意义是碰撞方向的任意性。用$\vec{n}$表示两分子相碰时由第一个分子中心到第二个分子中心的方向，以标志两个分子的碰撞方向。当碰前速度$\vec{v}_1$、$\vec{v}_2$和碰撞方向$\vec{n}$都给定后，碰后速度就完全确定了。
+
+由于碰撞时作用于两分子的力与$\vec{n}$平行或者反平行，两个分子的速度改变也与$\vec{n}$平行或者反平行，
+\begin{align}
+& \vec{v}^\prime_1 - \vec{v}_1 = \lambda_1 \vec{n} ~, \\
+&\vec{v}^\prime_2 - \vec{v}_2 = \lambda_2 \vec{n} ~,
+\end{align}
+\begin{align}
+\nonumber \lambda_1 &= \dfrac{2m_2}{m_1+m_2} (\vec{v}_2 - \vec{v}_1) \cdot \vec{n} ~, \\
+\nonumber \lambda_2 &= -\dfrac{2m_1}{m_1+m_2} (\vec{v}_2 - \vec{v}_1) \cdot \vec{n} ~,
+\end{align}
+\begin{align}
+\vec{v}^\prime_1 &= \vec{v}_1 + \dfrac{2m_2}{m_1+m_2} [(\vec{v}_2 - \vec{v}_1) \cdot \vec{n} ] \vec{n} ~, \\
+\vec{v}^\prime_2 &= \vec{v}_2 - \dfrac{2m_1}{m_1+m_2} [(\vec{v}_2 - \vec{v}_1) \cdot \vec{n} ] \vec{n} ~, 
+\end{align}
+此为碰后速度与碰前速度及碰撞方向的关系。两式相减得到
+\begin{align}
+&\vec{v}^\prime_1 -\vec{v}^\prime_2 = \vec{v}_2 -\vec{v}_1 -2[(\vec{v}_2 - \vec{v}_1) \cdot \vec{n} ] \vec{n} ~, \\
+& (\vec{v}^\prime_1 -\vec{v}^\prime_2)^2 = (\vec{v}_2 -\vec{v}_1)^2 ~,
+\end{align}
+表明相对速率不因碰撞而改变。
+\begin{equation}
+(\vec{v}^\prime_2 -\vec{v}^\prime_1)\cdot \vec{n} =  -(\vec{v}_2 - \vec{v}_1) \cdot \vec{n} ~,
+\end{equation}
+相对速度在碰撞方向$\vec{n}$的投影在碰撞前后改变符号。
+\begin{align}
+\vec{v}_1 &= \vec{v}^\prime_1 + \dfrac{2m_2}{m_1+m_2} [(\vec{v}^\prime_2 - \vec{v}^\prime_1) \cdot (-\vec{n}) ] (-\vec{n}) ~, \\
+\vec{v}_2 &= \vec{v}^\prime_2 - \dfrac{2m_1}{m_1+m_2} [(\vec{v}^\prime_2 - \vec{v}^\prime_1) \cdot (-\vec{n}) ] (-\vec{n}) ~, 
+\end{align}
+若两分子在碰前的速度为$\vec{v}^\prime_1$和$\vec{v}^\prime_2$，碰撞方向为$\vec{n}^\prime = -\vec{n}$，碰后速度就是$\vec{v}_1$和$\vec{v}_2$。这种碰撞称为\textcolor{red}{反碰撞}。
+
+以第一个分子$m_1$的中心为球心，$d_{12} = \dfrac{1}{2}(d_1+d_2)$为半径作一球，叫做\textcolor{red}{虚球}。发生碰撞时，第二个分子$m_2$的中心必位于虚球上。第二个分子对第一个分子的相对速度为$\vec{v}_2-\vec{v}_1$。以$\theta$表示$\vec{v}_1-\vec{v}_2$与碰撞方向$\vec{n}$的夹角($\vec{v}_2-\vec{v}_1$与$\vec{n}$的夹角为$\pi -\theta$)，令$\vec{n} \cdot (\vec{v}_1-\vec{v}_2) = v_r \cos \theta$，其中$v_r = |\vec{v}_2-\vec{v}_1|$是相对速率。只有$0\leqslant \theta \leqslant \dfrac{\pi}{2}$，这两个分子才有可能在$\vec{n}$方向碰撞。
+
+在$\dif t$时间内，第二个分子要在以$\vec{n}$为轴线的立体角$\dif \Omega$内碰到第一个分子上，它必须位于以$\vec{v}_2-\vec{v}_1$为轴线，以$v_r \cos \theta \dif t$为高，以$d^2_{12} \dif \Omega$为底的柱体内，体积为
+\begin{equation}
+d^2_{12} v_r \cos \theta \dif \Omega \dif t ~.
+\end{equation}
+设分布函数是$f(\vec{r}, \vec{v}, t)$，即在时刻$t$位于体积元$\dif \tau$和速度间隔$\dif \omega$内的分子数为$f(\vec{r}, \vec{v}, t) \dif \tau \dif \omega$。这分子数是统计平均值。一个速度为$\vec{v}_1$的分子，在$\dif t$时间内与速度间隔在$\dif \omega_2$内的分子，在以$\vec{n}$为轴线的立体角$\dif \Omega$相碰的次数为
+\begin{equation}
+f_2 \dif \omega_2 d^2_{12} v_r \cos \theta \dif \Omega \dif t  = f_2 \Lambda \dif \omega_2 \dif \Omega \dif t~,
+\end{equation}
+其中$f_2$是$f(\vec{r}, \vec{v}_2, t)$的简写。引入符号$\Lambda$:
+\begin{equation}
+\Lambda  \dif \Omega = d_{12}^2 (\vec{v}_1-\vec{v}_2) \cdot \vec{n} \dif \Omega = d_{12}^2 v_r \cos \theta \dif \Omega ~,
+\end{equation}
+把一个分子的碰撞数乘以$\dif t\dif \omega_1$中的分子数$f_1 \dif \tau \dif \omega_1$，就得到在$\dif t$时间内、在体积元$\dif \tau$内、速度在间隔$\dif \omega_1$内的分子与速度间隔在$\dif \omega_2$内的分子在以$\vec{n}$为轴线的立体角$\dif \Omega$内的碰撞次数为
+\begin{equation}
+f_1 f_2 \dif \omega_1 \dif \omega_2 \Lambda \dif \Omega \dif t \dif \tau ~,
+\end{equation}
+称为\textcolor{red}{元碰撞数}。在元碰撞中，原来速度位于$\dif \omega_1$和$\dif \omega_2$的分子，在以$\vec{n}$为轴线的立体角相碰后，变为速度位于$\dif \omega^\prime_1$和$\dif \omega^\prime_2$的分子。其反碰撞是，原来位于$\dif \omega^\prime_2$的分子，在以$\vec{n}^\prime = -\vec{n}$为轴线的立体角$\dif \Omega$相碰后，变为速度为$\dif \omega_1$和$\dif \omega_2$内的分子。在$\dif t$时间内，在体积元$\dif \tau$内，速度位于$\dif \omega^\prime_1$的分子与速度位于$\dif \omega^\prime_2$在以$\vec{n}^\prime = -\vec{n}$为轴线的立体角$\dif \Omega$碰撞的次数称为\textcolor{red}{元反碰撞数}。元反碰撞数等于
+\begin{equation}
+f^\prime_1 f^\prime_2 \dif \omega^\prime_1 \dif \omega^\prime_2 \Lambda^\prime \dif \Omega \dif t \dif \tau ~,
+\end{equation}
+其中$f^\prime_1$和$f^\prime_2$是$f(\vec{r}, \vec{v}^\prime_1, t)$和$f(\vec{r}, \vec{v}^\prime_2, t)$的简写。$\Lambda^\prime = d_{12}^2 (\vec{v}^\prime_1-\vec{v}^\prime_2) \cdot \vec{n}^\prime$。
+
+由于碰撞，在$\dif t$时间内，在体积元$\dif \tau$内，速度间隔在$\dif \omega_1$内分子数的增加为
+\begin{equation}
+\left(\dfrac{\partial f_1}{\partial t} \right)_c \dif t \dif \omega_1 \dif \tau ~.
+\end{equation}
+须把一切有关的元碰撞数和元反碰撞数都计算进去，即必须对第二个分子的速度和碰撞方向积分。
+\begin{equation}
+\dif \omega^\prime_1 \dif \omega^\prime_2 = |J| \dif \omega_1\dif \omega_2 ~,
+\end{equation}
+其中
+\begin{align}
+\nonumber J &= \dfrac{\partial (v^\prime_{1x}, v^\prime_{1y}, v^\prime_{1z}, v^\prime_{2x}, v^\prime_{2y}, v^\prime_{2z})}{\partial (v_{1x}, v_{1y}, v_{1z}, v_{2x}, v_{2y}, v_{2z}) } ~, \\
+\nonumber &= \renewcommand{\arraystretch}{1.4}
+\begin{vmatrix}
+\dfrac{\partial v^\prime_{1x}}{\partial v_{1x}} & \dfrac{\partial v^\prime_{1x}}{\partial v_{1y}} & \cdots & \dfrac{\partial v^\prime_{1x}}{\partial v_{2z}} \\
+\dfrac{\partial v^\prime_{1y}}{\partial v_{1x}} & \dfrac{\partial v^\prime_{1y}}{\partial v_{1y}} & \cdots & \dfrac{\partial v^\prime_{1y}}{\partial v_{2z}} \\
+\vdots   & \vdots  &            & \vdots \\
+\dfrac{\partial v^\prime_{2z}}{\partial v_{1x}} & \dfrac{\partial v^\prime_{2z}}{\partial v_{1y}} & \cdots & \dfrac{\partial v^\prime_{2z}}{\partial v_{2z}} \\
+\end{vmatrix} \\
+\nonumber |J| &= 1 ~,
+\end{align}
+\begin{align}
+\vec{v}_1 &= \vec{v}^\prime_1 + \dfrac{2m_2}{m_1+m_2} [(\vec{v}^\prime_2 - \vec{v}^\prime_1) \cdot \vec{n} ] \vec{n} ~, \\
+\vec{v}_2 &= \vec{v}^\prime_2 - \dfrac{2m_1}{m_1+m_2} [(\vec{v}^\prime_2 - \vec{v}^\prime_1) \cdot \vec{n} ] \vec{n} ~, 
+\end{align}
+因为$\Lambda^\prime = d_{12}^2 (\vec{v}^\prime_1 -\vec{v}^\prime_2) \cdot \vec{n}^\prime = d_{12}^2 (\vec{v}_1 -\vec{v}_2) \cdot \vec{n} = \Lambda$，元反碰撞数为
+\begin{equation}
+f^\prime_1 f^\prime_2 \dif \omega_1 \dif \omega_2 \Lambda \dif \Omega \dif t \dif \tau ~.
+\end{equation}
+元碰撞使$\dif \omega_1$中的分子数减少，元反碰撞使$\dif \omega_1$中的分子数增加。因碰撞而增加的分子数为
+\begin{align}
+\nonumber & \left(\dfrac{\partial f_1}{\partial t} \right)_c \dif t \dif \tau \dif \omega_1 = \dif t \dif \tau \dif \omega_1 \iint (f^\prime_1 f^\prime_2 - f_1 f_2) \dif \omega_2 \Lambda \dif \Omega ~,  \\
+& \left(\dfrac{\partial f}{\partial t} \right)_c = \dif t \dif \tau \dif \omega_1 \iint (f^\prime_1 f^\prime - f_1 f) \dif \omega_1 \Lambda \dif \Omega
+\end{align}
+此为分布函数的碰撞变化率。
+\begin{equation}
+\color{red} \frac{\partial f}{\partial t} +v_x \dfrac{\partial f}{\partial x} +v_y \dfrac{\partial f}{\partial y}  + v_z \dfrac{\partial f}{\partial z}  +X \dfrac{\partial f}{\partial v_x} +Y \dfrac{\partial f}{\partial v_y} +Z \dfrac{\partial f}{\partial v_z} =\iint (f^\prime f_1^\prime -f f_1) \dif \omega_1 \Lambda \dif \Omega
+\end{equation}
+其中
+\begin{align*}
+\int \dif \omega_1 &= \iiint_{-\infty}^{+\infty} \dif v_{1x} \dif v_{1y} \dif v_{1z} \\
+\int \dif \Omega &= \int_0^{2\pi} \dif \varphi \int_0^{\pi/2} \sin \theta \dif \theta ~.
+\end{align*}
+此为玻尔兹曼积分微分方程，它是分布函数的非线性的积分微分方程。
+\begin{equation}
+\color{red} \frac{\partial f}{\partial t} +\vec{v} \cdot\nabla f +\vec{F} \cdot \nabla_{\vec{v}} f =\iint (f^\prime f_1^\prime -f f_1) \Lambda \dif \vec{v} \dif \Omega
+\end{equation}
+$f=f(\vec{r}, \vec{v}, t)$，而$f^\prime, f_1^\prime, f_1$是同一函数取不同的速度变量$\vec{v}, \vec{v}_1^\prime, \vec{v}_1$
+
+
+在导出Boltzmann积分微分方程时，使用了\textcolor{red}{分子混沌性假设}：在某一时刻$t$，两个分子各处在$\dif \tau_1 \dif \omega_1$和$\dif \tau_2 \dif \omega_2$的概率由双粒子概率分布给出：
+\begin{equation}
+\dfrac{1}{N^2} f(\vec{r}_1, \vec{v}_1, \vec{r}_2, \vec{v}_2, t) \dif \tau_1 \dif \omega_1 \dif \tau_2 \dif \omega_2 ~.
+\end{equation}
+如果两个分子的概率分布相互独立，不存在关联，可分解为单粒子概率分布的乘积：
+\begin{equation}
+\dfrac{f(\vec{r}_1, \vec{v}_1, t) \dif \tau_1 \dif \omega_1}{N} \cdot \dfrac{f(\vec{r}_2, \vec{v}_2, t) \dif \tau_2 \dif \omega_2}{N} ~.
+\end{equation}
+假若两个分子相距足够远，上式是成立的。但在计算分子的元碰撞数和元反碰撞数时，两分子是在力程之内，上述分解只能看作近似性的假设。根据刘维尔方程可以导出$s$个粒子分布函数$f_s(\vec{r}_1 \vec{p}_1, \cdots, \vec{r}_s \vec{p}_s, t)$的运动方程。$f_1(\vec{r} \vec{p}, t)$是通常的分布函数。$f_1$的运动方程含双粒子分布函数$f_2(\vec{r}_1 \vec{p}_1, \vec{r}_2 \vec{p}_2, t)$。$f_2$的运动方程含有三粒子分布函数$f_3(\vec{r}_1 \vec{p}_1, \vec{r}_2 \vec{p}_2, \vec{r}_3 \vec{p}_3, t)$，$\cdots$。结果将导致一个联立方程链。对于含有$N$个粒子的系统，方程链含有$N$个方程。
+
+\cite{2007热力学与统计物理学} 玻尔兹曼微分积分方程是单粒子分布函数时空变化所遵从的基本方程，最初的形式只适用于经典稀薄气体，且要求分子之间相互作用是短程力。
+
+``经典"的含义与``非简并条件"是同一回事，即
+\begin{equation}
+\lambda_T \ll \overline{\delta r} ~,
+\label{eq:classical_condi}
+\end{equation}
+其中$\lambda_T = h/(2\pi m k T)^{1/2}$为粒子的热波长，$\overline{\delta r}$为粒子之间的平均距离，$\overline{\delta r} \sim n^{-1/3}$($n$为气体分子数密度)。当$\lambda_T \ll \overline{\delta r}$时，粒子波包之间的重叠可以忽略，从而量子性质的统计关联可以忽略，无需区分究竟是费米子还是玻色子。对粒子量子态(指平动自由度所相应的态)可以用$(\vec{r}, \vec{p})$描写(称为相空间描写\footnote{更准确地说是``子相空间描写"。})。相空间描写与量子力学不确定关系并不矛盾。按照不确定关系，
+\begin{equation*}
+\Delta r \Delta p \sim \hbar ~,
+\end{equation*}
+即粒子的位置和动量不可能同时精确确定，位置和动量有不确定范围$\Delta r$与$\Delta p$。要能够同时用$(\vec{r}, \vec{p})$来描写粒子的状态，要求
+\begin{align}
+\Delta r &\ll \overline{\delta r} ~, \\
+\Delta p &\ll \overline{p} ~,
+\end{align}
+$\overline{p}$代表粒子热运动的平均动量，
+\begin{equation}
+\overline{\delta r} \gg \Delta r \sim \dfrac{\hbar}{\Delta p} \gg \dfrac{\hbar}{ p} \sim \lambda_T ~,
+\end{equation}
+即
+\begin{equation}
+\overline{\delta r} \gg \lambda_T ~,
+\end{equation}
+其中$\lambda_T \sim \hbar/\overline{p}$。在满足(\ref{eq:classical_condi})的条件下，尽管粒子位置与动量都有一定的不准确度，但它们都非常小，微不足道，这是仍然可以用相空间描述，即用$(\vec{r} \vec{p})$描述粒子的态。
+
+
+
+由于``稀薄"和``短程力"，使分子之间的平均距离$\overline{\delta r}$远大于分子之间相互作用力的力程$d$，即$\overline{\delta r} \gg d$($d$与分子直径同数量级)。气体分子在大部分时间内作自由运动(或在外力作用下运动)，仅当分子之间的距离小到力程作用范围时才发生碰撞。分子之间发生碰撞的时间间隔很短，空间范围($\sim d$)很小。在考虑分布函数的变化时，作为合理的近似，可以把``运动"和``碰撞"引起的变化分开来计算。
+
+
+
+
+``稀薄"和``短程力"使得多体碰撞(三个或三个以上的分子碰撞)的机会远远小于二体碰撞，因而可以忽略。
+
+
+对于系统的非平衡态性质，即使是经典稀薄气体，也必须考虑分子之间相互作用的具体机制(或碰撞机制，即分子之间是如何交换能量和动量的)，这与平衡态理论不同。因为系统平衡态的性质完全由所处的平衡态本身决定，而与如何达到该平衡态的过程(即历史)无关。在平衡态理论中，只要知道相互作用能(对经典稀薄气体，相互作用能可以忽略)，就可以计算配分函数，并进一步计算一切平衡性质，无需知道粒子之间的碰撞机制。非平衡态一般都涉及系统性质随时间、空间的变化，而变化和粒子之间的碰撞机制有关，即使对经典稀薄气体也必须考虑。
+
+忽略分子的内部结构。对于非平衡态，单粒子分布函数$f$除依赖分子质心速度$\vec{v}$外，还依赖于分子质心坐标$\vec{r}$与时间$t$，亦即$f=f(\vec{r}, \vec{v}, t)$，$f=f(\vec{r}, \vec{v}, t) \dif^3 \vec{r} \dif^3 \vec{v}$代表在$t$时刻，分子的质心坐标处于围绕$\vec{r}$的空间体元$\dif^3 \vec{r}$内，速度处于围绕$\vec{v}$的速度空间体元$\dif^3 \vec{v}$内的平均分子数。考查时间从$t$变到$t+\dif t$时，在固定体元$\dif^3 \vec{r} \dif^3 \vec{v}$内平均分子数的变化，
+\begin{equation}
+\{f(\vec{r}, \vec{v}, t+\dif t) - f(\vec{r}, \vec{v}, t)\} \dif^3 \vec{r} \dif^3 \vec{v} = \dfrac{\partial f}{\partial t} \dif t \dif^3 \vec{r} \dif^3 \vec{v} ~.
+\end{equation}
+上式右方平均分子数的变化近似分成两部分之和：一部分是气体分子在外力作用下由于运动引起的变化，称为漂移项；另一部分是由于分子之间的碰撞引起的变化，称为碰撞项，记为
+\begin{equation}
+\dfrac{\partial f}{\partial t} \dif t \dif^3 \vec{r} \dif^3 \vec{v} = \left\{\left( \dfrac{\partial f}{\partial t} \right)_{\rm d} +\left(\dfrac{\partial f}{\partial t} \right)_{\rm c} \right\} \dif t \dif^3 \vec{r} \dif^3 \vec{v} ~.
+\end{equation}
+
+\subsection{漂移项的计算}
+考虑由坐标和速度$(\vec{r}, \vec{v}) = (x,y,z,v_x,v_y,v_z)$构成的六维空间中的体元$\dif^3 \vec{r} \dif^3 \vec{v}$，它是由$x$与$x+\dif x$，$\cdots$，$v_z$与$v_z+\dif v_z$这六对面构成。由于运动，分子的位置与速度都会发生变化，在$t$到$t+\dif t$时间内，$\dif^3 \vec{r} \dif^3 \vec{v}$内分子数的增加值，必定等于通过这六对面净流入的分子数。
+\begin{align}
+\left(\dfrac{\partial f}{\partial t} \right)_{\rm d} \dif t \dif^3 \vec{r} \dif^3 \vec{v} &= - \left\{\dfrac{\partial (\dot{x} f)}{\partial x} +\dfrac{\partial (\dot{y} f)}{\partial y} +\dfrac{\partial (\dot{z} f)}{\partial z} +\dfrac{\partial (\dot{v}_x f)}{\partial v_x} +\dfrac{\partial (\dot{v}_y f)}{\partial v_y} +\dfrac{\partial (\dot{v}_z f)}{\partial v_z} \right\} \dif t \dif^3 \vec{r} \dif^3 \vec{v} \\
+&=  - \left\{\dfrac{\partial}{\partial \vec{r} } \cdot (\vec{v} f) +\dfrac{\partial}{\partial \vec{v} } \cdot (\dot{\vec{v}} f)   \right\} \dif t \dif^3 \vec{r} \dif^3 \vec{v} ~.
+\end{align}
+由于$\vec{r}$与$\vec{v}$是独立变数，
+\begin{equation}
+\dfrac{\partial}{\partial \vec{r} } \cdot (\vec{v} f) = \vec{v} \cdot  \dfrac{\partial f}{\partial \vec{r} } ~.
+\end{equation}
+令$m \vec{\mathcal F} = m(X, Y, Z)$代表分子所受的外力，$m$为分子的质量，$\vec{\mathcal F}$为单位质量所受的力。在考虑分子在外力作用下的运动时不考虑分子之间的相互作用，故
+\begin{equation}
+m \dot{\vec{v}} = m \vec{\mathcal F}  \rightarrow  \dot{\vec{v}} = \vec{\mathcal F} ~.
+\end{equation}
+重力与速度无关。电磁力，若分子带有电荷$e$，电场和磁场强度分别为$\mathcal E$和$\mathcal H$时，电磁力(即洛伦兹力)为
+\begin{equation}
+m \vec{\mathcal F} = e \mathcal E + \dfrac{e}{c} \vec{v} \times \mathcal H ~,
+\end{equation}
+易证明
+\begin{equation}
+\dfrac{\partial}{\partial \vec{v} } \cdot \vec{\mathcal F} = \dfrac{\partial X }{\partial v_x } +\dfrac{\partial Y}{\partial v_y } +\dfrac{\partial Z }{\partial v_z } = 0 ~.
+\end{equation}
+\begin{equation}
+\dfrac{\partial}{\partial \vec{v} } \cdot (\vec{\mathcal F} f) = \vec{\mathcal F} \cdot \dfrac{\partial f}{\partial \vec{v} } ~.
+\end{equation}
+漂移项为
+\begin{equation}
+\left( \dfrac{\partial f}{\partial t} \right)_{\rm d}  \dif t \dif^3 \vec{r} \dif^3 \vec{v} = -\left\{\vec{v} \cdot  \dfrac{\partial f}{\partial \vec{r} }  + \vec{\mathcal F} \cdot \dfrac{\partial f}{\partial \vec{v} }  \right\} \dif t \dif^3 \vec{r} \dif^3 \vec{v}
+\end{equation}
+
+\subsection{碰撞前后速度的变化}
+
+
+
+
+
+
+\section{$H$定理}
+
+
+
+\section{细致平衡原理与平衡态的分布函数}
+$H$定理证明，当达到平衡状态时，分布函数满足
+\begin{equation}
+f_1 f_2 = f_1^\prime f_2^\prime
+\end{equation}
+
+
+局域平衡：整个系统处于非平衡态，各部分的宏观性质是不均匀的，且可以随时间变化；但各个小块（宏观小微观大的小块）可以近似用热力学变数描写。
+
+不可逆过程热力学
+
+密度，温度，宏观流动速度是$\vec{r}$与$t$的函数
+\begin{equation}
+n = n(\vec{r}, t), \\
+T = T(\vec{r}, t), \\
+\vec{v}_0 = \vec{v}_0(\vec{r}, t), \\
+\end{equation}
+
+
+局域的热力学函数
+
+粒子的分布函数也具有局域平衡的形式：
+
+对非简并气体，在局域平衡近似下，粒子的分布函数
+\begin{equation}
+f^{(0)}(\vec{r}, \vec{v}, t) = n(\vec{r}, t) \left(\frac{m}{2\pi k T(\vec{r}, t)} \right)^{3/2} \exp \left[-\frac{m[\vec{v} -\vec{v}_0(\vec{r}, t)]^2}{2k T(\vec{r}, t)} \right] ~,
+\end{equation}
+局域平衡的Maxwell分布，局域平衡分布。
+
+对简并气体
+\begin{equation}
+f^{(0)}(\vec{r}, \vec{p}, t) = \frac{1}{e^{(\varepsilon(\vec{p})-\mu)/kT} \pm 1} ~,
+\end{equation}
+
+
+H定理，分子之间的碰撞是导致平衡的机制。
+
+由于中性分子之间是短程力，碰撞过程本身发生在很小的时空范围内，具有很强的局域性质。
+
+局域平衡就是靠分子之间的碰撞实现的，
+
+而整个系统的平衡需要分子的运动与碰撞共同起作用。
+
+$\tau$ ：局域小块趋于平衡的特征时间，称为小块或局域的弛豫时间。它与分子的平均自由时间（分子相继两次碰撞之间的平均时间）量级相同
+
+$\tau_A$：整个宏观系统趋于平衡的弛豫时间
+
+局域平衡近似成立的条件：$\tau \ll \tau_A$
+
+系统趋于平衡，先局域平衡，再整体平衡。即使维持外部驱动力使系统处于非平衡态，只要宏观变化的特征时间远大于，局域平衡近似仍然成立。
+
+$\lambda$：平均自由程$(\lambda \sim \tau \bar{\nu})$
+
+$\Lambda$：宏观性质变化的特征长度$(\Lambda \sim \tau_A \bar{\nu})$
+
+标准状态下的气体
+
+不满足局域平衡近似
+
+极为稀薄的气体
+
+具有长程力的稀薄等离子体，可以忽略碰撞项，采用无碰撞Boltzmann方程。
+
+弛豫时间近似
+
+把碰撞项线性化
+\begin{equation}
+\left(\frac{\partial f}{\partial t} \right)_{\rm c}  \approx \frac{f-f^{(0)}}{\tau} ~,
+\end{equation}
+$f$: 非平衡态分布函数，$f^{(0)}$: 局域平衡的分布函数，$\tau$: 趋于局域平衡的弛豫时间
+
+
+\section{输运过程}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

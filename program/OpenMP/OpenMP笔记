@@ -1,0 +1,147 @@
+
+OpenMP（四）範例 for
+基本例子
+for 迴圈的平行化是 Heresy 認為最實用的一個；因為只要迴圈內的內容是互相獨立的，就可以透過平行化來加速。最簡單的例子，大概就是：
+
+#pragma omp parallel for
+for( int i = 0; i < 6; ++ i )
+    Test( i );
+
+其中，而用來測試的函式 Test() 內容如下
+
+void Test( int n )
+{
+  for( int i = 0; i < 10000; ++ i )
+    for( int j = 0; j < 100000; ++ j )
+      int x = i ^ i ^ i ^ i;
+  printf( "<T:%d> - %dn", omp_get_thread_num(), n );
+}
+
+裡面的迴圈目的只是要浪費時間而已；輸出的形式會是：<T:thread_id> – n。而這樣程式執行的結果則會是
+
+<T:0> - 0
+<T:1> - 3
+<T:0> - 1
+<T:1> - 4
+<T:0> - 2
+<T:1> - 5
+
+可以看的出來，thread 0 會執行迴圈裡的 0, 1, 2，而 thread 1 則會執行 2, 4, 6 的部份。
+
+在效率上的變化呢？以 Heresy 測試的電腦來說，在平行化前，執行完的時間大約要 17000ms；而在平行化後，則只需要大約 8000ms 的時間（以上的時間是 debug 版測的，release 的話，VC2005 會把那些拖時間的迴圈忽略掉而無法進行比較）。不過其實不是所有的情形都這麼美好的，在微軟的 MSDN 文件也有提到
+
+    如果您在應用程式中只有一個迴圈，而它執行的時間少於 15 毫秒 (根據您電腦上的額外負荷調整)，/openmp 也許就不適當，但如果超過這個時間，倒不妨考慮使用 /openmp。
+
+因此，是否適合將迴圈平行化處理？其實是要看情形、甚至看電腦的。
+
+不能平行化的例子
+
+而前面也有提到，要把迴圏平行化的話，要注意：「迴圈的執行內容必須要互相獨立」。否則會怎樣呢？這裏拿費伯納西數列來當例子（費伯納西數列的基本定義，就是每一項都是前兩項的合）。程式的寫法很簡單，如下：
+
+int F[10];
+F[0] = 0;
+F[1] = 1;
+for( i = 2; i < 10; ++ i )
+    F[i] = F[i-1] + F[i-2];
+for( i = 0; i < 10; ++ i )
+    printf( "%d," , F[i] );
+
+而執行輸出結果就是 0,1,1,2,3,5,8,13,21,34。不過如果把他很直接的透過 OpenMP 平行化的話，程式變成
+
+int Fe[10];
+Fe[0] = 0;
+Fe[1] = 1;
+#pragma omp parallel for num_threads(4)
+for( i = 2; i < 10; ++ i )
+    Fe[i] = Fe[i-1] + Fe[i-2];
+for( i = 0; i < 10; ++ i )
+    printf( "%d," , Fe[i] );
+
+而跑出來的結果，就不見得正確了！像以 Heresy 跑出來的結果就是 0,1,1,2,3,5,-1717986920,1717986916,-4,1717986912。錯誤造成的原因是由於在計算 Fe[6] 的時候，計算 Fe[5] 和 Fe[4] 的 thread 還沒有完成，因此會導致計算的結果不正確；而錯誤不一定會一樣，取決於各 thread 的計算速度。所以像這類的例子，就不適合用來平行化。
+
+平行化的依序執行－ordered
+
+而 ordered 的部份，則是 directive 和 clauses 同時使用。比如說以最簡單的例子
+
+#pragma omp parallel for
+for( int i = 0; i < 6; ++ i )
+    Test( i );
+
+來說，他的執行順序會是
+
+<T:0> - 0
+<T:1> - 3
+<T:0> - 1
+<T:1> - 4
+<T:0> - 2
+<T:1> - 5
+
+而如果加上 ordered 的話，程式變成
+
+#pragma omp parallel for ordered
+for( int i = 0; i < 6; ++ i )
+{
+    #pragma omp ordered
+    Test( i );
+}
+
+執行結果則變成
+
+<T:0> - 0
+<T:0> - 1
+<T:0> - 2
+<T:1> - 3
+<T:1> - 4
+<T:1> - 5
+
+而如果將裡兩項 ordered 其中一項拿掉，都不會有 ordered 的效果。不過值得注意的一點是：本來在平行化後，輸出結果顯示的執行緒編號是 0 和 1 交錯出現，而現在則變成 thread 0 跑完後，再跑 thread 1 了～而在實際運算的時間上，加了 ordered 後，又變到大約 17000ms，和沒有平行化之前相差不大。而 CPU 使用量的部份，在沒有平行化之前的用量大約是 50%（因為是雙核心系統），而平行化後使用量會變成是 100%；但是加上 ordered 後，卻變成 thread 0 在進行的時候，使用量大約是 50%，而開始進行 thread 1 的時候，使用量會變成 100%。所以，其實 Heresy 不大確定對 for 做平行化之後，加上 ordered 有什麼用？
+
+此外，#pragma omp ordered 的功用，應該是將這個被平行化的 for 迴圈，從執行到 ordered directive 這一刻開始，之後的程式都會依序執行。比如說將上面的程式改為
+
+#pragma omp parallel for ordered
+for( int i = 0; i < 6; ++ i )
+{
+    Test( i );
+    #pragma omp ordered
+    Test( 10 + i );
+}
+
+結果會變成
+
+<T:0> - 0
+<T:1> - 3
+<T:0> - 10
+<T:0> - 1
+<T:0> - 11
+<T:0> - 2
+<T:0> - 12
+<T:1> - 13
+<T:1> - 4
+<T:1> - 14
+<T:1> - 5
+<T:1> - 15
+
+可以很清楚的看到，除了輸出結果的第二行外，其他所有的輸出結果，都是依照順序的；這是因為當程式執行到 ordered directive 的時候，已經跑完了 Test(0) 和 Test(3)，所以才會使的他們不是依照順序。此外，他也沒辦法讓迴圈裡的第二次 Test() 都依照順序、Test() 不依照順序。
+
+在將 for 迴圈平行化的時候，其實還有一個 schedule，是可以拿來決定怎麼分割 for 迴圈的執行的。有四個選擇：dynamic、guided、static、runtime；其中，除了 runtime 外都可以指定 chunk_size。各種用法的詳細說明如下：
+
+
+static 	
+OpenMP 會將 for 迴圈的所有 iteration 依序以指定 chunk_size 做切割成數個 chunk；然後再用 round-robin fashion 的方法（不知道這是啥？），將各個 chunk 指定給 thread 去執行。
+如果沒有指定 chunk_size 的話，OpenMP 則會根據 thread 的數目做最平均的分配。
+
+When schedule(static, chunk_size) is specified, iterations are divided into chunks of a size specified by chunk_size. The chunks are statically assigned to threads in the team in a round-robin fashion in the order of the thread number. When no chunk_size is specified, the iteration space is divided into chunks that are approximately equal in size, with one chunk assigned to each thread.
+
+dynamic	和 static 時一樣，OpenMP 會將 for 迴圈的所有 iteration 依序以指定 chunk_size 做切割成數個 chunk。但是 dynamic 時，chunk 的分配方法會是動態的；當 thread 執行完一個 chunk 後，他會在去找別的 chunk 來執行。
+如果沒有指定 chunk_size 的話，chunk_size 會被設定為 1。
+
+When schedule(dynamic, chunk_size) is specified, the iterations are divided into a series of chunks, each containing chunk_size iterations. Each chunk is assigned to a thread that is waiting for an assignment. The thread executes the chunk of iterations and then waits for its next assignment, until no chunks remain to be assigned. Note that the last chunk to be assigned may have a smaller number of iterations. When no chunk_size is specified, it defaults to 1.
+
+guided 	guided 的 chunk 切割方法和 static、dynamic 不一樣；他會以「遞減」的數目，來分割出 chunk。而 chunk 的分配方式，則是和 dynamic 一樣是動態的分配。而遞減的方式，大約會以指數的方式遞減到指定的 chunk_size。
+如果沒有指定 chunk_size 的話，chunk_size 會被設定為 1。
+
+When schedule(guided, chunk_size) is specified, the iterations are assigned to threads in chunks with decreasing sizes. When a thread finishes its assigned chunk of iterations, it is dynamically assigned another chunk, until none remain. For a chunk_size of 1, the size of each chunk is approximately the number of unassigned iterations divided by the number of threads. These sizes decrease approximately exponentially to 1. For a chunk_size with value k greater than 1, the sizes decrease approximately exponentially to k, except that the last chunk may have fewer than k iterations. When no chunk_size is specified, it defaults to 1.
+
+runtime 原則上，這不是一個方法。設定成 runtime 的話，OpenMP 會在執行到的時候，再由環境變數 OMP_SCHEDULE 來決定要使用的方法。
+
+When schedule(runtime) is specified, the decision regarding scheduling is deferred until runtime. The schedule kind and size of the chunks can be chosen at run time by setting the environment variable OMP_SCHEDULE. If this environment variable is not set, the resulting schedule is implementation-defined. When schedule(runtime) is specified, chunk_size must not be specified. 

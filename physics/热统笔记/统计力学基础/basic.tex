@@ -1,0 +1,294 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+
+\title{统计力学基础}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+统计物理学从内容看可以分成三大部分，即平衡态统计理论、 非平衡态统计理论和涨落理论。平衡态统计理论中统计系综理论是普遍的，可以用于任何宏观物体系统。现在平衡态理论的主要发展集中在如何处理相互作用不能忽略的系统，包括相变和临界现象。非平衡态统计理论研究物体处于非平衡态下的性质、各种输 运过程，以及具有基本意义的关于非平衡过程的宏观不可逆性等。涨落现象有两类，一类是围绕平均值的涨落，另一类是 布朗运动.
+
+\section{微观状态的经典描写与量子描写}
+
+\subsection{微观状态的经典描写}
+把组成宏观物体的基本单元称为\textcolor{red}{子系}，它可以 是气体中的分子，固体中的原子，也可以是粒子的某一个自由度， 如双原子分子的振动自由度，磁性原子的自旋自由度，等等。如果子系有$r$个自由度，其微观状态需用$2r$个变量来描写，即$r$个广义坐标$q_1, q_2, \cdots, q_r$和相应的$r$个广义动量$p_1, p_2, \cdots, p_r$。子系的能量表达式一般为坐标和动量的函数：
+\begin{equation}
+\varepsilon = \varepsilon(q_1, q_2, \cdots, q_r; p_1, p_2, \cdots, p_r) ~.
+\end{equation}
+也可以引入几何表示法：将描写子系力学运 动状态的坐标和动量$q_1, q_2, \cdots, q_r; p_1, p_2, \cdots, p_r$作为直角坐标架，构成一个$2r$维空间，称为\textcolor{red}{子相空间}(或\textcolor{red}{$\mu$空间}).这里\textcolor{red}{``相"}的意思是指\textcolor{red}{``运动状态"}。现在，子系的一个力学运动状态对应于子相空间中的一个点，子系运动状态的微小范围用$\dif \omega$表示：
+\begin{equation}
+\dif \omega = \dif q_1 \cdots \dif  q_r \dif p_1 \cdots \dif  p_r ~,
+\end{equation}
+$\dif \omega$称为\textcolor{red}{子相体元}。
+
+
+
+
+
+
+
+
+
+
+
+\subsection{微观状态的量子描写}
+
+
+\subsubsection{全同粒子系统·全同性原理}
+全同粒子是指它们的内禀性质(如质量、电荷、自旋等)完全相同。对于\textcolor{blue}{全同粒子组成的多粒子系统}，量子力学有\textcolor{red}{全同性原理}，其表述为：\textcolor{red}{全同粒子的交换不引起新的系统的量子态，或者说全同粒子是不可分辨的}。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{平衡态统计理论的基本假设：等几率原理}
+宏观量是相应的微观量对微观态的统计平均值。对于处于平衡态下的孤立系，系统各个可能的微观状态出现的几率相等。``可能的微观态"是指孤立系的宏观条件所允许的那些微观态，亦即这些微观态均对应于给定的($E, V, N$)。等几率原理仍然是一条基本假设，是平衡态统计物理学唯一的基本假设
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+平衡态统计力学最初使用的五大公设
+
+1.大数公设 \\
+
+2.全同性公设 \\
+
+3.等几率公设 \\
+
+4.遍历性公设 \\
+
+5.Boltzmann熵公设 \\
+
+引入系综理论后，
+
+1.系综公设 \\
+
+2.等几率公设 \\
+
+3.熵计算公设 \\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

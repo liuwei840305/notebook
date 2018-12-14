@@ -1,0 +1,335 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+\usepackage{harpoon}   %矢量符号
+\usepackage{extarrows}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Markov链}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Markov过程及其概率分布}
+
+由时刻$t_0$系统或过程所处的状态，可以决定系统或过程在时刻$t > t_0$所处的状态，而无需借助于$t_0$以前系统或过程所处状态的历史资料。
+
+\textcolor{red}{马尔可夫性}或\textcolor{red}{无后效性}：过程(或系统)在时刻$t_0$所处的状态为已知的条件下，过程在时刻$t > t_0$所处状态的条件分布与过程在时刻$t_0$之前所处的状态无关。
+
+设随机过程$\{X(t), t\in T \}$的状态空间为$I$。若对时间$t$的任意$n$个数值$t_1 < t_2 < \cdots < t_n, n \geqslant 3, t_i \in T$，在条件$X(t_i) = x_i, x_i \in I, i = 1, 2, \cdots, n -1$下，$X(t_n)$的条件分布函数恰等于在条件$X(t_{n-1}) = x_{n-1}$下$X(t_n)$的条件分布函数，即
+\begin{align}
+\nonumber P\{X(t_n) &\leqslant x_n | X(t_1) = x_1, X(t_2) = x_2, \cdots, X(t_{n-1}) = x_{n-1} \} \\
+& = P\{X(t_n) \leqslant x_n | X(t_{n-1}) = x_{n-1} \} ~, x_n \in \vec{R} ~,
+\end{align}
+或
+\begin{equation*}
+F_{t_n|t_1 \cdots t_{n-1}}(x_n, t_n | x_1, x_2, \cdots, x_{n-1}; t_1, t_2, \cdots, t_{n-1}) = F_{t_n|t_{n-1}} (x_n, t_n | x_{n-1}, t_{n-1})
+\end{equation*}
+称过程$\{X(t), t\in T \}$具有马尔可夫性或无后效性，并称此过程为\textcolor{red}{马尔可夫过程}。
+
+时间和状态都是离散的马尔可夫过程称为\textcolor{red}{马尔可夫链}，简称马氏链，记为$\{X_n = X(n), n = 0, 1, 2, \cdots \}$，它可以看作在时间集$T_1 = \{0, 1, 2, \cdots \}$上对离散状态的马氏过程相继观察的结果。记链的状态空间为$I = \{a_1, a_2, \cdots \}, a_i \in \vec{R}$。在链的情况下，马尔可夫性用条件分布律表示，即对任意的正整数 $n, r$和$0 \leqslant t_1 < t_2 < \cdots < t_r < m; t_i, m , n+m \in T_1$，有
+\begin{align}
+& P\{X_{m+n} = a_j | X_{t_1} = a_{i_1}, X_{t_2} = a_{i_2}, \cdots, X_{t_r} = a_{i_r}, X_{m} = a_{i} \} \\
+& = P\{X_{m+n} = a_j | X_m = a_i \}  = P_{ij}(m, m+n) ~,
+\end{align}
+其中$a_i \in I$。称条件概率
+\begin{equation*}
+ P_{ij}(m, m+n) = P\{X_{m+n} = a_j | X_m = a_i \} ~,
+\end{equation*}
+为马氏链在时刻$m$处于状态$a_i$条件下，在时刻$m+n$转移到状态$a_j$的\textcolor{red}{转移概率}。
+
+由于链在时刻$m$从任何一个状态$a_i$出发，到另一时刻$m+n$，必然转移到$a_1, a_2, \cdots$诸状态中的某一个，
+\begin{equation}
+\sum_{j=1}^{+\infty} = P_{ij}(m, m+n) = 1, ~~ i = 1, 2, \cdots ~.
+\end{equation}
+由转移概率组成的矩阵$\vec{P}(m, m+n) = (P_{ij}(m, m+n) )$称为马氏链的\textcolor{red}{转移概率矩阵}。此矩阵的每一行元之和等于$1$。
+
+当转移概率$P_{ij}(m, m+n)$只与$i, j$以及时间间距$n$有关时，记为$P_{ij}(n)$，即
+\begin{equation}
+P_{ij}(m, m+n) = P_{ij}(n) ~,
+\end{equation}
+称此转移概率具有\textcolor{red}{平稳性}。也称此链是\textcolor{red}{齐次的}，或\textcolor{red}{时齐的}。
+
+在齐次马氏链情况下，转移概率
+\begin{equation}
+P_{ij}(n) = P\{X_{m+n} = a_j | X_m = a_i \} ~,
+\end{equation}
+称为马氏链的$n$步转移概率，$\vec{P}(n) = (P_{ij}(n))$为$n$步转移概率矩阵。
+
+一步转移概率
+\begin{equation}
+P_{ij} = P_{ij}(1) = P\{X_{m+1} = a_j | X_m = a_i \} ~,
+\end{equation}
+一步转移概率矩阵
+\begin{equation*}
+\renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+p_{11} & p_{12} & \cdots & p_{1j} & \cdots \\
+p_{21} & p_{22} & \cdots & p_{2j} & \cdots \\
+\vdots   & \vdots  &            & \vdots \\
+p_{i1} & p_{i2} & \cdots & p_{ij} & \cdots \\ 
+\vdots   & \vdots  &            & \vdots \\
+\end{pmatrix}
+ = \vec{P}(1) = \vec{P} ~.
+\end{equation*}
+
+
+
+
+
+
+
+
+
+齐次马氏链的有限维分布：记
+\begin{equation*}
+p_j(0) = P\{X_0 = a_j \} ~, ~~ a_j \in I, ~ j = 1, 2, \cdots, 
+\end{equation*}
+称它为马氏链的初始分布。马氏链在任一时刻$n \in T_1$的一维分布：
+\begin{equation*}
+p_j(n) = P\{X_n = a_j \} ~, ~~ a_j \in I, ~ j = 1, 2, \cdots.
+\end{equation*}
+
+
+写成行向量
+\begin{equation}
+\vec{p}(n) = (p_1(n), p_2(n), \cdots, p_j(n), \cdots)
+\end{equation}
+
+\begin{equation}
+\vec{p}(n) = \vec{p}(0) \vec{P}(n)  ~.
+\end{equation}
+马氏链在任一时刻$n \in T_1$时的一维分布由初始分布$\vec{p}(0)$和$n$步转移概率矩阵所确定。
+
+
+马氏链的有限维分布同样完全由初始分布和转移概率所确定。
+
+转移概率决定了马氏链运动的统计规律。
+
+
+\section{多步转移概率的确定}
+设$\{X(n), n = 0, 1, 2, \cdots \}$是一齐次马氏链，则对任意的$u, v \in T$，有
+\begin{equation}
+P_{ij} (u +v) = \sum_{k=1}^{+\infty} P_{ik}(u) P_{kj}(v) ~, ~~ i, j = 1, 2, \cdots 
+\end{equation}
+此为Chapman-Kolmogorov方程，简称C-K方程。C-K方程基于下述事实，即``从时刻$s$所处的状态$a_i$，即$X(s) = a_i$出发，经时段$u+v$转移到状态$a_j$，即$X(s+u+v) = a_j$"这一事件可分解为``从$X(s) = a_i$出发，先经时段$u$转移到中间状态$a_k(k = 1, 2, \cdots)$，再从$a_k$经时段$v$转移到状态$a_j$"这样一些事件的和事件。
+
+C-K方程也可以写成矩阵形式：
+\begin{equation}
+\vec{P} (u +v) = \vec{P} (u) \vec{P} (v) ~.
+\end{equation}
+令$u = 1, v = n-1$，
+\begin{equation}
+\vec{P} (n) = \vec{P} (1) \vec{P} (n-1) = \vec{P}\vec{P}(n-1) = \cdots = \vec{P}^n ~.
+\end{equation}
+对于齐次马氏链，$n$步转移概率矩阵是一步转移概率矩阵的$n$次方。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{遍历性}
+
+
+
+一般，设齐次马氏链的状态空间为$I$，若对于所有$a_i, a_j \in I$，转移概率$P_{ij}(n)$存在极限
+\begin{equation*}
+\underset{n\rightarrow \infty}\lim P_{ij}(n) = \pi_j  ~~~ (\text{不依赖于}~ i)
+\end{equation*}
+或
+\begin{equation*}
+\vec{P} (n) = \vec{P}^n  \xlongrightarrow{(n\rightarrow +\infty)} \renewcommand{\arraystretch}{0.7}
+\begin{pmatrix}
+\pi_{1} & \pi_{2} & \cdots & \pi_{j} & \cdots \\
+\pi_{1} & \pi_{2} & \cdots & \pi_{j} & \cdots \\
+\vdots   & \vdots  &            & \vdots \\
+\pi_{1} & \pi_{2} & \cdots & \pi_{j} & \cdots \\ 
+\vdots   & \vdots  &            & \vdots \\
+\end{pmatrix}
+\end{equation*}
+则称此链具有\textcolor{red}{遍历性}。又若$\sum_j \pi_j = 1$，则同时称$\vec{\pi} = (\pi_1, \pi_2, \cdots)$为链的\textcolor{red}{极限分布}。
+
+有限链的遍历性的一个充分条件
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设齐次马氏链$\{X_n, n \geqslant 1 \}$的状态空间为$I = \{a_1, a_2, \cdots, a_N \}$，$\vec{P}$是它的一步转移概率矩阵，若存在正整数$m$，使对任意的$a_i, a_j \in I$，都有
+\begin{equation}
+P_{ij} (m) > 0 ~, ~~~ i , j = 1, 2, \cdots, N ~,
+\end{equation}
+则此链具有遍历性，且有极限分布$\vec{\pi} = (\pi_1, \pi_2, \cdots, \pi_N)$，它是方程组
+\begin{equation}
+\vec{\pi} = \vec{\pi} \vec{P} ~~\text{或即} ~~ \pi_j = \sum_{i=1}^N \pi_i p_{ij} ~, ~~ j = 1, 2, \cdots, N ~
+\end{equation}
+的满足条件
+\begin{equation}
+\pi_j > 0 ~, \sum_{j=1}^N = 1 
+\end{equation}
+的唯一解。
+\end{tcolorbox}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

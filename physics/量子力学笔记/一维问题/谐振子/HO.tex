@@ -1,0 +1,261 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Harmonic Oscillator}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Harmonic Oscillator}
+\cite{schwabl2010quantum} The Hamiltonian of the classical harmonic oscillator with mass $m$ and frequency $\omega$ is
+\begin{equation}
+H = \dfrac{p^2}{2m} +\dfrac{m\omega^2}{2} x^2 ~.
+\end{equation}
+The time independent Schr\"odinger equation is
+\begin{equation}
+\left[-\dfrac{\hbar^2}{2m} \dfrac{\dif^2}{\dif x^2} + \dfrac{m\omega^2}{2} x^2 \right] \psi(x) = E \psi(x) ~,
+\end{equation}
+and it contains
+\begin{equation}
+x_0 = \sqrt{\dfrac{\hbar}{\omega m}}
+\end{equation}
+as a characteristic length. The standard method of analysis for the solution of the differential equation subject to the auxiliary condition that \textcolor{red}{$\psi(x)$ be square integrable leads to the Hermite polynomials}. Here we
+would like to use an algebraic method in which we try to represent $H$ as the (absolute) square of an operator. 
+
+Define the \textcolor{yellow}{non-Hermitian operator} $a$ by
+\begin{align}
+a &= \dfrac{\omega m x +ip}{\sqrt{2\omega m \hbar}} ~, \\
+a^\dagger &= \dfrac{\omega m x -ip}{\sqrt{2\omega m \hbar}} ~,
+\end{align}
+and, inverting these relations, we obtain
+\begin{align}
+x &= \sqrt{\dfrac{\hbar}{2\omega m}} (a +a^\dagger) ~, \\
+p &= -i\sqrt{\dfrac{\hbar \omega m}{2}} (a -a^\dagger) ~.
+\end{align}
+From the commutators for $x$ and $p$,
+\begin{equation}
+[a, a^\dagger] = 1 ~,
+\end{equation}
+while $a$ and $a^\dagger$ commute with themselves. With the characteristic length $x_0$, one obtains
+\begin{align}
+a &= \dfrac{1}{\sqrt{2}} \left( \dfrac{x}{x_0} +x_0 \dfrac{\dif}{\dif x} \right) ~, \\
+a^\dagger &= \dfrac{1}{\sqrt{2}} \left( \dfrac{x}{x_0} -x_0 \dfrac{\dif}{\dif x} \right) ~.
+\end{align}
+One gets for the Hamiltonian
+\begin{equation}
+H = \dfrac{1}{2} \hbar \omega (a^\dagger a +a a^\dagger) = \hbar \omega \left(a^\dagger a +\dfrac{1}{2} \right) ~.
+\end{equation}
+This reduces the problem to that of finding the eigenvalues of the occupation number operator
+\begin{equation}
+\hat{n} = a^\dagger a ~.
+\end{equation}
+Let $\psi_\nu$ be eigenfunctions with eigenvalue $\nu$:
+\begin{equation}
+\hat{n} \psi_\nu = \nu \psi_\nu ~.
+\end{equation}
+
+
+\section{The Zero-Point Energy}
+\cite{schwabl2010quantum} 
+
+
+
+\section{Coherent States}
+\cite{schwabl2010quantum} The position expectation value vanishes for the stationary states, i.e., $\langle x \rangle = 0$; these states therefore individually have nothing in common with the classical oscillatory motion.
+
+
+
+
+
+\section{Fermionic Oscillator}
+\cite{das2006field}  There are two kinds of particles in nature, namely, bosons and fermions. They are described by quantum mechanical operators with very different properties. The operators describing bosons, obey commutation relations whereas the fermionic operators (i.e., operators describing fermions) satisfy anti-commutation relations.
+
+The bosonic harmonic oscillator in one dimension with a natural frequency $\omega$ has a Hamiltonian which, written in terms of creation and annihilation operators, takes the form
+\begin{equation}
+H_B = \dfrac{\omega}{2} \left(a_B^\dagger a_B +a_B a_B^\dagger \right) ~,
+\end{equation}
+here assume that $\hbar = 1$. The creation and the annihilation operators are supposed to satisfy the commutation
+relations
+\begin{equation}
+[a_B, a_B^\dagger] = 1 ~,
+\end{equation}
+with all others vanishing. The symmetric structure of the Hamiltonian, in this case, is a reflection of the fact that we are dealing with Bose particles and, consequently, the states must have a symmetric form.
+
+Fermionic systems have an inherent antisymmetry. A Hamiltonian for a fermionic oscillator with frequency $\omega$ is
+\begin{equation}
+H_F = \dfrac{\omega}{2} \left(a_F^\dagger a_F -a_F a_F^\dagger \right) ~,
+\end{equation}
+If $a_F$ and $a_F^\dagger$ were to satisfy commutation relations like the Bose oscillator, namely, if we had
+\begin{equation}
+[a_F, a_F^\dagger] = 1 ~,
+\end{equation}
+with all others vanishing, then using this, we can rewrite the fermionic Hamiltonian to be
+\begin{equation}
+H_F = \dfrac{\omega}{2} \left(a_F^\dagger a_F -\left(a_F^\dagger a_F +1 \right) \right) = -\dfrac{\omega}{2} ~.
+\end{equation}
+In such a case, there would be no dynamics associated with the Hamiltonian. Assume that the fermionic operators $a_F$ and $a_F^\dagger$ instead satisfy anti-commutation relations.
+\begin{align}
+[a_F, a_F]_+ &\equiv a_F^2 +a_F^2 = 2a_F^2 = 0 ~, \\
+[a_F^\dagger, a_F^\dagger]_+ &\equiv (a_F^\dagger)^2 +(a_F^\dagger)^2 = 2(a_F^\dagger)^2 = 0 ~, \\
+[a_F, a_F^\dagger]_+ &\equiv a_F a_F^\dagger +a_F^\dagger a_F = 1 = [a_F^\dagger, a_F]_+ ~.
+\end{align}
+In contrast to the commutators, therefore, the anti-commutators are by definition symmetric. in such a system, the particles must obey Fermi-Dirac statistics.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

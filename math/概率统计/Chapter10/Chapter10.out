@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Concepts of nonparametric inference}{}% 1
+\BOOKMARK [1][-]{section.2}{Tests of Goodness-of-Fit}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{The 2 Test}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Goodness-of-Fit for Composite Hypotheses}{}% 4
+\BOOKMARK [1][-]{section.4}{Contingency Tables}{}% 5
+\BOOKMARK [1][-]{section.5}{Tests of Homogeneity}{}% 6
+\BOOKMARK [1][-]{section.6}{Simpson’s Paradox}{}% 7
+\BOOKMARK [1][-]{section.7}{Kolmogorov-Smirnov Tests}{}% 8
+\BOOKMARK [2][-]{subsection.7.1}{The Sample Distribution Function}{section.7}% 9
+\BOOKMARK [2][-]{subsection.7.2}{The Kolmogorov-Smirnov Test of a Simple Hypothesis}{section.7}% 10
+\BOOKMARK [1][-]{section.8}{Robust Estimation}{}% 11
+\BOOKMARK [1][-]{section.9}{Sign and Rank Tests}{}% 12
+\BOOKMARK [1][-]{section.10}{Univariate problems}{}% 13
+\BOOKMARK [2][-]{subsection.10.1}{Kolmogorov–Smirnov and other e.d.f. tests}{section.10}% 14
+\BOOKMARK [2][-]{subsection.10.2}{Robust statistics of location}{section.10}% 15
+\BOOKMARK [1][-]{section.11}{Non-parametric tests: single samples}{}% 16
+\BOOKMARK [2][-]{subsection.11.1}{Chi-square test}{section.11}% 17
+\BOOKMARK [2][-]{subsection.11.2}{Kolmogorov-Smirnov one-sample test}{section.11}% 18
+\BOOKMARK [1][-]{section.12}{Non-parametric tests: two independent samples}{}% 19
+\BOOKMARK [2][-]{subsection.12.1}{Chi-square two-sample \(or k-sample\) test}{section.12}% 20
+\BOOKMARK [2][-]{subsection.12.2}{Kolmogorov-Smirnov two-sample test}{section.12}% 21

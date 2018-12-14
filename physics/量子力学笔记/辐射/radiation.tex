@@ -1,0 +1,275 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{The Quantum Theory of Radiation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{The Euler-Lagrange Equations}
+\cite{2015lqm..book.....W} The \textcolor{red}{canonical variables $q_N(t)$ in general field theories are fields $\psi_n(\vec{x}, t)$}, for which $N$ is a compound index, including a discrete label $n$ indicating the type of field and a spatial coordinate $\vec{x}$. Correspondingly, the \textcolor{red}{Lagrangian $L(t)$ is a functional of $\psi_n(\vec{x},t)$ and $\dot{\psi}_n(\vec{x},t)$}, depending on the form of all of the functions $\psi_n(\vec{x},t)$ and $\dot{\psi}_n(\vec{x},t)$ for all $\vec{x}$, but at a \textcolor{red}{fixed time $t$}. In consequence, the partial derivatives with respect to $q_N$ and $\dot{q}_N$ in the equations of motion must be interpreted as \textcolor{red}{functional derivatives with respect to $\psi_n(\vec{x},t)$ and $\dot{\psi}_n(\vec{x},t)$}, so that these equations read
+\begin{equation}
+\dfrac{\partial}{\partial t} \left(\dfrac{\delta L(t)}{\delta \dot{\psi}_n(\vec{x},t)} \right) = \dfrac{\delta L(t)}{\delta \psi_n(\vec{x},t)}
+\end{equation}
+where the functional derivatives $\delta L /\delta \dot{\psi}_n$ and $\delta L /\delta \psi_n$ are defined so that the \textcolor{red}{change in the Lagrangian produced by independent infinitesimal changes $\delta \psi_n(\vec{x},t)$ and $\delta \dot{\psi}_n(\vec{x},t)$ in $\psi_n(\vec{x},t)$ and $\dot{\psi}_n(\vec{x},t)$ at a fixed time $t$} is
+\begin{equation}
+\delta L(t) = \sum_n \int \dif^3 x \left[\dfrac{\delta L(t)}{\delta \psi_n(\vec{x},t)} \delta \psi_n(\vec{x},t) +\dfrac{\delta L(t)}{\delta \dot{\psi}_n(\vec{x},t)} \delta \dot{\psi}_n(\vec{x},t) \right] ~.
+\end{equation}
+The canonical conjugate to $\psi_n(\vec{x},t)$ is
+\begin{equation}
+\pi_n(\vec{x},t) = \dfrac{\delta L(t)}{\delta \dot{\psi}_n(\vec{x},t)}  ~,
+\end{equation}
+and in a theory with no constraints, the canonical commutation relations are
+\begin{align}
+& [\psi_n(\vec{x},t), \pi_m(\vec{y},t)] = i\hbar \delta_{nm} \delta^3(\vec{x} -\vec{y}) ~, \\
+& [\psi_n(\vec{x},t), \psi_m(\vec{y},t)] = [\pi_n(\vec{x},t), \pi_m(\vec{y},t)] = 0 ~. 
+\end{align}
+Typically (though not always), the Lagrangian in a field theory will be an integral of a \textcolor{red}{local Lagrangian density $\mathcal L$}:
+\begin{equation}
+L(t) = \int \dif^3 x \mathcal L \left(\psi(\vec{x},t), \nabla \psi(\vec{x},t), \dot{\psi}(\vec{x},t) \right) ~.
+\end{equation}
+The variation of the Lagrangian action due to infinitesimal changes in the $\psi_n$ and their space and time derivatives that vanish for $|\vec{x}| \rightarrow \infty$ is
+\begin{equation*}
+\delta L(t) = \int \dif^3 x \sum_n \left[\dfrac{\partial \mathcal L}{\partial \psi_n} \delta \psi_n +\sum_i \dfrac{\delta \mathcal L}{\partial (\partial_i \psi_n)} \dfrac{\partial}{\partial x_i}\delta \psi_n + \dfrac{\partial \mathcal L}{\delta \dot{\psi}_n} \dfrac{\partial}{\partial t} \delta \psi_n   \right] ~.
+\end{equation*}
+Integrating by parts, 
+\begin{equation}
+\delta L(t) = \int \dif^3 x \sum_n \left[\left( \dfrac{\partial \mathcal L}{\partial \psi_n} -\sum_i \dfrac{\partial}{\partial x_i} \dfrac{\partial \mathcal L}{\partial (\partial_i \psi_n)} \right) \delta \psi_n + \dfrac{\partial \mathcal L}{\delta \dot{\psi}_n} \dfrac{\partial}{\partial t} \delta \psi_n   \right] ~.
+\end{equation}
+This may be expressed as formulas for the variational derivatives of the Lagrangian
+\begin{align}
+& \dfrac{\delta L}{\delta \psi_n} = \dfrac{\partial \mathcal L}{\partial \psi_n} -\sum_i \dfrac{\partial}{\partial x_i} \dfrac{\partial \mathcal L}{\partial (\partial_i \psi_n)} ~, \\
+& \dfrac{\delta L}{\delta \dot{\psi}_n} = \dfrac{\partial \mathcal L}{\partial \dot{\psi}_n} ~.
+\end{align}
+The Euler-Lagrange field equations are
+\begin{equation}
+\dfrac{\partial \mathcal L}{\partial \psi_n} -\sum_i \dfrac{\partial}{\partial x_i} \dfrac{\partial \mathcal L}{\partial (\partial_i \psi_n)} = \dfrac{\partial}{\partial t}\dfrac{\partial \mathcal L}{\partial \dot{\psi}_n} ~.
+\end{equation}
+In relativistically invariant theories,
+\begin{equation}
+\dfrac{\partial \mathcal L}{\partial \psi_n} = \sum_\mu \dfrac{\partial}{\partial x^\mu}\dfrac{\partial \mathcal L}{\partial (\partial_\mu \psi_n)} ~.
+\end{equation}
+In theories with a local Lagrangian density, the field variable that is canonically conjugate to $\psi_n(\vec{x}, t)$ is
+\begin{equation}
+\pi_n = \dfrac{\delta L}{\delta \dot{\psi}_n} = \dfrac{\partial \mathcal L}{\partial \dot{\psi}_n} ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

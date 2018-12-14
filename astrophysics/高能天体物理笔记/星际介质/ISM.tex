@@ -1,0 +1,208 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amssymb}
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Interstellar gas and magnetic  fields}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{The interstellar medium in the life cycle of stars}
+The mass of the interstellar gas amounts to about $5\%$ of the visible mass of our Galaxy. In the Galactic plane close to the Sun, the overall gas density is to about $10^6$ particles m$^{-3}$, but there are very wide variations in density and temperature from place to place throughout the interstellar medium.
+
+\section{neutral interstellar gas}
+
+\subsection{Neutral hydrogen : 21-cm line emission and absorption}
+Neutral hydrogen emits line radiation at a frequency \textcolor{red}{$\nu_0 = 1420.4058$ MHz} (\textcolor{red}{$\lambda_0 = 21.1$ cm}) through an almost totally forbidden hyperfine transition in which the \textcolor{cyan}{spins of the electron and proton change from being parallel to antiparallel}. The spontaneous transition probability is \textcolor{cyan}{$A_{21} = 2.85 \times 10^{-15}$ s$^{-1}$} for the \textcolor{cyan}{ground state of hydrogen}, that is, about once every \textcolor{cyan}{$10^7$ years}. Because there are two possible orientations of the spins of both the electron and the proton, there are \textcolor{cyan}{four stationary states}, \textcolor{cyan}{three degenerate in the upper state} and \textcolor{cyan}{one in the lower state}. \textcolor{orange}{Because of the very small transition probability, collisions and other processes have time to establish an equilibrium distribution of hydrogen atoms in the upper and lower states}, labelled $2$ and $1$, respectively, and so the ratio of the number of atoms in these states is given by the Boltzmann distribution $N_2/N_1 = (g_2/g_1) \exp(−h\nu_0/kT)$. $T$ is the excitation temperature, i.e. \textcolor{red}{spin temperature $T_s$}. $g_2$ and $g_1$ are the statistical weights of the upper and lower levels, $g_2/g_1 = 3$. Under all cosmic conditions $h\nu_0/k = 7 \times 10^{-2}$ K $\ll T_s$ and therefore $N_2/N_1 = 3$.
+
+If the emitting region is optically thin, only spontaneous emission need be considered and so the emissivity $\kappa_{21}$ of the gas is
+\begin{equation}
+\kappa = \frac{g_2}{g_2+g_1} N_{\rm H} A_{21} h \nu_0 = \frac{3}{4} N_{\rm H} A_{21} h \nu_0
+\end{equation}
+where NH is the number density of neutral hydrogen atoms.
+If the neutral hydrogen is distributed along the line of sight from the observer, the fluxdensity received within solid angle $\Omega$, say, the solid angle subtended by the beam of the radio telescope, is
+\begin{eqnarray}
+\nonumber S &=& \int \frac{\kappa_{21}(r)}{4\pi r^2} \Omega r^2 \dif r ~, \\
+I &=& \frac{S}{\Omega} = \frac{3}{16} A_{21} h \nu_0 \int N_{\rm H} \dif r ~.
+\end{eqnarray}
+
+where $r$ is distance along the line of sight. $I = S/\Omega$  is the intensity of radiation in that direction and is a measure of the total column density of neutral hydrogen along the line of sight $\int N_{\rm H} \dif r$. In this calculation I is measured in W m$^{-2}$ and is equal to the integral of the intensity of radiation per unit bandwidth $I_\nu$ over the line profile $I = \int I_\nu \dif \nu$. 
+Because of its very small transition probability, the natural linewidth of the 21-cm line is very narrow. If the neutral hydrogen is in motion relative to the observer, Doppler shifts of the 21-cm line emission can be readily measured by making observations with a multi-channel 21-cm line receiver. This provides a very powerful tool for investigating the dynamics of neutral hydrogen in our own and in other galaxies.
+
+
+\subsection{Molecular radio lines}
+
+
+\subsection{Optical and ultra violet absorption lines}
+
+
+\subsection{X-ray absorption}
+
+
+\section{Ionised interstellar gas}
+
+
+\subsection{Thermal bremsstrahlung}
+
+
+\subsection{Permitted and forbidden transitions in gaseous nebulae}
+
+
+\subsection{The dispersion measure of pulsars}
+
+
+
+\subsection{Faraday rotation of linearly polarised radio signals}
+
+
+
+\section{Interstellar dust}
+
+
+
+\section{An overall picture of the interstellar gas}
+
+
+\subsection{Large scaled ynamics}
+
+
+\subsection{Heating mechanisms}
+
+
+\subsection{Cooling mechanisms}
+
+
+\subsection{The overall state of the interstellar gas}
+
+
+\section{Star formation}
+
+
+
+\subsection{The initial mass function and the Schmidt–Kennicutt law}
+
+
+\subsection{Regions of star formation}
+
+
+
+\subsection{Issues in the theory of star formation}
+
+
+\section{The Galactic magnetic field}
+
+
+
+
+\subsection{Faraday rotation in the interstellar medium}
+
+
+
+\subsection{Optical polarisation of starlight}
+
+
+
+\subsection{Radio emission of spinning dust grains}
+
+
+
+\subsection{Zeeman splitting of 21-cm line radiation}
+
+
+\subsection{The radio emission from the Galaxy}
+
+\subsection{Summary of the information on the Galactic magnetic field}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

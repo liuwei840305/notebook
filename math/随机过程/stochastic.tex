@@ -1,0 +1,340 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Stochastic Processes in Physics}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Random Variables}
+A quantity that, under given conditions, can assume different values is a random variable. We distinguish between systematic error and random variation. The former can, in principle, be understood and quantified and thereby controlled or eliminated. Truly random sources of variation cannot be associated with determinate phys- ical causes and are often too small to be directly observed. Yet, unnoticeably small and unknown random influences can have noticeably large effects. The time evolution of a random variable is called a random or stochastic process. $X(t)$ denotes a stochastic process.
+
+A sure variable is exactly determined by given conditions. The time evolution of a sure variable is called a deterministic process and could be denoted by $x(t)$. 
+
+
+\section{Expected Values}
+The expected value of a random variable $X$ is a function that turns the probabilities $P(x)$ into a sure variable called the mean of $X$.
+\begin{equation}
+\langle X \rangle = \sum_i x_i P(x_i) ~,
+\end{equation}
+where the sum is over all possible realizations $x_i$ of $X$. Any algebraic function $f(x)$ of a random variable $X$ is also a random variable. The expected value of the random variable $f(X)$ is denoted by $\langle f(x) \rangle$  and defined by
+\begin{equation}
+\langle f(x) \rangle =  \sum_i f(x_i) P(x_i) ~.
+\end{equation}
+The variance of $X$ is
+\begin{align*}
+{\rm var} \{X\} &= \langle (X -\langle X \rangle)^2 \rangle \\
+&= \langle X^2 -2X\langle X \rangle +\langle X \rangle^2 \rangle \\
+&=  \langle X^2 \rangle -2\langle X \rangle^2 +\langle X \rangle^2 \\
+&= \langle X^2 \rangle -\langle X \rangle^2
+\end{align*}
+The mean and variance are denoted by $\mu$ and $\sigma^2$, $\sqrt{\sigma^2} = \sigma$ is called the standard deviation of $X$. The skewness is
+\begin{equation}
+{\rm skewness} \{X\} = \frac{\langle (X -\mu)^3 \rangle}{\sigma^3}
+\end{equation}
+The kurtosis is
+\begin{equation}
+{\rm kurtosis} \{X\} = \frac{\langle (X -\mu)^4 \rangle}{\sigma^4}
+\end{equation}
+The skewness and kurtosis are dimensionless shape parameters. The former quantifies the asymmetry of $X$ around its mean, while the latter is a measure of the degree to which a given variance $\sigma^2$ is accompanied by realizations of $X$ close to (relatively small kurtosis) and far from (large kurtosis) $\mu \pm \sigma$. Highly peaked and long-tailed probability functions have large kurtosis; broad, squat ones have small kurtosis. 
+
+
+
+\section{Doob's Theorem for Gaussian, Markov Processes; Brownian Motion}
+Any one-dimensional random process $y(t)$ that is both Gaussian and Markov has the following form for its conditional probability distribution $P_2$:
+\begin{equation*}
+P_2(y_2, \tau|y_1) = \dfrac{1}{[2\pi \sigma_{y_\tau}^2 ]^{1/2}} \exp \left[-\dfrac{(y_2 -\bar{y}_\tau )^2}{2 \sigma_{y_\tau}^2} \right] ~.
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

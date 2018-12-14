@@ -1,0 +1,228 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{参考系}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{参考系}
+任何物体的位置以及变动，只有相对于事先选定的视为不动的物体或彼此无相对运动的物体群才有明确的意义；
+
+参考物：被选作物体运动依据的物体或物体群；
+
+参考空间：与参考物固连的三维空间；
+
+参考系：参考空间和与之固连的钟；
+
+参考系选定后，为了定量地表示物体相对参考系的位置，还必须在参考系上建立适当的坐标系；
+
+坐标系：固连在参考空间的一组坐标轴和用来规定一组坐标的方法；物体的位置由这组坐标确定；
+
+物体的运动状态完全由参考系决定，与坐标系的选取无关；
+
+
+\section{惯性系}
+牛顿第一定律在其中成立的参考系；
+
+惯性系不止一个，一旦找到了一个惯性系，就可以同时找到许多与之等效的惯性系；
+
+任一相对已知惯性系作匀速直线运动的参考系也是惯性系；
+
+\textcolor{red}{力学相对性原理、伽利略相对性原理}
+
+在任何惯性系中，力学定律具有相同的形式；
+
+\textcolor{red}{伽利略坐标变换}
+\begin{equation}
+\left\{
+\begin{aligned}
+\vec{r}' &=& \vec{r} -\vec{u}t \\
+t' &=& t
+\end{aligned} \right.
+\end{equation}
+或者写成分量形式
+\begin{equation}
+\left\{
+\begin{aligned}
+x' &=& x -vt \\
+y' &=& y \\
+z' &=& z\\
+t' &=& t
+\end{aligned} \right.
+\end{equation}
+
+\begin{equation}
+\vec{a}' = \vec{a}
+\end{equation}
+
+\section{非惯性系}
+牛顿定律只在惯性系中成立；
+
+若物体在加速参考系$S'$中的加速度为$\vec{a}'$，而物体相对惯性系$S$的加速度为$\vec{a}$，设物体受力$\vec{F}$，则在惯性系$S$中物体的运动满足牛顿定律，即
+\begin{equation}
+\vec{F} = m\vec{a}
+\end{equation}
+但$\vec{a} \neq \vec{a}'$，在$S'$系看来，物体的运动不满足牛顿定律，即
+\begin{equation}
+\vec{F} \neq m\vec{a}'
+\end{equation}
+为了在形式上用牛顿定律介绍物体在$S'$系中的运动，认为物体除了受真实的力$\vec{F}$的作用外，还受到一个虚拟力$\vec{F}_i$的作用。在真实力$\vec{F}$和虚拟力$\vec{F}_i$的共同作用下，物体的运动满足牛顿定律。即在非惯性系中，
+\begin{equation}
+\vec{F} +\vec{F}_i = m\vec{a}'
+\end{equation}
+虚拟力
+\begin{equation}
+\vec{F}_i = m\vec{a}' -\vec{F}  = m\vec{a}' -m\vec{a}
+\end{equation}
+\textcolor{red}{惯性力}：在非惯性系中，为了形式上用牛顿定律解释物体的运动而引进的虚拟力；
+
+在非惯性系相对惯性系作平动的情况下，若其加速度为$\vec{a}_f$，则
+\begin{equation}
+\vec{a} = \vec{a}' +\vec{a}_f
+\end{equation}
+\begin{equation}
+\vec{F}_i = -m\vec{a}_f
+\end{equation}
+称为\textcolor{red}{平移惯性力}。
+
+表观力$\vec{F}_{eff}$：真实力与惯性力的合力；
+\begin{equation}
+\vec{F}_{eff} = m\vec{a}'
+\end{equation}
+
+\begin{equation}
+\vec{F}_i = \vec{F}_{eff} -\vec{F}
+\end{equation}
+
+惯性力与惯性质量成正比，引力与引力质量成正比；
+
+惯性力与真实力不同，惯性力不是物体之间的相互作用，没有施力物体，也没有反作用力；
+
+平移惯性力仅取决于非惯性系相对惯性系的加速度，与物体所在位置及其运动状态无关；
+
+\subsection{潮汐}
+
+\subsection{离心力}
+惯性离心力
+
+当物体并不位于过原点$O$且垂直于转动轴的平面上，
+\begin{equation}
+\vec{F}_c = -m\vec{\omega} \times (\vec{\omega} \times \vec{r})
+\end{equation}
+$\vec{r}$：物体的位矢；
+
+$\vec{F}_c$的方向离轴朝外；
+
+离心力与物体所在位置有关，与平移惯性力不同；
+
+离心机
+
+重力与纬度的关系
+
+银河系的自转
+
+
+\subsection{科里奥利力}
+相对转动参考系运动的物体，除了受到离心力作用外，还受到科里奥利力；
+
+\begin{equation}
+\vec{F}_{cor} = 2m\vec{v}' \times \vec{\omega}
+\end{equation}
+
+北半球，河流对右岸冲击较大，火车对右轨的偏压较大；
+
+落体偏东；
+
+
+
+
+
+
+
+\end{document}

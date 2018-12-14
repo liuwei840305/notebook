@@ -1,0 +1,658 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{Kinetic Theory of Plasmas}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{The Distribution Function}
+\textcolor{red}{phase space} is a six-dimensional space defined by three spatial coordinates $(x, y, z)$ and three velocity coordinates $(v_x, v_y, v_z)$. At any given time $t$, the dynamical state of a particle is represented by a point in phase space. The ensemble of all representative points of the particles thus describes the state of the entire system. The density function in phase space tells us the the average number of particles present, at any given time, in an infinitesimal cell of such a space. This density, generally a function of the six phase space coordinates and of time, is called the \textcolor{red}{distribution function}, \textcolor{red}{$f(\vec{r}, \vec{v}, t)$}. The average number of particles with positions lying between $\vec{r}$ and $\vec{r} + \dif \vec{r}$ and velocities between $\vec{v}$ and $\vec{v} + \dif \vec{v}$ is
+\begin{equation}
+\dif N = f(\vec{r}, \vec{v}, t) \dif \vec{r} \dif \vec{v}
+\end{equation}
+When the number of particles is sufficiently large, the distribution function can be considered a continuous function of its variables. The total number of particles $N$ is
+\begin{equation*}
+N = \int\limits_{V_6} f(\vec{r}, \vec{v}, t) \dif \vec{r} \dif \vec{v}
+\end{equation*}
+$V_6$ is the phase space volume. Neglecting both ionization and recombination processes, the total number $N$ of particles does not change during the evolution of the system. The mass contained in a volume $V$ is $M = \int_V \rho \dif V$ and
+\begin{eqnarray*}
+\frac{\dif M}{\dif t} = \int_V \frac{\partial \rho}{\partial t} \dif V +\int_S \rho(\vec{v} \cdot \vec{n}) \dif S = 0 ~,
+\end{eqnarray*}
+The first integral gives the \textcolor{red}{variation of the mass inside $V$} and the second represents the \textcolor{red}{mass flux through the surface delimiting $V$}, $\vec{n}$ being the unit vector normal to the surface element $\dif S$, pointing towards the exterior, i.e. the external normal.
+\begin{eqnarray*}
+\int_V \left[\frac{\partial \rho}{\partial t} +\nabla \cdot (\rho \vec{v}) \right] \dif V &=& 0 ~, \\
+\frac{\partial \rho}{\partial t} +\nabla \cdot (\rho \vec{v}) &=& 0 ~.
+\end{eqnarray*}
+The same procedure can be adopted for any conserved quantity, in particular for $N$. In this case, we must modify the definition of the operator $\nabla$ to take into account the dependence of the distribution function on the velocities. 
+\begin{equation*}
+\nabla \rightarrow \sum_{i=1}^3 \frac{\partial}{\partial x_i} +\sum_{i=1}^3 \frac{\partial}{\partial v_i} = \nabla + \nabla_{\vec{v}}
+\end{equation*}
+The conservation law for the number of particles is
+\begin{equation}
+\frac{\partial f}{\partial t} +\nabla\cdot (f\vec{v}) +\nabla_{\vec{v}}\cdot (f\vec{a}) = 0
+\end{equation}
+$\vec{a}$ is the acceleration calculated in the corresponding elementary cell in phase space. 
+
+1) In phase space r and v are \textcolor{red}{independent variables}, $\nabla \cdot \vec{v} = 0$ and the second term simplifies into $\vec{v}\cdot \nabla f$. 
+
+2) $f\nabla_{\vec{v}}\cdot \vec{a} = f\nabla_{\vec{v}}\cdot (\vec{F}/m) = 0$. The forces normally coming into play are velocity independent, except the Lorentz force, $\vec{F} = (e_0/c)(\vec{v} \times \vec{B})$. But
+\begin{equation*}
+\nabla_{\vec{v}}\cdot \vec{F} = \frac{e_0}{c} \sum_i \frac{\partial (\vec{v} \times \vec{B})_i}{\partial v_i} = 0
+\end{equation*}
+
+\begin{equation}
+\color{red} \frac{\partial f}{\partial t} +\vec{v} \cdot\nabla f +\frac{\vec{F}}{m} \cdot \nabla_{\vec{v}} f = 0
+\end{equation}
+So far we have implicitly assumed that \textcolor{cyan}{all the particles occupying the same cell of phase space are subject to the same acceleration}. This is certainly true as far as \textcolor{red}{collective effects} are concerned, i.e. those due to the simultaneous action of all the particles of the plasma, but \textcolor{red}{may not be true} for \textcolor{red}{collisions}, namely for interactions involving only two particles at a time. The phase space trajectories generated by two types of forces are very different from one another: collective effects give rise to forces that are weakly position-dependent and generate smooth trajectories, while collisions produce abrupt variations of the speed of the interacting particles at the collision location. 
+\begin{equation*}
+\vec{F} = \vec{F}_{\rm sv} + \vec{F}_{\rm coll} ~,
+\end{equation*}
+\textbf{sv} stands for ``slowly varying". Introducing the notation:
+\begin{equation*}
+-\frac{F_{\rm coll}}{m} \cdot \nabla_{\vec{v}} f = \left(\frac{\partial f}{\partial t} \right)_{\rm coll}
+\end{equation*}
+The \textcolor{red}{kinetic equation} describing the dynamical evolution of the distribution function is
+\begin{equation}
+\color{red} \frac{\partial f}{\partial t} +\vec{v} \cdot\nabla f +\frac{\vec{F}}{m} \cdot \nabla_{\vec{v}} f = \left(\frac{\partial f}{\partial t} \right)_{\rm coll} ~,
+\end{equation}
+the forces $\vec{F}$ appearing on the lhs are only those due to the collective effects.
+\begin{equation*}
+\vec{F} = e_0 \left(\vec{E} +\frac{\vec{v}}{c} \times \vec{B}\right) +\vec{f} ~,
+\end{equation*}
+$\vec{f}$ are the forces of non-electromagnetic origin acting on the plasma, e.g. gravity. Neglecting non-electromagnetic forces,
+\begin{equation}
+\frac{\partial f}{\partial t} +\vec{v} \cdot\nabla f +\frac{e_0}{m} \left(\vec{E} +\frac{\vec{v}}{c} \times \vec{B}\right) \cdot \nabla_{\vec{v}} f = \left(\frac{\partial f}{\partial t} \right)_{\rm coll} ~,
+\end{equation}
+For each type of collision, or better, for each collision model, we shall obtain a different kinetic equation. For a rarefied plasma dominated by collective effects, we may neglect collisions and obtain the \textcolor{red}{Vlasov equation}:
+\begin{equation}
+\frac{\partial f}{\partial t} +\vec{v} \cdot\nabla f +\frac{e_0}{m} \left(\vec{E} +\frac{\vec{v}}{c} \times \vec{B}\right) \cdot \nabla_{\vec{v}} f = 0 ~,
+\end{equation}
+If adopting the Boltzmann collision model (\textcolor{cyan}{binary elastic collisions}), we will get the \textcolor{orange}{Boltzmann equation}, where the collisional term is given in terms of an integral that involves the product of two distribution functions. The Boltzmann equation is particularly important for \textcolor{orange}{neutral gases}, where binary collisions are dominant, but it is not the most appropriate to describe plasmas. \textcolor{blue}{Inside the Debye sphere every particle interacts with many other particles at the same time and the deflection suffered by the particle is the result of many small deviations rather than of a single interaction}. The collisional term must therefore be suitably modified and the resulting equation is called the \textcolor{red}{Fokker-Planck equation}.
+
+\subsection{Velocity Distributions}
+\cite{1996bspp.book.....B} The following space plasma velocity distribution functions, $f(\vec{v})$, assume the plasma to be spatially homogeneous and stationary. Under these conditions the plasma does not change in time and does not exhibit spatial variations. Such a situation can be in general realized only when the plasma is in equilibrium. There are cases when the velocity distribution is of a form which is far from equilibrium. In such a case it must either be maintained by external means which inhibit relaxation of the distribution to its equilibrium form, or the time the distribution is observed is short with respect to the relaxation time.
+
+\subsubsection{Maxwellian Distributions}
+The general equilibrium velocity distribution function of a collisionless plasma is the Maxwellian velocity distribution. \textcolor{yellow}{A Maxwellian plasma is in thermal equilibrium which implies that it does not contain anymore free energy and, hence, there are no energy exchange processes between the particles in the plasma}. The distribution of the velocities follow a simple Gaussian distribution of errors
+\begin{equation}
+g(\Delta x) = (\pi \langle \Delta x \rangle^2 )^{-1/2} \exp \left[-\frac{(\Delta x)^2}{\langle \Delta x \rangle^2} \right]
+\end{equation}
+Replacing $\Delta x$ with one component of the velocity $v_x$, replacing the variance $\langle \Delta x \rangle$ with the average velocity spread $\langle v_x \rangle$, and multiplying with the average particle density, $n$, it turns out to be
+\begin{equation*}
+f(v_x) = \frac{n}{(\pi \langle v_x \rangle^2 )^{1/2} } \exp \left[-\frac{v_x^2}{\langle v_x \rangle^2} \right]
+\end{equation*}
+The full Maxwellian in an isotropic plasma is
+\begin{equation*}
+f(v) = \frac{n}{(\pi \langle v \rangle^2 )^{3/2} } \exp \left[-\frac{v^2}{\langle v \rangle^2} \right] = n\left(\frac{m}{2\pi k_BT} \right)^{3/2} \exp \left[-\frac{ m v^2}{2k_B T} \right]
+\end{equation*}
+with $m$ the particle mass and $k_B T$ the average thermal energy. The velocity spread, $\langle v \rangle = \left( \dfrac{2k_BT}{m} \right)^{1/2}$, can be identified as the thermal velocity.  The Maxwellian velocity distribution tells us how the particle density, at a given point in space and time, in equilibrium is distributed over velocity space, depending on the average thermal energy of the particles. Its functional form is symmetric with respect to the three velocity components and only depends on the magnitude $v$ of the velocity, and its half-width gives the average velocity spread.
+
+In a plasma streaming at common velocity, $\vec{v}_0 = v_0 \hat{\vec{e}}_x$, in the $x$ direction, the average velocity of the distribution function with respect to $v_x$, is nonzero.
+\begin{equation*}
+f(\vec{v}) = n\left(\frac{m}{2\pi k_BT} \right)^{3/2} \exp \left[-\frac{ m (\vec{v} -\vec{v}_0)^2}{2k_B T} \right]
+\end{equation*}
+for the drifting Maxwellian velocity distribution.
+
+\subsubsection{Anisotropic Distributions}
+The presence of magnetic fields introduces an anisotropy because it leads to different particle velocities parallel and perpendicular to the magnetic field. For gyrating particles, the velocity distribution is independent of the angle of gyration, depending only on $v_\perp$ and $v_\parallel$. Because these two velocity components are independent, the equilibrium distribution can be modelled as the product of two Maxwellians 
+\begin{align}
+f(v_\perp, v_\parallel) & = \frac{n}{ (\pi^3 \langle v_\perp \rangle^2 \langle v_\parallel \rangle )^{1/2} } \exp \left[-\frac{v_\perp^2}{\langle v_\perp \rangle^2} -\frac{v^2_\parallel}{\langle v_\parallel \rangle^2} \right] \\
+& = \frac{n}{T_\perp T_\parallel^{1/2} } \left(\frac{m}{2\pi k_BT} \right)^{3/2} \exp \left[-\frac{ m v_\perp^2}{2k_B T_\perp} -\frac{ m v_\parallel^2}{2k_B T_\parallel} \right]
+\end{align}
+which is called \textcolor{red}{bi-Maxwellian distribution}.
+
+
+
+
+\subsubsection{Loss Cone distributions}
+
+
+\subsubsection{Energy Distributions}
+When the particles are localized in an external potential field, the total energy of the particle is then the sum of its kinetic and potential energies $W = mv^2/2 +U$, and the distribution function becomes
+\begin{equation}
+f(v) = n \left(\frac{m}{2\pi k_BT} \right)^{3/2} \exp \left[-\frac{W}{k_B T} \right]
+\end{equation}
+\begin{equation}
+\color{red} f(W) = 2 \left[\frac{2(W-U)}{m} \right]^{1/2} f(v) ~,
+\end{equation}
+This distribution function is the Boltzmann distribution, which depends only on the particle energy.
+
+
+
+
+
+\subsubsection{Kappa and Power Law Distributions}
+The \textcolor{red}{kappa distribution} is
+\begin{equation}
+f_\kappa (W) = n \left(\frac{m}{2\pi \kappa W_0} \right)^{3/2} \frac{\Gamma(\kappa+1)}{\Gamma(\kappa-1/2)} \left(1+ \frac{W^\ast}{\kappa W_0} \right)^{-(\kappa +1)} ~,
+\end{equation}
+$W_0$ is the particle energy at the peak of the distribution which can be related to the average thermal energy by $W_0 = k_B T(1 - 3 / 2\kappa)$. For $\kappa > 1$ the two are identical, and the distribution becomes a simple Maxwellian. For smaller $\kappa > 1$ the distribution possesses a high-velocity tail. Using $W^\ast = (\sqrt{W}- \sqrt{W_s})^2$, where $W_s$ is a so-called shift energy, instead of the more simple $W = \dfrac{mv^2}{2}$ provides an additional parameter by which the distribution can be shifted in energy or velocity space, leaving sufficient freedom to fit measured energy distribution functions.
+
+
+
+
+
+\section{Macroscopic Variables}
+\cite{1996bspp.book.....B}  Given a probability distribution, a physical quantity related to the probability is defined as a certain velocity moment of this distribution.
+\subsection{Velocity Moments}
+The $i$-th moment of the distribution function is
+\begin{equation}
+\mathcal M_i (\vec{x}, t) = \int f(\vec{x}, \vec{v}, t) \vec{v}^i \dif^3 v ~,
+\end{equation}
+where $\vec{v}^i$ denotes the $i$-fold dyadic product, a tensor of rank $i$. The number density is given by the zero-order moment
+\begin{equation}
+n = \int f(\vec{v}) \dif^3 v ~.
+\end{equation}
+The mean or \textcolor{red}{bulk flow velocity $\vec{v}_b$} is defined by the first-order moment
+\begin{equation}
+\vec{v}_b = \frac{1}{n} \int \vec{v} f(\vec{v}) \dif^3 v ~.
+\end{equation}
+The bulk velocity describes the macroscopic flow of the entire particle component in which each particle participates. It is an average flow velocity of the particle species or component under consideration. The \textcolor{red}{pressure tensor} is defined as the contribution of the \textcolor{red}{fluctuation of the velocities of the ensemble from this mean velocity}. Its calculation is based on the second-order
+moment
+\begin{equation}
+\color{red} P = m \int (\vec{v} -\vec{v}_b)(\vec{v}-\vec{v}_b) f(\vec{v}) \dif^3 v ~.
+\end{equation}
+Since the two velocity product appearing in the pressure integral is a dyadic product, the pressure is a tensor. The next higher moment is also used to describe deviations from equilibrium. This moment is called the \textcolor{red}{heat tensor}
+\begin{equation}
+\color{red} Q = m \int (\vec{v} -\vec{v}_b)(\vec{v}-\vec{v}_b)(\vec{v} -\vec{v}_b) f(\vec{v}) \dif^3 v ~.
+\end{equation}
+Its trace vector $\vec{q}$
+\begin{equation}
+\color{red} \vec{q} = m \int (\vec{v} -\vec{v}_b)\cdot (\vec{v}-\vec{v}_b)(\vec{v} -\vec{v}_b) f(\vec{v}) \dif^3 v ~.
+\end{equation}
+is the \textcolor{red}{heat flow vector} describes the \textcolor{red}{transport of heat into a direction in the plasma which is not necessarily the direction of the mean flow}.
+
+\subsection{Temperature}
+The pressure tensor consists of a trace and and the traceless off-diagonal part. The former gives, in an isotropic plasma, the isotropic pressure $p = nkT$, in an anisotropic plasma the anisotropic pressure. The traceless part contains the stresses in the plasma. The thermal pressure $p$ can be used to define the temperature of the plasma component
+\begin{equation}
+T = \frac{m}{3k_B n} \int  (\vec{v} -\vec{v}_b)\cdot (\vec{v}-\vec{v}_b) f(\vec{v})  \dif^3 v ~.
+\end{equation}
+This temperature is called the \textcolor{red}{kinetic temperature}, a quantity which can formally be calculated for any type of distribution function and is not necessarily a true temperature in the thermodynamic sense, which can only be calculated for plasmas in or close to thermal equilibrium. It rather is a measure of the spread of the particle distribution in velocity space. Because each particle species may have its own distribution function, the kinetic temperatures of the plasma components may differ from each other. In an anisotropic plasma the temperatures parallel and perpendicular to the magnetic field are in general different, because the particle distributions parallel and perpendicular have different shapes.
+
+Define the thermal velocity as $v_{\rm th}^2 = \dfrac{\langle v \rangle^2}{2}$ or
+\begin{equation}
+v_{\rm th} = \left(\dfrac{k_B T}{m} \right)^2
+\end{equation}
+For the anisotropic bi-Maxwellian distribution, a parallel temperature is $T_\parallel = \dfrac{mv^2_{\rm th, \parallel}}{k_B}$, and a perpendicular temperature is $T_\perp = \dfrac{mv^2_{\rm th, \perp}}{k_B}$, instead of the isotropic temperature, $T$.
+
+
+\section{The Moments of the Distribution Function}
+\cite{2015bps..book.....C} In a plasma there are at least two types of charged particles of opposite signs, typically electrons and positive ions. As a consequence, we have to deal with a number of kinetic equations equal to the number of species present. The linear character of the lhs of the kinetic equations with respect to $f$ is guaranteed only if the fields $\vec{E}$ and $\vec{B}$ are external, namely if their origin is not tied to the dynamical behaviour of the plasma particles. In all other cases, the kinetic equations are complemented with Maxwell’s equations, that couple the electromagnetic fields to the distributions of charges and currents which, in turn, are expressed in terms of the motions of the charged particles forming the plasma, described by means of the respective distribution functions. The fields will therefore depend on the distribution functions and the kinetic equations will have a \textcolor{cyan}{nonlinear} character.
+
+The numerical density of particles in ordinary space is
+\begin{equation}
+n(\vec{r}, t) = \int f(\vec{r}, \vec{v}, t) \dif \vec{v} ~.
+\end{equation}
+The average value of any other velocity-dependent quantity $\Phi(\vec{v})$ is
+\begin{equation*}
+\langle \Phi \rangle = \frac{\int \Phi(\vec{v}) f(\vec{r}, \vec{v}, t) \dif \vec{v}}{\int f(\vec{r}, \vec{v}, t) \dif \vec{v}} = \frac{1}{n(\vec{r}, t)} \int \Phi(\vec{v}) f(\vec{r}, \vec{v}, t) \dif \vec{v} ~.
+\end{equation*}
+$f$ does nor represent the probability of finding a particle in the given phase space cell, but the average number of particles within the cell. The n-th order moment of $f$ as the integral of the velocity distribution function times the product of $n$ velocity components:
+\begin{equation*}
+{\rm n-th ~order ~moment} = n(\vec{v}, t) \langle (v_i v_j \cdots v_k) \rangle = \int (v_i v_j \cdots v_k) f(\vec{r}, \vec{v}, t) \dif \vec{v} ~,
+\end{equation*}
+The density is a moment of order zero ($\Phi = 1$). The average value of the velocity $\vec{u}(\vec{r}, t)$, which is the first-order moments of the distribution function, is 
+\begin{equation}
+\vec{u}(\vec{r}, t) = \frac{1}{n(\vec{r}, t)} \int \vec{v} f(\vec{r}, \vec{v}, t) \dif \vec{v} ~.
+\end{equation}
+$\vec{u}(\vec{r}, t)$ represents the average speed of the particles located in the ``point $\vec{r}$" and not the velocity of a single (microscopic) particle, a quantity that has been indicated by $\vec{v}$. The charge density $q(\vec{r}, t)$ and the current density $\vec{j}(\vec{r}, t)$ are
+\begin{eqnarray}
+q(\vec{r}, t) &=& \int e(f_i -f_e) \dif \vec{v} ~, \\
+\vec{j}(\vec{r}, t) &=& \int e\vec{v}(f_i -f_e) \dif \vec{v} ~,
+\end{eqnarray}
+where $f_e$ and $f_i$ are, respectively, the electrons' and ions' distribution functions. The averaging process causes a loss of information, that related to the behavior of the particles in velocity space. This loss is not essential in all the cases where the velocities of the single particles are not substantially different from the average speed. If a subset of particles exists which behaves in a peculiar way with respect to the others, either because of a clumping in velocity space, such as a particle beam, or because there is a region in velocity space where particles can become resonant with the oscillations of the electromagnetic field, the potential effect of these particles might disappear in the averaging process, with the risk of overlooking important physical effects. 
+
+Multiplying by $\psi(\vec{v}) = v_i,v_j \cdots v_k$ and integrate over all velocities, 
+\begin{equation*}
+\int \psi(\vec{v}) \frac{\partial f}{\partial t} \dif \vec{v} = \frac{\partial }{\partial t} \int \psi(\vec{v}) f \dif \vec{v} = \frac{\partial }{\partial t} (n\langle \psi \rangle) ~,
+\end{equation*}
+$\psi$ is time independent. $\psi$ is also independent of $r$,
+\begin{equation}
+\int \psi(\vec{v}) \vec{v}\cdot \nabla f \dif \vec{v} = \nabla \cdot \int f \vec{v} \psi\dif \vec{v} = \nabla \cdot (n\langle \vec{v}\psi \rangle) ~.
+\end{equation}
+For $\vec{F} = \vec{g} + (e_0/c) \vec{v} \times \vec{B}$,
+\begin{eqnarray*}
+\frac{1}{m} \int \psi(\vec{v}) (\vec{g} \cdot \nabla_{\vec{v}} f) \dif \vec{v} = \frac{\vec{g}}{m} \cdot \int \psi (\nabla_{\vec{v}} f) \dif \vec{v} = -\frac{n}{m} \vec{g} \cdot \langle \nabla_{\vec{v}} \psi \rangle ~,
+\end{eqnarray*}
+where $\lim\limits_{|v|\rightarrow \infty} (\psi f) = 0$.
+\begin{eqnarray*}
+\frac{e_0}{mc} \int \psi(\vec{v}) (\vec{v} \times \vec{B}) \cdot (\nabla_{\vec{v}} f) \dif \vec{v} = -\frac{ne_0}{mc}  \langle  (\vec{v} \times \vec{B})\cdot \nabla_{\vec{v}} \psi \rangle ~.
+\end{eqnarray*}
+The general moment equation is 
+\begin{eqnarray}
+\frac{\partial }{\partial t} (n\langle \psi \rangle) +\nabla\cdot (n\langle \vec{v} \psi \rangle) -\frac{n}{m} \vec{g} \cdot \langle \nabla_{\vec{v}} \psi \rangle -\frac{ne_0}{mc}  \langle  (\vec{v} \times \vec{B})\cdot \nabla_{\vec{v}} \psi \rangle = \int \psi(\vec{v}) \left(\frac{\partial f}{\partial t} \right)_{\rm coll} \dif \vec{v} ~.
+\end{eqnarray}
+$(\partial f /\partial t )_{\rm coll}$ represents the temporal variation of $f$ due to collisions, 
+\begin{equation*}
+\int \psi(\vec{v}) \left(\frac{\partial f}{\partial t} \right)_{\rm coll} \dif \vec{v} = \left(\frac{\partial (n\langle \psi \rangle)}{\partial t} \right)_{\rm coll} ~.
+\end{equation*}
+
+
+\section{Vlasov Equation and Jeans' Theorem}
+While it seldom happens that collisions are negligible in the neutral gases, the Vlasov equation has many applications in plasma physics, and in some sense provides the simplest model for the kinetic behavior of a plasma. While in a system of neutral particles, collective effects due to average long range scale self-consistent forces are generally unimportant (with some important exceptions), they are fundamental to plasma dynamics.
+
+When $\vec{E}$ and $\vec{B}$ are external fields, the Vlasov equation becomes linear in the distribution function $f$, and a general solution can be found when the system admits one or more \textcolor{cyan}{constants of motion}, a result known as Jeans' theorem.
+
+derivative along a curve : 
+
+Consider the ordinary geometrical space, let $g = g(x, y)$ be the equation of a surface. The differential of $g$, namely the variation of $g$ for arbitrary variations of $x$ and $y$, is given by:
+\begin{equation*}
+\dif g = \frac{\partial g}{\partial x} \dif x + \frac{\partial g}{\partial y} \dif y ~.
+\end{equation*}
+Assume that the variations of $x$ and $y$ are no longer arbitrary, but that the representative point in the $(x, y)$ plane is constrained to move along the curve $y = y(x)$, so that $\dif y = (\dif y/\dif x) \dif x$, then
+\begin{equation*}
+\dif g = \frac{\partial g}{\partial x} \dif x + \frac{\partial g}{\partial y} \frac{\dif y}{\dif x} \dif x ~.
+\end{equation*}
+The quantity
+\begin{equation}
+\color{red} \frac{\dif g}{\dif x}  = \frac{\partial g}{\partial x} + \frac{\partial g}{\partial y} \frac{\dif y}{\dif x} ~,
+\end{equation}
+is called the \textcolor{red}{derivative of $g$ along the curve $y = y(x)$}.
+
+Apply this definition to the time derivative of $f$, a function of $(\vec{r}, \vec{v}, t)$, along the trajectory of the representative point in phase space. The trajectory is given in parametric form by the functions
+\begin{eqnarray}
+\nonumber \vec{r} &=& \vec{r}(c_j, t) ~, \\
+\vec{v} &=& \vec{v}(c_j, t) ~~j = 1, \cdots, 6 ~,
+\end{eqnarray}
+where the quantities $c_j$ are the six integration constants necessary to completely define the trajectory. By inverting the system,
+\begin{equation}
+c_j = c_j (\vec{r}, \vec{v}, t), ~~j = 1, \cdots, 6 ~.
+\end{equation}
+\textcolor{orange}{Any constant of motion can be obviously expressed in terms of the $c_j$} and therefore in terms of the primary variables $\vec{r}, \vec{v}$. Recalling the definition of derivative along a curve, we write :
+\begin{equation*}
+\frac{\dif f}{\dif x}  = \frac{\partial f}{\partial t} + \sum_{i=1}^3 \frac{\partial f}{\partial x_i} \frac{\dif x_i}{\dif t} + \sum_{i=1}^3 \frac{\partial f}{\partial v_i} \frac{\dif v_i}{\dif t} ~.
+\end{equation*}
+Since $\dfrac{\dif x_i}{\dif t} = v_i$ and $\dfrac{\dif v_i}{\dif t} = \dfrac{F_i}{m}$,
+\begin{equation*}
+\frac{\dif f}{\dif x}  = \frac{\partial f}{\partial t} + \vec{v}\cdot \nabla f  + \frac{\vec{F}}{m}\cdot \nabla_{\vec{v}} f
+\end{equation*}
+If $f$ is a solution of Vlasov equation, then $(\dif f/\dif t) = 0$, i.e. that the distribution function remains constant along a trajectory in phase space.
+
+The general solution of Vlasov equation can be expressed as
+\begin{equation*}
+\color{red} f(\vec{r}, \vec{v}, t) = \mathcal{F}(c_1, c_2, \cdots, c_6) ~,
+\end{equation*}
+where $\mathcal{F}$ is an arbitrary function of its variables. 
+\begin{eqnarray*}
+\frac{\partial \mathcal{F} }{\partial t} + \vec{v}\cdot \nabla \mathcal{F}  + \frac{\vec{F}}{m}\cdot \nabla_{\vec{v}} \mathcal{F} &=& \sum_j \frac{\partial \mathcal{F} }{\partial c_j} \left[\frac{\partial c_j }{\partial t} + \vec{v}\cdot \nabla c_j  + \frac{\vec{F}}{m}\cdot \nabla_{\vec{v}} c_j \right] \\
+&=&  \sum_j \frac{\partial \mathcal{F} }{\partial c_j} \left[\frac{\dif c_j }{\dif t} \right]_{\rm trajectory} \\
+&=& 0
+\end{eqnarray*}
+since, by definition, the quantities $c_j$ are constants on the trajectory.
+
+
+\begin{tcolorbox}[colback=green!15,colframe=green!40!black,title=Jeans theorem]
+Any function of the constants of motion is a solution of the Vlasov equation.
+\end{tcolorbox}
+The explicit form of the solution is obtained by expressing the $c_j$ in terms of the primary physical variables $\vec{r}$ and $\vec{v}$, once it has been verified that the solution obtained has the necessary convergence properties for $v \rightarrow \infty$. 
+
+Application of Jeans' theorem is given by the motion of a particle of mass $m$ and charge $e_0$, subject to the action of an electrostatic electric field, whose potential is $\Phi(\vec{r})$. The total energy of the particle,
+\begin{equation*}
+E = \frac{1}{2}m v^2 +e_0 \Phi(\vec{r}) ~,
+\end{equation*}
+is a constant of motion and therefore any function of the energy is a solution of Vlasov equation. If for $r \rightarrow \infty$, where the potential $\Phi$ is assumed to vanish, the system is in thermodynamical equilibrium, with a density $n_0$ and a temperature $T_0$, the distribution function will asymptotically tend to a maxwellian :
+\begin{equation*}
+f_0 = n_0 \left(\frac{m}{2\pi kT_0} \right)^{3/2} \exp\left[-\frac{mv^2}{2kT_0} \right] = n_0  \left(\frac{m}{2\pi kT_0} \right)^{3/2} \exp\left[-\frac{E}{kT_0} \right] ~.
+\end{equation*}
+Jeans’ theorem allows us to write down the solution at a generic point as : 
+\begin{equation*}
+f(\vec{r}, \vec{v}) = n_0 \left(\frac{m}{2\pi kT_0} \right)^{3/2} \exp\left[-\dfrac{\left[ \dfrac{mv^2}{2} +e_0 \Phi(\vec{r}) \right]}{kT_0} \right] ~.
+\end{equation*}
+This form of the distribution function has been already used (without justification) in the discussion of the Debye length.
+
+The Vlasov equation can sometimes be used to the systems of neutral particles, e.g. stellar systems. A system composed by a very large number of stars, like a galaxy, could be consider as a sort of ``gas", whose ``molecules" are represented by the stars. The collective effects are those produced by the gravitational interactions of the ensemble of stars. The direct collisions between being in general negligible. 
+
+A very deep analogy exists between the dynamics of a system of mass points and that of a system of charged particles. The law expressing the gravitational interaction between two mass points (Newton) is identical to the one for the electrostatic interaction between two charges (Coulomb), while the Coriolis force in a rotating reference system is perfectly analogous to the Lorentz force exerted on a particle by a magnetic field. 
+
+\section{Fluid Models}
+Consider a neutral gas, composed by identical particles of mass $m$. The general moment equation is
+\begin{eqnarray}
+\frac{\partial }{\partial t} (n\langle \psi \rangle) +\nabla\cdot (n\langle \vec{v} \psi \rangle) -\frac{n}{m} \vec{F} \cdot \langle \nabla_{\vec{v}} \psi \rangle = \left(\frac{\partial (n\langle \psi \rangle)}{\partial t} \right)_{\rm coll}  ~.
+\end{eqnarray}
+Let the function $\psi$ entering the equation be an $n$-th order moment, namely the product of $n$ velocity components. The second term contains the quantity $\langle \vec{v} \psi \rangle$ that involves moments of order $n+1$. Therefore the equation for the moment of order $n$ inevitably contains moments of order $n+1$ and the system of moment equations is actually an infinite chain. Some way has to be found out to truncate the chain of equations, which is the so-called \textcolor{blue}{closure problem}.
+
+At zeroth-order, and let $\psi = m$, 
+\begin{equation}
+\frac{\partial \rho}{\partial t} +\nabla \cdot (\rho \vec{u}) = m\left(\frac{\partial n}{\partial t} \right)_{\rm coll} ~,
+\end{equation}
+where $\vec{u}$ is the bulk speed.
+
+At first order, $\psi = mv_i$, for $i$-th velocity component,
+\begin{eqnarray*}
+&&\frac{\partial}{\partial t} (nmu_i) +\frac{\partial}{\partial x_k} (nm\langle v_i v_k\rangle) -nF_k \left\langle \frac{\partial v_i}{\partial v_k} \right\rangle ~\\ 
+&=& \frac{\partial}{\partial t} (nmu_i) +\frac{\partial}{\partial x_k} (nm\langle v_i v_k\rangle) -nF_i = \left(\frac{\partial (nm \langle v_i\rangle)}{\partial t} \right)_{\rm coll} ~, 
+\end{eqnarray*}
+Write the velocity of a single particle as $\vec{v} = \vec{u} +\vec{\mathit{w}}$, which is divided into an average (or flow) speed, $\vec{u}$, and a peculiar speed, $\vec{\mathit{w}}$. Since $\vec{u} = \langle \vec{v} \rangle$, 
+\begin{equation}
+\langle \vec{\mathit{w}} \rangle = 0 ~.
+\end{equation}
+$\vec{\mathit{w}}$ could be identified with the velocity of the chaotic thermal motion of particles. Since $\vec{u}$ is a function only of time and spatial coordinates, the velocity-averaging process represented by $\langle ~\rangle$ leaves $\vec{u}$ unaltered, i.e. $\langle u_i \rangle = u_i$. Thus 
+\begin{equation}
+\langle v_i v_k\rangle = \langle (u_i +\mathit{w}_i)(u_k+\mathit{w}_k)\rangle = u_i u_k + \langle \mathit{w}_i \mathit{w}_k\rangle
+\label{vv_average}
+\end{equation}
+and
+\begin{equation*}
+nm\langle v_i v_k\rangle = nm u_i u_k + nm \langle \mathit{w}_i \mathit{w}_k\rangle = nm u_i u_k + P_{ik}
+\end{equation*}
+The tensor \textcolor{red}{$P_{ik} = nm \langle \mathit{w}_i \mathit{w}_k\rangle$} is called the \textcolor{red}{pressure tensor}.
+
+Since $nmu_k$ is the momentum density in the $k$-direction, and \textcolor{yellow}{$nmu_iu_k = u_i(nmu_k)$ gives the flux of the $k$-th component of the momentum across the unit surface whose normal is parallel to the $i$-axis}. The first term of Equ. (\ref{vv_average}) represents the \textcolor{red}{momentum flux connected with ordered motion}, whereas the second term represents the \textcolor{red}{momentum flux connected with disordered or random motion}, connected with the thermal motion. 
+
+The \textcolor{red}{diagonal terms} of the $P_{ik}$ tensor, which \textcolor{green}{have the same value in an isotropic medium}, correspond to the \textcolor{cyan}{normal definition of pressure of a fluid}, while the \textcolor{red}{off-diagonal ones} are different from zero only in the \textcolor{red}{presence of viscous forces}, which \textcolor{yellow}{act in a direction perpendicular to the fluid velocity}. These terms can be identified with \textcolor{red}{shear-stresses} in the flow. 
+
+The pressure tensor is a symmetric tensor. Separated its diagonal part from the off-diagonal one, i.e.
+\begin{equation*}
+\color{red} P_{ik} = P\delta_{ik} +\Pi_{ik} ~,
+\end{equation*}
+where the tensor $\Pi_{ik}$ is a symmetric tensor with vanishing diagonal terms.
+\begin{equation}
+\frac{\partial}{\partial t} (nmu_i) +\frac{\partial}{\partial x_k} (nmu_iu_k +P_{ik}) -nF_i = \left(\frac{\partial (nm \langle v_i\rangle)}{\partial t} \right)_{\rm coll} ~.
+\end{equation}
+The second-order moments, $\psi = \dfrac{1}{2} mv_iv_i = \dfrac{1}{2} mv^2$,
+\begin{equation}
+\frac{\partial}{\partial t} \left(n\left\langle \frac{1}{2} mv^2 \right\rangle \right) +\nabla\cdot \left(n\left\langle \vec{v}\frac{1}{2} mv^2 \right\rangle \right) -n\vec{F}\cdot \vec{u} = \left(\frac{\partial (n \langle \frac{1}{2}mv^2\rangle)}{\partial t} \right)_{\rm coll} ~.
+\end{equation}
+
+\begin{equation}
+n\left\langle v_k \frac{1}{2} mv^2 \right\rangle = n\left(\frac{1}{2}m (u^2 +\langle \mathit{w}^2 \rangle) \right) u_k +u_i P_{ik} + n \left\langle \mathit{w}_k \left(\frac{1}{2}m\mathit{w}^2 \right) \right\rangle
+\end{equation}
+\begin{empheq}[box=\widefbox]{align*}
+\left\langle v_kv^2 \right\rangle &= \left\langle (u_k+\mathit{w}_k)(u_i+ \mathit{w}_i)^2 \right\rangle \\
+&= \left\langle (u_k+\mathit{w}_k)(u_i^2 +2u_i\mathit{w}_i +\mathit{w}_i^2 ) \right\rangle \\
+&= \left\langle u_k(u_i^2 +2u_i\mathit{w}_i +\omega_i^2 ) +\mathit{w}_k(u_i^2 +2u_i\mathit{w}_i +\mathit{w}_i^2 ) \right\rangle \\
+&= (u^2 + \left\langle \mathit{w}^2 \right\rangle) u_k + 2u_i \left\langle \mathit{w}_i \mathit{w}_k \right\rangle (\approx P_{ik}) +\left\langle \mathit{w}_k \mathit{w}^2 \right\rangle
+\end{empheq}
+Since
+\begin{align*}
+n\left(\frac{1}{2} m \langle v^2 \rangle \right) &= \boxed{\frac{mn}{2} \langle (u_i+\mathit{w}_i)^2 \rangle } \\
+&= \boxed{\frac{mn}{2} (u^2 +\langle \mathit{w}^2 \rangle )} \\
+&= \frac{1}{2} \rho u^2 + \frac{1}{2} \sum_i P_{ii} \\
+&= \frac{\rho u^2}{2} +\frac{(3P)}{2} ~,
+\end{align*}
+
+\begin{equation}
+n\left\langle v_k \frac{1}{2} mv^2 \right\rangle = \left(\frac{1}{2}\rho u^2 +\frac{3}{2} P\right) u_k +u_i P_{ik} + n \left\langle \mathit{w}_k \left(\frac{1}{2}m\mathit{w}^2 \right) \right\rangle
+\end{equation}
+If the gas obeys the perfect gas equation, $P = nkT$, the term $\dfrac{3}{2} P$ gives the internal energy per unit volume, $\epsilon$. (Implicitly assume a monoatomic gas with $3$ degrees of freedom. In general, for $f$ degrees of freedom, $\epsilon = \dfrac{P}{(\gamma -1)}$, with $\gamma = \dfrac{(f + 2)}{f}$.) The first term on the rhs represents the \textcolor{red}{total energy flux (kinetic energy of the ordered motion + internal energy) transported by the ordered motions}, the third gives the \textcolor{red}{flux of the internal energy transported by the thermal motions}, namely the \textcolor{red}{heat flux}, while the second gives the \textcolor{red}{work done by the pressure forces}.
+\begin{equation}
+\frac{\partial}{\partial t} \left(\frac{1}{2}\rho u^2 +\frac{3}{2}P \right) + \frac{\partial}{\partial x_k} \left[\left(\frac{1}{2}\rho u^2 +\frac{3}{2}P \right)u_k +u_i P_{ik} +q_k \right] -nF_i u_i = \left(\frac{\partial (n \langle \frac{1}{2}mv^2\rangle)}{\partial t} \right)_{\rm coll} ~,
+\end{equation}
+where \textcolor{red}{$\vec{q} = n\left\langle \vec{\mathit{w}} \left(\dfrac{1}{2} m\mathit{w}^2 \right)\right\rangle$} is called the \textcolor{red}{heat flux vector}.
+
+For binary elastic collisions by Boltzmann, the laws of conservation, in a single collision, of the number of particles, of the total momentum and of the total energy, imply the fulfillment of the following conditions:
+\begin{eqnarray*}
+\int \left(\frac{\partial f}{\partial t} \right)_{\rm coll} &=& 0 ~, \\
+\int m\vec{v} \left(\frac{\partial f}{\partial t} \right)_{\rm coll} &=& 0 ~, \\
+\int \frac{1}{2} m v^2 \left(\frac{\partial f}{\partial t} \right)_{\rm coll} &=& 0
+\end{eqnarray*}
+These relationships must be verified by any model for the collisional term. The fulfillment of above conditions implies that all the terms at the rhs of above equations are actually zero.
+
+The collisional term in continuity equation represents, apart from the factor $m$, the temporal variation of the number of particles in a given phase-space volume caused by collisions. But the particle number is a conserved quantity in a collision if we neglect the processes that modify the number of interacting particles, such as ionization or recombination. Therefore in fluid mechanics, mass continuity equation:
+\begin{equation}
+\color{red} \frac{\partial \rho}{\partial t} +\nabla \cdot (\rho \vec{u}) = 0
+\label{conti}
+\end{equation}
+Similarly, both the temporal variations of momentum and energy caused by collisions vanish in elastic encounters.
+\begin{eqnarray*}
+\frac{\partial (\rho u_i)}{\partial t} + \frac{\partial (\rho u_iu_k)}{\partial x_k} &=& \rho \left(\frac{\partial u_i}{\partial t} +u_k \frac{\partial u_i}{\partial x_k}\right) + u_i\left(\frac{\partial \rho}{\partial t} +\frac{\partial (\rho u_k)}{\partial x_k}\right) \\
+&=& \rho \left(\frac{\partial u_i}{\partial t} +u_k \frac{\partial u_i}{\partial x_k}\right)
+\end{eqnarray*}
+which is the derivative of $u_i$ along the trajectory $\vec{u} = (\dif \vec{r}/\dif t)$, i.e. the \textcolor{red}{lagrangian derivative} of $u_i$
+\begin{equation*}
+\frac{\dif }{\dif t}  = \frac{\partial }{\partial t}  +(\vec{u}\cdot \nabla) ~.
+\end{equation*}
+The equation of motion of a fluid is
+\begin{equation}
+\rho \frac{\dif u_i}{\dif t}  = -\frac{\partial P_{ik} }{\partial x_k}  + nF_i
+\end{equation}
+For the perfect fluid, $P_{ik} = P\delta_{ik}$, it becomes Euler's equation:
+\begin{equation}
+\rho \frac{\dif \vec{u}}{\dif t}  = -\nabla P  + n\vec{F}
+\end{equation}
+For a viscous fluid $(\Pi_{ik} \neq 0)$, we get Navier-Stokes equation:
+\begin{equation}
+\color{red} \rho \frac{\dif u_i}{\dif t}  = -\frac{\partial P}{\partial x_i}  -\frac{\partial \Pi_{ik}}{\partial x_k}+ nF_i
+\label{NS_equ}
+\end{equation}
+The energy equation is
+\begin{equation}
+\frac{\partial}{\partial t} \left(\frac{1}{2}\rho u^2 +\frac{3}{2}P \right) = -\frac{\partial}{\partial x_k} \left[\left(\frac{1}{2}\rho u^2 +\frac{3}{2}P \right)u_k + Pu_k + u_i\Pi_{ik} +q_k \right] +nF_i u_i ~,
+\end{equation}
+which states that the \textcolor{red}{temporal variation of the total energy contained in a given volume equals the flux of the same quantity across the surface enclosing the volume, plus the work done by all forces, pressure forces and forces of a different nature, plus the effect of the heat flux}. All the terms, with the exception of $q_k$, are proportional to one component of the fluid speed. Hence, these terms refer to energy fluxes connected with macroscopic motions of matter, i.e. they are \textcolor{red}{convective terms}. On the contrary, the term containing $\vec{q}$ which survives in static conditions, i.e. $\vec{u} = 0$, represents \textcolor{red}{heat conduction}.
+An alternative expression for the energy equation can be derived by rewriting
+\begin{align*}
+& \boxed{\frac{\partial}{\partial t} \left(\frac{1}{2}\rho u^2 +\frac{3}{2}P \right) +\frac{\partial}{\partial x_k} \left[\left(\frac{1}{2}\rho u^2 +\frac{5}{2}P \right)u_k \right] = -\frac{\partial (u_i\Pi_{ik} +q_k)}{\partial x_k} +nF_i u_i }~, \\
+& \left[ \frac{\partial}{\partial t}\left(\frac{1}{2}\rho u^2 \right) +\frac{\partial}{\partial x_k} \left(\frac{1}{2}\rho u^2 u_k \right) \right] +\frac{3}{2} \left[\frac{\partial P}{\partial t} +\frac{5}{3} \frac{\partial (Pu_k)}{\partial x_k}\right] = -\frac{\partial \left(u_i \Pi_{ik} +q_k \right)}{\partial x_k} +n F_i u_i ~.
+\end{align*}
+Expand the derivatives and use the equation of continuity and the equation of motion,
+\begin{align*}
+& \boxed{\frac{u^2}{2} \frac{\partial \rho}{\partial t} +\rho u_i\frac{\partial u_i}{\partial t} +\frac{u^2}{2} \frac{\partial \left(\rho u_k \right)}{\partial x_k} +\rho u_i u_k \frac{\partial u_i}{\partial x_k} +\frac{3}{2} \left[\frac{\partial P}{\partial t} +\frac{5P}{3} \frac{\partial u_k}{\partial x_k} +\frac{5}{3} u_k\frac{\partial P}{\partial x_k}\right] = }\\ 
+& \boxed{ -\frac{\partial q_k}{\partial x_k} -\Pi_{ik} \frac{\partial u_i}{\partial x_k} -u_i \frac{\partial \Pi_{ik}}{\partial x_k} +n F_i u_i }\\
+& \boxed{ \frac{u^2}{2}\left[ \frac{\partial \rho}{\partial t} +\frac{\partial \left(\rho u_k \right)}{\partial x_k} \right] +\rho u_i\frac{\dif u_i}{\dif t} +\frac{3}{2} \left[\frac{\partial P}{\partial t} +\frac{5P}{3} \frac{\partial u_k}{\partial x_k} +\frac{5}{3} u_k\frac{\partial P}{\partial x_k}\right] = }\\ 
+& \boxed{ -\frac{\partial q_k}{\partial x_k} -\Pi_{ik} \frac{\partial u_i}{\partial x_k} -u_i \frac{\partial \Pi_{ik}}{\partial x_k} +n F_i u_i } \\
+& \boxed{ \frac{u^2}{2}\left[ \frac{\partial \rho}{\partial t} +\frac{\partial \left(\rho u_k \right)}{\partial x_k} \right] +\rho u_i\frac{\dif u_i}{\dif t} +u_k\frac{\partial P}{\partial x_k} +u_i \frac{\partial \Pi_{ik}}{\partial x_k} -n u_i F_i + \frac{3}{2} \left[\frac{\partial P}{\partial t} +\frac{5P}{3} \frac{\partial u_k}{\partial x_k} + u_k\frac{\partial P}{\partial x_k}\right] = }\\ 
+& \boxed{  -\frac{\partial q_k}{\partial x_k} -\Pi_{ik} \frac{\partial u_i}{\partial x_k} } \\
+\end{align*}
+\begin{align*}
+& \frac{3}{2} \left[\frac{\partial P}{\partial t} +u_k \frac{\partial P}{\partial x_k} +\frac{5P}{3} \frac{\partial u_k}{\partial x_k}\right]  = -\Pi_{ik} \frac{\partial u_i}{\partial x_k} -\frac{\partial q_k}{\partial x_k} ~.
+\end{align*}
+Since
+\begin{align*}
+& \boxed{ \frac{\partial \rho}{\partial t} +\nabla \cdot (\rho \vec{u}) = 0 }\\
+& \boxed{ \frac{\partial \rho}{\partial t} +u_i \frac{\partial \rho}{\partial x_i} +\rho \frac{\partial u_i}{\partial x_i} = 0 } \\
+& \boxed{ \frac{\partial u_i}{\partial x_i} = -\frac{1}{\rho} \left(\frac{\partial \rho}{\partial t} +u_i \frac{\partial \rho}{\partial x_i} \right) = -\frac{1}{\rho} \frac{\dif \rho}{\dif t} }
+\end{align*}
+then
+\begin{align*}
+& \frac{3}{2} \left[\frac{\dif P}{\dif t} -\frac{5}{3} \frac{P}{\rho} \frac{\dif \rho}{\dif t} \right] = -\Pi_{ik} \frac{\partial u_i}{\partial x_k} -\frac{\partial q_k}{\partial x_k} ~.
+\end{align*}
+Multiplying and dividing the lhs by $\rho^{-5/3}$, 
+\begin{equation}
+\frac{3}{2} \rho^{5/3} \frac{\dif \left(P \rho^{-5/3}\right)}{\dif t} = -\Pi_{ik} \frac{\partial u_i}{\partial x_k} -\frac{\partial q_k}{\partial x_k} ~.
+\end{equation}
+which is valid for a monoatomic gas. In the general case, 
+\begin{equation}
+\color{red} \frac{1}{\gamma-1} \rho^\gamma \frac{\dif \left(P \rho^{-\gamma} \right)}{\dif t} = -\Pi_{ik} \frac{\partial u_i}{\partial x_k} -\frac{\partial q_k}{\partial x_k} ~.
+\label{gen_adia}
+\end{equation}
+For a \textcolor{orange}{perfect gas}, with vanishing viscosity and thermal conduction $(\Pi_{ik} = 0, q_k = 0)$, the equation reduces to
+\begin{equation*}
+\frac{\dif \left(P \rho^{-\gamma} \right)}{\dif t} = 0 ~.
+\end{equation*}
+i.e. the \textcolor{orange}{adiabatic equation of a prefect gas}.
+\begin{align*}
+& \boxed{\dif U = \dif Q -P \dif V } \\
+& \boxed{c_V \dif T = -P \dif V ~~({\rm in ~adiabatic ~condition}, ~~\dif Q = 0) }\\
+& \boxed{PV = Nk T \Longrightarrow V \dif P +P \dif V = Nk \dif T} \\
+& \boxed{\frac{c_V}{Nk} \left(V \dif P +P \dif V \right) = -P \dif V } \\
+& \boxed{\frac{c_V}{Nk} V \dif P +\frac{c_P}{Nk} P \dif V = 0 } \\
+& \boxed{\frac{c_P \rho}{c_V} \dif \frac{1}{\rho} +\frac{1}{P} \dif P = 0 } \\
+& \boxed{-\frac{c_P}{c_V} \dif \ln \rho +\dif \ln P = 0 } \\
+& \boxed{\dif \ln(P \rho^{-\gamma}) = 0~. ~~\left( \frac{c_P}{c_V} = \gamma \right) }
+\end{align*}
+The entropy per unit mass of a perfect gas is 
+\begin{equation*}
+s = c_V \ln(P \rho^{-\gamma}) ~, \color{red}{?}
+\end{equation*}
+with
+\begin{equation*}
+c_V = \frac{\mathcal{R}}{\mu} \frac{1}{\gamma-1} ~.
+\end{equation*}
+$c_V$ is the specific heat at constant volume, $\mathcal{R}$ the gas constant and $\mu$ the mean molecular weight.  $\rho T\dfrac{\dif s}{\dif t}$, which is the total heat exchanged by the system. \textcolor{red}{?}
+\begin{equation}
+\rho T \frac{\dif s}{\dif t} = \mathcal{G} -\mathcal{P} ~,
+\end{equation}
+where $\mathcal{G}$ and $\mathcal{P}$ represent respectively the gains and losses of energy.
+
+In the absence of non-pressure forces $(\vec{F} = 0)$, Eqs. (\ref{conti}),  (\ref{NS_equ}),  (\ref{gen_adia}) form a system of $5$ scalar equations in the $11$ unknowns $P, \rho, \vec{u}, \vec{q},  \Pi_{ik}$. Hence, $6$ quantities are still defined in terms of the distribution function. Nothing can be gained by writing the equations for the moments of order higher than second, since the number of unknowns increases more rapidly than that of equations. For a collision-dominated, neutral gas, system evolves toward a state of thermodynamical equilibrium described by a maxwellian distribution function,
+\begin{eqnarray*}
+f_0 &=& n \left(\frac{m}{2\pi kT} \right)^{3/2} \exp\left[-\frac{m(\vec{v}-\vec{u})^2}{2kT} \right] \\
+&=& n \left(\frac{m}{2\pi kT} \right)^{3/2} \exp\left[-\frac{m w^2}{2kT} \right]
+\end{eqnarray*}
+In both thermodynamical equilibrium ($n$, $T$ and $\vec{u}$ are constants), and local thermodynamical equilibrium ($n(\vec{r}, t)$, $T(\vec{r}, t)$ and $\vec{u}(\vec{r}, t)$ are slowly varying functions over distances of the order of the mean free path and times of the order of the collision time), \textcolor{red}{? $\Pi_{ik} = 0$} and \textcolor{red}{? $q_k = 0$}.  And $P_{ik} = P \delta_{ik}$\textcolor{red}{?} .
+
+If the gas is in a non-equilibrium condition, it is still possible to adopt \textcolor{red}{perturbative technique}. The distribution function is represented as $f = f_0 + f_1$ with $|f_1| \ll |f_0|$. The system of fluid equation can be linearized and first-order expressions for the off-diagonal terms of the pressure tensor and of the heat flux can be found. \textcolor{red}{Chapman-Enskog method}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

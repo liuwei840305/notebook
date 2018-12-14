@@ -1,0 +1,22 @@
+\BOOKMARK [2][-]{subsection.0.1}{Creating Histograms}{}% 1
+\BOOKMARK [3][-]{subsubsection.0.1.1}{Constant or Variable Bin Width}{subsection.0.1}% 2
+\BOOKMARK [2][-]{subsection.0.2}{Bin Numbering}{}% 3
+\BOOKMARK [2][-]{subsection.0.3}{Filling Histograms}{}% 4
+\BOOKMARK [2][-]{subsection.0.4}{Random Numbers and Histograms}{}% 5
+\BOOKMARK [2][-]{subsection.0.5}{Adding, Dividing, and Multiplying}{}% 6
+\BOOKMARK [2][-]{subsection.0.6}{Projections}{}% 7
+\BOOKMARK [2][-]{subsection.0.7}{Drawing Histograms}{}% 8
+\BOOKMARK [2][-]{subsection.0.8}{Making a Copy of an Histogram}{}% 9
+\BOOKMARK [2][-]{subsection.0.9}{Normalizing Histograms}{}% 10
+\BOOKMARK [2][-]{subsection.0.10}{Saving/Reading Histograms to/from a File}{}% 11
+\BOOKMARK [2][-]{subsection.0.11}{Miscellaneous Operations}{}% 12
+\BOOKMARK [3][-]{subsubsection.0.11.1}{2 test}{subsection.0.11}% 13
+\BOOKMARK [3][-]{subsubsection.0.11.2}{Kolmogorov–Smirnov test}{subsection.0.11}% 14
+\BOOKMARK [2][-]{subsection.0.12}{Alphanumeric Bin Labels}{}% 15
+\BOOKMARK [2][-]{subsection.0.13}{Histogram Stacks}{}% 16
+\BOOKMARK [2][-]{subsection.0.14}{TH2Poly}{}% 17
+\BOOKMARK [2][-]{subsection.0.15}{Profile Histograms}{}% 18
+\BOOKMARK [2][-]{subsection.0.16}{Iso Surfaces}{}% 19
+\BOOKMARK [2][-]{subsection.0.17}{3D Implicit Functions}{}% 20
+\BOOKMARK [2][-]{subsection.0.18}{TPie}{}% 21
+\BOOKMARK [2][-]{subsection.0.19}{The User Interface for Histograms}{}% 22

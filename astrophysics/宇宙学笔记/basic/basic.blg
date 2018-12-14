@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: basic.aux
+The style file: unsrt_update.bst
+Database file #1: ref.bib
+Warning--empty author and editor in 2010宇宙大尺度结构的形成
+Warning--empty author and editor in 2012宇宙大尺度结构的形成
+Warning--empty publisher in 2015eaci.book.....S
+You've used 6 entries,
+            1814 wiz_defined-function locations,
+            475 strings with 4281 characters,
+and the built_in function-call counts, 903 in all, are:
+= -- 83
+> -- 18
+< -- 0
++ -- 10
+- -- 4
+* -- 32
+:= -- 140
+add.period$ -- 20
+call.type$ -- 6
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 62
+empty$ -- 115
+format.name$ -- 4
+if$ -- 218
+int.to.chr$ -- 0
+int.to.str$ -- 6
+missing$ -- 10
+newline$ -- 31
+num.names$ -- 4
+pop$ -- 35
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 14
+stack$ -- 0
+substring$ -- 0
+swap$ -- 6
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 4
+width$ -- 7
+write$ -- 61
+(There were 3 warnings)

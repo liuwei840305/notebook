@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Photoelectric absorption}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+The three main processes involved in the interaction of high energy photons with atoms, nuclei and electrons are \textcolor{magenta}{photoelectric absorption}, \textcolor{magenta}{Compton scattering} and \textcolor{magenta}{electron–positron pair production}. These processes are important not only in the study of high energy astrophysical phenomena in a wide variety of different circumstances but also in the detection of high energy particles and photons. For example, \textcolor{magenta}{photoelectric absorption} is observed in the \textcolor{red}{spectra of most X-ray sources at energies $\epsilon \lesssim 1$ keV}. \textcolor{magenta}{Thomson} and \textcolor{magenta}{Compton scattering} appear in a myriad of guises from the processes occurring in \textcolor{red}{stellar interiors}, to the \textcolor{red}{spectra of binary X-ray sources}, and \textcolor{magenta}{inverse Compton scattering} figures prominently in sources in which there are \textcolor{red}{intense radiation fields and high energy electrons}. \textcolor{magenta}{Pair production} is bound to occur wherever there are significant fluxes of \textcolor{red}{high energy $\gamma$-rays} - evidence for the production of positrons by this process is provided by the \textcolor{red}{detection of the $511$ keV electron–positron annihilation line in our own Galaxy}.
+
+
+At \textcolor{red}{low photon energies}, \textcolor{red}{$\hbar\omega \ll m_{\rm e}c^2$}, the dominant process by which photons interact with matter is \textcolor{red}{photoelectric}, or \textcolor{red}{bound–free}, \textcolor{red}{absorption} and is one of the principal sources of \textcolor{red}{opacity in stellar interiors}.
+
+If the \textcolor{red}{energies of the incident photons $\epsilon = \hbar\omega$} are \textcolor{red}{greater} than the \textcolor{red}{energy of the X-ray atomic energy level $E_{\rm I}$}, \textcolor{red}{an electron can be ejected from that level}, the \textcolor{red}{remaining energy ($\hbar\omega - E_{\rm I}$) being carried away as the kinetic energy of the ejected electron}, the \textcolor{red}{photoelectric effect}. The photon energy at which $\hbar\omega = E_{\rm I}$ corresponds to an \textcolor{red}{absorption edge} in the spectrum of the radiation because ejection of electrons from this energy level is impossible if the photons are of lower energy. For photons with higher energies, the \textcolor{red}{cross section for photoelectric absorption} from this level \textcolor{red}{decreases as roughly $\omega^{-3}$}.
+
+The analytic solution for the absorption cross section for photons with energies \textcolor{red}{$\hbar\omega \gg E_{\rm I}$ and $\hbar\omega \ll m_{\rm e}c^2$} due to the ejection of electrons from the \textcolor{red}{K-shells} of atoms, that is, from the \textcolor{red}{$1$s level}, is
+\begin{equation}
+\sigma_{\rm K} = 4\sqrt{2} \sigma_{\rm T} \alpha^4 Z^5 \left(\frac{m_{\rm e} c^2}{\hbar \omega} \right)^{7/2} = \frac{e^{12} m_{\rm e}^{3/2} Z^5}{192\sqrt{2} \pi^5 \epsilon_0^6 \hbar^4 c} \left(\frac{1}{\hbar \omega} \right)^{7/2}
+\end{equation}
+where $\alpha = e^2/4\pi\epsilon_0\hbar c$ is the fine structure constant and $\sigma_{\rm T} = 8\pi r_{\rm e}^2/3 = e^2/6\pi\epsilon_0^2m^2_{\rm e}c^4$ the Thomson cross-section. This cross-section takes account of the fact that there are $2$ K-shell electrons in all elements except hydrogen, both $1$s electrons contributing to the opacity of the material. The absorption cross section has a strong dependence upon the atomic number $Z$ and so, although heavy elements are very much less abundant than hydrogen, the combination of the $\omega^{-3}$ dependence and the fifth-power dependence upon Z means that quite rare elements can make significant contributions to the total absorption cross-section at ultraviolet and X-ray energies. 
+
+The total absorption coefficient for X-rays, weighted by the cosmic abundance of the different elements,
+\begin{equation}
+\sigma_{\rm e}(\epsilon) = \frac{1}{n_{\rm H}} \sum_i n_i \sigma_i (\epsilon)
+\end{equation}
+The K-edges, corresponding to the ejection of electrons from the $1$s shell of the atom or ion, provide the dominant source of opacity. In low resolution X-ray spectral studies, these edges cannot be resolved individually as distinct features and a useful linear interpolation formula for the X-ray absorption coefficient, $\sigma_{\rm e}$, and the corresponding optical depth, $\tau_{\rm e}$ is
+\begin{equation}
+\tau_{\rm e}(\hbar \omega) = \int \sigma_{\rm e} N_{\rm H} \dif l = 2\times 10^{-26} \left( \frac{\hbar \omega}{1 \rm keV} \right)^{-8/3} \int N_{\rm H} \dif l
+\end{equation}
+where the \textcolor{red}{column depth} $\int N_{\rm H} \dif l$ is expressed in \textcolor{red}{particles per square metre} and $N_{\rm H}$ is the number density of hydrogen atoms in particles \textcolor{red}{per cubic metre}. For example, if the interstellar gas density were $10^6$ hydrogen atoms m$^{-3}$, the optical depth of the medium is roughly unity for a path length of $1$ kpc at $1$ keV. Thus, the spectra of many X-ray sources turn over at about $1$ keV because of interstellar photoelectric absorption. Because of the steep energy dependence of $\tau_{\rm e}$, photoelectric absorption is only important at energies \textcolor{red}{$\hbar\omega \gg 1$ keV} for sources with \textcolor{red}{large column densities of matter between the source and the observer}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

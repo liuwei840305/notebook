@@ -1,0 +1,593 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{amssymb}
+
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\title{First order Partial Differential Equation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+
+\cite{pinchover2005introduction} A first-order PDE for an unknown function $u(x_1, x_2, \cdots, x_n)$ has the following general form:
+\begin{equation}
+F(x_1, x_2, \cdots, x_n, u, u_{x_1}, u_{x_2}, \cdots, u_{x_n} ) = 0 ~,
+\end{equation}
+where $F$ is a given function of $2n + 1$ variables. The solution method is based on the geometrical interpretation of $u$ as a surface in an $(n + 1)$-dimensional space.
+
+Consider a surface in ${\mathbb R}^3$ whose graph is given by $u(x, y)$. The surface satisfies an equation of the form
+\begin{equation}
+F(x, y, u, u_{x}, u_{y}) = 0 ~,
+\label{1pde_re}
+\end{equation}
+The geometrical approach : Since $u(x, y)$ is a surface in ${\mathbb R}^3$, and since the normal to the surface is given by the vector $(u_x, u_y , -1)$, the PDE (\ref{1pde_re}) can be considered as an equation relating the surface to its normal (or alternatively its tangent plane). The main solution method will be a direct construction of the solution surface.
+
+
+\cite{arfken} Partial differential equations (PDEs) involve derivatives with respect to more than one independent variable; if the independent variables are $x$ and $y$, a PDE in a dependent variable $\varphi(x, y)$ will contain partial derivatives. Like ordinary derivatives, partial derivatives (of any order, including mixed derivatives) are linear operators, since they satisfy equations of the type
+\begin{equation}
+\dfrac{\partial [a \varphi(x,y) +b\varphi(x,y)]}{\partial x} = a \dfrac{\partial \varphi(x,y) }{\partial x} +b\dfrac{\partial \varphi(x,y)}{\partial x} ~.
+\end{equation}
+Similar to the situation for ODEs, general differential operators, $\mathcal L$, which may contain partial derivatives of any order, pure or mixed, multiplied by arbitrary functions of the independent variables, are linear operators, and equations of the form
+\begin{equation}
+\mathcal L \varphi(x,y) = F(x,y) ~,
+\end{equation}
+are linear PDEs. If the source term $F(x, y)$ vanishes, the PDE is termed \textcolor{red}{homogeneous}; if $F(x, y)$ is nonzero, it is \textcolor{red}{inhomogeneous}.
+
+Homogeneous PDEs have the property that any linear combination of solutions will also be a solution to the PDE. This is the \textcolor{red}{superposition principle} which permits us to build specific solutions by the linear combination of suitable members of the set of functions constituting the general solution to the homogeneous PDE.
+
+
+\section{The method of characteristics}
+\cite{pinchover2005introduction} Consider the general linear equation
+\begin{equation}
+a(x, y) u_x +b(x, y) u_y = c_0u(x, y) +c_1u(x, y) ~.
+\end{equation}
+and the initial condition is parameterically:
+\begin{equation}
+\Gamma = \Gamma(s) = (x_0(s), y_0(s), u_0(s) ), ~~~s \in I = (\alpha, \beta) ~.
+\end{equation}
+The curve $\Gamma$ will be called the \textcolor{red}{initial curve}. It can be rewritten as
+\begin{equation}
+(a, b, c_0 u+c_1) \cdot (u_x, u_y, -1) = 0 ~.
+\end{equation}
+Since $(u_x, u_y, -1)$ is normal to the surface $u$, the vector $(a, b, c_0u + c_1)$ is in the tangent plane. The system of equations
+\begin{align}
+\nonumber \frac{\dif x}{\dif t}(t) &= a(x(t), y(t)) ~, \\
+\nonumber \frac{\dif y}{\dif t}(t) &= b(x(t), y(t)) ~, \\
+\frac{\dif u}{\dif t}(t) &= c_0(x(t), y(t)) u(t) +c_1(x(t), y(t))
+\label{ch_equ}
+\end{align}
+defines spatial curves lying on the solution surface (conditioned so that the curves start on the surface). It is a system of first-order ODEs, which are called the \textcolor{red}{system of characteristic equations} or, the \textcolor{red}{characteristic equations}. The solutions are called \textcolor{red}{characteristic curves} of the equation. The equations (\ref{ch_equ}) are autonomous, i.e. there is \textcolor{orange}{no explicit dependence upon the parameter $t$}. In order to determine a characteristic curve, an initial condition is needed. The initial point is required to lie on the initial curve $\Gamma$. Since each curve $(x(t),y(t),u(t))$ emanates from a different point $\Gamma(s)$, we shall explicitly write the curves in the form $(x(t, s), y(t, s), u(t, s))$. The initial conditions are written as:
+\begin{equation}
+x(0, s) = x_0(s), ~y(0, s) = y_0(s), ~u(0, s) = u_0(s) ~.
+\end{equation}
+We selected the parameter $t$ such that the characteristic curve is located on $\Gamma$ when $t = 0$. 
+
+The method of characteristics applies to the quasilinear equation as well
+\begin{equation}
+a(x, y, u) u_x +b(x, y, u) u_y = c(x, y, u) ~.
+\label{quasilinear}
+\end{equation}
+Each point on the initial curve $\Gamma$ is a starting point for a characteristic curve. The characteristic equations are
+\begin{align}
+\nonumber \frac{\dif x}{\dif t}(t) &= a(x, y, u) ~, \\
+\nonumber \frac{\dif y}{\dif t}(t) &= b(x, y, u) ~, \\
+\frac{\dif u}{\dif t}(t) &= c(x, y, u)
+\label{ch_equ2}
+\end{align}
+and the initial condition
+\begin{equation}
+x(0, s) = x_0(s), ~y(0, s) = y_0(s), ~u(0, s) = u_0(s) ~.
+\label{ini_cond}
+\end{equation}
+The problem consisting of (\ref{quasilinear}) and initial conditions (\ref{ini_cond}) is called the \textcolor{red}{Cauchy problem} for quasilinear equations.
+
+The main difference between the characteristic equations (\ref{ch_equ}) derived for the linear equation, and the set (\ref{ch_equ2}) is that in the former case the first two equations of (\ref{ch_equ}) are independent of the third equation and of the initial conditions. In the quasilinear case, this uncoupling of the characteristic equations is no longer possible, since the coefficients $a$ and $b$ depend upon $u$. In the linear case, the equation for $u$ is always linear, and thus it is guaranteed to have a global solution (provided that the solutions $x(t)$ and $y(t)$ exist globally).
+
+Each characteristic curve propagates independently of the other characteristic curves.
+
+
+\cite{arfken} Consider the following homogeneous linear first-order equation in two independent variables $x$ and $y$, with constant coefficients $a$ and $b$, and with dependent variable $\varphi(x, y)$:
+\begin{equation}
+\mathcal L \varphi = a \dfrac{\partial \varphi}{\partial x} + b\dfrac{\partial \varphi}{\partial y} = 0 ~.
+\label{eq:1pde}
+\end{equation}
+This equation would be easier to solve if we could rearrange it so that it contained only one derivative; one way to do this is would be to rewrite PDE in terms of new coordinates $(s,t)$ such that one of them, say $s$, is such that $(\partial/\partial s)_t$ would expand into the linear combination of $\partial/\partial x$ and $\partial/\partial y$ in the original PDE, while the other new coordinate, $t$, is such that $(\partial/\partial t)_s$ does not occur in the PDE. Define \textcolor{blue}{$s = ax+by$} and \textcolor{blue}{$t = bx -ay$}, and write $\varphi(x, y) = \varphi(x(s,t), y(s,t)) = \hat{\varphi}(s,t)$, 
+\begin{align*}
+\left(\dfrac{\partial \varphi}{\partial x} \right)_y = a \left(\dfrac{\partial \varphi}{\partial s} \right)_t +b\left(\dfrac{\partial \varphi}{\partial t} \right)_s ~, \\
+\left(\dfrac{\partial \varphi}{\partial y} \right)_x = b \left(\dfrac{\partial \varphi}{\partial s} \right)_t -a\left(\dfrac{\partial \varphi}{\partial t} \right)_s ~,
+\end{align*}
+so
+\begin{equation}
+a \dfrac{\partial \varphi}{\partial x} +b\dfrac{\partial \varphi}{\partial y} = (a^2 +b^2) \dfrac{\partial \hat{\varphi}}{\partial s} ~.
+\end{equation}
+The PDE does not contain a derivative with respect to $t$. It has solution
+\begin{align}
+\hat{\varphi}(s, t) &= f(t) ~, ~~~\text{with $f(t)$ completely arbitrary.} \\
+\varphi(x,y) &= f(bx-ay) ~,
+\label{eq:gen_sol}
+\end{align}
+where we stress that \textcolor{blue}{$f(t)$ is an arbitrary function of its argument}. Since the satisfaction of this equation does not depend on the properties of the function $f$, we verify that $\varphi(x, y)$ as given in Eq. (\ref{eq:gen_sol}) is a solution of our PDE, \textcolor{orange}{irrespective of the choice of the function $f$}. It is the \textcolor{orange}{general solution} of the PDE.
+
+\textcolor{blue}{Holding $t = bx - ay$ to a fixed value} defines \textcolor{blue}{a line in the $xy$-plane} on which solution \textcolor{blue}{$\varphi$ is constant}, with \textcolor{blue}{individual points on this line} corresponding to \textcolor{blue}{different values of $s = ax + by$}. The \textcolor{blue}{lines of constant $s$ are orthogonal to those of constant $t$}, and that \textcolor{blue}{$s$ has the same coefficients as the derivatives in the PDE}. The general solution to our PDE can be characterized as \textcolor{red}{independent of $s$ and with arbitrary dependence on $t$}.
+
+The \textcolor{red}{curves of constant $t$} are called \textcolor{red}{characteristic curves}, or more frequently just \textcolor{red}{characteristics} of  PDE. The characteristic curves are the \textcolor{yellow}{stream lines (flow lines) of $s$}. They are the lines that are traced out as the \textcolor{green}{value of $s$ is changed, keeping $t$ constant}. The characteristic can also be characterized by its \textcolor{red}{slope},
+\begin{equation}
+\color{yellow} \dfrac{\dif y}{\dif x} =  \dfrac{b}{a} ~, ~~ \text{for $\mathcal L$ in Eq. (\ref{eq:1pde}).}
+\end{equation}
+The solution \textcolor{blue}{$\varphi$ is constant along each characteristic}. More general PDEs can be solved using ODE methods on characteristic lines, a feature that causes it to be said that \textcolor{violet}{PDE solutions propagate along the characteristics}, giving further significance to the notion that in some sense these are lines of flow. \textcolor{blue}{If we know $\varphi$ at any point on a characteristic, we know it on the entire characteristic line}.
+
+The characteristics have one additional (but related) property of importance. Ordinarily, \textcolor{yellow}{if a PDE solution $\varphi(x, y)$ is specified on a curve segment (a boundary condition), one can deduce from it the values of the solution at nearby points that are not on the curve}. If one introduces a Taylor expansion about some point $(x_0, y_0)$ on the curve (thereby tacitly assuming that there are no singularities that invalidate the expansion), the value of $\varphi$ at a nearby point $(x, y)$ will be given by
+\begin{equation}
+\varphi(x,y) = \varphi(x_0, y_0)  +\dfrac{\partial \varphi(x_0, y_0)}{\partial x} (x -x_0) +\dfrac{\partial \varphi(x_0, y_0)}{\partial y} (y -y_0) + \cdots ~.
+\label{eq:Taylor_exp}
+\end{equation}
+To use Eq. (\ref{eq:Taylor_exp}), we need values of the derivatives of $\varphi$. To obtain these derivatives, note the following:
+
+The specification of $\varphi$ on a given curve, with the curve parametrically described by $x(l), y(l)$, means that the curve direction, i.e., $\dif x/\dif l$ and $\dif y/\dif l$, is known, as is the derivative of $\varphi$ along the curve, namely
+\begin{equation}
+\dfrac{\dif \varphi}{\dif l} = \dfrac{\partial \varphi}{\partial x}\dfrac{\dif x}{\dif l} +\dfrac{\partial \varphi}{\partial y}\dfrac{\dif y}{\dif l} ~,
+\label{eq:deri_curve}
+\end{equation}
+which provides us with a linear equation satisfied by the two derivatives $\partial \varphi/\partial x$ and $\partial \varphi/\partial y$.
+
+The PDE supplies a second linear equation, in this case
+\begin{equation}
+a \dfrac{\partial \varphi}{\partial x} + b\dfrac{\partial \varphi}{\partial y} = 0 ~.
+\label{eq:sec_linear}
+\end{equation}
+
+Providing that the determinant of their coefficients is not zero, we can solve Eqs. (\ref{eq:deri_curve}) and (\ref{eq:sec_linear}) for $\partial \varphi/\partial x$ and $\partial \varphi/\partial y$ at $(x_0, y_0)$ and therefore evaluate the leading terms of the Taylor series for $\varphi(x, y)$. The determinant of coefficients is
+\begin{equation}
+\color{red} D = \renewcommand{\arraystretch}{0.7}
+\begin{vmatrix}
+\dfrac{\dif x}{\dif l} & \dfrac{\dif y}{\dif l} \\
+a& b \\
+\end{vmatrix}
+= b \dfrac{\dif x}{\dif l} - a \dfrac{\dif y}{\dif l} ~.
+\end{equation}
+\textcolor{orange}{If $\varphi$ was specified along a characteristic} (for which \textcolor{orange}{$t = bx -ay =$ constant}), 
+\begin{equation}
+b \dif x - a \dif y = 0 ~, ~\text{or}~ b \dfrac{\dif x}{\dif l} - a \dfrac{\dif y}{\dif l} = 0 ~,
+\end{equation}
+so that \textcolor{orange}{$D = 0$} and we cannot solve for the derivatives of $\varphi$. Our conclusions relative to characteristics, which can be extended to more general equations, are:
+
+1. If the dependent variable \textcolor{orange}{$\varphi$ of the PDE in Eq. (\ref{eq:1pde}) is specified along a curve} (i.e., \textcolor{orange}{$\varphi$ has a boundary condition specified on a boundary curve}), this \textcolor{orange}{fixes the value of $\varphi$ at a point of each characteristic} that \textcolor{orange}{intersects the boundary curve}, and hence \textcolor{orange}{at all points of each such characteristic};
+
+2. If the \textcolor{orange}{boundary curve is along a characteristic}, the \textcolor{orange}{boundary condition on it will ordinarily lead to inconsistency}, and therefore, unless the boundary condition is redundant (i.e., coincidentally equal everywhere to the solution constructed from the value of $\varphi$ at any one point on the characteristic), the \textcolor{yellow}{PDE will not have a solution};
+
+3. If the \textcolor{orange}{boundary curve has more than one intersection with the same characteristic}, this will usually lead to an \textcolor{orange}{inconsistency}, as the \textcolor{orange}{PDE may not have a solution that is simultaneously consistent with the values of $\varphi$ at both intersections};
+
+4. Only if the \textcolor{orange}{boundary curve is not a characteristic} can a \textcolor{orange}{boundary condition fix the value of $\varphi$ at points not on the curve}. Values of $\varphi$ specified only on a characteristic of the PDE provide no information as to the value of $\varphi$ at points not on that characteristic.
+
+Consider now a first-order PDE of a form more general 
+\begin{equation}
+\mathcal L \varphi = a \dfrac{\partial \varphi}{\partial x} + b\dfrac{\partial \varphi}{\partial y} +q(x,y) \varphi = F(x,y) ~.
+\end{equation}
+Make a transformation to new variables $s = ax + by$, $t = bx -ay$, and PDE becomes,
+\begin{equation}
+(a^2 +b^2) \left(\dfrac{\partial \varphi}{\partial s} \right) +\hat{q}(s,t) \hat{\varphi} = \hat{F}(s,t) ~.
+\label{eq:1pde_gen}
+\end{equation}
+Here $\hat{q}(s,t)$ is obtained by converting $q(x, y)$ to the new coordinates:
+\begin{equation}
+\hat{q}(s,t) = q\left(\dfrac{as +bt}{a^2 +b^2}, \dfrac{bs -at}{a^2 +b^2} \right) ~,
+\end{equation}
+and $\hat{F}$ is related in a similar fashion to $F$. Equation (\ref{eq:1pde_gen}) is an ODE in $s$ (containing what can be viewed as a parameter, $t$).
+
+
+Given the three-dimensional ($3$-D) differential form
+\begin{equation}
+a \dfrac{\partial \varphi}{\partial x} + b\dfrac{\partial \varphi}{\partial y} +c\dfrac{\partial \varphi}{\partial z} ~,
+\end{equation}
+apply a transformation to convert our PDE to the new variables $s = ax + by + cz$, $t=\alpha_1 x+\alpha_2 y+\alpha_3 z$, $u=\beta_1 x+\beta_2 y+\beta_3z$, with $\alpha_i$ and $\beta_i$ such that \textcolor{yellow}{$(s,t,u)$ form an orthogonal coordinate system}. Then $3$-D differential form is found equivalent to
+\begin{equation}
+(a^2 +b^2 +c^2) \dfrac{\partial \varphi}{\partial s} ~,
+\end{equation}
+and the stream lines of $s$ (those with $t$ and $u$ constant) are characteristics, along which we can propagate a solution $\varphi$ by solving an ODE. Each characteristic can be identified by its fixed values of $t$ and $u$. 
+\begin{align}
+\label{eq:1pde_3}
+& a \dfrac{\partial \varphi}{\partial x} + b\dfrac{\partial \varphi}{\partial y} +c\dfrac{\partial \varphi}{\partial z} = 0 ~, \\
+& (a^2 +b^2 +c^2) \dfrac{\partial \varphi}{\partial s} =  0 ~,
+\end{align}
+with solution \textcolor{orange}{$\varphi = f(t, u)$}, with \textcolor{orange}{$f$ a completely arbitrary function of its two arguments}.
+
+Consider next an attempt to solve $3$-D PDE subject to a boundary condition fixing the values of the PDE solution $\varphi$ on a surface. If the \textcolor{orange}{characteristic through a point on the surface lies in the surface}, we have a potential \textcolor{orange}{inconsistency between the boundary condition and the solution propagated along the characteristic}. We are also \textcolor{orange}{unable to extend $\varphi$ away from the boundary surface} because the \textcolor{orange}{data on the surface is insufficient to yield values of the derivatives that are needed for a Taylor expansion}. To see this, note that the derivatives $\partial \varphi /\partial x$, $\partial \varphi /\partial y$, and $\partial \varphi /\partial z$ can only be determined if we can find two directions (parametrically designated $l$ and $l^\prime$) such that we can solve Eq. (\ref{eq:1pde_3}) simultaneously and 
+\begin{align}
+\nonumber \dfrac{\partial \varphi}{\partial l} = \dfrac{\partial \varphi}{\partial x}  \dfrac{\dif x}{\dif l}  + \dfrac{\partial \varphi}{\partial y}  \dfrac{\dif y}{\dif l} +\dfrac{\partial \varphi}{\partial z}  \dfrac{\dif z}{\dif l} ~, \\
+\nonumber \dfrac{\partial \varphi}{\partial l^\prime} = \dfrac{\partial \varphi}{\partial x}  \dfrac{\dif x}{\dif l^\prime}  + \dfrac{\partial \varphi}{\partial y}  \dfrac{\dif y}{\dif l^\prime} +\dfrac{\partial \varphi}{\partial z}  \dfrac{\dif z}{\dif l^\prime} ~, 
+\end{align}
+A solution can be obtained only if
+\begin{equation*}
+D = \renewcommand{\arraystretch}{1.2}
+\begin{vmatrix}
+\dfrac{\dif x}{\dif l} & \dfrac{\dif y}{\dif l} & \dfrac{\dif z}{\dif l} \\
+\dfrac{\dif x}{\dif l^\prime} & \dfrac{\dif y}{\dif l^\prime} & \dfrac{\dif z}{\dif l^\prime} \\
+a & b & c \\
+\end{vmatrix}
+\neq 0 ~.
+\end{equation*}
+If a characteristic, with $\dif x/\dif l^{\prime \prime} = a$, $\dif y/\dif l^{\prime \prime} = b$, and $\dif z/\dif l^{\prime \prime} = c$, lies in the two-dimensional ($2$-D) surface, there will only be one further linearly independent direction $l$, and $D$ will necessarily be zero.
+
+A boundary condition is effective in determining a unique solution to a first-order PDE only if the \textcolor{yellow}{boundary does not include a characteristic}, and \textcolor{yellow}{inconsistencies may arise if a characteristic intersects a boundary more than once}.
+
+\cite{haberman2013applied} \begin{equation}
+\dfrac{\partial w}{\partial t} +c\dfrac{\partial w}{\partial x} = 0 ~.
+\label{eq:1pde}
+\end{equation}
+Consider the rate of change of $w(x(t),t)$ as measured by a moving observer, $x = x(t)$.
+\begin{equation}
+\dfrac{\dif }{\dif t}w(x(t),t) = \dfrac{\partial w}{\partial t} + \dfrac{\partial w}{\partial x} \dfrac{\dif x}{\dif t} ~.
+\end{equation}
+where $\dfrac{\dif}{\dif t}$ as measured by a moving observer is sometimes called the \textcolor{red}{substantial derivative}. $\dfrac{\partial w}{\partial t}$ represents the change in $w$ at the fixed position, while $\dfrac{\partial w}{\partial x} \dfrac{\dif x}{\dif t}$ represents the change due to the fact that the observer moves into a region of possibly different $w$. Compared with the partial differential equation for $w$, if the observer moves with velocity $c$, that is, if
+\begin{equation}
+\dfrac{\dif x}{\dif t} = c ~,
+\label{eq:dxdt}
+\end{equation}
+then
+\begin{equation}
+\dfrac{\dif \omega}{\dif t} = 0 ~.
+\end{equation}
+i.e. $w$ is constant. An observer moving with this special speed $c$ would measure no changes in $w$.
+
+Integrating (\ref{eq:dxdt}), yields
+\begin{equation}
+x = ct +x_0 ~,
+\end{equation}
+the equation for the family of parallel characteristics\footnote{A characteristic is a curve along which a PDE reduces to an ODE.} of (\ref{eq:1pde}). Note that at $t = 0$, $x = x_0$. $w(x,t)$ is constant along this line (not necessarily constant everywhere). $w$ propagates as a wave with wave speed $c$. 
+
+If $w(x, t)$ is given initially at $t = 0$,
+\begin{equation}
+w(x, 0) = P(x) ~,
+\end{equation}
+then  determine $w$ at the point $(x, t)$. Since $w$ is constant along the characteristic,
+\begin{equation}
+w(x, t) = w(x_0, 0) = P(x_0) ~.
+\end{equation}
+Given $x$ and $t$, the parameter is known from the characteristic, $x_0 = x - ct$, and thus
+\begin{equation}
+w(x,t) = P(x-ct) ~,
+\end{equation}
+which is called the general solution of (\ref{eq:1pde}). $P(x)$ can be an arbitrary function. The general solution of a first-order partial differential equation contains an arbitrary function, while the general solution to ordinary differential equations contains arbitrary constants.
+
+At fixed $t$, the solution of the first-order wave equation is the same shape shifted a distance $ct$. 
+
+Consider
+\begin{equation}
+\dfrac{\partial w}{\partial t} + 3t^2 \dfrac{\partial w}{\partial x} = 2t w ~,
+\end{equation}
+subject to the initial conditions $w(x, 0) = P(x)$. By the method of characteristics, if
+\begin{equation}
+\dfrac{\dif x}{\dif t} = 3t^2 ~,
+\end{equation}
+then 
+\begin{equation}
+\dfrac{\dif w}{\dif t} = 2 tw ~.
+\end{equation}
+The characteristics are not straight lines but satisfy
+\begin{equation}
+x = t^3 +x_0 ~,
+\end{equation}
+where the characteristics start $(t = 0)$ at $x = x_0$. Along the characteristics, by integrating the ODE, 
+\begin{equation}
+w = k e^{t^2} ~.
+\end{equation}
+To satisfy the initial condition at $x_0$, $w(x_0, 0) = P(x_0)$, $P(x_0) = k$, the solution of the initial value problem by the method of characteristics is
+\begin{equation}
+w(x, t) = P(x_0) e^{t^2} = P(x-t^3) e^{t^2} ~.
+\end{equation}
+Since $P(x - t^3)$ is an arbitrary function of $(x - t^3)$, it is the general solution of the partial differential equation. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quasilinear equations}
+\cite{pinchover2005introduction} \textcolor{red}{Quasilinear} : the derivatives of $u$ appear in the equation linearly. The general form of a quasilinear equation is
+\begin{equation}
+a(x, y, u) u_x +b(x, y, u) u_y = c(x, y, u) ~.
+\end{equation}
+\textcolor{red}{linear} equations :
+\begin{equation}
+a(x, y) u_x +b(x, y) u_y = c_0(x, y) u+c_1(x, y) ~.
+\end{equation}
+where $a, b, c_0, c_1$ are given functions of $(x, y)$.
+
+
+\cite{haberman2013applied} Most of this text describes methods for solving linear partial differential equations (separation of variables, eigenfunction expansions, Fourier and Laplace transforms, Green's functions) that cannot be extended to nonlinear problems. The method of characteristics can be applied to partial differential equations of the form
+\begin{equation}
+\dfrac{\partial \rho}{\partial t} + c\dfrac{\partial \rho}{\partial x} = Q ~,
+\end{equation}
+where $c$ and $Q$ may be functions of $x, t$, and $\rho$. When $Q$ is not a linear function of $\rho$ or, when the coefficient $c$ depends on the unknown solution $\rho$, it is not linear. Superposition is not valid. Nonetheless it is called a \textcolor{red}{quasilinear partial differential equation}, since it is \textcolor{blue}{linear in the first partial derivatives}, $\partial \rho/\partial t$ and $\partial \rho/\partial x$. Consider an observer moving in some prescribed way $x(t)$.
+\begin{equation}
+\dfrac{\dif \rho}{\dif t} = Q(\rho, x, t) ~,
+\label{eq:rho}
+\end{equation}
+if
+\begin{equation}
+\dfrac{\dif x}{\dif t} = c(\rho, x, t) ~.
+\label{eq:dxdt_c}
+\end{equation}
+The partial differential equation reduces to two coupled ordinary differential equations along the special trajectory or direction defined by (\ref{eq:dxdt_c}), known as a \textcolor{red}{characteristic curve}, or simply a \textcolor{red}{characteristic}. The velocity defined by (\ref{eq:dxdt_c}) is called the \textcolor{red}{characteristic velocity}, or \textcolor{red}{local wave velocity}. A characteristic starting from $x = x_0$ is determined from the coupled differential equations using the initial conditions $\rho(x,0) = f(x)$. Along the characteristic, the solution $\rho$ changes according to (\ref{eq:rho}). Other initial positions yield other characteristics, generating a family of characteristics.
+
+If the independent variables are $x$ and $y$ instead of $x$ and $t$, then a quasilinear first-order partial differential equation is usually written as
+\begin{equation}
+a \dfrac{\partial \rho }{\partial x} +b \dfrac{\partial \rho }{\partial y} = c ~,
+\end{equation}
+where $a$, $b$, and $c$ may be functions of $x$, $y$, and $\rho$. The method of characteristics is
+\begin{equation}
+\dfrac{\dif \rho}{\dif x} = \dfrac{c}{ a} ~, 
+\end{equation}
+if
+\begin{equation}
+\dfrac{\dif y}{\dif x} = \dfrac{b}{a} ~.
+\end{equation}
+This is written in the following equivalent form:
+\begin{equation}
+\dfrac{\dif x}{a} = \dfrac{\dif y}{b} = \dfrac{\dif \rho}{\dif c} ~.
+\end{equation}
+
+
+\subsection{Traffic Flow}
+\cite{haberman2013applied} Model a congested one-directional highway by a quasilinear partial differential equation. Introduce the traffic density $\rho(x, t)$, the number of cars per mile at time $t$ located at position $x$. An easily observed and measured quantity is the traffic flow $q(x, t)$, the number of cars per hour passing a fixed place $x$ (at time $t$).
+
+consider an arbitrary section of roadway, between $x = a$ and $x = b$. If there are neither entrances nor exits on this segment of the road, then the number of cars between $x = a$ and $x = b$ [$N = \int_a^b \rho(x,t) \dif x$] might still change in time. The rate of change of the number of cars, $\dif N/\dif t$, equals the number per unit time entering at $x = a$ [the traffic flow $q(a,t)$ there] minus the number of cars per unit time leaving at $x = b$ [the traffic flow $q(b, t)$ there]:
+\begin{equation}
+\dfrac{\dif }{\dif t} \int_a^b \rho(x,t) \dif x = q(a,t) -q(b,t) ~.
+\end{equation}
+which called the integral form of conservation of cars. Note that the boundary contribution may be expressed as an integral over the region:
+\begin{equation}
+q(a,t) -q(b,t)  = -\int_a^b \dfrac{\partial}{\partial x} q(x, t) \dif x ~.
+\end{equation}
+Thus, by taking the time derivative inside the integral (making it a partial derivative), it follows that
+\begin{equation}
+\dfrac{\partial \rho}{\partial t} +\dfrac{\partial q }{\partial x} = 0 ~,
+\end{equation}
+since $a$ and $b$ are arbitrary. 
+
+The number of cars per hour passing a place equals the density of cars times the velocity of cars. By introducing $u(x, t)$ as the car velocity, 
+\begin{equation}
+q = \rho u ~.
+\end{equation}
+
+
+
+The equations for the characteristics are
+\begin{equation}
+\dfrac{\dif \rho}{\dif t} = 0 ~,
+\end{equation}
+along
+\begin{equation}
+\dfrac{\dif x}{\dif t} = c(\rho) ~.
+\end{equation}
+The characteristic velocity $c$ is not constant but depends on the density $\rho$. It is known as the density wave velocity. It follows that the density $\rho$ remains constant along each as-yet undetermined characteristic. The velocity of each characteristic, $c(\rho)$, will be constant, since $\rho$ is constant. Each characteristic is thus a straight line [as in the case in which $c(\rho)$ is a constant $c_0$]. However, different characteristics will move at different constant velocities because they may start with different densities. The characteristics, though each is straight, are not parallel to one another. Along the curve $\dif x/\dif t = c(\rho)$, $\dif \rho/\dif t = 0$ or $\rho$ is constant. Initially $\rho$ equals the value at $x = x_0$ (i.e., at $t = 0$). Thus, along this one characteristic,
+\begin{equation}
+\rho(x, t) = \rho(x_0, 0) = f(x_0) ~,
+\end{equation}
+which is a known constant. The local wave velocity that determines the characteristic is a constant, $\dif x/\dif t = c(f(x_0))$. Consequently, this characteristic is a straight line,
+\begin{equation}
+x = c(f(x_0)) t + x_0 ~,
+\label{eq:tf_characteristic}
+\end{equation}
+since $x = x_0$ at $t = 0$. Different values of $x_0$ yield different straight-line characteristics. Along each characteristic, the traffic density $\rho$ is a constant. To determine the density at some later time, the characteristic with parameter $x_0$ that goes through that space-time point must be obtained from (\ref{eq:tf_characteristic}).
+
+
+
+
+
+
+
+
+\subsection{Shock Waves}
+\cite{haberman2013applied} For quasilinear partial differential equations, it is quite usual for characteristics to intersect. The resolution will require the introduction of moving discontinuities called shock waves. We restrict our attention to quasilinear partial differential equations with $Q = 0$, in which case
+\begin{equation}
+\dfrac{\partial \rho}{\partial t} +c(\rho) \dfrac{\partial \rho }{\partial x} = 0 ~.
+\end{equation}
+In Fig. \ref{}, one starting at $x = x_1$, with $\rho = f(x_1,0) \equiv \rho_1$, and the other starting at $x = x_2$ with $\rho = f(x_2,0) \equiv \rho_2$. These characteristics inter- sect if $c(\rho_1) > c(\rho_2)$, the faster catching up to the slower. The density is constant along characteristics. As time increases, the distance between the densities $\rho_1$ and $\rho_2$ decreases. Thus, this is called a compression wave. The density distribution becomes steeper as time increases. Eventually characteristics intersect; the theory predicts that the density is simultaneously $\rho_1$ and $\rho_2$. If we continue to apply the method of characteristics, the faster-moving characteristic passes the slower. The method of characteristics predicts that the density becomes a ``multivalued" function of position; that is, at some later time, our mathematics predicts there will be three densities at some positions. The density wave breaks. However, in many physical problems (such as traffic flow) it makes no sense to have three values of density at one place. The density must be a single-valued function of position. 
+
+
+On the basis of the quasilinear partial differential equation, we predicted the physically impossible phenomenon that the density becomes multivalued. Since the method of characteristics is mathematically justified, it is the partial differential equation itself that must not be entirely valid. Some approximation or assumption that we used must at times be invalid. Assume that the density  and velocity have a jump discontinuity, which we call a shock wave, or simply a shock. The shock occurs at some unknown position $x_s$ and propagates in time, so that $x_s(t)$. We introduce the notation $x_{s-}$ and $x_{s+}$ for the position of the shock on the two sides of the discontinuity. The shock velocity, $\dif x_s/ \dif t$, is as yet unknown.
+
+On either side of the shock, the quasilinear partial differential equation applies, $\dfrac{\partial \rho}{\partial t} + c(\rho) \dfrac{\partial \rho}{\partial x} = 0$, where $c(\rho) = \dfrac{\dif q(\rho)}{\dif \rho}$. Determine how the discontinuity propagates. If $\rho$ is conserved even at a discontinuity, then the flow relative to the moving shock on one side of the shock must equal the flow relative to the moving shock on the other side. This statement of relative inflow equaling relative outflow becomes
+\begin{equation}
+\rho(x_{s-}, t) \left[u(x_{s-}, t) - \dfrac{\dif x_s}{\dif t} \right] = \rho(x_{s+}, t) \left[u(x_{s+}, t) - \dfrac{\dif x_s}{\dif t} \right] ~,
+\end{equation}
+since flow equals density times velocity (here relative velocity). Solving for the shock velocity yields
+\begin{equation}
+\dfrac{\dif x_s}{\dif t} = \dfrac{q(x_{s+}, t) -q(x_{s-}, t)}{\rho(x_{s+}, t) -\rho(x_{s-}, t)} = \dfrac{[q]}{[\rho]} ~,
+\end{equation}
+where we recall that $q = \rho u$ and where we introduce the notation $[q]$ and $[\rho]$ for the jumps in $q$ and $\rho$, respectively. In gas dynamics, it is called the Rankine-Hugoniot condition. In summary, for the conservation law $\dfrac{\partial \rho}{\partial t} + c(\rho) \dfrac{\partial \rho}{\partial x} = 0$ (if the quantity 􏳭$\int \rho \dif x$ is actually conserved), the shock velocity equals the jump in the flow divided by the jump in the density of the conserved quantity. At points of discontinuity, this shock condition replaces the use of the partial differential equation, which is valid elsewhere. However, we have not yet explained where shocks occur and how to determine $\rho(x_{s+}, t)$ and $\rho(x_{s-}, t)$. 
+
+
+
+
+
+
+
+The characteristics must flow into the shock on both sides. The characteristic velocity on the left ($2\rho = 8$) must be greater than the shock velocity ($\dfrac{\dif x_s}{\dif t} = 7$), and the characteristic velocity on the right ($2\rho = 6$)must be less than the shock velocity. This is a general principle, called the entropy condition,
+\begin{equation}
+c(\rho(x_{s-})) > \dfrac{\dif x_s}{\dif t} > c(\rho(x_{s+})) ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Nonlinear PDEs}
+\cite{arfken} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

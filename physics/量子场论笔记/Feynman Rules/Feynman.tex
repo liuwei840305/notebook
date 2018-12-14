@@ -1,0 +1,357 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+\usepackage[compat=1.0.0]{tikz-feynman}
+\usepackage{feynmp}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Feynman Rules}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2010qftn.book.....Z} Label each line with a momentum. If applicable, also label each line with an incoming and an outgoing Lorentz index (for a line describing a vector field), with an incoming and an outgoing internal index (for a line describing a field transforming under an internal symmetry), so on and so forth. Momentum is conserved at each vertex. Momenta associated with internal lines are to be integrated over with the measure $\int [\dif^4 p/(2\pi)^4]$. A factor of $(-1)$ is to be associated with each closed fermion loop. External lines are to be amputated. For an incoming fermion line write $u(p, s)$ and for an outgoing fermion line $\overline{u}(p^\prime, s^\prime)$. For an incoming antifermion, write $\overline{v}(p, s)$, and for an outgoing antifermion, $v(p^\prime, s^\prime)$. If there are symmetry transformations leaving the diagram invariant, then we have to worry about the infamous symmetry factors.
+
+\section{Scalar field interacting with Dirac field}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Vector field interacting with Dirac field}
+
+
+
+
+
+
+
+
+\section{Nonabelian gauge theory}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Cross sections and decay rates}
+Given the Feynman amplitude $\mathcal M$ for a process $p_1 + p_2 \rightarrow k_1 + k_2 + \cdots + k_n$, the differential cross section is given by
+\begin{equation}
+\dif \sigma = \dfrac{1}{|\vec{v}_1 -\vec{v}_2| \mathcal E(p_1) \mathcal E(p_2)} \dfrac{\dif^3 k_1}{(2 \pi)^3 \mathcal E(k_1)} \cdots \dfrac{\dif^3 k_n}{(2 \pi)^3 \mathcal E(k_n)} (2 \pi)^4 \delta^{(4)} \left(p_1 +p_2 -\sum_{i=1}^n k_i \right) |\mathcal M|^2 
+\end{equation}
+Here $\vec{v}_1$ and $\vec{v}_2$ denote the velocities of the incoming particles. The energy factor $\mathcal E(p) = 2 \sqrt{\vec{p}^2 + m^2}$ for bosons and $\mathcal E(p) = \sqrt{\vec{p}^2 + m^2}/m$ for fermions come from the different normalization of the creation and annihilation operators.
+
+For a decay of a particle of mass $M$ the differential decay rate in its rest frame is given by
+\begin{equation}
+\dif \Gamma = \dfrac{1}{2 M} \dfrac{\dif^3 k_1}{(2 \pi)^3 \mathcal E(k_1)} \cdots \dfrac{\dif^3 k_n}{(2 \pi)^3 \mathcal E(k_n)} (2 \pi)^4 \delta^{(4)} \left(P -\sum_{i=1}^n k_i \right) |\mathcal M|^2 
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+\cite{2014qfts.book.....S} The scattering cross sections are naturally expressed in terms of time-ordered products of fields. The $S$-matrix has the form
+\begin{equation}
+\left\langle f |S|i \right\rangle \sim \left\langle \Omega | T\left\{\phi(x_1) \cdots \phi(x_n) \right\}|\Omega \right\rangle ~,
+\end{equation}
+where $|\Omega \rangle$ is the ground state/vacuum in the interacting theory. In this expression the fields $\phi(x)$ are not free but are the full interacting quantum fields. We also saw that in the free theory, the time-ordered product of two fields is given by the Feynman propagator:
+\begin{equation}
+D_F (x, y) \equiv \left\langle 0 | T\left\{\phi_0(x) \phi_0(y) \right\}| 0 \right\rangle = \lim \int \dfrac{\dif^4 k}{(2\pi)^4} \dfrac{i}{k^2 -m^2 +i \varepsilon} e^{ik(x-y)} ~,
+\end{equation}
+where $| 0 \rangle$ is the ground state in the free theory.
+
+We will develop a method of calculating time-ordered products in perturbation theory in terms of integrals over various Feynman propagators. There is a beautiful pictorial representation of the perturbation expansion using Feynman diagrams and an associated set of Feynman rules. There are position-space Feynman rules, for calculating time-ordered products, and also momentum-space Feynman rules, for calculating $S$-matrix elements. The momentum-space Feynman rules are by far the more important - they provide an extremely efficient way to set up calculations of physical results in quantum field theory. 
+
+We will first derive the Feynman rules using a \textcolor{red}{Lagrangian formulation of time evolution and quantization}. This is the quickest way to connect Feynman diagrams to classical field theory. We will then derive the Feynman rules again using \textcolor{red}{time-dependent perturbation theory}, based on \textcolor{red}{an expansion of the full interacting Hamiltonian around the free Hamiltonian}. This calculation much more closely parallels the way we do perturbation theory in quantum mechanics. While the Hamiltonian-based calculation is significantly more involved, it has the distinct advantage of connecting time evolution directly to a Hermitian Hamiltonian, so \textcolor{red}{time evolution is guaranteed to be unitary}. The Feynman rules resulting from both approaches agree, confirming that the approaches are equivalent (at least in the case of the theory of a real scalar field, which is all we have so seen so far). As we progress in our understanding of field theory and encounter particles of different spin and more complicated interactions, \textcolor{red}{unitarity} and the requirement of a \textcolor{red}{Hermitian Hamiltonian} will play a more important role. A third independent way to derive the Feynman rules is through the \textcolor{red}{path integral}.
+
+\section{Hamiltonian derivation}
+\cite{2014qfts.book.....S} We reproduce the position-space Feynman rules using time-dependent perturbation theory. Instead of assuming that the quantum field satisfies the Euler-Lagrange equations, we instead assume its dynamics is determined by a Hamiltonian $H$ by the Heisenberg equations of motion $i \partial_t \phi(x) = [\phi, H]$. The formal solution of this equation is
+\begin{equation}
+ \phi(\vec{x}, t) = S(t, t_0)^\dagger \phi(\vec{x}) S(t, t_0) ~,
+\end{equation}
+where $S(t, t_0)$ is the \textcolor{red}{time-evolution operator} (the \textcolor{red}{$S$-matrix}) that satisfies
+\begin{equation}
+i \partial_t S(t, t_0) = H(t) S(t, t_0) ~.
+\end{equation}
+These are the dynamical equations in the \textcolor{red}{Heisenberg picture} where \textcolor{red}{all the time dependence is in operators}. \textcolor{red}{States including the vacuum state $|\Omega \rangle$ in the Heisenberg picture are}, by definition, \textcolor{red}{time independent}.
+
+The Hamiltonian can either be defined at any given time as a functional of the fields $\phi(\vec{x})$ and $\pi(\vec{x})$ or equivalently as a functional of the creation and annihilation operators $a^\dagger_p$ and $a_p$. We will not need an explicit form of the Hamiltonian for this derivation so we just assume it is some time-dependent operator $H(t)$.
+
+The first step in time-dependent perturbation theory is to write the Hamiltonian as
+\begin{equation}
+H(t) = H_0 +V(t) ~,
+\end{equation}
+where the time evolution induced by $H_0$ can be solved exactly and $V$ is small in some sense. For example, $H_0$ could be the free Hamiltonian, which is time independent, and V might be a $\phi^3$ interaction:
+\begin{equation}
+V(t) = \int \dif^3 x \dfrac{g}{3!} \phi(\vec{x}, t)^3 ~.
+\end{equation}
+The operators $\phi(\vec{x}, t), H, H_0$ and $V$ are all in the Heisenberg picture.
+
+Next, we need to change to the \textcolor{red}{interaction picture}. In the interaction picture the \textcolor{red}{fields evolve only with $H_0$}. The interaction picture fields are just what we had been calling (and will continue to call) the \textcolor{red}{free fields}:
+\begin{equation}
+\phi_0(\vec{x}, t) = e^{iH_0(t-t_0)} \phi(\vec{x}) e^{-iH_0(t-t_0)} = \int \dfrac{\dif^3 p}{(2\pi)^3} \dfrac{1}{\sqrt{2\omega}_p} (a_p e^{-ipx} + a^\dagger_p e^{ipx} ) ~.
+\end{equation}
+To be precise, $\phi(\vec{x})$ is the \textcolor{red}{Schr\"odinger picture field}, which does not change with time. The free fields are equal to the Schr\"odinger picture fields and also to the Heisenberg picture fields, by definition, at a single reference time, which we call $t_0$.
+
+The Heisenberg picture fields are related to the free fields by
+\begin{align}
+\nonumber \phi(\vec{x}, t) &= S^\dagger(t, t_0) e^{-iH_0(t-t_0)} \phi_0(\vec{x}, t) e^{iH_0(t-t_0)} S(t, t_0) \\
+&= U^\dagger(t, t_0) \phi_0(\vec{x}, t) U(t, t_0) ~.
+\end{align}
+The operator $U(t,t_0) \equiv e^{iH_0(t-t_0)} S(t,t_0)$ therefore relates the full Heisenberg picture fields to the free fields at the same time $t$. The evolution begins from the time $t_0$ where the fields in the two pictures (and the Schr\"odinger picture) are equal.
+
+a differential equation for $U(t, t_0)$ is  
+\begin{align}
+\nonumber i \partial_t U(t, t_0) &= i\left(\partial_t e^{iH_0(t-t_0)} \right) S(t, t_0) + e^{iH_0(t-t_0)} i \partial_t S(t, t_0) \\
+\nonumber &= -e^{iH_0(t-t_0)} H_0 S(t, t_0) +e^{iH_0(t-t_0)} H(t) S(t, t_0) \\
+\nonumber &= e^{iH_0(t-t_0)} [-H_0 +H(t)] e^{-iH_0(t-t_0)} e^{iH_0(t-t_0)} S(t, t_0) \\
+&= V_I(t) U(t, t_0) ~,
+\label{eq:eqU}
+\end{align}
+where $V_I(t) \equiv e^{iH_0 (t-t_0)} V(t) e^{-iH_0(t-t_0)}$ is the original Heisenberg picture potential $V(t)$, now expressed in the interaction picture.
+
+If everything commuted, the solution to Eq. (\ref{eq:eqU}) would be $U(t, t_0) = \exp \left(-i \int_{t_0}^t V_I(t^\prime) \dif t^\prime \right)$. But $V_I(t_1)$ does not necessarily commute with $V_I(t_2)$, so this is not the right answer. It turns out that the right answer is very similar:
+\begin{equation}
+U(t, t_0) = T \left\{ \exp \left[-i \int_{t_0}^t \dif t^\prime V_I(t^\prime) \right] \right\}  ~,
+\end{equation}
+where $T\left\{ \right\}$ is the \textcolor{red}{time-ordering operator}. This solution works because time ordering effectively makes everything inside commute:
+\begin{equation}
+T\left\{A \cdots B \cdots \right\} = T\left\{B \cdots A \cdots \right\} ~.
+\end{equation}
+Since it has the right boundary conditions, namely $U(t, t) = 1$, this solution is unique.
+
+Time ordering of an exponential is defined in the obvious way through its expansion:
+\begin{equation}
+U(t, t_0) = 1 -i \int_{t_0}^t \dif t^\prime V_I(t^\prime) -\dfrac{1}{2} \int_{t_0}^t \dif t^\prime \int_{t_0}^t \dif t^{\prime \prime} T\left\{V_I(t^\prime) V_I( t^{\prime \prime}) \right\}  +\cdots
+\end{equation}
+This is known as a Dyson series. Dyson defined the time-ordered product and this series in his classic paper. In that paper he showed the equivalence of old-fashioned perturbation theory or, more exactly, the interaction picture method developed by Schwinger and Tomonaga based on time-dependent perturbation theory, and Feynman's method, involving space-time diagrams, which we are about to get to.
+
+
+\subsubsection{Perturbative solution for the Dyson series}
+Removing the subscript on $V$ for simplicity, the differential equation we want to solve is
+\begin{equation}
+i \partial_t U(t, t_0) = V(t) U(t, t_0) ~.
+\end{equation}
+Integrating this equation lets us write it in an equivalent form:
+\begin{equation}
+U(t, t_0) = 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) U(t^\prime, t_0) ~,
+\end{equation}
+where 1 is the appropriate integration constant so that $U(t_0,t_0) = 1$.
+
+Solve the integral equation order-by-order in $V$. At zeroth order in $V$,
+\begin{equation}
+U(t,t_0) = 1 ~.
+\end{equation}
+To first order in $V$,
+\begin{equation}
+U(t,t_0) = 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) + \cdots ~.
+\end{equation}
+To second order,
+\begin{align}
+\nonumber U(t,t_0) &= 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) \left[1 - i \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime \prime}) +\cdots  \right] \\
+&= 1 -i \int_{t_0}^t \dif t^\prime V(t^\prime) +(-i)^2 \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) +\cdots ~.
+\end{align}
+The second integral has $t_0 < t^{\prime \prime} < t^{\prime} < t$, which is the same as $t_0 < t^{\prime \prime} < t$ and $t^{\prime \prime} < t^{ \prime} < t$. So it can also be written as
+\begin{equation}
+ \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) = \int_{t_0}^{t} \dif t^{\prime \prime} \int_{t^{\prime\prime} }^{t} \dif t^{\prime} V(t^{\prime})V(t^{\prime \prime}) = \int_{t^{\prime} }^{t} \dif t^{\prime \prime}   \int_{t_0}^{t}  \dif t^{\prime} V(t^{\prime \prime})V(t^{\prime})
+\end{equation}
+where we have relabeled $t^{\prime\prime} \leftrightarrow t^{\prime}$ and swapped the order of the integrals to form. Averaging the first and third form gives
+\begin{align}
+\nonumber \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) &= \dfrac{1}{2}  \int_{t_0}^{t} \dif t^{\prime} \left[ \int_{t_0}^{t^\prime} \dif t^{\prime \prime} V(t^{\prime})V(t^{\prime \prime}) + \int_{t^\prime}^t \dif t^{\prime \prime} V(t^{\prime \prime}) V(t^{\prime}) \right] \\
+ &= \dfrac{1}{2}  \int_{t_0}^{t} \dif t^{\prime} \int_{t_0}^t \dif t^{\prime \prime} T\left\{V(t^\prime) V(t^{\prime\prime}) \right\} ~.
+\end{align}
+Thus 
+\begin{equation}
+U(t,t_0) = 1 -i\int_{t_0}^t \dif t^\prime V(t^\prime) + \dfrac{(-i)^2}{2} \int_{t_0}^t \dif t^\prime \int_{t_0}^t \dif t^{\prime\prime}  T\left\{V(t^\prime) V(t^{\prime\prime}) \right\}  +\cdots ~.
+\end{equation}
+Continuing this way, we find, restoring the subscript on $V$, that
+\begin{equation}
+U(t,t_0) = T\left\{\exp \left[-i \int_{t_0}^t \dif t^\prime V_I(t^\prime) \right] \right\} ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

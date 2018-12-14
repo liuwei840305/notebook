@@ -1,0 +1,196 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{恒星物理}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{光度与颜色}
+恒星每秒钟辐射的能量叫做\textcolor{red}{光度}。恒星的亮度用\textcolor{red}{星等}表示。在全波段的光度$L$和\textcolor{red}{绝对星等$M_{\rm bol}$}之间的关系定义为
+\begin{equation}
+M_{\rm bol} = 4.72 -2.5 \log \left(\frac{L}{L_{\odot}} \right) ~.
+\end{equation}
+
+
+联系两个天体的亮度与星等的关系由Pogson公式给出
+\begin{equation}
+m_2 -m_1 = -2.5 \lg \frac{E_2}{E_1}
+\end{equation}
+或者
+\begin{equation}
+\frac{E_2}{E_1} = 2.512^{m_1-m_2}
+\end{equation}
+现测定$1$标准烛光在$1$m处的照度($1$lx)，其视星等为$-13^{\rm m}.98$，或者说零等星的照度为$2.54\times 10^{-6}$ lx。太阳的视星等$m_{\rm V} = -26^{\rm m}.74$，满月的$m_{\rm V} = -12^{\rm m}.74$。
+
+天体的照度$E$，发光强度$I$和到天体距离$r$的关系为
+\begin{equation}
+E = \frac{I}{r^2}
+\end{equation}
+故视星等表示为
+\begin{equation}
+m = -2.5\lg I + 5\lg r
+\end{equation}
+
+天体的\textcolor{red}{绝对星等$M$}定义为\textcolor{cyan}{位于$10$ pc处天体的视星等}。天体的视星等$m$和绝对星等$M$与距离$r$ (以pc为单位) 或周年视差$\pi$ (以角秒为单位) 的关系为
+\begin{eqnarray}
+M &=& m +5 -5\lg r -A ~, \\
+M &=& m +5 +5\lg \pi -A ~.
+\end{eqnarray}
+$A$为星际消光。视星等与绝对星等之差就是天体距离的度量，称为\textcolor{red}{距离模数}，即
+\begin{equation}
+m - M= 5\lg r - 5 ~.
+\end{equation}
+
+
+1951年，H.L. Johnson和W. W. Morgan提出\textcolor{red}{$UBV$三色测光系统}作为星等和颜色的标准。$U$、$B$、$V$分别表示紫外、蓝色和目视的意思。上述三种星等$U$、$B$、$V$规定对于$A0$型星 ($A0$型主序星) 有
+\begin{equation}
+U = B = V ~.
+\end{equation}
+表面温度比$A0$型星高的恒星，$U-B$和$B-V$取较小的负值，低温星具有较大的正值。\textcolor{red}{$B-V$成为衡量恒星表面温度的尺度}，称为\textcolor{red}{色指数}。
+
+研究全波段辐射问题时，须考虑$V$和辐射星等的差，这个差叫做\textcolor{red}{热改正 B.C.}，即
+\begin{equation}
+{\rm B.C.} = m_V - m_{\rm bol} = M_V - M_{\rm bol} ~.
+\end{equation}
+对于地球大气和星际气体吸收而观测不到的紫外和红外波段，可用黑体辐射分布的假定而求出各个光谱型星的B.C.的值。规定F5型星的B.C.$=0$。B.C.通常取正值，随着温度的升高或降低而热改正变得不准确。
+
+遥远的星光，在到达地面之前，由于星际气体中的粒子吸收而散射。波长越短，吸收越大，叫做\textcolor{red}{星际红花}。如果测定两个独立的色指数B-V和U-B，同时又知道星际红花值，可以求出实际的表面温度。
+
+
+
+
+
+
+
+
+\section{质量}
+只有在双星情况下才能直接测定恒星的质量。
+
+\section{The Hertzsprung–Russell and Color-Magnitude Diagrams}
+When the \textcolor{red}{absolute brightness of a set of stars} is plotted against \textcolor{red}{surface temperature}, as measured either from an analysis of the stellar spectrum or by the star’s color, only certain portions of such \textcolor{red}{Hertzsprung-Russell} and \textcolor{red}{color-magnitude} diagrams are populated appreciably.
+
+
+
+
+
+
+
+\section{The Formation of Stars}
+
+\section{静力学平衡}
+
+
+
+\section{多方过程}
+
+
+
+
+\section{Lane-Emden方程}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

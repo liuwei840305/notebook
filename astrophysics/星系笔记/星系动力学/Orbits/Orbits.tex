@@ -1,0 +1,245 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+
+
+\title{The Orbits of Stars}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{2008gady.book.....B} Although galaxies are composed of stars, we shall neglect the forces from individual stars and consider only the large-scale forces from the overall mass distribution, which is made up of thousands of millions of stars. The gravitational fields of galaxies are smooth, neglecting small-scale irregularities due to individual stars or larger objects like globular clusters or molecular clouds. The gravitational fields of galaxies are sufficiently smooth that these irregularities can affect the orbits of stars only after many crossing times.
+
+Since only gravitational forces are dealt with, the trajectory of a star in a given field does not depend on its mass.
+
+
+\section{Orbits in static spherical potentials}
+Consider orbits in a static, spherically symmetric gravitational field. Such fields are appropriate for globular clusters, which are usually nearly spherical. $\vec{r} = r \hat{e}_r$ denotes the position vector of the star with respect to the center, and the radial acceleration is
+ \begin{equation}
+\vec{g} = g(r) \hat{\vec{e}}_r ~,
+\end{equation}
+the equation of motion of the star is
+\begin{equation}
+\frac{\dif^2 \vec{r}}{\dif t^2} = g(r) \hat{\vec{e}}_r ~.
+\end{equation}
+\begin{equation}
+\frac{\dif }{\dif t} \left(\vec{r} \times \frac{\dif \vec{r} }{\dif t}  \right) = \frac{\dif \vec{r}}{\dif t} \times \frac{\dif \vec{r} }{\dif t} +\vec{r} \times \frac{\dif^2 \vec{r}}{\dif t^2} = g(r) \vec{r} \times \hat{\vec{e}}_r = 0 ~.
+\end{equation}
+\begin{equation}
+\vec{L} = \vec{r} \times \frac{\dif \vec{r} }{\dif t}
+\end{equation}
+$\vec{L}$ is the angular momentum per unit mass, a vector perpendicular to the plane defined by the star's instantaneous position and velocity vectors. $\vec{L}$ is velocity vectors, i.e. the star moves in a plane, the \textcolor{red}{orbital plane}. Establish the plane polar coordinates $(r, \psi)$ in which the center of attraction is at $r = 0$ and $\psi$ is the azimuthal angle in the orbital plane. The Lagrangian per unit mass is
+\begin{equation}
+\mathcal L = \frac{[\dot{r}^2 +(r \dot{\psi})^2]}{2} -\Phi(r) ~,
+\end{equation}
+where $\psi$ is the gravitational potential and $g(r) = -\dfrac{\dif \psi}{\dif r}$. The equations of motion are
+\begin{eqnarray*}
+&& \frac{\dif }{\dif t} \frac{\partial \mathcal L}{\partial \dot{r} } -\frac{\partial \mathcal L}{\partial r} = \ddot{r} - r\dot{\psi}^2 +\frac{\dif \Phi}{\dif r} = 0 ~, \\
+&& \frac{\dif }{\dif t} \frac{\partial \mathcal L}{\partial \dot{\psi} } -\frac{\partial \mathcal L}{\partial \psi} = \frac{\dif (r^2 \psi)}{\dif t} = 0 ~.
+\end{eqnarray*}
+The second of these equations implies 
+\begin{equation}
+L = r^2 \psi = \rm const.
+\end{equation}
+Geometrically, $L$ is equal to twice the rate at which the radius vector sweeps out area.
+
+
+
+\subsection{Constants and integrals of the motion}
+Any stellar orbit traces a path in the six-dimensional space for which the coordinates are the position and velocity $\vec{x}, \vec{v}$. This space is called \textcolor{red}{phase space}. (In statistical mechanics phase space usually refers to position-momentum space rather than position-velocity space. Since all bodies have the same acceleration in a given gravitational field, mass is irrelevant.) A \textcolor{red}{constant of motion} in a \textcolor{purple}{given force field} is \textcolor{purple}{any function $C(\vec{x}, \vec{v}; t)$ of the phase-space coordinates and time that is constant along stellar orbits}. If the position and velocity along an orbit are given by $\vec{x}(t)$ and $\vec{v}(t) = \dfrac{\dif \vec{x}}{\dif t}$,
+\begin{equation}
+C[\vec{x}(t_1), \vec{v}(t_1); t_1] = C[\vec{x}(t_2), \vec{v}(t_2); t_2]
+\end{equation}
+for any $t_1$ and $t_2$.
+
+An \textcolor{red}{integral of motion $I(\vec{x}, \vec{v})$} is \textcolor{purple}{any function of the phase-space coordinates alone that is constant along an orbit}:
+\begin{equation}
+I[\vec{x}(t_1), \vec{v}(t_1)] = I[\vec{x}(t_2), \vec{v}(t_2)]
+\end{equation}
+While every integral is a constant of the motion, the converse is not true.
+
+Any orbit in any force field always has six independent constants of motion. Indeed, since the initial phase-space coordinates $(\vec{x}_0, \vec{v}_0) \equiv [\vec{x}(0), \vec{v}(0)]$ can always be determined from $[\vec{x}(t), \vec{v}(t)]$ by integrating the equations of motion backward, $(\vec{x}_0, \vec{v}_0)$ can be regarded as six constants of motion.
+
+Orbits  can have from zero to five integrals of motion. Two examples. In any static potential $\Phi(\vec{x})$, the Hamiltonian $H(\vec{x}, \vec{v}) = \dfrac{v^2}{2} +\Phi$ is an integral of motion. If a potential $\Phi(R, z, t)$ is axisymmetric about the $z$ axis, the $z$-component of the angular momentum is an integral, and in a spherical potential $\Phi(r, t)$, the three components of the angular-momentum vector $\vec{L} = \vec{x} \times \vec{v}$ constitute three integrals of motion.
+
+The motion in a spherically symmetric potential. In this case the Hamiltonian $H$ and the three components of the angular momentum per unit mass $\vec{L} = \vec{x} \times \vec{v}$ constitute four integrals. Use $|\vec{L}|$ and the two independent components of the unit vector $\hat{\vec{n}} = \vec{L}/|\vec{L}|$ as integrals in place of $\vec{L}$.  $\hat{\vec{n}}$ defines the orbital plane within which the position vector $\vec{r}$ and the velocity vector $\vec{v}$ must lie. The two independent components of $\hat{\vec{n}}$ restrict the star’s phase point to a four-dimensional region of phase space. The equations $H(\vec{x}, \vec{v}) = E$ and $|\vec{L}(\vec{x}, \vec{v})| = L$, where $L$ is a constant, restrict the phase point to that two-dimensional surface in this four-dimensional region on which $v_r = \pm \sqrt{2[E -\Phi(r)] -L^2/r^2}$ and $v_\psi = L/r$. This surface is a torus and that the sign ambiguity in $v_r$ is analogous to the sign ambiguity in the $z$-coordinate of a point on the sphere $r^2 = 1$ when one specifies the point through its $x$ and $y$ coordinates. Thus, given $E$, $L$, and $\hat{\vec{n}}$, the star's position and velocity (up to its sign) can be specified by two quantities, for example $r$ and $\psi$.
+
+Consider the motion in the potential
+\begin{equation}
+\Phi(r) = -GM \left(\frac{1}{r} +\frac{a}{r^2} \right) ~.
+\end{equation}
+equation becomes
+\begin{equation}
+\frac{\dif^2 u}{\dif \psi^2}  +\left(1 -\frac{2GMa}{L^2} \right)u = \frac{GM}{L^2} ~,
+\end{equation}
+the general solution is
+\begin{equation}
+u = C \cos \left(\frac{\psi -\psi_0}{K} \right) +\frac{GMK^2}{L^2} ~,
+\end{equation}
+where
+\begin{equation}
+K \equiv \left(1 -\frac{2GMa}{L^2} \right)^{-1/2} ~.
+\end{equation}
+\begin{equation}
+\psi_0 = \psi - K \arccos \left[\frac{1}{C}\left(\frac{1}{r} -\frac{2GMK^2}{L^2}\right) \right] ~,
+\end{equation}
+where $t = \arccos x$ is the multiple-valued solution of $x = \cos t$, and $C$ can be expressed in terms of $E$ and $L$ by
+\begin{equation}
+E = \frac{1}{2} \frac{C^2 L^2}{K^2} - \frac{1}{2}\left(\frac{GMK}{L}\right)^2 ~.
+\end{equation}
+Replacing $E$ by $H(\vec{x}, \vec{v})$ and $L$ by $|L(\vec{x}, \vec{v})| = |\vec{x} \times \vec{v}|$, the quantity $\psi_0$ becomes a function of the phase-space coordinates which is constant as the particle moves along its orbit. Hence $\psi_0$ is a fifth integral of motion. (Since the function $\arccos x$ is multiple-valued, a judicious choice of solution is necessary to avoid discontinuous jumps in $\psi_0$.) Suppose we know the numerical values of $E$, $L$, $\psi_0$, and the radial coordinate $r$. Since we have four numbers—three integrals and one coordinate—it is natural to ask how to use these numbers to determine the azimuthal coordinate $\psi$. Rewrite the equation
+\begin{equation}
+\psi = \psi_0 \pm K \cos^{-1} \left[\frac{1}{C}\left(\frac{1}{r} -\frac{2GMK^2}{L^2}\right) \right] +2nK\pi ~,
+\end{equation}
+where $\cos^{-1}(x)$ is defined to be the value of $\arccos(x)$ that lies between $0$ and $\pi$, and $n$ is an arbitrary integer. If $K$ is irrational---as nearly all real numbers are---then by a suitable choice of the integer $n$, we can make $\psi$ modulo $2\pi$ approximate any given number as closely as we please. For any values of $E$ and $L$, and any value of $r$ between the pericenter and apocenter for the given $E$ and $L$, an orbit that is known to have a given value of the integral $\psi_0$ can have an azimuthal angle as close as we please to any number between $0$ and $2\pi$.
+
+If $K$ is rational, these problems do not arise. The simplest and most important case is that of the Kepler potential, when $a = 0$ and $K = 1$. The equation becomes
+\begin{equation}
+\psi = \psi_0 \pm \cos^{-1} \left[\frac{1}{C}\left(\frac{1}{r} -\frac{GM}{L^2}\right) \right] +2n\pi ~,
+\end{equation}
+which yields only two values of $\psi$ modulo $2\pi$ for given $E$, $L$ and $r$.
+
+The phase space has six dimensions. The equation $H(\vec{x}, \vec{v}) = E$ confines the orbit to a five- dimensional subspace. The vector equation $L(\vec{x}, \vec{v}) = \rm constant$ adds three further constraints, thereby restricting the orbit to a two-dimensional surface. Through the equation $\psi_0(\vec{x}, \vec{v}) = \rm constant$, the fifth integral confines the orbit to a one-dimensional curve on this surface.
+
+Consider any volume of phase space, of any shape or size. Then if $K$ is irrational, the fraction of the time that an orbit with given values of $H$ and $L$ spends in that volume does not depend on the value that $\psi_0$ takes on this orbit.
+
+
+
+
+
+
+
+
+
+Integrals like $\psi_0$ for irrational $K$ that do not affect the phase-space distribution of an orbit, are called \textcolor{red}{non-isolating integrals}. All other integrals are called \textcolor{red}{isolating integrals}. The examples of isolating integrals are $H$, $\vec{L}$, and the function $\psi_0$ when $K = 1$. All confine stars to a five-dimensional region in phase space. However, there can also be isolating integrals that restrict the orbit to a six-dimensional subspace of phase space.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

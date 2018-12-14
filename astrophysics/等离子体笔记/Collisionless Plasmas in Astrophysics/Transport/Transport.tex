@@ -1,0 +1,485 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Transport of Cosmic Rays}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+In \textcolor{blue}{collisional plasmas}, diffusion of matter, temperature, resistivity, and viscosity are transport phenomena that are governed by Coulomb collisions and are described by transport coefficients that tend either to \textcolor{cyan}{produce a relaxation towards the thermodynamic equilibrium}, or to \textcolor{cyan}{maintain the distribution functions close to it}. The \textcolor{red}{magnetic field irregularities in a collisionless plasma} can generate diffusion of matter, energy, etc., but \textcolor{red}{do not produce a relaxation towards thermal equilibrium.} In some conditions it can even maintain the distribution functions out of thermal equilibrium, such as in power law distributions of suprathermal particles. 
+
+\section{The Problem of Transport}
+The collisional processes are inefficient at high energy. Indeed, Coulomb interactions have a typical \textcolor{cyan}{impact parameter $b_0$}. For an energy $\epsilon$ in the center of mass, \textcolor{yellow}{$b_0 = Ze^2/\epsilon$}. The cross section is thus $\sigma \sim \pi b^2_0 \ln \Lambda$. $\Lambda$ is called the Coulomb parameter which stems from the cut off of the long range interaction limited by the ``Debye screening". The mean free paths thus increase proportionally to $\epsilon^2$ and non-Coulomb interactions take place. In this way, relaxation towards thermal equilibrium is inhibited.
+
+The \textcolor{red}{magnetic turbulence} of astrophysical media acts on particle distributions at \textcolor{red}{scales shorter than their collisional mean free path}. This is the reason why those distributions do not undergo relaxation towards thermal equilibrium and are not subject to collisional transport phenomena (diffusion, thermal conduction, viscosity, and so on) and are maintained out of thermal equilibrium.
+
+
+
+\subsection{The Magnetic Field: Obstruction to Transport}
+When the field lines are slightly curved (in other words, the curvature radius is much larger than the Larmor radius), particles keep a helicoidal motion that follows approximately the field lines, except for some slow drift motion and the possibility of reflection. 
+ 
+\subsubsection{Magnetic Barrier}
+Consider a magnetic field of the form \textcolor{cyan}{$\vec{B} = B_0\phi(x) \vec{e}_z$}, where $\phi(x)$ is a function of bell shape with a characteristic width $\delta_0$. The particle motions are governed by three invariants: energy $\epsilon$ (or the impulsion norm $p$), $p_z$, and the conjugate momentum of $y$, namely $\pi_y = p_y + (Ze/c)A_y(x)$, the vector potential being $\vec{A} = B_0 \Phi(x) \vec{e}_y$ with $\Phi(\infty) \equiv \delta \sim \delta_0$. Define a Larmor radius $r_L \equiv p_\perp c/(ZeB_0)$, where $p_\perp$ is the norm of the transverse component of the particle momentum, which is a conserved quantity, and a pitch angle $\alpha$ such that $p_x = p_\perp \cos \alpha$, $p_y = p_\perp \sin \alpha$. The interaction only produces a change of the pitch angle $\alpha$ between the momentum and the direction normal to the magnetic sheet ($\vec{e}_x$). Writing the conservation of $p^2$ (or $p^2_\perp$), an equation that governs the evolution of $p_x$ is
+\begin{equation}
+m^2 \gamma^2 \dot{x}^2 = p^2 -\left(\pi_y -\frac{Ze}{c} B_0 \phi(x) \right)^2 -p_z^2 = p^2_\perp \left[1-\left(\sin \alpha_i -\frac{\Phi(x)}{r_L} \right)^2 \right] ~.
+\end{equation}
+Because $\epsilon$ is conserved, $\gamma = \epsilon/mc^2$ is an invariant. The particle motion reduces to a differential equation of the form $\dot{x}^2 = f(x)$. Due to that the function $\Phi(x)$ is monotonic and takes values between $0$ and $\delta$, which leads to:
+
+1. There is \textcolor{cyan}{crossing of the magnetic barrier} if $f(x) > 0 ~\forall x$, which is realized if and only if $(1 +\sin \alpha_i) r_L > \delta$, and since the previous equation can simply be rewritten as $\sin \alpha = \sin \alpha_i - \Phi(x)/r_L$ (which is nothing but the invariance of $\pi_y$), the momentum deflection is $\Delta \sin \alpha = \pm \delta/r_L$. 
+
+2. There is a \textcolor{cyan}{reflection on the magnetic barrier} at the point where $f(x) = 0$, which exists if $(1+\sin \alpha_i)r_L < \delta$.
+
+\textcolor{red}{The interaction of a cosmic ray with a magnetic perturbation is sensitive only for Larmor radii not larger than the perturbation scale and leads to a mere deflection.}
+
+\subsubsection{Adiabatic Invariant}
+Consider the motion of a particle along a curved field line, when its Larmor radius is much smaller that the curvature radius.  The conservation of the first adiabatic invariant causes particle trapping in regions of low magnetic field, provided that the particle pitch angle is not too small. 
+
+\textcolor{orange}{Acceleration of the trapped particles occurs when the second adiabatic invariant is conserved, and when mirror points have convergent motions toward each other}.
+
+\subsection{Magnetic Irregularities: Transport Agent}
+Irregularities of the magnetic field cause erratic motions of suprathermal particles, especially when they encounter \textcolor{red}{disturbances of size comparable to their Larmor radius}, which is widely occurring when the magnetic field displays a turbulent state characterized by a wide spectrum of Fourier modes. Processes similar to diffusion processes can then take place and allow the elaboration of a complete description of suprathermal particle transport.
+
+\subsubsection{Breaking the Adiabatic Invariant by Landau-Synchrotron Resonances}
+In order to obtain a diffusive type of particle transport, it is necessary that the \textcolor{red}{adiabatic invariant be broken}. The Fermi acceleration process works efficiently when the particle momentum can be frequently reversed like in a Brownian motion. The situation must be such that the pitch angle evolves randomly with a high frequency of reversal.
+
+Consider the mean field is homogeneous so that the invariant to be broken is nothing but the pitch angle $\alpha$. 
+The pitch angle variations are governed by a simple stochastic equation, resulting from the projection of the dynamic equation along the mean field while taking account of energy conservation (and thus also of $p$ and of $\nu$).
+\begin{equation}
+\dot{\alpha} = f(t) \equiv \omega_L [\cos \phi(t) b_2(t) -\sin \phi(t) b_1(t)] ~,
+\end{equation}
+where $\omega_L \equiv Ze\bar{B}/\gamma mc$ and \textcolor{red}{$b \equiv \delta \vec{B}/\bar{B}$ is the irregular part of the magnetic field experienced by the particle along its trajectory}. $\phi(t)$ is the gyro-phase and when perturbations are neglected, $\phi(t) = \omega_L t +\phi_0$.
+
+Consider perturbations transverse to the mean field $B_0 \vec{e}_x$ and depending on the coordinate $x$ only. Introduce the reduced vector potential $\vec{a}$ and $\vec{b} = \nabla \times \vec{a}$. The motions are described by a simple Hamiltonian system for the two conjugate variables $(\alpha, x)$, and $\dot{x} = \nu \cos \alpha$:
+\begin{equation}
+H(\alpha, x) = \nu \sin \alpha -\omega_L [\cos \phi(t) a_1(x) +\sin \phi(t) a_2(x) ] ~,
+\end{equation}
+where the perturbation is supposed to be weak enough for assuming $\phi = \omega_L t + \phi_0$.
+
+Consider a discrete ensemble of Fourier modes
+\begin{equation}
+\vec{a} = \sum_n a_n(\vec{e}_1 \cos (k_n x) +\varepsilon_c \vec{e}_2 \sin(k_n x) ) ~,
+\end{equation}
+where $\varepsilon_c = 1$ for modes of right polarization and $-1$ for the modes of left polarization. The Hamiltonian is
+\begin{equation}
+H(\alpha, x) = \nu \sin \alpha -\omega_L \sum_n a_n \cos (k_n x -\varepsilon \omega_L t +\phi_0) ~,
+\end{equation}
+where $\varepsilon = \varepsilon_c ~{\rm sgn}(q)$. A resonance occurs for various values $\alpha_n$ of the pitch angle $\alpha$ so that $k_n \dot{x}  = \varepsilon \omega_L$, or $k_n \mu_n = \varepsilon \omega_L$ with $\mu_n = \cos \alpha_n$. A negative charge moving forwards undergoes a resonant interaction with a right mode $(\epsilon = 1)$, whereas it undergoes resonance with a left mode when moving backwards and vice versa for a positive charge. The conclusions are the opposite ones for receding modes. Those resonances are synchrotron resonances. When these discrete resonances are isolated by separatrixes, the Hamiltonian can be approximated by a pendulum Hamiltonian in the vicinity of each resonance by using the following canonical transformation:
+\begin{eqnarray*}
+\theta &=& k_n x -\epsilon \omega_L t +\phi_0 ~, \\
+J &=& (\alpha -\alpha_n)/k_n ~, \\
+H^\prime &=& H - \epsilon \omega_L \alpha /k_n +{\rm const.} ~,
+\end{eqnarray*}
+the approximate Hamiltonian is
+\begin{equation}
+H^\prime(J, \theta) = -k_n^2 \sin \alpha_n \left(\frac{J^2}{2} -\Omega^2_n \cos \theta \right) ~,
+\end{equation}
+where the nonlinear pulsation $\Omega_n$ is 
+\begin{equation}
+\Omega^2_n = \frac{\bar{\omega} a_n}{k^2_n \sin \alpha_n} ~.
+\end{equation}
+The pendulum approximation differs from the exact Hamiltonian by oscillating terms. The half-width of the $n^{\rm th}$ nonlinear resonance in phase space $(J, \theta)$ is $\Delta J = 2\Omega_n$ and the resonances overlap when that half-width is larger than the half- separation between resonances $\Delta \alpha_n/k_n$; which leads to the Chirikov criterium for intrinsic stochasticity (Hamiltonian chaos)
+\begin{equation}
+\bar{\omega} a_n \sin \alpha_n  > (\Delta \nu_n)^2/4 ~.
+\end{equation}
+Chaos occurs even for a lower threshold. The dynamical description with $H^\prime$ differs from the exact dynamics by oscillating contributions, among which there are the mode propagating in the opposite direction. Particles cannot resonate simultaneously with both progressive and regressive modes. The smallest value of $\mu_n$ controls the jump of the pitch angle around $90^\circ$. A particle can jump from the resonance with the right mode $(\epsilon = 1)$ to the resonance with the left mode $(\epsilon = -1)$ if $k_n^2 a_n > \bar{\omega}/4$. This is the nonlinear solution to the problem of momentum reversal. When the amplitude of the modes is sufficiently above the stochasticity threshold, the chaotic jumps of the pitch angle behave like a diffusion process. Only the momentum reversal could be slowed down by a ``sticky" regime around 90ı, leading to a subdiffusion process.
+
+
+\subsubsection{Theorem on Symmetries and Transport}
+In the previous model, although parallel diffusion has been made possible by the chaotic behavior of trajectories due to perturbations depending on the variable $x$, transverse diffusion is impossible, because phase space is still locked by invariants. When the Lagrangian is invariant under translations along some direction, in other words, the coordinate associated with that direction (straight or circular) is ``ignorable", then
+
+if the mean field $\vec{B}_0$ points in that direction, there is no restriction on the trajectory wandering in that direction; \\
+
+otherwise, the trajectory is confined in a layer or a tube whose thickness is of few Larmor radii.
+
+Consider an oblique shock and perturbations depending on the curvilinear abscissa along the mean field. Any cosmic ray trajectory is then confined in a bent tube of a few Larmor radii size. Cosmic rays can move back and forth in the tube and even cross the shock several times, but cannot diffuse out of the tube.
+
+\subsubsection{Diffusion along the Mean Field and Angular Diffusion}
+Spatial diffusion along the mean field stems from random jumps of the momentum direction: $\dot{x} = \nu \mu$, where $\mu = \cos \alpha$, the pitch angle cosine with respect to the mean field. As long as the self-correlation function of the \textcolor{red}{random process $\mu(t)$} displays a relaxation time $\tau_s$,
+\begin{equation}
+\tau_s \equiv 3 \int_0^\infty \langle \mu(t) \mu(t-\tau) \rangle \dif \tau
+\end{equation}
+then a coefficient of spatial diffusion can be estimated. Indeed, for a location jump $\Delta x$ during $\Delta t \gg \tau_s$,
+\begin{eqnarray}
+\langle \Delta x^2 \rangle &=& \nu^2 \int_0^{\Delta t} \dif t_1 \int_0^{\Delta t} \dif t_2~ \langle \mu(t_1) \mu(t_2) \rangle = 2\Delta t  \int_0^{\Delta t} \langle \mu(\tau) \mu(0) \rangle \dif \tau ~, \\
+\langle \Delta x^2 \rangle &\simeq& 2D_\parallel \Delta t ~,
+\end{eqnarray}
+with $D_\parallel = (1/3)\nu^2 \tau_s$. The main question for the transport is to know the diffusion time of the pitch angle, which is nothing but the time $\tau_s$ for a given spectrum of turbulence.
+
+In weak turbulence described by a continuous spectrum of Fourier modes, one can calculate a frequency of angular diffusion, 
+\begin{equation}
+\nu_s \equiv \frac{\langle \Delta \alpha^2 \rangle}{\Delta t}  = \omega_L^2 \int_0^\infty \langle \vec{b}(\tau) \cdot \vec{b}(0) \rangle \cos \omega_L \tau \dif \tau ~.
+\end{equation}
+When $\vec{b}$ is expanded in Fourier modes and that the unperturbed motion in inserted in the phases,
+\begin{equation}
+\nu_s = \omega_L \int_{\mathcal R^3}  \frac{\dif \vec{k}}{(2\pi)^3} F(\vec{k}) g(\vec{k}, \vec{p})
+\end{equation}
+where $F(\vec{k})$ is the 3D-correlation spectrum of the magnetic irregularities and the function $g(\vec{k}, \vec{p})$ describes the resonant interaction between particles and modes:
+\begin{equation}
+g(\vec{k}, \vec{p}) \equiv  \omega_L \int_0^\infty e^{i\vec{k}\cdot \Delta \vec{x}(\tau) -i\omega(k) \tau} \cos \omega_L \tau \dif \tau ~,
+\end{equation}
+where $\Delta x(\tau)$ is the jump of the unperturbed trajectory during a time $\tau$ and $\omega(k)$ the mode pulsation. It displays resonances, for
+\begin{equation}
+g(\vec{k}, \vec{p}) \propto \delta(\omega(k) -k_\parallel \nu_\parallel \pm n \omega_L) ~.
+\end{equation}
+These are the Landau-synchrotron resonances.
+
+For an isotropic spectrum, define $S(k)$ such that $F(k) 4\pi k^2 \dif k = S(k)\dif k$, with a degree of irregularity
+\begin{equation}
+\eta \equiv \frac{\langle \delta \vec{B}^2 \rangle}{\langle \vec{B}^2 \rangle} = \int S(k) \dif k ~,
+\end{equation}
+and a coherence length $l_c$ can be defined as the spatial range of the magnetic field  correlation:
+\begin{equation}
+l_c  \equiv \int_0^\infty C(r) \dif r = \frac{\pi}{2} \int_0^\infty \frac{S(k)}{k} \dif k ~.
+\end{equation}
+For the particles interacting with turbulence, it is used to define a ``rigidity" parameter $\rho$ such that $\rho \equiv r_L/l_c$.
+
+When this spectrum is a power law $S(k) \propto \eta k^{-\beta}$ between $k_{\rm min}$ and $k_{\rm max}$, for the
+resonant range where
+\begin{equation}
+\frac{k_{\rm min}}{k_{\rm max}} < \rho < 1 ~,
+\end{equation}
+\begin{equation}
+\nu_s \sim \omega_L \eta \rho^{\beta-1} ~.
+\end{equation}
+$\tau_s \sim \nu^{-1}$. The scattering time $\tau_s$ can also be defined as the time required for a particle momentum to be deflected of an angle $\pi/2$, 
+\begin{equation}
+\tau_s = \frac{\pi^2}{4\nu_s} ~.
+\end{equation}
+The transport theory generally deals with two different times that characterize the random process, the one is the correlation time $\tau_c$ associated with the force experienced by particles, the other is the correlation time associated with the momentum, in particular, the pitch angle scattering time $\tau_s$. In weak turbulence these
+two times are very different, whereas they are comparable in strong turbulence.
+
+In strong turbulence, the gyro-resonances broaden. However, the scaling with the rigidity $\rho$ and the degree of irregularity $\eta$ can be extrapolated. However, the correlation time and the scattering time become comparable and the memory of the initial value of $\mu$ is lost; thus the variations of $\mu$ are the main cause of resonance broadening.
+
+\subsubsection{Scattering in Strong Large-Scale Turbulence}
+When the plasma is in a state of fully developed turbulence with an isotropic spectrum of magnetic disturbances $S(k)$ (normalized to $1$), a general formula for the scattering frequency of relativistic particles within a pre-factor of order unity can be derived. The deflection angle of a particle crossing a magnetic disturbance of size $\lambda$ with a Larmor radius $r_L > \lambda$ is $\Delta \alpha \simeq \lambda/r_L$. The particle crosses it on a time $\Delta t \sim \lambda/c$. The scattering frequency is
+\begin{equation}
+\nu_s = \frac{\langle \Delta \alpha^2 \rangle}{\Delta t}  \sim \langle \frac{\lambda^2}{r^2_L} \frac{c}{\lambda} \rangle ~.
+\end{equation}
+By introducing a size distribution $\rho(\lambda)$ such that $\rho(\lambda)\dif \lambda = S(k)\dif k$,
+\begin{equation}
+\nu_s \sim \frac{c}{r_L^2} \int_{\lambda < r_L} \lambda \rho(\lambda) \dif \lambda \sim \frac{c}{r_L^2} \int_{kr_L > 1} \frac{S(k)}{k} \dif k ~.
+\end{equation}
+For a power law spectrum, $S(k) \propto k^{-\beta}$, for $k l_c > 1$ and $1< \beta < 2$ (like Kolmogorov and Kraichnan spectra) and declining rapidly on scales larger than the coherence length (that is, $k l_c > 1$), the coherence length then characterizes a turbulence state concentrated on large scales and when $r_L < l_c$, 
+\begin{equation}
+\nu_s \sim \frac{c l_c}{r^2_L} \left( \frac{r_L}{l_c} \right)^\beta \sim \frac{c }{l_c} \left( \frac{r_L}{l_c} \right)^{\beta-2} \propto \epsilon^{\beta-2} ~.
+\end{equation}
+Beyond the coherence length,
+\begin{equation}
+\nu_s \sim \frac{c l_c}{r^2_L} \propto \epsilon^{-2}  ~.
+\end{equation}
+We can also define a rate of reflection for particles having $r_L <  \lambda$. If $r_L > l_c$, that rate obviously vanishes. For $r_L < l_c$, the reflection rate can be estimated as
+\begin{equation}
+\nu_r \sim \langle \frac{c}{\lambda} \rangle \sim \frac{c}{l_c} \int_{kr_L < 1} k l_c S(k) \dif k \sim \frac{c}{l_c} \left( \frac{r_L}{l_c} \right)^{\beta-2} ~.
+\end{equation}
+This reflection rate is similar to the scattering rate, except for Larmor radii larger than the coherence length where the reflection rate vanishes immediately.
+
+
+\subsection{Other Diffusion Coefficients}
+Two types of diffusion coefficient have been Introduced, one is a spatial coefficient due to a random motion that implies position jumps $\Delta x$ during a time $\Delta t$ longer than the scattering time $\tau_s$, the other is an angular diffusion, the scattering frequency $\nu_s$, that implies random deflection angle $\Delta \alpha$ of a particle momentum due to a random force during a time $\Delta t$, that is, longer than another time scale, the correlation time $\tau_c$ of the force experienced by a particle. This correlation time $\tau_c$ is very often much shorter than the scattering time $\tau_s$. So we deal with two levels of random processes, the shortest time scale one, characterized by the time $\tau_c$, describes the momentum variation due to the random force, and the longest one, characterized by the scattering time $\tau_s$, describes the spatial variations due to the random motions. 
+
+
+\subsubsection{Diffusion Across the Mean Field}
+It controls the confinement loss of particles in a galaxy, an astrophysical jet, or a tokamak. Assume that a plasma is invariant under rotation about the direction of the mean field. Let $\Delta \vec{x}_\perp$ be a transverse random jump during $\Delta t \gg \tau_s$. The transverse diffusion coefficient is then defined by
+\begin{equation}
+\langle \Delta \vec{x}^2_\perp \rangle = 4D_\perp \Delta t ~.
+\end{equation}
+In weak turbulence, the coefficient can be estimated by
+\begin{equation}
+\langle \Delta \vec{x}^2_\perp \rangle \simeq \nu^2 \int_0^{\Delta t} \dif t_1 \int_0^{\Delta t} \dif t_2 \langle \sin \alpha_1 \sin \alpha_2 \rangle \cos (\phi_1 -\phi_2) ~.
+\end{equation}
+where the gyro-phase $\phi(t)$ is supposed to rotate at Larmor pulsation without significant nonlinear perturbation and thus is not correlated with the pitch angle, for example, $\phi_1 -\phi_2 \simeq \omega_L(t_1 - t_2)$. Assume that the self-correlation function of $\sin \alpha$ exponentially decreases with a characteristic time $\tau_s$
+\begin{equation}
+D_\perp = \frac{D_\parallel}{1+\omega_L^2 \tau_s^2} ~.
+\end{equation}
+In the framework of weak turbulence theory, $\omega^2_L tau^2_s \gg 1$, which makes $D_\perp \ll D_\parallel$ and we may expect a good confinement of particles. 
+
+
+
+\subsubsection{Cross Diffusion and Magnetic Chaos}
+Large-scale irregularities of the magnetic field result from chaotic behavior of the field lines when a 3D power law spectrum is prescribed. The integration of the field line system displays a generic chaotic behavior essentially characterized by two quantities. The Kolmogorov or Lyapounov length $l_K$, measures the rate of exponential divergence of two field lines initially close together, divergence revealed in 3D-simulations, but not in 1D nor 2D simulations. $D_m$, measures a kind of diffusion of the separation of two field lines when they are distant by more than a coherence length: $\langle \Delta r^2 \rangle = 2D_m \Delta_s$. The transport of cosmic rays is very evident by this chaotic behavior of field lines. The transverse diffusion is completely under the control of magnetic chaos and depends on the two characteristic quantities previously mentioned. The average rate of divergence between two field lines depends on the irregularity parameter $\eta$ and the coherence length $l_c$. The Kolmogorov length $l_K \propto l_c/\eta^{1+\epsilon^\prime}$ and the magnetic diffusion coefficient $D_m \propto l_c \eta^{1+\epsilon^\prime}$. An analysis of the consequence of chaos on the particle diffusion leads to 
+\begin{equation}
+D_\perp = \eta^{2+\epsilon} D_\parallel ~.
+\end{equation}
+Numerical simulations show that $\nu_s$ and $D_\parallel$ keep the same dependence as a function of $\rho$ and $\eta$ as in quasi-linear theory (weak turbulence), except that $\nu_s$ decreases in $\rho^{-2}$ for $\rho > 1$. This result about transverse diffusion, in agreement with numerical simulations, rules out the prediction of quasi-linear theory and also the Bohm conjecture that states that $D \propto \nu r_L$ and emphasizes the importance of chaos in the understanding of transport phenomenon. 
+
+\subsubsection{Diffusion in Energy Space}
+A random force, characterized by a short correlation time $\tau_c$, leads to a diffusion tensor in momentum space:
+\begin{equation}
+\Gamma_{ij} = \frac{\langle \Delta p_i \Delta p_j \rangle}{2\Delta t} ~,
+\end{equation}
+where $\Delta p_i$ is the random variation of the $i$-component of the momentum during a time $ \Delta t$ larger than the correlation time $\tau_c$. The coefficients are obtained when the turbulent state that produces the random force is isotropic. When Considering a particle of momentum $\vec{p}$ and intends to calculate the momentum diffusion tensor, we can assume invariance under rotations in momentum space around the considered momentum before the jump. The diffusion tensor is characterized by two eigenvalues, $\Gamma_l$ and $\Gamma_t$, $\Gamma_l$ describes diffusion of the momentum along the direction defined by $\vec{p}$ and thus describes an energy change during the momentum jump, whereas $\Gamma_t$ describes a momentum deflection without energy change.
+
+When particles experience a magnetic force, they undergo transverse diffusion only when the magnetic field is static, which is often an approximation when the time variation of the field is due to propagation at a velocity much smaller than the particle velocity. Only $\Gamma_t$ is important and is a scattering process described by the scattering frequency $\nu_s$ related to $\Gamma_t$ by $\Gamma_t = \nu_s p^2$. The magnetic disturbances (or Alfv\'en waves) have some motion needs to introduce the induction electric field that modifies the particle energy. In the case of Alfv\'en waves, for instance, the diffusion coefficient $\Gamma_l$ is of second order in $V_A/c$ and depends also essentially on the scattering frequency. The magnetic field and the electric field are derived from the vector potential that can be expanded in Fourier modes of the form
+\begin{equation}
+\vec{A} = \sum_k \vec{A} (\vec{k}) \exp [i\vec{k} \cdot (\vec{x} -\vec{V} t)] ~,
+\end{equation}
+where $V$ can be the Alfv\'n speed of any slow speed of a magnetic perturbation. The longitudinal projection of the force is, for each Fourier mode:
+\begin{equation}
+F_l = q\frac{\vec{\nu}}{\nu} \cdot \vec{E} = -q \nu \nu\cdot \partial_t \vec{A} = q (\vec{k} \cdot \vec{V}) \left(\frac{\vec{\nu}}{\nu} \cdot \vec{A} \right)
+\end{equation}
+and for the magnetic part of the force
+\begin{equation}
+\vec{F}_t = q\vec{\nu} \times \vec{B} = iq[(\vec{\nu} \cdot \vec{A})\vec{k} -(\vec{\nu} \cdot \vec{k})\vec{A}] ~.
+\end{equation}
+Because $\div \vec{A} = 0$, $\vec{k}$ and $\vec{A}$ are orthogonal. The ratio
+\begin{equation}
+\frac{|F_l|^2}{|F_t|^2} = \frac{(\vec{V} \cdot \vec{k})^2 (\vec{\nu} \cdot \vec{A})^2/\nu^2}{(\vec{\nu} \cdot \vec{A})^2k^2 +(\vec{\nu} \cdot \vec{k})^2|\vec{A}|^2} \sim \frac{V^2}{\nu^2} ~.
+\end{equation}
+Being an estimate for each Fourier mode, the ratio is generally the same for any superposition of independent modes.  An estimate of the energy diffusion coefficient is
+\begin{equation}
+\Gamma_l \equiv \frac{\langle \Delta p^2 \rangle}{2\Delta t}  \sim \nu_s \frac{V^2}{\nu^2} p^2 ~.
+\end{equation}
+For $V = V_A \ll c$ and relativistic particles having $v \simeq c$, that second order energy diffusion coefficient is much smaller than the transverse diffusion coefficient that describes pitch angle diffusion (scattering). The pre-factor of order unity that accompanies the ratio $(V/\nu)^2$ can be obtained by calculating the integrals over angles, with specific choices of their distribution. That energy diffusion coeffi- cient is the essential ingredient of the theory of second order Fermi acceleration. In the resonant range of a power law spectrum of magnetic turbulence, $\nu_s \propto \epsilon^{\beta-2}$, thus the energy diffusion coefficient scale as $\epsilon^{\beta}$. The acceleration time scale associated with that energy diffusion can be defined as $\tau_{\rm acc} \equiv p^2/\Gamma_l$ and it becomes longer and longer with increasing particle energy for $1 \leqslant \beta \leqslant 2$:
+\begin{equation}
+\tau_{\rm acc} \sim \frac{l_c}{c} \left(\frac{c}{V} \right)^2 \frac{\rho^{2-\beta}}{\eta} ~.
+\end{equation}
+The knowledge of the scattering frequency $\nu_s$ allows us to describe all the transport phenomena of cosmic rays.
+
+\subsection{Transport Equation of Cosmic Rays}
+
+\subsubsection{Spatial Diffusion}
+Consider a random coordinate $x(t)$, that locates the position of a particle at time $t$, the particle diffusing in a fluid of Eulerian velocity $u$. During a time $\Delta t$, very short compared with the diffusion time, the position of the particle has varied of an amount $\Delta x = u \Delta t +\delta x$. The first contribution is due to the bulk motion of the fluid and the second $\delta x$ is due to the purely random diffusion process. Its variance is proportional to $\Delta t$:
+\begin{equation}
+\langle \delta x^2 \rangle = 2D \Delta t ~,
+\end{equation}
+the average of $\delta x$ vanishes if the process is rigorously homogeneous. Considers the velocity $\delta \dot{x}(t)  \equiv \zeta(t)$ as a purely random process with a short correlation time, stationary, and homogeneous for the moment. Then
+\begin{equation}
+\langle \delta x^2(t) \rangle = \int_0^{\Delta t} \dif t_1 \int_0^{\Delta t} \dif t_2 \langle \zeta(t_1) \zeta(t_2) \rangle = 2 \Delta t \int_0^{\Delta t} \langle \zeta(\tau) \zeta(0) \rangle \dif \tau ~.
+\end{equation}
+For $\Delta t$ much longer than the correlation time $\tau_c$ that characterizes the decay of the correlation function,  one can approximate
+\begin{equation}
+\langle \delta x^2(t) \rangle \simeq 2 D \Delta t
+\end{equation}
+where
+\begin{equation}
+D \equiv \int_0^{\infty} \langle \zeta(\tau) \zeta(0) \rangle \dif \tau ~.
+\end{equation}
+When the self-correlation is slowly varying with $x$, the diffusion coefficient is not constant, then 
+\begin{equation}
+\langle \delta x \rangle = \partial_x D \Delta t ~.
+\end{equation}
+The behavior is typical of a Brownian motion with a short correlation time. The probability distribution $g$ that describes the particle position is governed by the equation :
+\begin{equation}
+\partial_t g = -\partial_x (ug) +\partial_x (D\partial_x g) ~.
+\end{equation}
+The exact evolution of the density $g$ results from the evolution of
+\begin{equation}
+g(x, t) \equiv \langle \delta (x-x(t)) \rangle = \int \dif x^\prime \langle \delta (x-x^\prime -\Delta x(t, t^\prime)) \delta (x^\prime-x(t^\prime)) \rangle
+\end{equation}
+where $\Delta x(t, t^\prime)$ is the random jump undergone by the particle located at $x^\prime$ on time $t^\prime$ during the time lapse $t^\prime \equiv t-t^\prime$. In order to obtain the diffusion equation, we must make two essential approximations. First, the evolution from $t^\prime$ to $t$ for a given location $x^\prime$ is independent of the past evolution before $t^\prime$ that led to the arrival at $x^\prime$. This is the Markovian approximation valid if the correlation time $\tau_c$ of the random process is short compared to the time scale of the average evolution, in other words, the evolution of the density $g$, that will be estimated a posteriori. Secondly, a jump $\Delta x(t, t^\prime)$ during a time interval $\Delta t > \tau_c$ remains small and the transition function in the integral can be expanded to second order. 
+\begin{equation}
+g(x, t) \simeq \int \dif x^\prime \langle \delta (x-x^\prime -\Delta x(t, t^\prime)) \rangle g(x^\prime, t^\prime)
+\end{equation}
+with
+\begin{equation}
+\langle \delta (x-x^\prime -\Delta x(t, t^\prime)) \rangle = \delta(x-x^\prime) +\langle \Delta x(t, t^\prime) \rangle \partial_{x^\prime} +\frac{1}{2}\langle (\Delta x(t, t^\prime) )^2 \rangle \partial^2_{x^\prime} + \cdots
+\end{equation}
+Integrating by parts, the evolution equation for $g(x)$ is 
+\begin{equation}
+\partial_t g = -\partial_x \left(\frac{\langle \Delta x \rangle}{\Delta t} g\right) +\partial^2_x \left(\frac{\langle \Delta x^2 \rangle}{2\Delta t} g \right) ~.
+\end{equation}
+which is called the Fokker-Planck equation. The diffusion is inhomogeneous when the correlation function of the random process $\zeta$ that perturbs the position such that $\delta \dot{x} = \zeta$ depends slowly of the unperturbed position. The calculation of the diffusion coefficient offers no technical difficulty as long as $\Delta t$ is sufficiently long compared with the correlation time $\tau_c$ that characterized the decrease of the correlation function of the random process $\zeta$,
+\begin{equation}
+D \equiv \frac{\langle \Delta x^2 \rangle}{2\Delta t} = \int_0^\infty \langle \zeta(\tau) \zeta(0) \rangle \dif \tau ~.
+\end{equation}
+\begin{equation}
+\frac{\langle \Delta x \rangle}{\Delta t} = u +\partial_x D ~.
+\end{equation}
+When extending to several dimensions, the Fokker-Planck equation is
+\begin{equation}
+\partial_t g = -\partial_{x_i} \left(\frac{\langle \Delta x_i \rangle}{\Delta t} g\right) +\partial^2_{x_i x_j} \left(\frac{\langle \Delta x_i x_j \rangle}{2\Delta t} g \right) 
+\end{equation}
+The diffusion tensor derives from the correlation tensor of a vectorial random process $\zeta_j$:
+\begin{equation}
+D_{ij} = \int_0^\infty \langle \zeta_i(\tau) \zeta_j(0) \rangle \dif \tau 
+\end{equation}
+\begin{equation}
+\frac{\langle \Delta x_i \rangle}{\Delta t} = u_i +\partial_{x_j} D_{ij} ~.
+\end{equation}
+The Fokker-Planck equation is
+\begin{equation}
+\partial_t g = -\partial_{x_i} \left(u_i g\right) +\partial_{x_i} \left(D_{ij} \partial_{x_j} g \right) ~.
+\end{equation}
+It appears as a continuity equation containing an advection term and a diffusion current.
+
+\subsubsection{Momentum Diffusion}
+Consider the energy variable $p$ (this is the radial coordinate in momentum space). The particle energy might experience a regular loss due to radiation, for instance, also a systematic averaged gain due to some acceleration process (as will be seen with the first order Fermi acceleration). These effects are described by the term $A$, a kind of resulting ordered force pointing in the direction of the momentum. The particle is also supposed to experience random energy variations $\delta p$ due to deflections on moving magnetic disturbances. During a time $\Delta t$, the energy variation is
+\begin{equation}
+\Delta p = A \Delta t +\delta p ~,
+\end{equation}
+with a diffusion in energy space (that will turns out to be the so-called second order Fermi process):
+\begin{equation}
+\langle \delta p^2 \rangle = 2\Gamma_l \Delta t ~.
+\end{equation}
+Similar to the inhomogeneity effect, the $p$-dependence of the diffusion coefficient implies that
+\begin{equation}
+\langle \delta p \rangle = \Delta t \frac{1}{p^2} \partial_p (p^2 \Gamma_l) ~.
+\end{equation}
+This is the contribution that describes the energy gain by the second order Fermi process. For high-energy particles such that their energy $\epsilon \simeq pc$, the internal energy density of cosmic rays increases under the effect of second order Fermi acceleration according to:
+\begin{equation}
+d_t e = \int \frac{\langle \Delta \epsilon \rangle}{\Delta t} f 4\pi p^2 \dif p > 0 ~.
+\end{equation}
+This growth is linked to the fact that the diffusion coefficient is such that $p^2 \Gamma_l$ is an increasing function of $p$. 
+
+The so-called transport equation of cosmic rays is the evolution equation of the isotropic part $\bar{f}(p, x)$ of the complete distribution function, when the anisotropy is weak, which is true when the fluid is in nonrelativistic motions, but not in relativistic motion where strong anisotropic effects develop. The distribution function is normalized such that the number density of cosmic rays $n_\ast = \int f 4\pi p^2 \dif p$. The transport equation is
+\begin{equation}
+\partial_t \bar{f} +\partial_x(u \bar{f}) = -\frac{1}{p^2} \partial_p(p^2 A \bar{f}) +\frac{1}{p^2} \partial_p(p^2 \Gamma_l \partial_p \bar{f} ) + \partial_x(D \partial_x \bar{f} ) ~.
+\end{equation}
+The transverse coefficient of momentum diffusion does not appear since the distribution function is supposed to have been isotropized. The friction term $A$ describes not only ay kind of energy loss, but also the energy gain by the ``first order Fermi process". The radiative loss experienced by a relativistic electron of Lorentz factor $\gamma$ stems from the photon emission forwards in a narrow cone of half angle $\gamma^{-1}$ with respect to the momentum direction, which leads to a friction force in opposite direction of the momentum. The synchrotron and inverse Compton radiative losses contribute to $A$ as
+\begin{equation}
+A_{\rm rad} \equiv \frac{\langle \Delta p \rangle}{\Delta t} \Bigg|_{\rm rad} = -\frac{4\sigma_T}{3} \left(\frac{m_{\rm e} }{m} \right)^2 (W_{\rm m} +W_{\rm ph}) \gamma^2 ~,
+\end{equation}
+where $W_{\rm m}$ is the magnetic energy density (synchrotron) and $W_{\rm ph}$ the energy density of low energy photons (inverse Compton effect in the Thomson regime). 
+
+The first order Fermi process occurs when a plasma flow carries a magnetic turbulence that insures the scattering of suprathermal particles which tend to be isotropized in the fluid rest frame, and this flow converges $({\rm div}~ \vec{u} > 0)$ somewhere due to some compression effect, as in a shock. In the opposite case of an expansion, this is an energy loss. The contribution of this ``first order" effect (in the sense of Fokker–Planck description) is obtained by calculating the average power delivered to the particle by the convergence of the diffusive medium. Indeed, the Fermi process can be described as a noninertial dragging effect due to the deceleration of the diffusive medium. Under that physical condition, the inertial force is $F_j = -p_i \partial_{x_i} u_j$, and its acceleration power is
+\begin{equation}
+P_{\rm acc} = -\langle \nu_j p_i \rangle \partial_{x_i} u_j = -\frac{p\nu}{3} \nabla \cdot \vec{u} ~.
+\end{equation}
+Only a compressed fluid $({\rm div}~ \vec{u} < 0)$ produces the first order acceleration of particles. 
+\begin{equation}
+A_{\rm acc} = -\frac{p}{3} \partial_x u ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Distribution of Suprathermal Particles Crossing a Shock}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

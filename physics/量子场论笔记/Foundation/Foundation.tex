@@ -1,0 +1,269 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+\usepackage{bigints}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Foundation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+In quantum mechanics the uncertainty principle tells us that the energy can fluctuate wildly over a small interval of time. According to special relativity, energy can be converted into mass and vice versa. With quantum mechanics and special relativity, the wildly fluctuating energy can metamorphose into mass, that is, into new particles not previously present.
+
+
+
+
+The Lagrangian is
+\begin{equation}
+L = \dfrac{1}{2} (\sum_a m \dot{q}_a^2 - \sum_{a, b} k_{ab} q_a q_b - \sum_{a, b, c} g_{abc} q_a q_b q_c - \cdots) 
+\end{equation}
+Keeping only the terms quadratic in $q$ (the ``harmonic approximation") we have the equations of motion $m \ddot{q}_a = -\sum_b k_{ab} q_b$. Taking the $q$'s as oscillating with frequency $\omega$, we have $\sum_b k_{ab} q_b = m\omega^2 q_a$. The eigenfrequencies and eigenmodes are determined, respectively, by the eigenvalues and eigenvectors of the matrix $k$. As usual, we can form wave packets by superposing eigenmodes. When we quantize the theory, these wave packets behave like particles, in the same way that electromagnetic wave packets when quantized behave like particles called photons.
+
+
+
+
+\section{Path Integral Formulation of Quantum Physics}
+
+Denote the amplitude for the particle to propagate from the source $S$ through the hole $A_i$ and then onward to the point $O$ as $\mathcal A(S \rightarrow A_i \rightarrow O)$. The amplitude for the particle to be detected at the point $O$ is
+\begin{equation}
+\mathcal A (\text{detected at } O) = \sum_i \mathcal A(S \rightarrow A_i \rightarrow O)
+\end{equation}
+Even if there were just empty space between the source and the detector, the amplitude for the particle to propagate from the source to the detector is the sum of the amplitudes for the particle to go through each one of the holes in each one of the (nonexistent) screens. We have to sum over the amplitude for the particle to propagate from the source to the detector following all possible paths between the source and the detector
+\begin{align}
+\nonumber & \mathcal A(\text{particle to go from $S$ to $O$ in time $T$}) = \\
+& \sum_{(\text{paths})} \mathcal A(\text{particle to go from $S$ to $O$ in time $T$ following a particular path})
+\end{align}
+Use the unitarity of quantum mechanics: If we know the amplitude for each infinitesimal segment, then we just multiply them together to get the amplitude of the whole path. In quantum mechanics, the amplitude to propagate from a point $q_I$ to a point $q_F$ in time $T$ is governed by the unitary operator $e^{-iHT}$, where $H$ is the Hamiltonian. Denote by $ |q\rangle$ the state in which the particle is at $q$, the amplitude is $\langle q_F |e^{-iHT}| q_I\rangle$.
+
+
+
+Divide the time $T$ into $N$ segments each lasting $\delta t=T/N$. Then we write
+\begin{equation}
+\langle q_F |e^{-iHT}| q_I\rangle = \langle q_F |e^{-iH\delta t} e^{-iH\delta t} \cdots e^{-iH\delta t}e^{-iH\delta t}| q_I\rangle
+\end{equation}
+Our states are normalized by $\langle q^\prime |q\rangle = \delta(q^\prime - q)$ with $\delta$ the Dirac delta function. (Recall that $\delta$ is defined by $\delta(q) = \int_{-\infty}^\infty (\dif p/2\pi) e^{ipq}$ and $\int \dif q \delta(q) = 1$. Now use the fact that $|q\rangle$ forms a complete set of states so that $\int \dif q |q\rangle \langle q| = 1$. To see that the normalization is correct, multiply on the left by $\langle q^{\prime \prime} |$ and on the right by $|q^\prime \rangle$, thus obtaining $\int \dif q \delta(q^{\prime \prime} - q) \delta(q - q^\prime) = \delta(q^{\prime \prime} - q^{\prime})$. Insert $1$ between all these factors of $e^{-i H \delta t}$ and write
+\begin{align}
+\nonumber & \langle q_F |e^{-iHT}| q_I\rangle =  \\
+& \left(\sum_{j=1}^{N-1}  \int \dif q_j \right) \langle q_F |e^{-iH\delta t} |q_{N-1}\rangle \langle q_{N-1} |e^{-iH\delta t} |q_{N-2}\rangle \cdots \langle q_2 |e^{-iH\delta t} |q_1\rangle \langle q_1 |e^{-iH\delta t} |q_{I}\rangle
+\end{align}
+Evaluate $\langle q_{j+1} |e^{-iH\delta t} |q_j\rangle$ for the free-particle case in which $H = \hat{p}^2/2m$. Denote by $ |p\rangle$ the eigenstate of $\hat{p}$, namely $\hat{p}  |p\rangle = p  |p\rangle$. $\langle q |p\rangle = e^{ipq}$ means the momentum eigenstate is a plane wave in the coordinate representation.  (The normalization is $\int (\dif p/2\pi) |p\rangle \langle p| =1$. Multiply on the left by $\langle p^\prime|$ and on the right by $|p\rangle$, thus obtaining $\int (\dif p/2\pi) e^{ip(q^\prime -q)} = \delta(q^\prime -q)$.) Inserting a complete set of states,
+\begin{align*}
+\langle q_{j+1} |e^{-i\delta t(\hat{p}^2/2m)} |q_j\rangle &= \int \dfrac{\dif p}{2\pi } \langle q_{j+1} |e^{-i\delta t(\hat{p}^2/2m)} |p\rangle \langle p |q_j\rangle \\
+&= \int \dfrac{\dif p}{2\pi } e^{-i\delta t(p^2/2m)} \langle q_{j+1} |p\rangle \langle p |q_j\rangle \\
+&= \int \dfrac{\dif p}{2\pi } e^{-i\delta t(p^2/2m)} e^{ip(q_{j+1} -q_j)} \\
+&= \left(\dfrac{-i m}{2\pi \delta t} \right)^{1/2} e^{[im(q_{j+1}-q_{j})^2]/2\delta t} \\
+&= \left(\dfrac{-i m}{2\pi \delta t} \right)^{1/2} e^{i\delta t(m/2)[(q_{j+1}-q_{j})/\delta t]^2}
+\end{align*}
+Remove the hat from the momentum operator in the exponential: Since the momentum operator is acting on an eigenstate, it can be replaced by its eigenvalue. We are working in the Heisenberg picture.
+
+\begin{equation}
+\langle q_F |e^{-iHT}| q_I\rangle = \left(\dfrac{-i m}{2\pi \delta t} \right)^{\dfrac{N}{2} } \left(\prod_{k=1}^{N-1} \int \dif q_k \right) e^{i\delta t(m/2)\sum\limits_{j=0}^{N-1}[(q_{j+1}-q_{j})/\delta t]^2}
+\end{equation}
+with $q_0 \equiv q_I$ and $q_N \equiv q_F$. Replace $[(q_{j+1}-q_j)/\delta t]^2$ by $\dot{q}^2$, and $\delta t \sum_{j=0}^{N-1}$ by $\int_0^T \dif t$. Define the integral over paths as
+\begin{equation*}
+\int D q(t) = \lim_{N \rightarrow \infty} \left(\dfrac{-i m}{2\pi \delta t} \right)^{\dfrac{N}{2} } \left(\prod_{k=1}^{N-1} \int \dif q_k \right)
+\end{equation*}
+The path integral representation is
+\begin{equation}
+\langle q_F |e^{-iHT}| q_I\rangle = \int D q(t) e^{i \int_0^T \dif t ~m \dot{q}^2/2}
+\end{equation}
+to obtain $\langle q_F |e^{-iHT}| q_I\rangle$, we simply integrate over all possible paths $q(t)$ such that $q(0) = q_I$ and $q(T) = q_F$.
+
+For the Hamiltonian for a particle in a potential $H = \hat{p}^2/2m + V(\hat{q})$, 
+\begin{equation}
+\langle q_F |e^{-iHT}| q_I\rangle = \int D q(t) e^{i \int_0^T \dif t ~[m \dot{q}^2/2 -V(q)]}
+\end{equation}
+In general, 
+\begin{equation}
+\langle q_F |e^{-iHT}| q_I\rangle = \int D q(t) e^{i \int_0^T \dif t ~L(\dot{q}, q)}
+\end{equation}
+The appearance of $t$ in the path integral measure $Dq(t)$ is simply to remind us that $q$ is a function of $t$. This measure will often be abbreviated to $Dq$. $\int_0^T \dif t L(\dot{q}, q)$ is called the action $S(q)$ in classical mechanics. The action $S$ is a functional of the function $q(t)$.
+
+Instead of specifying that the particle starts at an initial position $q_I$ and ends at a final position $q_F$, we prefer to specify that the particle starts in some initial state $I$ and ends in some final state $F$.
+\begin{align*}
+& \int \dif q_F \int \dif q_I  \langle F | q_F \rangle \langle q_F| e^{-iHT}| q_I\rangle \langle q_I| I \rangle ~, \\
+& \int \dif q_F \int \dif q_I \Psi^\ast_F(q_F) \langle q_F| e^{-iHT}| q_I\rangle \Psi_I(q_I) ~. \\
+\end{align*}
+In most cases we are interested in taking $|I\rangle$ and $|F\rangle$ as the ground state, which we will denote by $|0\rangle$. It is conventional to give the amplitude $ \langle 0| e^{-iHT}| 0\rangle$ the name $Z$. We count on the path integral $\int Dq(t) e^{i \int_0^T \dif t [m\dot{q}^2/2 -V(q)]}$ to converge because the oscillatory phase factors from different paths tend to cancel out. It is somewhat more rigorous to perform a so-called \textcolor{red}{Wick rotation to Euclidean time}. This amounts to substituting $t \rightarrow -it$ and rotating the integration contour in the complex $t$ plane so that the integral becomes
+\begin{equation}
+Z = \int Dq(t) e^{-\int_0^T \dif t [m\dot{q}^2/2 +V(q)]} ~,
+\end{equation}
+known as the \textcolor{red}{Euclidean path integral}. 
+
+\begin{equation*}
+\langle q_F |e^{-(i/\hbar)HT}| q_I\rangle = \int Dq(t) ~e^{i/\hbar \int_0^T \dif t ~L(\dot{q}, q)} ~,
+\end{equation*}
+take the $\hbar \rightarrow 0$ limit. Applying the stationary phase or steepest descent method, $e^{(i/\hbar)\int_0^T \dif t L(\dot{q}_c, q_c)}$, where $q_c(t)$ is the ``classical path" determined by solving the Euler-Lagrange equation $\dfrac{\dif}{\dif t} \dfrac{\delta L}{\delta \dot{q}} - \dfrac{\delta L}{\delta q} = 0$ with appropriate boundary conditions.
+
+
+
+
+
+
+\section{From Mattress to Field}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

@@ -1,0 +1,459 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf760
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Monaco;\f2\fmodern\fcharset0 Courier;
+\f3\fnil\fcharset134 STSongti-SC-Regular;\f4\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red52\green52\blue52;\red255\green255\blue255;\red98\green98\blue98;
+\red142\green142\blue142;\red0\green0\blue0;\red242\green239\blue236;\red85\green138\blue3;\red232\green135\blue8;
+\red210\green50\blue85;\red148\green108\blue71;\red255\green255\blue255;\red93\green108\blue125;\red188\green0\blue4;
+\red38\green38\blue38;\red109\green109\blue109;\red16\green121\blue2;\red82\green0\blue83;\red48\green48\blue48;
+\red109\green109\blue109;\red0\green0\blue117;\red234\green234\blue234;\red115\green0\blue2;}
+{\*\expandedcolortbl;;\cssrgb\c26667\c26667\c26667;\cssrgb\c100000\c100000\c100000;\cssrgb\c45882\c45882\c45882;
+\cssrgb\c62353\c62353\c62353;\cssrgb\c0\c0\c0;\cssrgb\c96078\c94902\c94118;\cssrgb\c40000\c60000\c0;\cssrgb\c93333\c60000\c0;
+\cssrgb\c86667\c29020\c40784;\cssrgb\c65098\c49804\c34902;\cssrgb\c100000\c100000\c100000\c49804;\cssrgb\c43922\c50196\c56471;\cssrgb\c79216\c0\c0;
+\cssrgb\c20000\c20000\c20000;\cssrgb\c50196\c50196\c50196\c4706;\cssrgb\c0\c53333\c0;\cssrgb\c40000\c0\c40000;\cssrgb\c24706\c24706\c24706;
+\cssrgb\c50196\c50196\c50196\c7451;\cssrgb\c0\c0\c53333;\cssrgb\c93333\c93333\c93333;\cssrgb\c53333\c0\c0;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid1\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid101\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid201\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid301\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid401\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid501\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16560\viewh10820\viewkind0
+\deftab720
+\pard\pardeftab720\sl440\partightenfactor0
+
+\f0\fs37\fsmilli18857 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Install and Use GNU Command Line Tools on macOS/OS X
+\fs22\fsmilli11143 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\fs28 \cf2 \cb3 \strokec2 If you are moving onto macOS/OS X from GNU/Linux, you would probably find out that the command line tools shipped with OS X are not as powerful and easy to use as the tools in Linux. The reason is that macOS/Mac OS X uses the BSD version command line tools, which are different from the Linux version, while they are both compliant with {\field{\*\fldinst{HYPERLINK "http://en.wikipedia.org/wiki/POSIX"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 POSIX}} standards. But we can easily install the GNU command line tools by using {\field{\*\fldinst{HYPERLINK "http://brew.sh/"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 Homebrew}} in Mac OS X and set them as\'a0default.\cb1 \
+\cb3 Note: you need to notice that you may have some compatibility issues with shell scripts written specifically for OS X after you have replaced your OS X commands with the GNU version. Although the very vast majority of shell scripts have no problem, you just need to be aware that when there comes a problem, this may be the spot to check\'a0on.\cb1 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\b\fs30\fsmilli15429 \cf2 \cb3 Install\'a0Homebrew\cb1 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\b0\fs28 \cf2 \cb3 First, visit {\field{\*\fldinst{HYPERLINK "http://brew.sh/"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 Homebrew}} homepage and follow the installation instructions to install\'a0Homebrew.\cb1 \
+\cb3 Shortcut: install the latest {\field{\*\fldinst{HYPERLINK "https://developer.apple.com/xcode/"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 XCode}} and then run the following command to\'a0install:\cb1 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\fs20\fsmilli10286 \cf6 \cb7 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 /usr/bin/ruby -e 
+\fs24 \cf8 \strokec8 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 "\cf9 \strokec9 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\cf8 \strokec8 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 "
+\fs20\fsmilli10286 \cf6 \cb1 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \strokec2 \shad0 Then add the following line to your 
+\b .bashrc
+\b0  or 
+\b .zshrc
+\b0 :\cb1 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f1\fs24 \cf10 \cb7 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 export
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  PATH
+\fs24 \cf11 \cb12 \strokec11 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 =\cf8 \cb7 \strokec8 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 "\cf9 \strokec9 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 $(brew --prefix coreutils)\cf8 \strokec8 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 /libexec/gnubin:/usr/local/bin:\cf9 \strokec9 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 $PATH\cf8 \strokec8 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 "
+\fs20\fsmilli10286 \cf6 \cb1 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0\b\fs30\fsmilli15429 \cf2 \cb3 \strokec2 \shad0 Install the GNU Command Line\'a0Tools\cb1 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\b0\fs28 \cf2 \cb3 First comes the most important one \'97 {\field{\*\fldinst{HYPERLINK "http://en.wikipedia.org/wiki/GNU_Core_Utilities"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 GNU Coreutils}}:\cb1 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\fs20\fsmilli10286 \cf6 \cb7 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  coreutils\cb1 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \strokec2 \shad0 GNU Coreutils contains the most essential UNIX commands, such as 
+\b ls
+\b0 , 
+\b cat
+\b0 .\cb1 \
+\cb3 Then you may probably want to install the following ones (For some of the packages, you need to run 
+\f2\fs22\fsmilli11375 brew tap homebrew/dupes
+\f0\fs28  first, but only once for your\'a0system):\cb1 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\fs20\fsmilli10286 \cf6 \cb7 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  binutils\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  diffutils\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  ed --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  findutils --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 gawk
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gnu-indent --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gnu-sed --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gnu-tar --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gnu-which --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gnutls\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 grep
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  --with-default-names\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 gzip
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 screen
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 watch
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  wdiff --with-gettext\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 wget
+\fs20\fsmilli10286 \cf6 \cb1 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \strokec2 \shad0 The 
+\f1\fs20\fsmilli10286 --default-names
+\f0\fs28  option will prevent Homebrew from prepending a 
+\b g
+\b0  to each of the newly installed commands, thus we could use these commands as default commands over the ones shipped by OS\'a0X.\cb1 \
+\cb3 In addition, some GNU command line tools already exist by default on OS X, but you may want a newer\'a0version:\cb1 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\fs20\fsmilli10286 \cf6 \cb7 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 bash
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  emacs\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gdb  
+\fs24 \cf13 \strokec13 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 # gdb requires further actions to make it work. See `brew info gdb`.
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  gpatch\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 less
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  m4\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 make
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 nano
+\fs20\fsmilli10286 \cf6 \cb1 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \strokec2 \shad0 As a complementary set of packages, the following ones are not from GNU, but you can install and use a newer version instead of the version shipped by OS X:\cb1 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\fs20\fsmilli10286 \cf6 \cb7 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  file-formula\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 git
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  openssh\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  perl\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  python\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 rsync
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 \
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  svn\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  unzip\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  vim --override-system-vi\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  macvim --override-system-vim --custom-system-icons\
+brew 
+\fs24 \cf10 \strokec10 \shad\shadx0\shady-20\shadr0\shado255 \shadc0 install
+\fs20\fsmilli10286 \cf6 \strokec6 \shad\shadx0\shady-20\shadr0\shado255 \shadc0  zsh\cb1 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \strokec2 \shad0 Now you should have an easier command line system in your OS X. Have fun with\'a0them!\cb1 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\b \cf2 \cb3 Update 1
+\b0 : You may also want to add 
+\f2\fs22\fsmilli11375 $HOMEBREW_PREFIX/opt/coreutils/libexec/gnuman
+\f0\fs28  to the 
+\f2\fs22\fsmilli11375 MANPATH
+\f0\fs28  environmental variable, where 
+\f2\fs22\fsmilli11375 $HOMEBREW_PREFIX
+\f0\fs28  is the prefix of Homebrew, which is 
+\f2\fs22\fsmilli11375 /usr/local
+\f0\fs28  by default. (Thanks Matthew Walker!) Alternatively, there is also a one-line setup which you could put in your shell configuration files {\field{\*\fldinst{HYPERLINK "https://gist.github.com/quickshiftin/9130153"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 here}} by\'a0quickshiftin.\cb1 \
+
+\b \cb3 Update 2
+\b0  All the 
+\f2\fs22\fsmilli11375 brew install
+\f0\fs28  commands above have been put into one script on {\field{\*\fldinst{HYPERLINK "https://gist.github.com/xuhdev/8b1b16fb802f6870729038ce3789568f"}}{\fldrslt \cf5 \ul \ulc5 \strokec5 GitHub}} for\'a0downloads.\
+\
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \strokec6 \'c8\'e7\'b9\'fb\'c4\'e3\'ca\'c7\'b4\'d3
+\f4 Linux
+\f3 \'c7\'a8\'d2\'c6\'b5\'bd
+\f4  Mac OS X
+\f3 \'cf\'b5\'cd\'b3\'b5\'c4\'d3\'c3\'bb\'a7\'a3\'ac\'bf\'c9\'c4\'dc\'bb\'e1\'b7\'a2\'cf\'d6
+\f4  Mac OS 
+\f3 \'d4\'a4\'d7\'b0\'b5\'c4\'c3\'fc\'c1\'ee\'d0\'d0\'b9\'a4\'be\'df\'c3\'bb\'d3\'d0
+\f4 Linux
+\f3 \'c9\'cf\'b5\'c4\'c4\'c7\'c3\'b4\'c7\'bf\'b4\'f3\'ba\'cd\'ba\'c3\'d3\'c3\'a3\'a8\'d7\'a2\'a3\'ba\'b5\'b1\'c8\'bb\'ca\'c7\'b6\'d4\'d3\'da\'cf\'b0\'b9\'df\'c1\'cb
+\f4 linux
+\f3 \'b5\'c4\'d3\'c3\'bb\'a7\'c0\'b4\'cb\'b5\'c0\'b2\'a3\'a9\'a1\'a3
+\f4  
+\f3 \'d4\'ad\'d2\'f2\'ca\'c7
+\f4  Max OS X
+\f3 \'ca\'b9\'d3\'c3\'b5\'c4\'ca\'c7
+\f4  BSD
+\f3 \'b0\'e6\'b1\'be\'b5\'c4\'c3\'fc\'c1\'ee\'d0\'d0\'b9\'a4\'be\'df\'a3\'ac\'d5\'e2\'d0\'a9\'c3\'fc\'c1\'ee\'b8\'fa
+\f4  Linux
+\f3 \'b0\'e6\'b1\'be\'ca\'c7\'d3\'d0\'d0\'a9\'b2\'bb\'cd\'ac\'b5\'c4\'a3\'ac\'c8\'bb\'b6\'f8\'cb\'fc\'c3\'c7\'b6\'bc\'d7\'f1\'d1\'ad
+\f4  POSIX 
+\f3 \'b1\'ea\'d7\'bc\'a1\'a3
+\f4  
+\f3 \'b5\'ab\'ca\'c7\'ce\'d2\'c3\'c7\'bf\'c9\'d2\'d4\'cd\'a8\'b9\'fd
+\f4  {\field{\*\fldinst{HYPERLINK "http://brew.sh/"}}{\fldrslt \cf14 \strokec14 HomeBrew}} 
+\f3 \'b7\'bd\'c3\'e6\'b5\'c4\'b0\'b2\'d7\'b0
+\f4  GNU 
+\f3 \'b3\'cc\'d0\'f2
+\f4  
+\f3 \'ba\'cd
+\f4  
+\f3 \'c9\'e8\'d6\'c3\'cb\'fc\'c3\'c7\'ce\'aa\'c4\'ac\'c8\'cf\'b9\'a4\'be\'df\'a1\'a3
+\f4 \
+\pard\pardeftab720\sl340\sa224\partightenfactor0
+
+\f3 \cf6 \'b0\'b2\'d7\'b0
+\f4  Homebrew\
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \'ca\'d7\'cf\'c8\'a3\'ac\'b7\'c3\'ce\'ca
+\f4  {\field{\*\fldinst{HYPERLINK "http://brew.sh/"}}{\fldrslt \cf14 \strokec14 Homebrew}} 
+\f3 \'b5\'c4\'b9\'d9\'cd\'f8\'a3\'ac\'b8\'f9\'be\'dd\'b0\'b2\'d7\'b0\'bd\'cc\'b3\'cc\'b0\'b2\'d7\'b0
+\f4  Homebrew
+\f3 \'a1\'a3
+\f4 \
+
+\f3 \'bc\'f2\'b5\'a5\'b5\'c4\'cb\'b5\'a3\'ba\'b0\'b2\'d7\'b0\'d7\'ee\'d0\'c2\'b5\'c4
+\f4  {\field{\*\fldinst{HYPERLINK "https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/"}}{\fldrslt 
+\b \cf14 \strokec14 Xcode}}
+\b  
+\f3\b0 \'c8\'bb\'ba\'f3\'d4\'da\'c3\'fc\'c1\'ee\'d0\'d0\'d6\'b4\'d0\'d0\'cf\'c2\'c3\'e6\'b5\'c4\'c3\'fc\'c1\'ee\'c0\'b4\'b0\'b2\'d7\'b0
+\f4 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf15 \cb16 \strokec15 ruby -e \cf17 \strokec17 "\cf18 \strokec18 $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\cf17 \strokec17 "\cf15 \cb1 \strokec15 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\qr\partightenfactor0
+\ls1\ilvl0\cf15 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \cb3 \strokec6 \'c8\'bb\'ba\'f3\'b0\'d1\'cf\'c2\'c3\'e6\'b5\'c4\'c5\'e4\'d6\'c3\'cc\'ed\'bc\'d3\'b5\'bd\'c4\'e3\'b5\'c4
+\f4  
+\f2\fs25\fsmilli12600 \cf19 \cb20 \strokec19 .bashrc
+\f4\fs28 \cf6 \cb3 \strokec6  
+\f3 \'bb\'f2\'d5\'df
+\f4  
+\f2\fs25\fsmilli12600 \cf19 \cb20 \strokec19 .zshrc
+\f4\fs28 \cf6 \cb3 \strokec6 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf21 \cb16 \strokec21 export\cf15 \strokec15  PATH=\cf17 \strokec17 "\cf18 \strokec18 $(brew --prefix coreutils)\cf17 \strokec17 /libexec/gnubin:/usr/local/bin:\cf18 \strokec18 $PATH\cf17 \strokec17 "\cf15 \cb1 \strokec15 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\qr\partightenfactor0
+\ls2\ilvl0\cf15 \cb22 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \'d7\'a2\'a3\'ba
+\f4  
+\f3 \'cf\'e0\'d0\'c5\'b4\'f3\'b6\'e0\'ca\'fd\'d3\'c3\'bb\'a7\'b6\'bc\'d7\'b0\'b9\'fd\'d5\'e2\'b8\'f6\'ba\'c3\'d3\'c3\'b5\'c4\'b9\'a4\'be\'df\'c0\'b2\'a1\'a3
+\f4 \
+
+\f3 \'ce\'aa\'c1\'cb\'bf\'c9\'d2\'d4\'c8\'dd\'d2\'d7\'b5\'c4\'d5\'d2\'b5\'bd\'c3\'fc\'c1\'ee\'b6\'d4\'d3\'a6\'b5\'c4
+\f4 man
+\f3 \'a3\'ac\'c7\'eb\'d4\'da
+\f4  
+\f2\fs25\fsmilli12600 \cf19 \cb20 \strokec19 /etc/man.conf
+\f3\fs28 \cf6 \cb3 \strokec6 \'ce\'c4\'bc\'fe\'d6\'d0\'cc\'ed\'bc\'d3\'d2\'bb\'b8\'f6\'c5\'e4\'d6\'c3
+\f4 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf15 \cb16 \strokec15 MANPATH_MAP /usr/\cf21 \strokec21 local\cf15 \strokec15 /opt/coreutils/libexec/gnubin /usr/\cf21 \strokec21 local\cf15 \strokec15 /opt/coreutils/libexec/gnuman\cb1 \
+\
+
+\f3 \cf6 \cb3 \strokec6 \'b0\'b2\'d7\'b0
+\f4  GNU 
+\f3 \'c3\'fc\'c1\'ee\'d0\'d0\'b9\'a4\'be\'df
+\f4 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \'ca\'d7\'cf\'c8\'b0\'b2\'d7\'b0\'ca\'c7\'d7\'ee\'d6\'d8\'d2\'aa\'b5\'c4\'d2\'bb\'b8\'f6
+\f4  \'96 {\field{\*\fldinst{HYPERLINK "http://en.wikipedia.org/wiki/GNU_Core_Utilities"}}{\fldrslt 
+\b \cf14 \strokec14 GNU Coreutils}}\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf15 \cb16 \strokec15 brew \cf21 \strokec21 install\cf15 \strokec15  coreutils\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\qr\partightenfactor0
+\ls3\ilvl0\cf15 \
+\pard\pardeftab720\sl300\sa308\partightenfactor0
+
+\fs25\fsmilli12600 \cf19 \cb20 \strokec19 GNU Coreutils
+\f4\fs28 \cf6 \cb3 \strokec6  
+\f3 \'b0\'fc\'ba\'ac\'c1\'cb\'ba\'dc\'b6\'e0
+\f4 unix
+\f3 \'b5\'c4\'bb\'f9\'b1\'be\'c3\'fc\'c1\'ee\'a3\'ac\'cf\'f1
+\f4  
+\f2\fs25\fsmilli12600 \cf19 \cb20 \strokec19 ls
+\f4\fs28 \cf6 \cb3 \strokec6  
+\f2\fs25\fsmilli12600 \cf19 \cb20 \strokec19 cat
+\f4\fs28 \cf6 \cb3 \strokec6 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \'bd\'d3\'d7\'c5\'c4\'e3\'bf\'c9\'c4\'dc\'cf\'eb\'b0\'b2\'d7\'b0\'cf\'c2\'c3\'e6\'b5\'c4\'c8\'ed\'bc\'fe\'c1\'cb\'a3\'a8\'b6\'d4\'d3\'da\'c4\'b3\'d0\'a9\'b0\'fc\'a3\'ac\'c4\'e3\'d0\'e8\'d2\'aa\'cf\'c8\'d6\'b4\'d0\'d0
+\f4  
+\f2\fs25\fsmilli12600 \cf19 \cb20 \strokec19 brew tap homebrew/dupes
+\f3\fs28 \cf6 \cb3 \strokec6 \'a3\'ac\'b5\'ab\'ca\'c7\'d6\'bb\'d2\'aa\'d6\'b4\'d0\'d0\'d2\'bb\'b4\'ce\'be\'cd\'ba\'c3\'c1\'cb\'a3\'a9
+\f4 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf15 \cb16 \strokec15 brew install binutils\
+brew install diffutils\
+brew install ed \cf6 \strokec6 --\cf15 \strokec15 default-names\
+brew install findutils \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -default-names\
+brew install gawk\
+brew install gnu-indent \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -default-names\
+brew install gnu-sed \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -default-names\
+brew install gnu-tar \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -default-names\
+brew install gnu-which \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -default-names\
+brew install gnutls\
+brew install grep \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -default-names\
+brew install gzip\
+brew install screen\
+brew install watch\
+brew install wdiff \cf6 \strokec6 --\cf21 \strokec21 with\cf15 \strokec15 -gettext\
+brew install wget\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\qr\partightenfactor0
+\ls4\ilvl0\cf15 \
+\pard\pardeftab720\sl300\sa308\partightenfactor0
+
+\fs25\fsmilli12600 \cf19 \cb20 \strokec19 -- default-names
+\f4\fs28 \cf6 \cb3 \strokec6  
+\f3 \'d1\'a1\'cf\'ee\'bb\'e1\'d7\'e8\'d6\'b9
+\f4  Homebrew 
+\f3 \'d4\'a4\'bc\'d3
+\f4  gs 
+\f3 \'b5\'bd\'d0\'c2\'b0\'b2\'d7\'b0\'b5\'c4\'c3\'fc\'c1\'ee\'a3\'ac\'d5\'e2\'d1\'f9\'ce\'d2\'c3\'c7\'be\'cd\'bf\'c9\'d2\'d4\'c4\'ac\'c8\'cf\'ca\'b9\'d3\'c3\'d5\'e2\'d0\'a9\'c3\'fc\'c1\'ee\'a3\'ac\'b4\'d3\'b6\'f8\'b8\'b2\'b8\'c7
+\f4  OS X
+\f3 \'d4\'a4\'d7\'b0\'b5\'c4\'c3\'fc\'c1\'ee\'a1\'a3
+\f4 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \'d3\'d0\'d0\'a9\'c3\'fc\'c1\'ee\'d2\'d1\'be\'ad\'b4\'e6\'d4\'da
+\f4  Mac OS X 
+\f3 \'c9\'cf\'b5\'c4\'a3\'ac\'b5\'ab\'c4\'e3\'cf\'eb\'d2\'aa\'d2\'bb\'b8\'f6\'d0\'c2\'b0\'e6\'b1\'be
+\f4 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf15 \cb16 \strokec15 brew \cf21 \strokec21 install\cf15 \strokec15  bash\
+brew \cf21 \strokec21 install\cf15 \strokec15  emacs\
+brew \cf21 \strokec21 install\cf15 \strokec15  gdb  \cf23 \strokec23 # gdb requires further actions to make it work. See `brew info gdb`.\cf15 \strokec15 \
+brew \cf21 \strokec21 install\cf15 \strokec15  gpatch\
+brew \cf21 \strokec21 install\cf15 \strokec15  m4\
+brew \cf21 \strokec21 install\cf15 \strokec15  make\
+brew \cf21 \strokec21 install\cf15 \strokec15  nano\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\qr\partightenfactor0
+\ls5\ilvl0\cf15 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \cb3 \strokec6 \'cf\'c2\'c3\'e6\'ca\'c7\'d2\'bb\'b8\'f6\'b2\'b9\'b3\'e4\'b5\'c4\'c8\'ed\'bc\'fe\'a3\'ac\'cb\'fb\'c3\'c7\'b2\'bb\'ca\'c7\'c0\'b4\'d7\'d4
+\f4 GUN
+\f3 \'a3\'ac\'b5\'ab\'c4\'e3\'d2\'b2\'bf\'c9\'d2\'d4\'b0\'b2\'d7\'b0\'d2\'bb\'b8\'f6\'d0\'c2\'b0\'e6\'b1\'be\'c0\'b4\'b4\'fa\'cc\'e6
+\f4  maxos
+\f3 \'c9\'cf\'d4\'ad\'d3\'d0\'b5\'c4\'b0\'e6\'b1\'be\'a1\'a3
+\f4 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f2 \cf15 \cb16 \strokec15 brew \cf21 \strokec21 install\cf15 \strokec15  file-formula\
+brew \cf21 \strokec21 install\cf15 \strokec15  git\
+brew \cf21 \strokec21 install\cf15 \strokec15  less\
+brew \cf21 \strokec21 install\cf15 \strokec15  openssh\
+brew \cf21 \strokec21 install\cf15 \strokec15  perl518   \cf23 \strokec23 # must run "brew tap homebrew/versions" first!\cf15 \strokec15 \
+brew \cf21 \strokec21 install\cf15 \strokec15  python\
+brew \cf21 \strokec21 install\cf15 \strokec15  rsync\
+brew \cf21 \strokec21 install\cf15 \strokec15  svn\
+brew \cf21 \strokec21 install\cf15 \strokec15  unzip\
+brew \cf21 \strokec21 install\cf15 \strokec15  vim --override-system-vi\
+brew \cf21 \strokec21 install\cf15 \strokec15  macvim --override-system-vim --custom-system-icons\
+brew \cf21 \strokec21 install\cf15 \strokec15  zsh\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\qr\partightenfactor0
+\ls6\ilvl0\cf15 \cb22 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab720\sl340\sa308\partightenfactor0
+
+\f3 \cf6 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \'cf\'d6\'d4\'da\'c4\'e3\'b5\'c4
+\f4 OS X
+\f3 \'d3\'a6\'b8\'c3\'d3\'d0\'c1\'cb\'d2\'bb\'b8\'f6\'b7\'c7\'b3\'a3\'bc\'f2\'b5\'a5\'ba\'c3\'ca\'b9\'b5\'c4\'c3\'fc\'c1\'ee\'d0\'d0
+\f4 , 
+\f3 \'d3\'e4\'bf\'ec\'b5\'c4\'ca\'b9\'d3\'c3\'b0\'c9\'a1\'a3
+\f4 \
+\pard\pardeftab720\sl480\sa411\partightenfactor0
+
+\f0 \cf2 \strokec2 \
+\cb1 \
+}

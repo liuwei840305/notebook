@@ -1,0 +1,7 @@
+\BOOKMARK [1][-]{section.1}{Variable Definitions}{}% 1
+\BOOKMARK [1][-]{section.2}{const Qualifier}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{References to const}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Dealing with Types}{}% 4
+\BOOKMARK [2][-]{subsection.3.1}{Type Aliases}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.2}{The auto Type Specifier}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.3}{The decltype Type Specifier}{section.3}% 7

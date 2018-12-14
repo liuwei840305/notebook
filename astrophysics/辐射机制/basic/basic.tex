@@ -1,0 +1,171 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Fundamental Definitions}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\subsection{Luminosity}
+\cite{2013LNP...873.....G} By luminosity we mean the quantity of energy irradiated per second [erg s$^{-1}$]. The luminosity is not defined per unit of solid angle. The monochromatic luminosity $L(\nu)$ is the luminosity per unit of frequency $\nu$ (i.e. per Hz). The bolometric luminosity is integrated over frequency:
+\begin{align}
+L = \int_0^\infty L(\nu) \dif \nu ~.
+\end{align}
+Often we can define a luminosity integrated in a given energy (or frequency) range,
+\begin{align}
+L_{[\nu_1-\nu_2]} = \int_{\nu_1}^{\nu_2} L(\nu) \dif \nu ~.
+\end{align}
+Sun Luminosity: $L_\odot = 4 \times 10^{33}$ erg s$^{-1}$
+
+Luminosity of a typical galaxy: $L_{\rm gal} \sim 10^{11} L_\odot$
+
+Luminosity of the human body, assuming that we emit as a black-body at a temperature of $(273 + 36)$ K and that our skin has a surface of approximately $S = 2 m^2$:
+\begin{align}
+L_{\rm body} = S \sigma T^4 \sim 10^{10} ~{\rm erg/s} \sim 10^3~ W 
+\end{align}
+This is not what we loose, since we absorb from the ambient a power $L = S \sigma T_{\rm amb}^4 \sim 8.3 \times 10^9$ erg/s if the ambient temperature is $20$ C ($=273 + 20$ K).
+
+
+\subsection{Flux}
+The flux [erg cm$^{-2}$ s$^{-1}$] is the energy passing a surface of $1$ cm$^2$ in one second. If a body emits a luminosity $L$ and is located at a distance $R$, the flux is
+\begin{align}
+& F = \dfrac{L}{4\pi R^2} \\
+& F(\nu) = \dfrac{L(\nu)}{4\pi R^2} \\
+& F = \int_0^\infty F(\nu) \dif \nu
+\end{align}
+
+\subsection{Intensity}
+The \textcolor{red}{intensity $I$} is the \textcolor{red}{energy per unit time passing through a unit surface located perpendicularly to the arrival direction of photons, per unit of solid angle}. The solid angle appears: [erg cm$^{-2}$ s$^{-1}$ sterad$^{-1}$]. The monochromatic intensity $I (\nu)$ has units [erg cm$^{-2}$ s$^{-1}$ Hz$^{-1}$ sterad$^{-1}$]. It always obeys the Lorentz transformation:
+\begin{align}
+\color{red} \dfrac{I(\nu)}{\nu^3} = \dfrac{I^\prime(\nu^\prime)}{\nu^{\prime 3} } = \rm invariant ~.
+\end{align}
+
+\subsection{Emissivity}
+The emissivity $j$ is the quantity of energy emitted by a unit volume, in one unit of time, for a unit solid angle
+\begin{align}
+j = \dfrac{{\rm erg}}{\dif V \dif t \dif \Omega}
+\end{align}
+If the source is transparent, there is a simple relation between $j$ and $I$ :
+\begin{align}
+I = j R ~(\text{optically thin source})
+\end{align}
+
+\subsection{Radiative Energy Density}
+We can define it as the energy per unit volume produced by a luminous source, but we have to specify if it is per unit solid angle or not. Consider the \textcolor{red}{bolometric intensity $I$}. Along the light ray, construct the volume $\dif V = c\dif t\dif A$ where $\dif A$ (i.e. one cm$^2$) is the base of the little cylinder of height $c \dif t$. The energy contained in this cylinder is
+\begin{align}
+\dif E = I c \dif t \dif A \dif \Omega ~.
+\end{align}
+In that cylinder I find the light coming from a given direction, 
+\begin{align}
+\dif E = u(\Omega) c \dif t \dif A \dif \Omega ~.
+\end{align}
+\begin{align}
+u(\Omega) = \dfrac{I}{c}
+\end{align}
+If I want the total $u$ (i.e. summing the light coming from all directions) I must integrate over the entire solid angle.
+
+
+\subsection{RADIATIVE FLUX}
+\cite{1979rpa..book.....R} When the scale of a system greatly exceeds the wavelength of radiation (e.g., light shining through a keyhole), we can consider radiation to travel in straight lines (called rays) in free space or homogeneous media. 
+
+The energy flux: consider an element of area $\dif A$ exposed to radiation for a time $\dif t$. The amount of energy passing through the element should be proportional to $\dif A \dif z$, and we write it as $F \dif A \dif t$. The energy flux $F$ is usually measured in erg s$^{-1}$ cm$^{-2}$. Note that $F$ can depend on the orientation of the element.
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

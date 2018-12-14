@@ -1,0 +1,193 @@
+sudo apt-get install libwxgtk2.8-dev libpango1.0-dev libreadline5-dev libx11-dev libxt-dev texinfo libgd2-xpm-dev
+sudo apt-get install gnuplot gnuplot-x11
+
+安装gnuplot后始终显示set terminal unknown
+完全删除gnuplot包
+先执行sudo apt-get install libx11-dev  安装x11，否则不能显示图形！
+sudo apt-get install gnuplot
+sudo apt-get install gnuplot-x11
+
+There are 112 predefined color names:
+  white              #ffffff = 255 255 255
+  black              #000000 =   0   0   0
+  dark-grey          #a0a0a0 = 160 160 160
+  red                #ff0000 = 255   0   0
+  web-green          #00c000 =   0 192   0
+  web-blue           #0080ff =   0 128 255
+  dark-magenta       #c000ff = 192   0 255
+  dark-cyan          #00eeee =   0 238 238
+  dark-orange        #c04000 = 192  64   0
+  dark-yellow        #c8c800 = 200 200   0
+  royalblue          #4169e1 =  65 105 225
+  goldenrod          #ffc020 = 255 192  32
+  dark-spring-green  #008040 =   0 128  64
+  purple             #c080ff = 192 128 255
+  steelblue          #306080 =  48  96 128
+  dark-red           #8b0000 = 139   0   0
+  dark-chartreuse    #408000 =  64 128   0
+  orchid             #ff80ff = 255 128 255
+  aquamarine         #7fffd4 = 127 255 212
+  brown              #a52a2a = 165  42  42
+  yellow             #ffff00 = 255 255   0
+  turquoise          #40e0d0 =  64 224 208
+  grey0              #000000 =   0   0   0
+  grey10             #1a1a1a =  26  26  26
+  grey20             #333333 =  51  51  51
+  grey30             #4d4d4d =  77  77  77
+  grey40             #666666 = 102 102 102
+  grey50             #7f7f7f = 127 127 127
+  grey60             #999999 = 153 153 153
+  grey70             #b3b3b3 = 179 179 179
+  grey               #c0c0c0 = 192 192 192
+  grey80             #cccccc = 204 204 204
+  grey90             #e5e5e5 = 229 229 229
+  grey100            #ffffff = 255 255 255
+  light-red          #f03232 = 240  50  50
+  light-green        #90ee90 = 144 238 144
+  light-blue         #add8e6 = 173 216 230
+  light-magenta      #f055f0 = 240  85 240
+  light-cyan         #e0ffff = 224 255 255
+  light-goldenrod    #eedd82 = 238 221 130
+  light-pink         #ffb6c1 = 255 182 193
+  light-turquoise    #afeeee = 175 238 238
+  gold               #ffd700 = 255 215   0
+  green              #00ff00 =   0 255   0
+  dark-green         #006400 =   0 100   0
+  spring-green       #00ff7f =   0 255 127
+  forest-green       #228b22 =  34 139  34
+  sea-green          #2e8b57 =  46 139  87
+  blue               #0000ff =   0   0 255
+  dark-blue          #00008b =   0   0 139
+  midnight-blue      #191970 =  25  25 112
+  navy               #000080 =   0   0 128
+  medium-blue        #0000cd =   0   0 205
+  skyblue            #87ceeb = 135 206 235
+  cyan               #00ffff =   0 255 255
+  magenta            #ff00ff = 255   0 255
+  dark-turquoise     #00ced1 =   0 206 209
+  dark-pink          #ff1493 = 255  20 147
+  coral              #ff7f50 = 255 127  80
+  light-coral        #f08080 = 240 128 128
+  orange-red         #ff4500 = 255  69   0
+  salmon             #fa8072 = 250 128 114
+  dark-salmon        #e9967a = 233 150 122
+  khaki              #f0e68c = 240 230 140
+  dark-khaki         #bdb76b = 189 183 107
+  dark-goldenrod     #b8860b = 184 134  11
+  beige              #f5f5dc = 245 245 220
+  olive              #a08020 = 160 128  32
+  orange             #ffa500 = 255 165   0
+  violet             #ee82ee = 238 130 238
+  dark-violet        #9400d3 = 148   0 211
+  plum               #dda0dd = 221 160 221
+  dark-plum          #905040 = 144  80  64
+  dark-olivegreen    #556b2f =  85 107  47
+  orangered4         #801400 = 128  20   0
+  brown4             #801414 = 128  20  20
+  sienna4            #804014 = 128  64  20
+  orchid4            #804080 = 128  64 128
+  mediumpurple3      #8060c0 = 128  96 192
+  slateblue1         #8060ff = 128  96 255
+  yellow4            #808000 = 128 128   0
+  sienna1            #ff8040 = 255 128  64
+  tan1               #ffa040 = 255 160  64
+  sandybrown         #ffa060 = 255 160  96
+  light-salmon       #ffa070 = 255 160 112
+  pink               #ffc0c0 = 255 192 192
+  khaki1             #ffff80 = 255 255 128
+  lemonchiffon       #ffffc0 = 255 255 192
+  bisque             #cdb79e = 205 183 158
+  honeydew           #f0fff0 = 240 255 240
+  slategrey          #a0b6cd = 160 182 205
+  seagreen           #c1ffc1 = 193 255 193
+  antiquewhite       #cdc0b0 = 205 192 176
+  chartreuse         #7cff40 = 124 255  64
+  greenyellow        #a0ff20 = 160 255  32
+  gray               #bebebe = 190 190 190
+  light-gray         #d3d3d3 = 211 211 211
+  light-grey         #d3d3d3 = 211 211 211
+  dark-gray          #a0a0a0 = 160 160 160
+  slategray          #a0b6cd = 160 182 205
+  gray0              #000000 =   0   0   0
+  gray10             #1a1a1a =  26  26  26
+  gray20             #333333 =  51  51  51
+  gray30             #4d4d4d =  77  77  77
+  gray40             #666666 = 102 102 102
+  gray50             #7f7f7f = 127 127 127
+  gray60             #999999 = 153 153 153
+  gray70             #b3b3b3 = 179 179 179
+  gray80             #cccccc = 204 204 204
+  gray90             #e5e5e5 = 229 229 229
+  gray100            #ffffff = 255 255 255
+
+Enhanced postscript
+Enhanced Text Control Codes
+Control	  Examples       Explanation
+^	  a^x	         superscript
+
+_	  a_x	         subscript
+
+@	  @x or a@^b_c   phantom box (occupies no width)
+
+&	  &{space}	 inserts space of specified length
+
+~	  ~a{.8-}	 overprints '-' on 'a', raised by .8 times the current fontsize
+
+Braces can be used to place multiple-character text where a single character is expected (e.g., 2^{10}). To change the font and/or size, use the full form: {/[fontname][=fontsize 4#4 *fontscale] text}. Thus {/Symbol=20 G} is a 20-point GAMMA and {/*0.75 K} is a K at three-quarters of whatever fontsize is currently in effect. (The '/' character MUST be the first character after the '{'.)
+
+If the encoding vector has been changed by set encoding, the default encoding vector can be used instead by following the slash with a dash. This is unnecessary if you use the Symbol font, however -- since /Symbol uses its own encoding vector, gnuplot will not apply any other encoding vector to it.
+
+The phantom box is useful for a@^b_c to align superscripts and subscripts but does not work well for overwriting an accent on a letter. (To do the latter, it is much better to use 'set encoding iso_8859_1' to change to the ISO Latin-1 encoding vector, which contains a large variety of letters with accents or other diacritical marks.) Since the box is non-spacing, it is sensible to put the shorter of the subscript or superscript in the box (that is, after the @).
+
+Space equal in length to a string can be inserted using the '&' character. Thus 
+       'abc&{def}ghi'
+
+would produce 
+       'abc   ghi'.
+
+The '~ ' character causes the next character or bracketed text to be overprinted by the following character or bracketed text. The second text will be horizontally centered on the first. Thus '~ a/' will result in an 'a' with a slash through it. You can also shift the second text vertically by preceding the second text with a number, which will define the fraction of the current fontsize by which the text will be raised or lowered. In this case the number and text must be enclosed in brackets because more than one character is necessary. If the overprinted text begins with a number, put a space between the vertical offset and the text ('~ {abc}{.5 000}'); otherwise no space is needed ('~ {abc}{.5 -- }'). You can change the font for one or both strings ('~ a{.5 /*.2 o}' -- an 'a' with a one-fifth-size 'o' on top -- and the space between the number and the slash is necessary), but you can't change it after the beginning of the string. Neither can you use any other special syntax within either string. You can, of course, use control characters by escaping them (see below), such as '~ a{3#3^}'
+
+You can access special symbols numerically by specifying 3#3character-code (in octal), e.g., {/Symbol 3#3245} is the symbol for infinity.
+
+You can escape control characters using 3#3, e.g., 3#33#3, 3#3{, and so on.
+
+But be aware that strings in double-quotes are parsed differently than those enclosed in single-quotes. The major difference is that backslashes may need to be doubled when in double-quoted strings.
+
+Examples (these are hard to describe in words -- try them!): 
+     set xlabel 'Time (10^6 {/Symbol m}s)'
+     set title '{/Symbol=18 \362@_{/=9.6 0}^{/=12 x}} \
+                {/Helvetica e^{-{/Symbol m}^2/2} d}{/Symbol m}'
+
+The file "ps_guide.ps" in the /docs/psdoc subdirectory of the gnuplot source distribution contains more examples of the enhanced syntax.
+
+specify fontsizes explicitly:
+set title "{/=20 Big} Medium {/=5 Small}"
+
+change the font for a region of text:
+set title "{/Helvetica foo} {/Symbol G}"
+
+gnuplot 里面好多 terminal 都支持 enhanced 模式，使用方法就是在 set terminal 的时候，在后面加上 enhanced 参数。enhanced 模式里有一些表达特殊含义的字符，利用这些字符可以构成一些比较复杂的文字输出。这些特殊字符主要包括：
+
+^：表示后面的字符为上角标
+_：表示后面的字符为下角标
+@：表示后面的字符不占任何宽度
+&{"string"}：表示一段空白，空白的长度等于花括号内那段字符串所占宽度
+~：表示后面的两个字符重叠打印（相当于打字机在同一位置打印两个字符）；也可以在第二个字符前加上一个数字，表示第二个字符相对于第一个字符有一个竖直方向的移动，移动距离等于该数字乘以字符尺寸。
+
+上面提到的“字符”，也可以是包含在花括号 {} 内的“字符串”。除了上面这些特殊标志，还可以临时改变字符（或字符串）的字体，方法是：
+{/字体名=字体大小 字符}
+
+下面我们看一些例子：
+"a^x" 
+"a_x"
+"a^b_{cd}"
+这里的上下角标没有对齐，因为上标 b 需要占一定宽度
+"a^@b_{cd}"
+这里我们看到了 @ 的作用
+"abc&{de}fg"
+这里 & 后面的字符没有显示，留出一段和这些字符同样宽度的空白
+"~a{1.2\\_}"
+注意这里的两个反斜杠。因为下横杠（_）是一个特殊字符，需要在前面加反斜杠 \ 来表示它本来的意义，而反斜杠本身也是一个特殊字符，需要在它前面再加一个反斜杠。我们在第四讲里谈到过双引号和单引号的区别。如果我们在这里用单引号而不是双引号，那么只需要一个反斜杠就可以了。这里的 1.2 表示后面的字符（_）向上移动 1.2 个字符大小的距离。
+{/Symbol abc}abc
+这里第一个花括号里的 abc 使用了 Symbol 字体，而后面括号外的 abc 使用的是默认字体。注意字体名称前的斜杠方向。这里我们看到，Symbol 字体里的英文字母对应显示的是希腊字母。Symbol 字体里还包括了一些其它符号，下面是完整的 Symbol 字体列表
+

@@ -1,0 +1,173 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{密度扰动的线性演化}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+$10 < z < 1000$：黑暗时代(Dark Ages)
+
+\section{球对称塌缩模型}
+
+
+
+
+\section{Press-Schechter质量函数}
+
+
+\section{Zel'dovich近似}
+
+对于一个三轴椭球状的扰动，坍缩过程不会终结到一个点，而是终结到一个准二维的平展结构，通常称为“薄饼”模型。假设压力可以忽略，流体可以看成是由大量尘埃质点组成的，并假设在焦散线(caustics)处，密度可以达到无穷大，但这些区域引起的引力加速度保持为有限。在这些近似下，粒子的位置坐标为
+\begin{equation}
+\vec{r} (t, \vec{q}) = a(t) [\vec{q} -b(t) f(\vec{q})] 
+\end{equation}
+$\vec{r}$：Eular位置坐标，即固有坐标；
+$a(t)$：宇宙尺度因子，$a(t) \propto t^{2/3}$；
+$\vec{q}$：Lagrange位置坐标，相当于无扰动时粒子的初始共动坐标；
+在有扰动情况下粒子的共动坐标：$\vec{x} = \vec{q} -b(t) f(\vec{q})$，$f(\vec{q})$：扰动产生的与时间无关的位移场的函数，$b(t)$：位移的线性演化，且在扰动开始时刻$t_i$，$b(t_i) = 0$，并满足演化方程
+\begin{equation}
+\ddot{b} - 2\frac{\dot{a}}{a} \dot{b} - 4\pi G \rho b = 0
+\end{equation}
+$b(t)$随时间增长的规律是$b(t) \propto t^{2/3}$；
+再设扰动位移场是无旋的，可以把它写成某个势函数(速度势函数)的梯度：
+\begin{equation}
+f(\vec{q}) = \nabla_{q} \Psi(\vec{q})
+\end{equation}
+在共动坐标下，粒子的本动速度
+\begin{equation}
+\vec{u} \equiv \dot{\vec{x}} = \frac{1}{a} \left( \frac{\dif \vec{r}}{\dif t} -H\vec{r}\right) = -\dot{b} f(\vec{q})
+\end{equation}
+速度场也是无旋的；
+
+在扰动位移为线性时，通过$\vec{r}$与$\vec{q}$之间坐标变换的Jacobi行列式$|J(\vec{r}, t)| = |\partial \vec{r}/\partial \vec{q}|$，扰动密度和平均背景密度之间的守恒关系$\rho(\vec{r}, t) \dif^3 \vec{r} = \bar{\rho}(t) \dif^3 \vec{q}$可表示为
+\begin{equation}
+\rho(\vec{r}, t) = \frac{\bar{\rho}(t)}{|J(\vec{r}, t)|}
+\end{equation}
+或
+\begin{equation}
+\frac{\rho}{\bar{\rho}} = \frac{1}{[1+b(t)\alpha_1][1+b(t)\alpha_2][1+b(t)\alpha_3]}
+\end{equation}
+$1+b(t)\alpha_i$：矩阵$J$的本征值，$\alpha_i$：应变张量(形变张量)$\partial f_i/\partial q_j$的本征值；
+
+Zel'dovich近似是对粒子的位移取一阶线性近似，而不是直接对密度扰动取线性近似；位移被认为是线性变化的，而密度的变化可能是线性的，也可能是非线性的；
+当$|b(t) \alpha_i| \ll 1$时，密度扰动为
+\begin{equation}
+\delta \approx -(\alpha_1+\alpha_2+\alpha_3) b(t) = b \nabla\cdot f = b \nabla^2_{\vec{q}} \Psi
+\end{equation}
+若$\alpha_i$为负值，则当扰动增大到使得$b(t) = -\frac{1}{\alpha_i}$时，上式密度为无穷大，即形成奇点，称为\textcolor{red}{壳层交叉}(shell crossing)；意味着Lagrange坐标不同的两个粒子(或多个粒子)碰到一起了，具有相同的Eular坐标，粒子的轨道交叉了，坐标变换不是一对一的了；发生壳层交叉的地方称为\textcolor{red}{焦散线}(\textcolor{red}{焦散面})；
+发生坍缩的地方，至少有一个$\alpha_i$为负值，若不止一个$\alpha_i$为负，则坍缩首先发生在最负的$\alpha_i$相应的轴方向，从而形成“薄饼”结构；在很少的情况下，当两个或三个$\alpha_i$相同时，也可能在两个或三个方向同时坍缩，从而形成“纤维”状或“点”状结构。Zel'dovich近似的结果是，薄饼状结构是引力坍缩的最一般形式。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}

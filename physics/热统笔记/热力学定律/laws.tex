@@ -1,0 +1,407 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\title{热力学定律}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{热力学第一定律}
+\begin{equation}
+\dif U = \text{đ} Q + \text{đ} W
+\end{equation}
+$Q$和$W$都是与过程有关的量，它们都不是态函数；故微热量和微功各自都不是全微分；但是二者之和$ \dif Q + \dif W$是全微分。
+
+\begin{equation}
+\dif U + \dif E_k = \text{đ} Q +\text{đ} W
+\end{equation}
+$E_k = Mv^2/2$:小块的动能。
+
+
+\section{热力学第二定律}
+\subsection{理想气体的卡诺循环}
+
+
+
+
+\subsection{热力学第二定律}
+
+\begin{theo}[克劳修斯表述]{}
+不可能把热量从低温物体传到高温物体而不引起其他变化。
+\end{theo}
+
+
+\begin{theo}[开尔文表述]{}
+不可能从单一热源吸热使之完全变成有用的功而不引起其他变化。
+\end{theo}
+
+
+
+\subsection{卡诺定理}
+
+\subsection{热力学温标}
+
+
+\subsection{克劳修斯等式和不等式}
+
+\begin{equation}
+\oint \frac{\text{đ} Q}{T} \leqslant 0 ~,
+\end{equation}
+
+
+
+
+
+\section{热力学第三定律}
+
+
+
+\section{麦克斯韦关系}
+\subsection{内能、焓、自由能和吉布斯函数的全微分}
+\textcolor{orange}{热力学基本方程}
+\begin{equation}
+\color{orange} \dif U = T \dif S - p \dif V
+\end{equation}
+把$U$看作是$S$、$V$的全微分(完整微分)，
+\begin{equation*}
+\dif U = \left( \frac{\partial U}{\partial S}\right)_V \dif S +\left( \frac{\partial U}{\partial V}\right)_S \dif V
+\end{equation*}
+则
+\begin{eqnarray}
+\left( \frac{\partial U}{\partial S}\right)_V &=& T \\
+\left( \frac{\partial U}{\partial V}\right)_S &=& -p
+\end{eqnarray}
+考虑到求偏导数的次序可以交换，即
+\begin{equation*}
+\frac{\partial^2 U}{\partial S\partial V} = \frac{\partial^2 U}{\partial V\partial S}
+\end{equation*}
+可以得到
+\begin{equation}
+\left( \frac{\partial T}{\partial V}\right)_S = -\left( \frac{\partial p}{\partial S}\right)_V
+\end{equation}
+
+\textcolor{orange}{焓}的定义为\textcolor{orange}{$H=U+pV$}，对其求微分，
+\begin{eqnarray}
+\nonumber \color{orange} \dif H &=& \dif U + V\dif p +p \dif V \\
+\nonumber &=& T\dif S -p\dif V + V\dif p +p \dif V \\
+&=& \color{orange} T\dif S  +V\dif p
+\end{eqnarray}
+$H$作为$S$、$p$的函数，其全微分为
+\begin{equation*}
+\color{orange} \dif H = \left( \frac{\partial H}{\partial S}\right)_p \dif S +\left( \frac{\partial H}{\partial p}\right)_S \dif p
+\end{equation*}
+得到
+\begin{eqnarray}
+\left( \frac{\partial H}{\partial S}\right)_p &=& T \\
+\left( \frac{\partial H}{\partial p}\right)_S &=& V
+\end{eqnarray}
+和
+\begin{equation}
+\left( \frac{\partial T}{\partial p}\right)_S = \left( \frac{\partial V}{\partial S}\right)_p
+\end{equation}
+
+\textcolor{orange}{自由能}的定义为\textcolor{orange}{$F = U -TS$}，其全微分为
+\begin{equation}
+\color{orange} \dif F = -S \dif T - p\dif V
+\end{equation}
+得到
+\begin{eqnarray}
+\left( \frac{\partial F}{\partial T}\right)_V &=& -S \\
+\left( \frac{\partial F}{\partial V}\right)_T &=& -p
+\end{eqnarray}
+和
+\begin{equation}
+\left( \frac{\partial S}{\partial V}\right)_T = \left( \frac{\partial p}{\partial T}\right)_V
+\end{equation}
+
+\textcolor{orange}{吉布斯函数}的定义\textcolor{orange}{$G = U -TS+pV$}，其全微分为
+\begin{equation}
+\color{orange} \dif G = -S \dif T +V\dif p
+\end{equation}
+可以得到
+\begin{eqnarray}
+\left( \frac{\partial G}{\partial T}\right)_p &=& -S \\
+\left( \frac{\partial G}{\partial p}\right)_T &=& V
+\end{eqnarray}
+和
+\begin{equation}
+\left( \frac{\partial S}{\partial p}\right)_T = -\left( \frac{\partial V}{\partial T}\right)_p
+\end{equation}
+
+合并得到\textcolor{red}{麦克斯韦关系}
+\begin{eqnarray}
+\left( \frac{\partial T}{\partial V}\right)_S &=& -\left( \frac{\partial p}{\partial S}\right)_V \\
+\left( \frac{\partial T}{\partial p}\right)_S &=& \left( \frac{\partial V}{\partial S}\right)_p \\
+\left( \frac{\partial S}{\partial V}\right)_T &=& \left( \frac{\partial p}{\partial T}\right)_V \\
+\left( \frac{\partial S}{\partial p}\right)_T &=& -\left( \frac{\partial V}{\partial T}\right)_p
+\end{eqnarray}
+
+\subsection{麦克斯韦关系的应用}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{基本热力学函数的确定}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{特性函数}
+
+
+
+
+
+
+
+
+
+
+
+\section{Entropy production and heat flux}
+\cite{2008cmb..book.....D}  The perturbation variable $\Gamma = \pi_L - \dfrac{c_s^2}{w} \delta$ is related to the divergence of the entropy flux. We consider a system which deviates slightly from thermal equilibrium.
+
+\subsection{Thermal equilibrium}
+Consider an arbitrary mix of different (relativistic and non-relativistic) particles which may or may not be conserved. The only total thermodynamical quantities then are temperature $T$, entropy $S$, energy $E$, pressure $P$ and volume $V$. We shall also use the densities $s = \dif S/\dif V$ and $\rho = \dif E /\dif V$. Certain conserved species may have a chemical potential, but we are not interested in this `fine structure' here. 
+
+The Gibbs relation 
+\begin{equation}
+T \dif S = \dif E + P\dif V ~, ~~ \text{or} ~~ T \dfrac{\dif S}{\dif V} = T s = \rho +P ~.
+\end{equation}
+$S$ and $E$ are extensive quantities. Locally they are simply given by $S = s V$ and $E = \rho V$. Inserting this in the Gibbs relation
+\begin{equation}
+T V \dif s + Ts \dif V = V \dif \rho +\rho \dif V + P \dif V ~, \\
+T \dif s = \dif \rho ~.
+\end{equation}
+Defining the entropy $4$-velocity field by $U^\mu$. The entropy flux is then given by $S^\mu  = sU^\mu = T^{-1}(\rho + P)U^\mu$. \textcolor{red}{In thermal equilibrium} the \textcolor{red}{entropy velocity coincides with the energy flux $u^\mu = U^\mu$}, so that \textcolor{red}{$T^{\mu\nu}U_\mu = -\rho U^\nu$}. In thermal equilibrium
+\begin{equation}
+S^\mu = -\dfrac{1}{T} U_\nu T^{\mu\nu} + \dfrac{P}{T} U^\mu ~.
+\end{equation}
+In a FL background $(U^\mu) = (u^\mu) = a^{-1}(1, \vec{0})$ with $U^\mu_{;\mu} = 3\dot{a}/a^2$, so that entropy conservation becomes $0 = S^\mu_{;\mu} = a^{-1} \dot{s} + 3(\dot{a}/a^2)s$ which results in the well known law of adiabatic expansion, $\dot{s} = -3(\dot{a}/a)s$. Furthermore, small variations of the entropy flux at fixed velocity field $U^\mu$ are given by
+\begin{equation}
+\dif S^\mu = U^\mu \dif s = \dfrac{1}{T} U^\mu \dif \rho = -\dfrac{1}{T} U_\nu \dif T^{\mu \nu} ~.
+\end{equation}
+
+\subsection{Small departures from thermal equilibrium}
+There is some arbitrariness in fitting the actual state with an equilibrium state plus small deviations. We approximate the actual state with the thermal equilibrium at the same energy density $\rho$ and entropy velocity field $U^\mu$. We neglect all second-order quantities, taking into account only first-order deviations from thermal equilibrium and/or from the FL background. We specify the deviation of the energy-momentum tensor from thermal equilibrium, $\delta T^{\mu\nu}$, by the following ansatz
+\begin{equation}
+T^{\mu\nu} = (\rho +P_{\rm eq}) U^\mu U^\nu +P_{\rm eq} g^{\mu\nu} +\delta T^{\mu\nu} ~.
+\label{eq:T_munu0}
+\end{equation}
+Here $P_{\rm eq}$ is the pressure of the thermal equilibrium state with energy density $\rho$. Setting $\rho = \bar{\rho} + \delta \rho$ we therefore have $P_{\rm eq} = \bar{P} + \delta P$ with $\delta P = c_s^2 \delta \rho$.
+
+The energy flux $4$-velocity $u^\mu$ is defined by
+\begin{align}
+& T_{\nu}^\mu u^\nu = -\rho u^\mu ~, \\
+& u^2 = -1 ~.
+\end{align}
+as the time-like eigenvector of the energy-momentum tensor and $T^{\mu\nu}$ can also be written in the form
+\begin{equation}
+T^{\mu\nu} = (\rho +P) u^\mu u^\nu +P g^{\mu\nu} +\Pi^{\mu\nu} = \rho u^\mu u^\nu +\tau^{\mu\nu} ~,
+\label{eq:T_munu}
+\end{equation}
+where $\tau$ is given
+\begin{align}
+& \tau^{\mu\nu} =P(u^\mu u^\nu+ g^{\mu\nu})+ \Pi^{\mu\nu} ~, \\
+&  \Pi^\lambda_\lambda=0 ~.
+\end{align}
+The tensor $\Pi^{\mu\nu}$ is orthogonal to $u^\mu$,  $\Pi^{\mu\nu} u^\nu = 0$. Defining $Q^\mu$ by
+\begin{equation}
+u^\mu = U^\mu + Q^\mu ~, 
+\end{equation}
+we can rewrite Eq. (\ref{eq:T_munu}) in the following manner:
+\begin{align}
+\nonumber T^{\mu\nu} &= (\rho+P)U^\mu U^\nu+ Pg^{\mu\nu} + U^\mu q^\nu +U^\nu q^\mu+ \Pi^{\mu\nu} \\
+\nonumber & =(\rho+P_{\rm eq}) U^\mu U^\nu +P_{\rm eq} g^{\mu\nu} +U^\mu q^\nu +U^\nu q^\mu \\
+& +(P-P_{\rm eq})(U^\mu U^\nu -g^{\mu\nu})+ \Pi^{\mu\nu} ~,
+\label{eq:T_munu2}
+\end{align}
+where we have introduced
+\begin{equation}
+q^\mu = (\rho + p)Q^\mu ~.
+\end{equation}
+$\Pi_{\mu\nu}$, $\delta T_{\mu\nu}$, $Q^\mu$ and therefore also $q^\mu$ vanish in the background, they are of first order. Since $u^2 = U^2 = -1$, we have to first order $q \cdot U = 0$, $q \cdot u = 0$.
+
+Identifying $\delta T^{\mu\nu}$ by comparing Eq. (\ref{eq:T_munu2}) with the definition given in Eq. (\ref{eq:T_munu0}), we obtain to first order
+\begin{equation}
+\delta T^{\mu\nu} =U^\mu q^\nu +U^\nu q^\mu+(P-P_{\rm eq} )(U^\mu U^\nu -g^{\mu\nu})+ \Pi^{\mu\nu}, 
+\end{equation}
+and
+\begin{equation}
+\delta T^{\mu\nu} U_\mu = -q^\nu - \Pi^{\mu\nu} Q^\mu = -q^\nu ~,
+\end{equation}
+since $\Pi^{\mu\nu}$ and $Q^\mu$ are both first order and normal to $U^\mu$. With Eq. (A5.4) the perturbed entropy flux $S^\mu = S^\mu_{\rm eq} + \delta S^\mu$ becomes 
+\begin{equation}
+S^\mu =s U^\mu -  \dfrac{1}{T} \delta T^{\mu\nu} U_\nu = sU^\mu + \dfrac{1}{T} q^\mu ~.
+\end{equation}
+This equation shows that $q^\mu$ represents the heat flux.
+
+From $P = \bar{P} (1 + \pi_L)$ and $P_{\rm eq} = \bar{P} (1 + \dfrac{c_s^2}{w} \delta)$, $\delta = \delta \rho/\bar{\rho}$, we find
+\begin{equation}
+P- P_{\rm eq} = \bar{P} \left( \pi_L - \dfrac{c_s^2}{w} \delta \right) = \bar{P} \Gamma ~.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

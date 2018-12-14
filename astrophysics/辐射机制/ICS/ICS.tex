@@ -1,0 +1,422 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Inverse Compton Scattering}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Thomson Scattering}
+经典电磁理论认为，当电磁辐射通过物质时，被散射的辐射应与入射辐射具有相同的波长。因为入射的电磁辐射使原子中的电子受到一个周期变化的力，迫使电子以入射波的频率振荡。
+
+\cite{2011hea..book.....L} Consider the scattering of an unpolarised parallel beam of radiation through an angle $\alpha$ by a stationary electron. It is assumed that the incident beam propagates in the positive $z$-direction and the geometry of the scattering is arranged to be such that the scattering angle $\alpha$ lies in the $x-z$ plane. The electric field strength of the unpolarised incident field is resolved into components of equal intensity with electric vectors in the orthogonal $\vec{i}_x$ and $\vec{i}_y$ directions. The electric fields experienced by the electron in the $x$ and $y$ directions, $E_x = E_{x0} \exp(i\omega t)$ and $E_y = E_{y0} \exp(i\omega t)$, respectively, cause the electron to oscillate and the accelerations in these directions are 
+\begin{align}
+\ddot{r}_x = \dfrac{eE_x}{m_{\rm e} } ~, \\
+\ddot{r}_y = \dfrac{eE_y}{m_{\rm e} } ~.
+\end{align}
+The intensity of radiation scattered through angle $\theta$ into the solid angle $\dif \Omega$  is
+\begin{equation}
+-\left(\frac{\dif E}{\dif t} \right)_x \dif \Omega = \dfrac{e^2 |\ddot{r}_x|^2 \sin^2 \theta}{16 \pi^2 \epsilon_0 c^3} \dif \Omega = 
+\end{equation}
+
+
+
+Thomson cross section
+\begin{eqnarray*}
+\sigma_T &=& \frac{e^4 E_0^2}{12 \pi m_e^2 \epsilon_0 c^3} \frac{2 \mu_0 c}{E_0^2} \\
+&=& \frac{\mu_0 \epsilon_0 e^4}{6\pi  m_e^2 \epsilon_0^2 c^2} \\
+&=& \frac{e^4}{6\pi  m_e^2 \epsilon_0^2 c^4} \\
+&=& \frac{8\pi}{3} r_0^2 \\
+&=& 6.6524 \times 10^{-25} ~\text{cm}^2 =  6.6524 \times 10^{-29} ~\text{m}^2
+\end{eqnarray*}
+where $r_0$ is the classical electron radius. This is Thomson's famous result for the total cross-section for scattering of electromagnetic waves by stationary free electrons.
+
+The scattering is symmetric with respect to the scattering angle $\alpha$. Thus, as much radiation is scattered in the backward as in the forward direction.
+
+The scattering cross-section for $100\%$ polarised emission can be found by integrating the scattered intensity over all angles,
+\begin{equation}
+-\left(\frac{\dif E}{\dif t} \right)_x = \frac{e^2 |\ddot{r}_x|^2}{16 \pi^2 \epsilon_0 c^3} \int \sin^2 \theta 2\pi \sin \theta \dif \theta = \left(\frac{e^4}{6\pi \epsilon_0^2 m_{\rm e}^2 c^4} \right) S_x = \sigma_{\rm T} S_x
+\end{equation}
+For \textcolor{red}{incoherent radiation}, the energy radiated is proportional to the \textcolor{red}{sum of the incident intensities of the radiation field} and so the only important quantity so far as the electron is concerned is the \textcolor{red}{total intensity of radiation incident upon it}. It does \textcolor{red}{not matter how anisotropic the incident radiation field is}. One convenient way of expressing this result is to write the formula for the scattered radiation in terms to the \textcolor{red}{energy density of radiation $u_{\rm rad}$} at the electron
+\begin{equation}
+u_{\rm rad} = \sum_i u_i = \sum_i \frac{S_i}{c}
+\end{equation}
+\begin{equation}
+-\left(\frac{\dif E}{\dif t} \right) = \sigma_{\rm T} c u_{\rm rad} 
+\end{equation}
+
+\textcolor{red}{The scattered radiation is polarised, even if the incident beam of radiation is unpolarised}. When the electron is observed precisely in the x−y plane, the scattered radiation is $100\%$ polarised. On the other hand, if we look along the z-direction, we observe unpolarised radiation. The \textcolor{red}{degree of polarisation} is defined as
+\begin{equation}
+\Pi = \frac{I_{\rm max} -I_{\rm min} }{I_{\rm max} +I_{\rm min} } ~,
+\end{equation}
+the fractional polarisation of the radiation is
+\begin{equation}
+\Pi = \frac{1 -\cos^2 \alpha}{1 +\cos^2 \alpha} ~.
+\end{equation}
+This is therefore a means of producing polarised radiation from an initially unpolarised beam.
+
+Thomson scattering is one of the most important processes which \textcolor{red}{impedes the escape of photons from any region}. If the number density of photons of frequency $\nu$ is $N$, the rate at which energy is scattered out of the beam is
+\begin{equation}
+-\frac{\dif (N h\nu)}{\dif t} = \sigma_{\rm T} c N h \nu
+\end{equation}
+There is no change of energy of the photons in the scattering process and so, if there are $N_{\rm e}$ electrons per unit volume, the number density of photons decreases exponentially with distance
+\begin{eqnarray}
+-\frac{\dif N}{\dif t} &=& \sigma_{\rm T} c N_{\rm e} N ~, \\
+-\frac{\dif N}{\dif x} &=& \sigma_{\rm T} N_{\rm e} N ~, \\
+N &=& N_0 \exp (-\int \alpha_{\rm T} N_{\rm e} \dif x)
+\end{eqnarray}
+The optical depth τT of the medium for Thomson scattering is
+\begin{equation}
+\tau = \int \sigma_{\rm T} N_{\rm e} \dif x
+\end{equation}
+In this process, the \textcolor{red}{photons are scattered in random directions} and so they perform a \textcolor{red}{random walk}, \textcolor{red}{each step corresponding to the mean free path $\lambda_{\rm T}$ of the photon through the electron gas}, where \textcolor{red}{$\lambda_{\rm T} = (\sigma_{\rm T}N_{\rm e})^{-1}$}. 
+
+In Thomson scattering, there is \textcolor{red}{no change in the frequency of the radiation}. This remains a good approximation provided the \textcolor{red}{energy of the photon is much less than the rest mass energy of the electron, $\hbar \omega \ll m_{\rm e} c^2$}. In general, as long as the \textcolor{red}{energy of the photon is less than $m_{\rm e} c^2$ in the centre of momentum frame of reference}, the scattering may be treated as Thomson scattering.
+
+\section{Compton Scattering}
+高能光子与低能电子相碰时，光子把一部分能量传递给电子，从而损失能量，能量降低，波长变长。
+
+In the Compton scattering process, the incoming high energy photons collide with \textcolor{red}{stationary electrons} and transfer some of their energy and momentum to the electrons. Consequently, the scattered photons have less energies and momenta than before the collisions.
+
+X射线光子与自由电子发生碰撞；
+在被散射的X射线中，波长随散射角发生变化；
+证明了X射线的粒子性。
+
+推导：
+\begin{eqnarray}
+h \nu + E_0 &=& h\nu^{\prime} +E ~, \\
+\vec{p}_\lambda &=& \vec{p}_{\lambda^{\prime}} + \vec{p} ~,
+\end{eqnarray}
+$\vec{p}_\lambda = \dfrac{h}{\lambda} \hat{k}$和$\vec{p}_{\lambda^{\prime}} = \dfrac{h}{\lambda^{\prime}} \hat{k}^{\prime}$分别是光子碰撞前后的动量。
+\begin{eqnarray*}
+E^2 &=& E_0^2 +p^2 c^2 ~, \\
+E_0 &=& m_{\rm e} c^2 ~,\\
+E &=& \gamma m_{\rm e} c^2 ~,\\
+\gamma &=& \frac{1}{\sqrt{1-\dfrac{v^2}{c^2}}} ~,
+\end{eqnarray*}
+\begin{equation*}
+p_\lambda^2 + p_{\lambda^{\prime}}^2 - 2p_\lambda p_{\lambda^{\prime}} \cos \theta = p^2
+\end{equation*}
+Compton散射公式
+\begin{equation}
+\lambda^{\prime} - \lambda = \Delta \lambda = \frac{h c}{m_{\rm e} c^2} (1-\cos \theta)
+\end{equation}
+Compton散射引起的最大位移
+\begin{equation*}
+\Delta \lambda = \frac{2h c}{m_{\rm e} c^2} = 0.0049 ~\rm nm
+\end{equation*}
+散射光子的能量
+\begin{equation*}
+h\nu^{\prime} = \frac{h \nu}{1+\kappa (1-\cos \theta)} ~,~ \kappa = \frac{h\nu}{m_{\rm e} c^2}
+\end{equation*}
+反冲电子动能
+\begin{equation*}
+E_k = h \nu - h\nu^{\prime} = h\nu \frac{\kappa (1-\cos \theta)}{1+\kappa(1-\cos \theta)}
+\end{equation*}
+反冲电子的最大能量($\theta = \pi$)
+\begin{equation*}
+E_{k, \rm max} = h\nu \frac{2\kappa}{1+2\kappa}
+\end{equation*}
+相应光子的最小能量
+\begin{equation*}
+h\nu^{\prime}|_{\rm min} = \frac{h\nu}{1+2\kappa}
+\end{equation*}
+
+电子的Compton波长
+\begin{equation*}
+\lambda = \frac{hc}{m_{\rm e} c^2} = \frac{1.24 ~{\rm nm\cdot keV} }{511 ~{\rm keV}} = 0.002426 ~\rm nm
+\end{equation*}
+
+经典电子半径
+\begin{eqnarray*}
+m_{\rm e} c^2 &=& \frac{e^2}{4\pi \epsilon_0 r_{\rm e}} ~, \\
+r_{\rm e} &=& \frac{e^2}{4\pi \epsilon_0 m_{\rm e} c^2} \approx 2.8 ~\rm fm
+\end{eqnarray*}
+
+\cite{2011hea..book.....L} Suppose the electron moves with velocity $v$ through the laboratory frame of reference $S$. The momentum four-vectors of the electron and the photon before and after the collision are
+\begin{eqnarray*}
+{\rm electron}~~ \vec{P} = [\gamma m_{\rm e} c, \gamma m_{\rm e} \vec{v}] ~,~  \vec{P}^{\prime} = [\gamma^{\prime} m_{\rm e} c, \gamma^{\prime} m_{\rm e} \vec{v}^{\prime}]  \\
+{\rm photon}~~ \vec{K} = \left[\frac{\hbar \omega}{c}, \frac{\hbar \omega}{c} \vec{i}_k \right]  ~,~ \vec{K}^{\prime} = \left[\frac{\hbar \omega^{\prime} }{c}, \frac{\hbar \omega^{\prime} }{c} \vec{i}_{k^{\prime}} \right]
+\end{eqnarray*}
+The collision conserves four-momentum 
+\begin{equation*}
+\vec{P} +\vec{K} = \vec{P}^{\prime} +\vec{K}^{\prime}
+\end{equation*}
+\begin{equation*}
+\vec{P} \cdot\vec{P} = \vec{P}^{\prime}\cdot \vec{P}^{\prime} = m_{\rm e} c^2 ~,~ \vec{K} \cdot\vec{K} = \vec{K}^{\prime}\cdot \vec{K}^{\prime} = 0
+\end{equation*}
+\begin{equation*}
+\vec{P} \cdot\vec{K} = \vec{P}^{\prime}\cdot \vec{K}^{\prime}
+\end{equation*}
+\begin{equation*}
+\vec{P} \cdot\vec{K}^{\prime} + \vec{K}\cdot \vec{K}^{\prime} = \vec{P} \cdot\vec{K}
+\end{equation*}
+The \textcolor{red}{scattering angle} is given by $\vec{i}_k \cdot \vec{i}_{k^{\prime}} = \cos \alpha$. The \textcolor{red}{angle between the incoming photon and the velocity vector of the electron} is $\theta$ and the \textcolor{red}{angle between them after the collision} is $\theta^{\prime}$. Then, $\cos \theta = \vec{i}_k \cdot \vec{v}/|\vec{v}|$ and $\cos \theta^{\prime} = \vec{i}_{k^{\prime}} \cdot \vec{v}/|\vec{v}|$.
+\begin{equation}
+\frac{\omega^{\prime}}{\omega} = \frac{1-(v/c) \cos\theta}{1-(v/c)\cos \theta^{\prime} +(\hbar\omega/\gamma m_{\rm e} c^2)(1-\cos \alpha)}
+\end{equation}
+It shows how energy can be exchanged between the electron and the radiation field. In the limit $\omega \ll \gamma m_{\rm e}c^2$, the change in frequency of the photon is
+\begin{equation}
+\frac{\omega^{\prime} -\omega}{\omega} = \frac{\Delta \omega}{\omega} = \frac{v}{c} \frac{\cos\theta - \cos \theta^{\prime} }{[1-(v/c)\cos \theta^{\prime}]}
+\end{equation}
+Thus, to first order, the frequency changes are $\sim v/c$. To first order, \textcolor{red}{if the angles $\theta$ and $\theta^{\prime}$ are randomly distributed}, \textcolor{red}{a photon is just as likely to decrease as increase its energy}. It can be shown that there is \textcolor{red}{no net increase in energy of the photons to first order in $v/c$} and it is \textcolor{red}{only in second order}, that is, to \textcolor{red}{order $v^2/c^2$}, that \textcolor{red}{there is a net energy change}.
+If $v = 0$, $\gamma = 1$, i.e. the photon on scattering from a stationary electron, 
+\begin{eqnarray}
+\frac{\omega^{\prime}}{\omega} &=& \frac{1}{1+(\hbar\omega/m_{\rm e} c^2)(1-\cos \alpha)} ~, \\
+\frac{\Delta \lambda}{\lambda} &=& \frac{\lambda^{\prime} -\lambda}{\lambda} = \frac{\hbar \omega}{m_{\rm e}c^2} (1-\cos \alpha)
+\end{eqnarray}
+This effect of ‘cooling’ the radiation and transferring the energy to the electron is sometimes called the \textcolor{red}{recoil effect}.
+
+The Thomson cross-section is only adequate for cases in which the electron moves with velocity $v \ll c$ or if the photon has energy $\hbar \omega \ll m_{\rm e}c^2$ in the centre of momentum frame of reference. If a photon of energy $\hbar \omega$ collides with a stationary electron, the \textcolor{red}{centre of momentum frame moves at velocity}
+\begin{equation}
+\color{red} \frac{v}{c} = \frac{\hbar \omega}{m_{\rm e} c^2 +\hbar \omega}
+\end{equation}
+If the photons have energy \textcolor{red}{$\hbar \omega \geq m_{\rm e} c^2$}, we must use the proper quantum relativistic cross-section for scattering. Another case which can often arise is \textcolor{red}{if the photons are of low energy $\hbar \omega \ll  m_{\rm e} c^2$ but the electron moves ultra-relativistically with $\gamma \gg 1$}. The centre of momentum frame moves with a velocity close to that of the electron and in this frame the energy of the photon is $\gamma \hbar \omega$. If $\gamma \hbar \omega \sim m_{\rm e}c^2$, the quantum relativistic cross-section has to be used.
+
+
+
+
+The total cross-section is the Klein–Nishina formula:
+\begin{equation}
+\sigma_{\rm K-N} = \pi r_{\rm e}^2 \frac{1}{x} \left\{\left[1 -\frac{2(x+1)}{x^2} \right] \ln(2x+1) +\frac{1}{2} +\frac{4}{x} -\frac{1}{2(2x+1)^2} \right\}
+\end{equation}
+where $x = \hbar \omega/m_{\rm e}c^2$ and $r_{\rm e} = e^2/4\pi \epsilon_0m_{\rm e}c^2$ is the classical electron radius. For \textcolor{red}{low energy photons}, \textcolor{red}{$x \ll 1$},
+\begin{equation}
+\sigma_{\rm K-N} = \frac{8\pi}{3} r_{\rm e}^2 (1-2x) = \sigma_{\rm T} (1-2x) \approx \sigma_{\rm T} ~.
+\end{equation}
+In the \textcolor{red}{ultra-relativistic limit}, \textcolor{red}{$\gamma \gg 1$}, the Klein–Nishina cross-section becomes
+\begin{equation}
+\sigma_{\rm K-N} = \pi r_{\rm e}^2 \frac{1}{x} \left(\ln 2x + \frac{1}{2} \right) ~,
+\end{equation}
+the cross-section decreases roughly as $x^{-1}$ at the highest energies. If the atom has \textcolor{red}{$Z$ electrons}, the \textcolor{red}{total cross-section per atom} is \textcolor{red}{$Z\sigma_{\rm K−N}$}. The \textcolor{red}{scattering by nuclei can be neglected} because they cause very much less scattering than electrons, roughly by a factor of \textcolor{red}{$(m_{\rm e}/m_{\rm N})^2$}, where $m_{\rm N}$ is the mass of the nucleus.
+
+
+
+
+\section{Inverse Compton Scattering}
+\cite{2011hea..book.....L} In inverse Compton scattering, ultra-relativistic electrons scatter low energy photons to high energies so that the photons gain energy at the expense of the kinetic energy of the electrons. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+For an \textcolor{red}{incident isotropic photon field} at a \textcolor{red}{single frequency $\nu_0$}, the spectral emissivity $I(\nu)$ is
+\begin{equation}
+I(\nu) \dif \nu = \frac{3\sigma_{\rm T} c}{16 \gamma^4} \frac{N(\nu_0)}{\nu_0^2} \nu\left[2\nu \ln\left(\frac{\nu}{4\gamma^2 \nu_0} \right) + \nu +4\gamma^2 \nu_0 - \frac{\nu^2}{2\gamma^2 \nu_0} \right] \dif \nu
+\end{equation}
+where the \textcolor{red}{isotropic radiation field in the laboratory frame of reference $S$ is assumed to be monochromatic with frequency $\nu_0$}; $N(\nu_0)$ is the number density of photons. At low frequencies, the term in square brackets is a constant and hence the scattered radiation has a spectrum of the form \textcolor{red}{$I(\nu) \propto \nu$}.
+
+The \textcolor{red}{maximum energy} which the photon can acquire corresponds to a \textcolor{red}{head-on collision} in which the \textcolor{red}{photon is sent back along its original path}. The maximum energy of the photon is
+\begin{equation}
+\hbar \omega|_{\rm max} = \hbar \omega \gamma^2 \left(1+\frac{v}{c} \right)^2 \approx 4\gamma^2 \hbar \omega_0
+\end{equation}
+The \textcolor{red}{number of photons scattered per unit time} is \textcolor{red}{$\sigma_{\rm T} cu_{\rm rad}/\hbar \omega_0$} and hence the \textcolor{red}{average energy of the scattered photons} is
+\begin{equation}
+\hbar \bar{\omega} = \frac{4}{3} \gamma^2 \left(\frac{v}{c} \right)^2 \hbar \omega_0 \approx \frac{4}{3} \gamma^2 \hbar \omega_0
+\end{equation}
+The photon gains typically one factor of $\gamma$ in transforming into $S^{\prime}$ and then gains another on transforming back into $S$. The \textcolor{red}{frequency of photons scattered by ultra-relativistic electrons} is \textcolor{red}{$\nu \sim \gamma^2 \nu_0$}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Energy flux}
+The gamma-ray flux from the ICS process for an isotropic distribution of soft photons $n(\epsilon^{\prime})$ upscattered by a population of electrons with spectrum $F(p)$ is \cite{1970RvMP...42..237B, 2009A&A...497...17V}
+\begin{equation}
+\Phi(\epsilon) = \frac{2\pi e^4 \epsilon}{c} \int \dif p F(p) \int \frac{n(\epsilon^{\prime}) \dif \epsilon^{\prime}}{\epsilon^{\prime}} \times \left[2q\ln q +(1+2q)(1-q) +\frac{1}{2} \frac{\epsilon^2}{pc(pc-\epsilon)} (1-q) \right]
+\end{equation}
+where
+\begin{equation}
+q = \frac{\epsilon}{\frac{4\epsilon^{\prime} pc}{(mc^2)^2}(pc -\epsilon)}
+\end{equation}
+
+The gamma-ray flux from the ICS process is given by
+\begin{equation}
+\left.\frac{{\rm d}N}{{\rm d}E}\right|_{\rm IC}= c \int {\rm d}\epsilon\,
+n(\epsilon)\int {\rm d}E_e \frac{{\rm d}n}{{\rm d}E_e} \times
+F_{\rm KN}(\epsilon,E_e,E),
+\end{equation}
+The differential Klein-Nishina cross section $F_{\rm KN}(\epsilon,E_e,E)$ is adopted as the following form \cite{1968PhRv..167.1159J, 1970RvMP...42..237B}
+\begin{equation}
+F_{\rm KN}(\epsilon,E_e,E)=\frac{3\sigma_T}{4\gamma^2\epsilon}\left[2q
+\ln{q}+(1+2q)(1-q)+\frac{(\Gamma q)^2(1-q)}{2(1+\Gamma q)}\right],
+\end{equation}
+where $\sigma_T$ is the Thomson cross section, $\gamma$ is the Lorentz factor
+of electron, $\Gamma=4\epsilon\gamma/m_e$, and $q=E/\Gamma(E_e-E)$. On a separate note, when $q<1/4\gamma^2$ or $q>1$, $F_{\rm KN}(\epsilon,E_e,E)=0$.
+
+\subsection{Energy loss rate}
+The inverse Compton energy loss rate of a single electron in one graybody photon field is
+\begin{equation}
+|\dot{\gamma}|_{\rm C} \simeq \frac{4\sigma_{\rm T} c W}{3m_{\rm e} c^2} \frac{\gamma_K^2 \gamma^2}{\gamma_K^2 +\gamma^2}
+\end{equation}
+The \textcolor{red}{critical Klein-Nishina Lorentz factor} is
+\begin{equation}
+\gamma_K \equiv \frac{3\sqrt{5}}{8\pi} \frac{m_e c^2}{k_B T} = \frac{0.27 m_e c^2}{k_B T}
+\end{equation}
+When $\gamma \ll \gamma_K$, reduces to the Thomson limit
+\begin{equation}
+|\dot{\gamma}|_{\rm C}(\gamma \ll \gamma_K) \simeq \frac{4\sigma_{\rm T} c W}{3m_{\rm e} c^2} \gamma^2 ,
+\end{equation}
+When $\gamma \gg \gamma_K$, obtain the energy-independent extreme Klein-Nishina limit
+\begin{equation}
+|\dot{\gamma}|_{\rm C}(\gamma \gg \gamma_K) \simeq \frac{4\sigma_{\rm T} c W}{3m_{\rm e} c^2} \gamma_K^2 ,
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

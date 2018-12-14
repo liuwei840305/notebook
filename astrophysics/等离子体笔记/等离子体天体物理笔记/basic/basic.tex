@@ -1,0 +1,493 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Basic}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+Plasma is a \textcolor{red}{quasi-neutral gas of charged particles}. In addition, there may be \textcolor{red}{neutral particles present}.
+
+\cite{2015bps..book.....C} Plasma physics studies the equilibrium and dynamics of globally neutral collections of charged particles, where the interactions between particles and the self-consistent long-range electromagnetic fields dominate over the Coulomb force between nearest neighbors.
+
+A transition to the plasma state requires additional energy : once the temperature becomes sufficient to ionize atoms, a gas made up of positively charged ions and electrons is formed. However, the formation of the plasma state does not occur as a classical phase-transition, rather the \textcolor{red}{properties of the gas change gradually with increasing ionization}. Approximately $95 \%$ of matter in the Universe is found in the plasma state.
+
+Even though one often thinks of a plasma as just a collection of charged particles, it is really \textcolor{red}{the particles and self-consistent electromagnetic fields together that define the plasma state}. In the \textcolor{red}{quantum mechanics}, particles, fields, as well as their excitations may be thought of as (quasi) particles. In the case of plasmas these include real particles (electrons, ions, atoms), the electromagnetic fields (photons) and the plasma waves (plasmons, phonons). The interactions between the various plasma components, whether they be wave-particle or wave-wave interactions or particle-particle collisions, may then all be described in terms of generalized particle interactions. 
+
+If particles collide with an energy greater than the ionization potential $|\epsilon_i|$ electrons $e^-$ could be emitted in inelastic processes like
+\begin{eqnarray*}
+A + B &\rightarrow& A^+ + B + e^- ~, \\
+C + e^- &\rightarrow& C^+ + 2e^- ~.
+\end{eqnarray*}
+
+From the Saha equation, the ratio of charged to neutral particles,
+\begin{equation*}
+\frac{n_i}{n_n} \simeq 2.4 \times 10^{21} \frac{T^{3/2}}{n_i} e^{-|\epsilon_i|/k_BT}
+\end{equation*}
+$n_{i,n}$ : ion and neutral particle density in m$^{-3}$; The fractional ionization degree is $n_i/(n_n + n_i)$. As $|\epsilon_i|$ is typically a couple of eV, the fractional ionization degree in our human environment (i.e., at the surface of the earth where typically $-60 < T < 40 ^{\circ}$C) is negligibly low.
+
+\cite{2015bps..book.....C} The \textcolor{red}{conductivity of a partially ionized gas}, made up of electrons, positive ions and neutral atoms. Given the large mass ratio of ions and neutrals to electrons, the motions of the former may be neglected in the equation of motion for the electrons (of charge $-e$ and mass $m_e$), which in the presence of a constant electric field $\vec{E}$ is:
+\begin{equation*}
+m_e \frac{\dif \vec{v}}{\dif t} = -e\vec{E} -m_e \nu_c \vec{v}
+\end{equation*}
+or
+\begin{equation*}
+\frac{\dif \vec{v}}{\dif t} + \nu_c \vec{v} = -\frac{e}{m_e}\vec{E} 
+\end{equation*}
+$\vec{v}$ is the electron velocity. The term proportional to the \textcolor{red}{collision frequency $\nu_c$} is the drag force coming from collisions between electrons and both ions and neutrals. A stationary state is achieved when
+\begin{equation*}
+\vec{v} = -\frac{e}{m_e \nu_c} \vec{E} ~.
+\end{equation*}
+Electrons carry a current density $\vec{J} = -en_e \vec{v}$, and, defining the electric conductivity $\sigma$ through $\vec{J} =\sigma \vec{E}$,
+\begin{equation}
+\color{cyan} \sigma = \frac{e^2 n_e}{m_e \nu_c} ~,
+\end{equation}
+One may rather generally define the \textcolor{red}{collision frequency}
+\begin{equation*}
+\nu_c = \frac{\bar{v}}{\lambda} = n \sigma_c \bar{v} = \alpha n ~; ~~ \alpha = \sigma_c \bar{v}
+\end{equation*}
+where \textcolor{red}{$\bar{v}$ is the root mean square (rms) electron speed} (typically the electron thermal speed), \textcolor{red}{$\lambda$ the mean free path}, \textcolor{red}{$\sigma_c$ the collisional cross section for the interaction} considered (not to be confused with the conductivity, $\sigma$ ) and \textcolor{red}{$n$ the number density of scattering centers}. The collision frequency $\nu_c$ is the sum of a collision frequency due to electron-ion interactions $\nu_c^i$ and one due to electron-neutral interactions $\nu_c^a$, $\nu_c = \nu_c^i + \nu_c^a$, with corresponding collision cross sections $\sigma_c(i)$, $\sigma_c(a)$ and $\alpha^i$, $\alpha^a$,
+\begin{equation*}
+\nu_c = \alpha^i n_i +\alpha^a n_a = \alpha^i n_i \left(1 +\frac{\alpha^a}{\alpha^i}\frac{n_a}{n_i} \right)
+\end{equation*}
+The \textcolor{red}{degree of ionization}, \textcolor{red}{$\chi$}, is
+\begin{equation*}
+\color{red} \chi = \frac{n_i}{n_i +n_a} = \frac{1}{1+(n_a/n_i)}
+\end{equation*}
+$\nu_c$ becomes
+\begin{equation*}
+\nu_c = \alpha^i n_i \left(1+ \frac{\alpha^a}{\alpha^i} \frac{1-\chi}{\chi} \right)
+\end{equation*}
+$n_e = Z n_i$, where $Ze$ is the ion charge, the conductivity is
+\begin{equation*}
+\color{red} \sigma = \frac{Ze^2}{m_e \alpha^i} \frac{1}{1+(\alpha^a/\alpha^i)(1/\chi -1)} = \frac{\sigma_{\rm max}}{1+(\alpha^a/\alpha^i)(1/\chi -1)}
+\end{equation*}
+\textcolor{cyan}{$\sigma_{\rm max}$} is the \textcolor{cyan}{maximum conductivity at complete ionization of the plasma}, $\chi = 1$. An estimate of how the ionization degree affects conductivity can be obtained by asking for what ionization $\chi_0$ the conductivity has half its maximum value $\sigma = \sigma_{\rm max} /2$:
+\begin{equation*}
+\frac{\alpha^a}{\alpha^i} \left(\frac{1}{\chi_0} -1 \right) = 1 ~.
+\end{equation*}
+since
+\begin{equation*}
+\frac{\alpha^a}{\alpha^i} = \frac{\sigma_c(a)}{\sigma_c(i)} ~,
+\end{equation*}
+and the cross section for electron-neutral interactions is much smaller than that for electron-ion scattering (this value is found experimentally to be about $10^{-2}$). An ionization degree of only about \textcolor{red}{$1\%$} is sufficient for the plasma to have a conductivity half of that of the completely ionized gas. With an ionization degree of $8 \%$ the conductivity reaches a level of about $0.9 \sigma_{\rm max}$ .
+
+
+\section{Saha equation}
+\cite{2015bps..book.....C} The \textcolor{red}{degree of ionization $\chi$} depends on the physical parameters, namely \textcolor{red}{density} and \textcolor{red}{temperature}, which characterize the thermodynamical equilibrium of the plasma. Consider an ensemble of particles of energy $E_m$ at a temperature $T$. The number density follows from Boltzmann’s formula
+\begin{equation*}
+n_m = g_m \exp (-E_m/kT) ~,
+\end{equation*}
+$g_m$ giving the number of states with energy $E_m$ and $k$ is Boltzmann’s constant. The ratio ${\cal R}_{lm}$ between the density of states with energies $E_l$ and $E_m$ is
+\begin{equation*}
+{\cal R}_{lm} = \frac{n_l}{n_m} = \frac{g_l}{g_m} \exp\left[-\frac{E_l -E_m}{kT} \right]
+\end{equation*}
+Using $i$ to denote the \textcolor{red}{ionized state} and $0$ the \textcolor{red}{fundamental state of a neutral atom}, 
+\begin{equation*}
+\frac{n_i}{n_0} = \frac{g_i}{g_0} \exp\left[-\frac{I}{kT} \right] ~,
+\end{equation*}
+where $I$ is the ionization energy. A good approximation for the number of states $g$ from quantum mechanics is
+\begin{equation*}
+\frac{g_i}{g_0} \simeq \left(\frac{m_{\rm e} k T}{2\pi \hbar^2} \right)^{3/2} \frac{1}{n_i} \simeq 2.4\times 10^{15} \frac{T^{3/2}}{n_i} ~,
+\end{equation*}
+and \textcolor{red}{Saha’s equation} is
+\begin{equation}
+\color{red} \frac{n_i}{n_0} \simeq 2.4\times 10^{15} \frac{T^{3/2}}{n_i} \exp \left[-\frac{I}{kT} \right] ~.
+\end{equation}
+Introducing the degree of ionization:
+\begin{equation}
+\chi = \frac{n_i}{n_0 +n_i} = \frac{n_i}{n_{\rm tot}}
+\end{equation}
+from Saha's equation
+\begin{equation}
+\color{red} \frac{1-\chi}{\chi^2} \simeq 4.14\times 10^{-16} n_{\rm tot} T^{-3/2} \exp\left[\frac{I}{kT} \right] ~.
+\end{equation}
+The ionization of a hydrogen gas is essentially complete $(\chi = 1)$ at temperatures of order $10^4$ K, much less than the temperature corresponding to the ionization potential $T \simeq I/k \simeq 1.58 \times 10^5$ K, where $n_{\rm tot} = 10^{13}$ cm$^{-3}$.
+
+The Boltzmann constant is
+\begin{eqnarray*}
+k &=& 1.38064852(79) \times 10^{-23} ~{\rm J\cdot K^{-1}} \\ 
+&=& 8.6173303(50) \times 10^{-5} ~{\rm eV\cdot K^{-1}} \\ 
+&=& 1.38064852(79) \times 10^{-16} ~{\rm erg\cdot K^{-1}}
+\end{eqnarray*}
+
+The Saha equation gives the degree of ionization of a given atomic element in thermal equilibrium as a function of temperature and electron density :
+\begin{equation}
+\frac{n_{r+1} n_{\rm e} }{n_r} = \frac{G_{r+1} g_{\rm e} }{G_r} \frac{(2\pi m_{\rm e} k T)^{3/2}}{h^3} \exp \left[-\frac{\chi_r}{kT} \right] ~.
+\end{equation}
+$n_r$ and $n_{r+1}$ are the number densities of atoms in the ionization state $r$ (e.g., with four electrons missing) and the ionization state $r+1$ (five electrons missing) of a given element. $n_{\rm e}$ is the electron number density, $G_r$ and $G_{r+1}$ are the partition functions of the two states, $g_{\rm e} = 2$ is the statistical weight of the electron, $m_{\rm e}$ is the electron mass, and $x_r$ is the ionization potential from state $r$ to $r+1$. 
+
+
+\section{Debye Length}
+\textcolor{red}{quasi-neutrality}
+
+\cite{2015bps..book.....C} A positively charged particle in a plasma will be surrounded by a volume with prevalently negative charge. This leads to a shielding of the charge and to an electrostatic potential that nearly vanishes beyond some distance $r_s$ from the charge. The total charge over volumes with a linear scale greater than $r_s$ to vanish, i.e. if $Q(r)$ is the total charge within a sphere of radius $r$, quasi-neutrality implies that $Q(r_s) \simeq 0$.
+
+Introduce an extra charge $e_0 > 0$ into a purely hydrogen plasma in some point that we take as the origin, $r = 0$. An electric field will appear :
+\begin{equation*}
+\nabla \cdot \vec{E} = -\nabla^2 \Phi = 4\pi q = 4\pi e(n_i -n_e) +4\pi e_0 \delta(\vec{r}) ~,
+\end{equation*}
+where $q$ is the charge density, $e$ is the proton charge and $\Phi$ is the electrostatic potential defined by
+\begin{equation*}
+\vec{E} = -\nabla \Phi
+\end{equation*}
+If the plasma is in equilibrium at a temperature $T$, the electron density will be given by the Boltzmann distribution:
+\begin{equation}
+n_e = n_0 \exp \left[-\frac{(-e\Phi)}{kT} \right] ~,
+\end{equation}
+where $n_0$ is the average density in the absence of the extra charge. The protons will be distributed according to
+\begin{equation}
+n_i = n_0  \exp \left[-\frac{e\Phi}{kT} \right] ~.
+\end{equation}
+The equation for the electrostatic potential $\Phi$ is
+\begin{eqnarray}
+\nonumber \nabla^2 \Phi &=& 4\pi n_0 e\left[\exp \left[\frac{e\Phi}{kT} \right] - \exp \left[-\frac{(e\Phi)}{kT} \right]  \right] -4\pi e_0 \delta(\vec{r}) ~, \\
+&=& 8\pi n_0 e \sinh \left[ \frac{e\Phi}{kT} \right] -4\pi e_0 \delta(\vec{r}) ~,
+\end{eqnarray}
+Assuming $\dfrac{e\Phi}{kT} \ll 1$,
+\begin{equation}
+\nonumber \nabla^2 \Phi = \frac{8\pi n_0 e^2\Phi}{kT} -4\pi e_0 \delta(\vec{r}) ~, \\
+\end{equation}
+Assume the space charge to be distributed isotropically, so that $\Phi$ is only a function of the distance from the origin $r$, leads to
+\begin{eqnarray}
+\nonumber \frac{1}{r^2}\frac{\partial}{\partial r}\left( r^2 \frac{\partial \Phi}{\partial r} \right) &=& \frac{8\pi n_0 e^2\Phi}{kT} -4\pi e_0 \delta(\vec{r}) ~, \\
+&=& \frac{\Phi}{\lambda^2} -4\pi e_0 \delta(r) ~,
+\end{eqnarray}
+where
+\begin{equation}
+\lambda = \sqrt{\frac{kT}{8\pi e^2 n_0}} ~.
+\end{equation}
+\begin{equation*}
+\frac{\dif^2 (r\Phi)}{\dif r^2} = \frac{r\Phi}{\lambda^2} -4\pi e_0 r \delta(r)
+\end{equation*}
+and the solution is
+\begin{equation}
+\Phi = \frac{e_0 }{r} \exp \left[-\frac{r}{\lambda} \right] ~.
+\end{equation}
+The Debye length, $\lambda_D$, is defined as
+\begin{equation}
+\lambda_D = \sqrt{\frac{kT}{4\pi e^2 n_0}} = \sqrt{2}\lambda \simeq 6.9 \sqrt{\frac{T}{n_0}} ~.
+\end{equation}
+The screening effect becomes evident calculating the total charge inside a sphere of radius $r$, 
+\begin{eqnarray}
+\nonumber Q(r) &=& \int_V q\dif V = 4\pi \int_0^r q r^2 \dif r = \int_0^r (-\nabla^2 \Phi) r^2 \dif r \\
+\nonumber &=& -\int_0^r \left(\frac{\Phi}{\lambda^2} \right) r^2 \dif r + e_0 \int_V \delta(\vec{r}) \dif V \\
+\nonumber &=& -\frac{e_0}{\lambda^2} \int_0^r r \exp \left[ -\frac{r}{\lambda} \right] \dif r +e_0 \\
+&=& e_0 \left( 1+\frac{r}{\lambda } \right) \exp \left[ -\frac{r}{\lambda} \right]
+\end{eqnarray}
+$Q(r)$ also falls of exponentially in units of $\lambda$ and it nearly vanishes beyond a distance of a few $\lambda_s$  from the bare charge. 
+
+The use of the Boltzmann distribution to derive the densities of particles over regions with a linear dimension of order of the Debye length is only meaningful if the mean inter-particle distance $\bar{d}$ is much smaller than that, $\bar{d} \ll \lambda_D$, which also implies, because $\bar{d} \simeq n^{-1/3}$, that the number of particles inside a volume of order $\lambda^3_D$ must be very large:
+\begin{equation}
+n \lambda^3_D \gg 1 ~.
+\end{equation}
+This inequality must be satisfied for the approximation of quasi-neutrality to hold true, and it is therefore a necessary requirement for an ionized gas to be called a plasma.
+
+\begin{equation*}
+\left(\frac{e\Phi}{kT} \right)_{\bar{d}} = \frac{e^2}{kT} \frac{\exp(-\bar{d}/\lambda)}{\bar{d}} \simeq \frac{e^2}{kT} \frac{1}{\bar{d}} \simeq \frac{e^2}{kT} n^{1/3} \simeq \left(\frac{\bar{d}}{\lambda} \right)^2 \ll 1~.
+\end{equation*}
+
+
+
+\section{Fundamental Plasma Parameters}
+\cite{2015bps..book.....C} The rms or \textcolor{cyan}{thermal speed} of particles
+\begin{equation*}
+v_T = \sqrt{\frac{3kT}{m}} ~,
+\end{equation*}
+The characteristic timescale is \textcolor{red}{$\tau_p = \lambda_D/v_T$}. The \textcolor{red}{plasma frequency} is proportional to $1/\tau_p$, i.e.
+\begin{equation}
+\color{red} \omega_p  = \sqrt{\frac{4\pi e_0^2 n}{m}}
+\end{equation}
+where $e_0$, $m$, $n$ are the charge, mass and density of the species. Even for a purely hydrogen plasma there will be a plasma frequency associated with electrons, $\omega_{pe} \simeq 5.64\times 10^4 n_e^{1/2}$, and one with the protons $\omega_{pi}$. 
+
+
+
+
+
+
+
+
+
+Collisions are also the way through which a plasma thermalizes, i.e. through which a plasma containing particle populations with different temperatures reaches thermal equilibrium. In a collision, energy may be transferred from the particle of higher energy to the lower energy one. Consider the case of populations of electrons and ions both out of thermodynamic equilibrium but with comparable energies. Collisions lead to equilibrium among particles of the same species on a different timescale compared to that required for thermal equilibrium across species. For \textcolor{red}{collision between identical particles}, the characteristic \textcolor{red}{timescale $\tau$ required to reach equilibrium} is
+\begin{equation*}
+\color{red} \tau_{\rm ee} \simeq (\nu_{\rm ee})^{-1} \simeq \left(\frac{m_{\rm e}}{m_{\rm i}} \right)^{1/2} \tau_{\rm ii} ~.
+\end{equation*}
+Thermal equilibrium across species implies collisions between electrons and ions : in one collision an electron can only lose a fraction of order $\left(\dfrac{m_{\rm e}}{m_{\rm i}} \right)$ of its energy. Reaching thermal equilibrium requires
+\begin{equation*}
+\tau_{\rm ei} \simeq \left(\frac{m_{\rm i}}{m_{\rm e}} \right)^{1/2} \tau_{\rm ii} \simeq \left(\frac{m_{\rm i}}{m_{\rm e}} \right) \tau_{\rm ee} ~.
+\end{equation*}
+For an \textcolor{red}{electron-proton plasma},  \textcolor{red}{$\tau_{\rm ei} \gg \tau_{\rm ii} \gg \tau_{\rm ee}$} and electron-proton thermalization requires substantially longer times than both electron-electron and proton-proton thermalization. \textcolor{red}{A plasma may survive for long times with electrons and protons at different temperatures}. The timescale given by the inverse of the collision frequency defines a typical time between collisions, and is the characteristic timescale for the collisional phenomenon under consideration. In the previous paragraphs we have focused on the \textcolor{cyan}{timescales of energy exchange}. Another is the \textcolor{cyan}{timescale of momentum exchange}. 
+
+Collision frequencies are associated with disordered motions in a plasma, while motions at the plasma frequency due to departures from quasi-neutrality are ordered motions. For this ordered motion to occur, it is necessary that $\nu_{\rm ei} \ll \omega_{\rm pe}$. 
+\begin{equation*}
+\frac{\nu_{\rm ei} }{\omega_{\rm pe}} \ll \frac{\nu_{\rm ee} }{\omega_{\rm pe}} \simeq (n \lambda^3_D)^{-1} \ll 1 ~,
+\end{equation*}
+
+\textcolor{red}{cyclotron} or  \textcolor{red}{Larmor frequency}
+\begin{equation}
+\color{red} \omega_c = \frac{|Ze| B}{mc} ~,
+\end{equation}
+\begin{eqnarray*}
+\omega_{ce} &=&  \frac{|e| B}{m_{\rm e}c}  \simeq 1.76\times 10^7 B ~, \\
+\omega_{cp} &=&  \frac{m_{\rm e}}{m_{\rm p}} \omega_{ce} \simeq 9.58\times 10^3 B ~.
+\end{eqnarray*}
+and the \textcolor{red}{Alfv\'en speed} :
+\begin{equation}
+c_a = \sqrt{\frac{B}{4\pi \rho} } = \sqrt{\frac{B}{4\pi m_i n_i} } \simeq 2.18\times 10^{11} B n_i^{-1/2} ~.
+\end{equation}
+The Alfv\'en speed depends only on the mass density of the plasma, while the cyclotron frequency depends explicitly on particle mass and charge.
+
+The plasma dynamics is described by non-relativistic classical (non-quantum) mechanics. Relativistic corrections become important when the thermal energy is such that $kT \gg mc^2$. For electrons,
+\begin{equation*}
+T \gtrsim 6\times 10^9 ~{\rm K} ~,
+\end{equation*}
+which implies that relativistic corrections are very rarely required for plasmas in thermal equilibrium. Often there may be particle populations in a plasma with energies much greater than $kT$, responsible for so called non thermal processes, and for these species relativistic corrections may be important.
+
+
+
+
+Quantum effects are important when the characteristic length scales in the plasma approach the De Broglie wavelength, $\lambda_q = \hbar/p$. For thermal motions 
+\begin{equation*}
+\lambda_q = \frac{\hbar}{(3mkT)^{1/2} } ~.
+\end{equation*}
+Quantum-mechanical effects become important when:
+\begin{equation}
+\bar{d} \simeq n^{-1/3} \lesssim \lambda_q
+\end{equation}
+or
+\begin{equation}
+T\simeq n^{-2/3} \lesssim \frac{\hbar^2}{3mk} \simeq 2.95 \times 10^{-12} ~.
+\end{equation}
+where the numerical value refers to electrons. Quantum effects therefore become important for low temperatures and/or extremely high densities.
+
+\section{Geophysical Plasmas}
+\cite{1996bspp.book.....B}  In the immediate neighborhood of the Earth, all matter above about $100$ km altitude, within and above the ionosphere, has to be treated using plasmaphysical methods. 
+
+\subsection{Solar Wind}
+\cite{1996bspp.book.....B} The sun emits a highly conducting plasma at supersonic speeds of about \textcolor{red}{$500$ km/s} into the interplanetary space as a result of the supersonic expansion of the solar corona. This plasma is called the solar wind and consists mainly of electrons and protons, with an admixture of $5\%$ Helium ions. Because of the high conductivity, the solar magnetic field is frozen in the plasma (like in a superconductor) and drawn outward by the expanding solar wind. Typical values for the electron density and temperature in the solar wind near the Earth are $n_e \approx 5$ cm$^{-3}$ and $T_e \approx 10^5$ K(\textcolor{blue}{$1$ eV $= 11,600$ K}). The \textcolor{red}{interplanetary magnetic field} is of the order of \textcolor{red}{$5$ nT}.
+
+When the solar wind hits on the Earth's dipolar magnetic field, it cannot simply penetrate it but rather is slowed down and, to a large extent, deflected around it. Since the solar wind hits the obstacle with supersonic speed, a \textcolor{red}{bow shock wave} is generated, where the \textcolor{blue}{plasma is slowed down} and \textcolor{blue}{a substantial fraction of the particles' kinetic energy is converted into thermal energy}. The \textcolor{red}{region of thermalized subsonic plasma behind the bow shock} is called the \textcolor{red}{magnetosheath}. Its plasma is denser and hotter than the solar wind plasma and the magnetic field strength has higher values in this region. 
+
+
+\subsection{Magnetosphere}
+\cite{1996bspp.book.....B} The shocked solar wind plasma in the magnetosheath cannot easily penetrate the terrestrial magnetic field but is mostly deflected around it. This is a consequence of the fact that the \textcolor{yellow}{interplanetary magnetic field lines cannot penetrate the terrestrial field lines} and that the \textcolor{blue}{solar wind particles cannot leave the interplanetary field lines due to the afore-mentioned frozen-in characteristic of a highly conducting plasma}.
+
+The \textcolor{blue}{boundary separating the two different regions} is called \textcolor{red}{magnetopause} and the \textcolor{blue}{cavity generated by the terrestrial field} has been named \textcolor{red}{magnetosphere}. The kinetic pressure of the solar wind plasma distorts the outer part of the terrestrial dipolar field. At the frontside it compresses the field, while the nightside magnetic field is stretched out into a long \textcolor{red}{magnetotail} which reaches far beyond lunar orbit.
+
+The plasma in the magnetosphere consists mainly of \textcolor{blue}{electrons and protons}. The sources of these particles are the solar wind and the terrestrial ionosphere. In addition there are small fractions of He$^+$ and O$^+$ ions of ionospheric origin and some He$^{++}$ ions originating from the solar wind. However, the \textcolor{blue}{plasma inside the magnetosphere is not evenly distributed}, but is \textcolor{blue}{grouped into different regions with quite different densities and temperatures}. 
+
+The \textcolor{red}{radiation belt} lies on dipolar field lines between about $2$ and $6  R_E$ ($1$ Earth radius = $6371$ km). It consists of \textcolor{blue}{energetic electrons and ions} which \textcolor{green}{move along the field lines and oscillate back and forth between the two hemispheres}. Typical electron densities and temperatures in the radiation belt are $n_e \approx 1$ cm$^{-3}$ and $T_e \approx 5\times 10^7$ K. The magnetic field strength ranges between about $100$ and $1000$ nT.
+
+\textcolor{blue}{Most of the magnetotail plasma is concentrated around the tail midplane in an about $10 R_E$ thick plasma sheet}. Near the Earth, it reaches down to the high-latitude \textcolor{red}{auroral ionosphere} along the field lines. Average electron densities and temperatures in the \textcolor{red}{plasma sheet} are $n_e \approx 0.5$ cm$^{-3}$ and $T_e \approx 5\times 10^6$ K, and $B \approx 10$ nT.
+
+The outer part of the magnetotail is called the \textcolor{red}{magnetotail lobe}. It contains a highly rarified plasma with typical values for the electron density and temperature and the magnetic field strength of $n_e \approx 10^{-2}$ cm$^{-3}$, $T_e \approx 5 \times 10^5$ K, and $B \approx 30$ nT, respectively.
+
+
+\subsection{Ionosphere}
+\cite{1996bspp.book.....B} The solar ultraviolet light impinging on the Earth's atmosphere ionizes a fraction of the neutral atmosphere. At altitudes \textcolor{blue}{above $80$ km}, \textcolor{blue}{collisions are too infrequent to result in rapid recombination} and a \textcolor{blue}{permanent ionized population} called the  \textcolor{red}{ionosphere} is formed. Typical electron densities and temperatures in the mid-latitude ionosphere are $n_e \approx 10^5$ cm$^{-3}$ and $T_e \approx 10^3$ K.The magnetic field strength is of the order of $10^4$ nT.
+
+The ionosphere extends to rather high altitudes and, at low- and mid-latitudes, gradually merges into the  \textcolor{red}{plasmasphere}. The plasmasphere is a torus shaped volume inside the radiation belt. It contains a cool but dense plasma of ionospheric origin ($n_e \approx 5 \times 10^2$ cm$^{-3}$, $T_e \approx 5\times 10^3$ K), which corotates with the Earth. In the equatorial plane, the plasmasphere extends out to about $4 R_E$, where the density drops down sharply to about $1$ cm$^{-3}$. This is boundary is called the \textcolor{red}{plasmapause}.
+
+At high latitudes plasma sheet electrons can precipitate along magnetic field lines down to ionospheric altitudes, where they collide with and ionize neutral atmosphere particles. As a by-product, photons emitted by this process create the polar light, the \textcolor{red}{aurora}. These auroras are typically observed inside the  \textcolor{red}{auroral oval}, which contains the footprints of those field lines which thread the plasma sheet. Inside of the auroral oval lies the  \textcolor{red}{polar cap}, which is threaded by field lines connected to the tail lobe.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Theoretical Approaches}
+\cite{1996bspp.book.....B} The simplest approach is the \textcolor{red}{single particle motion} description. It describes the motion of a particle under the influence of external electric and magnetic fields. This approach \textcolor{red}{neglects the collective behavior of a plasma}, but is useful when studying a \textcolor{red}{very low density plasma}, like found in the ring current.
+
+The \textcolor{red}{magnetohydrodynamic} approach is the other extreme and \textcolor{red}{neglects all single particle aspects}. The plasma is treated as \textcolor{red}{a single conducting fluid with macroscopic variables}, like average density, velocity, and temperature. The approach assumes that the \textcolor{red}{plasma is able to maintain local equilibria} and is suitable to study \textcolor{red}{low-frequency wave phenomena in highly conducting fluids immersed in magnetic fields}.
+
+The multi-fluid approach is similar to the magnetohydrodynamic approach, but accounts for \textcolor{red}{different particle species} (electrons, protons, and possibly heavier ions) and assumes that \textcolor{red}{each species behaves like a separate fluid}. It has the advantage that differences in the fluid behavior of the light electrons and the heavier ions can be taken into account. This can lead to \textcolor{red}{charge separation fields} and \textcolor{red}{high-frequency wave propagation}.
+
+The \textcolor{red}{kinetic theory} is the most developed plasma theory. It adopts a \textcolor{red}{statistical approach}. Instead of solving the equation of motion for each individual particle, it looks at the \textcolor{red}{development of the distribution function for the system of particles under consideration in phase space}. Yet even in kinetic theory certain simplifying assumptions have to be made and there are different flavors of kinetic theory, depending on the kind of simplification made.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The Classical Description of Plasmas}
+\cite{2015bps..book.....C} The classical, microscopic, description of a plasma considers the plasma as an ensemble of charged particles in a vacuum. Maxwell's equations are 
+\begin{eqnarray*}
+\nabla \times \vec{E} &=& -\frac{1}{c} \frac{\partial \vec{B}}{\partial t} \\
+\nabla \times \vec{B} &=& \frac{1}{c} \frac{\partial \vec{E}}{\partial t} +\frac{4\pi}{c} \vec{J} \\
+\nabla \cdot \vec{E} &=& 4\pi q \\
+\nabla \cdot \vec{B} &=& 0
+\end{eqnarray*}
+where $q$ and $\vec{J}$ are the total charge and current densities, including possible external charges and currents. the equation of charge conservation or charge continuity :
+\begin{equation*}
+\frac{\partial q}{\partial t} + \nabla \cdot \vec{J} = 0
+\end{equation*}
+Gauss' theorem for both the electric and magnetic fields in reality imposes only initial conditions on the dynamics:
+\begin{equation*}
+0 = \nabla \cdot (\nabla \times \vec{E}) = -\frac{1}{c} \frac{\partial }{\partial t} \nabla \cdot \vec{B}
+\end{equation*}
+If $\nabla \cdot \vec{B} = 0$ is satisfied at any one time it will be satisfied for all subsequent times. This means that Gauss' theorems for the electric and magnetic fields should not be included when considering the number of independent equations describing plasma dynamics.
+
+Every particle $i = 1 \ldots N$ (including ions and electrons) follows Newton’s equations of motion : 
+\begin{equation}
+m_i \ddot{\vec{r}}_i = e_i \left(\vec{E} +\frac{\dot{\vec{r}} }{c} \times \vec{B} \right)
+\end{equation}
+where $e_i$ is the charge of the $i$th particle, $\vec{r}_i(t)$ and $\dot{\vec{r}}_i(t)$ are the $i$th particle's position and velocity-also written $\vec{v}_i(t)$, respectively. The complete knowledge of the microscopic plasma state for an ensemble of $N$ particles requires solving the $3 N$ equations of motion together with the $6$ independent Maxwell equations, for a total of $3N+6$ equations in the $3N+10$ unknowns $\vec{E}$, $\vec{B}$, $\vec{j}$, $q$. The missing $4$ equations are those determining charge and current densities from the motions of individual particles :
+\begin{eqnarray*}
+q(\vec{r}, t) &=& \sum_{i=1}^N e_i \delta[\vec{r} - \vec{r}_i(t)] \\
+\vec{J}(\vec{r}, t) &=& \sum_{i=1}^N e_i \vec{v}_i \delta[\vec{r} - \vec{r}_i(t)]
+\end{eqnarray*}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

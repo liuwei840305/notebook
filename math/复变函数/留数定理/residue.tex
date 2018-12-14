@@ -1,0 +1,469 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\title{留数定理}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{留数定理}
+\subsection{留数概念}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设函数$f(z)$以$z=z_0$为其\textcolor{red}{孤立奇点}，即函数$f(z)$在某个\textcolor{red}{圆环$0<|z-z_0| <\delta$}内解析。设$C$是任意一个圆周$|z-z_0| = \rho < \delta$，则称积分
+\begin{equation}
+\color{red} \frac{1}{2\pi i}\int_C f(z) \dif z
+\end{equation}
+为函数$f(z)$在点$z=z_0$处的\textcolor{red}{留数}，记作\textcolor{red}{$\underset{z = z_0}{\rm Res} f(z)$}，或者简记为${\rm Res} f(z_0)$或$R(z_0)$。
+\end{tcolorbox}
+
+
+
+设函数$f(z)$在$z=z_0$处的洛朗展式为
+\begin{equation}
+f(z) = \sum_{n=-\infty}^{+\infty} c_n (z-z_0)^n ~, ~~0< |z-z_0| < \delta
+\end{equation}
+利用该级数在圆环$0<|z-z_0| <\delta$的\textcolor{red}{内闭一致收敛性}，特别地，在$C$上一致收敛，可以逐项积分，得到
+\begin{equation}
+\frac{1}{2\pi i} \int_C f(z) \dif z = \sum_{n=-\infty}^{+\infty} \frac{c_n}{2\pi i} \int_C (z-z_0)^n \dif z
+\end{equation}
+积分只有当$n=-1$时等于$2\pi i$，当$n\neq -1$时，为$0$。由此得到
+\begin{equation}
+\frac{1}{2\pi i} \int_C f(z) \dif z = c_{-1} ~, ~\text{即} ~\underset{z = z_0}{\rm Res} f(z) = c_{-1}
+\end{equation}
+\textcolor{red}{函数$f(z)$在$z=z_0$处的留数就是它在$z=z_0$处的洛朗展式中$(z-z_0)^{-1}$的系数}。若$z=z_0$是函数$f(z)$的\textcolor{red}{可去奇点}，则\textcolor{red}{$\underset{z = z_0}{\rm Res} f(z) = 0$}。
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定义]
+设函数$f(z)$在无穷远点的领域\textcolor{red}{$r < |z| < +\infty$}中解析，定义函数$f(z)$在\textcolor{red}{$z=\infty$}处的留数为
+\begin{equation}
+\underset{z = z_0}{\rm Res} f(z) = \frac{1}{2\pi i} \int_{\Gamma} f(z) \dif z
+\end{equation}
+其中积分是按\textcolor{red}{顺时针方向沿圆周$\Gamma: |z| = R > r$}进行的，即\textcolor{teal}{在$\Gamma$上绕行一周时，区域$r < |z| < +\infty$总是保持在左方}，简记为$R(\infty)$。
+\end{tcolorbox}
+
+
+
+当$f(z)$在$r < |z| < +\infty$处展开为洛朗级数
+\begin{equation}
+f(z) = \sum_{n=-\infty}^{+\infty} c_n z^n
+\end{equation}
+由逐项积分法，
+\begin{equation}
+\color{red} \frac{1}{2\pi i} \int_{\Gamma} f(z) \dif z = -c_{-1} ~, ~\text{即} ~\underset{z = z_0}{\rm Res} f(z) = -c_{-1}
+\end{equation}
+负号是由于积分按顺时针方向。与有限点情况不同，当\textcolor{red}{函数以$z=\infty$为可去奇点}时，如
+\begin{equation*}
+f(z) = \frac{1}{z} ~,
+\end{equation*}
+其留数$\underset{z = z_0}{\rm Res} f(z)$仍然可能不等于$0$。
+
+\subsection{留数定理}
+计算函数在一个闭曲线上的积分：若在此闭曲线内部，函数除了一些孤立奇点外是解析的，则可以将函数在闭曲线上的积分转化为计算这些孤立奇点上的留数。
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+设函数$f(z)$在区域$D$内除了有限个孤立奇点$z_1, z_2, \cdots, z_n$外解析。且设$C$是$D$内的闭曲线，其内部也属于$D$，且含有全部$z_i, (i \leqslant i \leqslant n)$，则
+\begin{equation}
+\color{red} \frac{1}{2\pi i} \int_C f(z) \dif z = \sum\limits_{i =1}^n \underset{z = z_i}{\rm Res} f(z)
+\end{equation}
+\end{tcolorbox}
+
+
+
+若函数$f(z)$在扩充平面上只有有限个孤立奇点，则有
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+设函数$f(z)$在扩充平面上除了$z=z_i ~(1 \leqslant i \leqslant n)$及$z = \infty$外解析，则
+\begin{equation}
+\color{red} \sum\limits_{i =1}^n \underset{z = z_i}{\rm Res} f(z) + \underset{z = \infty}{\rm Res} f(z) = 0
+\end{equation}
+\end{tcolorbox}
+
+
+留数定理把计算闭曲线上的积分值转化为计算各个孤立奇点上函数的留数，即计算在每一个孤立奇点处的洛朗展开式中负幂一次项的系数。当\textcolor{red}{孤立奇点是极点}的时候，可以通过导数来计算留数。
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+设函数\textcolor{red}{$f(z)$以$z=z_0$为$n$级极点}，则
+\begin{equation}
+\color{red} \underset{z = z_0}{\rm Res} f(z) = \lim\limits_{z\rightarrow z_0} \frac{1}{(n-1)!} \frac{\dif^{n-1} [(z-z_0)^n f(z)]}{\dif z^{n-1}}
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+当函数$f(z)$以$z=z_0$为一级极点时，
+\begin{equation}
+\color{red} \underset{z = z_0}{\rm Res} f(z) = \lim\limits_{z\rightarrow z_0} (z-z_0) f(z)
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem]
+当函数
+\begin{equation}
+f(z) = \frac{\varphi(z)}{\psi(z)} ~,
+\end{equation}
+其中函数$\varphi(z)$和$\psi(z)$都在$z=z_0$处解析，且\textcolor{red}{$\varphi(z_0) \neq 0 ~, ~\psi(z)$以$z=z_0$为一级零点}，则
+\begin{equation}
+\color{red} \underset{z = z_0}{\rm Res} f(z) = \frac{\varphi(z_0)}{\psi^{\prime}(z_0)}
+\end{equation}
+\end{tcolorbox}
+
+
+
+\section{利用解析函数理论求定积分}
+\subsection{$\int_0^{2\pi} R(\cos \theta, \sin \theta) \dif \theta$}
+$R(x, y)$是两个变量$x$与$y$的有理函数，可以通过变换
+\begin{equation}
+\tan \frac{\theta}{2} = u
+\end{equation}
+化为有理函数的积分。
+
+
+\begin{eqnarray*}
+I &=& \int_0^{2\pi} R(\cos \theta, \sin \theta) \dif \theta \\
+&=& \frac{1}{i} \int_{|z| = 1} R\left(\dfrac{z+\dfrac{1}{z} }{2}, \dfrac{z-\dfrac{1}{z} }{2i} \right) \dfrac{\dif z}{z}
+\end{eqnarray*}
+被积函数
+\begin{equation*}
+R_1 = R\left(\dfrac{z+\dfrac{1}{z} }{2}, \dfrac{z-\dfrac{1}{z} }{2i} \right) \dfrac{1}{z}
+\end{equation*}
+是一个有理函数。若原来的积分存在，则函数$R_1(z)$必在$|z|=1$解析，在$|z| < 1$内只有有限个极点，设为$z_i (1 \leqslant i \leqslant n)$，
+\begin{eqnarray*}
+I = 2\pi \sum\limits_{i =1}^n \underset{z = z_i}{\rm Res} R_1(z) = 2\pi \sum\limits_{i =1}^n \underset{z = z_i}{\rm Res} R\left(\dfrac{z+\dfrac{1}{z} }{2}, \dfrac{z-\dfrac{1}{z} }{2i} \right) \dfrac{1}{z}
+\end{eqnarray*}
+若每一个极点$z_i$的级为$\alpha_i (1 \leqslant i \leqslant n)$，
+\begin{eqnarray*}
+I = 2\pi \sum\limits_{i =1}^n \frac{1}{(\alpha_i -1)!}  \lim\limits_{z\rightarrow z_i} \frac{\dif^{\alpha_i-1} }{\dif z^{\alpha_i-1} } \left[(z-z_i)^{\alpha_i} R\left(\dfrac{z+\dfrac{1}{z} }{2}, \dfrac{z-\dfrac{1}{z} }{2i} \right) \dfrac{1}{z} \right]
+\end{eqnarray*}
+
+
+
+\subsection{$\int_{-\infty}^{\infty} f(z) \dif z$ ($f(z)$为实函数)}
+\begin{eqnarray*}
+\int_{-\infty}^{\infty} f(z) \dif z = \lim\limits_{a\rightarrow -\infty \atop b\rightarrow \infty} \int_a^b f(x) \dif x
+\end{eqnarray*}
+对于函数$f(x)$在区间$[a,b]$上的积分，在上半平面补充一条以$a$与$b$为两个端点的曲线$\Gamma_{a,b}$，使区间$[a,b]$与曲线$\Gamma_{a,b}$构成一条逐段光滑曲线$C_{a,b}$，把它所围的区域记为$D$。若能够找到一个在$D$内除了有限个孤立奇点外解析，在$\={D}$上除了这些点以外连续的函数$g(z)$，使得$g(z)$在$z=x$时，$g(x) = f(x)$(或者$\text{Re} g(x) = f(x)$)，由留数定理
+\begin{eqnarray*}
+\int_a^b g(x) \dif x +\int_{\Gamma_{a,b}} g(z) \dif z = 2\pi i \sum\limits_{i=1}^{N_{a,b}} \underset{z = z_i}{\rm Res} ~g(z) 
+\end{eqnarray*}
+其中$z_i (1\leqslant i \leqslant N_{a,b})$是在区域$D$内函数$g(z)$的孤立奇点。
+
+
+四步骤：
+
+1. 积分闭路的选取；
+
+2. 选择一个在闭路上除了一些孤立奇点外都解析的函数$g(z)$，使得$g(x)=f(x)$或$\text{Re} g(x) = f(x)$；
+
+3. 计算函数$g(z)$在闭路内每一个孤立奇点上的留数，求这些留数之和；
+
+4. 计算附加曲线函数$g(z)$积分的极限值。
+
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 引理 1]
+设$\Gamma_{R_n}$为圆周$|z| = R_n$的上半个圆周，函数$g(z)$在$\Gamma_{R_n}$上连续，$\Gamma_{R_n} \rightarrow +\infty$，并设
+\begin{equation*}
+\lim\limits_{z\rightarrow \infty \atop z \in \Gamma_{R_n} } z g(z) = 0 ~.
+\end{equation*}
+则
+\begin{equation*}
+\underset{R_n\rightarrow +\infty}\lim \int_{\Gamma_{R_n}} g(z) \dif z = 0 ~.
+\end{equation*}
+若$\Gamma_{R_n}$是${\rm Im} z \geqslant b$($b$是任何实数)上的圆周$|z| = R_n$的一部分，仍成立。
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= Theorem 1]
+设函数$g(z)$是在上半平面上，除去一些孤立奇点外的解析函数，且除去这些点以外在闭上半平面上连续。若$g(z)$满足引理$1$的条件，则
+\begin{equation}
+\underset{R_n\rightarrow +\infty}\lim \int_{-R_n}^{R_n} g(x) \dif x = 2\pi i \underset{R_n\rightarrow +\infty}\lim \sum_{{\rm Im} z_i > 0  \atop |z_i| < R_n }  {\rm Res} f(z_i) ~,
+\end{equation}
+其中$z_i (i = 1, 2, \cdots)$是函数$g(z)$在上半平面上的孤立奇点。
+\end{tcolorbox}
+
+
+
+\subsection{$\int_{-\infty}^{\infty} e^{i\alpha x} f(x) \dif x$ ($\alpha$为实数)}
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 约当引理]
+设$a > 0$，$\Gamma_{R_n}$为圆周$|z| = R_n$上的上半个圆周。设函数$f(z)$在$\Gamma_{R_n}$上连续，其中$\Gamma_{R_n} \rightarrow +\infty$。若
+\begin{equation}
+\lim\limits_{z\rightarrow \infty \atop z \in \Gamma_{R_n} } f(z) = 0  ~,
+\end{equation}
+则
+\begin{equation}
+\lim\limits_{R_n \rightarrow +\infty} \int_{|z|=R_n} e^{i\alpha z} f(z) \dif z = 0  ~.
+\end{equation}
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 引理]
+设$\Gamma_{r_n}$为圆周$|z| = r_n$的上半个圆周，函数$f(z)$在$\Gamma_{r_n}$上连续，且$r_n \rightarrow +\infty$。若
+\begin{equation}
+\lim\limits_{z\rightarrow 0 \atop z \in \Gamma_{r_n} } z f(z) = 0  ~,
+\end{equation}
+则
+\begin{equation}
+\lim\limits_{r_n \rightarrow 0} \int_{\Gamma_{r_n} }  f(z) \dif z = 0  ~.
+\end{equation}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理]
+设函数$f(z)$在${\rm Im} z > 0$上除了一些孤立奇点外解析，在${\rm Im} z\geqslant 0$除了这些点外连续。设$a > 0$，且函数满足引理$2$的条件，则
+\begin{equation}
+\lim\limits_{R_n\rightarrow +\infty } \int_{-R_n}^{R_n} e^{iax} f(x) \dif x = 2\pi i \lim\limits_{R_n \rightarrow +\infty} \sum_{{\rm Im} z_k >  0 \atop |z_k| \leqslant R_n } \underset{z = z_k}{\rm Res}~ e^{iaz} f(z) ~.
+\end{equation}
+其中$z_k(k=1,2,\cdots)$是函数$f(z)$在${\rm Im} z > 0$上的孤立奇点。
+\end{tcolorbox}
+
+\section{幅角原理及其应用}
+应用幅角原理，可以研究在一个区域中的多项式根的个数问题。设函数$f(z)$在$z=a$处有$n$级零点。函数$f(z)$在$z=a$的某个邻域$|z-a_1|< \delta$中可以展开为泰勒级数
+\begin{align}
+f(z) &= c_n(z-a)^n +c_{n+1}(z-a)^{n+1} +\cdots ~, ~~ (c_n \neq 0) \\
+&= (z_a)^n \varphi(z) ~,
+\end{align}
+其中$\varphi(z)$在$|z-a| < \delta$中解析，且$\varphi(a) \neq 0$。
+\begin{equation}
+f^\prime(z) = n(z-a)^{n-1} \varphi(z) +(z-a)^n \varphi^\prime(z) ~.
+\end{equation}
+在$0 < |z-a| < \delta$中，
+\begin{equation*}
+\dfrac{f^\prime(z)}{f(z)} = \dfrac{n}{z-a} +\dfrac{\varphi^\prime(z)}{\varphi(z)} ~,
+\end{equation*}
+由于函数$\varphi(z)$在$|z-a| < \delta$中不等于零，函数$\dfrac{\varphi^\prime(z)}{\varphi(z)}$在$|z-a| < \delta$内解析。应用柯西定理，
+\begin{equation*}
+\dfrac{1}{2\pi i} \int_{|z-a| =\delta_1 < \delta} \dfrac{\varphi^\prime(z)}{\varphi(z)} \dif z = n ~.
+\end{equation*}
+
+某一个区域内函数$f(z)$的极点的个数。设函数$f(z)$在$z=b$处有$m$级极点。函数在$z=b$处的洛朗展开式为
+\begin{align*}
+f(z) &= \dfrac{c_{-m}}{(z-b)^m} +\cdots +\dfrac{c_{-1}}{(z-b)} +c_0 +c_1 (z-b) + \cdots ~~ (c_{-m} \neq 0) ~, \\
+&= \dfrac{1}{(z-b)^m} \psi(z) ~, ~~ 0 < |z-b| < \delta ~.
+\end{align*}
+其中$\psi(z)$在圆$|z-b| < \delta$内解析，且$\psi(b) = c_{-m} \neq 0$。
+\begin{equation*}
+\dfrac{f^\prime(z)}{f(z)} = \dfrac{-m}{z-b} + \dfrac{\psi^\prime(z)}{\psi(z)} ~.
+\end{equation*}
+由于$\psi(b) \neq 0$，可以认为在$|z-b| < \delta$内不等于零。$\dfrac{\varphi^\prime(z)}{\varphi(z)}$是$|z-b| < \delta$内的解析函数。由柯西定理，
+\begin{equation*}
+\dfrac{1}{2\pi i} \int_{|z-b| =\delta_1 < \delta} \dfrac{f^\prime(z)}{f(z)} \dif z= -m ~.
+\end{equation*}
+若函数$f(z)$以$z=a$为其$n$级零点，则$z=a$必是函数$\dfrac{f^\prime(z)}{f(z)}$的一级极点，且留数为$n$；若函数$f(z)$以$z=b$为其$m$级极点，则$z=b$必是函数$\dfrac{f^\prime(z)}{f(z)}$的一级极点，且留数为$-m$。若函数$f(z)$在一个区域内又有零点，又有极点，则
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 定理1]
+设函数$f(z)$在区域$D$内除了有限个极点$b_i(1\leqslant i \leqslant k)$以外解析，其级为$m_i(1\leqslant i \leqslant k)$。函数$f(z)$在区域$D$内只有有限个零点$a_i(1\leqslant i \leqslant l)$，其级为$n_i(1\leqslant i \leqslant l)$。设$C$是$D$内一条包有函数$f(z)$的全部零点及全部极点的闭曲线，则有
+\begin{equation}
+\dfrac{1}{2\pi i} \int_C \dfrac{f^\prime(z)}{f(z)} \dif z = \sum_{i=1}^l n_i -\sum_{i=1}^k m_i = N -P ~,
+\end{equation}
+其中$N$表示$D$内函数$f(z)$的全部零点的个数，有几个零点就算几次；$P$表示$D$内$f(z)$的全部极点的个数，有几个极点就算几次。
+\end{tcolorbox}
+
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 鲁歇(Rouche)定理]
+设函数$f(z)$及$\varphi(z)$都在区域$D$内解析，在$\bar{D} = D +C$上连续，其中$C$为逐段光滑曲线。若满足
+\begin{equation}
+|f(z)| > |\varphi(z)| ~, ~~ z \in C ~,
+\end{equation}
+则函数$f(z)$与函数$f(z)+\varphi(z)$在$D$内的零点的个数相同。
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= 霍尔维茨(Hurwitz)定理]
+设$D$是一个区域，且$D$内的解析函数序列$f_n(z)$在$D$内闭一致收敛于函数$f(z) \neq 0$。并设$C$是$D$内的任意一条闭曲线，其内部也属于$D$，且$C$不经过函数$f(z)$的零点。则存在一个依赖于曲线$C$的数$N$，使得当$n > N$时，函数$f_n(z)$在$C$内的零点的个数等于函数$f(z)$在$C$内的零点的个数。
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

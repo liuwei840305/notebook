@@ -1,0 +1,382 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+
+\usepackage{wrapfig}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+
+\title{Trapped Particles}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\cite{1996bspp.book.....B} A \textcolor{red}{dipole magnetic field} has a field strength minimum at the equator and converging field lines in both hemispheres. In such a configuration particles will be trapped and bounce back and forth between their mirror points in the northem and southern hemispheres. In the case of the terrestrial magnetic field, which can be approximated by a dipole field inside of about $6 R_E$, these trapped populations are the energetic particles in the \textcolor{red}{radiation belts}. Typical energies of the ions in this region range between $3$ and $300$ keV, while the electrons have energies about an order of magnitude lower.
+
+The particles do not only gyrate and bounce, but undergo a slow azimuthal drift. This drift is an effect of the gradient and curvature of the dipole magnetic field and is oppositely directed for ions and electrons. The ions drift westward while the electrons move eastward around the Earth. It is the current associated with this drift that constitutes the \textcolor{red}{ring current}.
+
+\section{Dipole Field}
+At distances not too far from the Earth's surface, the geomagnetic field can be approximated by a dipole field. Introducing the \textcolor{red}{Earth's dipole moment, $M_E = 8.05 \cdot 10^{22}$ Am$^2$}, and choosing a spherical coordinate system with radius, $r$ , and magnetic latitude, $\lambda$, we can write
+\begin{equation}
+\color{yellow} \vec{B} = \dfrac{\mu_0}{4\pi} \dfrac{M_E}{r^3} (-2 \sin \lambda \vec{\hat{e}}_r +\cos \lambda \vec{\hat{e}}_\lambda) ~.
+\end{equation}
+since a dipole field is symmetric about the azimuth. Here $\vec{\hat{e}}_r$ and $\vec{\hat{e}}_\lambda$ are unit vectors in the $r$ and $\lambda$ directions. The \textcolor{red}{strength of the dipole field} at a specific location can be 
+\begin{equation}
+\color{yellow} B = \dfrac{\mu_0}{4\pi} \dfrac{M_E}{r^3} (1+3\sin^2 \lambda)^{1/2} ~.
+\end{equation}
+In order to construct the field lines, one needs to know the field line equation, $r = f(\lambda)$. If $\dif \vec{s}$ is an arc element, the lines of force are defined by the differential equation
+\begin{equation}
+\dif \vec{s} \times \vec{B} = 0 ~,
+\end{equation}
+since the magnetic field vector is always tangent to the lines of force. For an axisymmetric field, this reduces to
+\begin{equation}
+\dfrac{\dif r}{B_r} = \dfrac{r \dif \lambda}{B_\lambda} ~.
+\end{equation}
+Using the dipole field
+\begin{equation}
+\dfrac{\dif r}{r} = -\dfrac{2 \sin \lambda \dif \lambda}{\cos \lambda} = \dfrac{2 \dif \cos \lambda}{\cos \lambda} ~.
+\end{equation}
+The dipole field line equation is thus 
+\begin{equation}
+r = r_{\rm eq} \cos^2 \lambda ~,
+\end{equation}
+where $r_{\rm eq}$ is the integration constant. Since $r =r_{\rm eq}$ for $\lambda = 0$, $r_{\rm eq}$ is the radial distance to the field line in the equatorial plane and thus its greatest distance from the Earth's center.
+
+The element of arc length along a field line is given by $(\dif s)^2 = (\dif r)^2 +r^2 (\dif \lambda)^2$. For the change of the arc element along the field line with magnetic latitude
+\begin{equation}
+\dfrac{\dif s}{\dif \lambda} = r_{\rm eq} \cos \lambda (1+3\sin^2 \lambda)^{1/2} ~.
+\end{equation}
+By integrating this equation one can calclate the length o f a field line with a given equatorial distance.
+
+Often it is convenient to use the radius of the Earth, $R_E$, as the unit of distance and to introduce the $L$-shell parameter or $L$-value, $L = r_{\rm eq}/R_E$. Using the equatorial magnetic field on the Earth's surface, $B_E = \mu_0 M_E/(4\pi R^3_E) = 3.11\cdot 10^5$ T, and inserting the field line equation
+\begin{equation}
+B(\lambda, L) = \dfrac{B_E}{L^3} \dfrac{(1+3\sin^2 \lambda)^{1/2}}{\cos^6 \lambda} ~.
+\end{equation}
+
+
+\begin{equation}
+\cos^2 \lambda_E = L^{-1} ~,
+\end{equation}
+namely the latitude, $\lambda_E$, where a field line with a given $L$-value or equatorial plane distance intersects the Earth's surface.
+
+\section{Bounce Motion}
+The most prominent motion of trapped particles is their bounce motion between the mirror points. The actual trajectory of a bouncing particle is characterized by its pitch angle.
+
+\subsection{Equatorial Pitch Angle}
+We can determine the pitch angle of a particle in a mirror field geometry anywhere along the field line from the ratio between the magnetic field at that location and the magnetic field at the particle’s mirror point. A particular point along a field line is its intersection with the equatorial plane, where the field strength is minimum with $B_{\rm eq} = B_E/L^3$. The equatorial pitch angle, $\alpha_{\rm eq}$, 
+\begin{equation}
+\sin^2 \alpha_{\rm eq} = \dfrac{B_{\rm eq}}{B_m} = \dfrac{\cos^6 \lambda_m}{(1+3\sin^2 \lambda_m)^{1/2}}
+\end{equation}
+where $\lambda_m$ is the magnetic latitude of the particle's mirror point. It shows that the equatorial pitch angle of a particle depends only on the latitude of its mirror point and not on the equatorial distance of its field line or, equivalently, its $L$-value. Turning the argument around, the latitude of a particle’s mirror point depends only on its equatorial pitch angle and is independent of the $L$-value.
+
+Particles with small equatorial pitch angles have large parallel velocities and their mirror points are at high latitudes, close to the Earth. With increasing equatorial pitch angles, the mirror points move to more equatorial latitudes and the particles mirror close to the equatorial plane.
+
+
+\subsection{Bounce Period}
+The bounce period, $\tau_b$,is the time it takes a particle to move from the equatorial plane to one mirror point, then to the other and back to the equatorial plane. It can be calculated by integrating $\dif s/v_\parallel$ over a full bounce path along the field line
+\begin{equation}
+\tau_b = 4 \int_0^{\lambda_m} \dfrac{\dif s}{v_\parallel} = 4 \int_0^{\lambda_m} \dfrac{\dif s}{\dif \lambda}  \dfrac{\dif \lambda}{v_\parallel} ~.
+\end{equation}
+$v_\parallel = v [1-(B/B_{\rm eq} \sin^2 \alpha_{\rm eq}]^{1/2}$. 
+\begin{equation}
+\tau_b = 4 \dfrac{r_{\rm eq} }{v} \int_0^{\lambda_m} \cos \lambda (1+3\sin^2 \lambda)^{1/2} \left[1- \sin^2 \alpha_{\rm eq} \dfrac{(1+3\sin^2 \lambda)^{1/2}}{\cos^6 \lambda} \right]^{-1/2} \dif \lambda ~.
+\end{equation}
+The integral can be solved numerically, but is usually approximated by
+\begin{equation}
+\Gamma_\alpha \approx 1.30 - 0.56 \sin \alpha_{\rm eq}
+\end{equation}
+Expressing $r_{\rm eq}$ and v in terms of $L$ and particle energy, $W$, we obtain
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Loss Cone}
+Even when the longitudinal invariant is conserved, not all particles are actually trapped. If a particle's mirror point lies deep in the atmosphere, it will collide too often with neutral particles and, hence, will be absorbed by the atmosphere. The mirror point altitudes where particles are lost by collisions are those below about $100$ km. For simplicity, we will use zero altitude since the magnetic field strength and mirror point latitude differ only by a few percent between the Earth's surface and the lower ionosphere. Under this assumption, define an equatorial loss cone
+\begin{equation}
+\sin^2 \alpha_l = \dfrac{B_{\rm eq}}{B_E} = \dfrac{\cos^6 \lambda_E}{(1+3 \sin^2 \lambda_E)^{1/2} } ~. 
+\end{equation}
+
+All particles with equatorial pitch angles $a < a_l$ within the solid angle $\dif \Omega$ will be lost in the atmosphere. Since particles with $\alpha > 180^\circ - \alpha_l$ will be lost in the other hemisphere, we get a double cone structure. Express $\lambda_E$ in terms of the $L$-value, we obtain
+\begin{equation}
+\sin^2 \alpha_l = (4L^6 -3L^5)^{-1/2} ~.
+\end{equation}
+The width of the loss cone is independent from the charge, the mass, or the energy of the particles, but is purely a function of the field line radius. The equatorial loss cone is typically rather small for equatorial distances of more than $3 R_E$. At geostationary orbit ($6.6 R_E$), the loss cone is less than $3^\circ$ wide.
+
+\section{Drift Motion}
+A particle in a dipole field will gyrate, bounce, and drift at the same time. Thus one has to \textcolor{red}{integrate over the former two motions if one is interested in the much slower drift motion}. As long as we neglect electric fields, a particle will experience a purely azimuthal magnetic drift, $v_d$.
+
+
+\subsection{Magnetic Drift Velocity}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Electric Drift}
+However, even if the third invariant were not violated, particles in the outer ring current would not perform closed orbits. The solar wind generates an electric field inside the magnetosphere, which is directed from dawn to dusk in the equatorial plane. Thus the particles will experience a sunward $E \times B$ drift. The equatorial electric drift velocity, $v_E$, due to a uniform equatorial transverse electric field, $E_{\rm eq}$, obtaining
+\begin{equation}
+v_E = \dfrac{E_{\rm eq}}{B_{\rm eq}} = \dfrac{E_{\rm eq} L^3}{B_E} ~.
+\end{equation}
+Electrons and ions with mirror points close to the equator will drift sunward with this velocity, in addition to their magnetic drift.
+
+Because the magnetic drift of positive ions is directed westward, the two drifts are oppositely directed on the dawn side. For electrons, this holds on the dusk side. Since the magnetic drift velocity scales with $L^2$ while the $\vec{E} \times \vec{B}$ velocity scales with $L^3$, the electric drift will typically overcome the magnetic drift outside some radial distance. Hence, for the combined electric and magnetic drift. Close to the Earth, the magnetic drift forces prevail and we have a symmetric ring current. Far out, the particle trajectories are dominated by the $\vec{E} \times \vec{B}$ drift. In the intermediate region we get a partial ring current, caused by the deflection of sunward drifting particles around the Earth due to the gradient and curvature forces.
+
+\section{Sources and Sinks}
+The source of the ring current is the tail plasma sheet. The particles are brought in from the tail by the electric drift. When they reach the stronger dipolar field in the ring current region, they start to experience the gradient and curvature forces.
+
+\subsection{Adiabatic Heating}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Loss Processes}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Ring Current}
+Using the equatorial drift velocity and assuming $\alpha_{\rm eq} = 90^\circ$,we obtain for the current density caused by ring current particles with a particular energy, $W$, and density, $n$, circulating on a given $L$-shell
+\begin{equation}
+j_d = \dfrac{3L^2 n W}{B_E R_E} ~,
+\end{equation}
+where $j_d$ is an azimuthal current flowing in the westward direction. Each ring current particle on its drift around the Earth constitutes a tiny ring current. The magnetic field induced by each of these particles is negligible, but the magnetic disturbance due to the total current is noticeable even on the Earth's surface.
+
+\subsection{Magnetic Disturbance}
+
+
+
+\subsection{Magnetic Storms}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

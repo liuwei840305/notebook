@@ -1,0 +1,464 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theo}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+%从右倾的积分号变为竖直的积分号
+%define a new command for \rm font of int
+\DeclareSymbolFont{rmlargesymbols}{OMX}{mdbch}{m}{n}
+% or \DeclareSymbolFont{rmlargesymbols}{U}{euex}{m}{n}
+\DeclareMathSymbol{\rmintop}{\mathop}{rmlargesymbols}{82}
+\newcommand{\rmint}{\rmintop\nolimits}
+
+\title{Dirac $\delta$ Function}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Definition}
+The Dirac delta function is defined to be
+\begin{align}
+& \delta(x) = 0 ~, ~~ (x \neq 0) ~, \\
+& \delta(x -a) = 0 ~, ~~ (x \neq a) ~, \\
+& \int_{+\infty}^{-\infty} \delta(x) \dif x = 1 ~, \\
+& \int_{+\infty}^{-\infty} \delta(x -a) \dif x = 1 ~, \\
+\label{inte}
+& \int_{a}^{b} f(x) \delta(x) \dif x = f(0) ~, \\
+& \int_{+\infty}^{-\infty} \delta(x-a) f(x) \dif x = f(a)  ~, 
+\end{align}
+where $f(x)$ is any well-behaved function and the integration includes the origin. The crucial property in Eq. (\ref{inte}) can be developed rigorously as the limit of a sequence of functions, a distribution. The delta function may be approximated by any of the sequences of functions,
+\begin{align}
+& \delta_n(x) = \begin{cases}
+0, &x < -\dfrac{1}{2n} ~, \\
+n, &  -\dfrac{1}{2n} < x < \dfrac{1}{2n} ~, \\
+0, & x >  \dfrac{1}{2n} ~,
+\end{cases} \\
+\delta_n(x) & = \dfrac{n}{\sqrt{\pi}} \exp [-n^2 x^2] ~, \\
+\delta_n(x) & = \dfrac{n}{\pi} \dfrac{1}{1+n^2 x^2} ~, \\
+\delta_n(x) & = \dfrac{\sin nx}{\pi x}  = \dfrac{1}{2\pi} \int_{-n}^n e^{ixt} \dif t \\
+& = \dfrac{1}{2\pi} \dfrac{\sin \left( n +\dfrac{1}{2} \right)x}{\sin \left(\dfrac{1}{2} x \right)} ~. ~~\textcolor{red}{\text{Dirichlet Kernel}}
+\end{align}
+From a mathematical point of view, the limits
+\begin{equation*}
+\underset{n \rightarrow \infty}\lim \delta_n(x)
+\end{equation*}
+do not exist. The above approximate representations may be interpreted as sequences of normalized functions, and may be consistently written as
+\begin{equation}
+\int_{-\infty}^\infty  \delta(x) f(x) \dif x \equiv \underset{n \rightarrow \infty}\lim  \int_{-\infty}^\infty  \delta_n(x) f(x) \dif x
+\end{equation}
+$\delta(x)$ is labeled a distribution (not a function). It might be emphasized that the integral on the left-hand side is not a Riemann integral, but It can be treated as a Stieltjes integral if desired, where $\delta(x) \dif x$ is replaced by $\dif u(x)$, where $u(x)$ is the Heaviside step function.
+
+\section{Properties of $\delta(x)$}
+1. Dirac's delta function must be even in $x$,
+\begin{equation}
+\delta(-x) = \delta(x)
+\end{equation}
+
+2. If $a > 0$, $\delta(ax) = \dfrac{1}{a} \delta(x)$; if $a < 0$, $\delta(ax) =  \dfrac{1}{|a|} \delta(x)$.
+
+3. Shift of origin
+\begin{equation}
+\int^{+\infty}_{-\infty} \delta(x-x_0) f(x) \dif x = f(x_0) ~,
+\end{equation}
+
+4. If the argument of $\delta(x)$ is a function $g(x)$ with simple zeros at points $a_i$ on the real axis (and therefore $g^\prime(a_i ) \neq 0$),
+\begin{equation}
+\delta[g(x)] = \sum_i \frac{\delta(x -a_i)}{|g^\prime(a_i)|} ~.
+\end{equation}
+\begin{equation}
+\int^{+\infty}_{-\infty} f(x) \delta(x) \dif x = \sum_i \int_{a_i -\epsilon}^{a_i +\epsilon} f(x) \delta((x -a_i) g^\prime(a_i) ) \dif x ~,
+\end{equation}
+where the original integral have been decomposed into a sum of integrals over small intervals containing the zeros of $g(x)$. In these intervals, $g(x)$ is replaced by the leading term in its Taylor series. 
+
+5. Derivative of delta function
+\begin{equation}
+\int^{+\infty}_{-\infty} f(x) \delta^\prime(x -x_0) \dif x = - \int^{+\infty}_{-\infty} f^\prime(x) \delta(x-x_0) \dif x = -f^\prime(x_0) ~.
+\end{equation}
+假如乘积积分中函数$f(x)$在$\delta$函数奇点处有$n$阶导数，就可以设定$\delta$函数的第$n$阶导数存在，并定义为
+\begin{equation}
+\int_{-\infty}^{+\infty} \delta^{(n)} (x) f(x) \dif x = (-1)^n f^{(n)}(0)
+\end{equation}
+且有
+\begin{equation}
+\delta^{(n)} (-x) = (-1)^n \delta^{(n)}(x)
+\end{equation}
+\begin{equation}
+x\delta^{(n)} (x) = (-n) \delta^{(n-1)}(x)
+\end{equation}
+
+6. In three dimensions, the delta function $\delta(\vec{r})$ is interpreted as $\delta(x) \delta(y) \delta(z)$, so it describes a function localized at the origin and with unit integrated weight, irrespective of the coordinate system in use. Thus, in spherical polar coordinates,
+\begin{equation}
+\int\int\int f(\vec{r}_2) \delta(\vec{r}_2 -\vec{r}_1) r_2^2 \dif r_2 \sin \theta_2 \dif \theta_2 \dif \phi_2 = f(\vec{r}_1) ~.
+\end{equation}
+
+7.
+\begin{equation}
+(x-a) \delta(x-a) = 0
+\end{equation}
+
+8.
+\begin{equation}
+\int \delta(x-a) \delta(x-b) \dif x = \delta(a -b)
+\end{equation}
+
+9.
+\begin{equation}
+f(x) \delta(x-a) = f(a) \delta(x-a)
+\end{equation}
+
+10.
+\begin{equation}
+\delta(x-x_0) = \frac{\dif \theta(x-x_0)}{\dif x}
+\end{equation}
+where
+\begin{align}
+\theta(x-x_0) = \begin{cases} 
+1 & x > x_0 ~,\\
+0 & x > x_0 ~.
+\end{cases}
+\end{align}
+
+11.
+\begin{equation}
+\delta\{(x-\alpha)(x-\beta) \} = \frac{\delta(x-\alpha) -\delta(x-\beta)}{|\alpha -\beta|}
+\end{equation}
+
+12.
+\begin{equation}
+\delta(x+y)\delta(x-y) = \frac{1}{2} \delta(x)\delta(y)
+\end{equation}
+
+\section{Kronecker Delta}
+It is the discrete analog of the Dirac delta function, with the property that it is unity when the discrete variable has a certain value, and zero otherwise. 
+\begin{align}
+\delta_{ij} = \begin{cases} 
+1 & i = j ~,\\
+0 & i \neq j ~.
+\end{cases}
+\end{align}
+
+
+
+
+
+The Laplace transform of Dirac delta function is
+\begin{align}
+& \mathcal L \{\delta(t-t_0) \} = \int_0^\infty e^{-st} \delta(t-t_0) \dif t = e^{-st_0} ~, ~~ {\rm for} ~ t_0 > 0 ~. \\
+& \mathcal L \{\delta(t) \} = 1 ~.
+\end{align}
+For $t_0 = 0$, as the sequences used for defining the delta function involve contributions symmetrically distributed about $t_0$, and the integration defining the Laplace transform is restricted to $t \geqslant 0$. Consistent results when using Laplace transforms, however, are obtained if considering delta sequences that are entirely within the range $t \geqslant t_0$.
+
+
+\section{Heaviside Step Function}
+\cite{arfken} The Heaviside step function $u(t)$ is defined as
+\begin{equation}
+u(t -k) = \begin{cases}
+0 & t < k ~, \\
+1 & t > k ~.
+\end{cases}
+\end{equation}
+Its Laplace transform is
+\begin{equation}
+\mathcal L \{u(t-k) \} = \int_k^\infty e^{-st} \dif t = \dfrac{1}{s} e^{-ks} ~.
+\end{equation}
+
+The Laplace transform of square pulse $F(t) = A [u(t) -u(t-t_0)]$ is
+\begin{equation}
+\mathcal L \{F(t) \} = \dfrac{1}{s} (1 -e^{-t_0s} ) ~.
+\end{equation}
+
+\section{Fourier Analysis and Delta Functions}
+\cite{1997qume.book.....M} Consider the generally complex-valued, periodic functions defined on the real $x$ axis,
+\begin{equation}
+f(x+L) = f(x) ~,
+\end{equation}
+which can be expanded in terms of the Fourier series
+\begin{equation}
+f(x) = \dfrac{1}{\sqrt{L}} \sum_{n=-\infty}^\infty c_n e^{2\pi n i x/L} = \dfrac{1}{\sqrt{L}} \sum_{n=-\infty}^\infty c_n e^{2\pi n i x/L} \Delta n ~.
+\label{eq:fourier_series}
+\end{equation}
+On the right-hand side, $\Delta n = 1$ is redundant, but by inserting it we are preparing for the transition from Fourier series to Fourier integrals. The Fourier coefficients are calculated from
+\begin{equation}
+c_n =  \dfrac{1}{\sqrt{L}} \int_{-L/2}^{L/2} f(u) e^{-2\pi n i u/L} \dif u ~,
+\label{eq:c_n}
+\end{equation}
+where the integration interval $-L/2 \leqslant x \leqslant L/2$. (any other interval of length L would give the same coefficients.) Substitution of (\ref{eq:c_n}) into (\ref{eq:fourier_series}) gives the identity
+\begin{equation}
+f(x) = \dfrac{1}{L} \sum_{n = -\infty}^\infty \int_{-L/2}^{L/2} e^{(2\pi ni/L)(x-u)} f(u) \dif u = \int_{-L/2}^{L/2} \dif u f(u)  \dfrac{1}{L} \sum_{n = -\infty}^\infty e^{(2\pi ni/L)(x-u)} ~,
+\label{eq:identity}
+\end{equation}
+if the exchange of integral and summation is permissible.
+
+By taking the limit $L \rightarrow \infty$ and turning the Fourier series into an integral by the transformation
+\begin{equation}
+\dfrac{2\pi n}{L} \rightarrow k ~, ~~ \dfrac{2\pi \Delta n}{L} \rightarrow \dif k ~, ~~ \sqrt{\dfrac{L}{2\pi}} c_n \rightarrow g(k) ~,
+\end{equation}
+the reciprocal Fourier integral formulas are
+\begin{align}
+f(x) &= \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty g(k) e^{ikx} \dif k ~, \\
+g(k) &= \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty f(u) e^{-ikx} \dif u ~, 
+\end{align}
+for functions $f$ and $g$ defined over the entire real axis. The identity (\ref{eq:identity}) now becomes
+\begin{equation}
+f(x) = \dfrac{1}{2\pi} \int_{-\infty}^\infty \dif k \int_{-\infty}^\infty e^{ik(x-u)} f(u) \dif u = \dfrac{1}{2\pi} \int_{-\infty}^\infty f(u) \dif u \int_{-\infty}^\infty  e^{ik(x-u)} \dif k 
+\end{equation}
+Since for a fixed $x$ we can change the value of $f$ in the integrand almost everywhere (except near $u = x$) without affecting the value $f(x)$, 
+\begin{equation}
+\delta(x-u) = \dfrac{1}{2\pi} \int_{-\infty}^\infty e^{ik(x-u)} \dif k ~,
+\end{equation}
+with the property of being an even function of its argument,
+\begin{equation}
+\delta(x-u) = \delta(u-x) ~,
+\end{equation}
+and
+\begin{equation}
+f(x) = \int_{-\infty}^\infty \delta(u-x) f(u) \dif u ~.
+\end{equation}
+If condition is applied to a simple function defined such that $f(x) = 1$ for $x_1 < x < x_2$ and $f(x) = 0$ outside the interval $(x_1 > x_2)$, the delta function must satisfy the test
+\begin{align}
+\int_{-\infty}^\infty \delta(u-x) \dif u = 
+\begin{cases}
+0 ~, \text{if} ~x ~\text{lies outside} ~(x_1, x_2) \\
+1 ~, \text{if} ~x_1 < x < x_2 
+\end{cases}
+\end{align}
+This equation may be regarded as the definition of the delta function. It is effectively zero whenever its argument differs from zero, but it is singular when its argument vanishes, and its total area is unity.
+
+\begin{equation}
+\delta(x) = \dfrac{1}{2\pi} \lim_{K \rightarrow \infty} \int_{-K}^{+K} e^{ikx} \dif k = \dfrac{1}{2\pi} \lim_{\varepsilon \rightarrow 0^+} \int_{-\infty}^{+\infty} e^{ikx-\varepsilon^2 k^2 } \dif k = \dfrac{1}{2\pi} \lim_{\varepsilon \rightarrow 0^+} \int_{-\infty}^{+\infty} e^{ikx-\varepsilon |k| } \dif k ~.
+\end{equation}
+
+\begin{equation}
+\delta(x) = \dfrac{1}{\pi} \lim_{N \rightarrow \infty} \dfrac{\sin Nx}{x} = \dfrac{1}{\sqrt{\pi}} \lim_{\varepsilon \rightarrow 0^+} \dfrac{1}{\varepsilon} \exp \left(-\dfrac{x^2}{\varepsilon^2} \right) = \dfrac{1}{\pi} \lim_{\varepsilon \rightarrow 0^+} \dfrac{\varepsilon}{x^2 + \varepsilon^2} ~.
+\end{equation}
+
+\begin{equation}
+\delta(x) = \dfrac{1}{2\pi} \lim_{\varepsilon \rightarrow 0^+} \int_{-\infty}^{+\infty} e^{ikx} \dfrac{\sin k\varepsilon}{k \varepsilon} \dif k = \lim_{\varepsilon \rightarrow 0^+} 
+\begin{cases}
+1/2\varepsilon ~,  \text{if} ~-\varepsilon < x < \varepsilon ~, \\
+0 ~, \text{if} ~|x| > \varepsilon
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\delta(x) = \dfrac{1}{2} \dfrac{\dif^2 |x|}{\dif x^2}  ~.
+\end{equation}
+
+The incomplete Fourier integral is
+\begin{equation}
+\int_{-\infty}^{T} e^{i(\omega -i\varepsilon) t} \dif t = \dfrac{e^{(i\omega +\varepsilon) T}}{i\omega +\varepsilon} ~.
+\end{equation}
+If the limits $T \rightarrow \infty$ and $\varepsilon \rightarrow 0$ are taken, but such that $\varepsilon T \rightarrow 0$, i.e., the $\varepsilon$-limit precedes the $T$-limit,
+\begin{equation}
+\lim_{\begin{subarray}{}
+   \varepsilon \rightarrow 0 \\
+    T \rightarrow \infty \\
+    (\varepsilon T \rightarrow 0) 
+  \end{subarray}} \dfrac{e^{(i\omega +\varepsilon) T}}{i\omega +\varepsilon}  = 2\pi \delta(\omega) ~.
+\end{equation}
+If choose $T = 0$, 
+\begin{equation}
+\int_{-\infty}^{0} e^{i(\omega -i\varepsilon) t} \dif t = \int_0^{\infty} e^{-(i\omega +\varepsilon) t} \dif t = \dfrac{1}{i\omega +\varepsilon} = \dfrac{-i\omega +\varepsilon}{\omega^2 +\varepsilon^2} = \dfrac{\varepsilon}{\omega^2 +\varepsilon^2} - i\dfrac{\omega }{\omega^2 +\varepsilon^2}
+\end{equation}
+In the limit $\varepsilon \rightarrow 0$,  the first term on the right-hand side to be $\pi \delta(\omega)$, and the second term becomes $-i/\omega$ except if $\omega = 0$.
+
+If $f(\omega)$ is a well-behaved function, 
+\begin{align}
+\nonumber \lim_{\varepsilon \rightarrow 0^+} \int_{-\infty}^{+\infty} f(\omega) \dfrac{\omega }{\omega^2 +\varepsilon^2} \dif \omega &= \lim_{\varepsilon \rightarrow 0^+} \int_{-\infty}^{-\varepsilon} f(\omega) \dfrac{\dif \omega }{\omega} + \lim_{\varepsilon \rightarrow 0^+} \int_{\varepsilon}^{+\infty} f(\omega) \dfrac{\dif \omega }{\omega} \\
+&+\lim_{\varepsilon \rightarrow 0^+} \int_{-\varepsilon}^{+\varepsilon} f(\omega)  \dfrac{\omega \dif \omega}{\omega^2 +\varepsilon^2} = \mathcal{P}~  \int_{-\infty}^{+\infty} f(\omega) \dfrac{\dif \omega }{\omega}
+\end{align}
+where $\mathcal P$ denotes the \textcolor{red}{Cauchy Principal value of the integral}. The integral from $-\varepsilon$ to $\varepsilon$ vanishes because, since $f(\omega)$ is smooth, the integrand is an odd function of $\omega$.
+\begin{equation}
+\lim_{\varepsilon \rightarrow 0^+} \dfrac{1}{i\omega +\varepsilon} = \pi \delta(\omega) - i {\mathcal P} \dfrac{1}{\omega}
+\end{equation}
+\begin{align}
+& \lim_{\varepsilon \rightarrow 0^+} \dfrac{1}{2} \left[\dfrac{1}{\omega +i\varepsilon} +\dfrac{1}{\omega -i\varepsilon} \right] = {\mathcal P} \dfrac{1}{\omega} \\
+& \lim_{\varepsilon \rightarrow 0^+} \dfrac{1}{2} \left[\dfrac{1}{\omega -i\varepsilon} -\dfrac{1}{\omega +i\varepsilon} \right] = 2\pi i \delta(\omega) ~.
+\end{align}
+
+\begin{equation}
+\int_{-\infty}^{+\infty} \dfrac{e^{i\omega T}}{i\omega +\varepsilon} \dif \omega = \int_{-\infty}^T \dif t \int_{-\infty}^{+\infty} e^{i\omega t} \dif \omega e^{\varepsilon(t-T)} = 2\pi \int_{-\infty}^T \delta(t) e^{\varepsilon(t-T)} \dif t ~.
+\end{equation}
+for positive $\varepsilon$
+\begin{equation}
+\int_{-\infty}^{+\infty} \dfrac{e^{i\omega T}}{\omega -i\varepsilon} \dif \omega = 
+\begin{cases}
+2\pi i e^{-\varepsilon T} ~~~ \text{if} ~~ T > 0 \\
+0 ~~~\text{if} ~~ T < 0
+\end{cases}
+\end{equation}
+This relation is important for exponential decay processes.
+
+
+Construct the Fourier representation of the Heaviside step function, which is defined as
+\begin{equation}
+\eta(x) = \int_{-\infty}^x \delta(u) \dif u = 
+\begin{cases}
+1 ~~~ x > 0 \\
+0 ~~~ x < 0
+\end{cases}
+\end{equation}
+\begin{equation}
+\dfrac{1}{2\pi i} \int_{-\infty}^{+\infty} \dfrac{e^{i\omega x}}{\omega -i \varepsilon} \dif \omega = e^{-\varepsilon x} \eta(x) ~.
+\end{equation}
+If we take the limit $\varepsilon \rightarrow 0$,
+\begin{equation}
+\eta(x) = \dfrac{1}{2} + \dfrac{1}{2\pi i} \mathcal P \int_{-\infty}^{+\infty} \dfrac{e^{i\omega x}}{\omega} \dif \omega ~. 
+\end{equation}
+
+\begin{equation}
+\delta(ax) = \dfrac{1}{|a|} \delta(x) ~,
+\end{equation}
+for any nonzero real constant $a$. For a well-behaved function $f(x)$,
+\begin{equation}
+f(x) \delta(x-a) = f(a) \delta(x-a)
+\end{equation}
+
+\begin{equation}
+x \delta(x) = 0 ~.
+\end{equation}
+The delta function $\delta(g(x))$ vanishes except near the zeros of $g(x)$. If $g(x)$ is analytic near its zeros, $x_i$, the approximation $g(x) \approx  g^\prime(x_i)(x - x_i)$ may be used for $x \approx x_i$. 
+\begin{equation}
+\delta(g(x)) = \sum_i \dfrac{1}{|g^\prime(x_i)|} \delta(x-x_i)
+\end{equation}
+provided that $g^\prime(x_i) \neq 0$.
+\begin{equation}
+\delta((x-a)(x-b)) = \dfrac{1}{|a-b|} [\delta(x-a) + \delta(x+a)] ~.
+\end{equation}
+\begin{align}
+& \delta(x^2 -a^2) = \dfrac{1}{2|a|} [\delta(x-a) + \delta(x+a)] ~~~ (a \neq 0 ) \\
+& \delta(\sqrt{x} - \sqrt{a}) = 2\sqrt{a} \delta(x-a) ~~~ (a > 0) ~
+\end{align}
+
+
+
+\begin{equation}
+\delta(\vec{r}) = \dfrac{1}{(2\pi)^3} \int \dif^3 k e^{i\vec{k}\cdot \vec{r}} ~.
+\end{equation}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

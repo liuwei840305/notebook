@@ -1,0 +1,171 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}
+%\setmainfont{Hiragino Sans GB}
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref}
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  % 矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{Synchrotron Radiation}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\cite{1996PhyU...39..155G} A particle (of charge $e$ and mass $m$) with the total energy $E$ moves in a homogeneous magnetic field of strength $\vec{H}$ along a spiral with the angular frequency
+\begin{equation}
+\omega_H = \dfrac{|e|H}{mc} \dfrac{mc^2}{E} = 1.76 \times 10^7 H \dfrac{mc^2}{E} ~,
+\end{equation}
+the particles are electrons, and the field $H$ is measured in oersteds (gausses).
+
+If the particle is ultrarelativistic, it emits waves in the direction of its own velocity within the angle on the order of $mc^2/E$. If the angle $\chi$ between $\vec{v}$ and $\vec{H}$ is not too small, i.e. $\chi \gg mc^2/E$, the particle emits waves with many frequencies which are overtones of $\omega_H/\sin^2 \chi$. At $E \gg mc^2$, the spectrum is practically continuous, and the radiation intensity maximum corresponds to a frequency
+\begin{align}
+\nonumber \nu_{\rm m} = \dfrac{\omega_m}{2\pi} &= 0.07 \dfrac{|e| H_\perp}{mc} \left(\dfrac{E}{mc^2} \right)^2 \\
+\nonumber &= 1.2\times 10^6 H_\perp \left(\dfrac{E}{mc^2} \right)^2 \\
+\nonumber &= 1.8\times 10^{18} H_\perp [E(\rm erg)]^2 \\
+&= 4.6\times 10^{-6} H_\perp [E(\rm eV)]^2 ~Hz ~, 
+\end{align}
+\begin{equation}
+\hbar \omega_{\rm m} = 1.9 \times 10^{-20} H_\perp [E(\rm eV)]^2 ~eV ~,
+\end{equation}
+where $H_\perp = H \sin \chi$ is a component of the field $\vec{H}$ perpendicular to particle velocity $\vec{v}$.
+
+In a typical interstellar field $H \sim H_\perp \sim 3 \times 10^{-6}$ Oe for
+particles with the energy $E \sim 10^9 - 10^{11}$ eV, the frequency $\nu_{\rm m}$ falls in the range of $10^7 - 10^{11}$ Hz which corresponds to the wavelength $\lambda_{\rm m} =c/\nu_{\rm m} \sim 30 ~{\rm m} \pm 0.3 ~{\rm cm}$. Thus, the electron component of cosmic rays with $E > 10^9$ eV largely radiates in the radio-frequency range when in interstellar fields.
+
+At frequency $\nu_{\rm m}$, the spectral density of the radioemission power is
+\begin{align}
+p_{\rm m} \equiv p(\nu_{\rm m}) = 1.6 \times \dfrac{|e|^3 H_\perp}{mc^2} = 2.16 \times 10^{-22} H_\perp ~\rm \dfrac{erg}{s \cdot  Hz} ~.
+\end{align}
+If we consider a region in which emitting electrons at a concentration $N_{\rm e}$ are isotropically distributed by velocity, the corresponding emissivity (the spectral power of radiation per unit volume and unit solid angle) is given by
+\begin{align}
+\varepsilon_{\nu_{\rm m}} = \dfrac{p_{\rm m} N_{\rm e}}{4\pi} = 1.7 \times 10^{-23} H_\perp N_{\rm e} ~\rm \dfrac{erg}{cm^3 \cdot s \cdot sr \cdot Hz} ~.
+\end{align}
+where $H_\perp$ is the mean value of a field component perpendicular to the particle velocity for the radiating volume. The maximum radiation intensity for monochromatic electrons is
+\begin{align}
+J_{\nu_{\rm m}} = \int \varepsilon_{\nu_{\rm m}} \dif l = 1.7 \times 10^{-23} H_\perp N_{\rm e} L ~\rm \dfrac{erg}{cm^2 \cdot s \cdot sr \cdot Hz} ~,
+\end{align}
+where $L$ is the characteristic size of the region emitting radiowaves along the line of sight (i.e. $N_{\rm e}L = \int N_{\rm e} \dif l$).
+
+In the case of a discrete source of radioemission (e.g., a supernova remnant) which is at a distance R from us, the radiation flux is
+\begin{align}
+\Phi_{\nu_{\rm m}} = \dfrac{p_{\rm m} N_{\rm e} V}{4\pi R^2} = 1.7 \times 10^{-23} \dfrac{H_\perp N_{\rm e} V}{R^2} ~\rm \dfrac{erg}{cm^2 \cdot s \cdot sr \cdot Hz} ~,
+\end{align}
+$V$ is the source volume.
+
+The electron energy $E = 0.75 \times 10^{-9} \sqrt{\nu_{\rm m} /H_\perp}$ erg. The total electron energy in the source is
+\begin{align}
+W_{\rm e} = EN_{\rm e} V = 4.4 \times 10^{13} \dfrac{\nu_{\rm m}^{1/2} \Phi_{\nu_{\rm m}} R^2}{H_\perp^{3/2}} ~.
+\end{align}
+Consider the electron spectrum of the power-law type, when the concentration of electrons in the interval $\dif E$ has the form
+\begin{align}
+N_{\rm e}(E) \dif E = K_{\rm e} E^{-\gamma_{\rm e}} \dif E ~,
+\end{align}
+the intensity is
+\begin{align}
+J_{\nu} = {\rm const} \cdot K_{\rm e} LH^{(\gamma_{\rm e}+1)/2} \nu^{(1-\gamma_{\rm e})/2} ~,
+\end{align}
+where $H$ is a certain average value of the magnetic field along the line of sight. Measuring the dependence of $J_{\nu}$ on frequency $\nu$ immediately yields index $\gamma_{\rm e}$ while the value of $J_{\nu}$ itself allows coefficient $K_{\rm e}$ to be determined if $L$ and $H$ are known, that is to find the electron spectrum in the source and then the associated energy density
+\begin{align}
+w_{\rm cr, e} = \int  E N_{\rm e}(E) \dif E ~,
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

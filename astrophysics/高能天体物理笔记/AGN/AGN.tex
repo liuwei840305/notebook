@@ -1,0 +1,220 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fontspec, xunicode, xltxtra}  
+%\setmainfont{Hiragino Sans GB}  
+%\usepackage{xeCJK}
+%\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+%\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+%\setCJKmonofont{STFangsong}
+
+%使用Xelatex编译
+
+% 设置页面
+%==================================================
+\linespread{2} %行距
+% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \headsep=2cm
+% \textwidth=16cm \textheight=24.2cm
+%==================================================
+
+% 其它需要使用的宏包
+%==================================================
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=red,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{tabularx}
+\usepackage{authblk}         % 作者信息
+\usepackage{algorithm}     % 算法排版
+\usepackage{amsmath}     % 数学符号与公式
+\usepackage{amssymb}
+\usepackage{amsfonts}     % 数学符号与字体
+\usepackage{mathrsfs}      % 花体
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{fancyhdr}       % 设置页眉页脚
+\usepackage{fancyvrb}       % 抄录环境
+\usepackage{float}              % 管理浮动体
+\usepackage{geometry}     % 定制页面格式
+\usepackage{hyperref}       % 为PDF文档创建超链接
+\usepackage{lineno}          % 生成行号
+\usepackage{listings}        % 插入程序源代码
+\usepackage{multicol}       % 多栏排版
+\usepackage{rotating}       % 旋转文字，图形，表格
+\usepackage{subfigure}    % 排版子图形
+\usepackage{titlesec}       % 改变章节标题格式
+\usepackage{moresize}   % 更多字体大小
+\usepackage{anysize}
+\usepackage{indentfirst}  % 首段缩进
+\usepackage{booktabs}   % 使用\multicolumn
+\usepackage{multirow}    % 使用\multirow
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{titlesec}     % 改变标题样式
+\usepackage{enumitem}
+\usepackage{harpoon}   %矢量符号
+%\usepackage{natbib}         % 管理文献引用
+\usepackage{aas_macros}
+
+\newcommand{\myvec}[1]%
+   {\stackrel{\raisebox{-2pt}[0pt][0pt]{\small$\rightharpoonup$}}{#1}}  %矢量符号
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\kpc{{\rm kpc}}
+\def\km{{\rm km}}
+\def\cm{{\rm cm}}
+\def\TeV{{\rm TeV}}
+\def\GeV{{\rm GeV}}
+\def\MeV{{\rm MeV}}
+\def\GV{{\rm GV}}
+\def\MV{{\rm MV}}
+\def\yr{{\rm yr}}
+\def\s{{\rm s}}
+\def\ns{{\rm ns}}
+\def\GHz{{\rm GHz}}
+\def\muGs{{\rm \mu Gs}}
+\def\arcsec{{\rm arcsec}}
+\def\K{{\rm K}}
+\def\microK{\mu{\rm K}}
+\def\sr{{\rm sr}}
+\newcolumntype{p}{D{,}{\pm}{-1}}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}  %取消每段开头的空格
+
+\title{AGN}
+\author{}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{AGN Classification}
+\cite{2015ARA&A..53..365N} An active galactic nucleus (AGN) is defined here as a galaxy containing a massive ($> 10^5~ M_{\odot}$) accreting black hole (BH) with an Eddington ratio exceeding the (somewhat arbitrary) limit of $L_{\rm AGN}/L_{\rm Edd} = 10^{-5}$, where $L_{\rm AGN}$ is the bolometric luminosity and $L_{\rm Edd} = 1.5\times 10^{38} M_{\rm BH} /M_{\odot}$ erg s$^{-1}$ is the Eddington luminosity for a solar composition gas. Most AGNs include several of the following components :
+
+A subparsec-rotation-dominated accretion flow that is usually referred to as an accretion disk. Optically thick disks can be geometrically thin (thin accretion disk) or thick (slim, or thick, accretion disk). (The terminology here is not very clear and both names are used for systems that are not geometrically thin. In this article I use the term slim disk.) Optically thin accretion disks or flows are occasionally advection dominated. Such structures are referred to as radiatively inefficient accretion flow (RIAF), or advection-dominated accretion flow (ADAF).
+
+High-density, dust-free gas clouds moving at roughly Keplerian velocities at a luminosity-dependent distance of $0.01-1$ pc from the BH (the broad-line region, BLR).
+
+An axisymmetric dusty structure with luminosity-dependent dimensions of $0.1-10$ pc (the central torus).
+
+Lower-density, lower-velocity ionized gas (narrow-line region, NLR) extending from just outside the torus to hundreds and even thousands of parsecs along the general direction of the opening in the torus (ionization cones). Most of this gas contains dust except for very close in, in a region referred to as the coronal line region. 
+
+A very thin molecular maser disk similar in size to the torus.
+
+A central radio jet occasionally associated with $\gamma$-ray emission.
+
+AGN unification proposes that the large diversity of observed AGN properties can be explained by a small number of physical parameters. The old unification scheme attempt to a general picture with two parameters: the torus inclination to the line of sight (LOS) and the source luminosity (unification by inclination). 
+
+AGNs can be separated into two major groups: radiative-mode AGNs and jet-mode AGNs. Most of the energy output in radiative-mode AGNs is in the form of electromagnetic radiation and is a direct result of matter accretion through a central optically thick accretion disk. This group is referred to Seyfert galaxies or quasi-stellar objects (QSOs). About $10\%$ of the sources in this group are radio-loud, showing a highly collimated, relativistic radio jet and occasionally, a $\gamma$-ray jet. Radiative-mode AGNs are efficient accretors with $L_{\rm AGN}/L_{\rm Edd} \geqslant 0.01$. An alternative name, based on the level of ionization of the NLR gas, is high-ionization AGNs (as also called high-excitation AGNs). The prime energy output of jet-mode AGNs is bulk kinetic energy transported in two-sided jets. Their typical Eddington ratio is much smaller and the jets are most likely powered via a RIAF. The members of this group are low-luminosity radio galaxies and LINERs, and an alternative spectroscopic definition is low-ionization AGNs. In the local Universe, the mean BH mass of LINERs is larger than that of radiative-mode AGNs.
+
+\section{Supermassive Black Hole Scaling Relations}
+\cite{2015ARA&A..53..115K}  The mass $M$ of the black hole correlates strongly with physical properties of the host galaxy. In particular the black hole mass $M$ appears always to be a fairly constant fraction of the stellar bulge mass $M_{\rm b}$, i.e.,
+\begin{equation}
+M \sim 10^{-3} M_{\rm b} ~.
+\end{equation}
+The observations give a tight relation of the form
+\begin{align}
+M \simeq 3\times 10^8 M_\odot \sigma_{200}^\alpha ~, \\
+M \simeq 2\times 10^7 M_\odot \sigma_{100}^\alpha ~,
+\end{align}
+between the SMBH mass and the velocity dispersion $\sigma = 200 \sigma_{200}/100 \sigma_{100}$ km s$^{-1}$ of the host galaxy's central bulge, with $\alpha \simeq 4.4 \pm 0.3$. Because observationally determining the SMBH mass generally involves resolving its sphere of influence, of radius
+\begin{equation}
+R_{\rm inf} \simeq \frac{GM}{\sigma^2} \simeq 8 \frac{M_8}{\sigma^2_{200} } ~{\rm pc} \simeq 3 \frac{M_7}{\sigma^2_{100} } ~{\rm pc} ~,
+\end{equation}
+with $M_8 = 10^8 M_\odot, M_7 = 10^7 M_\odot$. It shows that the black hole's gravity has a completely negligible effect on its host galaxy. The black hole grew largely through luminous accretion of gas, which released energy
+\begin{equation}
+E_{\rm BH} \simeq \eta M c^2 \sim 2\times 10^{61} M_8~ {\rm erg}
+\end{equation}
+where $\eta \simeq 0.1$ is the accretion efficiency. It is far larger than the binding energy
+\begin{equation}
+E_{\rm bulge} \sim M_{\rm b} \sigma^2 \sim 8\times 10^{58} M_8 \sigma_{200}^2 ~{\rm erg}
+\end{equation}
+of a host bulge of stellar mass $M_{\rm b} \sim 10^3 M$. The host must notice the presence of the black hole through its energy output.
+
+\section{Extragalactic Jets}
+
+\subsection{Jet Formation, Structure and Propagation}
+\cite{2006ARA&A..44..463H} Jets are believed to be launched from accreting supermassive black holes and powered by either the gravitational energy of accreting matter that moves toward the black hole or, in the Blandford-Znajek process, by the rotational energy of a rotating black hole. In the first case, jets may either be launched purely electromagnetically, or as the result of magnetohydrodynamic processes at the inner regions of the accretion disk. In the Blandford-Znajek process, the black hole rotating in the magnetic field supported by the accretion disk gives rise to a Poynting flux. Most models of jet formation face the $\sigma$-problem ($\sigma$ is the ratio of electromagnetic energy density to particle energy density), namely that they predict a Poynting flux dominated energy transport by a strongly magnetized or high-$\sigma$ plasma, whereas parsec-scale observations indicate that the jets consist of particle-dominated, low-$\sigma$ plasma. The launching of jets may require to solve of two problems: the launching of a magnetically dominated outflow, and the conversion of such an outflow into a particle-dominated jet. 
+
+The process of jet formation have an impact on the steadiness of the jet flow, and will affect the amplitudes and timescales of jet luminosity variations. Modulations of the power output are believed to cause the large amplitude brightness variations of the (unresolved) X-ray and $\gamma$-ray emission from blazars. Large amplitude variations on timescales of thousands of years may be responsible for the radio, optical, and X-ray knots observed in many kiloparsec-scale jets and the bright X-ray flare of the M87 jet.
+
+A two-zone structure is applied, namely a fast moving spine that carries most of the jet energy, surrounded by a slower sheath, each with a characteristic value of $\Gamma$, assume a gradual decline of $\Gamma$ from the jet center to the outer parts of the jet : i.e., many layers with different velocities. If the velocity difference between layers is large, the particles in some layers see the relativistically boosted photons from other layers, resulting in an increase of the IC emission. 
+
+The boundaries between jet layers of different velocity may accelerate particles.
+
+In the case of the M87 jet, the inner knots, D, E, and F, appear to be quasi regular in size and spacing, suggesting a possible origin associated with standing waves or by the elliptical mode Kelvin-Helmholtz instability. Quite different are the knots A and C for which
+steep, quasi-planar gradients in radio brightness suggest reverse and forward shocks.
+
+All the knots could be explained by oblique shocks, with the apparent differences ascribed to relativistic effects. This model requires the angle between the jet axis and the line of sight to be $30^\circ$ to $35^\circ$, a value substantially larger than the $10^\circ$ to $20^\circ$ required by the observation of fast moving blobs downstream from the leading edge of the knot HST-1. 
+
+The knots in relativistic jets could be manifestations of a change in the beaming factor. The relativistic beaming factor, $\delta$ depends both on $\Gamma$ and on the viewing angle, $\theta$ (the angle between the jet axis and the line of sight in the observer's frame):
+\begin{equation}
+\delta^{-1} = \Gamma (1-\beta \cos \theta) ~.
+\end{equation}
+If the jet medium moves in a straight line so that $\theta$ is fixed, an increase in $\delta$ requires a significant increase in $\Gamma$. There is circumstantial evidence for acceleration of jet features on parsec scales and it is generally accepted that both FR I (Fanaroff-Riley class: FR I radio galaxies are of lower radio luminosity than FR IIs and quasars, and the brighter radio structures are close to the nucleus.) and quasar jets decelerate on parsec to kiloparsec scales; there is no indication that significant jet acceleration occurs on kiloparsec scales, which may be required for some IC models of X-ray emission.
+
+If the jet medium is allowed to significantly change its direction, modest changes in $\theta$ can produce large changes in $\delta$. 
+
+Terminal hotspots, like knots, are thought to be localized volumes of high emissivity that are produced by strong shocks or a system of shocks. The distinction between hotspots and knots is that downstream from a knot, the jet usually propagates much as before, whereas at the terminal hotspot, the jet itself terminates and the remaining flow is thought to create the radio lobes or tails. Thus the jet medium must suffer severe deceleration and the outward flow from the hotspot is non-relativistic and is not confined to a small angle. This is not true for the so-called ``primary" hotspots in double or multiple systems. Instead of a terminal shock, primaries may have oblique reflectors in essence. The actual mechanism for bending might be more akin to refraction. 
+
+Knots are a common property of FR I jets and generally do not lead to a total disruption of the jet, which maintains its identity downstream, be it relativistic or not.
+
+
+
+
+
+
+
+
+
+\subsection{relativistic jet}
+\cite{2005ApJ...625...72S} The scenario for launching astrophysical relativistic jets is the \textcolor{red}{large-scale magnetic fields anchored in rapidly rotating compact objects}. The idea of \textcolor{red}{driving outflows by rotating magnetic fields}, originally invented to explain the spin-down of young stars, was successfully applied to pulsar winds. Powerful jets in quasars can be powered by the \textcolor{red}{innermost portions of accretion disks and/or by rapidly rotating black holes}. They can become relativistic if the \textcolor{red}{total to rest-mass energy flux ratio $\mu \equiv L_j/\dot{M}c^2 \gg 1$}, where $L_j = L_B + L_K$ is the total energy flux, $L_B$ is the magnetic energy flux, $L_K = (\Gamma-1)\dot{M}c^2$ is the kinetic energy flux, and $\dot{M}$ is the mass loading rate. 
+
+Theories of \textcolor{red}{axisymmetric, steady state ideal-MHD jets} predict that the conversion process \textcolor{red}{transforming electromagnetic energy into plasma kinetic energy} works efficiently only up to the classical \textcolor{red}{fast-magnetosonic surface, $z_{\rm fm}$, located at a few light cylinder radii}. At this distance, the ratio of Poynting flux to kinetic energy flux, $\sigma$, drops to the value $\sim \mu^{2/3}$. It means for $\mu \gg 1$ the flow still remains strongly Poynting flux–dominated at $z_{\rm fm}$.
+
+Short variability timescales, of the order of $1$ week in the optical band and similar or even shorter with larger amplitudes in the $\gamma$-ray band, show that most of the non-thermal radiation from blazars is produced in a region with a size $R \leqslant 10^{17} (t_{fl}/3 \text{days})(\Gamma /15)$ cm, too compact to be transparent in the radio band. Such a compactness, combined with the transparency of blazars to high-energy $\gamma$-rays and the lack of $\gamma$-radiation from the radio-lobe–dominated quasars, implies that most of the high-energy radiation from blazars originates in well-collimated and relativistic
+(sub)parsec-scale jets.
+
+
+\section{BL Lacertae objects(BL Lacs)}
+\cite{2010A&A...521A..69A} The spectrum of these peculiar objects, which is flat and associated with compact sources in the radio,
+extends up to the $\gamma$-ray band. \textcolor{red}{None or weak emission lines} are detected and the \textcolor{red}{radio and optical emission is highly polarized}. BL Lacs are characterized by a \textcolor{red}{rapid variability in all energy ranges} and display jets with \textcolor{red}{apparent superluminal motions}. The extreme properties of BL Lacs are explained by \textcolor{red}{relativistic beaming}, i.e. of \textcolor{red}{a relativistic bulk motion of the emitting region towards the observer}.
+
+The observed spectral energy distribution (SED) of BL Lacs usually shows (in a $\nu F_\nu$ representation) two spectral components. The first peak is located in the radio to X-ray range, whereas the second is at higher energies, sometimes in the VHE range. The SED is commonly explained by two different types of models. In leptonic models, the lower energy peak is produced by  \textcolor{red}{synchrotron emission of relativistic leptons in a jet that points towards the observer}. The second peak originates in the  \textcolor{red}{inverse-Compton scattering of leptons off seed photons}. Depending on the origin of the seed photons, the leptonic models are divided in two classes. In the  \textcolor{red}{synchrotron-self Compton (SSC) models}, the seed photons come from the  \textcolor{red}{synchrotron photon field} itself. In \textcolor{red}{external Compton (EC) scenarios}, the seed photons are provided by various sources, including the accretion disk and broad emission line regions. In hadronic models, the VHE emission is produced via the  \textcolor{red}{interactions of relativistic protons with matter, ambient photons, or magnetic fields}.
+
+BL Lac objects are divided into classes defined by the  \textcolor{red}{energy of the synchrotron peak}:  \textcolor{red}{low-energy-peaked BL Lacs (LBLs)} have their peak in the  \textcolor{red}{IR/optical wavelength} whereas  \textcolor{red}{high-energy-peaked BL Lacs (HBLs)} peak in the  \textcolor{red}{UV/X-ray band}.
+
+\cite{2007Ap&SS.309...95B} Blazars include \textcolor{red}{BL Lac objects} and \textcolor{red}{$\gamma$-ray loud flat spectrum radio quasars [FSRQs]}. Blazars exhibit \textcolor{red}{variability at all wavelengths on various time scales}. Radio interferometry often reveals \textcolor{red}{one-sided kpc-scale jets with apparent superluminal motion}. The broadband continuum spectra of blazars are dominated by non-thermal emission and consist of two distinct, broad components: A low-energy component from radio through UV or X-rays, and a high-energy component from X-rays to $\gamma$-rays. A sequence of blazar sub-classes, from \textcolor{red}{FSRQs} to \textcolor{red}{low-frequency peaked BL Lac objects (LBLs)} to \textcolor{red}{high-frequency peaked BL Lacs (HBLs)} can be defined through the \textcolor{red}{peak frequencies} and \textcolor{red}{relative $\nu F_\nu$ peak fluxes}, which also seem to be correlated with the \textcolor{red}{bolometric luminosity}.  The sequence FSRQ $\rightarrow$ LBL $\rightarrow$ HBL is characterized by \textcolor{red}{increasing $\nu F_\nu$ peak frequencies}, \textcolor{red}{a decreasing dominance of the $\gamma$-ray flux over the low frequency emission}, and \textcolor{red}{a decreasing bolometric luminosity}. \textcolor{red}{LBLs} are intermediate between the FSRQs and the HBLs. The peak of their low-frequency component is located at \textcolor{red}{IR or optical wavelengths}, their high-frequency component peaks at \textcolor{red}{several GeV}, and the $\gamma$-ray output is of the order of or slightly higher than the level of the low frequency emission. The apparent sequence may attributed to selection effects due to the use of flux-limited samples.
+
+The high-energy emission from blazars can easily vary by more than an order of magnitude between different EGRET observing epochs, typically separated by \textcolor{red}{several months}. High-energy variability has also been observed on much shorter time scales, in some cases \textcolor{red}{less than an hour}. 
+
+BL Lac objects occasionally exhibit \textcolor{red}{X-ray variability} patterns which can be characterized as \textcolor{red}{spectral hysteresis in hardness-intensity diagrams}. This has been interpreted as the \textcolor{red}{synchrotron signature of gradual injection and/or acceleration of ultrarelativistic electrons in the emitting region}, and \textcolor{red}{subsequent radiative cooling}.
+
+Rapid flux and spectral variability of blazars is also commonly observed in the optical regime, often characterized by a spectral hardening during flares.
+
+The high inferred bolometric luminosities, rapid variability, and apparent superluminal motions provide compelling evidence that the \textcolor{red}{nonthermal continuum emission} of blazars is produced in \textcolor{red}{$\lesssim 1$ light day sized emission regions, propagating relativistically along a jet directed at a small angle with respect to our line of sight}. 
+
+Several electron injection/acceleration scenarios have been proposed, e.g. \textcolor{red}{impulsive injection near the base of the jet} (such a scenario might also apply to originally Poynting flux dominated jets), \textcolor{red}{isolated shocks propagating along the jet}, \textcolor{red}{internal shocks from the collisions of multiple shells of material in the jet}, \textcolor{red}{stochastic particle acceleration in shear boundary layers of relativistic jets}, \textcolor{red}{magnetic reconnection in Poynting-flux dominated jets}, or \textcolor{red}{hadronically initiated pair avalanches}. 
+
+\section{Leptonic blazar models}
+
+
+\section{Hadronic blazar models}
+\cite{2007Ap&SS.309...95B} The acceleration of protons to the necessary ultrarelativistic energies requires high magnetic fields of at least several tens of Gauss. In the presence of such high magnetic fields, Synchrotron radiation of the primary protons and of secondary muons and mesons must be taken into account in order to construct a self-consistent synchrotron proton blazar (SPB) model. 
+
+The \textcolor{red}{$\pi^0$ cascades} and \textcolor{red}{$\pi^{\pm}$ cascades} generate \textcolor{red}{featureless $\gamma$-ray spectra}, in contrast to \textcolor{red}{p-synchrotron cascades} and \textcolor{red}{$\mu^{\pm}$-synchrotron cascades} that produce a \textcolor{red}{double-bumped $\gamma$-ray spectrum}. The \textcolor{red}{direct proton and $\mu^{\pm}$ synchrotron radiation} is mainly responsible for the \textcolor{red}{high energy bump} in blazars, whereas the \textcolor{red}{low energy bump} is dominated by \textcolor{red}{synchrotron radiation from the primary $\rm e^-$}, with a contribution from \textcolor{red}{secondary electrons}. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
