@@ -537,6 +537,15 @@ Git will consult the remote configuration, the branch configuration, and the rem
 
 
 
+In the centralized workflow, the integration is distributed: each developer is responsible for merging changes (in their topic branches), and publishing the result to the master branch in the central repository. You would need to update the local master branch, merge the topic branch to it, and push it:
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
+$\$$ git checkout master \\
+$\$$ git pull \\
+$\$$ git merge feature-foo \\
+$\$$ git push origin master
+\end{tcolorbox}
+
+
 \section{从远程仓库获取}
 将 GitHub 上的仓库 clone 到本地。
 \begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.10.2)  15 DEC 2018 19:11
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.10.2)  15 DEC 2018 21:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1924,28 +1924,28 @@ Overfull \hbox (0.78484pt too wide) in paragraph at lines 445--457
 
  []
 
-[17] [18] [19] [20]
-Underfull \hbox (badness 10000) in paragraph at lines 543--550
+[17] [18] [19] [20] [21]
+Underfull \hbox (badness 10000) in paragraph at lines 552--559
 
  []
 
-[21] [22] [23] [24] (./basic.bbl) [25]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 627.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 627.
+[22] [23] [24] (./basic.bbl [25]) [26]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 636.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 636.
  (./basic.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 627.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 627.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 636.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 636.
 Package rerunfilecheck Info: File `basic.out' has not changed.
 (rerunfilecheck)             Checksum: 55E19B1DAF54970B0B4F4049E688F0C4.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 627.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 636.
  ) 
 Here is how much of TeX's memory you used:
- 38680 strings out of 492960
- 765653 string characters out of 6133547
+ 38681 strings out of 492960
+ 765669 string characters out of 6133547
  966733 words of memory out of 5000000
- 42195 multiletter control sequences out of 15000+600000
+ 42196 multiletter control sequences out of 15000+600000
  540183 words of font info for 76 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  67i,8n,73p,924b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on basic.pdf (25 pages).
+Output written on basic.pdf (26 pages).
