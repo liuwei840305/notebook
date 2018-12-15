@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.10.2)  15 DEC 2018 00:09
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.10.2)  15 DEC 2018 11:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1434,25 +1434,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 152--156
 
  []
 
-[3] [4]
+[3] [4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 210--220
+
+ []
+
+[6] [7] [8]
 No file basic.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 211.
-[5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 211.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 291.
+[9]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 291.
  (./basic.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 211.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 211.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 291.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 291.
 Package rerunfilecheck Info: File `basic.out' has not changed.
-(rerunfilecheck)             Checksum: E7C3F65A0EC258EFF3DA7B7C42139BCB.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 211.
+(rerunfilecheck)             Checksum: 2BF646E3DC07804BABAE29FB154874FB.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 291.
  ) 
 Here is how much of TeX's memory you used:
- 25474 strings out of 492960
- 475609 string characters out of 6133547
- 588048 words of memory out of 5000000
- 29249 multiletter control sequences out of 15000+600000
- 540175 words of font info for 75 fonts, out of 8000000 for 9000
+ 25519 strings out of 492960
+ 478812 string characters out of 6133547
+ 588108 words of memory out of 5000000
+ 29293 multiletter control sequences out of 15000+600000
+ 540183 words of font info for 76 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  41i,8n,64p,517b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on basic.pdf (5 pages).
+Output written on basic.pdf (9 pages).

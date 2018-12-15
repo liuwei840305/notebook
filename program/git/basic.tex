@@ -184,6 +184,86 @@ Receiving objects: $100\% (3/3)$, done.
 
 这里会要求输入 GitHub 上设置的公开密钥的密码。认证成功后，仓库便会被 clone 至仓库名后的目录中。将想要公开的代码提交至这个仓库再 push 到 GitHub 的仓库中，代码便会被公开。
 
+添加至 Git 仓库的文件显示为 Untracked files。通过 \textcolor{red}{git add} 命令将文件加入暂存区 A，再通过 \textcolor{red}{git commit} 命令提交。添加成功后，可以通过 \textcolor{red}{git log} 命令查看提交日志。之后只要执行 \textcolor{red}{git push}，GitHub 上的仓库就会被更新。
+
+
+
+\section{基本操作}
+要使用 Git 进行版本管理，必须先初始化仓库。 Git 是使用 \textcolor{red}{\bf git init} 命令\textcolor{blue}{进行初始化}的。建立一个目录并初始化仓库。如果初始化成功，执行了 git init命令的目录下就会生成 \textcolor{red}{.git 目录}。这个 .git 目录里\textcolor{blue}{存储着管理当前目录内容所需的仓库数据}。
+
+在 Git 中，将这个目录的内容称为``\textcolor{blue}{附属于该仓库的工作树}”。文件的编辑等操作在工作树中进行，然后记录到仓库中，以此管理文件的历史快照。如果想将文件恢复到原先的状态，可以从仓库中调取之前的快照，在工作树中打开。开发者可以通过这种方式获取以往的文件。
+
+ \textcolor{red}{\bf git status} 命令用于显示 Git 仓库的状态。工作树和仓库在被操作的过程中，状态会不断发生变化。在 Git 操
+作过程中时常用 git status 命令查看当前状态。
+
+$\$$ git status \\
+$\#$ On branch master \\
+$\#$  \\
+$\#$  Initial commit \\
+$\#$  \\
+nothing to commit (create/copy files and use ``git add" to track) 
+
+结果显示了当前正处于 master 分支下。接着还显示了没有可提交的内容。所谓\textcolor{red}{提交(Commit)}，是指``\textcolor{orange}{记录工作树中所有文件的当前状态}"。尚没有可提交的内容，就是说当前建立的这个仓库中还没有记录任何文件的任何状态。只要对 Git 的工作树或仓库进行操作， git status 命令的显示结果就会发生变化。
+
+如果只是用 Git 仓库的工作树创建了文件，那么该文件并不会被记入 Git 仓库的版本管理对象当中。要想让文件成为 Git 仓库的管理对象，就需要用 \textcolor{red}{\bf git add} 命令将其\textcolor{orange}{加入暂存区}(Stage 或者 Index)中。\textcolor{blue}{暂存区是提交之前的一个临时区域}。
+
+$\$$ git add README.md \\
+$\$$ git status \\
+$\#$ On branch master \\
+$\#$ \\
+$\#$ Initial commit \\
+$\#$ \\
+$\#$ Changes to be committed: \\
+$\#$ (use ``git rm $--$cached <file>..." to unstage) \\
+$\#$ \\
+$\#$ new file: README.md \\
+
+README.md 文件显示在 Changes to be committed 中了。
+
+\textcolor{red}{\bf git commit }命令可以\textcolor{blue}{将当前暂存区中的文件实际保存到仓库的历史记录中。通过这些记录，可以在工作树中复原文件。}
+
+$\$$ git commit $\rm -m$ ``First commit" \\
+$\rm [master (root-commit) 9f129ba]$ First commit \\
+1 file changed, 0 insertions(+), 0 deletions(-) \\
+create mode 100644 README.md 
+
+\textcolor{orange}{-m 参数后}的 ``First commit"称作\textcolor{red}{提交信息}，\textcolor{orange}{是对这个提交的概述}。想要记述得更加详细，\textcolor{orange}{不加 -m}，\textcolor{red}{直接执行 git commit命令}。执行后编辑器就会启动，并显示如下结果。
+
+$\#$ Please enter the commit message for your changes. Lines starting \\
+$\#$ with '$\#$' will be ignored, and an empty message aborts the commit. \\
+$\#$ On branch master \\
+$\#$ \\
+$\#$ Initial commit \\
+$\#$ \\
+$\#$ Changes to be committed: \\
+$\#$ (use ``git rm $--$cached <file>..." to unstage) \\
+$\#$ \\
+$\#$ new file: README.md 
+
+在编辑器中\textcolor{orange}{记述提交信息的格式}如下： \\
+第一行：用一行文字简述提交的更改内容 \\
+第二行：空行 \\
+第三行以后：记述更改的原因和详细内容 
+
+只要按照上面的格式输入，今后可以通过确认日志的命令或工具看到这些记录。在\textcolor{orange}{以 $\#$(井号)标为注释的 Changes to be committed（要提交的更改）栏中，可以查看本次提交中包含的文件}。将提交信息按格式记述完毕后，请保存并关闭编辑器，以$\#$(井号)标为注释的行不必删除。随后，刚才记述的提交信息就会被提交。
+
+如果在编辑器启动后想中止提交，请将提交信息留空并直接关闭编辑器，随后提交就会被中止。
+
+当前工作树处于刚刚完成提交的最新状态，所以结果显示没有更改。
+
+\textcolor{red}{\bf git log} 命令可以\textcolor{blue}{查看以往仓库中提交的日志}。包括可以查看什么人在什么时候进行了提交或合并，以及操作前后有怎样的差别。
+
+$\$$ git log \\
+commit 9f129bae19b2c82fb4e98cde5890e52a6c546922 \\
+Author: hirocaster <hohtsuka@gmail.com> \\
+Date: Sun May 5 16:06:49 2013 +0900 \\
+First commit 
+
+commit 栏旁边显示的``9f129b……"是\textcolor{blue}{指向这个提交的哈希值}。 Git 的其他命令中，在指向提交时会用到这个哈希值。Author 栏中显示 Git 设置的用户名和邮箱地址。 Date 栏中显示提交执行的日期和时间。再往下就是该提交的提交信息。
+
+如果只想让程序显示第一行简述信息，可以在 git log命令后加上 \textcolor{violet}{$--$pretty=short}。
+
+只要在 git log命令后加上目录名，便会只显示该目录下的日志。果加的是文件名，就会只显示与该文件相关的日志。
 
 
 
