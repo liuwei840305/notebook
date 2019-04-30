@@ -131,7 +131,7 @@ ui = auto
 \subsection{设置 SSH Key}
 GitHub 上连接已有仓库时的认证，是通过使用了 SSH 的公开密钥认证方式进行的。创建公开密钥认证所需的 SSH Key，并将其添加至 GitHub。运行下面的命令创建 SSH Key
 \begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
-$\$$ ssh-keygen -t rsa -C ``$\rm your\_email@example.com$" \\
+$\$$ \textcolor{red}{ssh-keygen -t rsa -C ``$\rm your\_email@example.com$"} \\
 Generating public/private rsa key pair. \\
 Enter file in which to save the key \\
 $\rm (/Users/your\_user\_directory/.ssh/id\_rsa)$: 按回车键 \\
@@ -327,6 +327,27 @@ $---$ a/README.md \\
 \textcolor{violet}{在执行 git commit 命令之前先执行git diff HEAD命令，查看本次提交与上次提交之间有什么差别，等确认完毕后再进行提交}。这里的 \textcolor{blue}{HEAD 是指向当前分支中最新一次提交的指针}。
 
 
+\cite{narębski2016mastering} If you want to know not only which files were changed (which you get with git status), but also what exactly you have changed, use the \textcolor{red}{\bf git diff} command. In Git there are \textcolor{orange}{three stages}: the \textcolor{red}{working directory}, the \textcolor{orange}{staging area}, and the \textcolor{orange}{repository} (usually the last commit). Therefore, we have not one set of differences but three, as shown in Fig \ref{FIG:git_diff}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=12cm]{git_diff.eps}
+\caption{Examining the differences between the working directory, staging area, and local git repository. 
+}
+\label{FIG:git_diff}
+\end{center}
+\end{figure}
+
+To see \textcolor{blue}{what you've changed but not yet staged}, type \textcolor{blue}{git diff} with no other arguments. This command compares what is in your \textcolor{blue}{working directory} with what is in your \textcolor{blue}{staging area}. These are the changes that could be added, but wouldn't be present if we create commit with \textcolor{blue}{git commit} (without \textcolor{blue}{-a}): \textit{Changes not staged for commit} in the \textcolor{blue}{git status} output. 
+
+To see \textcolor{blue}{what you've staged that will go into your next commit}, use \textcolor{blue}{git diff $--$staged} (or \textcolor{blue}{git diff $--$cached}). This command compares what is in your staging area to the content of your last commit. These are the changes that would be added with git commit (without -a): Changes to be committed in the git status output. You can \textcolor{blue}{compare your staging area to any commit} with \textcolor{red}{git diff $--$staged <commit>}; HEAD (the last commit) is just the default.
+
+You can use \textcolor{red}{git diff HEAD} to \textcolor{blue}{compare what is in your working directory with the last commit} (or arbitrary commit with \textcolor{red}{git diff <commit>}). These are the changes that would be added with the git commit -a shortcut.
+
+If you are using \textcolor{red}{git commit -a}, and not making use of the staging area, usually it is enough to use git diff to check the changes which will be in the next commit. The only issue is the \textcolor{yellow}{new files that are added with bare \textit{git add} }; they \textcolor{yellow}{won't show in the git diff output} unless you use \textcolor{red}{git add $--$intent-to-add} (or its equivalent \textcolor{red}{git add -N}) to add new files.
+
+
+
 \section{分支的操作}
 在进行多个并行作业时，会用到分支。在这类并行开发的过程中，往往同时存在多个最新代码状态。从 master 分支创
 建 feature-A 分支和 fix-B 分支后，每个分支中都拥有自己的最新代码。master 分支是 Git 默认创建的分支，因此基本上所有开发都是以这个分支为中心进行的。不同分支中，可以同时进行完全不同的作业。等该分支的作业完成之后再与 master 分支合并。比如 feature-A 分支的作业结束后与 master 合并。
@@ -469,7 +490,13 @@ fd0cbf0 HEAD@$\{9\}$: commit: Add index \\
 \begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
 $\$$ git remote add origin git@github.com:github-book/git-tutorial.git
 \end{tcolorbox}
-按照上述格式执行 git remote add 命令之后， Git 会自动将 git@github.com:github-book/git-tutorial.git 远程仓库的名称设置为 \textcolor{yellow}{origin(标识符)}。
+按照上述格式执行 git remote add 命令之后，\textcolor{orange}{Git 会自动将 git@github.com:github-book/git-tutorial.git 远程仓库的名称}设置为 \textcolor{yellow}{origin(标识符)}。
+
+\cite{narębski2016mastering} To add a new remote Git repository and to store its information under a shortname, run \textcolor{red}{\bf git remote add <shortname> <URL>}:
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
+$\$$ git remote add alice https://git.company.com/alice/random.git
+\end{tcolorbox}
+Adding remote doesn't fetch from it automatically -- you need to use the \textcolor{red}{\bf -f} option for that (or run \textcolor{red}{\bf git fetch <shortname>}).
 
 将当前分支下本地仓库中的内容推送给远程仓库，需要用到 \textcolor{red}{\bf git push} 命令。假定在 master 分支下进行操作
 \begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
@@ -500,7 +527,21 @@ $\ast$ [new branch] feature-D -> feature-D \\
 Branch feature-D set up to track remote branch feature-D from origin.
 \end{tcolorbox}
 
-\cite{narębski2016mastering} To see which remote repositories you have configured, you can run the \textcolor{red}{\bf git remote} command. It lists the shortnames of each remote you've got. In a cloned repository you will have at least one remote: origin.
+
+
+\cite{narębski2016mastering} While importing a subproject, you would want to be able to update the embedded files easily. You would want to continue interacting with the subproject. For this, you would add that subproject (for example, the common library) as a remote reference in your own (super) project and fetch it:
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
+$\$$ git remote add mylib$\_$repo https://git.example.com/mylib.git \\
+$\$$ git fetch mylib$\_$repo \\
+warning: no common commits \\
+remote: Counting objects: 12, done. \\
+remote: Total 12 (delta 0), reused 0 (delta 0) \\
+Unpacking objects: $100\%$ ($12/12$), done. \\
+From https://git.example.com/mylib.git \\
+$\ast$ [new branch] master -> mylib$\_$repo/master \\
+\end{tcolorbox}
+
+To see which remote repositories you have configured, you can run the \textcolor{red}{\bf git remote} command. It lists the shortnames of each remote you've got. In a cloned repository you will have at least one remote: origin.
 \begin{tcolorbox}[colback=green!5,colframe=green!40!black,title= ]
 $\$$ git remote \\
 origin

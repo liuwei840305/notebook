@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 %\usepackage{fontspec, xunicode, xltxtra}  
 %\setmainfont{Hiragino Sans GB}  
 \usepackage{xeCJK}
@@ -128,11 +128,57 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 
 \maketitle
 
+\cite{goldstein2011classical} A rigid body was defined previously as a system of mass points subject to the holonomic constraints that the distances between all pairs of points remain constant throughout the motion. 
+
+\section{the Independent Coordinates of a Rigid Body}
+\cite{goldstein2011classical} Three external coordinates are needed to specify the position of some reference point
+in the body and three more to specify how the body is oriented with respect to the external coordinates.
+
+A rigid body with $N$ particles can at most have $3N$ degrees of freedom, but these are greatly reduced by the constraints, which can be expressed as equations of the form
+\begin{equation}
+r_{ij} = c_{ij} ~.
+\label{constraints}
+\end{equation}
+$r_{ij}$ is the distance between the $i$th and $j$th particles and the $c$'s are constants. The actual number of degrees of freedom cannot be obtained simply by subtracting the number of constraint equations from $3N$, for there are $\dfrac{1}{2} N(N -1)$ possible equations of the form of Eq. (\ref{constraints}), which is far greater than $3N$ for large $N$. In truth, the Eqs. (\ref{constraints}) are not all independent.
+
+
+\section{Orthogonal Transformations}
+\cite{goldstein2011classical} 
+
+
+Equations (4.5) and (4.6) constitute a group of transformation equations from a set of coordinates $x_1, x_2, x_3$ to a new set $x^\prime_1, x^\prime_2, x^\prime_3$. In particular, they form an example of a linear or vector transformation, defined by transformation equations of the form
+\begin{eqnarray}
+\nonumber x^\prime_1 &= a_{11} x_1 + a_{12} x_2 + a_{13} x_3 ~ \\
+x^\prime_2 &= a_{21} x_1 + a_{22} x_2 + a_{23} x_3 ~ \\
+\nonumber x^\prime_3 &= a_{31} x_1 + a_{32} x_2 + a_{33} x_3 ~,
+\end{eqnarray}
+where the $a_{11}, a_{12}, \cdots$, are any set of constant (independent of $x, x^\prime$) coefficients.
+
+
+\section{Formal Properties of the Transformation Matrix}
+\cite{goldstein2011classical} Consider what happens when two successive transformations are made — corresponding to two successive displacements of the rigid body. Let the first transformation from $\vec{r}$ to $\vec{r}^\prime$ be denoted by $\vec{B}$
+\begin{equation}
+x^\prime_k = b_{kj} x_j ~,
+\end{equation}
+and the succeeding transformation from $\vec{r}^\prime$ to a third coordinate set $\vec{r}^{\prime \prime} $ by $\vec{A}$
+\begin{equation}
+x^{\prime\prime}_i = a_{ik} x^\prime_k ~.
+\end{equation}
+The relation between $x^{\prime\prime}_i$ and $x_j$ is
+\begin{equation*}
+x^{\prime\prime}_i = a_{ik} b_{kj} x_j = c_{ij} x_j ~.
+\end{equation*}
+where
+\begin{equation}
+c_{ij} = a_{ik} b_{kj} ~.
+\end{equation}
+
+
 
 \section{角速度}
 
 
-设刚体上任意点$P$在动坐标系中的径矢用$\vec{r}$表示，而该点在固定坐标系中的径矢为$\vec{\tau}$。$P$点的无穷小位移$\dif \vec{\tau}$等于质心位移$\dif \vec{R}$与绕质心转动无穷小角度$\dif \vec{\varphi}$产生的位移$\dif \vec{\varphi} \times \vec{r}$之和
+\cite{2007理论物理学教程} 设刚体上任意点$P$在动坐标系中的径矢用$\vec{r}$表示，而该点在固定坐标系中的径矢为$\vec{\tau}$。$P$点的无穷小位移$\dif \vec{\tau}$等于质心位移$\dif \vec{R}$与绕质心转动无穷小角度$\dif \vec{\varphi}$产生的位移$\dif \vec{\varphi} \times \vec{r}$之和
 \begin{equation*}
 \dif \vec{\tau} = \dif \vec{R} +\dif \vec{\varphi} \times \vec{r} ~.
 \end{equation*}
@@ -167,7 +213,7 @@ $\vec{V}$是\textcolor{red}{刚体质心的速度}，即\textcolor{red}{刚体�
 
 
 \section{惯量张量}
-\begin{align}
+\cite{2007理论物理学教程} \begin{align}
 \nonumber T &= \sum \dfrac{mv^2}{2} ~, \\
 \nonumber &= \sum \dfrac{m}{2} (\vec{V} +\vec{\Omega} \times \vec{r})^2 ~, \\
 \nonumber &= \sum \dfrac{m V^2}{2} +\sum m\vec{V}\cdot (\vec{\Omega} \times \vec{r}) +\sum \dfrac{m}{2}  (\vec{\Omega} \times \vec{r})^2 ~, \\
@@ -275,7 +321,7 @@ The diagonal entries are called the principal moments of inertia.
 
 
 \subsection{惯量主轴}
-从矩阵确定惯量主轴和主转动惯量，就是求惯量张量的本征值问题，即求方程$\boldsymbol{I} \vec{x} = \lambda \vec{x}$的本征值$\lambda$和本征矢量$\vec{x} = \renewcommand{\arraystretch}{0.7} \begin{pmatrix} x_1 \\x_2 \\x_3\end{pmatrix}$。惯量张量相应矩阵的对角化可以通过线性变换实现，这样的变换可以由本征矢量得到，且对应的本征值就是对角化的矩阵的对角元。本征值由特征方程(久期方程)
+\cite{2007理论物理学教程} 从矩阵确定惯量主轴和主转动惯量，就是求惯量张量的本征值问题，即求方程$\boldsymbol{I} \vec{x} = \lambda \vec{x}$的本征值$\lambda$和本征矢量$\vec{x} = \renewcommand{\arraystretch}{0.7} \begin{pmatrix} x_1 \\x_2 \\x_3\end{pmatrix}$。惯量张量相应矩阵的对角化可以通过线性变换实现，这样的变换可以由本征矢量得到，且对应的本征值就是对角化的矩阵的对角元。本征值由特征方程(久期方程)
 \begin{equation}
 \text{det}(\boldsymbol{I} -\lambda \vec{E}) = 
 \renewcommand{\arraystretch}{0.9}
@@ -303,7 +349,7 @@ $x_{1i}, x_{2i}, x_{3i}$是相对于原坐标系惯量主轴上一点的坐标�
 
 
 \section{刚体的角动量}
-系统的角动量取决于它相对于哪个点定义。刚体力学中最适合选取的点是动坐标系的原点，即刚体的质心。这样定义的角动量为$\vec{M}$。当选取刚体质心为坐标原点时，$\vec{M}$就是``内禀"角动量，仅与刚体相对质心的运动有关。
+\cite{2007理论物理学教程} 系统的角动量取决于它相对于哪个点定义。刚体力学中最适合选取的点是动坐标系的原点，即刚体的质心。这样定义的角动量为$\vec{M}$。当选取刚体质心为坐标原点时，$\vec{M}$就是``内禀"角动量，仅与刚体相对质心的运动有关。
 \begin{align*}
 \vec{M} &= \sum m \vec{r} \times \vec{v} = \sum m \vec{r} \times (\vec{\Omega} \times \vec{r}) = \sum m [r^2 \vec{\Omega} -\vec{r} \cdot (\vec{\Omega} \cdot \vec{r}) ] ~, \\
 M_i &= \sum m (x_l^2 \Omega_i - x_i x_k \Omega_k) = \Omega_k \sum m (x_l^2 \delta_{ik} - x_i x_k) = I_{ik}\Omega_k ~.
@@ -351,7 +397,7 @@ M_i &= \sum m (x_l^2 \Omega_i - x_i x_k \Omega_k) = \Omega_k \sum m (x_l^2 \delt
 
 
 \section{刚体的运动方程}
-
+\cite{2007理论物理学教程} 
 
 
 
@@ -377,7 +423,7 @@ M_i &= \sum m (x_l^2 \Omega_i - x_i x_k \Omega_k) = \Omega_k \sum m (x_l^2 \delt
 
 
 \section{欧拉角}
-描述刚体可以用质心的$3$个坐标和$3$个描述动坐标轴$x_1, x_2, x_3$相对固定坐标轴$X, Y, Z$取向的角度。选择同一个点为两个坐标系的原点。动坐标系的平面$x_1, x_2$与固定平面$XY$相交于某一直线，该直线称为\textcolor{red}{节线}。节线垂直于$Z$轴和$x_3$轴，选择矢量积$\vec{z} \times \vec{x}_3$的方向为节线方向($\vec{z}, \vec{x}_3$分别是坐标轴$Z, x_3$方向的单位矢量).
+\cite{2007理论物理学教程} 描述刚体可以用质心的$3$个坐标和$3$个描述动坐标轴$x_1, x_2, x_3$相对固定坐标轴$X, Y, Z$取向的角度。选择同一个点为两个坐标系的原点。动坐标系的平面$x_1, x_2$与固定平面$XY$相交于某一直线，该直线称为\textcolor{red}{节线}。节线垂直于$Z$轴和$x_3$轴，选择矢量积$\vec{z} \times \vec{x}_3$的方向为节线方向($\vec{z}, \vec{x}_3$分别是坐标轴$Z, x_3$方向的单位矢量).
 
 $Z$轴和$x_3$轴之间的夹角$\theta$，$X$轴和$ON$轴之间的夹角$\varphi$，$ON$轴和$x_1$轴之间的夹角$\psi$。按螺旋法则确定的方向分别绕$Z$和$x_3$轴转动来计算$\varphi$和$\psi$。$\theta$取值范围从$0$到$\pi$，$\varphi$和$\psi$的取值范围从$0$到$2\pi$。
 
@@ -409,7 +455,7 @@ T_{\rm rot} = \dfrac{I_1}{2}(\dot{\varphi}^2 \sin^2 \theta +\dot{\theta}^2) +\df
 & \Omega_3 = \dot{\varphi} \cos \theta +\dot{\psi} ~.
 \end{align}
 
-
+\cite{goldstein2011classical} Nine elements $a_{ij}$ are not suitable as generalized coordinates because they are not independent quantities. The six relations that express the orthogonality conditions reduce the number of independent elements to three. But in order to characterize the motion of a rigid body, there is an additional requirement the matrix elements must satisfy, beyond those implied by orthogonality. The determinant of a real orthogonal matrix could have the value $+1$ or $-1$. However that an orthogonal matrix whose determinant is $-1$ cannot represent a physical displacement of a rigid body.
 
 
 

@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2016)
+This is BibTeX, Version 0.99d (TeX Live 2018)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: rigidbody.aux
 The style file: unsrt_update.bst
@@ -8,47 +8,48 @@ I was expecting a `,' or a `}'---line 5 of file ref.bib
  :      year = 2014,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--empty author and editor in 2007理论物理学教程
 Warning--empty journal in 2014Russell
 Warning--empty year in 2014Russell
-You've used 1 entry,
+You've used 3 entries,
             1814 wiz_defined-function locations,
-            452 strings with 3654 characters,
-and the built_in function-call counts, 144 in all, are:
-= -- 8
-> -- 4
+            461 strings with 3813 characters,
+and the built_in function-call counts, 415 in all, are:
+= -- 30
+> -- 9
 < -- 0
-+ -- 2
-- -- 1
-* -- 8
-:= -- 30
-add.period$ -- 2
-call.type$ -- 1
++ -- 5
+- -- 2
+* -- 17
+:= -- 67
+add.period$ -- 7
+call.type$ -- 3
 change.case$ -- 1
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 8
-empty$ -- 15
-format.name$ -- 1
-if$ -- 26
+cite$ -- 6
+duplicate$ -- 29
+empty$ -- 53
+format.name$ -- 2
+if$ -- 92
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 7
-num.names$ -- 1
-pop$ -- 6
+int.to.str$ -- 3
+missing$ -- 4
+newline$ -- 16
+num.names$ -- 2
+pop$ -- 20
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 3
+skip$ -- 8
 stack$ -- 0
 substring$ -- 0
-swap$ -- 0
+swap$ -- 2
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 2
-while$ -- 1
-width$ -- 2
-write$ -- 9
+warning$ -- 3
+while$ -- 2
+width$ -- 4
+write$ -- 27
 (There was 1 error message)

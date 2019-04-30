@@ -292,14 +292,57 @@ r^2 +2\lambda r + \omega_0^2 = 0 ~.
 
 
 
+\section{pendulum}
+\cite{morin2008introduction} \textbf{Pendulum with an oscillating support}. A pendulum consists of a mass $m$ and a massless stick of length $\ell$. The pendulum support oscillates horizontally with a position given by $x(t) = A \cos(\omega t)$ (see Fig. \ref{fig:oscillating_pen}). Calculate the angle of the pendulum as a function of time.
 
 
 
+%===========================================================================================================================
+\begin{figure*}
+\centering
+\includegraphics[height=4.cm, angle=0]{oscillating_pen.eps}
+\caption{Pendulum with an oscillating support.
+}
+\label{fig:oscillating_pen}
+\end{figure*}
+%===========================================================================================================================
 
+\cite{morin2008introduction} \textbf{Inverted pendulum}. A pendulum consists of a mass $m$ at the end of a massless stick of length $\ell$. The other end of the stick is made to oscillate vertically with a position given by $y(t) = A \cos(\omega t)$, where $A \ll \ell$. See Fig. \ref{fig:inverted_pen}. It turns out that if $\omega$ is large enough, and if the pendulum is initially nearly upside-down, then it will surprisingly not fall over as time goes by. Instead, it will (sort of) oscillate back and forth around the vertical position. Find the equation of motion for the angle of the pendulum (measured relative to its upside-down position). And explain why the pendulum doesn’t fall over, and find the frequency of the back and forth motion.
 
+%===========================================================================================================================
+\begin{figure*}
+\centering
+\includegraphics[height=4.cm, angle=0]{inverted_pen.eps}
+\caption{Inverted pendulum.
+}
+\label{fig:inverted_pen}
+\end{figure*}
+%===========================================================================================================================
 
-
-
+With $y(t) = A \cos(\omega t)$, the position of the mass m is given by 
+\begin{equation}
+(X, Y ) = (\ell \sin \theta, y + \ell \cos \theta) ~.
+\end{equation}
+Taking the derivatives of these coordinates, we see that the square of the speed is\begin{equation}
+V^2 = \dot{X}^2 + \dot{Y}^2 = \ell^2 \dot{\theta}^2 +\dot{y}^2 - 2 \ell \dot{y} \dot{\theta} \sin \theta ~.
+\end{equation}
+The Lagrangian is
+\begin{equation}
+L= \dfrac{1}{2} m( \ell^2 \dot{\theta}^2 + \dot{y}^2 - 2 \ell \dot{y} \dot{\theta} \sin \theta) -mg(y+\ell \cos \theta) ~. 
+\end{equation}
+The equation of motion for $\theta$ is
+\begin{align}\dfrac{\dif }{\dif t} \left(\dfrac{\partial L}{\partial \dot{\theta}} \right) &= \dfrac{\partial L}{\partial \theta} ~, \\
+\ell \ddot{\theta} - \ddot{y} \sin \theta &= g \sin \theta ~.
+\end{align}
+Plugging in the explicit form of $y(t)$, we have
+\begin{equation}
+\ell \ddot{\theta} +\sin \theta \left( A\omega^2 \cos(\omega t) - g \right) = 0 ~.
+\label{eq:inverted_1}
+\end{equation}In retrospect, this makes sense. Someone in the reference frame of the support, which has acceleration $\ddot{y} = -A \omega^2 \cos(\omega t)$, may as well be living in a world where the acceleration from gravity is $g - A \omega^2 \cos(\omega t)$ downward. Eq. (\ref{eq:inverted_1}) is simply the $F = ma$ equation in the tangential direction in this accelerated frame. Assuming $\theta$ is small, we may set $\sin \theta \approx \theta$, which gives
+\begin{equation}
+\ddot{\theta} +\theta \left( a \omega^2 \cos(\omega t) - \omega_0^2 \right) = 0 ~.
+\end{equation}
+where $\omega_0 \equiv \sqrt{g/\ell}$, and $a \equiv A/\ell$. 
 
 
 

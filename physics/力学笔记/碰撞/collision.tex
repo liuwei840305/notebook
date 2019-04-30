@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 %\usepackage{fontspec, xunicode, xltxtra}  
 %\setmainfont{Hiragino Sans GB}  
 \usepackage{xeCJK}
@@ -25,6 +25,9 @@
 \usepackage{amsmath}     % 数学符号与公式
 \usepackage{amsfonts}     % 数学符号与字体
 \usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+
+
 \usepackage{graphics}
 \usepackage{color}
 \usepackage{fancyhdr}       % 设置页眉页脚
@@ -35,7 +38,7 @@
 \usepackage{lineno}          % 生成行号
 \usepackage{listings}        % 插入程序源代码
 \usepackage{multicol}       % 多栏排版
-\usepackage{natbib}         % 管理文献引用
+%\usepackage{natbib}         % 管理文献引用
 \usepackage{rotating}       % 旋转文字，图形，表格
 \usepackage{subfigure}    % 排版子图形
 \usepackage{titlesec}       % 改变章节标题格式
@@ -137,6 +140,110 @@ $m_2$所得到的动能$\Delta E_k$与碰前$m_1$的动能$E_{k1}$之比：
 &=& \frac{4m_1/m_2}{(1+m_1/m_2)^2}
 \end{eqnarray}
 $m_1$与$m_2$越接近，$m_2$获得的能量越多；
+
+
+\cite{benacquista2018classical} The simplest form of a collision is the rebounding of a low-mass particle off of an infinitely massive, immovable object such as a wall or floor. \textcolor{yellow}{The momentum is not conserved}, and the change in momentum of the particle is caused by the impulse delivered by the normal force of the wall or floor during the collision. If the initial kinetic energy of the particle is conserved and not dissipated to other forms of energy such as heat or sound, then the collision is \textcolor{red}{\bf elastic}. For such a collision, the magnitude of the momentum of the particle is constant, but the direction changes. Since the impulse is normal to the surface, the angle of reflection is equal to the angle of incidence as measured with respect to the normal.
+
+The collision is said to be \textcolor{red}{\bf inelastic} if some of the kinetic energy is lost to other forms of energy during the collision. The loss of kinetic energy can be described phenomenologically by the \textcolor{red}{\bf coefficient of restitution}, which parameterizes the reduction in rebound velocity. The symbol $e$ or $\eta$ is often used for the coefficient of restitution. In the case of an object colliding normal to a surface, the fraction of kinetic energy that is retained
+after the collision is related to the coefficient of restitution by
+\begin{equation}
+\eta^2 \equiv \dfrac{K_{\rm final}}{K_{\rm initial}}
+\end{equation}
+where $\eta$ runs from $0$ (perfectly inelastic) to $1$ (elastic). For an inelastic collision of a ball with the floor at an angle, there may be different coefficients of restitution for the normal and parallel components of the velocity. Thus, the angle of incidence need not equal the angle of reflection for inelastic collisions.
+
+
+\subsubsection{The Hard Sphere}
+\cite{benacquista2018classical} Consider the scattering off of a hard sphere of radius $a$ located at the origin. We have the incident particle come in from the $-z$ direction. The incoming direction of the particle must be offset from the $z$-axis by a distance less than $a$ in order to collide with the sphere. This offset is known as the \textcolor{red}{\bf impact parameter} and is usually denoted by $b$. After the collision, the particle will go off on a straight trajectory deflected by an angle $\theta$ with respect to the incoming trajectory. This angle corresponds to the polar angle $\theta$ in spherical coordinates. At the point of impact, the particle reaches $r_{\rm min}$, its distance of closest approach. For the hard sphere, $r_{\rm min} = a$. The point of impact can also be described by the polar angle $\phi_{m}$. (The momentum is not conserved.)
+
+We don't consider rotating particles here, so the scattering force is strictly the normal force between the particle and the sphere, and it is directed radially outward. The impulse of this force is such that it simply reverses the direction of the component of the particle’s momentum that is normal to the surface of the sphere at the point of contact. From Fig. \ref{fig:hard_sphere}, we see that we can write the initial momentum as $\vec{p}_i = p \vec{\hat{z}}$. The component of momentum normal to the surface is $(\vec{p}_i \cdot \vec{\hat{n}}) \vec{\hat{n}}$ with $ \vec{\hat{n}} = \sin \phi_m \vec{\hat{x}} + \cos \phi_m \vec{\hat{z}}$. The scattered momentum vector is 
+\begin{equation}
+\vec{p}_r = \vec{p}_i +\Delta \vec{p} ~,
+\end{equation}
+where
+\begin{equation}
+\Delta \vec{p} = \Delta p \vec{\hat{n}} ~, ~~~ \Delta p = 2 |\vec{p}_i \cdot \vec{\hat{n}}| = -2 p \cos \phi_m ~.
+\end{equation}
+Note that $\Delta p \geqslant 0$ because $\pi/2 \leqslant \phi_m \leqslant \pi$. The scattered momentum vector is
+\begin{equation}
+\vec{p}_r = -p (\sin 2\phi_m \vec{\hat{x} } + \cos 2 \phi_m \vec{\hat{z}}) ~.
+\end{equation}
+$\phi_i + \phi_m = \pi \Longrightarrow \phi_m = \pi - \phi_i$，
+\begin{equation}
+\sin 2\phi_m = -\sin 2\phi_i ~, \cos 2\phi_m = \cos 2\phi_i ~,
+\end{equation}
+\begin{equation}
+\vec{p}_r = p (\sin 2\phi_i \vec{\hat{x}} - \cos 2 \phi_i \vec{\hat{z}} ) ~.
+\end{equation}
+Thus, $\phi_i = \phi_m$, and the scattering angle $\theta = \pi - 2\phi_i$. $b = a \sin \phi_i$, so
+\begin{align}
+\theta &= \pi - 2 \arcsin \left(\dfrac{b}{a} \right) ~, \\
+b &= a \cos \left(\dfrac{\theta}{2} \right) ~.
+\end{align}
+There is no scattering if $b > a$. The \textcolor{red}{total cross section $\sigma_T$} for the interaction of the particle with the hard sphere is defined as the area covered by values of $b$ that result in a scattering interaction. For the case of the hard sphere, the total cross section for an interaction is simply its geometrical cross-sectional area
+\begin{equation}
+\color{red}  \bf \sigma_T = \pi a^2 ~.
+\end{equation}
+
+%===========================================================================================================================
+\begin{figure*}
+\centering
+\includegraphics[height=6.cm, angle=0]{hard_sphere.eps}
+\caption{The configuration for the scattering of a point particle off of a fixed hard sphere of radius $a$. The particle comes in from the left (from the $-z$ direction) with an impact parameter of $b$, and strikes the surface of the sphere at an angle of $\phi_i$ relative to the normal of the surface. The polar angle of the normal is the angle $\phi_m$, which describes the point of closest approach. After scattering, the particle leaves the sphere at an angle $\phi_r$ relative to the normal. The final trajectory is described by the polar angle $\theta$.
+}
+\label{fig:hard_sphere}
+\end{figure*}
+%===========================================================================================================================
+
+
+\subsubsection{Differential Cross Section}
+\cite{benacquista2018classical} 
+
+
+
+
+
+
+\textcolor{orange}{要理解卢瑟福散射公式，就是要理解为什么通过计数散射出的粒子数来得到碰撞截面。首先研究硬球散射。假设一束流总共有$N$个粒子，入射面积为$A$，向球射来。假设入射粒子半径很小，可以忽略不计。当入射粒子的碰撞参数$b$大于硬球半径时，粒子不和硬球发生相互作用，其运动方向不发生改变，$\theta = \theta^\prime = 0$。当入射粒子的碰撞参数$b$小于硬球半径时，粒子与硬球发生完全弹性散射，其碰撞参数$b$和偏转角$\theta$的关系可以通过反射定律得到
+\begin{align*}
+\dfrac{b}{R} &= \sin \phi = \sin \dfrac{\pi -\theta}{2} = \cos \dfrac{\theta}{2} ~, \\
+|\dif b| &= \dfrac{R}{2} \sin \dfrac{\theta}{2} \dif \theta
+\end{align*}
+$b |\dif b| \dif \phi$范围内的粒子散射到$\theta \rightarrow \theta +\dif \theta$以及$\phi \rightarrow \phi + \dif \phi$方向的粒子数为
+\begin{align*}
+\dif N = \dfrac{N}{A} b |\dif b| \dif \phi = \dfrac{N}{A} \dfrac{R^2}{2} \sin \dfrac{\theta}{2} \cos \dfrac{\theta}{2}  \dif \theta \dif \phi = \dfrac{N}{A} \dfrac{R^2}{4} \sin \theta \dif \theta \dif \phi = \dfrac{N}{A} \dfrac{R^2}{4} \dif \Omega
+\end{align*}
+对整个立体角积分，我们可以得到所有散射的粒子数
+\begin{equation*}
+\Delta N = \int \dfrac{N}{A} \dfrac{R^2}{4} \dif \Omega = \dfrac{N}{A} \pi R^2 ~.
+\end{equation*}
+将面积$A$乘以散射的粒子比例，也就是$\dfrac{\Delta N}{N}$，得到散射的截面$\sigma$，也就是
+\begin{equation*}
+\sigma = \pi R^2 ~.
+\end{equation*}
+散射到$\dif \Omega$立体角对应的截面，也就是面积$A$乘以散射到$\dif \Omega$的粒子比例，即$A\cdot \dfrac{\dif N}{N}$，称为微分散射截面，也就是
+\begin{equation*}
+A\cdot \dfrac{\dif N}{N \dif \Omega} = \dfrac{\dif \sigma}{\dif \Omega} = \dfrac{b |\dif b| \dif \phi}{\dif \Omega} ~, \rightarrow \dfrac{\dif \sigma}{\dif \Omega} \dif \Omega = b |\dif b| \dif \phi
+\end{equation*}
+对于硬球散射，微分散射截面就是
+\begin{equation*}
+\dfrac{\dif \sigma}{\dif \Omega} = \dfrac{R^2}{4} ~.
+\end{equation*}
+推广到卢瑟福散射，碰撞参数$b$与散射角的关系为库伦公式
+\begin{equation*}
+b = \dfrac{a}{2} \cot \dfrac{\theta}{2} ~, \\
+|\dif b| = \dfrac{a}{4} \dfrac{\dif \theta}{\sin^2 \dfrac{\theta}{2} }
+\end{equation*}
+假设一束粒子流$N$，面积为$A$，打到薄膜上，薄膜的厚度为$t$，(单位体积内的原子核数)原子核数密度为$n$，微分散射截面为
+\begin{align*}
+b |\dif b| \dif \phi &= \dfrac{a^2}{8} \dfrac{\cos \dfrac{\theta}{2} \dif \theta}{\sin^3 \dfrac{\theta}{2} }  \dif \phi = \dfrac{a^2}{8} \dfrac{\cos \dfrac{\theta}{2} \sin \dfrac{\theta}{2} \dif \theta}{\sin^4 \dfrac{\theta}{2} }  \dif \phi = \dfrac{a^2}{16} \dfrac{ \sin  \theta \dif \theta \dif \phi}{\sin^4 \dfrac{\theta}{2} } ~, \\
+\dfrac{\dif \sigma}{\dif \Omega} &= \dfrac{b |\dif b| \dif \phi}{\dif \Omega} = \dfrac{a^2}{16} \dfrac{1}{\sin^4 \dfrac{\theta}{2} } = \left( \dfrac{Z_1 Z_2 e^2}{4\pi \epsilon_0} \dfrac{1}{4 E} \right)^2 \dfrac{1}{\sin^4 \dfrac{\theta}{2} } ~.
+\end{align*}
+和之前的硬球碰撞不同，$N$个粒子打在一个硬球上，单位立体角散射的粒子数为$\dfrac{\Delta N}{\dif \Omega}$，这里是单位立体角散射的粒子数为$\dfrac{\Delta N}{\dif \Omega}$是薄膜上很多个原子核散射造成的，因此单个粒子的微分散射截面需要除以薄膜上总的散射的原子核，即$A n t$，因此为
+\begin{equation}
+A\dfrac{\dif N}{N\dif \Omega} \dfrac{1}{A nt} = \dfrac{\dif N}{ntN\dif \Omega}  = \dfrac{\dif \sigma}{\dif \Omega} = \left( \dfrac{Z_1 Z_2 e^2}{4\pi \epsilon_0} \dfrac{1}{4 E} \right)^2 \dfrac{1}{\sin^4 \dfrac{\theta}{2} } ~.
+\end{equation}
+可以看出散射的粒子数和入射流的面积$A$无关，也就是说所有粒子$N$均匀地先后打在一个靶核子上和一次打在许多靶核子上，最后散射到立体角$\dif \Omega$内的粒子数是一样的。
+}
 
 
 \subsection{非弹性碰撞}
@@ -396,8 +503,10 @@ m_e c^2 = \frac{e^2}{4\pi \epsilon_0 r_e} ~, \Longrightarrow r_e = \frac{e^2}{4\
 
 
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \end{document}

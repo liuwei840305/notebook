@@ -1,12 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.24)  18 JUN 2017 10:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.2)  14 FEB 2019 20:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **ref.bib
 (./ref.bib
-LaTeX2e <2017/01/01> patch level 3
-Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+LaTeX2e <2018-04-01> patch level 5
 
 ./ref.bib:1: LaTeX Error: Missing \begin{document}.
 
@@ -27,10 +26,10 @@ If that doesn't work, type  X <return>  to quit.
 
  
 Here is how much of TeX's memory you used:
- 6 strings out of 493013
- 245 string characters out of 6133343
- 53646 words of memory out of 5000000
- 3649 multiletter control sequences out of 15000+600000
+ 6 strings out of 492639
+ 245 string characters out of 6129302
+ 56951 words of memory out of 5000000
+ 3994 multiletter control sequences out of 15000+600000
  3640 words of font info for 14 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  5i,0n,4p,31b,14s stack positions out of 5000i,500n,10000p,200000b,80000s

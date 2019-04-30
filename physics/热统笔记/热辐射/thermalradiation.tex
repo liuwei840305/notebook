@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 %\usepackage{fontspec, xunicode, xltxtra}  
 %\setmainfont{Hiragino Sans GB}  
 \usepackage{xeCJK}
@@ -25,8 +25,17 @@
 \usepackage{amsmath}     % 数学符号与公式
 \usepackage{amsfonts}     % 数学符号与字体
 \usepackage{mathrsfs}      % 花体
+\usepackage{amssymb}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{graphicx} 
 \usepackage{graphics}
 \usepackage{color}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{empheq}
+
 \usepackage{fancyhdr}       % 设置页眉页脚
 \usepackage{fancyvrb}       % 抄录环境
 \usepackage{float}              % 管理浮动体
@@ -35,7 +44,7 @@
 \usepackage{lineno}          % 生成行号
 \usepackage{listings}        % 插入程序源代码
 \usepackage{multicol}       % 多栏排版
-\usepackage{natbib}         % 管理文献引用
+%\usepackage{natbib}         % 管理文献引用
 \usepackage{rotating}       % 旋转文字，图形，表格
 \usepackage{subfigure}    % 排版子图形
 \usepackage{titlesec}       % 改变章节标题格式
@@ -44,11 +53,11 @@
 \usepackage{indentfirst}  % 首段缩进
 \usepackage{booktabs}   % 使用\multicolumn
 \usepackage{multirow}    % 使用\multirow
-\usepackage{graphicx} 
+
 \usepackage{wrapfig}
-\usepackage{xcolor}
 \usepackage{titlesec}     % 改变标题样式
 \usepackage{enumitem}
+\usepackage{aas_macros}
 
 \renewcommand{\vec}[1]{\boldsymbol{#1}}
 \newcommand{\me}{\mathrm{e}}
@@ -91,7 +100,13 @@
 
 \maketitle
 
-受热的固体会辐射电磁波，称为\textcolor{red}{热辐射}。一般热辐射的强度和强度按频率的分布与辐射体的温度和性质都有关。若辐射体对电磁波的吸收和辐射达到平衡，热辐射的特性只取决于温度，与辐射体的其他特性无关，称为\textcolor{red}{平衡辐射}。
+\cite{2013热力学} 受热的固体会辐射电磁波，称为\textcolor{red}{\bf 热辐射}。一般热辐射的强度和强度按频率的分布与辐射体的温度和性质都有关。若辐射体对电磁波的吸收和辐射达到平衡，热辐射的特性只取决于温度，与辐射体的其他特性无关，称为\textcolor{red}{\bf 平衡辐射}。
+
+考虑一个封闭的空窖，窖壁保持一定的温度$T$。窖壁将不断向空窖发射并吸收电磁波，窖内辐射场与窖壁达到平衡后，二者具有共同的温度，空窖内的辐射就是平衡辐射，也称黑体辐射。
+
+\cite{2007热力学与统计物理学} 在空窖中与窖壁物质处于热平衡的辐射场，称为热辐射或黑体辐射。热辐射是电磁波，它包含各种频率(从零到$\infty$)，每一种频率的电磁波的振幅与相位都是无规则的，它们在空间各个方向上传播，在空间的分布是均匀且各向同性的。
+
+令$u \equiv = U/V$代表热辐射单位体积的内能，即\textcolor{red}{\bf 内能密度}。可以证明，热辐射的内能密度 牣只是温度的函数，而与窖的形状、大小、窖壁物质的性质无关．换句话说，$u = u(T)$是$T$的普适函数。设有A，B两个空窖，窖内有热辐射；A与B具有相同的温度$T$；但窖的形状、大小与窖壁物质不同。两窖通过一根小的管道连通，管道中放一个滤波片，只允许频率在$\nu$到$\nu+\dif \nu$之间的辐射通过。
 
 
 
@@ -102,11 +117,9 @@
 
 
 
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt_update}
+\bibliography{ref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
